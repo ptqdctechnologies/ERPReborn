@@ -836,7 +836,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
@@ -866,23 +866,30 @@
 
     $('#tableGetModalAdvance').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_advance"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
-        const status = $(this).find('td:nth-child(3)').text();
 
         if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
-            ErrorHandler.notifToast(
-                'error',
-                'Please select an advance with status "Rejection To Resubmit" or "Final Approval".',
-                'Selection Not Allowed'
+            Swal.fire(
+                "This transaction can't be revised",
+                "Revision is only allowed for Final Approved or Rejected transactions",
+                "error"
             );
             return;
         }
 
         $("#modal_advance_id").val(sysId);
         $("#modal_advance_document_number").val(trano);
-        $("#modal_advance_document_number").css("border", "1px solid #ced4da");
+        $("#modal_advance_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
         $("#modal_advance_document_number_icon").css("border", "1px solid #ced4da");
+
+        $('#myPopUpArfRevision').modal('toggle');
         $("#myGetModalAdvance").modal('toggle');
+    });
+
+    $('#modal_advance_document_number_icon').on('click', function () {
+        $('#myPopUpArfRevision').modal('toggle');
+        $('#myGetModalAdvance').modal('toggle');
     });
 
     $('#tableWorkflows').on('click', 'tbody tr', function () {
