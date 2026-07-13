@@ -721,11 +721,23 @@
     $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+        const status = $(this).find('td:nth-child(3)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            ErrorHandler.notifToast(
+                'error',
+                'Please select an advance settlement with status "Rejection To Resubmit" or "Final Approval".',
+                'Selection Not Allowed'
+            );
+            return;
+        }
 
         $("#advance_settlement_id").val(sysId);
         $("#advance_settlement_number").val(trano);
+        $("#advance_settlement_number").css("border", "1px solid #ced4da");
+        $("#advance_settlement_number_icon").css("border", "1px solid #ced4da");
 
-        $('#myGetModalAdvanceSettlement').modal('hide');
+        $('#myGetModalAdvanceSettlement').modal('toggle');
     });
 
     $('#revision_advance_settlement').on('click', function (e) {

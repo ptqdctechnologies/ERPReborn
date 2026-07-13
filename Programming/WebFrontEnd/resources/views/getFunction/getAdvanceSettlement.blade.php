@@ -81,11 +81,11 @@
                     data: null,
                     render: function (data, type, row, meta) {
                         return '<input id="sys_id_modal_advance_settlement' +
-                            (meta.row + 1) +
+                            (meta.row + meta.settings._iDisplayStart + 1) +
                             '" value="' +
                             data.sys_ID +
                             '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' +
-                            (meta.row + 1);
+                            (meta.row + meta.settings._iDisplayStart + 1);
                     }
                 },
                 {
