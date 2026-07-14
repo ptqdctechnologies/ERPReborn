@@ -324,6 +324,222 @@ namespace App\Models\Database\SchData_OLTP_Finance
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_CreditNote_LatestVersion                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Nota Kredit (Credit Note) Versi Terakhir                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_CreditNote_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_CreditNote',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_CreditNote']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_DebitNote_LatestVersion                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Nota Debit (Debit Note) Versi Terakhir                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_DebitNote_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_DebitNote',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_DebitNote']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_Loan_LatestVersion                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Peminjaman Dana (Loan) Versi Terakhir                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Business Document Start Date                                                      |
+        |      ▪ (string) varDocumentDateFinish ► Business Document Finish Date                                                    |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_Loan_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataList_Loan',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_Loan']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DataList_PaymentInstruction_LatestVersion                                             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -526,6 +742,224 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_AdvanceSettlement']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_CreditNote_LatestVersion                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Nota Kredit (Credit Note) Versi                            |
+        |                     Terakhir                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
+        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_CreditNote_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataPickList_CreditNote',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_CreditNote']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_DebitNote_LatestVersion                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Nota Debit (Debit Note) Versi                              |
+        |                     Terakhir                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
+        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_DebitNote_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataPickList_DebitNote',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_DebitNote']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_Loan_LatestVersion                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Loan (Loan) Versi Terakhir                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► Business Document Number                                                     |
+        |      ▪ (string) varDocumentDateStart ► Document Date Start                                                               |
+        |      ▪ (string) varDocumentDateFinish ► Document Date Finish                                                             |
+        |      ▪ (string) varRequesterName ► Requester Name                                                                        |
+        |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
+        |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_Loan_LatestVersion(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Finance.Func_GetReport_DataPickList_Loan',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar'],
+                                [$varDocumentDateStart, 'date'],
+                                [$varDocumentDateFinish, 'date'],
+                                [$varRequesterName, 'varchar'],
+                                [$varCombinedBudget, 'varchar'],
+                                [$varCombinedBudgetSection, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_Loan']
                         );
 
                 return
