@@ -246,15 +246,11 @@ class CustomerOrderController extends Controller
             ini_set('memory_limit', '512M');
             set_time_limit(180);
 
-            $startTime = microtime(true);
-
             $dataCustomerOrderSummary = json_decode($request->dataReport, true);
             $type = $request->printType;
 
             if ($dataCustomerOrderSummary) {
                 if ($type === "PDF") {
-                    $renderStart = microtime(true);
-
                     $pdf = PDF::loadView('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary_pdf', ['dataCustomerOrder' => $dataCustomerOrderSummary])
                         ->setPaper('a4', 'landscape');
 

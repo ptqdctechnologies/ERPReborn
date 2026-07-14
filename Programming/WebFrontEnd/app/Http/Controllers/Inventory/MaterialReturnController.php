@@ -23,23 +23,23 @@ class MaterialReturnController extends Controller
     protected $materialReturnService, $businessDocumentTypeService;
 
     public function __construct(
-        BusinessDocumentTypeService $businessDocumentTypeService, 
+        BusinessDocumentTypeService $businessDocumentTypeService,
         MaterialReturnService $materialReturnService
     ) {
-        $this->materialReturnService        = $materialReturnService;
-        $this->businessDocumentTypeService  = $businessDocumentTypeService;
+        $this->materialReturnService = $materialReturnService;
+        $this->businessDocumentTypeService = $businessDocumentTypeService;
     }
 
     public function index(Request $request)
     {
-        $var                = $request->query('var', 0);
-        $varAPIWebToken     = Session::get('SessionLogin');
-        $documentTypeRefID  = $this->GetBusinessDocumentsType('Warehouse Outbound Order Form');
+        $var = $request->query('var', 0);
+        $varAPIWebToken = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsType('Warehouse Outbound Order Form');
 
         return view('Inventory.MaterialReturn.Transactions.CreateMaterialReturn', [
-            'var'                   => $var,
-            'varAPIWebToken'        => $varAPIWebToken,
-            'documentType_RefID'    => $documentTypeRefID
+            'var' => $var,
+            'varAPIWebToken' => $varAPIWebToken,
+            'documentType_RefID' => $documentTypeRefID
         ]);
     }
 
@@ -64,8 +64,8 @@ class MaterialReturnController extends Controller
             // }
 
             $compact = [
-                "documentNumber"    => $response['data']['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
             ];
 
@@ -82,7 +82,7 @@ class MaterialReturnController extends Controller
         return response()->json($request);
     }
 
-    public function List() 
+    public function List()
     {
         try {
             $response = $this->materialReturnService->dataPickList();
@@ -99,7 +99,7 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function UpdateRevisionMaterialReturn(Request $request) 
+    public function UpdateRevisionMaterialReturn(Request $request)
     {
         try {
             $response = $this->materialReturnService->update($request);
@@ -109,8 +109,8 @@ class MaterialReturnController extends Controller
             }
 
             $compact = [
-                "documentNumber"    => $response['data'][0]['businessDocument']['documentNumber'],
-                "status"            => $response['metadata']['HTTPStatusCode'],
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'],
                 // "status"            => $responseWorkflow['metadata']['HTTPStatusCode']
             ];
 
@@ -126,7 +126,7 @@ class MaterialReturnController extends Controller
     {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
-            $response       = $this->materialReturnService->getDetail($request->material_return_id);
+            $response = $this->materialReturnService->getDetail($request->material_return_id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Detail Material Return');
@@ -135,25 +135,25 @@ class MaterialReturnController extends Controller
             $data = $response['data'];
 
             $compact = [
-                'varAPIWebToken'                    => $varAPIWebToken,
-                'header'                            => [
-                    'warehouseOutboundOrder_RefID'  => $data[0]['WarehouseOutboundOrder_RefID'] ?? '',
-                    'materialReturn_RefID'          => $data[0]['Sys_ID'] ?? '',
-                    'materialReturnNumber'          => $data[0]['BusinessDocumentNumber'] ?? '',
-                    'combinedBudget_RefID'          => $data[0]['CombinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode'            => $data[0]['CombinedBudgetCode'] ?? '',
-                    'combinedBudgetName'            => $data[0]['CombinedBudgetName'] ?? '',
-                    'transporter_RefID'             => $data[0]['Transporter_RefID'] ?? '',
-                    'transporterCode'               => $data[0]['TransporterCode'] ?? '',
-                    'transporterName'               => $data[0]['TransporterName'] ?? '',
-                    'transporterAddress'            => $data[0]['TransporterAddress'] ?? '-',
-                    'transporterContactPerson'      => $data[0]['TransporterContactPerson'] ?? '-',
-                    'transporterHandphone'          => $data[0]['TransporterHandphone'] ?? '-',
-                    'transporterPhone'              => $data[0]['TransporterPhone'] ?? '-',
-                    'transporterFax'                => $data[0]['TransporterFax'] ?? '-',
-                    'remarks'                       => $data[0]['Remarks'] ?? ''
+                'varAPIWebToken' => $varAPIWebToken,
+                'header' => [
+                    'warehouseOutboundOrder_RefID' => $data[0]['WarehouseOutboundOrder_RefID'] ?? '',
+                    'materialReturn_RefID' => $data[0]['Sys_ID'] ?? '',
+                    'materialReturnNumber' => $data[0]['BusinessDocumentNumber'] ?? '',
+                    'combinedBudget_RefID' => $data[0]['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data[0]['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data[0]['CombinedBudgetName'] ?? '',
+                    'transporter_RefID' => $data[0]['Transporter_RefID'] ?? '',
+                    'transporterCode' => $data[0]['TransporterCode'] ?? '',
+                    'transporterName' => $data[0]['TransporterName'] ?? '',
+                    'transporterAddress' => $data[0]['TransporterAddress'] ?? '-',
+                    'transporterContactPerson' => $data[0]['TransporterContactPerson'] ?? '-',
+                    'transporterHandphone' => $data[0]['TransporterHandphone'] ?? '-',
+                    'transporterPhone' => $data[0]['TransporterPhone'] ?? '-',
+                    'transporterFax' => $data[0]['TransporterFax'] ?? '-',
+                    'remarks' => $data[0]['Remarks'] ?? ''
                 ],
-                'detail'                            => $data
+                'detail' => $data
             ];
 
             return view('Inventory.MaterialReturn.Transactions.RevisionMaterialReturn', $compact);
@@ -179,9 +179,9 @@ class MaterialReturnController extends Controller
     }
 
     public function ReportMatReturnSummaryData(
-        $projectId, 
-        $siteId, 
-        $projectCode, 
+        $projectId,
+        $siteId,
+        $projectCode,
         $projectName,
         $subBudgetCode,
         $subBudgetName,
@@ -190,8 +190,7 @@ class MaterialReturnController extends Controller
         $subBudgetCode2,
         $subBudgetName2,
         $subBudgetAddress2
-    ) 
-    {
+    ) {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
 
@@ -224,52 +223,52 @@ class MaterialReturnController extends Controller
 
             $collection = collect([
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000006',
-                    'ProductCode'           => '1000416',
-                    'ProductName'           => 'Cable NYY',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 5.00,
-                    'DocumentDateTimeTZ'    => '2025-05-16 14:36:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai dan dipacking dalam box',
-                    'UOM'                   => 'pcs'
+                    'DocumentNumber' => 'MR/QDC/2025/0000006',
+                    'ProductCode' => '1000416',
+                    'ProductName' => 'Cable NYY',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 5.00,
+                    'DocumentDateTimeTZ' => '2025-05-16 14:36:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai dan dipacking dalam box',
+                    'UOM' => 'pcs'
                 ],
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000007',
-                    'ProductCode'           => '313344-0000',
-                    'ProductName'           => 'Charger-200A plus dioda dropper',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 20.00,
-                    'DocumentDateTimeTZ'    => '2025-05-17 10:54:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'pcs'
+                    'DocumentNumber' => 'MR/QDC/2025/0000007',
+                    'ProductCode' => '313344-0000',
+                    'ProductName' => 'Charger-200A plus dioda dropper',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 20.00,
+                    'DocumentDateTimeTZ' => '2025-05-17 10:54:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai',
+                    'UOM' => 'pcs'
                 ],
                 [
-                    'DocumentNumber'        => 'MR/QDC/2025/0000008',
-                    'ProductCode'           => '211096-0000',
-                    'ProductName'           => 'Steel Support Apparatus',
-                    'CombinedBudget_RefID'  => $projectId,
-                    'CombinedBudgetCode'    => $projectCode,
-                    'CombinedBudgetName'    => $projectName,
-                    'TotalAdvance'          => 10.00,
-                    'DocumentDateTimeTZ'    => '2025-05-18 17:49:22.706103+07',
-                    'SourceCode'            => $subBudgetCode,
-                    'SourceName'            => $subBudgetName,
-                    'DestinationCode'       => $subBudgetCode2,
-                    'DestinationName'       => $subBudgetName2,
-                    'Remark'                => 'Kondisi barang sesuai',
-                    'UOM'                   => 'kg'
+                    'DocumentNumber' => 'MR/QDC/2025/0000008',
+                    'ProductCode' => '211096-0000',
+                    'ProductName' => 'Steel Support Apparatus',
+                    'CombinedBudget_RefID' => $projectId,
+                    'CombinedBudgetCode' => $projectCode,
+                    'CombinedBudgetName' => $projectName,
+                    'TotalAdvance' => 10.00,
+                    'DocumentDateTimeTZ' => '2025-05-18 17:49:22.706103+07',
+                    'SourceCode' => $subBudgetCode,
+                    'SourceName' => $subBudgetName,
+                    'DestinationCode' => $subBudgetCode2,
+                    'DestinationName' => $subBudgetName2,
+                    'Remark' => 'Kondisi barang sesuai',
+                    'UOM' => 'kg'
                 ],
             ]);
 
@@ -283,36 +282,36 @@ class MaterialReturnController extends Controller
             $collection = $collection->all();
 
             $dataHeaders = [
-                'budget'        => $projectCode . " - " . $projectName
+                'budget' => $projectCode . " - " . $projectName
             ];
 
             $dataDetails = [];
             $i = 0;
             $total = 0;
             foreach ($collection as $collections) {
-                $total                                  += $collections['TotalAdvance'];
+                $total += $collections['TotalAdvance'];
 
-                $dataDetails[$i]['no']                  = $i + 1;
-                $dataDetails[$i]['budgetCode']          = $collections['CombinedBudgetCode'];
-                $dataDetails[$i]['budgetName']          = $collections['CombinedBudgetName'];
-                $dataDetails[$i]['productCode']         = $collections['ProductCode'];
-                $dataDetails[$i]['productName']         = $collections['ProductName'];
-                $dataDetails[$i]['documentNumber']      = $collections['DocumentNumber'];
-                $dataDetails[$i]['sourceCode']          = $collections['SourceCode'];
-                $dataDetails[$i]['sourceName']          = $collections['SourceName'];
-                $dataDetails[$i]['destinationCode']     = $collections['DestinationCode'];
-                $dataDetails[$i]['destinationName']     = $collections['DestinationName'];
-                $dataDetails[$i]['uom']                 = $collections['UOM'];
-                $dataDetails[$i]['remark']              = $collections['Remark'];
-                $dataDetails[$i]['date']                = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
-                $dataDetails[$i]['total']               = number_format($collections['TotalAdvance'], 2);
+                $dataDetails[$i]['no'] = $i + 1;
+                $dataDetails[$i]['budgetCode'] = $collections['CombinedBudgetCode'];
+                $dataDetails[$i]['budgetName'] = $collections['CombinedBudgetName'];
+                $dataDetails[$i]['productCode'] = $collections['ProductCode'];
+                $dataDetails[$i]['productName'] = $collections['ProductName'];
+                $dataDetails[$i]['documentNumber'] = $collections['DocumentNumber'];
+                $dataDetails[$i]['sourceCode'] = $collections['SourceCode'];
+                $dataDetails[$i]['sourceName'] = $collections['SourceName'];
+                $dataDetails[$i]['destinationCode'] = $collections['DestinationCode'];
+                $dataDetails[$i]['destinationName'] = $collections['DestinationName'];
+                $dataDetails[$i]['uom'] = $collections['UOM'];
+                $dataDetails[$i]['remark'] = $collections['Remark'];
+                $dataDetails[$i]['date'] = date('d-m-Y', strtotime($collections['DocumentDateTimeTZ']));
+                $dataDetails[$i]['total'] = number_format($collections['TotalAdvance'], 2);
                 $i++;
             }
 
             $compact = [
-                'dataHeader'            => $dataHeaders,
-                'dataDetail'            => $dataDetails,
-                'total'                 => number_format($total, 2),
+                'dataHeader' => $dataHeaders,
+                'dataDetail' => $dataDetails,
+                'total' => number_format($total, 2),
             ];
 
             Session::put("isButtonReportMaterialReturnSubmit", true);
@@ -325,25 +324,25 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function ReportMatReturnSummaryStore(Request $request) 
+    public function ReportMatReturnSummaryStore(Request $request)
     {
         try {
             // BUDGET
-            $budgetID       = $request->budget_id;
-            $budget         = $request->budget;
-            $budgetName     = $request->budget_name;
+            $budgetID = $request->budget_id;
+            $budget = $request->budget;
+            $budgetName = $request->budget_name;
 
             // SOURCE WAREHOUSE
-            $subBudgetID        = $request->sub_budget_id;
-            $subBudgetCode      = $request->sub_budget;
-            $subBudgetName      = $request->sub_budget_name;
-            $subBudgetAddress   = $request->sub_budget_address;
+            $subBudgetID = $request->sub_budget_id;
+            $subBudgetCode = $request->sub_budget;
+            $subBudgetName = $request->sub_budget_name;
+            $subBudgetAddress = $request->sub_budget_address;
 
             // DESTINATION WAREHOUSE
-            $subBudgetID2       = $request->sub_budget_id2;
-            $subBudgetCode2     = $request->sub_budget2;
-            $subBudgetName2     = $request->sub_budget_name2;
-            $subBudgetAddress2  = $request->sub_budget_address2;
+            $subBudgetID2 = $request->sub_budget_id2;
+            $subBudgetCode2 = $request->sub_budget2;
+            $subBudgetName2 = $request->sub_budget_name2;
+            $subBudgetAddress2 = $request->sub_budget_address2;
 
             // dd($request->all());
 
@@ -356,14 +355,14 @@ class MaterialReturnController extends Controller
             // if (isset($message)) {
             //     Session::forget("isButtonReportMaterialReturnSubmit");
             //     Session::forget("dataReportMaterialReturn");
-        
+
             //     return redirect()->route('MaterialReturn.ReportMaterialReturnSummary')->with('NotFound', $message);
             // }
 
             $compact = $this->ReportMatReturnSummaryData(
-                $budgetID, 
-                $subBudgetID, 
-                $budget, 
+                $budgetID,
+                $subBudgetID,
+                $budget,
                 $budgetName,
                 $subBudgetCode,
                 $subBudgetName,
@@ -387,8 +386,12 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function PrintExportReportMatReturnSummary(Request $request) {
+    public function PrintExportReportMatReturnSummary(Request $request)
+    {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportMaterialReturn");
 
             if ($dataReport) {
@@ -397,12 +400,12 @@ class MaterialReturnController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
+
                     return $pdf->download('Export Report Material Receive Summary.pdf');
                 } else {
                     return Excel::download(new ExportReportMaterialReturnSummary, 'Export Report Material Receive Summary.xlsx');
@@ -418,20 +421,20 @@ class MaterialReturnController extends Controller
 
     public function ReportMatReturnDetail(Request $request)
     {
-        $varAPIWebToken         = $request->session()->get('SessionLogin');
-        $isSubmitButton         = $request->session()->get('isButtonReportMatReturnDetailSubmit');
+        $varAPIWebToken = $request->session()->get('SessionLogin');
+        $isSubmitButton = $request->session()->get('isButtonReportMatReturnDetailSubmit');
 
         $dataReport = $isSubmitButton ? $request->session()->get('dataReportMatReturnDetail', []) : [];
 
         $compact = [
             'varAPIWebToken' => [],
-            'dataReport'     => $dataReport
+            'dataReport' => $dataReport
         ];
 
         return view('Inventory.MaterialReturn.Reports.ReportMatReturnDetail', $compact);
     }
 
-    public function ReportMatReturnDetailData($id) 
+    public function ReportMatReturnDetailData($id)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
@@ -507,16 +510,16 @@ class MaterialReturnController extends Controller
 
             // DATA HEADER
             $dataHeaders = [
-                'mrNumber'      => 'MR/QDC/2025/0000006',
-                'doNumber'      => 'DO/QDC/2025/0000010',
-                'budget'        => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
-                'budgetName'    => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
-                'subBudget'     => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
-                'date'          => $getData['header']['date'],
-                'transporter'   => "VDR-2594 - Aman Jaya",
-                'deliveryFrom'  => "Gudang Mampang",
-                'deliveryTo'    => 'Gudang Tigaraksa',
-                'PIC'           => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
+                'mrNumber' => 'MR/QDC/2025/0000006',
+                'doNumber' => 'DO/QDC/2025/0000010',
+                'budget' => $getData['content']['general']['budget']['combinedBudgetCodeList'][0],
+                'budgetName' => $getData['content']['general']['budget']['combinedBudgetNameList'][0],
+                'subBudget' => $getData['content']['general']['budget']['combinedBudgetSectionCodeList'][0],
+                'date' => $getData['header']['date'],
+                'transporter' => "VDR-2594 - Aman Jaya",
+                'deliveryFrom' => "Gudang Mampang",
+                'deliveryTo' => 'Gudang Tigaraksa',
+                'PIC' => $getData['content']['general']['involvedPersons'][0]['requesterWorkerName'],
             ];
 
             $dataDetails = [];
@@ -524,21 +527,21 @@ class MaterialReturnController extends Controller
             $totalQty = 0;
             foreach ($getData['content']['details']['itemList'] as $dataReports) {
                 $totalQty += $dataReports['entities']['quantity'];
-            
-                $dataDetails[$i]['no']          = $i + 1;
-                $dataDetails[$i]['dorNumber']   = "DOR1-23000004";
-                $dataDetails[$i]['productId']   = $dataReports['entities']['product_RefID'];
+
+                $dataDetails[$i]['no'] = $i + 1;
+                $dataDetails[$i]['dorNumber'] = "DOR1-23000004";
+                $dataDetails[$i]['productId'] = $dataReports['entities']['product_RefID'];
                 $dataDetails[$i]['productName'] = $dataReports['entities']['productName'];
-                $dataDetails[$i]['qty']         = number_format($dataReports['entities']['quantity'], 2, ',', '.');
-                $dataDetails[$i]['uom']         = $dataReports['entities']['quantityUnitName'];
-                $dataDetails[$i]['remark']      = $dataReports['entities']['remarks'];
+                $dataDetails[$i]['qty'] = number_format($dataReports['entities']['quantity'], 2, ',', '.');
+                $dataDetails[$i]['uom'] = $dataReports['entities']['quantityUnitName'];
+                $dataDetails[$i]['remark'] = $dataReports['entities']['remarks'];
                 $i++;
             }
 
             $compact = [
-                'dataHeader'    => $dataHeaders,
-                'dataDetail'    => $dataDetails,
-                'totalQty'      => number_format($totalQty, 2, ',', '.'),
+                'dataHeader' => $dataHeaders,
+                'dataDetail' => $dataDetails,
+                'totalQty' => number_format($totalQty, 2, ',', '.'),
             ];
 
             Session::put("isButtonReportMatReturnDetailSubmit", true);
@@ -551,11 +554,11 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function ReportMatReturnDetailStore(Request $request) 
+    public function ReportMatReturnDetailStore(Request $request)
     {
         try {
-            $advanceRefID   = $request->advance_RefID;
-            $advanceNumber  = $request->advance_number;
+            $advanceRefID = $request->advance_RefID;
+            $advanceNumber = $request->advance_number;
 
             if (!$advanceRefID && !$advanceNumber) {
                 Session::forget("isButtonReportMatReturnDetailSubmit");
@@ -577,8 +580,12 @@ class MaterialReturnController extends Controller
         }
     }
 
-    public function PrintExportReportMatReturnDetail(Request $request) {
+    public function PrintExportReportMatReturnDetail(Request $request)
+    {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportMatReturnDetail");
 
             if ($dataReport) {
@@ -587,12 +594,12 @@ class MaterialReturnController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-    
+
                     return $pdf->download('Export Report Material Receive Detail.pdf');
                 } else {
                     return Excel::download(new ExportReportMaterialReturnDetail, 'Export Report Material Receive Detail.xlsx');

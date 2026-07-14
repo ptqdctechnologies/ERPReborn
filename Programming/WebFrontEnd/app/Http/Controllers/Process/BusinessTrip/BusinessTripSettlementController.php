@@ -217,6 +217,9 @@ class BusinessTripSettlementController extends Controller
     public function PrintExportReportBusinessTripSettlementSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $dataBusinessTripSettlement = json_decode($request->dataReport, true);
 
@@ -767,6 +770,9 @@ class BusinessTripSettlementController extends Controller
     public function PrintExportReportBusinessTripSettlementDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportBusinessTripSettlementDetail");
             $print_type = $request->print_type;
             $project_code_second_trigger = $request->project_code_second_trigger;

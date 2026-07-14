@@ -737,6 +737,7 @@ class CheckDocumentController extends Controller
             $printType = $request->print_type;
             $transactionRefID = $request->transaction_RefID;
             $transactionType = $request->transactionType;
+            $picSourcing = $request->picSourcing;
 
             if ($transactionType === "DELIVERY ORDER") {
                 $response = $this->deliveryOrderService->getDetail($transactionRefID);
@@ -754,8 +755,6 @@ class CheckDocumentController extends Controller
 
             $arrData = [];
             if ($transactionType === "DELIVERY ORDER") {
-                $renderStart = microtime(true);
-
                 $arrData = [
                     'viewPDF' => 'Inventory.DeliveryOrder.Reports.ReportDODetail_pdf',
                     'filenamePDF' => 'Delivery Order.pdf',
@@ -781,15 +780,16 @@ class CheckDocumentController extends Controller
                     }
                 }
             } else {
-                $renderStart = microtime(true);
-
                 $arrData = [
                     'viewPDF' => 'Purchase.PurchaseOrder.Reports.ReportPurchaseOrderDetail_pdf',
                     'filenamePDF' => 'Purchase Order.pdf',
                 ];
 
                 if ($printType == "PDF") {
-                    $pdf = PDF::loadView($arrData['viewPDF'], ['dataReport' => $dataDetail])->setPaper('a4', 'portrait');
+                    $pdf = PDF::loadView($arrData['viewPDF'], [
+                        'dataReport' => $dataDetail,
+                        'picSourcing' => $picSourcing
+                    ])->setPaper('a4', 'portrait');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
@@ -799,7 +799,7 @@ class CheckDocumentController extends Controller
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
 
-                    return $pdf->download($arrData['filenamePDF']);
+                    return $pdf->stream($arrData['filenamePDF']);
                 } else {
                     if ($transactionType === "PURCHASE ORDER") {
                         return Excel::download(new ExportReportPurchaseOrderDetail($dataDetail), 'Purchase Order.xlsx');

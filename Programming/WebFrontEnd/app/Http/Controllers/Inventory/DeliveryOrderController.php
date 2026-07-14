@@ -269,6 +269,9 @@ class DeliveryOrderController extends Controller
     public function PrintExportReportDOToMaterialReceive(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataPDF = Session::get("dotoMRReportSummaryDataPDF");
             $dataExcel = Session::get("dotoMRReportSummaryDataExcel");
 
@@ -363,6 +366,9 @@ class DeliveryOrderController extends Controller
     public function PrintExportReportDeliveryOrderSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $subBudgetName = $request->subBudgetName;
@@ -514,6 +520,9 @@ class DeliveryOrderController extends Controller
     public function PrintExportReportDODetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportDODetail");
 
             if ($dataReport) {

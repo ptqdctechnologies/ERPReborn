@@ -125,7 +125,7 @@
         <tr>
             <td style="border: 1px solid black; height: 30px;">
                 <div style="text-align: center; line-height: 30px; font-size: 10px;">
-                    -
+                    <?= $picSourcing; ?>
                 </div>
             </td>
             <td style="border: 1px solid black; height: 30px;">

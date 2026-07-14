@@ -263,6 +263,9 @@ class PurchaseRequisitionController extends Controller
     public function PrintExportReportPurchaseRequisitionSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $subBudgetName = $request->subBudgetName;
@@ -368,6 +371,9 @@ class PurchaseRequisitionController extends Controller
     public function PrintExportReportPRtoPO(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataPrToPo = json_decode($request->dataReport, true);
             $type = $request->printType;
 
