@@ -77,7 +77,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                     $varUserSession, 
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_TblSalesContract_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -189,7 +189,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_TblSalesContract_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
