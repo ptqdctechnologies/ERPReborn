@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     "log_FileUpload_Pointer_RefID" => 91000000000001,
                     "combinedBudget_RefID" => 46000000000001,
                     "currency_RefID" => 62000000000001,
-                    "documentDateTimeTZ" => '2026-06-12',
-                    "type" => 'SUB_BUDGET_BASE',
+                    "documentDateTimeTZ" => '2026-07-13',
+                    "type" => 'PRODUCT_BASE',
                     "vatStatus" => 'YES',
                     "vatRatio" => 10,
                     "additionalData" => [
@@ -52,7 +52,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     [
                                     "entities" => [
                                         "combinedBudgetSection_RefID" => 143000000000029,
-                                        // "value" => 10.5,
                                         "notes" => 'Catatan Pertama',
                                         "work_RefID" => 169000000000001,
                                         "product_RefID" => 88000000000002,
