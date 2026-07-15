@@ -4,6 +4,7 @@ namespace GuzzleHttp\Handler;
 
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Multiplexing;
 use GuzzleHttp\Promise as P;
 use GuzzleHttp\Promise\FulfilledPromise;
 use GuzzleHttp\Promise\PromiseInterface;
@@ -23,6 +24,12 @@ use Psr\Http\Message\UriInterface;
  */
 class StreamHandler
 {
+    private const KNOWN_CONSTRUCTOR_OPTIONS = [
+        'max_host_connections' => true,
+        'max_total_connections' => true,
+        'transport_sharing' => true,
+    ];
+
     private const CONNECTION_ERRORS = [
         'php_network_getaddresses:',
         'getaddrinfo',
@@ -52,18 +59,53 @@ class StreamHandler
     private $transportSharingMode;
 
     /**
+     * @var bool
+     */
+    private $connectionCapsConfigured = false;
+
+    /**
      * Accepts an associative array of options:
      *
+     * - max_host_connections: Optional positive integer or null. A non-null
+     *   value marks the handler as incompatible with enabled response
+     *   streaming; the number is not used for stream-handler admission.
+     * - max_total_connections: Optional positive integer or null. A non-null
+     *   value marks the handler as incompatible with enabled response
+     *   streaming; the number is not used for stream-handler admission.
      * - transport_sharing: Optional transport sharing mode.
      *
-     * @param array{transport_sharing?: mixed} $options Array of options to use with the handler
+     * The stream handler cannot cap streamed connections, so a configured cap
+     * marker rejects enabled response streaming ("stream" => true). Accepted
+     * transfers are buffered and hold at most one connection per in-flight
+     * call, but overlapping buffered calls are not collectively limited.
+     *
+     * @param array{max_host_connections?: mixed, max_total_connections?: mixed, transport_sharing?: mixed} $options Array of options to use with the handler
      */
     public function __construct(array $options = [])
     {
+        foreach ($options as $name => $_) {
+            if (!isset(self::KNOWN_CONSTRUCTOR_OPTIONS[$name])) {
+                \trigger_deprecation('guzzlehttp/guzzle', '7.14', \sprintf('The "%s" StreamHandler constructor option is unknown; guzzlehttp/guzzle 8.0 will reject unknown constructor options.', (string) $name));
+            }
+        }
+
         $this->transportSharingMode = CurlShareHandleState::normalizeMode(
             $options['transport_sharing'] ?? null,
             'transport_sharing'
         );
+
+        foreach (['max_host_connections', 'max_total_connections'] as $capOption) {
+            $value = $options[$capOption] ?? null;
+            if ($value === null) {
+                continue;
+            }
+
+            if (!\is_int($value) || $value < 1) {
+                throw new \InvalidArgumentException(\sprintf('%s must be a positive integer.', $capOption));
+            }
+
+            $this->connectionCapsConfigured = true;
+        }
     }
 
     /**
@@ -77,6 +119,27 @@ class StreamHandler
         // Sleep if there is a delay specified.
         if (isset($options['delay'])) {
             \usleep($options['delay'] * 1000);
+        }
+
+        $multiplex = $options['multiplex'] ?? null;
+
+        if (null !== $multiplex && !\in_array($multiplex, [Multiplexing::EAGER, Multiplexing::WAIT, Multiplexing::REQUIRE_EAGER, Multiplexing::REQUIRE_WAIT], true)) {
+            throw new \InvalidArgumentException(\sprintf(
+                'The "multiplex" option must be null or a GuzzleHttp\\Multiplexing::* constant; received %s.',
+                \get_debug_type($multiplex)
+            ));
+        }
+
+        if (\in_array($multiplex, [Multiplexing::REQUIRE_EAGER, Multiplexing::REQUIRE_WAIT], true)) {
+            throw new ConnectException('The stream handler cannot guarantee a multiplexed protocol; required multiplexing needs a cURL handler.', $request);
+        }
+
+        if ($this->connectionCapsConfigured && !empty($options['stream'])) {
+            throw new \InvalidArgumentException('Enabling the "stream" request option on a stream handler configured with the "max_host_connections" or "max_total_connections" option is not supported because streamed connections cannot be capped.');
+        }
+
+        if (isset($options['on_trailers'])) {
+            throw new \InvalidArgumentException('Passing the "on_trailers" request option to the stream handler is not supported because the stream handler cannot observe trailers.');
         }
 
         $protocolVersion = $request->getProtocolVersion();
@@ -328,7 +391,7 @@ class StreamHandler
                     $message .= "[$key] $value".\PHP_EOL;
                 }
             }
-            throw new \RuntimeException(\trim($message));
+            throw new \RuntimeException(\trim($message, " \n\r\t\0\x0B"));
         }
 
         return $resource;
@@ -428,7 +491,7 @@ class StreamHandler
                 $this->lastHeaders = $http_response_header ?? [];
 
                 if (false === $resource) {
-                    throw new ConnectException(sprintf('Connection refused for URI %s', $uri), $request, null, $context);
+                    throw new ConnectException(sprintf('Connection refused for URI %s', Psr7\Utils::redactUserInfo($uri)), $request, null, $context);
                 }
 
                 if (isset($options['read_timeout'])) {
@@ -505,7 +568,7 @@ class StreamHandler
             }
         }
 
-        $context['http']['header'] = \rtrim($context['http']['header']);
+        $context['http']['header'] = \rtrim($context['http']['header'], " \n\r\t\0\x0B");
 
         return $context;
     }
@@ -695,7 +758,7 @@ class StreamHandler
             return false;
         }
 
-        $type = \strtolower($options['auth'][2]);
+        $type = \strtr($options['auth'][2], 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         if ($type === 'digest') {
             $httpAuth = \defined('CURLAUTH_DIGEST') ? \constant('CURLAUTH_DIGEST') : null;
         } elseif ($type === 'ntlm') {
