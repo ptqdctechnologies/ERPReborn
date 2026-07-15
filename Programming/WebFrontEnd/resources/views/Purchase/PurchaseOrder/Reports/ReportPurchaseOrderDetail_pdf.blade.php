@@ -8,8 +8,6 @@
 
     <title>ERP Reborn</title>
 
-    <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
-
     <style>
     </style>
 </head>
