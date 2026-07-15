@@ -61,7 +61,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try{
                         if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
-                            $varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesContractSubBudgetBaseDetail())->setDataInsert(
+                            $varUserSession, (new \App\Models\Database\SchData_OLTP_CustomerRelation\TblSalesContractSubBudgetBase())->setDataInsert(
                                     $varUserSession,
 
                                     null,
