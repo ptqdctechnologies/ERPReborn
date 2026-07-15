@@ -38,29 +38,28 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.customerRelation.setSalesContractProductBase',
                 'latest',
                 [
-                'recordID' => 131000000000022,
+                'recordID' => 131000000000142,
                 'entities' => [
                     "log_FileUpload_Pointer_RefID" => 91000000000002,
                     "combinedBudget_RefID" => 46000000000002,
                     "currency_RefID" => 62000000000002,
-                    "documentDateTimeTZ" => '2026-07-07',
-                    "type" => 'SUB_BUDGET_BASE',
-                    "vatStatus" => 'YES',
-                    "vatRatio" => 10,
+                    "documentDateTimeTZ" => '2026-07-15',
+                    "type" => 'PRODUCT_BASE',
+                    "vatStatus" => 'NO',
+                    "vatRatio" => 0,
                     "additionalData" => [
                         "itemList" => [
                             "items" => [
                                     [
-                                    "recordID" => 132000000000013,
+                                    "recordID" => 307000000000091,
                                     "entities" => [
                                         "combinedBudgetSection_RefID" => 143000000000030,
-                                        // "value" => 20,
                                         "notes" => 'Catatan Kedua',
                                         "work_RefID" => 169000000000002,
                                         "product_RefID" => 88000000000002,
                                         "uom_RefID" => 73000000000001,
-                                        "quantity" => 5,
-                                        "price" => 50000
+                                        "quantity" => 7,
+                                        "price" => 80000
                                         ]
                                     ],
                                 ]
