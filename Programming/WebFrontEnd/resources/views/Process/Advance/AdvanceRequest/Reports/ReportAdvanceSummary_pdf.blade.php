@@ -7,14 +7,7 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <title>ERP Reborn</title>
-  <!-- <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: sans-serif; font-size: 10px; color: #000; line-height: 1.2; }
-    table { width: 100%; border-collapse: collapse; table-layout: fixed; word-wrap: break-word; }
-    td, th { overflow: hidden; }
-    .card-body { padding: 10px; }
-    .TableReportAdvanceSummary thead td { background-color: #f8f9fa; }
-  </style> -->
+</head>
 
 <body>
   <div class="card-body table-responsive p-0">
@@ -106,67 +99,71 @@
       </thead>
 
       <tbody>
-        <?php $counter = 1; $grandTotalIDR = 0; $grandTotalOtherCurrency = 0; $grandTotalEquivalentIDR = 0; ?>
+        <?php $counter = 1;
+$grandTotalIDR = 0;
+$grandTotalOtherCurrency = 0;
+$grandTotalEquivalentIDR = 0; ?>
         <?php foreach ($dataARF as $dataDetail) { ?>
-          <?php $grandTotalIDR            += $dataDetail['total_IDR']; ?>
-          <?php $grandTotalOtherCurrency  += $dataDetail['total_Other_Currency']; ?>
-          <?php $grandTotalEquivalentIDR  += $dataDetail['total_Equivalent_IDR']; ?>
+        <?php  $grandTotalIDR += $dataDetail['total_IDR']; ?>
+        <?php  $grandTotalOtherCurrency += $dataDetail['total_Other_Currency']; ?>
+        <?php  $grandTotalEquivalentIDR += $dataDetail['total_Equivalent_IDR']; ?>
 
-          <tr>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $counter++; ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['advanceNumber'] ?? '-'; ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['combinedBudgetSectionCode'] ?? ''; ?> - <?= $dataDetail['combinedBudgetSectionName'] ?? ''; ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= date('d-m-Y', strtotime($dataDetail['advanceDate'])); ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['requesterName'] ?? '-'; ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['beneficiaryName'] ?? '-'; ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= number_format($dataDetail['total_IDR'] ?? 0, 2, '.', ','); ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= number_format($dataDetail['total_Other_Currency'] ?? 0, 2, '.', ','); ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= number_format($dataDetail['total_Equivalent_IDR'] ?? 0, 2, '.', ','); ?>
-              </div>
-            </td>
-            <td>
-              <div style="margin-top: 4px; font-size: 12px;">
-                <?= $dataDetail['remarks'] ?? '-'; ?>
-              </div>
-            </td>
-          </tr>
+        <tr>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $counter++; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['advanceNumber'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['combinedBudgetSectionCode'] ?? ''; ?> -
+              <?= $dataDetail['combinedBudgetSectionName'] ?? ''; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= date('d-m-Y', strtotime($dataDetail['advanceDate'])); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['requesterName'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['beneficiaryName'] ?? '-'; ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_Other_Currency'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= number_format($dataDetail['total_Equivalent_IDR'] ?? 0, 2, '.', ','); ?>
+            </div>
+          </td>
+          <td>
+            <div style="margin-top: 4px; font-size: 12px;">
+              <?= $dataDetail['remarks'] ?? '-'; ?>
+            </div>
+          </td>
+        </tr>
         <?php } ?>
       </tbody>
-      
+
       <div style="height: 16px;"></div>
 
       <tr style="border-top: 1px solid black;">
@@ -174,13 +171,19 @@
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalIDR, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotalIDR, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalOtherCurrency, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotalOtherCurrency, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotalEquivalentIDR, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotalEquivalentIDR, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px; text-align: left;"></td>
       </tr>
