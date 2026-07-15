@@ -731,6 +731,7 @@ class CheckDocumentController extends Controller
     public function export(Request $request)
     {
         try {
+            $start = microtime(true);
             ini_set('memory_limit', '512M');
             set_time_limit(180);
 
@@ -761,6 +762,7 @@ class CheckDocumentController extends Controller
                 ];
 
                 if ($printType == "PDF") {
+                    $pdfStart = microtime(true);
                     $pdf = PDF::loadView($arrData['viewPDF'], [
                         'dataReport' => $dataDetail
                     ])->setPaper('a4', 'portrait');
@@ -772,6 +774,10 @@ class CheckDocumentController extends Controller
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    $renderTime = microtime(true) - $pdfStart;
+                    $totalTime = microtime(true) - $start;
+                    Log::info("PDF Export [CheckDocument - DO] - rows: " . count($dataDetail) . ", render: " . round($renderTime, 4) . "s, total: " . round($totalTime, 4) . "s");
 
                     return $pdf->download($arrData['filenamePDF']);
                 } else {
@@ -786,6 +792,7 @@ class CheckDocumentController extends Controller
                 ];
 
                 if ($printType == "PDF") {
+                    $pdfStart = microtime(true);
                     $pdf = PDF::loadView($arrData['viewPDF'], [
                         'dataReport' => $dataDetail,
                         'picSourcing' => $picSourcing
@@ -798,6 +805,10 @@ class CheckDocumentController extends Controller
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
                     $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    $renderTime = microtime(true) - $pdfStart;
+                    $totalTime = microtime(true) - $start;
+                    Log::info("PDF Export [CheckDocument - PO] - rows: " . count($dataDetail) . ", render: " . round($renderTime, 4) . "s, total: " . round($totalTime, 4) . "s");
 
                     return $pdf->stream($arrData['filenamePDF']);
                 } else {

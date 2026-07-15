@@ -8,7 +8,6 @@
         <title>ERP Reborn</title>
 
         <!-- Theme style -->
-        <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
     </head>
     <body>
         <div class="card-body table-responsive p-0">
