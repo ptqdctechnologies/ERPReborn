@@ -347,6 +347,9 @@ class AdvanceSettlementController extends Controller
     public function PrintExportReportAdvanceSettlementDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportAdvanceSettlementDetail");
             $print_type = $request->print_type;
             $project_code_second_trigger = $request->project_code_second_trigger;
@@ -440,6 +443,9 @@ class AdvanceSettlementController extends Controller
     public function PrintExportReportAdvanceSettlementSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $budget = $request->budgetName;
             $subBudget = $request->subBudgetName;
             $requester = $request->requesterName;

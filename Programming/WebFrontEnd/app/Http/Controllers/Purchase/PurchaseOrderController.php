@@ -234,6 +234,9 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportPurchaseOrderSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $subBudgetName = $request->subBudgetName;
@@ -340,6 +343,9 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportPOtoAP(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $dataPurchaseOrder = json_decode($request->dataReport, true);
 
@@ -527,6 +533,9 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportPurchaseOrderDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportPODetail");
 
             if ($dataReport) {
@@ -616,6 +625,9 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportPOtoDO(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $dataPurchaseOrder = json_decode($request->dataReport, true);
 
@@ -805,6 +817,9 @@ class PurchaseOrderController extends Controller
     public function PrintExportReportCFS(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportCFS");
 
             if ($dataReport) {

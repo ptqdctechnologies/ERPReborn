@@ -482,6 +482,9 @@ class MaterialReceiveController extends Controller
     public function PrintExportReportMatReceivetoMatReturn(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportMaterialReturn");
 
             if ($dataReport) {
@@ -579,6 +582,9 @@ class MaterialReceiveController extends Controller
     public function PrintExportReportMaterialReceiveSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $receivedName = $request->receivedName;

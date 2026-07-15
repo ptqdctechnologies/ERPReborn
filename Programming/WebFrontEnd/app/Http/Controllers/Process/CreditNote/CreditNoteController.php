@@ -137,6 +137,9 @@ class CreditNoteController extends Controller
     public function PrintExportReportCreditNoteSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $subBudgetName = $request->subBudgetName;
@@ -176,37 +179,6 @@ class CreditNoteController extends Controller
 
             return response()->json(['statusCode' => 400]);
         }
-
-        // try {
-        //     $dataPDF = Session::get("CreditNoteReportSummaryDataPDF");
-        //     $dataExcel = Session::get("CreditNoteReportSummaryDataExcel");
-
-        //     if ($dataPDF && $dataExcel) {
-        //         $print_type = $request->print_type;
-        //         if ($print_type == "PDF") {
-        //             $dataCN = Session::get("CreditNoteReportSummaryDataPDF");
-
-        //             $pdf = PDF::loadView('Process.CreditNote.Reports.ReportCreditNoteSummary_pdf', ['dataCN' => $dataCN])->setPaper('a4', 'landscape');
-        //             $pdf->output();
-        //             $dom_pdf = $pdf->getDomPDF();
-
-        //             $canvas = $dom_pdf ->get_canvas();
-        //             $width = $canvas->get_width();
-        //             $height = $canvas->get_height();
-        //             $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
-        //             $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
-
-        //             return $pdf->download('Export Report Credit Note Summary.pdf');
-        //         } else if ($print_type == "Excel") {
-        //             return Excel::download(new ExportReportCreditNoteSummary, 'Export Report Credit Note Summary.xlsx');
-        //         }
-        //     } else {
-        //         return redirect()->route('CreditNote.ReportCreditNoteSummary')->with('NotFound', 'Data Cannot Empty');
-        //     }
-        // } catch (\Throwable $th) {
-        //     Log::error("Error at " . $th->getMessage());
-        //     return redirect()->back()->with('NotFound', 'Process Error');
-        // }
     }
 
     public function RevisionCreditNote(Request $request)
@@ -1108,6 +1080,9 @@ class CreditNoteController extends Controller
     public function PrintExportReportCNtoDN(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportCNtoDN");
             $print_type = $request->print_type;
             $project_code_second_trigger = $request->project_code_second_trigger;
@@ -1266,6 +1241,9 @@ class CreditNoteController extends Controller
     public function PrintExportReportCreditNoteDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataPDF = Session::get("CreditNoteReportDetailDataPDF");
             $dataExcel = Session::get("CreditNoteReportDetailDataExcel");
 

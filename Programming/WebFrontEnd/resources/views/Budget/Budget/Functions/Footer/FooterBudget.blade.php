@@ -10,6 +10,7 @@
     let indexProduct = null;
     let indexCurrency = null;
     let indexStartDate = null;
+    const ctx = document.getElementById('myChart');
     const defaultRow = {
         entities: {
             combinedBudgetSection_RefID: '',
@@ -828,6 +829,48 @@
     $(document).ready(function () {
         $("#excel_file").prop("disabled", true);
         $("#uploadBudgetFile").css("cursor", "not-allowed");
+
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                datasets: [
+                    {
+                        label: '# of Votes',
+                        data: [12, 50, 3, 5, 2, 3],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '# of Testing',
+                        data: [19, 3, 5, 2, 12, 3],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '# of Hello',
+                        data: [3, 12, 19, 5, 2, 3],
+                        borderWidth: 1
+                    },
+                    {
+                        label: '# of World',
+                        data: [5, 2, 19, 3, 12, 3],
+                        borderWidth: 1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    title: {
+                        display: true,
+                        text: 'Chart.js Line Chart'
+                    }
+                }
+            }
+        });
+
         getCustomProducts();
     });
 </script>

@@ -150,9 +150,11 @@ class LoanSettlementController extends Controller
     public function PrintExportReportLoanSettlementSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataPDF = Session::get("LoanSettlementReportSummaryDataPDF");
             $dataExcel = Session::get("LoanSettlementReportSummaryDataExcel");
-
 
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;

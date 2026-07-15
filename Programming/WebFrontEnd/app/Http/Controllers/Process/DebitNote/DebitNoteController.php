@@ -223,6 +223,9 @@ class DebitNoteController extends Controller
     public function PrintExportReportDebitNoteSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $budgetName = $request->budgetName;
             $customerName = $request->customerName;

@@ -233,6 +233,9 @@ class LoanController extends Controller
     public function PrintExportReportLoantoLoanSettlement(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $type = $request->printType;
             $dataReport = json_decode($request->dataReport, true);
 
@@ -324,6 +327,9 @@ class LoanController extends Controller
     public function PrintExportReportLoanSummary(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataLoanSummary = json_decode($request->dataReport, true);
             $type = $request->printType;
 
@@ -935,6 +941,9 @@ class LoanController extends Controller
     public function PrintExportReportLoanDetail(Request $request)
     {
         try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
             $dataReport = Session::get("dataReportLoanDetail");
             $print_type = $request->print_type;
             $project_code_second_trigger = $request->project_code_second_trigger;
