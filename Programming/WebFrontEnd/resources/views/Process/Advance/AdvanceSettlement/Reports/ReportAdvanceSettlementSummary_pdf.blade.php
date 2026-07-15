@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,9 +7,6 @@
   <meta name="csrf-token" content="{{ csrf_token() }}" />
 
   <title>ERP Reborn</title>
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="{{ asset('AdminLTE-master/dist/css/adminlte.min.css') }}">
 </head>
 
 <body>
@@ -110,56 +106,56 @@
       <?php $grandTotal_amount = 0; ?>
       <?php $grandTotal_advance = 0; ?>
       <?php foreach ($dataASF as $dataDetail) { ?>
-        <?php $grandTotal_expense += $dataDetail['total_Expense_Claim']; ?>
-        <?php $grandTotal_amount  += $dataDetail['total_Amount_Due_Company']; ?>
-        <?php $grandTotal_advance += $dataDetail['total_Advance_Settlement']; ?>
-        <tr>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $counter++; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['documentNumber']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?> 
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= date('d-m-Y', strtotime($dataDetail['date'])); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['total_Expense_Claim'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['total_Amount_Due_Company'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= number_format($dataDetail['total_Advance_Settlement'], 2, '.', ','); ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['requester']; ?>
-            </div>
-          </td>
-          <td>
-            <div style="margin-top: 4px; font-size: 12px;">
-              <?= $dataDetail['remarks']; ?>
-            </div>
-          </td>
-        </tr>
+      <?php  $grandTotal_expense += $dataDetail['total_Expense_Claim']; ?>
+      <?php  $grandTotal_amount += $dataDetail['total_Amount_Due_Company']; ?>
+      <?php  $grandTotal_advance += $dataDetail['total_Advance_Settlement']; ?>
+      <tr>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $counter++; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $dataDetail['documentNumber']; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $dataDetail['product_Code']; ?> - <?= $dataDetail['product_Name']; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= date('d-m-Y', strtotime($dataDetail['date'])); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= number_format($dataDetail['total_Expense_Claim'], 2, '.', ','); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= number_format($dataDetail['total_Amount_Due_Company'], 2, '.', ','); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= number_format($dataDetail['total_Advance_Settlement'], 2, '.', ','); ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $dataDetail['requester']; ?>
+          </div>
+        </td>
+        <td>
+          <div style="margin-top: 4px; font-size: 12px;">
+            <?= $dataDetail['remarks']; ?>
+          </div>
+        </td>
+      </tr>
       <?php } ?>
 
       <div style="height: 16px;"></div>
@@ -169,13 +165,19 @@
           <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">GRAND TOTAL</div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotal_expense, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotal_expense, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotal_amount, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotal_amount, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px;">
-          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;"><?= number_format($grandTotal_advance, 2, '.', ','); ?></div>
+          <div style="font-size: 12px; font-weight: bold; margin: 4px 0px 16px 0px;">
+            <?= number_format($grandTotal_advance, 2, '.', ','); ?>
+          </div>
         </td>
         <td style="height: 20px; text-align: left;" colspan="2"></td>
       </tr>

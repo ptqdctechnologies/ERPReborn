@@ -208,17 +208,19 @@
             success: function (response) {
                 var blob = new Blob([response], { type: response.type });
                 var link = document.createElement('a');
-                link.href = window.URL.createObjectURL(blob);
+                var blobUrl = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
-                    link.download = "Export Report Advance Summary.pdf";
+                    window.open(blobUrl, '_blank');
                 } else {
+                    link.href = blobUrl;
                     link.download = "Export Report Advance Summary.xlsx";
+                    link.click();
                 }
 
-                link.click();
-
-                window.URL.revokeObjectURL(link.href);
+                setTimeout(function () {
+                    window.URL.revokeObjectURL(blobUrl);
+                }, 5000);
 
                 Utils.hideLoading();
             },
