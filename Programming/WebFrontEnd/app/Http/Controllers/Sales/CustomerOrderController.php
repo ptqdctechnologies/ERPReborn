@@ -71,6 +71,8 @@ class CustomerOrderController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json($request->all());
+
         try {
             $response = $this->customerOrderService->create($request);
 
