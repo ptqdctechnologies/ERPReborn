@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.read.dataList.customerRelation.getSalesContractDetail.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-06-15                                                                                           |
+        | ▪ Last Update     : 2026-07-15                                                                                           |
         | ▪ Creation Date   : 2026-06-15                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,7 +40,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'salesContract_RefID' => 131000000000022
+                        'salesContract_RefID' => 131000000000142
                         ],
                     'SQLStatement' => [
                         'pick' => null,
