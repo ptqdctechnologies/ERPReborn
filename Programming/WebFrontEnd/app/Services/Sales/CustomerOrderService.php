@@ -113,26 +113,55 @@ class CustomerOrderService
         $detailItems = json_decode($data['customerOrderDetail'], true);
         $fileID = isset($data['logFileUploadPointerRefID']) ? (int) $data['logFileUploadPointerRefID'] : null;
 
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'transaction.update.customerRelation.setSalesContract',
-            'latest',
-            [
-                'recordID' => (int) $id,
-                'entities' => [
-                    "log_FileUpload_Pointer_RefID" => $fileID,
-                    "combinedBudget_RefID" => (int) $data['combinedBudgetRefID'],
-                    "currency_RefID" => (int) $data['currencyRefID'],
-                    "documentDateTimeTZ" => date('Y-m-d'),
-                    "additionalData" => [
-                        "itemList" => [
-                            "items" => $detailItems
+        if ($data['coType'] == "SUB_BUDGET_BASE") {
+            return Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'transaction.update.customerRelation.setSalesContractSubBudgetBase',
+                'latest',
+                [
+                    'recordID' => (int) $id,
+                    'entities' => [
+                        "log_FileUpload_Pointer_RefID" => $fileID,
+                        "combinedBudget_RefID" => (int) $data['combinedBudgetRefID'],
+                        "currency_RefID" => (int) $data['currencyRefID'],
+                        "documentDateTimeTZ" => date('Y-m-d'),
+                        "type" => 'SUB_BUDGET_BASE',
+                        "vatStatus" => $data['coVat'],
+                        "vatRatio" => $data['coRatio'],
+                        "additionalData" => [
+                            "itemList" => [
+                                "items" => $detailItems
+                            ]
                         ]
                     ]
                 ]
-            ]
-        );
+            );
+        } else {
+            return Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'transaction.update.customerRelation.setSalesContractProductBase',
+                'latest',
+                [
+                    'recordID' => (int) $id,
+                    'entities' => [
+                        "log_FileUpload_Pointer_RefID" => $fileID,
+                        "combinedBudget_RefID" => (int) $data['combinedBudgetRefID'],
+                        "currency_RefID" => (int) $data['currencyRefID'],
+                        "documentDateTimeTZ" => date('Y-m-d'),
+                        "type" => 'PRODUCT_BASE',
+                        "vatStatus" => $data['coVat'],
+                        "vatRatio" => $data['coRatio'],
+                        "additionalData" => [
+                            "itemList" => [
+                                "items" => $detailItems
+                            ]
+                        ]
+                    ]
+                ]
+            );
+        }
     }
 
     public function summary(

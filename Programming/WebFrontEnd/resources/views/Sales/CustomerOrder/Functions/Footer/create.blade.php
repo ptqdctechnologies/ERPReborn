@@ -12,14 +12,14 @@
     let documentTypeID = document.getElementById("DocumentTypeID");
     let isImportFromExcel = false;
     let customerOrderDetailType = null;
+    let coType = null;
+    let coVat = null;
+    let coRatio = null;
     let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    let coType = null;
-    let coVat = null;
-    let coRatio = null;
     const budgetID = document.getElementById("project_id");
     const currencyID = document.getElementById("currency_id");
     const typeOption = document.getElementById("typeOption");

@@ -2,7 +2,11 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getProductss')
     @include('getFunction.getSites')
+    @include('getFunction.getUom')
+    @include('getFunction.getWorks')
+    @include('getFunction.getCustomerOrder')
     @include('Sales.CustomerOrder.Functions.PopUp.PopUpCustomerOrderRevision')
 
     <div class="content-wrapper">
@@ -21,6 +25,7 @@
 
                 <div class="card">
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
+                    <input type="hidden" name="CustomerOrderType" id="CustomerOrderType" value="<?= $header['type']; ?>">
 
                     <!-- CUSTOMER ORDER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
