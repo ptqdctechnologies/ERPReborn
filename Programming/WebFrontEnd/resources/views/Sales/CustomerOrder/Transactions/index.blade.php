@@ -25,5 +25,6 @@
         </section>
     </div>
 
+    @include('Sales.CustomerOrder.Functions.Footer.index')
     @include('Partials.footer')
 @endsection
