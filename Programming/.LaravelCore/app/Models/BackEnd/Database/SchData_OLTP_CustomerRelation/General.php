@@ -263,7 +263,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         | ▪ Method Name     : getReport_Form_DocumentForm_SalesContractSummary                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-06-17                                                                                           |
+        | ▪ Last Update     : 2026-07-16                                                                                           |
         | ▪ Creation Date   : 2026-06-17                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Sales Contract                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -271,7 +271,6 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
-        |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
         |      ▪ (string)    varStartDate ► Start Date                                                                             |
         |      ▪ (string)    varEndDate ► End Date                                                                                 |
         | ▪ Output Variable :                                                                                                      |
@@ -279,7 +278,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_SalesContractSummary(
-		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string  $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null,
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string  $varStartDate = null, string  $varEndDate = null,
 		array $varPagingStatement = null
             )
             {
@@ -292,7 +291,6 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                             'SchData-OLTP-CustomerRelation.Func_GetReport_DocForm_SalesContractSummary',
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
