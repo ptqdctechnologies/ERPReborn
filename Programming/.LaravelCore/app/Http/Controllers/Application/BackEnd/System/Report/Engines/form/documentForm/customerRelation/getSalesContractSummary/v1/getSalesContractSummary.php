@@ -67,7 +67,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode'],
                             $varData['parameter']['StartDate'],
                             $varData['parameter']['EndDate'],
                             

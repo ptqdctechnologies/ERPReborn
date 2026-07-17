@@ -147,7 +147,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-01                                                                                           |
+        | ▪ Last Update     : 2026-07-17                                                                                           |
         | ▪ Creation Date   : 2026-07-01                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -171,7 +171,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varCategoryCode = null, string $varCode = null, string $varName = null
+            string $varCategoryCode = null, string $varCode = null, string $varName = null, int $varStatus = null
             )
             {
             $varReturn =
@@ -192,7 +192,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBaseCurrency_RefID, 'bigint'],
                             [$varCategoryCode, 'varchar'],
                             [$varCode, 'varchar'],
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varStatus, 'smallint']
                         ]
                         )
                     );

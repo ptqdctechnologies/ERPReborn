@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.master.setSupplierCategory.v1_throughAPIGateway               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-05-25                                                                                           |
+        | ▪ Last Update     : 2026-07-17                                                                                           |
         | ▪ Creation Date   : 2026-05-25                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -38,10 +38,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.master.setSupplierCategory',
                 'latest',
                 [
-                'recordID' => 305000000000004,
+                'recordID' => 305000000000028,
                 'entities' => [
-                    "code" => 'CT05',
-                    "name" => 'Category 5'
+                    "code" => 'CT06',
+                    "name" => 'Category 6',
+                    "status" => 0                    // 0 => "Incative ", 1 => "Active"
                     ]
                 ]
                 );

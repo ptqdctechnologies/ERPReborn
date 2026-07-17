@@ -148,6 +148,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         |        ----------------------------------------                                                                          |
         |      ▪ (string) varCode ► Code of Product                                                                                |
         |      ▪ (string) varName ► Product Name                                                                                   |
+        |      ▪ (int)    varStatus ► Status                                                                                       |
         |      ▪ (int)    varQuantityUnit_RefID ► Quantity Unit Reference ID                                                       |
         |      ▪ (int)    varProductType_RefID ► Product Type Reference ID                                                         |
         |        ----------------------------------------                                                                          |
@@ -159,7 +160,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varCode = null, string $varName = null
+            string $varCode = null, string $varName = null, int $varStatus = null
             )
             {
             $varReturn =
@@ -180,7 +181,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBaseCurrency_RefID, 'bigint'],
                             
                             [$varCode, 'varchar'],
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [$varStatus, 'smallint']
                         ]
                         )
                     );
