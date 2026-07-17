@@ -106,7 +106,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                         //---► name
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'businessDocumentNumber',
+                                                'name',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
                                                     (!is_null($varData['parameter']['dataFilter']['name'])) 
@@ -115,15 +115,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                         ) 
                                                     : null
                                             ),
-                                        //---► citizenIdentityNumber
+                                        //---► acronym
                                             (
                                             \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'combinedBudgetSection',
+                                                'acronym',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['citizenIdentityNumber']))
-                                                        ? $varData['parameter']['dataFilter']['citizenIdentityNumber']
+                                                    (!is_null($varData['parameter']['dataFilter']['acronym']))
+                                                        ? $varData['parameter']['dataFilter']['acronym']
                                                         : null
                                                         )
                                                     : null

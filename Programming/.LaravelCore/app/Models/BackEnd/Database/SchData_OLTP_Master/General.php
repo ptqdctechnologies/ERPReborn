@@ -4958,6 +4958,70 @@ namespace App\Models\Database\SchData_OLTP_Master
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_BankAccount                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-17                                                                                           |
+        | ▪ Creation Date   : 2026-07-17                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Rekening Bank                                                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varFullBankAccountNumber ► Full Bank Account Number                                                      |
+        |      ▪ (string) varBankName ► Bank Name                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_BankAccount(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varFullBankAccountNumber = null, string $varBankName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BankAccount',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varFullBankAccountNumber, 'varchar'],
+                                [$varBankName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_BankAccount']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DataList_InstitutionType                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -5696,6 +5760,70 @@ namespace App\Models\Database\SchData_OLTP_Master
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_Bank']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_BankAccount                                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-17                                                                                           |
+        | ▪ Creation Date   : 2026-07-17                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Rekening Bank                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varFullBankAccountNumber ► Full Bank Account Number                                                      |
+        |      ▪ (string) varBankName ► Bank Name                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_BankAccount(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varFullBankAccountNumber = null, string $varBankName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataPickList_BankAccount',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varFullBankAccountNumber, 'varchar'],
+                                [$varBankName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_BankAccount']
                         );
 
                 return

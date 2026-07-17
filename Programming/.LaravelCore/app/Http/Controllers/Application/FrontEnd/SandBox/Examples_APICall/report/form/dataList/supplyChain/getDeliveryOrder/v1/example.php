@@ -56,7 +56,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'documentDateFinish' => NULL,       //'2026-12-31'
                                 'requesterName' => NULL,            //'Adhe'
                                 'combinedBudget' => NULL,           //'Q000062'
-                                'combinedBudgetSection' => NULL     //'240'
+                                'combinedBudgetSection' => NULL,    //'240'
+                                'type_RefID' => NULL                //1
                                 ],
                             ]
                         ]

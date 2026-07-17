@@ -4391,6 +4391,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varRequesterName ► Requester Name                                                                        |
         |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
         |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        |      ▪ (int)    varType_RefID ► Type Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4398,7 +4399,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getReport_Form_DataList_DeliveryOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
             {
             try {
                 $varReturn =
@@ -4742,6 +4743,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varRequesterName ► Requester Name                                                                        |
         |      ▪ (string) varCombinedBudget ► Combined Budget                                                                      |
         |      ▪ (string) varCombinedBudgetSection ► Combined Budget Section                                                       |
+        |      ▪ (int)    varType_RefID ► Type Reference ID                                                                        |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -4749,7 +4751,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getReport_Form_DataPickList_DeliveryOrder_LatestVersion(
             $varUserSession, int $varSysBranch_RefID,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
             {
             try {
                 $varReturn =
