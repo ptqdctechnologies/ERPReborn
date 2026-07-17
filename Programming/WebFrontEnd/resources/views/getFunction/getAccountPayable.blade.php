@@ -1,8 +1,9 @@
-<div class="modal fade" id="myAccountPayables" tabindex="-1" aria-labelledby="myAccountPayables" aria-hidden="true">
+<div class="modal fade" id="myAccountPayables" tabindex="-1" aria-labelledby="myAccountPayablesLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myAccountPayables"
+                <h5 class="modal-title" id="myAccountPayablesLabel"
                     style="font-size: 15px; font-weight:bold; text-align: center;">
                     Choose Account Payable Number
                 </h5>

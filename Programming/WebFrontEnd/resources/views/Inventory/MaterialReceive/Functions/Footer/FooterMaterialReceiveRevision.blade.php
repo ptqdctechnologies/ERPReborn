@@ -546,7 +546,7 @@
     }
 
     function submitForm() {
-        $('#material_receive_submit_modal').modal('hide');
+        $('#material_receive_submit_modal').modal('toggle');
 
         let action = $('#FormSubmitRevisionMaterialReceive').attr("action");
         let method = $('#FormSubmitRevisionMaterialReceive').attr("method");
@@ -609,7 +609,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
@@ -662,16 +662,33 @@
 
     $('#tableGetModalMaterialReceive').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_material_receive"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#modal_material_receive_id").val(sysId);
         $("#modal_material_receive_document_number").val(trano);
+        $("#modal_material_receive_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-        $('#myGetModalMaterialReceive').modal('hide');
+        $("#myGetModalMaterialReceive").modal('toggle');
+        $("#materialReceiveRevisionModal").modal('toggle');
     });
 
     $('#revision_material_receive').on('click', function (e) {
         getModalMaterialReceive();
+    });
+
+    $('#modal_material_receive_document_number_icon').on('click', function () {
+        $("#myGetModalMaterialReceive").modal('toggle');
+        $("#materialReceiveRevisionModal").modal('toggle');
     });
 
     $(document).ready(function () {

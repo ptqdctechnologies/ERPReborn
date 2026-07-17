@@ -23,7 +23,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_material_receive" href="javascript:;" class="nav-link"
-                                        data-toggle="modal" data-target="#myPopUpMaterialReceiveRevision"
+                                        data-toggle="modal" data-target="#materialReceiveRevisionModal"
                                         style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Material Receive</i>
                                     </a>

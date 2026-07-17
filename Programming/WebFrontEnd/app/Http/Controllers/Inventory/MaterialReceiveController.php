@@ -171,20 +171,48 @@ class MaterialReceiveController extends Controller
         }
     }
 
-    public function MaterialReceiveList()
+    public function picklist(Request $request)
     {
-        $response = $this->materialReceiveService->dataPickList();
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $searchValue = $request->input('search.value');
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'WHIn/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ],
+        ];
+
+        $response = $this->materialReceiveService->dataPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
+        $materialReceiveData = $response['data']['data'];
+
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $materialReceiveData['header']['dataCount'],
+            'recordsFiltered' => $materialReceiveData['header']['dataCount'],
+            'data' => $materialReceiveData['content']['itemList']
         ]);
     }
 
