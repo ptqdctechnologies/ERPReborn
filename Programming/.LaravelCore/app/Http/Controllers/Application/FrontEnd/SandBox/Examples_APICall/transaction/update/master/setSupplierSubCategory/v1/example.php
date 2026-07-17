@@ -42,7 +42,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'entities' => [
                     "categoryCode" => 'CT05',
                     "code" => 'SC05',
-                    "name" => 'Category 5'
+                    "name" => 'Category 5',
+                    "status" => 0                   // 0 => "Incative ", 1 => "Active"
                     ]
                 ]
                 );
