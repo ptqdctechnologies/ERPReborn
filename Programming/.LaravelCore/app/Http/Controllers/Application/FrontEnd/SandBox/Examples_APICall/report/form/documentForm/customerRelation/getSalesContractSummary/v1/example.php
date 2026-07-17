@@ -39,14 +39,12 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '240',
-                    'StartDate' => '2024-01-01',
-                    'EndDate' => '2026-06-17',
-                    // 'CombinedBudgetCode' => NULL,
-                    // 'CombinedBudgetSectionCode' => NULL,
-                    // 'StartDate' => NULL,
-                    // 'EndDate' => NULL,
+                    // 'CombinedBudgetCode' => 'Q000062',
+                    // 'StartDate' => '2024-01-01',
+                    // 'EndDate' => '2026-06-17',
+                    'CombinedBudgetCode' => NULL,
+                    'StartDate' => NULL,
+                    'EndDate' => NULL,
                 ],
                 'SQLStatement' => [
                     'paging' => [
