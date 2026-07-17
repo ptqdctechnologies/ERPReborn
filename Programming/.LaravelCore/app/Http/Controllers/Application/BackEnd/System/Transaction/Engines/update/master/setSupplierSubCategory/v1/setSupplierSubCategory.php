@@ -88,7 +88,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     
                                     $varData['entities']['categoryCode'],
                                     $varData['entities']['code'],
-                                    $varData['entities']['name']
+                                    $varData['entities']['name'],
+                                    $varData['entities']['status']
                                     )
                                 )
                             ))
