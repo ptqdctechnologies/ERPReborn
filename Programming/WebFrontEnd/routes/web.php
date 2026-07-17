@@ -227,7 +227,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPaymentTerm', 'Function\FunctionController@getPaymentTerm')->name('getPaymentTerm');
     Route::get('getVAT', 'Function\FunctionController@getVAT')->name('getVAT');
     Route::get('getTimesheetList', 'Function\FunctionController@getTimesheetList')->name('getTimesheetList');
-    Route::get('getPurchaseOrderList', 'Function\FunctionController@getPurchaseOrderList')->name('getPurchaseOrderList');
     Route::get('getPurchaseOrderDetail', 'Function\FunctionController@getPurchaseOrderDetail')->name('getPurchaseOrderDetail');
     Route::get('getBusinessTripCostComponentEntityNew', 'Function\FunctionController@getBusinessTripCostComponentEntityNew')->name('getBusinessTripCostComponentEntityNew');
     Route::get('getPerson', 'Function\FunctionController@getPerson')->name('getPerson');
@@ -396,6 +395,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController')->only(['index', 'store']);
 
     // PURCHASE ORDER
+    Route::get('PurchaseOrder/picklist', 'Purchase\PurchaseOrderController@picklist')->name('PurchaseOrder.picklist');
     Route::post('UpdatePurchaseOrder', 'Purchase\PurchaseOrderController@UpdatePurchaseOrder')->name('PurchaseOrder.UpdatePurchaseOrder');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');

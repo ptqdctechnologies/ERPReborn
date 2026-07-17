@@ -169,6 +169,51 @@ class PurchaseOrderController extends Controller
         }
     }
 
+    public function picklist(Request $request)
+    {
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
+
+        $searchValue = $request->input('search.value');
+
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'PO/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ],
+        ];
+
+        $response = $this->purchaseOrderService->getPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
+
+        $purchaseOrderData = $response['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $purchaseOrderData['header']['dataCount'],
+            'recordsFiltered' => $purchaseOrderData['header']['dataCount'],
+            'data' => $purchaseOrderData['content']['itemList']
+        ]);
+    }
+
     // +--------------------------------------------------------------------------------------------------------------------------+
     // |                                        REPORTS                                                                           |
     // +--------------------------------------------------------------------------------------------------------------------------+

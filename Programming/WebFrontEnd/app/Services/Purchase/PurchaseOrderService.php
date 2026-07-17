@@ -10,6 +10,21 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseOrderService
 {
+    public function getPickList($formatted)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.dataPickList.supplyChain.getPurchaseOrder',
+            'latest',
+            [
+                'parameter' => $formatted
+            ]
+        );
+    }
+
     public function getDetail($purchaseOrderRefID)
     {
         $sessionToken = Session::get('SessionLogin');
