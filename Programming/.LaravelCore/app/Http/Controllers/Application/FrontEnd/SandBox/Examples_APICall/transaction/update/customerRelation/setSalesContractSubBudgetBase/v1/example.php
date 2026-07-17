@@ -58,6 +58,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "notes" => 'Catatan Kedua'
                                         ]
                                     ],
+                                    [
+                                    "recordID" => NULL,
+                                    "entities" => [
+                                        "combinedBudgetSection_RefID" => 143000000000031,
+                                        "value" => 13000,
+                                        "notes" => 'Catatan Ketiga'
+                                        ]
+                                    ],
                                 ]
                             ]
                         ]

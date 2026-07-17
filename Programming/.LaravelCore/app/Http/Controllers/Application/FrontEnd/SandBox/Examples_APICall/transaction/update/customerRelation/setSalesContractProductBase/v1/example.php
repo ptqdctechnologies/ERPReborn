@@ -62,6 +62,18 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "price" => 80000
                                         ]
                                     ],
+                                    [
+                                    "recordID" => NULL,
+                                    "entities" => [
+                                        "combinedBudgetSection_RefID" => 143000000000030,
+                                        "notes" => 'Catatan Ketiga',
+                                        "work_RefID" => 169000000000002,
+                                        "product_RefID" => 88000000000002,
+                                        "uom_RefID" => 73000000000001,
+                                        "quantity" => 15,
+                                        "price" => 20000
+                                        ]
+                                    ]
                                 ]
                             ]
                         ]
