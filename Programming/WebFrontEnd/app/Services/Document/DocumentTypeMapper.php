@@ -516,7 +516,7 @@ class DocumentTypeMapper
                     'value' => $dataDetail['paymentInstruction_RefID'] ?? '-',
                 ],
                 'transactionType' => 'ACCOUNT PAYABLE',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? ''
             ],
             'Person Business Trip Form' => [
                 'dataHeader' => [

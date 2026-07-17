@@ -11,7 +11,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
-                                <table class="table table-head-fixed" id="TableSearchPORevision">
+                                <table class="table table-head-fixed w-100" id="TableSearchPORevision">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -105,7 +105,32 @@
                         return '<span style="line-height: normal;">' + data.additionalData.combinedBudgetName + '</span>';
                     }
                 }
-            ]
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#TableSearchPORevision_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintPurchaseOrder').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintPurchaseOrder" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
+            }
         });
     }
 </script>

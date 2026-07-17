@@ -1096,15 +1096,27 @@
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
-        let trano = $(this).find('td:nth-child(2)').text();
-        let budgetCode = $(this).find('td:nth-child(3)').text();
-        let budgetName = $(this).find('td:nth-child(4)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_account_payable"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_account_payable"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(3)').text();
+        const budgetName = $(this).find('td:nth-child(4)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#modal_account_payable_id").val(sysId);
         $("#modal_account_payable_document_number").val(trano);
+        $("#modal_account_payable_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-        $('#myAccountPayables').modal('hide');
+        $("#myAccountPayables").modal('toggle');
+        $("#accountPayableRevisionModal").modal('toggle');
     });
 
     $('#depreciation_method').on('change', function (e) {
@@ -1124,6 +1136,11 @@
 
     $('#revision_account_payable').on('click', function (e) {
         getAccountPayable();
+    });
+
+    $('#modal_account_payable_document_number_icon').on('click', function () {
+        $("#myAccountPayables").modal('toggle');
+        $("#accountPayableRevisionModal").modal('toggle');
     });
 
     $(document).ready(function () {
