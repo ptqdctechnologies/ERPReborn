@@ -26,6 +26,7 @@
                 <div class="card">
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
                     <input type="hidden" name="CustomerOrderType" id="CustomerOrderType" value="<?= $header['type']; ?>">
+                    <input type="hidden" name="VatRatio" id="VatRatio" value="<?= $header['vatRatio']; ?>">
 
                     <!-- CUSTOMER ORDER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -113,7 +114,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManually')
+                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManuallyRevision')
                                 </div>
                             </div>
                         </div>

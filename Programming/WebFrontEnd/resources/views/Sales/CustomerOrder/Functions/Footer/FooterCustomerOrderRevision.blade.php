@@ -17,6 +17,7 @@
         approverEntityRefID: null,
         comment: null
     };
+    const vatRatio = document.getElementById('VatRatio');
     const budgetID = document.getElementById("budget_id");
     const customerOrderType = document.getElementById("CustomerOrderType");
     const currencyID = document.getElementById("currency_id");
@@ -55,7 +56,7 @@
 
         const tableTotalVAT = document.getElementById("ppn_percentage_option");
         const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
-        const resultGrandTotal = resultVAT + total;
+        const resultGrandTotal = tableTotalVAT.value == 'Select a VAT' ? total : resultVAT + total;
 
         $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
         $("#table_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
@@ -100,10 +101,15 @@
         coVat = params.value;
 
         if (params.value == "NO") {
+            coRatio = 0;
+
             $('#ppn_percentage_container').css('display', 'none');
+            $('#ppn_percentage_option').val('Select a VAT');
         } else {
             $('#ppn_percentage_container').css('display', 'flex');
         }
+
+        calculateTotal();
     }
 
     function addRow() {
@@ -745,8 +751,11 @@
                     $('#ppn_percentage_option').append('<option disabled selected value="Select a VAT">Select a VAT</option>');
 
                     data.forEach(function (project) {
-                        $('#ppn_percentage_option').append('<option value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
+                        let isSelected = parseFloat(project.tariffFixRate) == parseFloat(vatRatio.value) ? ' selected ' : ' ';
+                        $('#ppn_percentage_option').append('<option' + isSelected + 'value="' + project.tariffFixRate + '">' + project.tariffFixRate + '</option>');
                     });
+
+                    calculateTotal();
                 } else {
                     console.log('Data vat not found.');
                 }

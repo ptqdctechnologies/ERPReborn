@@ -164,6 +164,8 @@ class CustomerOrderController extends Controller
                     'currency_RefID' => $header['Currency_RefID'] ?? '',
                     'currencyCode' => $header['CurrencyISOCode'] ?? '',
                     'currencyName' => $header['CurrencyName'] ?? '',
+                    'vatStatus' => $header['VatStatus'] ?? '',
+                    'vatRatio' => $header['VatRatio'] ?? ''
                 ],
                 'details' => $details
             ];
