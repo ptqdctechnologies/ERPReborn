@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataList - Advance (version 1)'
+                        'Get Report Form - DataList - Chart Of Account (version 1)'
                         );
 
                 try {

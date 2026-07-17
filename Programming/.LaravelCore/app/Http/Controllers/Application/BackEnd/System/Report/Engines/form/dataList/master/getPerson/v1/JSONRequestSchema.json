@@ -60,12 +60,12 @@
                             "name": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 32
+                                "maxLength": 256
                                 },
-                            "countryName": {
+                            "citizenIdentityNumber": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 32
+                                "maxLength": 16
                                 }
                             },
                         "required": [

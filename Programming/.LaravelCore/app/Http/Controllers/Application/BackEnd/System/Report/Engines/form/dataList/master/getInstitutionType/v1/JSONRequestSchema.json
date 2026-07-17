@@ -60,7 +60,7 @@
                             "name": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 32
+                                "maxLength": 64
                                 },
                             "country_RefID": {
                                 "type": [ "integer", "null" ],

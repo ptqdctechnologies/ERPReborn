@@ -177,6 +177,19 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                         : null
                                                         )
                                                     : null
+                                            ),
+                                        //---► type_RefID
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'type_RefID',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['type_RefID']))
+                                                        ? $varData['parameter']['dataFilter']['type_RefID']
+                                                        : null
+                                                        )
+                                                    : null
                                             )
                                     //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
                                     ),

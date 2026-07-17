@@ -66,12 +66,7 @@
                             "name": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 256
-                                },
-                            "acronym": {
-                                "type": [ "string", "null" ],
-                                "minLength": 1,
-                                "maxLength": 16
+                                "maxLength": 64
                                 }
                             },
                         "required": [

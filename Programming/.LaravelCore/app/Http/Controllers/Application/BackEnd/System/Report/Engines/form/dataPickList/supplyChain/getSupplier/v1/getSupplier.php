@@ -106,26 +106,13 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                         //---► name
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'businessDocumentNumber',
+                                                'name',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
                                                     (!is_null($varData['parameter']['dataFilter']['name'])) 
                                                         ? $varData['parameter']['dataFilter']['name'] 
                                                         : null
                                                         ) 
-                                                    : null
-                                            ),
-                                        //---► citizenIdentityNumber
-                                            (
-                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'combinedBudgetSection',
-                                                $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['citizenIdentityNumber']))
-                                                        ? $varData['parameter']['dataFilter']['citizenIdentityNumber']
-                                                        : null
-                                                        )
                                                     : null
                                             )
                                     //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
