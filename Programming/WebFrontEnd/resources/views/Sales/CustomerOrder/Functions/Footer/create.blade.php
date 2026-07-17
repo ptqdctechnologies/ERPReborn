@@ -12,6 +12,9 @@
     let documentTypeID = document.getElementById("DocumentTypeID");
     let isImportFromExcel = false;
     let customerOrderDetailType = null;
+    let coType = null;
+    let coVat = null;
+    let coRatio = null;
     let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
@@ -61,6 +64,8 @@
     }
 
     function selectType(params) {
+        coType = params.value;
+
         if (params.value == "SUB_BUDGET_BASE") {
             $(".productField").hide();
             $(".subBudgetField").show();
@@ -73,6 +78,8 @@
     }
 
     function selectPercentageVAT(params) {
+        coRatio = params.value;
+
         if (customerOrderDetailType == "type_import_from_excel") {
             const tableTotal = document.getElementById("import_total");
             const resultVAT = (Utils.parseFloatSafe(params.value) / 100) * Utils.parseFloatSafe(Utils.removeCommas(tableTotal.textContent));
@@ -91,6 +98,8 @@
     }
 
     function selectVAT(params) {
+        coVat = params.value;
+
         if (customerOrderDetailType == "type_import_from_excel") {
             if (params.value == "NO") {
                 $('#ppn_percentage_import_container').css('display', 'none');
@@ -192,7 +201,7 @@
     }
 
     function calculateTotalLine(index) {
-        const qtyLine = document.getElementById(`qty${index}`);
+        const qtyLine = document.getElementById(`quantity${index}`);
         const priceLine = document.getElementById(`price${index}`);
         const result = Utils.parseFloatSafe(Utils.removeCommas(qtyLine.value)) * Utils.parseFloatSafe(Utils.removeCommas(priceLine.value));
 
@@ -330,7 +339,7 @@
                     work_name: "",
                     uom_RefID: "",
                     uom_name: "",
-                    qty: "",
+                    quantity: "",
                     price: "",
                     total: "",
                     notes: "",
@@ -499,7 +508,7 @@
                         </div>
                     </td>
                     <td>
-                        <input type="text" id="qty${index}" class="form-control form-control number-without-negative" value="${row.entities.qty ? Utils.formatCurrency(row.entities.qty) : row.entities.qty}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'qty', parseFloat(this.value.replace(/,/g, '')))">
+                        <input type="text" id="quantity${index}" class="form-control form-control number-without-negative" value="${row.entities.quantity ? Utils.formatCurrency(row.entities.quantity) : row.entities.quantity}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'quantity', parseFloat(this.value.replace(/,/g, '')))">
                     </td>
                     <td>
                         <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
@@ -578,6 +587,9 @@
                 // approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
+                    coVat: coVat,
+                    coRatio: coRatio,
+                    coType: coType,
                     combinedBudgetRefID: budgetID.value,
                     currencyRefID: currencyID.value,
                     logFileUploadPointerRefID: fileID.value,
@@ -1024,7 +1036,7 @@
                                 work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
                                 uom_RefID: validateUom ? validateUom.sys_ID : '',
                                 uom_name: validateUom ? validateUom.name : row[7],
-                                qty: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
+                                quantity: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
                                 price: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
                                 total: row[10] > 0 ? Utils.parseFloatSafe(row[10]) : Utils.parseFloatSafe(0),
                                 notes: row[11] ? row[11] : ''

@@ -71,6 +71,8 @@ class CustomerOrderController extends Controller
 
     public function store(Request $request)
     {
+        // return response()->json($request->all());
+
         try {
             $response = $this->customerOrderService->create($request);
 
@@ -155,6 +157,7 @@ class CustomerOrderController extends Controller
                 'documentType_RefID' => $documentTypeRefID,
                 'customerOrder_RefID' => $header['CustomerOrder_RefID'] ?? '',
                 'header' => [
+                    'type' => $header['Type'] ?? '',
                     'combinedBudget_RefID' => $header['CombinedBudget_RefID'] ?? '',
                     'combinedBudgetCode' => $header['CombinedBudgetCode'] ?? '',
                     'combinedBudgetName' => $header['CombinedBudgetName'] ?? '',
