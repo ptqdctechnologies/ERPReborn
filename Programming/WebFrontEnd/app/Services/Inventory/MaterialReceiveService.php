@@ -74,18 +74,17 @@ class MaterialReceiveService
         );
     }
 
-    public function dataPickList()
+    public function dataPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'dataPickList.supplyChain.getWarehouseInboundOrder',
+            'report.form.dataPickList.supplyChain.getWarehouseInboundOrder',
             'latest',
             [
-                'parameter' => [
-                ]
+                'parameter' => $formatted
             ]
         );
     }

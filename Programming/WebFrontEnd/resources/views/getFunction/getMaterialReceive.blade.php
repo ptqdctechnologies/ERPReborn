@@ -1,18 +1,22 @@
-<!-- GET MATERIAL RECEIVE -->
-<div id="myGetModalMaterialReceive" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
-    aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal fade" id="myGetModalMaterialReceive" tabindex="-1" aria-labelledby="myGetModalMaterialReceiveLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-bold">Choose Material Receive</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="myGetModalMaterialReceiveLabel"
+                    style="font-size: 15px; font-weight:bold; text-align: center;">
+                    Choose Material Receive Number
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body p-0">
-                                <table class="table w-100" id="tableGetModalMaterialReceive">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-head-fixed w-100" id="tableGetModalMaterialReceive">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -49,55 +53,91 @@
 
 <script>
     function getModalMaterialReceive() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        let table = $('#tableGetModalMaterialReceive').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("MaterialReceive.picklist") !!}',
+                type: 'GET',
+                data: function (d) {
+                    // d.combinedBudgetCode = combinedBudgetCode;
+                    // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#tableGetModalMaterialReceive tbody').empty();
+                    $("#loadingGetModalMaterialReceive").show();
+                },
+                complete: function () {
+                    $("#loadingGetModalMaterialReceive").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#loadingGetModalMaterialReceive").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_modal_material_receive' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_material_receive" type="hidden">' +
+                            '<input id="workflow_status_material_receive' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_material_receive" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetName
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#tableGetModalMaterialReceive_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintMaterialReceive').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintMaterialReceive" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
-
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("MaterialReceive.MaterialReceiveList") !!}',
-        })
-            .done(function (response) {
-                const data = (response.status == 200 && response.data[0]) ? response.data : [];
-
-                $('#tableGetModalMaterialReceive').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_modal_material_receive' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_material_receive" type="hidden">' + (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'documentNumber',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'combinedBudgetCode',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'combinedBudgetName',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingGetModalMaterialReceive").hide();
-            });
     }
 </script>

@@ -1,33 +1,34 @@
 @extends('Partials.app')
 @section('main')
-@include('Partials.navbar')
-@include('Partials.sidebar')
-@include('getFunction.getBusinessTripRequest')
+    @include('Partials.navbar')
+    @include('Partials.sidebar')
+    @include('getFunction.getBusinessTripRequests')
 
-<div class="content-wrapper">
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row mb-1" style="background-color:#4B586A;">
-                <div class="col-sm-6" style="height:30px;">
-                    <label style="font-size:15px;position:relative;top:7px;color:white;">Loan Settlement Report Detail</label>
+    <div class="content-wrapper">
+        <section class="content">
+            <div class="container-fluid">
+                <div class="row mb-1" style="background-color:#4B586A;">
+                    <div class="col-sm-6" style="height:30px;">
+                        <label style="font-size:15px;position:relative;top:7px;color:white;">Loan Settlement Report
+                            Detail</label>
+                    </div>
                 </div>
-            </div>
-            <div class="card">
-                <div class="tab-content p-3" id="nav-tabContent">
-                    <!-- FORM -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row p-1" style="row-gap: 1rem;">
-                                        @include('Process.LoanSettlement.Functions.Header.HeaderReportLoanSettlementDetail')
+                <div class="card">
+                    <div class="tab-content p-3" id="nav-tabContent">
+                        <!-- FORM -->
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="row p-1" style="row-gap: 1rem;">
+                                            @include('Process.LoanSettlement.Functions.Header.HeaderReportLoanSettlementDetail')
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <?php if ($dataReport) { ?>
+                        <?php if ($dataReport) { ?>
                         <!-- HEADER ONE -->
                         <div class="row">
                             <div class="col-12">
@@ -59,7 +60,8 @@
                                                         Description
                                                     </div>
                                                     <div class="col-sm-8 col-md-9 p-0">
-                                                        : <?= $dataReport['dataHeaderOne']['productID']; ?> (<?= $dataReport['dataHeaderOne']['productName']; ?>)
+                                                        : <?= $dataReport['dataHeaderOne']['productID']; ?>
+                                                        (<?= $dataReport['dataHeaderOne']['productName']; ?>)
                                                     </div>
                                                 </div>
                                             </div>
@@ -106,7 +108,9 @@
                                                         Bank Account
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : (<?= $dataReport['dataHeaderOne']['bankType']; ?>) <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> - <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
+                                                        : (<?= $dataReport['dataHeaderOne']['bankType']; ?>)
+                                                        <?= $dataReport['dataHeaderOne']['bankAccountNumber']; ?> -
+                                                        <?= $dataReport['dataHeaderOne']['bankAccountName']; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -163,14 +167,16 @@
                                             File Attachment
                                         </div>
                                         <div class="row p-1 pt-2">
-                                            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
-                                            <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                $varAPIWebToken,
-                                                'dataInput_Log_FileUpload_1',
-                                                null,
-                                                'dataInput_Return'
-                                                ).
-                                            ''; ?>
+                                            <input type="text" id="dataInput_Log_FileUpload_1"
+                                                name="dataInput_Log_FileUpload_1" style="display:none">
+                                            <?php    echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'dataInput_Log_FileUpload_1',
+            null,
+            'dataInput_Return'
+        ) .
+            ''; ?>
                                         </div>
                                     </div>
                                 </div>
@@ -190,7 +196,8 @@
                                                         Total Allowance
                                                     </div>
                                                     <div class="col-sm-8 col-md-8 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalAllowance'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalAllowance'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
 
@@ -200,7 +207,8 @@
                                                         Total Transport
                                                     </div>
                                                     <div class="col-sm-8 col-md-8 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalTransport'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -211,7 +219,8 @@
                                                         Total Entertainment
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalEntertainment'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalEntertainment'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
 
@@ -221,7 +230,8 @@
                                                         Total Accommodation
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalAccommodation'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -232,7 +242,8 @@
                                                         Total Other
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalOther'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalOther'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
 
@@ -242,7 +253,8 @@
                                                         Total Business Trip
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -250,7 +262,8 @@
                                         <div class="d-sm-none d-md-block" style="margin-top: 1rem;">
                                             <hr class="m-0" />
                                         </div>
-                                        <div class="d-sm-none d-md-flex row p-1" style="line-height: 14px; row-gap: 1rem; margin-top: 1rem;">
+                                        <div class="d-sm-none d-md-flex row p-1"
+                                            style="line-height: 14px; row-gap: 1rem; margin-top: 1rem;">
                                             <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
                                             <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
                                             <!-- TOTAL BUSINESS TRIP -->
@@ -260,7 +273,8 @@
                                                         Total Business Trip
                                                     </div>
                                                     <div class="col-sm-8 col-md-6 p-0">
-                                                        : <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
+                                                        :
+                                                        <?= number_format($dataReport['dataHeaderTwo']['totalBusinessTrip'], 2, '.', ','); ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -286,13 +300,15 @@
                                 </div>
                             </div>
                         </div>
-                    <?php }; Session::forget("isButtonReportLoanDetailSubmit"); ?>
+                        <?php }
+    ;
+    Session::forget("isButtonReportLoanDetailSubmit"); ?>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-@include('Partials.footer')
-@include('Process.LoanSettlement.Functions.Footer.FooterReportLoanSettlementDetail')
+    @include('Partials.footer')
+    @include('Process.LoanSettlement.Functions.Footer.FooterReportLoanSettlementDetail')
 @endsection

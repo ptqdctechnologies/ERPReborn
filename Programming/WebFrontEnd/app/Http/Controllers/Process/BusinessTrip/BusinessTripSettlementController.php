@@ -59,27 +59,56 @@ class BusinessTripSettlementController extends Controller
         }
     }
 
-    public function getBusinessTripSettlementList(Request $request)
+    public function picklist(Request $request)
     {
-        try {
-            $response = $this->businessTripSettlementService->dataPickList();
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
 
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
+        $searchValue = $request->input('search.value');
 
-            return response()->json($response['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getBusinessTripList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'WHIn/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ]
+        ];
+
+        $response = $this->businessTripSettlementService->dataPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
+
+        $businessTripSettlementData = $response['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $businessTripSettlementData['header']['dataCount'],
+            'recordsFiltered' => $businessTripSettlementData['header']['dataCount'],
+            'data' => $businessTripSettlementData['content']['itemList']
+        ]);
     }
 
     public function RevisionBusinessTripSettlementIndex(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $businessTripSettlement_RefID = $request->input('bsf_number_id');
+            $businessTripSettlement_RefID = $request->input('modal_business_trip_settlement_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Settlement Revision Form');
 
             $response = $this->businessTripSettlementService->getDetail($businessTripSettlement_RefID);

@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
-use Exception;
 
 class AccountPayableService
 {
@@ -61,22 +60,6 @@ class AccountPayableService
             false
         );
     }
-
-    // public function dataPickList() 
-    // {
-    //     $sessionToken = Session::get('SessionLogin');
-
-    //     return Helper_APICall::setCallAPIGateway(
-    //         Helper_Environment::getUserSessionID_System(),
-    //         $sessionToken,
-    //         'dataPickList.finance.getPaymentInstruction',
-    //         'latest',
-    //         [
-    //             'parameter' => []
-    //         ],
-    //         false
-    //     );
-    // }
 
     public function dataPickList($formatted)
     {

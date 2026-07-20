@@ -1,6 +1,6 @@
 <!-- GET PURCHASE ORDER -->
 <div id="mySearchPO" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title text-bold">Choose Purchase Order Number</h4>
@@ -48,7 +48,7 @@
 
 <script>
     function getModalPurchaseOrder() {
-        $('#TableSearchPORevision').DataTable({
+        let table = $('#TableSearchPORevision').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
@@ -58,7 +58,7 @@
             lengthChange: true,
             pageLength: 10,
             ajax: {
-                url: '{!! route("getPurchaseOrderList") !!}',
+                url: '{!! route("PurchaseOrder.picklist") !!}',
                 type: 'GET',
                 data: function (d) {
                     return d;
@@ -79,7 +79,9 @@
                     data: null,
                     className: "align-middle",
                     render: function (data, type, row, meta) {
-                        return `<input id="sys_id_po${meta.row + 1}" value="${data.sys_ID}" data-trigger="sys_id_po" type="hidden" value="${data.sys_ID}"> ${meta.row + meta.settings._iDisplayStart + 1}`;
+                        return '<input id="sys_id_po' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_po" type="hidden">' +
+                            '<input id="workflow_status_purchase_order' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_purchase_order" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
                     }
                 },
                 {
@@ -88,16 +90,47 @@
                     className: "align-middle text-nowrap"
                 },
                 {
-                    data: 'combinedBudgetCode',
+                    data: null,
                     defaultContent: '-',
-                    className: "align-middle text-nowrap"
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetCode
+                    }
                 },
                 {
-                    data: 'combinedBudgetName',
+                    data: null,
                     defaultContent: '-',
-                    className: "align-middle text-nowrap"
+                    className: "align-middle text-wrap",
+                    render: function (data) {
+                        return '<span style="line-height: normal;">' + data.additionalData.combinedBudgetName + '</span>';
+                    }
                 }
-            ]
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#TableSearchPORevision_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintPurchaseOrder').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintPurchaseOrder" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
+            }
         });
     }
 </script>

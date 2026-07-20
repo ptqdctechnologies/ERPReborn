@@ -516,7 +516,7 @@ class DocumentTypeMapper
                     'value' => $dataDetail['paymentInstruction_RefID'] ?? '-',
                 ],
                 'transactionType' => 'ACCOUNT PAYABLE',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? ''
             ],
             'Person Business Trip Form' => [
                 'dataHeader' => [
@@ -563,11 +563,11 @@ class DocumentTypeMapper
                 ],
                 'resubmit' => [
                     'url' => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
-                    'name' => 'brf_number_id',
+                    'name' => 'modal_business_trip_id',
                     'value' => $dataDetail['personBusinessTrip_RefID'] ?? '-',
                 ],
                 'transactionType' => 'BUSINESS TRIP',
-                'businessDocument_RefID' => $dataDetail['businessDocument_RefID'] ?? '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Person Business Trip Settlement Form' => [
                 'dataHeader' => [

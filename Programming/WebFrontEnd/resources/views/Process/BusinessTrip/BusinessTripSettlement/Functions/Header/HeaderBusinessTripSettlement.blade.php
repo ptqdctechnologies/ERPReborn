@@ -6,8 +6,8 @@
         <div class="col-5 d-flex">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myBusinessTripRequestTrigger" data-toggle="modal"
-                data-target="#myBusinessTripRequest">
+              <a href="javascript:;" id="businessTripRequestListModalTrigger" data-toggle="modal"
+                data-target="#businessTripRequestListModal">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myBusinessTripRequest">
               </a>
 

@@ -892,21 +892,26 @@
     });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
-        const table = $('#TableSearchPORevision').DataTable();
-        const data = table.row(this).data();
+        const sysId = $(this).find('input[data-trigger="sys_id_po"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_purchase_order"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
 
-        if (data) {
-            $("#myPopUpPORevision").modal('toggle');
-            $("#mySearchPO").modal('toggle');
-
-            const purchaseOrder_RefID = data.sys_ID;
-            const code = data.sys_Text;
-
-            $('#purchaseOrder_RefID').val(purchaseOrder_RefID);
-            $('#purchaseOrder_number').val(code);
-            $("#purchaseOrder_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
-            $("#purchaseOrder_number_icon").css("border", "1px solid #ced4da");
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
         }
+
+        $('#purchaseOrder_RefID').val(sysId);
+        $('#purchaseOrder_number').val(trano);
+        $("#purchaseOrder_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        $("#purchaseOrder_number_icon").css("border", "1px solid #ced4da");
+
+        $("#myPopUpPORevision").modal('toggle');
+        $("#mySearchPO").modal('toggle');
     });
 
     $('#purchaseOrder_number_icon').on('click', function () {

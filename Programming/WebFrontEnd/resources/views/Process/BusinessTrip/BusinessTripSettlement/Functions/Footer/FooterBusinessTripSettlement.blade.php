@@ -266,12 +266,12 @@
 
                 ErrorHandler.hideErrorInputMessage("#brf_number", "#businessTripNumberMessage");
 
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             },
             error: function (textStatus, errorThrown) {
                 console.log('error', textStatus, errorThrown);
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             }
         });
@@ -292,46 +292,55 @@
                     Swal.fire("Error", "You don't have a access", "error");
 
                     $("#loadingBudget").hide();
-                    $("#myBusinessTripRequestTrigger").show();
+                    $("#businessTripRequestListModalTrigger").show();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             }
         });
     }
 
-    $('#table_brf').on('click', 'tbody tr', async function () {
+    $('#businessTripRequestListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
         const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
-        $("#myBusinessTripRequestTrigger").hide();
+        $("#businessTripRequestListModalTrigger").hide();
         $("#loadingBudget").show();
 
         getWorkflow(sysBudgetId, sysId, sysText);
 
-        $("#myBusinessTripRequest").modal('toggle');
+        $("#businessTripRequestListModal").modal('toggle');
     });
 
-    $('#table_bsf').on('click', 'tbody tr', async function () {
+    $('#businessTripSettlementListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_bsf"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
-        $("#bsf_number_id").val(sysId);
-        $("#bsf_number_trano").val(sysText);
-        $("#bsf_number_trano").css({ "display": "block", "background-color": "#e9ecef" });
+        $("#modal_business_trip_settlement_id").val(sysId);
+        $("#modal_business_trip_settlement_document_number").val(sysText);
+        $("#modal_business_trip_settlement_document_number").css({ "display": "block", "background-color": "#e9ecef" });
 
-        $("#myBusinessTripSettlement").modal('toggle');
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
+    });
+
+    $('#revision_business_trip_settlement').on('click', function (e) {
+        getBusinessTripSettlementList();
+    });
+
+    $('#modal_business_trip_settlement_document_number_icon').on('click', function () {
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
     });
 
     $(document).ready(function () {
-        getBusinessTripSettlement();
-        getBusinessTripRequest();
+        getBusinessTripRequestList();
         getBusinessTripCostComponentEntityNew();
     });
 </script>

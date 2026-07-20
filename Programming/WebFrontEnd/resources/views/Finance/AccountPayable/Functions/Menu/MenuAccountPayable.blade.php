@@ -24,7 +24,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_account_payable" href="javascript:;" class="nav-link"
-                                        data-toggle="modal" data-target="#myPopUpAccountPayableRevision"
+                                        data-toggle="modal" data-target="#accountPayableRevisionModal"
                                         style="color:white;padding-bottom:10px;cursor:pointer;">
                                         <i class="far fa-file nav-icon-sm"> Revision Account Payable</i>
                                     </a>

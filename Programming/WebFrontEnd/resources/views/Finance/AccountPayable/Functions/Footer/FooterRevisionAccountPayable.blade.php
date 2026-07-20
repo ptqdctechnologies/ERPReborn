@@ -835,7 +835,7 @@
 
     function submitForm(value) {
         triggerButtonModal = value;
-        $('#account_payable_submit_modal').modal('hide');
+        $('#account_payable_submit_modal').modal('toggle');
 
         $('#account_payable_submit_modal').on('hidden.bs.modal', function (e) {
             if (triggerButtonModal === "SUBMIT") {
@@ -958,7 +958,7 @@
         $(`#category_number`).val(`${code} - ${name}`);
         $(`#category_number`).css('background-color', '#e9ecef');
 
-        $('#myGetCategory').modal('hide');
+        $('#myGetCategory').modal('toggle');
 
         if (depreciationMethod.value != "Select a Method") {
             $("#containerDepreciationRate").hide();
@@ -975,7 +975,7 @@
         $(`#payment_transfer_number`).val(`${bankAccount} - (${bankCode}) ${accountNumber}`);
         $(`#payment_transfer_number`).css('background-color', '#e9ecef');
 
-        $('#myGetPaymentTransfer').modal('hide');
+        $('#myGetPaymentTransfer').modal('toggle');
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', async function () {
@@ -995,7 +995,7 @@
             currentIndexPickCOA = null;
         }
 
-        $('#myGetChartOfAccount').modal('hide');
+        $('#myGetChartOfAccount').modal('toggle');
     });
 
     $(`#budget_details_deduction`).on('keyup', function (e) {
@@ -1013,15 +1013,27 @@
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
-        let trano = $(this).find('td:nth-child(2)').text();
-        let budgetCode = $(this).find('td:nth-child(3)').text();
-        let budgetName = $(this).find('td:nth-child(4)').text();
+        const sysId = $(this).find('input[data-trigger="sys_id_account_payable"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_account_payable"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(3)').text();
+        const budgetName = $(this).find('td:nth-child(4)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#modal_account_payable_id").val(sysId);
         $("#modal_account_payable_document_number").val(trano);
+        $("#modal_account_payable_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-        $('#myAccountPayables').modal('hide');
+        $("#myAccountPayables").modal('toggle');
+        $("#accountPayableRevisionModal").modal('toggle');
     });
 
     $('#depreciation_method').on('change', function (e) {
@@ -1037,6 +1049,15 @@
             $("#depreciation_method_message").hide();
             $("#depreciation_method").css("border", "1px solid #ced4da");
         }
+    });
+
+    $('#modal_account_payable_document_number_icon').on('click', function () {
+        $("#myAccountPayables").modal('toggle');
+        $("#accountPayableRevisionModal").modal('toggle');
+    });
+
+    $('#revision_account_payable').on('click', function (e) {
+        getAccountPayable();
     });
 
     $(document).ready(function () {

@@ -227,7 +227,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getPaymentTerm', 'Function\FunctionController@getPaymentTerm')->name('getPaymentTerm');
     Route::get('getVAT', 'Function\FunctionController@getVAT')->name('getVAT');
     Route::get('getTimesheetList', 'Function\FunctionController@getTimesheetList')->name('getTimesheetList');
-    Route::get('getPurchaseOrderList', 'Function\FunctionController@getPurchaseOrderList')->name('getPurchaseOrderList');
     Route::get('getPurchaseOrderDetail', 'Function\FunctionController@getPurchaseOrderDetail')->name('getPurchaseOrderDetail');
     Route::get('getBusinessTripCostComponentEntityNew', 'Function\FunctionController@getBusinessTripCostComponentEntityNew')->name('getBusinessTripCostComponentEntityNew');
     Route::get('getPerson', 'Function\FunctionController@getPerson')->name('getPerson');
@@ -243,7 +242,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::post('getDepartment', 'Function\FunctionController@getDepartment')->name('getDepartment');
-    Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
     Route::post('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
@@ -321,7 +319,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AdvanceSettlement', 'Process\Advance\AdvanceSettlementController')->only(['index', 'store']);
 
     // BUSINESS TRIP SETTLEMENT
-    Route::get('GetBusinessTripSettlementList', 'Process\BusinessTrip\BusinessTripSettlementController@getBusinessTripSettlementList')->name('BusinessTripSettlement.GetBusinessTripSettlementList');
+    Route::get('BusinessTripSettlement/picklist', 'Process\BusinessTrip\BusinessTripSettlementController@picklist')->name('BusinessTripSettlement.picklist');
     Route::post('RevisionBusinessTripSettlementIndex', 'Process\BusinessTrip\BusinessTripSettlementController@RevisionBusinessTripSettlementIndex')->name('BusinessTripSettlement.RevisionBusinessTripSettlementIndex');
     Route::get('ReportBusinessTripSettlementSummary', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummary')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummary');
     Route::post('ReportBusinessTripSettlementSummaryStore', 'Process\BusinessTrip\BusinessTripSettlementController@ReportBusinessTripSettlementSummaryStore')->name('BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore');
@@ -332,10 +330,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController');
 
     // BUSINESS TRIP REQUEST
+    Route::get('BusinessTripRequest/picklist', 'Process\BusinessTrip\BusinessTripRequestController@picklist')->name('BusinessTripRequest.picklist');
     Route::post('DetailBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@detail')->name('BusinessTripRequest.Detail');
     Route::post('UpdatesBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@UpdatesBusinessTripRequest')->name('BusinessTripRequest.UpdatesBusinessTripRequest');
     Route::post('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequestIndex');
-    Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
     Route::post('ReportBusinessTripToBSFStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSFStore')->name('BusinessTripRequest.ReportBusinessTripToBSFStore');
     Route::post('PrintExportReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripToBSF')->name('BusinessTripRequest.PrintExportReportBusinessTripToBSF');
@@ -396,6 +394,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PurchaseRequisition', 'Purchase\PurchaseRequisitionController')->only(['index', 'store']);
 
     // PURCHASE ORDER
+    Route::get('PurchaseOrder/picklist', 'Purchase\PurchaseOrderController@picklist')->name('PurchaseOrder.picklist');
     Route::post('UpdatePurchaseOrder', 'Purchase\PurchaseOrderController@UpdatePurchaseOrder')->name('PurchaseOrder.UpdatePurchaseOrder');
     Route::post('RevisionPurchaseOrder', 'Purchase\PurchaseOrderController@RevisionPurchaseOrderIndex')->name('PurchaseOrder.RevisionPurchaseOrder');
     Route::get('ReportPurchaseOrderSummary', 'Purchase\PurchaseOrderController@ReportPurchaseOrderSummary')->name('PurchaseOrder.ReportPurchaseOrderSummary');
@@ -535,7 +534,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // MATERIAL RECEIVE
     Route::post('MaterialReceiveDetail', 'Inventory\MaterialReceiveController@MaterialReceiveDetail')->name('MaterialReceive.Detail');
     Route::post('RevisionMaterialReceiveIndex', 'Inventory\MaterialReceiveController@RevisionMaterialReceiveIndex')->name('MaterialReceive.RevisionMaterialReceiveIndex');
-    Route::post('MaterialReceiveList', 'Inventory\MaterialReceiveController@MaterialReceiveList')->name('MaterialReceive.MaterialReceiveList');
+    Route::get('MaterialReceive/picklist', 'Inventory\MaterialReceiveController@picklist')->name('MaterialReceive.picklist');
     Route::post('SearchDteliveryOrder', 'Inventory\MaterialReceiveController@SearchDeliveryOrder')->name('MaterialReceive.SearchDeliveryOrder');
     Route::post('UpdateMaterialReceive', 'Inventory\MaterialReceiveController@UpdateMaterialReceive')->name('MaterialReceive.UpdateMaterialReceive');
     Route::get('ReportMaterialReceiveSummary', 'Inventory\MaterialReceiveController@ReportMaterialReceiveSummary')->name('MaterialReceive.ReportMaterialReceiveSummary');

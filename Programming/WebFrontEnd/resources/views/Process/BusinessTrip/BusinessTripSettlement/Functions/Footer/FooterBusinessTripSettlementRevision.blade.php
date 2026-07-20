@@ -257,8 +257,29 @@
         console.log('dataStore', dataStore);
     }
 
+    $('#businessTripSettlementListTable').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_bsf"]').val();
+        const sysText = $(this).find('td:nth-child(2)').text();
+
+        $("#modal_business_trip_settlement_id").val(sysId);
+        $("#modal_business_trip_settlement_document_number").val(sysText);
+        $("#modal_business_trip_settlement_document_number").css({ "display": "block", "background-color": "#e9ecef" });
+
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
+    });
+
+    $('#revision_business_trip_settlement').on('click', function (e) {
+        getBusinessTripSettlementList();
+    });
+
+    $('#modal_business_trip_settlement_document_number_icon').on('click', function () {
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
+    });
+
     $(document).ready(function () {
-        // getBusinessTripSettlement();
+        // getBusinessTripSettlementList();
         getBusinessTripCostComponentEntityNew();
     });
 </script>

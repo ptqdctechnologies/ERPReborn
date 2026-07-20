@@ -167,7 +167,6 @@
             $(".thead-stock-movement").css("display", "none");
 
             getModalPurchaseOrder();
-            // getReferenceNumber(source);
         } else if (source.value == "1") {
             $(".purchase-order-components").css("display", "none");
             $(".internal-use-components").css("display", "flex");
