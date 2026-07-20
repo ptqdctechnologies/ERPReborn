@@ -68,7 +68,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
                             $varData['parameter']['CombinedBudgetSectionCode'],
-                            $varData['parameter']['Supplier_RefID']
+                            $varData['parameter']['Supplier_RefID'],
+
+	                        $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
