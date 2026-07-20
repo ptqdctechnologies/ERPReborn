@@ -643,7 +643,7 @@
         $('#myCustomers').modal('toggle');
     });
 
-    $('#tableGetModalReimbursement').on('click', 'tbody tr', function () {
+    $('#reimbursementListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 

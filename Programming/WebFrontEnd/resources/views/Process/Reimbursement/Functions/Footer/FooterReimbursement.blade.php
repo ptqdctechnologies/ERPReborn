@@ -651,7 +651,7 @@
         $('#myBanksAccount').modal('hide');
     });
 
-    $('#tableGetModalReimbursement').on('click', 'tbody tr', function () {
+    $('#reimbursementListTable').on('click', 'tbody tr', function () {
         var sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
         var trano = $(this).find('td:nth-child(2)').text();
 

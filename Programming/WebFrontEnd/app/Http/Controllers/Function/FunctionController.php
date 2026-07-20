@@ -1092,34 +1092,6 @@ class FunctionController extends Controller
         }
     }
 
-    public function getReimbursementList(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.finance.getReimbursement',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getReimbursementList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function getPerson(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
