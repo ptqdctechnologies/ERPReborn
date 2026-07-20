@@ -72,102 +72,120 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DataList_CreditNote_LatestVersion(
-                                    $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                                    //--------------------------------------------------
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'pageSize',
-                                        $varData['parameter']['pagination']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['pagination']['pageSize'])) 
-                                                ? $varData['parameter']['pagination']['pageSize'] 
-                                                : null
-                                                ) 
-                                            : null
-                                    ),
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'pageShow',
-                                        $varData['parameter']['pagination']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['pagination']['pageShow'])) 
-                                                ? $varData['parameter']['pagination']['pageShow'] 
-                                                : null
-                                                ) 
-                                            : null
-                                    ),
-                                    //--------------------------------------------------
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'businessDocumentNumber',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['businessDocumentNumber'])) 
-                                                ? $varData['parameter']['dataFilter']['businessDocumentNumber'] 
-                                                : null
-                                                ) 
-                                            : null
-                                    ),
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'documentDateStart',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['documentDateStart'])) 
-                                                ? $varData['parameter']['dataFilter']['documentDateStart'] 
-                                                : null
-                                                ) 
-                                            : null
-                                    ),
-                                    (
-                                    \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'documentDateFinish',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['documentDateFinish']))
-                                                ? $varData['parameter']['dataFilter']['documentDateFinish']
-                                                : null
+                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userSession
+                                            $varUserSession,
+                                        //---► branchID
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
                                                 )
-                                            : null
-                                    ),
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'requesterName',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['requesterName'])) 
-                                                ? $varData['parameter']['dataFilter']['requesterName'] 
-                                                : null
-                                                ) 
-                                            : null
-                                    ),
-                                    (
-                                    \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'combinedBudget',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['combinedBudget']))
-                                                ? $varData['parameter']['dataFilter']['combinedBudget']
-                                                : null
-                                                )
-                                            : null
-                                    ),
-                                    (
-                                    \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                        $varUserSession,
-                                        'combinedBudgetSection',
-                                        $varData['parameter']['dataFilter']
-                                        ) ? (
-                                            (!is_null($varData['parameter']['dataFilter']['combinedBudgetSection']))
-                                                ? $varData['parameter']['dataFilter']['combinedBudgetSection']
-                                                : null
-                                                )
-                                            : null
-                                    )
+                                            )['branchID'],
+                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
+                                    //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
+                                        //---► pageSize----------------------------------------
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'pageSize',
+                                                $varData['parameter']['pagination']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['pagination']['pageSize'])) 
+                                                        ? $varData['parameter']['pagination']['pageSize'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► pageShow
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'pageShow',
+                                                $varData['parameter']['pagination']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['pagination']['pageShow'])) 
+                                                        ? $varData['parameter']['pagination']['pageShow'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                    //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
+
+                                    //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► businessDocumentNumber
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'businessDocumentNumber',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['businessDocumentNumber'])) 
+                                                        ? $varData['parameter']['dataFilter']['businessDocumentNumber'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► documentDateStart
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'documentDateStart',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['documentDateStart'])) 
+                                                        ? $varData['parameter']['dataFilter']['documentDateStart'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► documentDateFinish
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'documentDateFinish',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['documentDateFinish']))
+                                                        ? $varData['parameter']['dataFilter']['documentDateFinish']
+                                                        : null
+                                                        )
+                                                    : null
+                                            ),
+                                        //---► requesterName
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'requesterName',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['requesterName'])) 
+                                                        ? $varData['parameter']['dataFilter']['requesterName'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► combinedBudget
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'combinedBudget',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['combinedBudget']))
+                                                        ? $varData['parameter']['dataFilter']['combinedBudget']
+                                                        : null
+                                                        )
+                                                    : null
+                                            ),
+                                        //---► combinedBudgetSection
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'combinedBudgetSection',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['combinedBudgetSection']))
+                                                        ? $varData['parameter']['dataFilter']['combinedBudgetSection']
+                                                        : null
+                                                        )
+                                                    : null
+                                            )
+                                    //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
                                     ),
                                 FALSE
                                 )

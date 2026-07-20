@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataPickList - Bank (version 1)'
+                        'Get Report Form - DataPickList - Chart Of Account (version 1)'
                         );
 
                 try {
@@ -72,10 +72,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_DataPickList_ChartOfAccount(
-                                    $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-
-                                    $varData['parameter']['effectiveDate'],
+                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userSession
+                                            $varUserSession,
+                                        //---► branchID
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
+                                                )
+                                            )['branchID'],
+                                        //---► effectiveDate
+                                            $varData['parameter']['effectiveDate'],
+                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
                                         //---► pageSize
@@ -108,7 +115,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                         //---► name
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'businessDocumentNumber',
+                                                'name',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
                                                     (!is_null($varData['parameter']['dataFilter']['name'])) 
