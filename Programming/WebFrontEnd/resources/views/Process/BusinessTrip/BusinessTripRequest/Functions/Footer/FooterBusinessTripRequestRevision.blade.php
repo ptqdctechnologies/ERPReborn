@@ -1063,6 +1063,38 @@
   });
   // ========== TO OTHER ==========
 
+  $('#businessTripRequestListTable').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
+    const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
+    const status = $(this).find('input[data-trigger="workflow_status_business_trip"]').val();
+    const trano = $(this).find('td:nth-child(2)').text();
+
+    if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+      Swal.fire(
+        CONFIG.MESSAGE.revision.title,
+        CONFIG.MESSAGE.revision.description,
+        "error"
+      );
+      return;
+    }
+
+    $("#modal_business_trip_id").val(sysId);
+    $("#modal_business_trip_document_number").val(trano);
+    $("#modal_business_trip_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+    $('#businessTripRequestListModal').modal('toggle');
+    $('#businessTripRevisionModal').modal('toggle');
+  });
+
+  $('#revision_business_trip').on('click', function (e) {
+    getBusinessTripRequestList();
+  });
+
+  $('#modal_business_trip_document_number_icon').on('click', function () {
+    $('#businessTripRequestListModal').modal('toggle');
+    $('#businessTripRevisionModal').modal('toggle');
+  });
+
   $(document).on('input', '.number-without-negative', function () {
     allowNumbersWithoutNegative(this);
   });
