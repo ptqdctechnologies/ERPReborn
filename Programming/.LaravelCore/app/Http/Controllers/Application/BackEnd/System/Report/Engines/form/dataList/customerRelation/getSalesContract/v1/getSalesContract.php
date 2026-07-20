@@ -72,8 +72,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_CustomerRelation\General())->getReport_Form_DataList_SalesContract_LatestVersion(
-                                    $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userSession
+                                            $varUserSession,
+                                        //---► branchID
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
+                                                )
+                                            )['branchID'],
+                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
                                         //---► pageSize
@@ -128,8 +135,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                     : null
                                             ),
                                         //---► documentDateFinish
-                                            (
-                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'documentDateFinish',
                                                 $varData['parameter']['dataFilter']

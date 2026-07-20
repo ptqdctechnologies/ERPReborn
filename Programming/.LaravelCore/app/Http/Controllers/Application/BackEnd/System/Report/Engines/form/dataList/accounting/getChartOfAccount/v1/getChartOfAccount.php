@@ -72,10 +72,17 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_DataList_ChartOfAccount(
-                                    $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-
-                                    $varData['parameter']['effectiveDate'],
+                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userSession
+                                            $varUserSession,
+                                        //---► branchID
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
+                                                )
+                                            )['branchID'],
+                                        //---► effectiveDate
+                                            $varData['parameter']['effectiveDate'],
+                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
                                         //---► pageSize
@@ -105,9 +112,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                         //---► name
-                                            (
-                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        //---► name
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'name',
                                                 $varData['parameter']['dataFilter']

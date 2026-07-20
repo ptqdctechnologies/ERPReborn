@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataList - Bank Account Account (version 1)'
+                        'Get Report Form - DataList - Bank Account (version 1)'
                         );
 
                 try {
@@ -72,8 +72,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataList_BankAccount(
-                                    $varUserSession,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
+                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                                        //---► userSession
+                                            $varUserSession,
+                                        //---► branchID
+                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
+                                                )
+                                            )['branchID'],
+                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
                                         //---► pageSize
@@ -103,14 +110,14 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► fullBankAccountAccountNumber
+                                        //---► fullBankAccountNumber
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'fullBankAccountAccountNumber',
+                                                'fullBankAccountNumber',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['fullBankAccountAccountNumber'])) 
-                                                        ? $varData['parameter']['dataFilter']['fullBankAccountAccountNumber'] 
+                                                    (!is_null($varData['parameter']['dataFilter']['fullBankAccountNumber'])) 
+                                                        ? $varData['parameter']['dataFilter']['fullBankAccountNumber'] 
                                                         : null
                                                         ) 
                                                     : null
