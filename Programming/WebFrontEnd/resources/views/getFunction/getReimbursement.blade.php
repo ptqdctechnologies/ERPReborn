@@ -101,6 +101,16 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
                     className: "align-middle text-nowrap",
                     render: function (data, type, row, meta) {
                         return data.additionalData.combinedBudgetCode
