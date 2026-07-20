@@ -318,19 +318,28 @@
         $("#businessTripRequestListModal").modal('toggle');
     });
 
-    $('#table_bsf').on('click', 'tbody tr', async function () {
+    $('#businessTripSettlementListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_bsf"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
-        $("#bsf_number_id").val(sysId);
-        $("#bsf_number_trano").val(sysText);
-        $("#bsf_number_trano").css({ "display": "block", "background-color": "#e9ecef" });
+        $("#modal_business_trip_settlement_id").val(sysId);
+        $("#modal_business_trip_settlement_document_number").val(sysText);
+        $("#modal_business_trip_settlement_document_number").css({ "display": "block", "background-color": "#e9ecef" });
 
-        $("#myBusinessTripSettlement").modal('toggle');
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
+    });
+
+    $('#revision_business_trip_settlement').on('click', function (e) {
+        getBusinessTripSettlementList();
+    });
+
+    $('#modal_business_trip_settlement_document_number_icon').on('click', function () {
+        $('#businessTripSettlementListModal').modal('toggle');
+        $('#businessTripSettlementRevisionModal').modal('toggle');
     });
 
     $(document).ready(function () {
-        getBusinessTripSettlement();
         getBusinessTripRequestList();
         getBusinessTripCostComponentEntityNew();
     });

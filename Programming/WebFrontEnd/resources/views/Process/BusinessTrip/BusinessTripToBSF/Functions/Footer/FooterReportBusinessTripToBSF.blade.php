@@ -677,7 +677,7 @@
         $("#businessTripRequestListModal").modal('toggle');
     });
 
-    $('#table_bsf').on('click', 'tbody tr', async function () {
+    $('#businessTripSettlementListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_bsf"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
@@ -692,7 +692,7 @@
         renderPage();
         renderPagination();
         getBusinessTripRequestList();
-        getBusinessTripSettlement();
+        getBusinessTripSettlementList();
 
         $('#brf_to_bsf_date_range').daterangepicker({
             autoUpdateInput: false,

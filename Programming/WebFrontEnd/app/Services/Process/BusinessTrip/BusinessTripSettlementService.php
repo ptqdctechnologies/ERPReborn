@@ -10,18 +10,17 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class BusinessTripSettlementService
 {
-    public function dataPickList()
+    public function dataPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $sessionToken,
-            'dataPickList.humanResource.getPersonBusinessTripSettlement',
+            'report.form.dataPickList.humanResource.getPersonBusinessTripSettlement',
             'latest',
             [
-                'parameter' => [
-                ]
+                'parameter' => $formatted
             ]
         );
     }
