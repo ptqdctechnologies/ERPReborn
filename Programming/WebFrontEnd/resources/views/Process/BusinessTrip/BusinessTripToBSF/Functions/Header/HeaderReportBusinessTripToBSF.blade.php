@@ -5,7 +5,7 @@
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
                 <span id="myBusinessTripRequestTrigger" class="input-group-text form-control" data-toggle="modal"
-                    data-target="#myBusinessTripRequest" style="border-radius:0;cursor:pointer;">
+                    data-target="#businessTripRequestListModal" style="border-radius:0;cursor:pointer;">
                     <i class="fas fa-gift"></i>
                 </span>
             </div>

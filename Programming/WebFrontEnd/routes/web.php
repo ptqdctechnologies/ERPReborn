@@ -242,7 +242,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getDocumentType', 'Function\FunctionController@getDocumentType')->name('getDocumentType');
     Route::get('getCurrency', 'Function\FunctionController@getCurrency')->name('getCurrency');
     Route::post('getDepartment', 'Function\FunctionController@getDepartment')->name('getDepartment');
-    Route::get('getBusinessTripList', 'Function\FunctionController@getBusinessTripList')->name('getBusinessTripList');
     Route::post('getRole', 'Function\FunctionController@getRole')->name('getRole');
     Route::get('getMenuGroup', 'Function\FunctionController@getMenuGroup')->name('getMenuGroup');
     Route::get('getSubMenu', 'Function\FunctionController@getSubMenu')->name('getSubMenu');
@@ -331,10 +330,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripSettlement', 'Process\BusinessTrip\BusinessTripSettlementController');
 
     // BUSINESS TRIP REQUEST
+    Route::get('BusinessTripRequest/picklist', 'Process\BusinessTrip\BusinessTripRequestController@picklist')->name('BusinessTripRequest.picklist');
     Route::post('DetailBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@detail')->name('BusinessTripRequest.Detail');
     Route::post('UpdatesBusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController@UpdatesBusinessTripRequest')->name('BusinessTripRequest.UpdatesBusinessTripRequest');
     Route::post('RevisionBusinessTripRequestIndex', 'Process\BusinessTrip\BusinessTripRequestController@RevisionBusinessTripRequestIndex')->name('BusinessTripRequest.RevisionBusinessTripRequestIndex');
-    Route::get('BusinessTripRequestListData', 'Process\BusinessTrip\BusinessTripRequestController@BusinessTripRequestListData')->name('BusinessTripRequest.BusinessTripRequestListData');
     Route::get('ReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSF')->name('BusinessTripRequest.ReportBusinessTripToBSF');
     Route::post('ReportBusinessTripToBSFStore', 'Process\BusinessTrip\BusinessTripRequestController@ReportBusinessTripToBSFStore')->name('BusinessTripRequest.ReportBusinessTripToBSFStore');
     Route::post('PrintExportReportBusinessTripToBSF', 'Process\BusinessTrip\BusinessTripRequestController@PrintExportReportBusinessTripToBSF')->name('BusinessTripRequest.PrintExportReportBusinessTripToBSF');

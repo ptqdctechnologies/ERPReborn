@@ -266,12 +266,12 @@
 
                 ErrorHandler.hideErrorInputMessage("#brf_number", "#businessTripNumberMessage");
 
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             },
             error: function (textStatus, errorThrown) {
                 console.log('error', textStatus, errorThrown);
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             }
         });
@@ -292,30 +292,30 @@
                     Swal.fire("Error", "You don't have a access", "error");
 
                     $("#loadingBudget").hide();
-                    $("#myBusinessTripRequestTrigger").show();
+                    $("#businessTripRequestListModalTrigger").show();
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#myBusinessTripRequestTrigger").show();
+                $("#businessTripRequestListModalTrigger").show();
                 $("#loadingBudget").hide();
             }
         });
     }
 
-    $('#table_brf').on('click', 'tbody tr', async function () {
+    $('#businessTripRequestListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
         const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
 
-        $("#myBusinessTripRequestTrigger").hide();
+        $("#businessTripRequestListModalTrigger").hide();
         $("#loadingBudget").show();
 
         getWorkflow(sysBudgetId, sysId, sysText);
 
-        $("#myBusinessTripRequest").modal('toggle');
+        $("#businessTripRequestListModal").modal('toggle');
     });
 
     $('#table_bsf').on('click', 'tbody tr', async function () {
@@ -331,7 +331,7 @@
 
     $(document).ready(function () {
         getBusinessTripSettlement();
-        getBusinessTripRequest();
+        getBusinessTripRequestList();
         getBusinessTripCostComponentEntityNew();
     });
 </script>

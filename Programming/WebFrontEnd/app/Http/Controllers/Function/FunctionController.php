@@ -1435,22 +1435,6 @@ class FunctionController extends Controller
         }
     }
 
-    public function getBusinessTripList(Request $request)
-    {
-        try {
-            $response = $this->businessTripService->dataPickList();
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                return response()->json($response);
-            }
-
-            return response()->json($response['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getBusinessTripList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function getBusinessTripCostComponentEntityNew(Request $request)
     {
         try {

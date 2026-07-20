@@ -10,7 +10,7 @@
   @include('getFunction.getBeneficiary')
   @include('getFunction.getBankAccount')
   @include('getFunction.getEntityBankAccount')
-  @include('getFunction.getBusinessTripRequest')
+  @include('getFunction.getBusinessTripRequests')
   @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
 
   <div class="content-wrapper">

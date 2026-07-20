@@ -665,7 +665,7 @@
         $('#myRequesters').modal('hide');
     });
 
-    $('#table_brf').on('click', 'tbody tr', async function () {
+    $('#businessTripRequestListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
         const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
@@ -674,7 +674,7 @@
         $("#business_trip_number").val(sysText);
         $("#business_trip_number").css({ "display": "block", "background-color": "#e9ecef" });
 
-        $("#myBusinessTripRequest").modal('toggle');
+        $("#businessTripRequestListModal").modal('toggle');
     });
 
     $('#table_bsf').on('click', 'tbody tr', async function () {
@@ -691,7 +691,7 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
-        getBusinessTripRequest();
+        getBusinessTripRequestList();
         getBusinessTripSettlement();
 
         $('#brf_to_bsf_date_range').daterangepicker({

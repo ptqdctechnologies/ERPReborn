@@ -105,6 +105,51 @@ class BusinessTripRequestController extends Controller
         }
     }
 
+    public function picklist(Request $request)
+    {
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
+
+        $searchValue = $request->input('search.value');
+
+        $formatted = [
+            'pagination' => [
+                'pageSize' => (int) $limit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'businessDocumentNumber' => $searchValue,   //'WHIn/QDC',
+                'documentDateStart' => NULL,        //'2026-01-01'
+                'documentDateFinish' => NULL,       //'2026-12-31'
+                'requesterName' => NULL,            //'Adhe'
+                'combinedBudget' => NULL,           //'Q000062'
+                'combinedBudgetSection' => NULL     //'240'
+            ]
+        ];
+
+        $response = $this->businessTripService->dataPickList($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
+
+        $businessTripData = $response['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $businessTripData['header']['dataCount'],
+            'recordsFiltered' => $businessTripData['header']['dataCount'],
+            'data' => $businessTripData['content']['itemList']
+        ]);
+    }
+
     public function UpdatesBusinessTripRequest(Request $request)
     {
         try {
@@ -137,65 +182,11 @@ class BusinessTripRequestController extends Controller
         }
     }
 
-    public function BusinessTripRequestListData(Request $request)
-    {
-        try {
-
-            // if (Redis::get("DataListAdvance") == null) {
-            $varAPIWebToken = Session::get('SessionLogin');
-            Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'transaction.read.dataList.finance.getAdvance',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ],
-                false
-            );
-            // }
-
-            $DataListAdvance = json_decode(
-                Helper_Redis::getValue(
-                    Helper_Environment::getUserSessionID_System(),
-                    "DataListAdvance"
-                ),
-                true
-            );
-
-
-            $collection = collect($DataListAdvance);
-
-            $project_id = $request->project_id;
-            $site_id = $request->site_id;
-
-            if ($project_id != "") {
-                $collection = $collection->where('CombinedBudget_RefID', $project_id);
-            }
-            if ($site_id != "") {
-                $collection = $collection->where('CombinedBudgetSection_RefID', $site_id);
-            }
-
-            $collection = $collection->all();
-
-            return response()->json($collection);
-        } catch (\Throwable $th) {
-            Log::error("Error at " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function RevisionBusinessTripRequestIndex(Request $request)
     {
         try {
             $varAPIWebToken = Session::get('SessionLogin');
-            $personBusinessTripRefID = $request->input('brf_number_id');
+            $personBusinessTripRefID = $request->input('modal_business_trip_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Revision Form');
 
             $response = $this->businessTripService->getDetail($personBusinessTripRefID);
