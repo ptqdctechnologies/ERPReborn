@@ -1,5 +1,5 @@
 <aside class="main-sidebar sidebar-{{ $ColorMode }}-primary elevation-2">
-    <div class="sidebar" style="height: 80%;">
+    <div class="sidebar" style="height: 80%; overflow-x: hidden;">
         <div class="user-panel mt-3 d-flex align-items-center">
             <div class="image">
                 <img src="/AdminLTE-master/dist/img/logo_no_name.svg" class="img-circle elevation-2" alt="User Image"
@@ -24,8 +24,13 @@
                         $groupIcon = $groupEntity['menuGroupIconSource'] ?? 'far fa-circle';
                         $subGroups = $groupEntity['itemList'] ?? [];
 
-                        // Depth 0
                         $groupPadding = 0;
+
+                        // Jika hanya ada 1 subgroup dan namanya sama dengan group,
+                        // maka langsung tampilkan menu akhirnya.
+                        $isDirectMenu =
+                            count($subGroups) === 1 &&
+                            strtolower($subGroups[0]['entities']['menuSubGroupCaption'] ?? '') === strtolower($groupCaption);
                     @endphp
 
                     <li class="nav-item has-treeview">
@@ -40,83 +45,133 @@
 
                         @if(count($subGroups))
                             <ul class="nav nav-treeview">
-                                @foreach($subGroups as $subGroup)
+                                @if($isDirectMenu)
                                     @php
-                                        $subEntity = $subGroup['entities'];
-
-                                        $subCaption = $subEntity['menuSubGroupCaption'] ?? '';
-                                        $menus = $subEntity['itemList'] ?? [];
-
-                                        // Depth 1
-                                        $subPadding = 25;
-
-                                        // Icon Mapping
-                                        $iconMap = [
-                                            'Transaction' => 'fas fa-exchange-alt',
-                                            'Report' => 'fas fa-chart-bar',
-                                            'Master Data' => 'fas fa-database',
-                                        ];
-
-                                        $subIcon = $iconMap[$subCaption] ?? 'far fa-folder';
+                                        $menus = $subGroups[0]['entities']['itemList'] ?? [];
                                     @endphp
 
-                                    <li class="nav-item has-treeview">
-                                        <a href="#" class="nav-link"
-                                            style="padding-left: {{ $subPadding }}px; padding-top:.5rem; padding-bottom:.5rem;">
-                                            <i class="nav-icon {{ $subIcon }}"></i>
-                                            <p>
-                                                {{ $subCaption }}
-                                                <i class="right fas fa-angle-left"></i>
-                                            </p>
-                                        </a>
+                                    @foreach($menus as $menu)
+                                        @php
+                                            $entity = $menu['entities'];
 
-                                        @if(count($menus))
-                                            <ul class="nav nav-treeview">
-                                                @foreach($menus as $menu)
-                                                    @php
-                                                        $entity = $menu['entities'];
+                                            $caption = $entity['menuCaption'] ?? '';
 
-                                                        $caption = $entity['menuCaption'] ?? '';
+                                            // Skip Login & Logout
+                                            if (in_array($caption, ['Login', 'Logout'])) {
+                                                continue;
+                                            }
 
-                                                        // Skip Login & Logout
-                                                        if (in_array($caption, ['Login', 'Logout'])) {
-                                                            continue;
-                                                        }
+                                            // Hanya tampilkan menu yang diizinkan
+                                            // if (!$entity['signAllowedAccess']) {
+                                            //     continue;
+                                            // }
 
-                                                        // Hanya tampilkan menu yang diizinkan
-                                                        // if (!$entity['signAllowedAccess']) {
-                                                        //     continue;
-                                                        // }
+                                            $url = $entity['menuURLPath'] ?? null;
 
-                                                        $url = $entity['menuURLPath'] ?? null;
+                                            if ($url && Route::has($url)) {
+                                                $finalUrl = route($url);
+                                            } elseif ($url) {
+                                                $finalUrl = url($url);
+                                            } else {
+                                                $finalUrl = '#';
+                                            }
 
-                                                        if ($url && \Illuminate\Support\Facades\Route::has($url)) {
-                                                            $finalUrl = route($url);
-                                                        } elseif ($url) {
-                                                            $finalUrl = url($url);
-                                                        } else {
-                                                            $finalUrl = '#';
-                                                        }
+                                            $isActive = $url
+                                                ? request()->is(trim($url, '/') . '*')
+                                                : false;
 
-                                                        $isActive = $url
-                                                            ? request()->is(trim($url, '/') . '*')
-                                                            : false;
+                                            $menuPadding = 30;
+                                        @endphp
 
-                                                        // Depth 2
-                                                        $menuPadding = 30;
-                                                    @endphp
+                                        <li class="nav-item">
+                                            <a href="{{ $finalUrl }}" class="nav-link {{ $isActive ? 'active' : '' }}"
+                                                style="padding-left: {{ $menuPadding }}px; padding-top:.5rem; padding-bottom:.5rem;">
+                                                <div data-toggle="tooltip" data-placement="bottom" data-html="true"
+                                                    title="{{ $caption }}">
+                                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 130px;">{{ $caption }}</p>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endforeach
+                                @else
+                                    @foreach($subGroups as $subGroup)
+                                        @php
+                                            $subEntity = $subGroup['entities'];
 
-                                                    <li class="nav-item">
-                                                        <a href="{{ $finalUrl }}" class="nav-link {{ $isActive ? 'active' : '' }}"
-                                                            style="padding-left: {{ $menuPadding }}px; padding-top:.5rem; padding-bottom:.5rem;">
-                                                            <p>{{ $caption }}</p>
-                                                        </a>
-                                                    </li>
-                                                @endforeach
-                                            </ul>
-                                        @endif
-                                    </li>
-                                @endforeach
+                                            $subCaption = $subEntity['menuSubGroupCaption'] ?? '';
+                                            $menus = $subEntity['itemList'] ?? [];
+
+                                            $subPadding = 25;
+
+                                            $iconMap = [
+                                                'Transaction' => 'fas fa-exchange-alt',
+                                                'Report' => 'fas fa-chart-bar',
+                                                'Master Data' => 'fas fa-database',
+                                            ];
+
+                                            $subIcon = $iconMap[$subCaption] ?? 'far fa-folder';
+                                        @endphp
+
+                                        <li class="nav-item has-treeview">
+                                            <a href="#" class="nav-link"
+                                                style="padding-left: {{ $subPadding }}px; padding-top:.5rem; padding-bottom:.5rem;">
+                                                <i class="nav-icon {{ $subIcon }}"></i>
+                                                <p>
+                                                    {{ $subCaption }}
+                                                    <i class="right fas fa-angle-left"></i>
+                                                </p>
+                                            </a>
+
+                                            @if(count($menus))
+                                                <ul class="nav nav-treeview">
+                                                    @foreach($menus as $menu)
+                                                        @php
+                                                            $entity = $menu['entities'];
+
+                                                            $caption = $entity['menuCaption'] ?? '';
+
+                                                            // Skip Login & Logout
+                                                            if (in_array($caption, ['Login', 'Logout'])) {
+                                                                continue;
+                                                            }
+
+                                                            // Hanya tampilkan menu yang diizinkan
+                                                            // if (!$entity['signAllowedAccess']) {
+                                                            //     continue;
+                                                            // }
+
+                                                            $url = $entity['menuURLPath'] ?? null;
+
+                                                            if ($url && Route::has($url)) {
+                                                                $finalUrl = route($url);
+                                                            } elseif ($url) {
+                                                                $finalUrl = url($url);
+                                                            } else {
+                                                                $finalUrl = '#';
+                                                            }
+
+                                                            $isActive = $url
+                                                                ? request()->is(trim($url, '/') . '*')
+                                                                : false;
+
+                                                            $menuPadding = 30;
+                                                        @endphp
+
+                                                        <li class="nav-item">
+                                                            <a href="{{ $finalUrl }}" class="nav-link {{ $isActive ? 'active' : '' }}"
+                                                                style="padding-left: {{ $menuPadding }}px; padding-top:.5rem; padding-bottom:.5rem;">
+                                                                <div data-toggle="tooltip" data-placement="bottom" data-html="true"
+                                                                    title="{{ $caption }}">
+                                                                    <p style="text-overflow: ellipsis; overflow: hidden; white-space: nowrap; max-width: 130px;">{{ $caption }}</p>
+                                                                </div>
+                                                            </a>
+                                                        </li>
+                                                    @endforeach
+                                                </ul>
+                                            @endif
+                                        </li>
+                                    @endforeach
+                                @endif
                             </ul>
                         @endif
                     </li>
@@ -141,7 +196,6 @@
             <a href="{{ route('MyDocument.index') }}">
                 <span class="btn btn-default btn-sm"> Go to Document</span>
             </a>
-            <br><br>
         </div>
     </div>
 </aside>
