@@ -5390,6 +5390,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
