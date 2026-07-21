@@ -41,10 +41,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
-                    'Supplier_RefID' => 126000000000002
+                    // 'Supplier_RefID' => 126000000000002
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
-                    // 'Supplier_RefID' => NULL
+                    'Supplier_RefID' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
