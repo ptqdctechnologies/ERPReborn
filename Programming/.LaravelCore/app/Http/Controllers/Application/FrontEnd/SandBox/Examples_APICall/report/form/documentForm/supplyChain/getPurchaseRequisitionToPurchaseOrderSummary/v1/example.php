@@ -4,11 +4,11 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain         |
-|                 \getPurchaseRequisitionToPurchaseOrderSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary                                                         |
+|                 \getPurchaseRequisitionToPurchaseOrderSummary\v1                                                                 |
+| ▪ API Key     : report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary                                |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain\getPurchaseRequisitionToPurchaseOrderSummary\v1
@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-21                                                                                           |
+        | ▪ Last Update     : 2026-07-21                                                                                           |
         | ▪ Creation Date   : 2025-07-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,6 +45,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
                     // 'Supplier_RefID' => NULL
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
