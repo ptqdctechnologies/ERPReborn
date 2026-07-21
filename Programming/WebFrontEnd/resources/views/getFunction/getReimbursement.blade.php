@@ -1,17 +1,22 @@
-<!-- GET REIMBURSEMENT -->
-<div id="myGetModalReimbursement" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal fade" id="reimbursementListModal" tabindex="-1" aria-labelledby="reimbursementListModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-bold">Choose Reimbursement Number</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="reimbursementListModalLabel"
+                    style="font-size: 15px; font-weight:bold; text-align: center;">
+                    Choose Reimbursement
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableGetModalReimbursement">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-head-fixed w-100" id="reimbursementListTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -24,22 +29,16 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr class="loadingGetModalReimbursement">
+                                        <tr id="reimbursementListLoadingTable">
                                             <td colspan="6" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
                                                     <div class="mt-3" style="font-size: 0.75rem; font-weight: 700;">
                                                         Loading...
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr class="errorModalReimbursementMessageContainerSecond">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorModalReimbursementMessageSecond" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -55,66 +54,102 @@
 </div>
 
 <script>
-    $(".errorModalReimbursementMessageContainerSecond").hide();
+    function getReimbursementList() {
+        let table = $('#reimbursementListTable').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("Reimbursement.picklist") !!}',
+                type: 'GET',
+                data: function (d) {
+                    // d.combinedBudgetCode = combinedBudgetCode;
+                    // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
 
-    function getModalReimbursement() {
-        $('#tableGetModalReimbursement tbody').empty();
-        $(".loadingGetModalReimbursement").show();
-        $(".errorModalReimbursementMessageContainerSecond").hide();
-
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getReimbursementList") !!}',
-            success: function(data) {
-                $(".loadingGetModalReimbursement").hide();
-                var no = 1;
-                var table = $('#tableGetModalReimbursement').DataTable();
-                table.clear();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    $.each(data, function(key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_modal_reimbursement' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_modal_reimbursement" type="hidden">' + no++,
-                            val.sys_Text || '-',
-                            val.requesterCode || '-',
-                            val.requesterName || '-',
-                            val.combinedBudgetCode || '-',
-                            val.combinedBudgetName || '-'
-                        ]).draw();
-                    });
-
-                    $("#tableGetModalReimbursement_length").show();
-                    $("#tableGetModalReimbursement_filter").show();
-                    $("#tableGetModalReimbursement_info").show();
-                    $("#tableGetModalReimbursement_paginate").show();
-                } else {
-                    $(".errorModalReimbursementMessageContainerSecond").show();
-                    $("#errorModalReimbursementMessageSecond").text(`Data not found.`);
-
-                    $("#tableGetModalReimbursement_length").hide();
-                    $("#tableGetModalReimbursement_filter").hide();
-                    $("#tableGetModalReimbursement_info").hide();
-                    $("#tableGetModalReimbursement_paginate").hide();
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#reimbursementListTable tbody').empty();
+                    $("#reimbursementListLoadingTable").show();
+                },
+                complete: function () {
+                    $("#reimbursementListLoadingTable").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#reimbursementListLoadingTable").hide();
                 }
             },
-            error: function (textStatus, errorThrown) {
-                $('#tableGetModalReimbursement tbody').empty();
-                $(".loadingGetModalReimbursement").hide();
-                $(".errorModalReimbursementMessageContainerSecond").show();
-                $("#errorModalReimbursementMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_modal_reimbursement' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_reimbursement" type="hidden">' +
+                            '<input id="workflow_status_reimbursement' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_reimbursement" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetName
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#reimbursementListTable_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintReimbursement').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintReimbursement" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
     }
-
-    $(window).one('load', function(e) {
-        getModalReimbursement();
-    });
 </script>

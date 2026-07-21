@@ -1092,34 +1092,6 @@ class FunctionController extends Controller
         }
     }
 
-    public function getReimbursementList(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                'dataPickList.finance.getReimbursement',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getReimbursementList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function getPerson(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
@@ -1261,39 +1233,6 @@ class FunctionController extends Controller
             return response()->json($varData['data']['data']);
         } catch (\Throwable $th) {
             Log::error("Error at getLoanList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
-    public function getLoanSettlementList(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $userSession = Helper_Environment::getUserSessionID_System();
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                $userSession,
-                $varAPIWebToken,
-                'dataPickList.finance.getLoanSettlement',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            if ($varData['metadata']['HTTPStatusCode'] !== 200) {
-                return redirect()->back()->with('NotFound', 'Process Error');
-            }
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getLoanSettlementList: " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
     }

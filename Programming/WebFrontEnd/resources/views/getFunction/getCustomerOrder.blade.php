@@ -1,18 +1,22 @@
-<div id="myCustomerOrder" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
-    aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal fade" id="customerOrderModal" tabindex="-1" aria-labelledby="customerOrderModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-bold">Choose Customer Order</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="customerOrderModalLabel"
+                    style="font-size: 15px; font-weight:bold; text-align: center;">
+                    Choose Customer Order
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed text-nowrap" id="tableCustomerOrder"
-                                    style="width: 100%;">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-head-fixed w-100" id="customerOrderListTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -21,10 +25,9 @@
                                             <th>Budget Name</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                    </tbody>
+                                    <tbody></tbody>
                                     <tfoot>
-                                        <tr id="loadingCustomerOrder">
+                                        <tr id="customerOrderListLoadingTable">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
@@ -49,54 +52,92 @@
 </div>
 
 <script>
-    function getCustomerOrder() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    function getCustomerOderList() {
+        let table = $('#customerOrderListTable').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("CustomerOrder.Picklist") !!}',
+                type: 'GET',
+                data: function (d) {
+                    // d.combinedBudgetCode = combinedBudgetCode;
+                    // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#customerOrderListTable tbody').empty();
+                    $("#customerOrderListLoadingTable").show();
+                },
+                complete: function () {
+                    $("#customerOrderListLoadingTable").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#customerOrderListLoadingTable").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_customer_order' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_customer_order" type="hidden">' +
+                            '<input id="workflow_status_customer_order' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.latestWorkFlowStatus + '" data-trigger="workflow_status_customer_order" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetName
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#customerOrderListTable_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintCustomerOder').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintCustomerOder" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("CustomerOrder.Picklist") !!}',
-        })
-            .done(function (response) {
-                let data = (response.status == 200 && response.data[0]) ? response.data : [];
-
-                $('#tableCustomerOrder').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_customer_order' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_customer_order" type="hidden">' + (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'sys_Text',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'combinedBudgetCode',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'combinedBudgetName',
-                            defaultContent: '-'
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingCustomerOrder").hide();
-            });
-        ;
     }
 </script>

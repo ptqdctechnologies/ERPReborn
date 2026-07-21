@@ -219,10 +219,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
-    Route::get('getReimbursementList', 'Function\FunctionController@getReimbursementList')->name('getReimbursementList');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
     Route::get('getLoanList', 'Function\FunctionController@getLoanList')->name('getLoanList');
-    Route::get('getLoanSettlementList', 'Function\FunctionController@getLoanSettlementList')->name('getLoanSettlementList');
     Route::get('getPurchaseRequisitionDetail', 'Function\FunctionController@getPurchaseRequisitionDetail')->name('getPurchaseRequisitionDetail');
     Route::get('getPaymentTerm', 'Function\FunctionController@getPaymentTerm')->name('getPaymentTerm');
     Route::get('getVAT', 'Function\FunctionController@getVAT')->name('getVAT');
@@ -346,6 +344,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessTripRequest', 'Process\BusinessTrip\BusinessTripRequestController');
 
     // REIMBURSEMENT
+    Route::get('Reimbursement/picklist', 'Process\Reimbursement\ReimbursementController@picklist')->name('Reimbursement.picklist');
     Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursementController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
     Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursementController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
     Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursementController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
@@ -416,6 +415,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // LOAN
     // Route::get('LoanListData', 'Process\Loan\LoanController@LoanListData')->name('Loan.LoanListData');
+    Route::get('Loan/picklist', 'Process\Loan\LoanController@picklist')->name('Loan.picklist');
     Route::get('ReportLoanSummary', 'Process\Loan\LoanController@ReportLoanSummary')->name('Loan.ReportLoanSummary');
     Route::post('ReportLoanSummaryStore', 'Process\Loan\LoanController@ReportLoanSummaryStore')->name('Loan.ReportLoanSummaryStore');
     Route::post('PrintExportReportLoanSummary', 'Process\Loan\LoanController@PrintExportReportLoanSummary')->name('Loan.PrintExportReportLoanSummary');
@@ -431,6 +431,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Loan', 'Process\Loan\LoanController');
 
     // LOAN SETTLEMENT
+    Route::get('LoanSettlement/picklist', 'Process\LoanSettlement\LoanSettlementController@picklist')->name('LoanSettlement.picklist');
     Route::post('RevisionLoanSettlement', 'Process\LoanSettlement\LoanSettlementController@RevisionLoanSettlement')->name('LoanSettlement.RevisionLoanSettlement');
     Route::get('ReportLoanSettlementSummary', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementSummary')->name('LoanSettlement.ReportLoanSettlementSummary');
     Route::post('ReportLoanSettlementSummaryStore', 'Process\LoanSettlement\LoanSettlementController@ReportLoanSettlementSummaryStore')->name('LoanSettlement.ReportLoanSettlementSummaryStore');

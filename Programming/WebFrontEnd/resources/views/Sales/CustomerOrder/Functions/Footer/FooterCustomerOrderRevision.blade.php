@@ -854,7 +854,7 @@
     });
 
     $('#revision_customer_order').on('click', function (e) {
-        getCustomerOrder();
+        getCustomerOderList();
     });
 
     $(document).ready(function () {

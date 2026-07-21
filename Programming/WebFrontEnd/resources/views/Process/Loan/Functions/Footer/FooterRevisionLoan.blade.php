@@ -360,15 +360,26 @@
         $("#myGetChartOfAccount").modal('toggle');
     });
 
-    $('#tableLoans').on('click', 'tbody tr', function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
-        let name = $(this).find('td:nth-child(2)').text();
+    $('#loanListTable').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_loan"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
 
         $(`#modal_loan_id`).val(sysId);
         $(`#modal_loan_document_number`).val(name);
         $(`#modal_loan_document_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 
-        $("#myLoans").modal('toggle');
+        $('#loanListModal').modal('toggle');
+        $('#loanRevisionModal').modal('toggle');
+    });
+
+    $('#revision_loan').on('click', function (e) {
+        getLoanList();
+    });
+
+    $('#modal_loan_document_number_icon').on('click', function () {
+        $('#loanListModal').modal('toggle');
+        $('#loanRevisionModal').modal('toggle');
     });
 
     $(document).ready(function () {

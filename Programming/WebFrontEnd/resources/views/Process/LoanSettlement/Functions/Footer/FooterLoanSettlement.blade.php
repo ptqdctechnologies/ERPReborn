@@ -168,8 +168,9 @@
         submitForm();
     }
 
-    $('#tableLoans').on('click', 'tbody tr', function () {
+    $('#loanListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_loan"]').val();
         const name = $(this).find('td:nth-child(2)').text();
 
         $("#loan_icon").hide();
@@ -177,17 +178,28 @@
 
         getLoanDetail(sysId, name);
 
-        $("#myLoans").modal('toggle');
+        $("#loanListModal").modal('toggle');
     });
 
-    $('#tableLoanSettlements').on('click', 'tbody tr', function () {
+    $('#loanSettlementListTable').on('click', 'tbody tr', function () {
         const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
         $("#modal_loan_settlement_id").val(sysID);
         $("#modal_loan_settlement_document_number").val(trano);
+        $(`#modal_loan_settlement_document_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 
-        $('#myLoanSettlements').modal('hide');
+        $('#loanSettlementListModal').modal('toggle');
+        $('#loanSettlementRevisionModal').modal('toggle');
+    });
+
+    $('#revision_loan_settlement').on('click', function (e) {
+        getLoanSettlementList();
+    });
+
+    $('#modal_loan_settlement_document_number_icon').on('click', function () {
+        $('#loanSettlementListModal').modal('toggle');
+        $('#loanSettlementRevisionModal').modal('toggle');
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', function () {
@@ -210,5 +222,9 @@
         }
 
         $("#myGetChartOfAccount").modal('toggle');
+    });
+
+    $(document).ready(function () {
+        getLoanList();
     });
 </script>

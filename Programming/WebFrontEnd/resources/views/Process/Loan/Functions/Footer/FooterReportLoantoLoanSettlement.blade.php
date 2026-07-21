@@ -746,7 +746,7 @@
         $("#myLoans").modal('toggle');
     });
 
-    $('#tableLoanSettlements').on('click', 'tbody tr', function () {
+    $('#loanSettlementListTable').on('click', 'tbody tr', function () {
         const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
@@ -754,7 +754,7 @@
         $("#loan_settlement_number").val(trano);
         $("#loan_settlement_number").css('background-color', '#e9ecef');
 
-        $('#myLoanSettlements').modal('toggle');
+        $('#loanSettlementListModal').modal('toggle');
     });
 
     $('#myCreditorsTrigger').on('click', function () {

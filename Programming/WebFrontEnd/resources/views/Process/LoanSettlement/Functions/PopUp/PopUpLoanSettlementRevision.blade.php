@@ -1,9 +1,9 @@
-<div class="modal fade" id="loanRevisionModal" tabindex="-1" aria-labelledby="loanRevisionModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="loanSettlementRevisionModal" tabindex="-1"
+    aria-labelledby="loanSettlementRevisionModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="loanRevisionModalLabel"
+                <h5 class="modal-title" id="loanSettlementRevisionModalLabel"
                     style="font-size: 15px; font-weight:bold; text-align: center;">
                     LOAN REVISION
                 </h5>
@@ -12,23 +12,25 @@
                 </button>
             </div>
             <div class="modal-body d-flex justify-content-center">
-                <form id="editForm" method="POST" action="{{ route('Loan.RevisionLoan') }}">
+                <form id="editForm" method="POST" action="{{ route('LoanSettlement.RevisionLoanSettlement') }}">
                     @csrf
                     <div class="card mb-0" style="width: fit-content;">
                         <div class="card-body d-flex align-items-center justify-content-center" style="gap: 1rem;">
                             <label class="p-0 m-0">Revision Number</label>
                             <div class="form-group d-flex">
                                 <div>
-                                    <span id="modal_loan_document_number_icon" class="input-group-text form-control"
-                                        data-toggle="modal" data-target="#loanListModal"
+                                    <span id="modal_loan_settlement_document_number_icon"
+                                        class="input-group-text form-control" data-toggle="modal"
+                                        data-target="#loanSettlementListModal"
                                         style="cursor:pointer; border-radius: 0;">
                                         <i class="fas fa-gift"></i>
                                     </span>
                                 </div>
                                 <div>
-                                    <input id="modal_loan_document_number" class="form-control"
+                                    <input id="modal_loan_settlement_document_number" class="form-control"
                                         style="border-radius:0; background-color: white;" readonly />
-                                    <input id="modal_loan_id" class="form-control" name="modal_loan_id"
+                                    <input id="modal_loan_settlement_id" class="form-control"
+                                        name="modal_loan_settlement_id"
                                         style="border-radius:0; background-color: white;" hidden />
                                 </div>
                             </div>
@@ -54,20 +56,20 @@
 
 <script>
     $('#btn-edit').on('click', function () {
-        const loanModalRefID = $('#modal_loan_id').val();
+        const loanSettlementModalRefID = $('#modal_loan_settlement_id').val();
 
-        if (loanModalRefID) {
+        if (loanSettlementModalRefID) {
             ShowLoading();
 
             $('#editForm').submit();
         } else {
-            $('#modal_loan_document_number').focus();
-            $('#modal_loan_document_number').css("border", "1px solid red");
+            $('#modal_loan_settlement_document_number').focus();
+            $('#modal_loan_settlement_document_number').css("border", "1px solid red");
         }
     });
 
     $('#btn-cancel').on('click', function () {
-        $('#modal_loan_id').val("");
-        $('#modal_loan_document_number').val("");
+        $('#modal_loan_settlement_id').val("");
+        $('#modal_loan_settlement_document_number').val("");
     });
 </script>

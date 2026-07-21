@@ -643,13 +643,35 @@
         $('#myBanksAccount').modal('hide');
     });
 
-    $('#tableGetModalReimbursement').on('click', 'tbody tr', function () {
-        var sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
-        var trano = $(this).find('td:nth-child(2)').text();
+    $('#reimbursementListTable').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_reimbursement"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_reimbursement"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#modal_reimbursement_id").val(sysId);
         $("#modal_reimbursement_document_number").val(trano);
-        $('#myGetModalReimbursement').modal('hide');
+        $("#modal_reimbursement_document_number").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+        $('#reimbursementRevisionModal').modal('toggle');
+        $('#reimbursementListModal').modal('toggle');
+    });
+
+    $('#revision_reimbursement').on('click', function (e) {
+        getReimbursementList();
+    });
+
+    $('#modal_reimbursement_document_number_icon').on('click', function () {
+        $('#reimbursementRevisionModal').modal('toggle');
+        $('#reimbursementListModal').modal('toggle');
     });
 
     $(document).ready(function () {

@@ -33,6 +33,21 @@ class ReimbursementService
         );
     }
 
+    public function picklist($formatted)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.dataPickList.finance.getReimbursement',
+            'latest',
+            [
+                'parameter' => $formatted
+            ]
+        );
+    }
+
     public function getReimbursementSummary($budget, $vendor, $date)
     {
         $sessionToken = Session::get('SessionLogin');
