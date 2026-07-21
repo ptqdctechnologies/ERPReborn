@@ -168,7 +168,7 @@ class CustomerOrderController extends Controller
     {
         try {
             $varAPIWebToken = $request->session()->get('SessionLogin');
-            $customerRefID = $request->input('customer_order_id');
+            $customerRefID = $request->input('modal_customer_order_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Order Revision Form');
 
             $response = $this->customerOrderService->getDetail($customerRefID);
