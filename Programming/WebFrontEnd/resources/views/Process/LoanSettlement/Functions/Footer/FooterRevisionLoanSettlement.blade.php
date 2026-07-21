@@ -1,20 +1,20 @@
 <script>
-    let typeOfCOA                       = null;
-    let dataLoan                        = {
+    let typeOfCOA = null;
+    let dataLoan = {
         creditorRefID: null,
         debitorRefID: null,
         loanDetailRefID: 294000000000012,
         currencyRefID: {!! json_encode($header['currencyID'] ?? 0) !!},
         currencyExchangeRate: {!! json_encode($header['currencyExchange'] ?? 0) !!},
     };
-    const dataInputLogFileUpload1       = document.getElementById("dataInput_Log_FileUpload_1");
-    const principleSettlement           = document.getElementById("settlement_value");
-    const penaltySettlement             = document.getElementById("penalty_value");
-    const interestSettlement            = document.getElementById("interest_value");
+    const dataInputLogFileUpload1 = document.getElementById("dataInput_Log_FileUpload_1");
+    const principleSettlement = document.getElementById("settlement_value");
+    const penaltySettlement = document.getElementById("penalty_value");
+    const interestSettlement = document.getElementById("interest_value");
     const chartOfAccountSettlementRefID = document.getElementById("coa_settlement_id");
-    const chartOfAccountPenaltyRefID    = document.getElementById("coa_penalty_id");
-    const chartOfAccountInterestRefID   = document.getElementById("coa_interest_id");
-    const remark                        = document.getElementById("remark");
+    const chartOfAccountPenaltyRefID = document.getElementById("coa_penalty_id");
+    const chartOfAccountInterestRefID = document.getElementById("coa_interest_id");
+    const remark = document.getElementById("remark");
 
     function changeTypeOfCOA(value) {
         typeOfCOA = value;
@@ -94,7 +94,7 @@
                 chartOfAccount_Penalty_RefID: chartOfAccountPenaltyRefID.value,
                 chartOfAccount_Interest_RefID: chartOfAccountInterestRefID.value
             },
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -122,7 +122,7 @@
                     ErrorNotif("Process Error");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
@@ -137,37 +137,37 @@
     //     const name  = $(this).find('td:nth-child(2)').text();
 
     //     getLoanDetail(sysId, name);
-        
+
     //     $("#myLoans").modal('toggle');
     // });
 
-    $('#tableLoanSettlements').on('click', 'tbody tr', function() {
+    $('#loanSettlementListTable').on('click', 'tbody tr', function () {
         const sysID = $(this).find('input[data-trigger="sys_id_loan_settlements"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
         $("#modal_loan_settlement_id").val(sysID);
         $("#modal_loan_settlement_document_number").val(trano);
 
-        $('#myLoanSettlements').modal('hide');
+        $('#loanSettlementListModal').modal('hide');
     });
 
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', function() {
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        const code  = $(this).find('td:nth-child(2)').text();
-        const name  = $(this).find('td:nth-child(3)').text();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
 
         if (typeOfCOA === "SETTLEMENT") {
             $(`#coa_settlement_id`).val(sysId);
             $(`#coa_settlement_name`).val(`${code} - ${name}`);
-            $(`#coa_settlement_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_settlement_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         } else if (typeOfCOA === "PENALTY") {
             $(`#coa_penalty_id`).val(sysId);
             $(`#coa_penalty_name`).val(`${code} - ${name}`);
-            $(`#coa_penalty_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_penalty_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         } else if (typeOfCOA === "INTEREST") {
             $(`#coa_interest_id`).val(sysId);
             $(`#coa_interest_name`).val(`${code} - ${name}`);
-            $(`#coa_interest_name`).css({'background-color': '#e9ecef', 'border': '1px solid #ced4da'});
+            $(`#coa_interest_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
         }
 
         $("#myGetChartOfAccount").modal('toggle');

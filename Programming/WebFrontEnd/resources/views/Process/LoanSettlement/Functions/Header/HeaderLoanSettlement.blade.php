@@ -8,7 +8,7 @@
                 <div class="col-5 d-flex p-0">
                     <div>
                         <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal"
-                            data-target="#myLoans" style="border-radius:0;cursor:pointer;">
+                            data-target="#loanListModal" style="border-radius:0;cursor:pointer;">
                             <i id="loan_icon" class="fas fa-gift"></i>
 
                             <div id="loan_loading" class="spinner-border spinner-border-sm" role="status"
