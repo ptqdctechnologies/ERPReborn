@@ -1523,18 +1523,34 @@
         }
     });
 
-    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
+    $('#deliveryOrderListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_delivery_order"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.revision.title,
+                CONFIG.MESSAGE.revision.description,
+                "error"
+            );
+            return;
+        }
 
         $("#do_RefID").val(sysId);
         $("#do_number").val(trano);
         $("#do_number").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
 
-        $("#myDeliveryOrder").modal('toggle');
+        $("#deliveryOrderModal").modal('toggle');
+        $("#deliveryOrderRevisionModal").modal('toggle');
     });
 
     $('#revision_delivery_order').on('click', function () {
-        getDeliveryOrder();
+        getDeliveryOrderList();
+    });
+
+    $('#do_number_icon').on('click', function () {
+        $("#deliveryOrderModal").modal('toggle');
+        $("#deliveryOrderRevisionModal").modal('toggle');
     });
 </script>

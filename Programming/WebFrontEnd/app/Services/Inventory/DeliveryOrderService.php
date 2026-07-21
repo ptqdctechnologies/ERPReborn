@@ -10,6 +10,21 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class DeliveryOrderService
 {
+    public function picklist($formatted)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.dataPickList.supplyChain.getDeliveryOrder',
+            'latest',
+            [
+                'parameter' => $formatted
+            ]
+        );
+    }
+
     public function stockDetail($combinedBudget_RefID, $warehouse_RefID)
     {
         $sessionToken = Session::get('SessionLogin');

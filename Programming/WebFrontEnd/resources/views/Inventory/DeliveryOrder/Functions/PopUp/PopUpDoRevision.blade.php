@@ -1,9 +1,9 @@
-<div class="modal fade" id="myPopUpDoRevision" tabindex="-1" aria-labelledby="myPopUpDoRevisionLabel"
+<div class="modal fade" id="deliveryOrderRevisionModal" tabindex="-1" aria-labelledby="deliveryOrderRevisionModalLabel"
     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myPopUpDoRevisionLabel"
+                <h5 class="modal-title" id="deliveryOrderRevisionModalLabel"
                     style="font-size: 15px; font-weight:bold; text-align: center;">
                     DELIVERY ORDER REVISION
                 </h5>
@@ -12,7 +12,7 @@
                 </button>
             </div>
             <div class="modal-body d-flex justify-content-center">
-                <form id="editForm" method="POST" action="{{ route('AdvanceRequest.RevisionAdvanceIndex') }}">
+                <form id="editForm" method="POST" action="{{ route('DeliveryOrder.RevisionDeliveryOrderIndex') }}">
                     @csrf
                     <div class="card mb-0" style="width: fit-content;">
                         <div class="card-body d-flex align-items-center justify-content-center" style="gap: 1rem;">
@@ -20,7 +20,7 @@
                             <div class="form-group d-flex">
                                 <div>
                                     <span id="do_number_icon" class="input-group-text form-control" data-toggle="modal"
-                                        data-target="#myDeliveryOrder" style="cursor:pointer; border-radius: 0;">
+                                        data-target="#deliveryOrderModal" style="cursor:pointer; border-radius: 0;">
                                         <i class="fas fa-gift"></i>
                                     </span>
                                 </div>
