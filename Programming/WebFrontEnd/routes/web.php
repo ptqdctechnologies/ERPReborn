@@ -416,6 +416,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // LOAN
     // Route::get('LoanListData', 'Process\Loan\LoanController@LoanListData')->name('Loan.LoanListData');
+    Route::get('Loan/picklist', 'Process\Loan\LoanController@picklist')->name('Loan.picklist');
     Route::get('ReportLoanSummary', 'Process\Loan\LoanController@ReportLoanSummary')->name('Loan.ReportLoanSummary');
     Route::post('ReportLoanSummaryStore', 'Process\Loan\LoanController@ReportLoanSummaryStore')->name('Loan.ReportLoanSummaryStore');
     Route::post('PrintExportReportLoanSummary', 'Process\Loan\LoanController@PrintExportReportLoanSummary')->name('Loan.PrintExportReportLoanSummary');

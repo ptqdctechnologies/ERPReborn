@@ -429,15 +429,26 @@
         $("#myGetChartOfAccount").modal('toggle');
     });
 
-    $('#tableLoans').on('click', 'tbody tr', function () {
+    $('#loanListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_loan"]').val();
         const name = $(this).find('td:nth-child(2)').text();
+
+        // if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+        //     Swal.fire(
+        //         CONFIG.MESSAGE.revision.title,
+        //         CONFIG.MESSAGE.revision.description,
+        //         "error"
+        //     );
+        //     return;
+        // }
 
         $(`#modal_loan_id`).val(sysId);
         $(`#modal_loan_document_number`).val(name);
         $(`#modal_loan_document_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 
-        $("#myLoans").modal('toggle');
+        $('#loanListModal').modal('toggle');
+        $('#loanRevisionModal').modal('toggle');
     });
 
     $('#principle_loan').on('input', function (e) {
@@ -503,6 +514,15 @@
 
     $('#debitor_trigger').on('click', function () {
         $("#titleSuppliers").text('Choose Debitor');
+    });
+
+    $('#revision_loan').on('click', function (e) {
+        getLoanList();
+    });
+
+    $('#modal_loan_document_number_icon').on('click', function () {
+        $('#loanListModal').modal('toggle');
+        $('#loanRevisionModal').modal('toggle');
     });
 
     $(document).ready(function () {
