@@ -23,7 +23,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_customer_order" class="nav-link" data-toggle="modal"
-                                        data-target="#myPopUpCustomerOrderRevision"
+                                        data-target="#customerOrderRevisionModal"
                                         style="color:white;padding-bottom:10px;cursor:pointer">
                                         <i class="far fa-file nav-icon-sm"> Revision Customer Order</i>
                                     </a>
