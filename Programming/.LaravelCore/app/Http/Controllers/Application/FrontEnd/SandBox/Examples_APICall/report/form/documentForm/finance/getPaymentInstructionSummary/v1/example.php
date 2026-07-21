@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getPaymentInstructionSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-11-12                                                                                           |
+        | ▪ Last Update     : 2026-07-21                                                                                           |
         | ▪ Creation Date   : 2025-11-12                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -49,6 +49,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     // 'Supplier_RefID' => NULL,     // ARF Requester
                     // 'StartDate' => NULL,
                     // 'EndDate' => NULL,
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
