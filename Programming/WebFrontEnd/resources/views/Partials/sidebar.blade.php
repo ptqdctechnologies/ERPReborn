@@ -76,9 +76,13 @@
                                                 $finalUrl = '#';
                                             }
 
-                                            $isActive = $url
-                                                ? request()->is(trim($url, '/') . '*')
-                                                : false;
+                                            $path = trim(parse_url($url, PHP_URL_PATH), '/');
+
+                                            $currentPath = trim(request()->path(), '/');
+
+                                            $isActive =
+                                                $currentPath === $path ||
+                                                str_starts_with($currentPath, $path . '/');
 
                                             $menuPadding = 30;
                                         @endphp
@@ -150,9 +154,13 @@
                                                                 $finalUrl = '#';
                                                             }
 
-                                                            $isActive = $url
-                                                                ? request()->is(trim($url, '/') . '*')
-                                                                : false;
+                                                            $path = trim(parse_url($url, PHP_URL_PATH), '/');
+
+                                                            $currentPath = trim(request()->path(), '/');
+
+                                                            $isActive =
+                                                                $currentPath === $path ||
+                                                                str_starts_with($currentPath, $path . '/');
 
                                                             $menuPadding = 30;
                                                         @endphp
