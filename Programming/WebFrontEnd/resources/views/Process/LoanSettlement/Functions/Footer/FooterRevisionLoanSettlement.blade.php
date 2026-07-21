@@ -147,8 +147,19 @@
 
         $("#modal_loan_settlement_id").val(sysID);
         $("#modal_loan_settlement_document_number").val(trano);
+        $(`#modal_loan_settlement_document_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 
-        $('#loanSettlementListModal').modal('hide');
+        $('#loanSettlementListModal').modal('toggle');
+        $('#loanSettlementRevisionModal').modal('toggle');
+    });
+
+    $('#revision_loan_settlement').on('click', function (e) {
+        getLoanSettlementList();
+    });
+
+    $('#modal_loan_settlement_document_number_icon').on('click', function () {
+        $('#loanSettlementListModal').modal('toggle');
+        $('#loanSettlementRevisionModal').modal('toggle');
     });
 
     $('#tableGetChartOfAccount').on('click', 'tbody tr', function () {
