@@ -488,9 +488,9 @@
             'dev_requirement' => false,
         ),
         'laravel/serializable-closure' => array(
-            'pretty_version' => 'v2.0.13',
-            'version' => '2.0.13.0',
-            'reference' => 'b566ee0dd251f3c4078bed003a7ce015f5ea6dce',
+            'pretty_version' => 'v2.0.15',
+            'version' => '2.0.15.0',
+            'reference' => 'dccd8bcb851bb03fcc005df650b708b57cc52661',
             'type' => 'library',
             'install_path' => __DIR__ . '/../laravel/serializable-closure',
             'aliases' => array(),

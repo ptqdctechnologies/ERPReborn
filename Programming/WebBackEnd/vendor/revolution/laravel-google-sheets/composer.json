@@ -1,0 +1,54 @@
+{
+  "name": "revolution/laravel-google-sheets",
+  "description": "Google Sheets API v4",
+  "keywords": [
+    "google",
+    "sheets",
+    "laravel"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": "^8.3",
+    "illuminate/support": "^12.0||^13.0",
+    "google/apiclient": "^2.16"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^10.0",
+    "pulkitjalan/google-apiclient": "^6.2",
+    "laravel/pint": "^1.22"
+  },
+  "autoload": {
+    "psr-4": {
+      "Revolution\\Google\\Sheets\\": "src/",
+      "Revolution\\Google\\Client\\": "lib/google/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "kawax",
+      "email": "kawaxbiz@gmail.com"
+    }
+  ],
+  "scripts": {
+    "pre-autoload-dump": "Google\\Task\\Composer::cleanup",
+    "lint": "vendor/bin/pint",
+    "test": "vendor/bin/phpunit"
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Revolution\\Google\\Sheets\\Providers\\SheetsServiceProvider",
+        "Revolution\\Google\\Client\\Providers\\GoogleServiceProvider"
+      ],
+      "google/apiclient-services": [
+        "Drive",
+        "Sheets"
+      ]
+    }
+  }
+}
