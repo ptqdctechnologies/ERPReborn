@@ -5,7 +5,7 @@
             <div class="modal-header">
                 <h5 class="modal-title" id="mySpecializationSupplierRevisionLabel"
                     style="font-size: 15px; font-weight:bold; text-align: center;">
-                    SPECIALIZATION SUPPLIER REVISION
+                    SUB CATEGORY SUPPLIER REVISION
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>

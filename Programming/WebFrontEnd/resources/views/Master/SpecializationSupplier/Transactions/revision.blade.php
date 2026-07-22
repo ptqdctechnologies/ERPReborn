@@ -12,7 +12,7 @@
                 <div class="row mb-1" style="background-color:#4B586A;">
                     <div class="col-sm-6" style="height:30px;">
                         <label style="font-size:15px;position:relative;top:7px;color:white;">
-                            Revision Specialization Supplier
+                            Revision Sub Category Supplier
                         </label>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Master Specialization
+                                                Master Sub Category
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
