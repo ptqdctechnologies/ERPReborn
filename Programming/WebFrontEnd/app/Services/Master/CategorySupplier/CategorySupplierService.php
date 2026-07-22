@@ -31,7 +31,7 @@ class CategorySupplierService
         );
     }
 
-    public function update($id, $code, $name)
+    public function update($id, $code, $name, $status)
     {
         $token = Session::get('SessionLogin');
 
@@ -44,7 +44,8 @@ class CategorySupplierService
                 'recordID' => (int) $id,
                 'entities' => [
                     "code" => $code,
-                    "name" => $name
+                    "name" => $name,
+                    "status" => $status
                 ]
             ]
         );

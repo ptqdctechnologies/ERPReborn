@@ -48,7 +48,8 @@ class CategorySupplierController extends Controller
                 'varAPIWebToken' => $token,
                 'categoryRefID' => $data['Sys_ID'],
                 'categoryCode' => $data['Code'],
-                'categoryName' => $data['Name']
+                'categoryName' => $data['Name'],
+                'categoryStatus' => 1,
             ];
 
             return view('Master.CategorySupplier.Transactions.revision', $compact);
@@ -69,8 +70,9 @@ class CategorySupplierController extends Controller
         try {
             $code = $request->input('category_code');
             $name = $request->input('category_name');
+            $status = $request->input('category_status');
 
-            $response = $this->categorySupplierService->update($id, $code, $name);
+            $response = $this->categorySupplierService->update($id, $code, $name, $status);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Update Category Supplier => ' . $response['data']['message']);

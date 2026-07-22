@@ -49,7 +49,8 @@ class SpecializationSupplierController extends Controller
                 'categoryCode' => $data['CategoryCode'],
                 'specializationRefID' => $data['Sys_ID'],
                 'specializationCode' => $data['Code'],
-                'specializationName' => $data['Name']
+                'specializationName' => $data['Name'],
+                'specializationStatus' => 1
             ];
 
             return view('Master.SpecializationSupplier.Transactions.revision', $compact);
@@ -71,8 +72,9 @@ class SpecializationSupplierController extends Controller
             $categoryCode = $request->input('category_code');
             $code = $request->input('sub_category_code');
             $name = $request->input('sub_category_name');
+            $status = $request->input('sub_category_status');
 
-            $response = $this->specializationSupplierService->update($id, $categoryCode, $code, $name);
+            $response = $this->specializationSupplierService->update($id, $categoryCode, $code, $name, $status);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Update Sub Category Supplier => ' . $response['data']['message']);

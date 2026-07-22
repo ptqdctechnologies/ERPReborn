@@ -90,13 +90,15 @@
                                                         </label>
                                                         <div class="col-5 d-flex" style="gap: 1rem;">
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="active" checked />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="sub_category_status" id="active" value="1"
+                                                                    <?= $specializationStatus == '1' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label" for="active">Active</label>
                                                             </div>
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="inactive" />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="sub_category_status" id="inactive" value="0"
+                                                                    <?= $specializationStatus == '0' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label"
                                                                     for="inactive">Inactive</label>
                                                             </div>

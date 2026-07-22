@@ -46,7 +46,7 @@ class SpecializationSupplierService
         );
     }
 
-    public function update($id, $categoryCode, $code, $name)
+    public function update($id, $categoryCode, $code, $name, $status)
     {
         $token = Session::get('SessionLogin');
 
@@ -60,7 +60,8 @@ class SpecializationSupplierService
                 'entities' => [
                     "categoryCode" => $categoryCode,
                     "code" => $code,
-                    "name" => $name
+                    "name" => $name,
+                    "status" => $status
                 ]
             ]
         );
