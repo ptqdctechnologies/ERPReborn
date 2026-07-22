@@ -322,7 +322,7 @@
         $('#myProjects').modal('toggle');
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+    $('#warehouseListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         const name = $(this).find('td:nth-child(2)').text();
         const address = $(this).find('td:nth-child(3)').text();
@@ -341,7 +341,7 @@
             ErrorHandler.hideErrorInputMessage("#delivery_to_name", "#deliveryToMessage");
         }
 
-        $('#myGetModalWarehouses').modal('toggle');
+        $('#warehouseListModal').modal('toggle');
     });
 
     $('#tableSuppliers').on('click', 'tbody tr', function () {

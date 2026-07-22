@@ -81,6 +81,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
+    Route::get('Warehouse/picklist', 'Master\WarehouseController@picklist')->name('Warehouse.picklist');
+    Route::post('Warehouse/revision', 'Master\WarehouseController@revision')->name('Warehouse.revision');
     Route::resource('Warehouse', 'Master\WarehouseController');
 
     // SUPPLIER
@@ -213,7 +215,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getCustomerList', 'Function\FunctionController@getCustomerList')->name('getCustomerList');
     Route::get('getChartOfAccountList', 'Function\FunctionController@getChartOfAccountList')->name('getChartOfAccountList');
     Route::get('getInvoiceList', 'Function\FunctionController@getInvoiceList')->name('getInvoiceList');
-    Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');

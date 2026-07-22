@@ -120,7 +120,7 @@
         });
     }
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+    $('#warehouseListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         const name = $(this).find('td:nth-child(2)').text();
         const address = $(this).find('td:nth-child(3)').text();
@@ -133,11 +133,11 @@
 
         ErrorHandler.hideErrorInputMessage("#warehouse_name", "#warehouseMessage");
 
-        $('#myGetModalWarehouses').modal('toggle');
+        $('#warehouseListModal').modal('toggle');
     });
 
     $(document).ready(function () {
-        getModalWarehouses();
+        getWarehouseList();
     });
 
     $(document).on('input', '.qty-good, .qty-reject',

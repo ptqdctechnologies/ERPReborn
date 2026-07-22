@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getWarehouses')
+    @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -21,4 +23,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.Warehouse.Functions.Footer.index')
 @endsection

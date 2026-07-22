@@ -303,7 +303,7 @@
                 tbody.empty();
 
                 if (response.status === 200 && !response.data[0].signAccess) {
-                    getModalWarehouses();
+                    getWarehouseList();
 
                     $("#delivery_order_trigger").show();
                     $("#delivery_order_loading").hide();
@@ -338,10 +338,10 @@
                     $("#delivery_order_trigger").prop("disabled", true);
                     $("#delivery_order_trigger").css({ "cursor": "not-allowed" });
 
-                    $("#myGetModalWarehousesTrigger").css('cursor', 'pointer');
-                    $("#myGetModalWarehousesTrigger").attr({
+                    $("#warehouseListModalTrigger").css('cursor', 'pointer');
+                    $("#warehouseListModalTrigger").attr({
                         "data-toggle": "modal",
-                        "data-target": "#myGetModalWarehouses"
+                        "data-target": "#warehouseListModal"
                     });
 
                     if (data[0].type == "STOCK_MOVEMENT") {
@@ -585,7 +585,7 @@
         $("#myDeliveryOrder").modal('toggle');
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+    $('#warehouseListTable').on('click', 'tbody tr', function () {
         let sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         let name = $(this).find('td:nth-child(2)').text();
         let address = $(this).find('td:nth-child(3)').text();
@@ -596,7 +596,7 @@
         $("#warehouse_address").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#receiveInMessage").hide();
 
-        $("#myGetModalWarehouses").modal('toggle');
+        $("#warehouseListModal").modal('toggle');
     });
 
     $('#address_delivery_order_from').on('input', function () {

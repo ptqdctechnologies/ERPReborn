@@ -632,7 +632,7 @@
         });
     }
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+    $('#warehouseListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         const name = $(this).find('td:nth-child(2)').text();
         const address = $(this).find('td:nth-child(3)').text();
@@ -641,7 +641,7 @@
         $("#warehouse_name").val(name);
         $("#warehouse_address").val(`${name} - ${address}`);
 
-        $("#myGetModalWarehouses").modal('toggle');
+        $("#warehouseListModal").modal('toggle');
     });
 
     $('#address_delivery_order_from').on('input', function () {
@@ -693,7 +693,7 @@
 
     $(document).ready(function () {
         getWorkflow(dataTable);
-        getModalWarehouses();
+        getWarehouseList();
 
         $('#startDate').datetimepicker({
             format: 'L',

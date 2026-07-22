@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getWarehouses')
+    @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -53,7 +55,7 @@
                                         title="Submit to Account Payable"> Submit
                                 </button>
                                 <button type="button" class="btn btn-default btn-sm float-right"
-                                    onclick="cancelForm('{{ route('Supplier.index') }}')"
+                                    onclick="cancelForm('{{ route('Warehouse.index') }}')"
                                     style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
                                         title="Cancel to Account Payable"> Cancel
@@ -67,4 +69,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.Warehouse.Functions.Footer.index')
 @endsection
