@@ -1355,20 +1355,20 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
             catch (Exception $ex) {
                 }
 
-            //---> Get Value From Cache
-            if (\App\Helpers\ZhtHelper\Cache\Helper_Redis::isExpired(
-                $varUserSession,
-                'ERPReborn::APIWebToken::'.$varAPIWebToken
-                ) == false) {
-                $varData = (
+            //---> Get Value From Cache (single Redis GET; null/empty means miss or expired)
+            $varRedisKey       = 'ERPReborn::APIWebToken::'.$varAPIWebToken;
+            $varRedisRawPayload =
+                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
+                    $varUserSession,
+                    $varRedisKey
+                    );
+
+            if ($varRedisRawPayload !== null && $varRedisRawPayload !== '' && $varRedisRawPayload !== false) {
+                $varData =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                            $varUserSession,
-                            'ERPReborn::APIWebToken::'.$varAPIWebToken
-                            )
-                        )
-                    );
+                        $varRedisRawPayload
+                        );
 
                 $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
                 $varReturn['userID'] = $varData['user_RefID'];
@@ -1379,69 +1379,103 @@ if (strcmp($varAPIKey, 'transaction.read.dataList.finance.getAdvance')==0)
                 $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
 
                 if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentities', $varData)) {
-                    $varReturn['userIdentities'] = 
+                    $varReturn['userIdentities'] =
                         //null;
                         self::getUserIdentity(
                             $varUserSession,
                             $varData['userIdentities']['LDAPUserID']
                             ); //---> Data Diambil dari DB (Lebih update bila ada perubahan data)
-                        //$varData['userIdentities']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)                    
+                        //$varData['userIdentities']; //---> Data Diambil dari Redis (Lebih responsif tapi tidak adaptif)
                     }
                 }
-            //---> Get Value From Database
+            //---> Cache Miss : Fall Back to Database + Write-Back
             else
                 {
                 if ((new \App\Models\Database\SchSysConfig\General())->isExist_APIWebToken($varUserSession, $varAPIWebToken) == true)
                     {
                     //---> Jika $varAPIWebToken merupakan Web Token System (SysEngine)
-                    if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0) 
+                    if (strcmp($varAPIWebToken, \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System()) == 0)
                         {
                         $varReturn['userLoginSessionID'] = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                         $varReturn['branchID'] = 11000000000001;
                         }
-                    /*
+                    //---> Token milik user normal. Rehydrate Redis dari TblLog_UserLoginSession.OptionsList
                     else
                         {
-                        $varData = 
-                            \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                                $varUserSession,
-                                \App\Helpers\ZhtHelper\Cache\Helper_Redis::getValue(
-                                    $varUserSession,
-                                    'ERPReborn::APIWebToken::'.$varAPIWebToken
-                                    )
-                                );
-                        //dd($varData['userIdentities']['LDAPUserID']);
+                        try {
+                            $varSessionRows =
+                                (new \App\Models\Database\SchSysConfig\TblLog_UserLoginSession())
+                                    ->getAllFilteredDataRecord(
+                                        $varUserSession,
+                                        '"APIWebToken" = \''.$varAPIWebToken.'\''
+                                        );
 
-                        $varReturn['userLoginSessionID'] = $varData['userLoginSession_RefID'];
-                        $varReturn['userID'] = $varData['user_RefID'];
-                        $varReturn['userRoleID'] = $varData['userRole_RefID'];
-                        $varReturn['branchID'] = $varData['branch_RefID'];
-                        $varReturn['sessionStartDateTimeTZ'] = $varData['sessionStartDateTimeTZ'];
-                        $varReturn['sessionAutoStartDateTimeTZ'] = $varData['sessionAutoStartDateTimeTZ'];
-                        $varReturn['sessionAutoFinishDateTimeTZ'] = $varData['sessionAutoFinishDateTimeTZ'];
-                        //---> Bila $varReturn['userIdentities'] diambil Redis, data tidak terupdate apabila ada perubahan pada database 
+                            if (is_array($varSessionRows) && count($varSessionRows) > 0)
+                                {
+                                $varSessionRow = $varSessionRows[0];
 
-                        //if(\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userPrivilegesMenu', $varData))
-                        //    {
-                        //    $varReturn['userPrivilegesMenu'] = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varData['userPrivilegesMenu']);
-                        //    }
-                        //$varReturn['environment'] = $varData['environment'];
-                        if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData)) {
-                            $varReturn['environment'] = $varData['environment'];
+                                //---> OptionsList kolom JSON yang menyimpan payload identik dengan struktur Redis
+                                $varData =
+                                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                                        $varUserSession,
+                                        $varSessionRow['OptionsList']
+                                        );
+
+                                if (is_array($varData))
+                                    {
+                                    $varReturn['userLoginSessionID']          = isset($varData['userLoginSession_RefID'])       ? $varData['userLoginSession_RefID']       : null;
+                                    $varReturn['userID']                      = isset($varData['user_RefID'])                   ? $varData['user_RefID']                   : null;
+                                    $varReturn['userRoleID']                  = isset($varData['userRole_RefID'])               ? $varData['userRole_RefID']               : null;
+                                    $varReturn['branchID']                    = isset($varData['branch_RefID'])                 ? $varData['branch_RefID']                 : null;
+                                    $varReturn['sessionStartDateTimeTZ']      = isset($varData['sessionStartDateTimeTZ'])       ? $varData['sessionStartDateTimeTZ']       : null;
+                                    $varReturn['sessionAutoStartDateTimeTZ']  = isset($varData['sessionAutoStartDateTimeTZ'])   ? $varData['sessionAutoStartDateTimeTZ']   : null;
+                                    $varReturn['sessionAutoFinishDateTimeTZ'] = isset($varData['sessionAutoFinishDateTimeTZ'])  ? $varData['sessionAutoFinishDateTimeTZ']  : null;
+
+                                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'userIdentities', $varData)) {
+                                        $varReturn['userIdentities'] =
+                                            self::getUserIdentity(
+                                                $varUserSession,
+                                                $varData['userIdentities']['LDAPUserID']
+                                                );
+                                        }
+
+                                    if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'environment', $varData)) {
+                                        $varReturn['environment'] = $varData['environment'];
+                                        }
+
+                                    //---> Hitung TTL dari SessionAutoFinishDateTimeTZ (fallback ke session.lifetime config)
+                                    $varTTL = null;
+                                    if (!empty($varData['sessionAutoFinishDateTimeTZ']))
+                                        {
+                                        $varExpiryTS = strtotime($varData['sessionAutoFinishDateTimeTZ']);
+                                        if ($varExpiryTS !== false && $varExpiryTS > time())
+                                            {
+                                            $varTTL = $varExpiryTS - time();
+                                            }
+                                        }
+                                    if ($varTTL === null || $varTTL <= 0)
+                                        {
+                                        $varTTL = ((int) config('session.lifetime', 120)) * 60;
+                                        }
+
+                                    //---> Write-Back ke Redis sehingga request berikutnya hit cache
+                                    \App\Helpers\ZhtHelper\Cache\Helper_Redis::setValue(
+                                        $varUserSession,
+                                        $varRedisKey,
+                                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                            $varUserSession,
+                                            $varData
+                                            ),
+                                        $varTTL
+                                        );
+                                    }
+                                }
+                            }
+                        catch (\Exception $ex) {
+                            //---> Rehydration gagal : biarkan request berlanjut dengan varReturn kosong
+                            //---> Caller (middleware) akan menolak request bila userLoginSessionID null
                             }
                         }
-                    */
-/*
-//------------< BLOCKING >------------------
-    dd (
-        \App\Helpers\ZhtHelper\General\Helper_DateTime::getDateTimeStringWithTimeZoneDifferenceInterval(
-            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), $varAPIExecutionStartDateTime),
-            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(\App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), (new \DateTime())),
-            )
-        );
-//------------< BLOCKING >------------------
-*/
                     }
                 }
 
