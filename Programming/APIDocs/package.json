@@ -39,7 +39,7 @@
     "puppeteer": "^24.3.0",
     "razorpay": "^2.9.6",
     "sequelize": "^6.37.8",
-    "sharp": "^0.33.1",
+    "sharp": "^0.35.0",
     "slug": "^8.2.2",
     "ssh2": "^1.11.0",
     "swagger-jsdoc": "^6.2.8",
