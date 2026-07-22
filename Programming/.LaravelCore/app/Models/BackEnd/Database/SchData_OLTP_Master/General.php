@@ -2287,32 +2287,6 @@ namespace App\Models\Database\SchData_OLTP_Master
                             )
 		    );
 
-                    $resultArray = $varReturn['data'];
-                    // Description: Generate API.
-                    $varReturn['data'] = [];
-                    $idxArray = 0;
-                    $idxArray2 = 0;
-                    $varSys_ID = 0;
-                    foreach ($resultArray as $key => $value) {
-                        if ($varSys_ID != $value["Sys_ID"]) {
-                            $idxArray2 = 0;
-                            $varReturn['data'][$idxArray]['Sys_ID'] = $value["Sys_ID"];
-                            $varReturn['data'][$idxArray]['Code'] = $value["Code"];
-                            $varReturn['data'][$idxArray]['Name'] = $value["Name"];
-                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
-                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
-                            $varReturn['data'][$idxArray]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
-                            $varSys_ID = $value["Sys_ID"];
-                            $idxArray++;
-                        }
-			else {
-			    $idxArray2++;
-                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_RefID'] = $value["SubCategory_RefID"];
-                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Code'] = $value["SubCategory_Code"];
-                            $varReturn['data'][$idxArray - 1]['SubCategories'][$idxArray2]['SubCategory_Name'] = $value["SubCategory_Name"];
-                        }
-                    }
-
                 return
                     $varReturn;
                 }
