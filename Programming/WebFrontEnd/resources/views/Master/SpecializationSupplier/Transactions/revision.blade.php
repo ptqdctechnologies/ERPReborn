@@ -12,7 +12,7 @@
                 <div class="row mb-1" style="background-color:#4B586A;">
                     <div class="col-sm-6" style="height:30px;">
                         <label style="font-size:15px;position:relative;top:7px;color:white;">
-                            Revision Specialization Supplier
+                            Revision Sub Category Supplier
                         </label>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Master Specialization
+                                                Master Sub Category
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -90,13 +90,15 @@
                                                         </label>
                                                         <div class="col-5 d-flex" style="gap: 1rem;">
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="active" checked />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="sub_category_status" id="active" value="1"
+                                                                    <?= $specializationStatus == '1' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label" for="active">Active</label>
                                                             </div>
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="inactive" />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="sub_category_status" id="inactive" value="0"
+                                                                    <?= $specializationStatus == '0' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label"
                                                                     for="inactive">Inactive</label>
                                                             </div>

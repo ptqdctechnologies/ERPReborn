@@ -1135,35 +1135,6 @@ class FunctionController extends Controller
         return response()->json($varData);
     }
 
-    public function getDeliveryOrderList(Request $request)
-    {
-        try {
-            $varAPIWebToken = Session::get('SessionLogin');
-
-            $varData = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
-                // 'transaction.read.dataList.supplyChain.getDeliveryOrder', 
-                'dataPickList.supplyChain.getDeliveryOrder',
-                'latest',
-                [
-                    'parameter' => null,
-                    'SQLStatement' => [
-                        'pick' => null,
-                        'sort' => null,
-                        'filter' => null,
-                        'paging' => null
-                    ]
-                ]
-            );
-
-            return response()->json($varData['data']['data']);
-        } catch (\Throwable $th) {
-            Log::error("Error at getDeliveryOrderList: " . $th->getMessage());
-            return redirect()->back()->with('NotFound', 'Process Error');
-        }
-    }
-
     public function getDeliveryOrderDetail(Request $request)
     {
         try {

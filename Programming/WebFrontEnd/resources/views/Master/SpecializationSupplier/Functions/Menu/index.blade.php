@@ -19,7 +19,7 @@
                                     <a id="revision_supplier" href="javascript:;" class="nav-link" data-toggle="modal"
                                         data-target="#mySpecializationSupplierRevision"
                                         style="color:white;padding-bottom:10px;">
-                                        <i class="far fa-file nav-icon-sm"> Revision Category Supplier</i>
+                                        <i class="far fa-file nav-icon-sm"> Revision Sub Category Supplier</i>
                                     </a>
                                 </li>
                             </ul>

@@ -23,7 +23,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_delivery_order" href="javascript:;" class="nav-link"
-                                        data-toggle="modal" data-target="#myPopUpDoRevision"
+                                        data-toggle="modal" data-target="#deliveryOrderRevisionModal"
                                         style="color:white;padding-bottom:10px;cursor:pointer;">
                                         <i class="far fa-file nav-icon-sm"> Revision Delivery Order </i>
                                     </a>

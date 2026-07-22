@@ -218,7 +218,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('getWarehouseList', 'Function\FunctionController@getWarehouseList')->name('getWarehouseList');
     Route::get('getAdvanceSettlement', 'Function\FunctionController@getAdvanceSettlement')->name('getAdvanceSettlement');
     Route::get('getAdvanceDetail', 'Function\FunctionController@getAdvanceDetail')->name('getAdvanceDetail');
-    Route::get('getDeliveryOrderList', 'Function\FunctionController@getDeliveryOrderList')->name('getDeliveryOrderList');
     Route::get('getDeliveryOrderDetail', 'Function\FunctionController@getDeliveryOrderDetail')->name('getDeliveryOrderDetail');
     Route::get('getLoanList', 'Function\FunctionController@getLoanList')->name('getLoanList');
     Route::get('getPurchaseRequisitionDetail', 'Function\FunctionController@getPurchaseRequisitionDetail')->name('getPurchaseRequisitionDetail');
@@ -518,6 +517,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('DeliveryOrderRequest', 'Inventory\DeliveryOrderRequestController');
 
     // DELIVERY ORDER
+    Route::get('DeliveryOrder/picklist', 'Inventory\DeliveryOrderController@picklist')->name('DeliveryOrder.picklist');
     Route::get('StockDetail', 'Inventory\DeliveryOrderController@StockDetail')->name('DeliveryOrder.StockDetail');
     Route::post('RevisionDeliveryOrderIndex', 'Inventory\DeliveryOrderController@RevisionDeliveryOrderIndex')->name('DeliveryOrder.RevisionDeliveryOrderIndex');
     Route::get('ReportDeliveryOrderSummary', 'Inventory\DeliveryOrderController@ReportDeliveryOrderSummary')->name('DeliveryOrder.ReportDeliveryOrderSummary');
@@ -582,7 +582,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
     Route::get('CustomerOrderDownload', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
     Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
-    Route::get('CustomerOrderPicklist', 'Sales\CustomerOrderController@picklist')->name('CustomerOrder.Picklist');
+    Route::get('CustomerOrder/picklist', 'Sales\CustomerOrderController@picklist')->name('CustomerOrder.Picklist');
     Route::resource('CustomerOrder', 'Sales\CustomerOrderController');
 
     // SETTING

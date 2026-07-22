@@ -55,7 +55,7 @@
                                                             <div class="input-group">
                                                                 <input class="form-control" id="category_code"
                                                                     name="category_code" value="<?= $categoryCode; ?>"
-                                                                    style="border-radius:0;" autocomplete="off">
+                                                                    style="border-radius:0;" autocomplete="off" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -69,7 +69,7 @@
                                                             <div class="input-group">
                                                                 <input class="form-control" id="category_name"
                                                                     name="category_name" value="<?= $categoryName; ?>"
-                                                                    style="border-radius:0;" autocomplete="off">
+                                                                    style="border-radius:0;" autocomplete="off" disabled>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -84,13 +84,15 @@
                                                         </label>
                                                         <div class="col-5 d-flex" style="gap: 1rem;">
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="active" checked />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="category_status" id="active" value="1"
+                                                                    <?= $categoryStatus == '1' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label" for="active">Active</label>
                                                             </div>
                                                             <div class="form-check d-flex align-items-center">
-                                                                <input class="form-check-input" type="radio" name="status"
-                                                                    id="inactive" />
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="category_status" id="inactive" value="0"
+                                                                    <?= $categoryStatus == '0' ? 'checked' : ''; ?> />
                                                                 <label class="form-check-label"
                                                                     for="inactive">Inactive</label>
                                                             </div>

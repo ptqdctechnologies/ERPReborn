@@ -664,6 +664,6 @@
             }
         });
 
-        getDeliveryOrder();
+        getDeliveryOrderList();
     });
 </script>

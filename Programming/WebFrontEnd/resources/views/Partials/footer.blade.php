@@ -3,6 +3,10 @@
 </footer>
 
 <script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+
   // ============================================
   // Configuration & Constants
   // ============================================ 
