@@ -4,7 +4,7 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain                     |
-|                \getPurchaseRequisitionToPurchaseOrderSummary\v1                                                                         |
+|                \getPurchaseRequisitionToPurchaseOrderSummary\v1                                                                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -13,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPurchaseRequisitionToPurchaseOrderSummary                                                                        |
-    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary Version 1           |
+    | ▪ Class Name  : getPurchaseRequisitionToPurchaseOrderSummary                                                                 |
+    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary Version 1    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getPurchaseRequisitionToPurchaseOrderSummary extends \App\Http\Controllers\Controller
@@ -45,7 +45,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000001                                                                                       |
         | ▪ Create date     : 2025-07-21                                                                                           |
-        | ▪ Last Update     : 2025-07-21                                                                                           |
+        | ▪ Last Update     : 2026-07-21                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -68,7 +68,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
                             $varData['parameter']['CombinedBudgetSectionCode'],
-                            $varData['parameter']['Supplier_RefID']
+                            $varData['parameter']['Supplier_RefID'],
+
+	                        $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
