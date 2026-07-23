@@ -568,7 +568,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.Specialization.store") !!}',
+            url: '{!! route("SpecializationSupplier.store") !!}',
             data: {
                 supplier_category_name_modal: supplierCategoryId.value,
                 specialization: JSON.stringify(specializationData.slice(0, -1))

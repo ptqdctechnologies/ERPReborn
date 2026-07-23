@@ -134,21 +134,4 @@ class SupplierService
             ]
         );
     }
-
-    public function createSubCategory($categoryCode, $specialization)
-    {
-        $token = Session::get('SessionLogin');
-        // $specializationDetails = json_decode($specialization, true);
-
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $token,
-            'transaction.create.master.setSupplierSubCategory',
-            'latest',
-            [
-                "categoryCode" => $categoryCode,
-                "specializationDetails" => $specialization
-            ]
-        );
-    }
 }
