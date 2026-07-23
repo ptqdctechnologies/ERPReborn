@@ -38,14 +38,17 @@
             <!-- WAREHOUSE TYPE -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Type</label>
-                <div class="col-5">
-                    <select type="text" class="form-control" id="type" name="type_value"
-                        style="border-radius:0;width: 100%;">
-                        <option value="Select a Type" disabled selected>Select a Type</option>
-                        <option value="172000000000009">Kepentingan Publik</option>
-                        <option value="172000000000002">Penyimpanan Bahan Baku</option>
-                        <option value="172000000000003">Penyimpanan Barang Setengah Jadi</option>
-                    </select>
+                <div class="col-5 d-flex">
+                    <div>
+                        <span id="provinceTrigger" data-toggle="modal" data-target="#myProvincies"
+                            class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div style="flex: 1;">
+                        <input type="text" id="supplier_province" class="form-control"
+                            style="border-radius:0;background-color:white;" readonly />
+                    </div>
                 </div>
             </div>
 
