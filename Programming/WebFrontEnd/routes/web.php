@@ -87,7 +87,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // SUPPLIER
     Route::post('Supplier/Specialization/store', 'Master\SupplierController@subCategoryStore')->name('Supplier.Specialization.store');
-    Route::get('Supplier/Category/picklist', 'Master\SupplierController@categoryPicklist')->name('Supplier.Category.picklist');
     Route::post('Supplier/Category/store', 'Master\SupplierController@categoryStore')->name('Supplier.Category.store');
     Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
     Route::post('Supplier/picklist', 'Master\SupplierController@picklist')->name('Supplier.picklist');
@@ -96,6 +95,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Supplier', 'Master\SupplierController');
 
     // CATEGORY SUPPLIER
+    Route::get('CategorySupplier/picklist', 'Master\CategorySupplierController@picklist')->name('CategorySupplier.picklist');
     Route::post('CategorySupplier/revision', 'Master\CategorySupplierController@revision')->name('CategorySupplier.revision');
     Route::resource('CategorySupplier', 'Master\CategorySupplierController');
 

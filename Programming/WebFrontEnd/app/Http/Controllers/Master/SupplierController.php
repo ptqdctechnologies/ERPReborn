@@ -250,21 +250,4 @@ class SupplierController extends Controller
             return response()->json(["status" => 500]);
         }
     }
-
-    public function categoryPicklist(Request $request)
-    {
-        $response = $this->supplierService->getCategoryPickList();
-
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
-
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
-        }
-
-        return response()->json([
-            'data' => $data,
-            'status' => $status
-        ]);
-    }
 }

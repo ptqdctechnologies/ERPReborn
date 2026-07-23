@@ -94,4 +94,21 @@ class CategorySupplierController extends Controller
     public function destroy($id)
     {
     }
+
+    public function picklist(Request $request)
+    {
+        $response = $this->categorySupplierService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
 }
