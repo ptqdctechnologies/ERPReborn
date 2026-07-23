@@ -94,6 +94,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // CATEGORY SUPPLIER
     Route::get('CategorySupplier/picklist', 'Master\CategorySupplierController@picklist')->name('CategorySupplier.picklist');
+    Route::get('CategorySupplier/picklistWithSpecialization', 'Master\CategorySupplierController@picklistWithSpecialization')->name('CategorySupplier.picklistWithSpecialization');
     Route::post('CategorySupplier/revision', 'Master\CategorySupplierController@revision')->name('CategorySupplier.revision');
     Route::resource('CategorySupplier', 'Master\CategorySupplierController');
 
@@ -201,7 +202,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // FUNCTION
     Route::post('getQuantityUnit', 'Function\FunctionController@getQuantityUnit')->name('getQuantityUnit');
-    Route::post('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');
+    Route::get('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
     Route::post('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
     Route::post('getBeneficiary', 'Function\FunctionController@getBeneficiary')->name('getBeneficiary');

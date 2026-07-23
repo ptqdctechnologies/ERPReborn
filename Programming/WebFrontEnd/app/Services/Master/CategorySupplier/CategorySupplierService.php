@@ -24,6 +24,22 @@ class CategorySupplierService
         );
     }
 
+    public function getPicklistWithSpecialization()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.master.getSupplierCategorySubCategory',
+            'latest',
+            [
+                'parameter' => []
+            ],
+            false
+        );
+    }
+
     public function getDetail($categorySupplierRefID)
     {
         $sessionToken = Session::get('SessionLogin');

@@ -135,4 +135,21 @@ class CategorySupplierController extends Controller
             'status' => $status
         ]);
     }
+
+    public function picklistWithSpecialization(Request $request)
+    {
+        $response = $this->categorySupplierService->getPicklistWithSpecialization();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
 }
