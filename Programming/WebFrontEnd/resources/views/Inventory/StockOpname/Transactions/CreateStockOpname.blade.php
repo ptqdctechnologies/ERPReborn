@@ -45,8 +45,8 @@
                                                     <div
                                                         class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                                                         <div>
-                                                            <span id="myGetModalWarehousesTrigger" data-toggle="modal"
-                                                                data-target="#myGetModalWarehouses"
+                                                            <span id="warehouseListModalTrigger" data-toggle="modal"
+                                                                data-target="#warehouseListModal"
                                                                 class="input-group-text form-control"
                                                                 style="border-radius:0;cursor:pointer;">
                                                                 <i class="fas fa-gift"></i>

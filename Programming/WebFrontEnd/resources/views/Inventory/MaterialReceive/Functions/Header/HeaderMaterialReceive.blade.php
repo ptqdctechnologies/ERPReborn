@@ -79,10 +79,10 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div style="background-color:#e9ecef;min-height:100%;border:1px solid #ced4da;">
                         <span style="border-radius:0;border:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="myGetModalWarehousesTrigger"
+                            <a href="javascript:;" id="warehouseListModalTrigger"
                                 style="display: block; cursor: not-allowed;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                    alt="myGetModalWarehousesTrigger">
+                                    alt="warehouseListModalTrigger">
                             </a>
                         </span>
                     </div>

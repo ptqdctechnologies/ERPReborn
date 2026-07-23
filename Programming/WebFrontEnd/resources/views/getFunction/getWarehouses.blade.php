@@ -1,18 +1,22 @@
-<!-- GET WAREHOUSES -->
-<div id="myGetModalWarehouses" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
-    aria-hidden="true" style="z-index: 9999;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
+<div class="modal fade" id="warehouseListModal" tabindex="-1" aria-labelledby="warehouseListModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title text-bold">Choose Warehouse</h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h5 class="modal-title" id="warehouseListModalLabel"
+                    style="font-size: 15px; font-weight:bold; text-align: center;">
+                    Choose Warehouse
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="height: 400px;">
-                                <table class="table table-head-fixed w-100" id="tableGetModalWarehouses">
+                            <div class="card-body table-responsive p-0">
+                                <table class="table table-head-fixed w-100" id="warehouseListTable">
                                     <thead>
                                         <tr>
                                             <th>No</th>
@@ -22,7 +26,7 @@
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr id="loadingGetModalWarehouses">
+                                        <tr id="warehouseListLoadingTable">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
@@ -47,7 +51,7 @@
 </div>
 
 <script>
-    function getModalWarehouses() {
+    function getWarehouseList() {
         $.ajaxSetup({
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -55,13 +59,13 @@
         });
 
         $.ajax({
-            type: 'POST',
-            url: '{!! route("Warehouse.WarehousePickList") !!}',
+            type: 'GET',
+            url: '{!! route("Warehouse.picklist") !!}',
         })
             .done(function (response) {
                 let data = (response.status == 200 && response.data[0]) ? response.data : [];
 
-                $('#tableGetModalWarehouses').DataTable({
+                $('#warehouseListTable').DataTable({
                     destroy: true,
                     data: data,
                     deferRender: true,
@@ -91,7 +95,7 @@
                 console.error("Error:", errorThrown);
             })
             .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingGetModalWarehouses").hide();
+                $("#warehouseListLoadingTable").hide();
             });
     }
 </script>

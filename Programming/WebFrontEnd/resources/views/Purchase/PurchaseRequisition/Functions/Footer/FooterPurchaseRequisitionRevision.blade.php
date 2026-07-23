@@ -795,7 +795,7 @@
         $("#dateOfDeliveryMessage").hide();
     });
 
-    $('#tableGetModalWarehouses').on('click', 'tbody tr', function () {
+    $('#warehouseListTable').on('click', 'tbody tr', function () {
         const id = $(this).find('input[data-trigger="sys_id_modal_warehouse"]').val();
         const name = $(this).find('td:nth-child(2)').text();
         const address = $(this).find('td:nth-child(3)').text();
@@ -810,7 +810,7 @@
         });
         $("#deliveryToMessage").hide();
 
-        $("#myGetModalWarehouses").modal('toggle');
+        $("#warehouseListModal").modal('toggle');
     });
 
     $('#tableWorkflows').on('click', 'tbody tr', function () {
@@ -867,7 +867,7 @@
         $(".errorMessageContainerPRDetails").hide();
 
         getWorkflow();
-        getModalWarehouses();
+        getWarehouseList();
         getBudget(siteCode.value, dataTable);
     });
 </script>

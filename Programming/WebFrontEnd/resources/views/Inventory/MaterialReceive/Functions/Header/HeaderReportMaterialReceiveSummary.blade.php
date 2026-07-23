@@ -34,7 +34,7 @@
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
         <span id="myReceivedTrigger" class="input-group-text form-control" data-toggle="modal"
-          data-target="#myGetModalWarehouses" onclick="changeTriggerWarehouse('RECEIVED_AT')"
+          data-target="#warehouseListModal" onclick="changeTriggerWarehouse('RECEIVED_AT')"
           style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
@@ -85,7 +85,7 @@
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
         <span id="myDeliveryToTrigger" class="input-group-text form-control" data-toggle="modal"
-          data-target="#myGetModalWarehouses" onclick="changeTriggerWarehouse('DELIVERY_TO')"
+          data-target="#warehouseListModal" onclick="changeTriggerWarehouse('DELIVERY_TO')"
           style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>

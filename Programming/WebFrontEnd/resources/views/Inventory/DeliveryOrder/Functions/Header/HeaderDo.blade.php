@@ -290,7 +290,7 @@
             <span style="border-radius:0;" class="input-group-text form-control"
               onclick="deliveryTypeTrigger('from_internal_use')">
               <a href="javascript:;" id="internal_use_delivery_from_trigger" data-toggle="modal"
-                data-target="#myGetModalWarehouses">
+                data-target="#warehouseListModal">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                   alt="internal_use_delivery_from_trigger">
               </a>
@@ -325,7 +325,7 @@
             <span style="border-radius:0;" class="input-group-text form-control"
               onclick="deliveryTypeTrigger('to_internal_use')">
               <a href="javascript:;" id="internal_use_delivery_to_trigger" data-toggle="modal"
-                data-target="#myGetModalWarehouses">
+                data-target="#warehouseListModal">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                   alt="internal_use_delivery_to_trigger">
               </a>
@@ -385,7 +385,7 @@
             <span style="border-radius:0;" class="input-group-text form-control"
               onclick="deliveryTypeTrigger('from_stock_movement')">
               <a href="javascript:;" id="stock_movement_delivery_from_trigger" data-toggle="modal"
-                data-target="#myGetModalWarehouses">
+                data-target="#warehouseListModal">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                   alt="stock_movement_delivery_from_trigger">
               </a>
@@ -420,7 +420,7 @@
             <span style="border-radius:0;" class="input-group-text form-control"
               onclick="deliveryTypeTrigger('to_stock_movement')">
               <a href="javascript:;" id="stock_movement_delivery_to_trigger" data-toggle="modal"
-                data-target="#myGetModalWarehouses">
+                data-target="#warehouseListModal">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                   alt="stock_movement_delivery_to_trigger">
               </a>
