@@ -499,7 +499,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.Category.store") !!}',
+            url: '{!! route("CategorySupplier.store") !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();

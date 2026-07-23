@@ -47,6 +47,24 @@ class CategorySupplierService
         );
     }
 
+    public function create($code, $name)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.create.master.setSupplierCategory',
+            'latest',
+            [
+                'entities' => [
+                    "code" => $code,
+                    "name" => $name
+                ]
+            ]
+        );
+    }
+
     public function update($id, $code, $name, $status)
     {
         $token = Session::get('SessionLogin');
