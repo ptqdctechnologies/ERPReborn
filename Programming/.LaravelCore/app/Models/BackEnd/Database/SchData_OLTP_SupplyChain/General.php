@@ -5474,7 +5474,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderToDeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5489,9 +5489,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
                 }
@@ -5570,7 +5573,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null, string  $varStartDate = null, string  $varEndDate = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5586,9 +5589,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varWarehouse_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -5616,7 +5622,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderToWarehouseInboundOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5629,9 +5635,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {

@@ -39,16 +39,23 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '235',
-                    'Warehouse_RefID' => 173000000000003,
-                    'StartDate' => '2025-01-01',
-                    'EndDate' => '2026-02-11',
-                    // 'CombinedBudgetCode' => NULL,
-                    // 'CombinedBudgetSectionCode' => NULL,
-                    // 'Warehouse_RefID' => NULL,
-                    // 'StartDate' => NULL,
-                    // 'EndDate' => NULL,
+                    // 'CombinedBudgetCode' => 'Q000062',
+                    // 'CombinedBudgetSectionCode' => '235',
+                    // 'Warehouse_RefID' => 173000000000003,
+                    // 'StartDate' => '2025-01-01',
+                    // 'EndDate' => '2026-02-11',
+                    'CombinedBudgetCode' => NULL,
+                    'CombinedBudgetSectionCode' => NULL,
+                    'Warehouse_RefID' => NULL,
+                    'StartDate' => NULL,
+                    'EndDate' => NULL,
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );

@@ -70,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['CombinedBudgetSectionCode'],
                             $varData['parameter']['Warehouse_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+
+	                        $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();
