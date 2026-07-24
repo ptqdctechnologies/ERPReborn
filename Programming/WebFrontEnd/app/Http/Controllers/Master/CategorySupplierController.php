@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Services\Master\CategorySupplier\CategorySupplierService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use App\Http\Requests\Master\Supplier\StoreSupplierCategory;
 
 class CategorySupplierController extends Controller
 {
@@ -26,8 +27,31 @@ class CategorySupplierController extends Controller
     {
     }
 
-    public function store(Request $request)
+    public function store(StoreSupplierCategory $request)
     {
+        try {
+            $code = $request->input('supplier_category_code');
+            $name = $request->input('supplier_category_name');
+
+            $response = $this->categorySupplierService->create($code, $name);
+
+            Log::error("Store Category Supplier Function Error: ", [$request->all()]);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Store Category Supplier => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['categoryCode'] . " - " . $response['data']['categoryName'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Category Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function revision(Request $request)
@@ -93,5 +117,39 @@ class CategorySupplierController extends Controller
 
     public function destroy($id)
     {
+    }
+
+    public function picklist(Request $request)
+    {
+        $response = $this->categorySupplierService->getPickList();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
+    }
+
+    public function picklistWithSpecialization(Request $request)
+    {
+        $response = $this->categorySupplierService->getPicklistWithSpecialization();
+
+        $status = $response['metadata']['HTTPStatusCode'];
+        $data = [];
+
+        if ($status == 200) {
+            $data = $response['data']['data'] ?? [];
+        }
+
+        return response()->json([
+            'data' => $data,
+            'status' => $status
+        ]);
     }
 }

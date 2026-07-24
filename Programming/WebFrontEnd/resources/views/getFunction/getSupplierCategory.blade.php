@@ -56,7 +56,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{!! route("Supplier.Category.picklist") !!}',
+            url: '{!! route("CategorySupplier.picklist") !!}',
             beforeSend: function () {
                 $("#loadingSupplierCategoryListModal").show();
                 $('#tableSupplierCategoryListModal tbody').empty();

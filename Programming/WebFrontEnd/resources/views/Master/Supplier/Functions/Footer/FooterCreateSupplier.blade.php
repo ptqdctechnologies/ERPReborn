@@ -135,7 +135,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("getInstitutionType") !!}',
         })
             .done(function (response) {
@@ -150,6 +150,91 @@
             })
             .always(function (jqXHR, textStatus, errorThrown) {
                 $("#loadingGetModalAdvanceSettlement").hide();
+            });
+    }
+
+    function getSupplierCategoryWithSpecialization() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("CategorySupplier.picklistWithSpecialization") !!}',
+        })
+            .done(function (response) {
+                const data = (response.status == 200 && response.data.length) ? response.data : [];
+
+                let html = '';
+
+                data.forEach(function (category) {
+                    html += `
+                        <div class="mb-3">
+                            <!-- CATEGORY -->
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input parent-checkbox"
+                                    type="checkbox"
+                                    id="category_${category.category_RefID}"
+                                    value="${category.category_RefID}"
+                                    name="category[]"
+                                    style="margin-top:0;"
+                                >
+                                <label
+                                    class="form-check-label"
+                                    for="category_${category.category_RefID}">
+                                    ${category.categoryName}
+                                </label>
+                            </div>
+
+                            <!-- SUB CATEGORIES -->
+                            <div
+                                class="child-group d-flex"
+                                data-parent="${category.category_RefID}"
+                                style="margin-top:.8rem;margin-left:1.2rem;gap:1rem;flex-wrap:wrap;">
+                    `;
+
+                    if (category.subCategories && category.subCategories.length) {
+
+                        category.subCategories.forEach(function (sub) {
+
+                            html += `
+                                <div class="form-check">
+                                    <input
+                                        class="form-check-input child-checkbox"
+                                        type="checkbox"
+                                        id="subcategory_${sub.subCategory_RefID}"
+                                        value="${sub.subCategory_RefID}"
+                                        name="specialization[${category.category_RefID}][]"
+                                        disabled
+                                        style="margin-top:0;"
+                                    >
+                                    <label
+                                        class="form-check-label"
+                                        for="subcategory_${sub.subCategory_RefID}">
+                                        ${sub.subCategory_Name}
+                                    </label>
+                                </div>
+                            `;
+                        });
+
+                    }
+
+                    html += `
+                        </div>
+                    </div>
+                    `;
+                });
+
+                $("#loadingCategory").after(html);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingCategory").hide();
             });
     }
 
@@ -499,7 +584,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.Category.store") !!}',
+            url: '{!! route("CategorySupplier.store") !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
@@ -568,7 +653,7 @@
 
         $.ajax({
             type: 'POST',
-            url: '{!! route("Supplier.Specialization.store") !!}',
+            url: '{!! route("SpecializationSupplier.store") !!}',
             data: {
                 supplier_category_name_modal: supplierCategoryId.value,
                 specialization: JSON.stringify(specializationData.slice(0, -1))
@@ -673,14 +758,29 @@
         });
     });
 
+    $(document).on('change', '.parent-checkbox', function () {
+
+        const parentId = $(this).val();
+        const checked = $(this).is(':checked');
+
+        $(`.child-group[data-parent="${parentId}"] input[type="checkbox"]`)
+            .prop('disabled', !checked);
+
+        if (!checked) {
+            $(`.child-group[data-parent="${parentId}"] input[type="checkbox"]`)
+                .prop('checked', false);
+        }
+    });
+
     $(document).ready(function () {
         $('#legal_entity').select2();
 
-        // $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
-        //     detailSpecialization();
-        // });
+        $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
+            getSupplierCategoryWithSpecialization();
+        });
 
         $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
+            getSupplierCategory();
             $('#supplierSpecializationModal').modal('toggle');
         });
 
@@ -704,5 +804,6 @@
         getInstitutionType();
         getSupplierCategory();
         detailSpecialization();
+        getSupplierCategoryWithSpecialization();
     });
 </script>

@@ -60,22 +60,6 @@ class SupplierService
         );
     }
 
-    public function getCategoryPickList()
-    {
-        $sessionToken = Session::get('SessionLogin');
-
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'dataPickList.master.getSupplierCategory',
-            'latest',
-            [
-                'parameter' => []
-            ],
-            false
-        );
-    }
-
     public function getSummary($search, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
@@ -147,41 +131,6 @@ class SupplierService
                         ]
                     ]
                 ]
-            ]
-        );
-    }
-
-    public function createCategory($code, $name)
-    {
-        $token = Session::get('SessionLogin');
-
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $token,
-            'transaction.create.master.setSupplierCategory',
-            'latest',
-            [
-                'entities' => [
-                    "code" => $code,
-                    "name" => $name
-                ]
-            ]
-        );
-    }
-
-    public function createSubCategory($categoryCode, $specialization)
-    {
-        $token = Session::get('SessionLogin');
-        // $specializationDetails = json_decode($specialization, true);
-
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $token,
-            'transaction.create.master.setSupplierSubCategory',
-            'latest',
-            [
-                "categoryCode" => $categoryCode,
-                "specializationDetails" => $specialization
             ]
         );
     }

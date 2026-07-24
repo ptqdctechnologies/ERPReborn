@@ -8,6 +8,38 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class CategorySupplierService
 {
+    public function getPickList()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.master.getSupplierCategory',
+            'latest',
+            [
+                'parameter' => []
+            ],
+            false
+        );
+    }
+
+    public function getPicklistWithSpecialization()
+    {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'dataPickList.master.getSupplierCategorySubCategory',
+            'latest',
+            [
+                'parameter' => []
+            ],
+            false
+        );
+    }
+
     public function getDetail($categorySupplierRefID)
     {
         $sessionToken = Session::get('SessionLogin');
@@ -26,6 +58,24 @@ class CategorySupplierService
                     'sort' => null,
                     'filter' => null,
                     'paging' => null
+                ]
+            ]
+        );
+    }
+
+    public function create($code, $name)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.create.master.setSupplierCategory',
+            'latest',
+            [
+                'entities' => [
+                    "code" => $code,
+                    "name" => $name
                 ]
             ]
         );
