@@ -5474,7 +5474,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderToDeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5489,9 +5489,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
                 }
