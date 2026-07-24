@@ -4,11 +4,11 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain         |
-|                 \getDeliveryOrderToWarehouseInboundOrderSummary\v1                                                                                       |
-| ▪ API Key     : report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary                                                         |
+|                 \getDeliveryOrderToWarehouseInboundOrderSummary\v1                                                               |
+| ▪ API Key     : report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary                              |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\documentForm\supplyChain\getDeliveryOrderToWarehouseInboundOrderSummary\v1
@@ -43,6 +43,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'CombinedBudgetSectionCode' => '235',
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
