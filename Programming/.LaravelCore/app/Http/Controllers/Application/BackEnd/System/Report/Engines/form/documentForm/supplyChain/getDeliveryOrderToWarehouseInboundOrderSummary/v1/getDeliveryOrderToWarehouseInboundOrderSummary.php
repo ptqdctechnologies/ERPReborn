@@ -4,7 +4,7 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\supplyChain                     |
-|                \getDeliveryOrderToWarehouseInboundOrderSummary\v1                                                                         |
+|                \getDeliveryOrderToWarehouseInboundOrderSummary\v1                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
@@ -13,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getDeliveryOrderToWarehouseInboundOrderSummary                                                                        |
-    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary Version 1           |
+    | ▪ Class Name  : getDeliveryOrderToWarehouseInboundOrderSummary                                                               |
+    | ▪ Description : Menangani API report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary Version 1  |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getDeliveryOrderToWarehouseInboundOrderSummary extends \App\Http\Controllers\Controller
@@ -67,7 +67,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['CombinedBudgetSectionCode']
+                            $varData['parameter']['CombinedBudgetSectionCode'],
+
+	                        $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();

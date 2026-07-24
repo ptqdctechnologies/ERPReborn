@@ -5619,7 +5619,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderToWarehouseInboundOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5632,9 +5632,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
