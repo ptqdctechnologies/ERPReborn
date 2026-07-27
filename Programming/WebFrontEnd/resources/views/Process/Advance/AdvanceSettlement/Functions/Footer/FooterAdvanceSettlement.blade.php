@@ -757,12 +757,22 @@
     $('#tableGetModalAdvance').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         const sysIdBudget = $(this).find('input[data-trigger="sys_id_budget_advance"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_advance"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
         const beneficiary = $(this).find('td:nth-child(3)').text();
         const budgetCode = $(this).find('td:nth-child(5)').text();
         const budgetName = $(this).find('td:nth-child(6)').text();
         const subBudgetCode = $(this).find('td:nth-child(7)').text();
         const subBudgetName = $(this).find('td:nth-child(8)').text();
+
+        if (status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.nextTransaction.title,
+                CONFIG.MESSAGE.nextTransaction.description,
+                "error"
+            );
+            return;
+        }
 
         $("#advance_id").val("");
         $("#advance_number").val("");

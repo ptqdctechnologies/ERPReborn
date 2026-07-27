@@ -31,6 +31,10 @@
       revision: {
         title: "This transaction can't be revised",
         description: "Revision is only allowed for Final Approved or Rejected transactions"
+      },
+      nextTransaction: {
+        title: "This transaction can't be revised",
+        description: "Create is only allowed for Final Approved transactions"
       }
     }
   };

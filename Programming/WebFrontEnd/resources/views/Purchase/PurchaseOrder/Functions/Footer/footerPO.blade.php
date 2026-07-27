@@ -840,7 +840,17 @@
         const $row = $(this);
         const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
         const sysIdBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
+        const status = $row.find('input[data-trigger="workflow_status_purchase_request"]').val();
         const trano = $row.find('td:nth-child(2)').text();
+
+        if (status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.nextTransaction.title,
+                CONFIG.MESSAGE.nextTransaction.description,
+                "error"
+            );
+            return;
+        }
 
         getWorkflow(sysIdBudget, trano, sysId);
 
