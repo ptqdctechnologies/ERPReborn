@@ -5676,7 +5676,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_CreditNoteSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5689,9 +5689,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -5719,7 +5722,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DebitNoteSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5732,9 +5735,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
