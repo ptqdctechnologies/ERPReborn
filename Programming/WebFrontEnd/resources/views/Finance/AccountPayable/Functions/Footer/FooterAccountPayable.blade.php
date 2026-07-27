@@ -933,17 +933,27 @@
         const table = $('#TableSearchPORevision').DataTable();
         const data = table.row(this).data();
 
-        $("#invoice_loading_table").show();
-        $("#invoice_details_table tbody").hide();
-        $("#purchase_order_loading").show();
-        $("#purchase_order_trigger").hide();
-
         if (data) {
-            $("#mySearchPO").modal('toggle');
-
             const purchaseOrder_RefID = data.sys_ID;
             const code = data.sys_Text;
             const combinedBudget_RefID = data.combinedBudget_RefID;
+            const status = data.additionalData.latestWorkFlowStatus;
+
+            if (status !== "Final Approval") {
+                Swal.fire(
+                    CONFIG.MESSAGE.nextTransaction.title,
+                    CONFIG.MESSAGE.nextTransaction.description,
+                    "error"
+                );
+                return;
+            }
+
+            $("#mySearchPO").modal('toggle');
+
+            $("#invoice_loading_table").show();
+            $("#invoice_details_table tbody").hide();
+            $("#purchase_order_loading").show();
+            $("#purchase_order_trigger").hide();
 
             getWorkflow(combinedBudget_RefID, purchaseOrder_RefID);
         }

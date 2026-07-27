@@ -906,6 +906,9 @@
 
                     getPurchaseOrderDetail(purchaseOrderRefID, purchaseOrderNumber);
                 } else {
+                    $("#purchase_order_loading").hide();
+                    $("#purchase_order_icon").show();
+
                     Swal.fire("Error", "You don't have access", "error");
                 }
             },
@@ -1101,15 +1104,25 @@
 
         // $("#loading-purchase-order").show();
 
-        $("#purchase_order_loading").show();
-        $("#purchase_order_icon").hide();
-
         if (data) {
-            $("#mySearchPO").modal('toggle');
-
             let purchaseOrderRefID = data.sys_ID;
             let purchaseOrderNumber = data.sys_Text;
             let combinedBudgetRefID = data.combinedBudget_RefID;
+            let status = data.additionalData.latestWorkFlowStatus;
+
+            if (status !== "Final Approval") {
+                Swal.fire(
+                    CONFIG.MESSAGE.nextTransaction.title,
+                    CONFIG.MESSAGE.nextTransaction.description,
+                    "error"
+                );
+                return;
+            }
+
+            $("#mySearchPO").modal('toggle');
+
+            $("#purchase_order_loading").show();
+            $("#purchase_order_icon").hide();
 
             getWorkflow(combinedBudgetRefID, purchaseOrderRefID, purchaseOrderNumber);
         }

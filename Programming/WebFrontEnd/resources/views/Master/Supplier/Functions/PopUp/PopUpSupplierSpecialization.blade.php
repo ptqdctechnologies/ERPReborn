@@ -4,7 +4,7 @@
         <div class="modal-content">
             <div class="modal-header justify-content-center">
                 <h3 style="margin: 0px;font-weight:bold;">
-                    Supplier Specialization
+                    Supplier Sub Category
                 </h3>
             </div>
             <form id="specializationForm">

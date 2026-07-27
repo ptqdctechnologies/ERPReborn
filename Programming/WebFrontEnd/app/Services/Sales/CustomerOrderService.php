@@ -54,6 +54,7 @@ class CustomerOrderService
         $sessionToken = Session::get('SessionLogin');
         $data = $request->storeData;
         $detailItems = json_decode($data['customerOrderDetail'], true);
+        $vatRatio = !isset($data['coRatio']) || $data['coRatio'] == "Select a VAT" ? 0 : $data['coRatio'];
         $fileID = isset($data['logFileUploadPointerRefID']) ? (int) $data['logFileUploadPointerRefID'] : null;
 
         if ($data['coType'] == "SUB_BUDGET_BASE") {
@@ -70,7 +71,7 @@ class CustomerOrderService
                         "documentDateTimeTZ" => date('Y-m-d'),
                         "type" => 'SUB_BUDGET_BASE',
                         "vatStatus" => $data['coVat'],
-                        "vatRatio" => $data['coRatio'],
+                        "vatRatio" => $vatRatio,
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems
@@ -93,7 +94,7 @@ class CustomerOrderService
                         "documentDateTimeTZ" => date('Y-m-d'),
                         "type" => 'PRODUCT_BASE',
                         "vatStatus" => $data['coVat'],
-                        "vatRatio" => $data['coRatio'],
+                        "vatRatio" => $vatRatio,
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems
@@ -110,6 +111,7 @@ class CustomerOrderService
         $sessionToken = Session::get('SessionLogin');
         $data = $request->storeData;
         $detailItems = json_decode($data['customerOrderDetail'], true);
+        $vatRatio = !isset($data['coRatio']) || $data['coRatio'] == "Select a VAT" ? 0 : $data['coRatio'];
         $fileID = isset($data['logFileUploadPointerRefID']) ? (int) $data['logFileUploadPointerRefID'] : null;
 
         if ($data['coType'] == "SUB_BUDGET_BASE") {
@@ -127,7 +129,7 @@ class CustomerOrderService
                         "documentDateTimeTZ" => date('Y-m-d'),
                         "type" => 'SUB_BUDGET_BASE',
                         "vatStatus" => $data['coVat'],
-                        "vatRatio" => $data['coRatio'],
+                        "vatRatio" => $vatRatio,
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems
@@ -151,7 +153,7 @@ class CustomerOrderService
                         "documentDateTimeTZ" => date('Y-m-d'),
                         "type" => 'PRODUCT_BASE',
                         "vatStatus" => $data['coVat'],
-                        "vatRatio" => $data['coRatio'],
+                        "vatRatio" => $vatRatio,
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems

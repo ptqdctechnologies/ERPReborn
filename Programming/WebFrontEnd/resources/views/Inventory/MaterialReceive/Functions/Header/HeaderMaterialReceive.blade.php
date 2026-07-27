@@ -12,7 +12,7 @@
                     <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="delivery_order_trigger" data-toggle="modal"
-                                data-target="#myDeliveryOrder" style="display: block;">
+                                data-target="#deliveryOrderModal" style="display: block;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
                                     alt="delivery_order_trigger">
                             </a>

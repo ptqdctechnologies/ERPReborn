@@ -24,6 +24,6 @@ class DashboardController extends Controller
 
         $qrcode_png = DNS2D::getBarcodePNG('Bisa di-scan!', 'QRCODE');
 
-        return view('Dashboard.index',  compact('barcode_1d', 'qrcode_2d', 'qrcode_png'));
+        return view('Dashboard.index');
     }
 }

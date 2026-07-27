@@ -1,7 +1,10 @@
 <script>
     let countryCodeTemp = null;
     let specializationData = [];
+    const supplierCategoryId = document.getElementById("supplier_category_code_modal");
     const containerMultipleSpecialization = document.getElementById("multiple-specialization");
+    const categoryRefID = {!! json_encode($category_RefID ?? []) !!};
+    const specializationRefID = {!! json_encode($specialization_RefID ?? []) !!};
     const formList = {
         supplier_name: {
             component: '#supplier_name',
@@ -77,6 +80,26 @@
             component: '#specialization',
             containerMessageId: '#specializationMessage',
             messageId: '#specializationMessageText'
+        },
+        supplier_category_code: {
+            component: '#supplier_category_code',
+            containerMessageId: '#supplierCategoryCodeMessage',
+            messageId: '#supplierCategoryCodeMessageText'
+        },
+        supplier_category_name: {
+            component: '#supplier_category_name',
+            containerMessageId: '#supplierCategoryNameMessage',
+            messageId: '#supplierCategoryNameMessageText'
+        },
+        supplier_category_name_modal: {
+            component: '#supplier_category_name_modal',
+            containerMessageId: '#supplierCategoryMessage',
+            messageId: '#supplierCategoryMessageText'
+        },
+        specialization: {
+            component: '',
+            containerMessageId: '#supplierSpecialiationMessage',
+            messageId: '#supplierSpecialiationMessageText'
         }
     };
 
@@ -129,6 +152,99 @@
             })
             .always(function (jqXHR, textStatus, errorThrown) {
                 $("#loadingGetModalAdvanceSettlement").hide();
+            });
+    }
+
+    function getSupplierCategoryWithSpecialization() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("CategorySupplier.picklistWithSpecialization") !!}',
+        })
+            .done(function (response) {
+                const data = (response.status == 200 && response.data.length) ? response.data : [];
+
+                let html = '';
+
+                data.forEach(function (category) {
+                    let findCategory = categoryRefID.find(val => val == category.category_RefID);
+
+                    html += `
+                        <div class="category-container mb-3">
+                            <!-- CATEGORY -->
+                            <div class="form-check">
+                                <input
+                                    class="form-check-input parent-checkbox"
+                                    type="checkbox"
+                                    id="category_${category.category_RefID}"
+                                    value="${category.category_RefID}"
+                                    name="category[]"
+                                    style="margin-top:0;"
+                                    ${findCategory ? 'checked' : ''}
+                                >
+                                <label
+                                    class="form-check-label"
+                                    for="category_${category.category_RefID}">
+                                    ${category.categoryCode} - ${category.categoryName}
+                                </label>
+                            </div>
+
+                            <!-- SUB CATEGORIES -->
+                            <div
+                                class="child-group d-flex"
+                                data-parent="${category.category_RefID}"
+                                style="margin-top:.8rem;margin-left:1.2rem;gap:1rem;flex-wrap:wrap;">
+                    `;
+
+                    if (category.subCategories && category.subCategories.length) {
+
+                        category.subCategories.forEach(function (sub) {
+
+                            if (sub.subCategory_RefID) {
+                                let findSubCategory = specializationRefID.find(val => val == sub.subCategory_RefID);
+
+                                html += `
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input child-checkbox"
+                                            type="checkbox"
+                                            id="subcategory_${sub.subCategory_RefID}"
+                                            value="${sub.subCategory_RefID}"
+                                            name="specialization[${category.category_RefID}][]"
+                                            style="margin-top:0;"
+                                            ${findSubCategory ? 'checked' : 'disabled'}
+                                        >
+                                        <label
+                                            class="form-check-label"
+                                            for="subcategory_${sub.subCategory_RefID}">
+                                            ${sub.subCategory_Code} - ${sub.subCategory_Name}
+                                        </label>
+                                    </div>
+                                `;
+                            }
+
+                        });
+
+                    }
+
+                    html += `
+                        </div>
+                    </div>
+                    `;
+                });
+
+                $("#loadingCategory").after(html);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                $("#loadingCategory").hide();
             });
     }
 
@@ -195,8 +311,9 @@
                             <div class="input-group">
                                 <input class="form-control"
                                     id="supplier_specialization_code${index}"
-                                    name="supplier_specialization_code${index}"
                                     onchange="updateField(${index}, 'code', this.value)"
+                                    value="${row.code}"
+                                    autocomplete="off"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -210,8 +327,9 @@
                             <div class="input-group">
                                 <input class="form-control"
                                     id="supplier_specialization_name${index}"
-                                    name="supplier_specialization_name${index}"
                                     onchange="updateField(${index}, 'name', this.value)"
+                                    value="${row.name}"
+                                    autocomplete="off"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -231,6 +349,19 @@
             containerMultipleSpecialization.removeAttribute('style');
         }
     }
+
+    $('#tableSupplierCategoryListModal').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_supplier_category"]').val();
+        const code = $(this).find('td:nth-child(2)').text();
+        const name = $(this).find('td:nth-child(3)').text();
+
+        $("#supplier_category_id_modal").val(id);
+        $("#supplier_category_code_modal").val(code);
+        $("#supplier_category_name_modal").val(`(${code}) ${name}`);
+        $("#supplier_category_name_modal").css({ "background-color": "#e9ecef" });
+
+        $('#supplierCategoryListModal').modal('toggle');
+    });
 
     $('#tableGetBankList').on('click', 'tbody tr', function () {
         const id = $(this).find('input[type="hidden"]').val();
@@ -349,6 +480,14 @@
         }
     });
 
+    $('#supplier_category_name').on('input', function (e) {
+        ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
+    });
+
+    $('#supplier_category_code').on('input', function (e) {
+        ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+    });
+
     $('#remark').on('input', function (e) {
         if (!e.target.value) {
             ErrorHandler.showErrorInputMessage("#remark", "#remarkMessage");
@@ -369,8 +508,6 @@
             }
         })
             .done(function (response) {
-                console.log('response', response);
-
                 if (response.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',
@@ -439,8 +576,163 @@
         $('#mySuppliers').modal('toggle');
     });
 
+    $('#supplierCategoryListModalTrigger').on('click', function (e) {
+        $('#supplierSpecializationModal').modal('toggle');
+        $('#supplierCategoryListModal').modal('toggle');
+    });
+
+    $('#add-specialization').on('click', function (e) {
+        getSupplierCategory();
+    });
+
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
+    });
+
+    $('#categoryForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("CategorySupplier.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your category is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        $('.category-container').remove();
+                        $("#loadingCategory").show();
+                        $("#supplierCategoryModal").modal('hide');
+                        $("#supplierSpecializationModal").modal('show');
+                        $("#supplier_category_code").val('');
+                        $("#supplier_category_name").val('');
+
+                        getSupplierCategory();
+                        getSupplierCategoryWithSpecialization();
+
+                        ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+                        ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+    });
+
+    $('#specializationForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("SpecializationSupplier.store") !!}',
+            data: {
+                supplier_category_name_modal: supplierCategoryId.value,
+                specialization: JSON.stringify(specializationData.slice(0, -1))
+            },
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your sub category is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        specializationData = [];
+
+                        $('.category-container').remove();
+                        $("#loadingCategory").show();
+                        $("#supplier_category_name_modal").val('');
+                        $("#supplier_category_code_modal").val('');
+                        $("#supplier_category_id_modal").val('');
+                        $("#supplierSpecializationModal").modal('toggle');
+
+                        addSpecializationRow();
+                        getSupplierCategoryWithSpecialization();
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
     });
 
     // $('#cancel-category').on('click', function (e) {
@@ -502,16 +794,38 @@
         });
     });
 
+    $(document).on('change', '.parent-checkbox', function () {
+
+        const parentId = $(this).val();
+        const checked = $(this).is(':checked');
+
+        $(`.child-group[data-parent="${parentId}"] input[type="checkbox"]`)
+            .prop('disabled', !checked);
+
+        if (!checked) {
+            $(`.child-group[data-parent="${parentId}"] input[type="checkbox"]`)
+                .prop('checked', false);
+        }
+    });
+
     $(document).ready(function () {
         $('#legal_entity').select2();
 
-        $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
-            detailSpecialization();
+        // $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
+        //     detailSpecialization();
+        // });
+
+        $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
+            $('#supplierSpecializationModal').modal('toggle');
         });
 
         $('#supplierCategoryModal').on('hidden.bs.modal', function (e) {
+            $("#supplier_category_code").val('');
+            $("#supplier_category_name").val('');
             $("#supplierCategoryModal").modal('hide');
             $("#supplierSpecializationModal").modal('show');
+            ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
+            ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
         });
 
         $('#legal_entity').on('select2:select', function (e) {
@@ -524,5 +838,6 @@
         getCountries();
         getInstitutionType();
         detailSpecialization();
+        getSupplierCategoryWithSpecialization();
     });
 </script>

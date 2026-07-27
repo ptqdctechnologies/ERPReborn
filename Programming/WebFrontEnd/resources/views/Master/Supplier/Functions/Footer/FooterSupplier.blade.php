@@ -44,7 +44,6 @@
                     return d;
                 },
                 dataSrc: function (json) {
-
                     // simpan seluruh response
                     dataReport = json.data;
 
@@ -86,7 +85,7 @@
                     className: "align-middle text-nowrap"
                 },
                 {
-                    data: 'phoneNumber',
+                    data: 'phone_Number',
                     defaultContent: '-',
                     className: "align-middle text-nowrap"
                 },
@@ -141,8 +140,39 @@
                     className: "align-middle text-wrap line-height-normal"
                 },
                 {
-                    data: '-',
-                    defaultContent: '-'
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle",
+                    render: function (data, type, row, meta) {
+
+                        if (!data.type || data.type.length === 0) {
+                            return `<span class="text-muted">-</span>`;
+                        }
+
+                        return data.type.map(item => {
+
+                            const specializations = item.specializationName?.length
+                                ? item.specializationName.map(spec => `
+                                    <span class="badge bg-light text-dark border me-1 mb-1">
+                                        ${spec}
+                                    </span>
+                                `).join('')
+                                : `<span class="text-muted">No Specialization</span>`;
+
+                            return `
+                                <div class="border rounded p-2 mb-2 shadow-sm">
+                                    <div class="fw-bold text-primary mb-2">
+                                        <i class="fas fa-folder-open me-1"></i>
+                                        ${item.categoryName}
+                                    </div>
+
+                                    <div class="d-flex flex-wrap">
+                                        ${specializations}
+                                    </div>
+                                </div>
+                            `;
+                        }).join('');
+                    }
                 }
             ]
         });

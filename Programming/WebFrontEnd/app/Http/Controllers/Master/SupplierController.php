@@ -75,6 +75,8 @@ class SupplierController extends Controller
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,
                 'supplierRefID' => $header['Supplier_RefID'] ?? '',
+                'category_RefID' => $header['Category_RefID'] ?? '',
+                'specialization_RefID' => $header['Specialization_RefID'] ?? '',
                 'headerSupplier' => [
                     'supplierName' => $header['SupplierName'] ?? '',
                     'taxID' => $header['Tax_ID'] ?? '',

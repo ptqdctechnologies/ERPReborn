@@ -171,7 +171,7 @@
 
                 data.forEach(function (category) {
                     html += `
-                        <div class="mb-3">
+                        <div class="category-container mb-3">
                             <!-- CATEGORY -->
                             <div class="form-check">
                                 <input
@@ -185,7 +185,7 @@
                                 <label
                                     class="form-check-label"
                                     for="category_${category.category_RefID}">
-                                    ${category.categoryName}
+                                    ${category.categoryCode} - ${category.categoryName}
                                 </label>
                             </div>
 
@@ -200,24 +200,27 @@
 
                         category.subCategories.forEach(function (sub) {
 
-                            html += `
-                                <div class="form-check">
-                                    <input
-                                        class="form-check-input child-checkbox"
-                                        type="checkbox"
-                                        id="subcategory_${sub.subCategory_RefID}"
-                                        value="${sub.subCategory_RefID}"
-                                        name="specialization[${category.category_RefID}][]"
-                                        disabled
-                                        style="margin-top:0;"
-                                    >
-                                    <label
-                                        class="form-check-label"
-                                        for="subcategory_${sub.subCategory_RefID}">
-                                        ${sub.subCategory_Name}
-                                    </label>
-                                </div>
-                            `;
+                            if (sub.subCategory_RefID) {
+                                html += `
+                                    <div class="form-check">
+                                        <input
+                                            class="form-check-input child-checkbox"
+                                            type="checkbox"
+                                            id="subcategory_${sub.subCategory_RefID}"
+                                            value="${sub.subCategory_RefID}"
+                                            name="specialization[${category.category_RefID}][]"
+                                            disabled
+                                            style="margin-top:0;"
+                                        >
+                                        <label
+                                            class="form-check-label"
+                                            for="subcategory_${sub.subCategory_RefID}">
+                                            ${sub.subCategory_Code} - ${sub.subCategory_Name}
+                                        </label>
+                                    </div>
+                                `;
+                            }
+
                         });
 
                     }
@@ -303,6 +306,7 @@
                                     id="supplier_specialization_code${index}"
                                     onchange="updateField(${index}, 'code', this.value)"
                                     value="${row.code}"
+                                    autocomplete="off"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -318,6 +322,7 @@
                                     id="supplier_specialization_name${index}"
                                     onchange="updateField(${index}, 'name', this.value)"
                                     value="${row.name}"
+                                    autocomplete="off"
                                     style="border-radius:0;">
                             </div>
                         </div>
@@ -569,6 +574,10 @@
         $('#supplierCategoryListModal').modal('toggle');
     });
 
+    $('#add-specialization').on('click', function (e) {
+        getSupplierCategory();
+    });
+
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
     });
@@ -610,12 +619,15 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
-                        getSupplierCategory();
-
+                        $('.category-container').remove();
+                        $("#loadingCategory").show();
                         $("#supplierCategoryModal").modal('hide');
                         $("#supplierSpecializationModal").modal('show');
                         $("#supplier_category_code").val('');
                         $("#supplier_category_name").val('');
+
+                        getSupplierCategory();
+                        getSupplierCategoryWithSpecialization();
 
                         ErrorHandler.hideErrorInputMessage('#supplier_category_code', '#supplierCategoryCodeMessage');
                         ErrorHandler.hideErrorInputMessage('#supplier_category_name', '#supplierCategoryNameMessage');
@@ -682,10 +694,17 @@
                         confirmButtonColor: '#e9ecef',
                         reverseButtons: true
                     }).then((result) => {
+                        specializationData = [];
+
+                        $('.category-container').remove();
+                        $("#loadingCategory").show();
                         $("#supplier_category_name_modal").val('');
                         $("#supplier_category_code_modal").val('');
                         $("#supplier_category_id_modal").val('');
                         $("#supplierSpecializationModal").modal('toggle');
+
+                        addSpecializationRow();
+                        getSupplierCategoryWithSpecialization();
                     });
                 }
             })
@@ -775,12 +794,12 @@
     $(document).ready(function () {
         $('#legal_entity').select2();
 
-        $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
-            getSupplierCategoryWithSpecialization();
-        });
+        // $('#supplierSpecializationModal').on('hidden.bs.modal', function (e) {
+        //     addSpecializationRow();
+        //     specializationData = [];
+        // });
 
         $('#supplierCategoryListModal').on('hidden.bs.modal', function (e) {
-            getSupplierCategory();
             $('#supplierSpecializationModal').modal('toggle');
         });
 
@@ -802,7 +821,7 @@
 
         getCountries();
         getInstitutionType();
-        getSupplierCategory();
+        // getSupplierCategory();
         detailSpecialization();
         getSupplierCategoryWithSpecialization();
     });

@@ -576,13 +576,23 @@
         });
     }
 
-    $('#tableGetDeliveryOrder').on('click', 'tbody tr', function () {
+    $('#deliveryOrderListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_delivery_order"]').val();
         const projectCode = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.nextTransaction.title,
+                CONFIG.MESSAGE.nextTransaction.description,
+                "error"
+            );
+            return;
+        }
 
         GetDeliveryOrderDetail(sysId, projectCode);
 
-        $("#myDeliveryOrder").modal('toggle');
+        $("#deliveryOrderModal").modal('toggle');
     });
 
     $('#warehouseListTable').on('click', 'tbody tr', function () {
