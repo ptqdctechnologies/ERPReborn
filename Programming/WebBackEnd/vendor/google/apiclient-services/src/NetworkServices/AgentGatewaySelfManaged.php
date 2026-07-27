@@ -17,8 +17,9 @@
 
 namespace Google\Service\NetworkServices;
 
-class AgentGatewaySelfManaged extends \Google\Model
+class AgentGatewaySelfManaged extends \Google\Collection
 {
+  protected $collection_key = 'resourceUris';
   /**
    * Optional. A supported Google Cloud networking proxy in the Project and
    * Location
@@ -26,6 +27,13 @@ class AgentGatewaySelfManaged extends \Google\Model
    * @var string
    */
   public $resourceUri;
+  /**
+   * Optional. List of supported Google Cloud networking proxies in the Project
+   * and Location. resource_uris is mutually exclusive with resource_uri.
+   *
+   * @var string[]
+   */
+  public $resourceUris;
 
   /**
    * Optional. A supported Google Cloud networking proxy in the Project and
@@ -43,6 +51,23 @@ class AgentGatewaySelfManaged extends \Google\Model
   public function getResourceUri()
   {
     return $this->resourceUri;
+  }
+  /**
+   * Optional. List of supported Google Cloud networking proxies in the Project
+   * and Location. resource_uris is mutually exclusive with resource_uri.
+   *
+   * @param string[] $resourceUris
+   */
+  public function setResourceUris($resourceUris)
+  {
+    $this->resourceUris = $resourceUris;
+  }
+  /**
+   * @return string[]
+   */
+  public function getResourceUris()
+  {
+    return $this->resourceUris;
   }
 }
 

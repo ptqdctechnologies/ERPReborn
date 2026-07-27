@@ -21,6 +21,10 @@ class SearchSessionSparkApplicationNativeSqlQueriesResponse extends \Google\Coll
 {
   protected $collection_key = 'sparkApplicationNativeSqlQueries';
   /**
+   * This token is included in the response if there are more results to fetch.
+   * To fetch additional results, provide this value as the page_token in a
+   * subsequent SearchSessionSparkApplicationSqlQueriesRequest.
+   *
    * @var string
    */
   public $nextPageToken;
@@ -28,7 +32,11 @@ class SearchSessionSparkApplicationNativeSqlQueriesResponse extends \Google\Coll
   protected $sparkApplicationNativeSqlQueriesDataType = 'array';
 
   /**
-   * @param string
+   * This token is included in the response if there are more results to fetch.
+   * To fetch additional results, provide this value as the page_token in a
+   * subsequent SearchSessionSparkApplicationSqlQueriesRequest.
+   *
+   * @param string $nextPageToken
    */
   public function setNextPageToken($nextPageToken)
   {
@@ -42,7 +50,9 @@ class SearchSessionSparkApplicationNativeSqlQueriesResponse extends \Google\Coll
     return $this->nextPageToken;
   }
   /**
-   * @param NativeSqlExecutionUiData[]
+   * Output only. Native SQL Execution Data
+   *
+   * @param NativeSqlExecutionUiData[] $sparkApplicationNativeSqlQueries
    */
   public function setSparkApplicationNativeSqlQueries($sparkApplicationNativeSqlQueries)
   {

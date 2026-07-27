@@ -20,6 +20,12 @@ namespace Google\Service\OracleDatabase;
 class DbSystemShape extends \Google\Model
 {
   /**
+   * Optional. Available core count.
+   *
+   * @var int
+   */
+  public $availableCoreCount;
+  /**
    * Optional. Number of cores per node.
    *
    * @var int
@@ -37,6 +43,12 @@ class DbSystemShape extends \Google\Model
    * @var int
    */
   public $availableMemoryPerNodeGb;
+  /**
+   * Optional. Core count increment.
+   *
+   * @var int
+   */
+  public $coreCountIncrement;
   /**
    * Optional. Maximum number of database servers.
    *
@@ -80,6 +92,12 @@ class DbSystemShape extends \Google\Model
    */
   public $minStorageCount;
   /**
+   * Optional. Minimum core count per node.
+   *
+   * @var int
+   */
+  public $minimumCoreCount;
+  /**
    * Identifier. The name of the Database System Shape resource with the format:
    * projects/{project}/locations/{region}/dbSystemShapes/{db_system_shape}
    *
@@ -93,6 +111,22 @@ class DbSystemShape extends \Google\Model
    */
   public $shape;
 
+  /**
+   * Optional. Available core count.
+   *
+   * @param int $availableCoreCount
+   */
+  public function setAvailableCoreCount($availableCoreCount)
+  {
+    $this->availableCoreCount = $availableCoreCount;
+  }
+  /**
+   * @return int
+   */
+  public function getAvailableCoreCount()
+  {
+    return $this->availableCoreCount;
+  }
   /**
    * Optional. Number of cores per node.
    *
@@ -140,6 +174,22 @@ class DbSystemShape extends \Google\Model
   public function getAvailableMemoryPerNodeGb()
   {
     return $this->availableMemoryPerNodeGb;
+  }
+  /**
+   * Optional. Core count increment.
+   *
+   * @param int $coreCountIncrement
+   */
+  public function setCoreCountIncrement($coreCountIncrement)
+  {
+    $this->coreCountIncrement = $coreCountIncrement;
+  }
+  /**
+   * @return int
+   */
+  public function getCoreCountIncrement()
+  {
+    return $this->coreCountIncrement;
   }
   /**
    * Optional. Maximum number of database servers.
@@ -252,6 +302,22 @@ class DbSystemShape extends \Google\Model
   public function getMinStorageCount()
   {
     return $this->minStorageCount;
+  }
+  /**
+   * Optional. Minimum core count per node.
+   *
+   * @param int $minimumCoreCount
+   */
+  public function setMinimumCoreCount($minimumCoreCount)
+  {
+    $this->minimumCoreCount = $minimumCoreCount;
+  }
+  /**
+   * @return int
+   */
+  public function getMinimumCoreCount()
+  {
+    return $this->minimumCoreCount;
   }
   /**
    * Identifier. The name of the Database System Shape resource with the format:

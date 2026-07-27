@@ -45,6 +45,8 @@ class ProjectsInstancesMaterializedViews extends \Google\Service\Resource
    * @param MaterializedView $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param bool ignoreWarnings Optional. If true, ignore optional safety
+   * checks when creating the materialized view.
    * @opt_param string materializedViewId Required. The ID to use for the
    * materialized view, which will become the final component of the materialized
    * view's resource name.

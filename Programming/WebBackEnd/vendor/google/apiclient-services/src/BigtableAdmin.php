@@ -752,6 +752,10 @@ class BigtableAdmin extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'ignoreWarnings' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'materializedViewId' => [
                   'location' => 'query',
                   'type' => 'string',

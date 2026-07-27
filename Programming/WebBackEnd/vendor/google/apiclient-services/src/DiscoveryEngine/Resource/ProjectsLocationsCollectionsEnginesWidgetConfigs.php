@@ -51,6 +51,13 @@ class ProjectsLocationsCollectionsEnginesWidgetConfigs extends \Google\Service\R
    * model selector `display_name` / `description` on
    * `WidgetConfig.UiSettings.ModelConfigInfo`. Empty / unset falls back to the
    * default language (English).
+   * @opt_param string modelInfoView Optional. Selects which view of
+   * `WidgetConfig.UiSettings.ModelConfigInfo` the backend computes.
+   * `MODEL_INFO_VIEW_ADMIN` is set by the Cloud Console admin "Feature
+   * Management" page (screen/4Vn9gQKbN8tb7gm) to receive the admin-surfaced model
+   * set with `ResolvedModel.admin_view` populated; unset / `MODEL_INFO_VIEW_WEB`
+   * returns the end-user selector. The mobile surface is detected from the
+   * `X-Goog-Gemini-Enterprise-Mobile` header instead (see `ModelInfoView`).
    * @return GoogleCloudDiscoveryengineV1WidgetConfig
    * @throws \Google\Service\Exception
    */

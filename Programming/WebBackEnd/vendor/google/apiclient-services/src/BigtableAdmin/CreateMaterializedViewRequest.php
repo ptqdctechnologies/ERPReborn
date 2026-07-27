@@ -19,6 +19,13 @@ namespace Google\Service\BigtableAdmin;
 
 class CreateMaterializedViewRequest extends \Google\Model
 {
+  /**
+   * Optional. If true, ignore optional safety checks when creating the
+   * materialized view.
+   *
+   * @var bool
+   */
+  public $ignoreWarnings;
   protected $materializedViewType = MaterializedView::class;
   protected $materializedViewDataType = '';
   /**
@@ -36,6 +43,23 @@ class CreateMaterializedViewRequest extends \Google\Model
    */
   public $parent;
 
+  /**
+   * Optional. If true, ignore optional safety checks when creating the
+   * materialized view.
+   *
+   * @param bool $ignoreWarnings
+   */
+  public function setIgnoreWarnings($ignoreWarnings)
+  {
+    $this->ignoreWarnings = $ignoreWarnings;
+  }
+  /**
+   * @return bool
+   */
+  public function getIgnoreWarnings()
+  {
+    return $this->ignoreWarnings;
+  }
   /**
    * Required. The materialized view to create.
    *

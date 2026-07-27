@@ -81,6 +81,18 @@ class Creative extends \Google\Collection
   public const AUTHORING_SOURCE_CREATIVE_AUTHORING_SOURCE_BEGEN_AI = 'CREATIVE_AUTHORING_SOURCE_BEGEN_AI';
   public const AUTHORING_TOOL_NINJA = 'NINJA';
   public const AUTHORING_TOOL_SWIFFY = 'SWIFFY';
+  /**
+   * No attestation has been provided.
+   */
+  public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED = 'SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED';
+  /**
+   * Attested as created or edited using AI.
+   */
+  public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_IS_SYNTHETIC = 'IS_SYNTHETIC';
+  /**
+   * Attested as not created or edited using AI.
+   */
+  public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_NOT_SYNTHETIC = 'NOT_SYNTHETIC';
   public const TYPE_IMAGE = 'IMAGE';
   public const TYPE_DISPLAY_REDIRECT = 'DISPLAY_REDIRECT';
   public const TYPE_CUSTOM_DISPLAY = 'CUSTOM_DISPLAY';
@@ -459,6 +471,15 @@ class Creative extends \Google\Collection
    * @var string
    */
   public $subaccountId;
+  /**
+   * Optional. Whether to add a label to the creative as created or edited using
+   * AI when served in regions with local AI labeling regulations. [Learn more
+   * about labeling requirements in AI
+   * regulations.](https://support.google.com/campaignmanager/answer/17232030)
+   *
+   * @var string
+   */
+  public $syntheticContentAttestationStatus;
   /**
    * Third-party URL used to record backup image impressions. Applicable to the
    * following creative types: all RICH_MEDIA.
@@ -1529,6 +1550,28 @@ class Creative extends \Google\Collection
   public function getSubaccountId()
   {
     return $this->subaccountId;
+  }
+  /**
+   * Optional. Whether to add a label to the creative as created or edited using
+   * AI when served in regions with local AI labeling regulations. [Learn more
+   * about labeling requirements in AI
+   * regulations.](https://support.google.com/campaignmanager/answer/17232030)
+   *
+   * Accepted values: SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED,
+   * IS_SYNTHETIC, NOT_SYNTHETIC
+   *
+   * @param self::SYNTHETIC_CONTENT_ATTESTATION_STATUS_* $syntheticContentAttestationStatus
+   */
+  public function setSyntheticContentAttestationStatus($syntheticContentAttestationStatus)
+  {
+    $this->syntheticContentAttestationStatus = $syntheticContentAttestationStatus;
+  }
+  /**
+   * @return self::SYNTHETIC_CONTENT_ATTESTATION_STATUS_*
+   */
+  public function getSyntheticContentAttestationStatus()
+  {
+    return $this->syntheticContentAttestationStatus;
   }
   /**
    * Third-party URL used to record backup image impressions. Applicable to the

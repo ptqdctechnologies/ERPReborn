@@ -399,8 +399,9 @@ class MappingRule extends \Google\Model
     return $this->ruleScope;
   }
   /**
-   * Optional. Rule to specify the primary key for a table
+   * Optional. Deprecated: This rule is no longer supported.
    *
+   * @deprecated
    * @param SetTablePrimaryKey $setTablePrimaryKey
    */
   public function setSetTablePrimaryKey(SetTablePrimaryKey $setTablePrimaryKey)
@@ -408,6 +409,7 @@ class MappingRule extends \Google\Model
     $this->setTablePrimaryKey = $setTablePrimaryKey;
   }
   /**
+   * @deprecated
    * @return SetTablePrimaryKey
    */
   public function getSetTablePrimaryKey()

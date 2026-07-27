@@ -975,6 +975,16 @@ class NetAppFiles extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'getSplitStatus' => [
+              'path' => 'v1/{+name}:getSplitStatus',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'list' => [
               'path' => 'v1/{+parent}/volumes',
               'httpMethod' => 'GET',
@@ -1027,6 +1037,16 @@ class NetAppFiles extends \Google\Service
               ],
             ],'revert' => [
               'path' => 'v1/{+name}:revert',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'startSplit' => [
+              'path' => 'v1/{+name}:startSplit',
               'httpMethod' => 'POST',
               'parameters' => [
                 'name' => [

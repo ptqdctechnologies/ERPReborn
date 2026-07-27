@@ -30,9 +30,10 @@ class Entitlement extends \Google\Model
    */
   public $detail;
   /**
-   * Required. Expiration time of the entitlement. Entitlements that have
-   * expired over 30 days will be purged. The max expire_time is 398 days from
-   * now().
+   * Optional. Expiration time of the entitlement. If unset, the entitlement
+   * does not expire (indefinite entitlement). We need to support indefinite
+   * entitlements for platform publishers. dd: go/rrm-sl-notedotcom Entitlements
+   * that have expired over 30 days will be purged.
    *
    * @var string
    */
@@ -75,9 +76,10 @@ class Entitlement extends \Google\Model
     return $this->detail;
   }
   /**
-   * Required. Expiration time of the entitlement. Entitlements that have
-   * expired over 30 days will be purged. The max expire_time is 398 days from
-   * now().
+   * Optional. Expiration time of the entitlement. If unset, the entitlement
+   * does not expire (indefinite entitlement). We need to support indefinite
+   * entitlements for platform publishers. dd: go/rrm-sl-notedotcom Entitlements
+   * that have expired over 30 days will be purged.
    *
    * @param string $expireTime
    */

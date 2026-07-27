@@ -37,7 +37,10 @@ use Google\Service\Dns\Operation;
 class ManagedZones extends \Google\Service\Resource
 {
   /**
-   * Creates a new ManagedZone. (managedZones.create)
+   * Creates a new ManagedZone. Note: While `dns.managedZones.create` is the
+   * baseline permission required to invoke this method, additional permissions
+   * are required if the managed zone configuration references other resources.
+   * (managedZones.create)
    *
    * @param string $project Identifies the project addressed by this request.
    * @param ManagedZone $postBody

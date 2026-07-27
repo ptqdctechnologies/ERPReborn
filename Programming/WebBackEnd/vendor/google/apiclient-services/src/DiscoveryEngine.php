@@ -1889,6 +1889,10 @@ class DiscoveryEngine extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'modelInfoView' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'patch' => [
               'path' => 'v1/{+name}',
@@ -2813,6 +2817,10 @@ class DiscoveryEngine extends \Google\Service
                   'type' => 'boolean',
                 ],
                 'languageCode' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'modelInfoView' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],
@@ -4104,6 +4112,10 @@ class DiscoveryEngine extends \Google\Service
                   'type' => 'boolean',
                 ],
                 'languageCode' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'modelInfoView' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],

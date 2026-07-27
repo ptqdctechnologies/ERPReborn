@@ -46,6 +46,8 @@ class SourceConfig extends \Google\Model
   protected $spannerSourceConfigDataType = '';
   protected $sqlServerSourceConfigType = SqlServerSourceConfig::class;
   protected $sqlServerSourceConfigDataType = '';
+  protected $workdaySourceConfigType = WorkdaySourceConfig::class;
+  protected $workdaySourceConfigDataType = '';
 
   /**
    * Dataverse data source configuration.
@@ -223,6 +225,22 @@ class SourceConfig extends \Google\Model
   public function getSqlServerSourceConfig()
   {
     return $this->sqlServerSourceConfig;
+  }
+  /**
+   * Optional. Workday data source configuration.
+   *
+   * @param WorkdaySourceConfig $workdaySourceConfig
+   */
+  public function setWorkdaySourceConfig(WorkdaySourceConfig $workdaySourceConfig)
+  {
+    $this->workdaySourceConfig = $workdaySourceConfig;
+  }
+  /**
+   * @return WorkdaySourceConfig
+   */
+  public function getWorkdaySourceConfig()
+  {
+    return $this->workdaySourceConfig;
   }
 }
 

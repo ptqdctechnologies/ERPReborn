@@ -28,7 +28,10 @@ class DbSystemProperties extends \Google\Collection
    */
   public const COMPUTE_MODEL_ECPU = 'ECPU';
   /**
-   * The compute model is physical.
+   * Deprecated: This option is not supported. Please use ECPU instead. The
+   * compute model is physical.
+   *
+   * @deprecated
    */
   public const COMPUTE_MODEL_OCPU = 'OCPU';
   /**
@@ -120,7 +123,8 @@ class DbSystemProperties extends \Google\Collection
   protected $dataCollectionOptionsDataType = '';
   /**
    * Optional. The data storage size in GB that is currently available to
-   * DbSystems.
+   * DbSystems. The value is same as initial_data_storage_size_gb. This can be
+   * modified from OCI console.
    *
    * @var int
    */
@@ -172,13 +176,16 @@ class DbSystemProperties extends \Google\Collection
    */
   public $lifecycleState;
   /**
-   * Optional. The memory size in GB.
+   * Optional. The memory size in GB. This value can not be set and is
+   * automatically calculated based on the number of ECPUs allocated to the
+   * DbSystem.
    *
    * @var int
    */
   public $memorySizeGb;
   /**
-   * Optional. The number of nodes in the DbSystem.
+   * Optional. The number of nodes to launch for a virtual machine DbSystem. By
+   * default this will be set to 1.
    *
    * @var int
    */
@@ -196,7 +203,8 @@ class DbSystemProperties extends \Google\Collection
    */
   public $privateIp;
   /**
-   * Optional. The reco/redo storage size in GB.
+   * Optional. The reco/redo storage size in GB. The value for recovery storage
+   * size is based on the available data storage size.
    *
    * @var int
    */
@@ -268,7 +276,8 @@ class DbSystemProperties extends \Google\Collection
   }
   /**
    * Optional. The data storage size in GB that is currently available to
-   * DbSystems.
+   * DbSystems. The value is same as initial_data_storage_size_gb. This can be
+   * modified from OCI console.
    *
    * @param int $dataStorageSizeGb
    */
@@ -438,7 +447,9 @@ class DbSystemProperties extends \Google\Collection
     return $this->lifecycleState;
   }
   /**
-   * Optional. The memory size in GB.
+   * Optional. The memory size in GB. This value can not be set and is
+   * automatically calculated based on the number of ECPUs allocated to the
+   * DbSystem.
    *
    * @param int $memorySizeGb
    */
@@ -454,7 +465,8 @@ class DbSystemProperties extends \Google\Collection
     return $this->memorySizeGb;
   }
   /**
-   * Optional. The number of nodes in the DbSystem.
+   * Optional. The number of nodes to launch for a virtual machine DbSystem. By
+   * default this will be set to 1.
    *
    * @param int $nodeCount
    */
@@ -502,7 +514,8 @@ class DbSystemProperties extends \Google\Collection
     return $this->privateIp;
   }
   /**
-   * Optional. The reco/redo storage size in GB.
+   * Optional. The reco/redo storage size in GB. The value for recovery storage
+   * size is based on the available data storage size.
    *
    * @param int $recoStorageSizeGb
    */

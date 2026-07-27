@@ -45,6 +45,14 @@ class GoogleCloudAiplatformV1GroundingMetadata extends \Google\Collection
   public $imageSearchQueries;
   protected $retrievalMetadataType = GoogleCloudAiplatformV1RetrievalMetadata::class;
   protected $retrievalMetadataDataType = '';
+  /**
+   * Optional. The queries that were executed by the retrieval tools. This field
+   * is populated only when the grounding source is a retrieval tool, such as
+   * Vertex AI Search.
+   *
+   * @var string[]
+   */
+  public $retrievalQueries;
   protected $searchEntryPointType = GoogleCloudAiplatformV1SearchEntryPoint::class;
   protected $searchEntryPointDataType = '';
   protected $sourceFlaggingUrisType = GoogleCloudAiplatformV1GroundingMetadataSourceFlaggingUri::class;
@@ -148,6 +156,24 @@ class GoogleCloudAiplatformV1GroundingMetadata extends \Google\Collection
   public function getRetrievalMetadata()
   {
     return $this->retrievalMetadata;
+  }
+  /**
+   * Optional. The queries that were executed by the retrieval tools. This field
+   * is populated only when the grounding source is a retrieval tool, such as
+   * Vertex AI Search.
+   *
+   * @param string[] $retrievalQueries
+   */
+  public function setRetrievalQueries($retrievalQueries)
+  {
+    $this->retrievalQueries = $retrievalQueries;
+  }
+  /**
+   * @return string[]
+   */
+  public function getRetrievalQueries()
+  {
+    return $this->retrievalQueries;
   }
   /**
    * Optional. A web search entry point that can be used to display search

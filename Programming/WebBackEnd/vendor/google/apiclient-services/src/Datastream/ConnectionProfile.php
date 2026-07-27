@@ -91,6 +91,8 @@ class ConnectionProfile extends \Google\Model
    * @var string
    */
   public $updateTime;
+  protected $workdayProfileType = WorkdayProfile::class;
+  protected $workdayProfileDataType = '';
 
   /**
    * Profile for connecting to a BigQuery destination.
@@ -443,6 +445,22 @@ class ConnectionProfile extends \Google\Model
   public function getUpdateTime()
   {
     return $this->updateTime;
+  }
+  /**
+   * Optional. Profile for connecting to a Workday source.
+   *
+   * @param WorkdayProfile $workdayProfile
+   */
+  public function setWorkdayProfile(WorkdayProfile $workdayProfile)
+  {
+    $this->workdayProfile = $workdayProfile;
+  }
+  /**
+   * @return WorkdayProfile
+   */
+  public function getWorkdayProfile()
+  {
+    return $this->workdayProfile;
   }
 }
 

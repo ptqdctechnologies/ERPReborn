@@ -23,7 +23,9 @@ class AccessSessionSparkApplicationNativeSqlQueryResponse extends \Google\Model
   protected $executionDataDataType = '';
 
   /**
-   * @param NativeSqlExecutionUiData
+   * Native SQL Execution Data
+   *
+   * @param NativeSqlExecutionUiData $executionData
    */
   public function setExecutionData(NativeSqlExecutionUiData $executionData)
   {

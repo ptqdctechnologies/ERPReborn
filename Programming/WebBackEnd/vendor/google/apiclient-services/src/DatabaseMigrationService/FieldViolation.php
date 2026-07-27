@@ -48,7 +48,7 @@ class FieldViolation extends \Google\Model
   protected $localizedMessageType = LocalizedMessage::class;
   protected $localizedMessageDataType = '';
   /**
-   * The reason of the field-level error. This is a constant value that
+   * The reason for the field-level error. This is a constant value that
    * identifies the proximate cause of the field-level error. It should uniquely
    * identify the type of the FieldViolation within the scope of the
    * google.rpc.ErrorInfo.domain. This should be at most 63 characters and match
@@ -122,7 +122,7 @@ class FieldViolation extends \Google\Model
     return $this->localizedMessage;
   }
   /**
-   * The reason of the field-level error. This is a constant value that
+   * The reason for the field-level error. This is a constant value that
    * identifies the proximate cause of the field-level error. It should uniquely
    * identify the type of the FieldViolation within the scope of the
    * google.rpc.ErrorInfo.domain. This should be at most 63 characters and match

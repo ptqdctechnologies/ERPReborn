@@ -37,6 +37,14 @@ class AclPolicy extends \Google\Collection
    */
   public const STATE_DELETING = 'DELETING';
   protected $collection_key = 'rules';
+  protected $clusterAclPolicyAttachmentsType = ClusterAclPolicyAttachment::class;
+  protected $clusterAclPolicyAttachmentsDataType = 'array';
+  /**
+   * Output only. The timestamp that the ACL policy was created.
+   *
+   * @var string
+   */
+  public $createTime;
   /**
    * Output only. Etag for the ACL policy.
    *
@@ -58,6 +66,12 @@ class AclPolicy extends \Google\Collection
    */
   public $state;
   /**
+   * Output only. The timestamp that the ACL policy was last updated.
+   *
+   * @var string
+   */
+  public $updateTime;
+  /**
    * Output only. Deprecated: Used in drift resolution.
    *
    * @deprecated
@@ -65,6 +79,38 @@ class AclPolicy extends \Google\Collection
    */
   public $version;
 
+  /**
+   * Output only. The ACL policy attachment status for each attached cluster.
+   *
+   * @param ClusterAclPolicyAttachment[] $clusterAclPolicyAttachments
+   */
+  public function setClusterAclPolicyAttachments($clusterAclPolicyAttachments)
+  {
+    $this->clusterAclPolicyAttachments = $clusterAclPolicyAttachments;
+  }
+  /**
+   * @return ClusterAclPolicyAttachment[]
+   */
+  public function getClusterAclPolicyAttachments()
+  {
+    return $this->clusterAclPolicyAttachments;
+  }
+  /**
+   * Output only. The timestamp that the ACL policy was created.
+   *
+   * @param string $createTime
+   */
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  /**
+   * @return string
+   */
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
   /**
    * Output only. Etag for the ACL policy.
    *
@@ -130,6 +176,22 @@ class AclPolicy extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * Output only. The timestamp that the ACL policy was last updated.
+   *
+   * @param string $updateTime
+   */
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  /**
+   * @return string
+   */
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
   }
   /**
    * Output only. Deprecated: Used in drift resolution.

@@ -90,6 +90,11 @@ class Service extends \Google\Model
    */
   public const STATE_MIGRATING = 'MIGRATING';
   /**
+   * The metastore service has completed managed migration and is now proxying
+   * requests to the Lakehouse runtime catalog.
+   */
+  public const STATE_PROXY = 'PROXY';
+  /**
    * The tier is not set.
    */
   public const TIER_TIER_UNSPECIFIED = 'TIER_UNSPECIFIED';
@@ -541,7 +546,7 @@ class Service extends \Google\Model
    * Output only. The current state of the metastore service.
    *
    * Accepted values: STATE_UNSPECIFIED, CREATING, ACTIVE, SUSPENDING,
-   * SUSPENDED, UPDATING, DELETING, ERROR, AUTOSCALING, MIGRATING
+   * SUSPENDED, UPDATING, DELETING, ERROR, AUTOSCALING, MIGRATING, PROXY
    *
    * @param self::STATE_* $state
    */

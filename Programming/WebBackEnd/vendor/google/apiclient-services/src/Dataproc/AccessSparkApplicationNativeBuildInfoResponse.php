@@ -23,7 +23,9 @@ class AccessSparkApplicationNativeBuildInfoResponse extends \Google\Model
   protected $buildInfoDataType = '';
 
   /**
-   * @param NativeBuildInfoUiData
+   * Native Build Info Data
+   *
+   * @param NativeBuildInfoUiData $buildInfo
    */
   public function setBuildInfo(NativeBuildInfoUiData $buildInfo)
   {

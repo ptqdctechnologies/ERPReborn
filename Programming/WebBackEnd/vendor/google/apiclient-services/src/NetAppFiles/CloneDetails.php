@@ -20,6 +20,22 @@ namespace Google\Service\NetAppFiles;
 class CloneDetails extends \Google\Model
 {
   /**
+   * State is not specified.
+   */
+  public const SPLIT_STATE_SPLIT_STATE_UNSPECIFIED = 'SPLIT_STATE_UNSPECIFIED';
+  /**
+   * The volume is a thin clone, sharing blocks with its source.
+   */
+  public const SPLIT_STATE_SPLIT_STATE_NOT_SPLITTING = 'SPLIT_STATE_NOT_SPLITTING';
+  /**
+   * A split operation is currently active and in progress.
+   */
+  public const SPLIT_STATE_SPLIT_STATE_IN_PROGRESS = 'SPLIT_STATE_IN_PROGRESS';
+  /**
+   * The attempt to split the volume failed.
+   */
+  public const SPLIT_STATE_SPLIT_STATE_FAILED = 'SPLIT_STATE_FAILED';
+  /**
    * Output only. Shared space in GiB. Determined at volume creation time based
    * on size of source snapshot.
    *
@@ -41,6 +57,12 @@ class CloneDetails extends \Google\Model
    * @var string
    */
   public $sourceVolume;
+  /**
+   * Output only. The current state of the clone split operation.
+   *
+   * @var string
+   */
+  public $splitState;
 
   /**
    * Output only. Shared space in GiB. Determined at volume creation time based
@@ -93,6 +115,25 @@ class CloneDetails extends \Google\Model
   public function getSourceVolume()
   {
     return $this->sourceVolume;
+  }
+  /**
+   * Output only. The current state of the clone split operation.
+   *
+   * Accepted values: SPLIT_STATE_UNSPECIFIED, SPLIT_STATE_NOT_SPLITTING,
+   * SPLIT_STATE_IN_PROGRESS, SPLIT_STATE_FAILED
+   *
+   * @param self::SPLIT_STATE_* $splitState
+   */
+  public function setSplitState($splitState)
+  {
+    $this->splitState = $splitState;
+  }
+  /**
+   * @return self::SPLIT_STATE_*
+   */
+  public function getSplitState()
+  {
+    return $this->splitState;
   }
 }
 

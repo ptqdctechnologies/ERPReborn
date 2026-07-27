@@ -19,6 +19,31 @@ namespace Google\Service\Aiplatform;
 
 class GoogleCloudAiplatformV1DeprovisionSemanticGovernancePolicyEngineRequest extends \Google\Model
 {
+  /**
+   * Optional. If true, the operation bypass checks on current state and force
+   * the deprovisioning operation.
+   *
+   * @var bool
+   */
+  public $force;
+
+  /**
+   * Optional. If true, the operation bypass checks on current state and force
+   * the deprovisioning operation.
+   *
+   * @param bool $force
+   */
+  public function setForce($force)
+  {
+    $this->force = $force;
+  }
+  /**
+   * @return bool
+   */
+  public function getForce()
+  {
+    return $this->force;
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

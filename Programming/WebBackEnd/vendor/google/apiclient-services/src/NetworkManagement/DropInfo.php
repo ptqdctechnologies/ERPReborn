@@ -469,6 +469,16 @@ class DropInfo extends \Google\Model
    */
   public const CAUSE_PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED = 'PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED';
   /**
+   * Packet is dropped due to its source IP address being in the excluded range
+   * of the Spoke.
+   */
+  public const CAUSE_PRIVATE_NAT_SOURCE_IP_IN_EXCLUDED_RANGE = 'PRIVATE_NAT_SOURCE_IP_IN_EXCLUDED_RANGE';
+  /**
+   * Packet is dropped due to its source IP address being a link-local IP
+   * address in GKE.
+   */
+  public const CAUSE_PRIVATE_NAT_SOURCE_IP_IS_A_LINK_LOCAL_IP_IN_GKE = 'PRIVATE_NAT_SOURCE_IP_IS_A_LINK_LOCAL_IP_IN_GKE';
+  /**
    * Packet is sent to the PSC port mapping service, but its destination port
    * does not match any port mapping rules.
    */
@@ -662,7 +672,10 @@ class DropInfo extends \Google\Model
    * NO_ADVERTISED_ROUTE_TO_GCP_DESTINATION,
    * NO_TRAFFIC_SELECTOR_TO_GCP_DESTINATION,
    * NO_KNOWN_ROUTE_FROM_PEERED_NETWORK_TO_DESTINATION,
-   * PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED, PSC_PORT_MAPPING_PORT_MISMATCH,
+   * PRIVATE_NAT_TO_PSC_ENDPOINT_UNSUPPORTED,
+   * PRIVATE_NAT_SOURCE_IP_IN_EXCLUDED_RANGE,
+   * PRIVATE_NAT_SOURCE_IP_IS_A_LINK_LOCAL_IP_IN_GKE,
+   * PSC_PORT_MAPPING_PORT_MISMATCH,
    * PSC_PORT_MAPPING_WITHOUT_PSC_CONNECTION_UNSUPPORTED,
    * UNSUPPORTED_ROUTE_MATCHED_FOR_NAT64_DESTINATION,
    * TRAFFIC_FROM_HYBRID_ENDPOINT_TO_INTERNET_DISALLOWED,

@@ -46,6 +46,7 @@ class CloudRedis extends \Google\Service
 
   public $projects_locations;
   public $projects_locations_aclPolicies;
+  public $projects_locations_aclPolicies_revisions;
   public $projects_locations_backupCollections;
   public $projects_locations_backupCollections_backups;
   public $projects_locations_clusters;
@@ -213,6 +214,44 @@ class CloudRedis extends \Google\Service
                   'type' => 'string',
                 ],
                 'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_aclPolicies_revisions = new CloudRedis\Resource\ProjectsLocationsAclPoliciesRevisions(
+        $this,
+        $this->serviceName,
+        'revisions',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/revisions',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],

@@ -60,6 +60,8 @@ class GcpUserAccessBinding extends \Google\Collection
    * @var string
    */
   public $name;
+  protected $principalType = Principal::class;
+  protected $principalDataType = '';
   protected $restrictedClientApplicationsType = Application::class;
   protected $restrictedClientApplicationsDataType = 'array';
   protected $scopedAccessSettingsType = ScopedAccessSettings::class;
@@ -148,10 +150,29 @@ class GcpUserAccessBinding extends \Google\Collection
     return $this->name;
   }
   /**
-   * Optional. A list of applications that are subject to this binding's
-   * restrictions. If the list is empty, the binding restrictions will
-   * universally apply to all applications.
+   * Optional. Immutable. The principal that is subject to the access policies
+   * in this policy binding.
    *
+   * @param Principal $principal
+   */
+  public function setPrincipal(Principal $principal)
+  {
+    $this->principal = $principal;
+  }
+  /**
+   * @return Principal
+   */
+  public function getPrincipal()
+  {
+    return $this->principal;
+  }
+  /**
+   * Optional. Deprecated: use scoped_access_settings instead. A list of
+   * applications that are subject to this binding's restrictions. If the list
+   * is empty, the binding restrictions will universally apply to all
+   * applications.
+   *
+   * @deprecated
    * @param Application[] $restrictedClientApplications
    */
   public function setRestrictedClientApplications($restrictedClientApplications)
@@ -159,6 +180,7 @@ class GcpUserAccessBinding extends \Google\Collection
     $this->restrictedClientApplications = $restrictedClientApplications;
   }
   /**
+   * @deprecated
    * @return Application[]
    */
   public function getRestrictedClientApplications()

@@ -86,9 +86,9 @@ class BackupVault extends \Google\Model
    */
   public const STATE_UPDATING = 'UPDATING';
   /**
-   * Optional. Note: This field is added for future use case and will not be
-   * supported in the current release. Access restriction for the backup vault.
-   * Default value is WITHIN_ORGANIZATION if not provided during creation.
+   * Optional. Restricts access to certain sources and destinations for data
+   * being sent into, or restored from, the backup vault. Defaults to
+   * WITHIN_ORGANIZATION if not provided during creation.
    *
    * @var string
    */
@@ -208,9 +208,9 @@ class BackupVault extends \Google\Model
   public $updateTime;
 
   /**
-   * Optional. Note: This field is added for future use case and will not be
-   * supported in the current release. Access restriction for the backup vault.
-   * Default value is WITHIN_ORGANIZATION if not provided during creation.
+   * Optional. Restricts access to certain sources and destinations for data
+   * being sent into, or restored from, the backup vault. Defaults to
+   * WITHIN_ORGANIZATION if not provided during creation.
    *
    * Accepted values: ACCESS_RESTRICTION_UNSPECIFIED, WITHIN_PROJECT,
    * WITHIN_ORGANIZATION, UNRESTRICTED, WITHIN_ORG_BUT_UNRESTRICTED_FOR_BA

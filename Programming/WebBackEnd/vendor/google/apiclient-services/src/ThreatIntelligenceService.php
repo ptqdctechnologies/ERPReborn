@@ -154,6 +154,16 @@ class ThreatIntelligenceService extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'getPassword' => [
+              'path' => 'v1beta/{+name}:GetPassword',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'list' => [
               'path' => 'v1beta/{+parent}/alerts',
               'httpMethod' => 'GET',
