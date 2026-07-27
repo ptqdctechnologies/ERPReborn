@@ -222,6 +222,10 @@ class PurchaseRequisitionController extends Controller
     public function ReportPurchaseRequisitionSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->prDate;
             $budget = [
                 "id" => $request->budget_id,
@@ -235,21 +239,28 @@ class PurchaseRequisitionController extends Controller
             $response = $this->purchaseRequisitionService->getPurchaseRequisitionSummary(
                 $budget['code'],
                 $subBudget['code'],
-                $date
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Advance Summary Report');
+                throw new \Exception('Failed to fetch Purchase Request Report');
             }
+
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Purchase Requisition Summary Store Function Error:" . $th->getMessage());
+            Log::error("Report Purchase Request Store Function Error:" . $th->getMessage());
 
             $compact = [
                 'status' => 500,
@@ -347,6 +358,13 @@ class PurchaseRequisitionController extends Controller
                         'Supplier_RefID' => $supplierID ?? null,
                         // 'StartDate'                 => $date ? $startDate : NULL,
                         // 'EndDate'                   => $date ? $endDate : NULL,
+                    ],
+                    'SQLStatement' => [
+                        'paging' => [
+                            'limit' => "20",
+                            // 'limit' => "ALL",
+                            'offset' => 0
+                        ]
                     ]
                 ]
             );

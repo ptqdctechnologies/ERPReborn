@@ -51,95 +51,107 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalQuantity = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("DeliveryOrder.ReportDeliveryOrderSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_code: subBudgetCode.value,
-                warehouse_id: warehouseID.value,
-                doDate: doDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("DeliveryOrder.ReportDeliveryOrderSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_code = subBudgetCode.value;
+                    d.warehouse_id = warehouseID.value;
+                    d.doDate = doDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalQuantity += parseFloat(row.quantity) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalQuantity = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalQuantity += parseFloat(row.quantity) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'documentNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                let dateOrigin = new Date(data.date);
-                                let formattedDate = dateOrigin.toISOString().split('T')[0];
-
-                                return formattedDate;
-                            }
-                        },
-                        {
-                            data: 'type',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'quantity',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'deliveryFrom_NonRefID.address',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'deliveryTo_NonRefID.address',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return `${data.transporter_Code ? `${data.transporter_Code} -` : ''} ${data.transporter_Name || ''}`;
-                            }
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalQuantity));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
+                },
+                {
+                    data: 'documentNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        let dateOrigin = new Date(data.date);
+                        let formattedDate = dateOrigin.toISOString().split('T')[0];
 
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log('xhr, status, error', xhr, status, error);
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: 'type',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'quantity',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'deliveryFrom_NonRefID.address',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'deliveryTo_NonRefID.address',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return `${data.transporter_Code ? `${data.transporter_Code} -` : ''} ${data.transporter_Name || ''}`;
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalQuantity));
             }
         });
     }

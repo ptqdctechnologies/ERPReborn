@@ -368,6 +368,10 @@ class DeliveryOrderController extends Controller
     public function ReportDeliveryOrderSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->doDate;
             $warehouse = $request->warehouse_id;
             $budget = [
@@ -383,16 +387,23 @@ class DeliveryOrderController extends Controller
                 $budget['code'],
                 $subBudget['code'],
                 $warehouse,
-                $date
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Delivery Order Summary Report');
             }
 
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
+
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);

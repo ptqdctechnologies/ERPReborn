@@ -45,130 +45,137 @@
     }
 
     function getDataReport() {
-        Utils.showLoading();
+        let totalIDR = 0;
+        let totalOtherCurrency = 0;
+        let totalEquivalentIDR = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("PurchaseRequisition.ReportPurchaseRequisitionSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_code: subBudgetCode.value,
-                prDate: prDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("PurchaseRequisition.ReportPurchaseRequisitionSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_code = subBudgetCode.value;
+                    d.prDate = prDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalIDR += parseFloat(row.total_IDR) || 0;
+                        totalOtherCurrency += parseFloat(row.total_Other_Currency) || 0;
+                        totalEquivalentIDR += parseFloat(row.total_Equivalent_IDR) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalIDR = 0;
-                let totalOtherCurrency = 0;
-                let totalEquivalentIDR = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalIDR += parseFloat(row.total_IDR) || 0;
-                    totalOtherCurrency += parseFloat(row.total_Other_Currency) || 0;
-                    totalEquivalentIDR += parseFloat(row.total_Equivalent_IDR) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'documentNumber',
-                            defaultContent: '-',
-                            className: "text-nowrap",
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                let dateOrigin = new Date(data.date);
-                                let formattedDate = dateOrigin.toISOString().split('T')[0];
-
-                                return formattedDate;
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "text-nowrap",
-                            render: function (data, type, row, meta) {
-                                return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                let dateOrigin = new Date(data.dateOfDelivery);
-                                let formattedDate = dateOrigin.toISOString().split('T')[0];
-
-                                return formattedDate;
-                            }
-                        },
-                        {
-                            data: 'deliveryTo_NonRefID.address',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_IDR || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Other_Currency || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Equivalent_IDR || '0');
-                            }
-                        },
-                        {
-                            data: 'remarks',
-                            defaultContent: '-'
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
+                },
+                {
+                    data: 'documentNumber',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        let dateOrigin = new Date(data.date);
+                        let formattedDate = dateOrigin.toISOString().split('T')[0];
 
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        let dateOrigin = new Date(data.dateOfDelivery);
+                        let formattedDate = dateOrigin.toISOString().split('T')[0];
 
-                Utils.hideLoading();
-            },
-            error: function (xhr, status, error) {
-                console.log('xhr, status, error', xhr, status, error);
-
-                Utils.hideLoading();
-                ErrorHandler.notifToast(
-                    'error',
-                    'An error occurred while processing the received data. Please try again later',
-                    'Error!'
-                );
+                        return formattedDate;
+                    }
+                },
+                {
+                    data: 'deliveryTo_NonRefID.address',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_IDR || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Other_Currency || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Equivalent_IDR || '0');
+                    }
+                },
+                {
+                    data: 'remarks',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
             }
         });
     }

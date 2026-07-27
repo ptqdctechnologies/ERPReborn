@@ -53,194 +53,147 @@
     }
 
     function getDataReport() {
-        Utils.showLoading();
+        let totalExpenseClaim = 0;
+        let totalAmountDueCompany = 0;
+        let totalAdvanceSettlement = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_name: budgetName.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_name: subBudgetName.value,
-                site_code: subBudgetCode.value,
-                asfDate: asfDate.value
-            },
-            dataType: 'json',
-            success: function (response) {
-                let totalExpenseClaim = 0;
-                let totalAmountDueCompany = 0;
-                let totalAdvanceSettlement = 0;
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("AdvanceSettlement.ReportAdvanceSettlementSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_name = budgetName.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_name = subBudgetName.value;
+                    d.site_code = subBudgetCode.value;
+                    d.asfDate = asfDate.value;
 
-                if (response.status === 200 && response.data[0]) {
-                    let data = response.data;
-                    dataReport = JSON.stringify(data);
+                    return d;
+                },
+                dataSrc: function (json) {
 
-                    data.forEach(function (row) {
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
                         totalExpenseClaim += parseFloat(row.total_Expense_Claim) || 0;
                         totalAmountDueCompany += parseFloat(row.total_Amount_Due_Company) || 0;
                         totalAdvanceSettlement += parseFloat(row.total_Advance_Settlement) || 0;
                     });
 
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return (meta.row + 1);
-                                }
-                            },
-                            {
-                                data: 'documentNumber',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: 'date',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Expense_Claim || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Amount_Due_Company || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-',
-                                render: function (data, type, row, meta) {
-                                    return currencyTotal(data.total_Advance_Settlement || '0');
-                                }
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: null,
-                                defaultContent: '-'
-                            },
-                            {
-                                data: 'requester',
-                                defaultContent: '-',
-                                className: "text-nowrap",
-                            },
-                            {
-                                data: 'remarks',
-                                defaultContent: '-'
-                            }
-                        ],
-                        drawCallback: function (settings) {
-                            // Start of Menghitung total berdasarkan data yang tampil pada halaman aktif
-                            // let api                         = this.api();
-                            // let totalExpenseClaimPage       = 0;
-                            // let totalAmountDueCompanyPage   = 0;
-                            // let totalAdvanceSettlementPage  = 0;
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
 
-                            // api.rows({ page: 'current' }).every(function(rowIdx, tableLoop, rowLine) {
-                            //     let row                     = api.row(rowIdx).data();
-                            //     totalExpenseClaimPage       += parseFloat(row.total_Expense_Claim) || 0;
-                            //     totalAmountDueCompanyPage   += parseFloat(row.total_Amount_Due_Company) || 0;
-                            //     totalAdvanceSettlementPage  += parseFloat(row.total_Advance_Settlement) || 0;
-                            // });
-                            // End of Menghitung total berdasarkan data yang tampil pada halaman aktif
-
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
-                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
-                            $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
-                        }
-                    });
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
 
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
-                } else {
-                    dataReport = [];
-
-                    $('#table_summary').DataTable({
-                        destroy: true,
-                        data: [],
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        drawCallback: function (settings) {
-                            // Start of Menghitung total berdasarkan data yang tampil pada halaman aktif
-                            // let api                         = this.api();
-                            // let totalExpenseClaimPage       = 0;
-                            // let totalAmountDueCompanyPage   = 0;
-                            // let totalAdvanceSettlementPage  = 0;
-
-                            // api.rows({ page: 'current' }).every(function(rowIdx, tableLoop, rowLine) {
-                            //     let row                     = api.row(rowIdx).data();
-                            //     totalExpenseClaimPage       += parseFloat(row.total_Expense_Claim) || 0;
-                            //     totalAmountDueCompanyPage   += parseFloat(row.total_Amount_Due_Company) || 0;
-                            //     totalAdvanceSettlementPage  += parseFloat(row.total_Advance_Settlement) || 0;
-                            // });
-                            // End of Menghitung total berdasarkan data yang tampil pada halaman aktif
-
-                            $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
-                            $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
-                            $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
-                            $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0'));
-                            $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
-                        }
-                    });
-
-                    $('#table_summary').css("width", "100%");
-                    $('#table_container').css("display", "block");
-                }
-
-                Utils.hideLoading();
+                },
             },
-            error: function (xhr, status, error) {
-                console.log('xhr, status, error', xhr, status, error);
-
-                Utils.hideLoading();
-                ErrorHandler.notifToast(
-                    'error',
-                    'An error occurred while processing the received data. Please try again later',
-                    'Error!'
-                );
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
+                    }
+                },
+                {
+                    data: 'documentNumber',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: 'date',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Expense_Claim || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Amount_Due_Company || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Advance_Settlement || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: 'requester',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: 'remarks',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0'));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
+                $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
+                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0'));
+                $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
+                $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
+                $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0'));
+                $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
             }
         });
     }

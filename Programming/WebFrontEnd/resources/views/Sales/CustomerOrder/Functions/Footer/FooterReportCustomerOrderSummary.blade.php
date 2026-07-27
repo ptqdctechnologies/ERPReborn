@@ -106,7 +106,7 @@
                     defaultContent: '-',
                     className: "text-nowrap",
                     render: function (data, type, row, meta) {
-                        return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                        return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
                     }
                 },
                 {

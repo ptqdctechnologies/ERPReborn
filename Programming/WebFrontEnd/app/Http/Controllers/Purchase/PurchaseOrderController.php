@@ -236,7 +236,12 @@ class PurchaseOrderController extends Controller
     public function ReportPurchaseOrderSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->poDate;
+            $supplierID = $request->supplier_id;
             $budget = [
                 "id" => $request->budget_id,
                 "code" => $request->budget_code,
@@ -245,27 +250,33 @@ class PurchaseOrderController extends Controller
                 "id" => $request->site_id,
                 "code" => $request->site_code,
             ];
-            $supplierID = $request->supplier_id;
 
             $response = $this->purchaseOrderService->getPurchaseOrderSummary(
                 $budget['code'],
                 $subBudget['code'],
                 $date,
-                $supplierID
+                $supplierID,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Purchase Order Summary Report');
+                throw new \Exception('Failed to fetch Purchase Order Report');
             }
+
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Purchase Order Summary Store Function Error:" . $th->getMessage());
+            Log::error("Report Purchase Order Store Function Error:" . $th->getMessage());
 
             $compact = [
                 'status' => 500,

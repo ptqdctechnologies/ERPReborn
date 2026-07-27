@@ -48,9 +48,10 @@ class PurchaseOrderService
         );
     }
 
-    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier)
+    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -70,6 +71,12 @@ class PurchaseOrderService
                     'Supplier_RefID' => $supplier ? $supplier : NULL
                     // 'StartDate'              => $date ? $startDate : NULL,
                     // 'EndDate'                => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
