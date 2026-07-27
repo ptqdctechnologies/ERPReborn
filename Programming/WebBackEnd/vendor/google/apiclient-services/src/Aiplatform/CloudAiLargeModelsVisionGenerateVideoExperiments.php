@@ -43,6 +43,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var string
    */
   public $codec;
+  protected $colorAlignmentType = CloudAiLargeModelsVisionGenerateVideoExperimentsColorAlignmentConfig::class;
+  protected $colorAlignmentDataType = '';
   protected $conditioningFramesType = CloudAiLargeModelsVisionGenerateVideoExperimentsConditioningFrame::class;
   protected $conditioningFramesDataType = 'array';
   /**
@@ -91,6 +93,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   protected $schedulingConfigDataType = '';
   protected $seamlessType = CloudAiLargeModelsVisionSeamless::class;
   protected $seamlessDataType = '';
+  protected $spatialAlignmentType = CloudAiLargeModelsVisionGenerateVideoExperimentsSpatialAlignmentConfig::class;
+  protected $spatialAlignmentDataType = '';
   /**
    * If true (default), truncate input videos that exceed the model's maximum
    * frame count by applying a frame_selection_config to __video_file__ inputs.
@@ -164,6 +168,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getCodec()
   {
     return $this->codec;
+  }
+  /**
+   * Optional. Color alignment configuration.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsColorAlignmentConfig $colorAlignment
+   */
+  public function setColorAlignment(CloudAiLargeModelsVisionGenerateVideoExperimentsColorAlignmentConfig $colorAlignment)
+  {
+    $this->colorAlignment = $colorAlignment;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsColorAlignmentConfig
+   */
+  public function getColorAlignment()
+  {
+    return $this->colorAlignment;
   }
   /**
    * Conditioning frames for veo experimental models ONLY, not to be confused
@@ -335,6 +355,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getSeamless()
   {
     return $this->seamless;
+  }
+  /**
+   * Optional. Spatial alignment configuration.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsSpatialAlignmentConfig $spatialAlignment
+   */
+  public function setSpatialAlignment(CloudAiLargeModelsVisionGenerateVideoExperimentsSpatialAlignmentConfig $spatialAlignment)
+  {
+    $this->spatialAlignment = $spatialAlignment;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsSpatialAlignmentConfig
+   */
+  public function getSpatialAlignment()
+  {
+    return $this->spatialAlignment;
   }
   /**
    * If true (default), truncate input videos that exceed the model's maximum

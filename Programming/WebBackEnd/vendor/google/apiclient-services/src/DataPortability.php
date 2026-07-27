@@ -142,6 +142,9 @@ class DataPortability extends \Google\Service
   /** Move a copy of your food purchase and reservation activity. */
   const DATAPORTABILITY_ORDER_RESERVE_PURCHASES_RESERVATIONS =
       "https://www.googleapis.com/auth/dataportability.order_reserve.purchases_reservations";
+  /** Usage and diagnostic data from your Pixel devices.. */
+  const DATAPORTABILITY_PIXEL_DEVICE_DATA =
+      "https://www.googleapis.com/auth/dataportability.pixel.device_data";
   /** Move a copy of information about your devices with Google Play Store installed. */
   const DATAPORTABILITY_PLAY_DEVICES =
       "https://www.googleapis.com/auth/dataportability.play.devices";

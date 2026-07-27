@@ -139,6 +139,21 @@ class ProjectsAlerts extends \Google\Service\Resource
     return $this->call('get', [$params], Alert::class);
   }
   /**
+   * Get the decrypted password of an alert. (alerts.getPassword)
+   *
+   * @param string $name Required. Name of the alert to get. Format:
+   * projects/{project}/alerts/{alert}
+   * @param array $optParams Optional parameters.
+   * @return Alert
+   * @throws \Google\Service\Exception
+   */
+  public function getPassword($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('getPassword', [$params], Alert::class);
+  }
+  /**
    * Get a list of alerts that meet the filter criteria.
    * (alerts.listProjectsAlerts)
    *

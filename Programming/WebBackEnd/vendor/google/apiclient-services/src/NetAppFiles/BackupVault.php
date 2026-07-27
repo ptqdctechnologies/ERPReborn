@@ -152,7 +152,7 @@ class BackupVault extends \Google\Model
    */
   public $sourceBackupVault;
   /**
-   * Output only. Region in which the backup vault is created. Format:
+   * Optional. Region in which the backup vault is created. Format:
    * `projects/{project_id}/locations/{location}`
    *
    * @var string
@@ -372,7 +372,7 @@ class BackupVault extends \Google\Model
     return $this->sourceBackupVault;
   }
   /**
-   * Output only. Region in which the backup vault is created. Format:
+   * Optional. Region in which the backup vault is created. Format:
    * `projects/{project_id}/locations/{location}`
    *
    * @param string $sourceRegion

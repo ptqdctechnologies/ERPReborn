@@ -1,0 +1,98 @@
+<?php
+/*
+ * Copyright 2014 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not
+ * use this file except in compliance with the License. You may obtain a copy of
+ * the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations under
+ * the License.
+ */
+
+namespace Google\Service\AgentIdentity;
+
+class AuthProviderTypeParams extends \Google\Model
+{
+  protected $apiKeyType = ApiKeyParams::class;
+  protected $apiKeyDataType = '';
+  protected $geAuthProviderType = GeminiEnterpriseAuthProviderParams::class;
+  protected $geAuthProviderDataType = '';
+  protected $threeLeggedOauthType = ThreeLeggedOAuth::class;
+  protected $threeLeggedOauthDataType = '';
+  protected $twoLeggedOauthType = TwoLeggedOAuth::class;
+  protected $twoLeggedOauthDataType = '';
+
+  /**
+   * ApiKey AuthProvider type parameters.
+   *
+   * @param ApiKeyParams $apiKey
+   */
+  public function setApiKey(ApiKeyParams $apiKey)
+  {
+    $this->apiKey = $apiKey;
+  }
+  /**
+   * @return ApiKeyParams
+   */
+  public function getApiKey()
+  {
+    return $this->apiKey;
+  }
+  /**
+   * GeminiEnterprise auth_provider type parameters.
+   *
+   * @param GeminiEnterpriseAuthProviderParams $geAuthProvider
+   */
+  public function setGeAuthProvider(GeminiEnterpriseAuthProviderParams $geAuthProvider)
+  {
+    $this->geAuthProvider = $geAuthProvider;
+  }
+  /**
+   * @return GeminiEnterpriseAuthProviderParams
+   */
+  public function getGeAuthProvider()
+  {
+    return $this->geAuthProvider;
+  }
+  /**
+   * ThreeLeggedOAuth AuthProvider type parameters.
+   *
+   * @param ThreeLeggedOAuth $threeLeggedOauth
+   */
+  public function setThreeLeggedOauth(ThreeLeggedOAuth $threeLeggedOauth)
+  {
+    $this->threeLeggedOauth = $threeLeggedOauth;
+  }
+  /**
+   * @return ThreeLeggedOAuth
+   */
+  public function getThreeLeggedOauth()
+  {
+    return $this->threeLeggedOauth;
+  }
+  /**
+   * TwoLeggedOAuth AuthProvider type parameters.
+   *
+   * @param TwoLeggedOAuth $twoLeggedOauth
+   */
+  public function setTwoLeggedOauth(TwoLeggedOAuth $twoLeggedOauth)
+  {
+    $this->twoLeggedOauth = $twoLeggedOauth;
+  }
+  /**
+   * @return TwoLeggedOAuth
+   */
+  public function getTwoLeggedOauth()
+  {
+    return $this->twoLeggedOauth;
+  }
+}
+
+// Adding a class alias for backwards compatibility with the previous class name.
+class_alias(AuthProviderTypeParams::class, 'Google_Service_AgentIdentity_AuthProviderTypeParams');

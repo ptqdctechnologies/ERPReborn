@@ -176,6 +176,7 @@ class Aiplatform extends \Google\Service
   public $projects_locations_pipelineJobs_operations;
   public $projects_locations_publishers_models;
   public $projects_locations_publishers_models_invoke;
+  public $projects_locations_publishers_v1;
   public $projects_locations_ragCorpora;
   public $projects_locations_ragCorpora_operations;
   public $projects_locations_ragCorpora_ragFiles;
@@ -11530,6 +11531,30 @@ class Aiplatform extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_publishers_v1 = new Aiplatform\Resource\ProjectsLocationsPublishersV1(
+        $this,
+        $this->serviceName,
+        'v1',
+        [
+          'methods' => [
+            'responses' => [
+              'path' => 'v1/{+endpoint}/v1/responses',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'endpoint' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'deployedModelId' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],

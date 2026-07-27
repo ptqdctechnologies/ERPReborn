@@ -45,6 +45,8 @@ class AndroidPublisher extends \Google\Service
   public $applications_tracks_releases;
   public $apprecovery;
   public $appstoreappsreview;
+  public $appstorecatalog_recentappviews;
+  public $appstorecatalog_recentupdateevents;
   public $edits;
   public $edits_apks;
   public $edits_bundles;
@@ -356,6 +358,67 @@ class AndroidPublisher extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->appstorecatalog_recentappviews = new AndroidPublisher\Resource\AppstorecatalogRecentappviews(
+        $this,
+        $this->serviceName,
+        'recentappviews',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'androidpublisher/v3/appstorecatalog/{appStorePackageName}/recentAppViews/{playAppPackageName}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'appStorePackageName' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'playAppPackageName' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->appstorecatalog_recentupdateevents = new AndroidPublisher\Resource\AppstorecatalogRecentupdateevents(
+        $this,
+        $this->serviceName,
+        'recentupdateevents',
+        [
+          'methods' => [
+            'list' => [
+              'path' => 'androidpublisher/v3/appstorecatalog/{appStorePackageName}/recentUpdateEvents',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'appStorePackageName' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],

@@ -41,15 +41,17 @@ class EndpointPolicy extends \Google\Model
    */
   public $authorizationPolicy;
   /**
-   * Optional. A URL referring to a ClientTlsPolicy resource. ClientTlsPolicy
-   * can be set to specify the authentication for traffic from the proxy to the
-   * actual endpoints. More specifically, it is applied to the outgoing traffic
-   * from the proxy to the endpoint. This is typically used for sidecar model
-   * where the proxy identifies itself as endpoint to the control plane, with
-   * the connection between sidecar and endpoint requiring authentication. If
-   * this field is not set, authentication is disabled(open). Applicable only
-   * when EndpointPolicyType is SIDECAR_PROXY.
+   * Optional. Deprecated: This field is not used and is a no-op. A URL
+   * referring to a ClientTlsPolicy resource. ClientTlsPolicy can be set to
+   * specify the authentication for traffic from the proxy to the actual
+   * endpoints. More specifically, it is applied to the outgoing traffic from
+   * the proxy to the endpoint. This is typically used for sidecar model where
+   * the proxy identifies itself as endpoint to the control plane, with the
+   * connection between sidecar and endpoint requiring authentication. If this
+   * field is not set, authentication is disabled(open). Applicable only when
+   * EndpointPolicyType is SIDECAR_PROXY.
    *
+   * @deprecated
    * @var string
    */
   public $clientTlsPolicy;
@@ -126,15 +128,17 @@ class EndpointPolicy extends \Google\Model
     return $this->authorizationPolicy;
   }
   /**
-   * Optional. A URL referring to a ClientTlsPolicy resource. ClientTlsPolicy
-   * can be set to specify the authentication for traffic from the proxy to the
-   * actual endpoints. More specifically, it is applied to the outgoing traffic
-   * from the proxy to the endpoint. This is typically used for sidecar model
-   * where the proxy identifies itself as endpoint to the control plane, with
-   * the connection between sidecar and endpoint requiring authentication. If
-   * this field is not set, authentication is disabled(open). Applicable only
-   * when EndpointPolicyType is SIDECAR_PROXY.
+   * Optional. Deprecated: This field is not used and is a no-op. A URL
+   * referring to a ClientTlsPolicy resource. ClientTlsPolicy can be set to
+   * specify the authentication for traffic from the proxy to the actual
+   * endpoints. More specifically, it is applied to the outgoing traffic from
+   * the proxy to the endpoint. This is typically used for sidecar model where
+   * the proxy identifies itself as endpoint to the control plane, with the
+   * connection between sidecar and endpoint requiring authentication. If this
+   * field is not set, authentication is disabled(open). Applicable only when
+   * EndpointPolicyType is SIDECAR_PROXY.
    *
+   * @deprecated
    * @param string $clientTlsPolicy
    */
   public function setClientTlsPolicy($clientTlsPolicy)
@@ -142,6 +146,7 @@ class EndpointPolicy extends \Google\Model
     $this->clientTlsPolicy = $clientTlsPolicy;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getClientTlsPolicy()

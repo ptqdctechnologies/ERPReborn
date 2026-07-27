@@ -56,6 +56,8 @@ class ExadbVmCluster extends \Google\Model
    * @var string
    */
   public $gcpOracleZone;
+  protected $identityConnectorType = IdentityConnector::class;
+  protected $identityConnectorDataType = '';
   /**
    * Optional. The labels or tags associated with the ExadbVmCluster.
    *
@@ -177,6 +179,23 @@ class ExadbVmCluster extends \Google\Model
   public function getGcpOracleZone()
   {
     return $this->gcpOracleZone;
+  }
+  /**
+   * Output only. The identity connector details which will allow OCI to
+   * securely access the resources in the customer project.
+   *
+   * @param IdentityConnector $identityConnector
+   */
+  public function setIdentityConnector(IdentityConnector $identityConnector)
+  {
+    $this->identityConnector = $identityConnector;
+  }
+  /**
+   * @return IdentityConnector
+   */
+  public function getIdentityConnector()
+  {
+    return $this->identityConnector;
   }
   /**
    * Optional. The labels or tags associated with the ExadbVmCluster.

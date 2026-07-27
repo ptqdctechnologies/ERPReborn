@@ -55,6 +55,12 @@ class BackupRuleDetail extends \Google\Model
    * @var string
    */
   public $ruleName;
+  /**
+   * The storage tier of the BackupRule.
+   *
+   * @var string
+   */
+  public $storageTier;
 
   /**
    * Backup Window For Eg. “00:00 to 06:00”
@@ -151,6 +157,22 @@ class BackupRuleDetail extends \Google\Model
   public function getRuleName()
   {
     return $this->ruleName;
+  }
+  /**
+   * The storage tier of the BackupRule.
+   *
+   * @param string $storageTier
+   */
+  public function setStorageTier($storageTier)
+  {
+    $this->storageTier = $storageTier;
+  }
+  /**
+   * @return string
+   */
+  public function getStorageTier()
+  {
+    return $this->storageTier;
   }
 }
 

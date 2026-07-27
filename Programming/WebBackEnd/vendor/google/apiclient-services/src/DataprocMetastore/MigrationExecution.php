@@ -73,6 +73,14 @@ class MigrationExecution extends \Google\Model
    * The migration execution is being deleted.
    */
   public const STATE_DELETING = 'DELETING';
+  /**
+   * The migration execution has been rolled back. This occurs when
+   * CancelMigration is invoked after the migration has completed and the
+   * metastore service is in the PROXY state, returning the service to the
+   * ACTIVE state. This enables rollback support when the customer wants to
+   * resume using DPMS after a successful migration.
+   */
+  public const STATE_ROLLED_BACK = 'ROLLED_BACK';
   protected $cloudSqlMigrationConfigType = CloudSQLMigrationConfig::class;
   protected $cloudSqlMigrationConfigDataType = '';
   /**
@@ -215,7 +223,7 @@ class MigrationExecution extends \Google\Model
    * Output only. The current state of the migration execution.
    *
    * Accepted values: STATE_UNSPECIFIED, STARTING, RUNNING, CANCELLING,
-   * AWAITING_USER_ACTION, SUCCEEDED, FAILED, CANCELLED, DELETING
+   * AWAITING_USER_ACTION, SUCCEEDED, FAILED, CANCELLED, DELETING, ROLLED_BACK
    *
    * @param self::STATE_* $state
    */

@@ -478,6 +478,18 @@ class GoogleCloudDiscoveryengineV1DataConnector extends \Google\Collection
    */
   public $syncMode;
   /**
+   * Optional. Immutable. User-facing, version-independent label for this
+   * connector. May be shared by multiple connectors under the same (project,
+   * location, collection, data_source); tag-based lookup returns the one with
+   * the greatest create_time. Optional at Create time. Agent Designer resolves
+   * connectors via (data_source, tag) when set, falling back to the legacy
+   * resource-name lookup when unset, so connectors created before the tag-write
+   * launch continue to work without a backfill.
+   *
+   * @var string
+   */
+  public $tag;
+  /**
    * Output only. Timestamp the DataConnector was last updated.
    *
    * @var string
@@ -1268,6 +1280,28 @@ class GoogleCloudDiscoveryengineV1DataConnector extends \Google\Collection
   public function getSyncMode()
   {
     return $this->syncMode;
+  }
+  /**
+   * Optional. Immutable. User-facing, version-independent label for this
+   * connector. May be shared by multiple connectors under the same (project,
+   * location, collection, data_source); tag-based lookup returns the one with
+   * the greatest create_time. Optional at Create time. Agent Designer resolves
+   * connectors via (data_source, tag) when set, falling back to the legacy
+   * resource-name lookup when unset, so connectors created before the tag-write
+   * launch continue to work without a backfill.
+   *
+   * @param string $tag
+   */
+  public function setTag($tag)
+  {
+    $this->tag = $tag;
+  }
+  /**
+   * @return string
+   */
+  public function getTag()
+  {
+    return $this->tag;
   }
   /**
    * Output only. Timestamp the DataConnector was last updated.

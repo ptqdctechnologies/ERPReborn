@@ -23,7 +23,9 @@ class AccessSessionSparkApplicationNativeBuildInfoResponse extends \Google\Model
   protected $executionDataDataType = '';
 
   /**
-   * @param NativeBuildInfoUiData
+   * Native SQL Execution Data
+   *
+   * @param NativeBuildInfoUiData $executionData
    */
   public function setExecutionData(NativeBuildInfoUiData $executionData)
   {

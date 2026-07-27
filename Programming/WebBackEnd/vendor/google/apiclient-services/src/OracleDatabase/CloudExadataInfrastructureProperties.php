@@ -114,7 +114,7 @@ class CloudExadataInfrastructureProperties extends \Google\Collection
    */
   public $dataStorageSizeTb;
   /**
-   * Output only. The database server type of the Exadata Infrastructure.
+   * Optional. The database server type of the Exadata Infrastructure.
    *
    * @var string
    */
@@ -232,7 +232,7 @@ class CloudExadataInfrastructureProperties extends \Google\Collection
    */
   public $storageCount;
   /**
-   * Output only. The storage server type of the Exadata Infrastructure.
+   * Optional. The storage server type of the Exadata Infrastructure.
    *
    * @var string
    */
@@ -379,7 +379,7 @@ class CloudExadataInfrastructureProperties extends \Google\Collection
     return $this->dataStorageSizeTb;
   }
   /**
-   * Output only. The database server type of the Exadata Infrastructure.
+   * Optional. The database server type of the Exadata Infrastructure.
    *
    * @param string $databaseServerType
    */
@@ -700,7 +700,7 @@ class CloudExadataInfrastructureProperties extends \Google\Collection
     return $this->storageCount;
   }
   /**
-   * Output only. The storage server type of the Exadata Infrastructure.
+   * Optional. The storage server type of the Exadata Infrastructure.
    *
    * @param string $storageServerType
    */

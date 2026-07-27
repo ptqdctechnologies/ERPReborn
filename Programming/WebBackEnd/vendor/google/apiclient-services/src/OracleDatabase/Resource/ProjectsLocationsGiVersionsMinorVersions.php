@@ -40,8 +40,8 @@ class ProjectsLocationsGiVersionsMinorVersions extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string filter Optional. An expression for filtering the results of
-   * the request. Only shapeFamily and gcp_oracle_zone_id are supported in this
-   * format: `shape_family="{shapeFamily}" AND
+   * the request. Only the `shape_family` and `gcp_oracle_zone_id` fields are
+   * supported in the following format: `shape_family="{shape_family}" AND
    * gcp_oracle_zone_id="{gcp_oracle_zone_id}"`.
    * @opt_param int pageSize Optional. The maximum number of items to return. If
    * unspecified, a maximum of 50 System Versions will be returned. The maximum

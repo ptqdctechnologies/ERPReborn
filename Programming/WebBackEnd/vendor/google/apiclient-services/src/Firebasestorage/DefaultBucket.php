@@ -22,7 +22,7 @@ class DefaultBucket extends \Google\Model
   protected $bucketType = Bucket::class;
   protected $bucketDataType = '';
   /**
-   * Immutable. Location of the default bucket.
+   * Required. Immutable. Location of the default bucket.
    *
    * @var string
    */
@@ -58,7 +58,7 @@ class DefaultBucket extends \Google\Model
     return $this->bucket;
   }
   /**
-   * Immutable. Location of the default bucket.
+   * Required. Immutable. Location of the default bucket.
    *
    * @param string $location
    */

@@ -130,6 +130,8 @@ class Cluster extends \Google\Collection
    * @var bool
    */
   public $aclPolicyInSync;
+  protected $aclPolicyInfoType = AclPolicyInfo::class;
+  protected $aclPolicyInfoDataType = '';
   /**
    * Optional. Immutable. Deprecated, do not use.
    *
@@ -384,6 +386,22 @@ class Cluster extends \Google\Collection
   public function getAclPolicyInSync()
   {
     return $this->aclPolicyInSync;
+  }
+  /**
+   * Output only. Details of the applied ACL policy.
+   *
+   * @param AclPolicyInfo $aclPolicyInfo
+   */
+  public function setAclPolicyInfo(AclPolicyInfo $aclPolicyInfo)
+  {
+    $this->aclPolicyInfo = $aclPolicyInfo;
+  }
+  /**
+   * @return AclPolicyInfo
+   */
+  public function getAclPolicyInfo()
+  {
+    return $this->aclPolicyInfo;
   }
   /**
    * Optional. Immutable. Deprecated, do not use.

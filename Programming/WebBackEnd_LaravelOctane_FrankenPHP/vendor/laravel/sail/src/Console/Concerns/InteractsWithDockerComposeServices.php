@@ -113,6 +113,10 @@ trait InteractsWithDockerComposeServices
                 return ! array_key_exists($service, $compose['volumes'] ?? []);
             })->each(function ($service) use (&$compose) {
                 $compose['volumes']["sail-{$service}"] = ['driver' => 'local'];
+
+                if ($service === 'mongodb') {
+                    $compose['volumes']['sail-mongodb-config'] = ['driver' => 'local'];
+                }
             });
 
         // If the list of volumes is empty, we can remove it...
@@ -246,11 +250,8 @@ trait InteractsWithDockerComposeServices
         $phpunit = file_get_contents($path);
 
         $phpunit = preg_replace('/^.*DB_CONNECTION.*\n/m', '', $phpunit);
-        $phpunit = str_replace(
-            [
-                '<!-- <env name="DB_DATABASE" value=":memory:"/> -->',
-                '<env name="DB_DATABASE" value=":memory:"/>',
-            ],
+        $phpunit = preg_replace(
+            '/(<!--[ \t]*)?<env[ \t]+name="DB_DATABASE"[ \t]+value=":memory:"[ \t]*\/>(?(1)[ \t]*-->)/',
             '<env name="DB_DATABASE" value="testing"/>',
             $phpunit
         );
