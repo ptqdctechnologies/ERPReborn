@@ -1012,7 +1012,7 @@
 
                         dataAddManual.push({
                             entities: {
-                                isDefault: false,
+                                isDefault: true,
                                 combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
                                 sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
                                 value: row[3] > 0 ? Utils.parseFloatSafe(row[3]) : Utils.parseFloatSafe(0),
@@ -1027,7 +1027,7 @@
 
                         dataAddManual.push({
                             entities: {
-                                isDefault: false,
+                                isDefault: true,
                                 combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
                                 sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
                                 product_RefID: validateProduct ? validateProduct.sys_ID : '',
