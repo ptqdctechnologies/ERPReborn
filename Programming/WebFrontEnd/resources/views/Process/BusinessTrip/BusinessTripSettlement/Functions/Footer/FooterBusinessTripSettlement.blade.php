@@ -308,7 +308,17 @@
     $('#businessTripRequestListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
         const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_business_trip"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
+
+        if (status !== "Final Approval") {
+            Swal.fire(
+                CONFIG.MESSAGE.nextTransaction.title,
+                CONFIG.MESSAGE.nextTransaction.description,
+                "error"
+            );
+            return;
+        }
 
         $("#businessTripRequestListModalTrigger").hide();
         $("#loadingBudget").show();
