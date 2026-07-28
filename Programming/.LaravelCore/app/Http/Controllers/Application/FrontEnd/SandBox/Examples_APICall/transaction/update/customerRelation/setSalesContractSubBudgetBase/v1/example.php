@@ -67,6 +67,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         ]
                                     ],
                                 ]
+                            ],
+                        "deleteList" => [
+                            "items" => [
+                                    [
+                                    "recordID" => 308000000000044,
+                                    ]
+                                ]
                             ]
                         ]
                     ]
