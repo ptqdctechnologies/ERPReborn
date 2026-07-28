@@ -4,72 +4,74 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\accounting          |
-|                 \getChartOfAccount                                                                                               |
-|                 \v1                                                                                                              |
-| ▪ API Key     : report.form.dataPickList.accounting.getChartOfAccount                                                            |
+|                 \chartOfAccount\getAll\v1                                                                                        |
+| ▪ API Key     : report.form.dataPickList.accounting.chartOfAccount.getAll                                                        |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\accounting\getChartOfAccount\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\accounting\chartOfAccount\getAll\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.accounting.getChartOfAccount.v1_throughAPIGateway          |
-        |                     ► http://172.28.0.4/report.form.dataPickList.accounting.getChartOfAccount.v1_throughAPIGateway       |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.accounting.chartOfAccount.getAll.v1_throughAPIGateway      |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       report.form.dataPickList.accounting.chartOfAccount.getAll.v1_throughAPIGateway                     |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-09                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-07-28                                                                                           |
         | ▪ Creation Date   : 2026-07-09                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
             {
             //-----[ PARAMETER SET ]-----
-            if (!$varAPIWebToken) {
-                $varAPIWebToken =
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                }
+                if (!$varAPIWebToken) {
+                    $varAPIWebToken =
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    }
 
             //-----[ CORE ]-----
-            $varData = 
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    //-----[ METADATA ]-----( START )-----
-                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                        $varAPIWebToken, 
-                        'report.form.dataPickList.accounting.getChartOfAccount', 
-                        'latest',
-                    //-----[ METADATA ]-----(  END  )-----
+                $varData = 
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        //-----[ METADATA ]-----( START )-----
+                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                            $varAPIWebToken, 
+                            'report.form.dataPickList.accounting.chartOfAccount.getAll', 
+                            'latest',
+                        //-----[ METADATA ]-----(  END  )-----
 
-                    //-----[ DATA ]---------( START )-----
-                        [
-                        'parameter' => [
-                            'effectiveDate' => date('Y-m-d'),       //'2026-01-01',
-                            'pagination' => [
-                                'pageSize' => 10,
-                                'pageShow' => 1
-                                ],
-                            'dataFilter' => [
-                                'name' => NULL,                     //'Asset'
-                                ],
+                        //-----[ DATA ]---------( START )-----
+                            [
+                            'parameter' => [
+                                'effectiveDate' => date('Y-m-d'),       //'2026-01-01',
+                                'pagination' => [
+                                    'pageSize' => 10,
+                                    'pageShow' => 1
+                                    ],
+                                'dataFilter' => [
+                                    'fullName' => NULL,                //'Asset'
+                                    ]
+                                ]
                             ]
-                        ]
-                    //-----[ DATA ]---------(  END  )-----
-                    );
+                        //-----[ DATA ]---------(  END  )-----
+                        );
 
             //-----[ DATA RETURN ]-----
-            return
-                $varData;
+                return
+                    $varData;
             }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataPickList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery         |
-        |                     ► http://172.28.0.4/transaction.read.dataPickList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery      |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataPickList.accounting.chartOfAccount.getAll.v1_throughAPIGatewayJQuery            |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataPickList.accounting.chartOfAccount.getAll.v1_throughAPIGatewayJQuery          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-08                                                                                           |
@@ -99,7 +101,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.read.dataPickList.accounting.getChartOfAccount', 
+                        'report.form.dataPickList.accounting.chartOfAccount.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 

@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.dataPickList.accounting.getChartOfAccount (version 1)",
+"description": "JSON Request Schema of report.form.dataPickList.accounting.chartOfAccount.getNonHeaderAdvance (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.dataPickList.accounting.getChartOfAccount" ]
+                        "enum": [ "report.form.dataPickList.accounting.chartOfAccount.getNonHeaderAdvance" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -63,7 +63,12 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "name": {
+                            "fullCode": {
+                                "type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 64
+                                },
+                            "fullName": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
                                 "maxLength": 64
