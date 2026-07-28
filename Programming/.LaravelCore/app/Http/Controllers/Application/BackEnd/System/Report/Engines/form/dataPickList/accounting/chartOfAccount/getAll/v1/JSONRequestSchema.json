@@ -63,7 +63,7 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "name": {
+                            "fullName": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
                                 "maxLength": 64

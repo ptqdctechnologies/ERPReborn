@@ -113,14 +113,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► name
+                                        //---► fullCode
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'name',
+                                                'fullCode',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['name'])) 
-                                                        ? $varData['parameter']['dataFilter']['name'] 
+                                                    (!is_null($varData['parameter']['dataFilter']['fullCode'])) 
+                                                        ? $varData['parameter']['dataFilter']['fullCode'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► fullName
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'fullName',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['fullName'])) 
+                                                        ? $varData['parameter']['dataFilter']['fullName'] 
                                                         : null
                                                         ) 
                                                     : null

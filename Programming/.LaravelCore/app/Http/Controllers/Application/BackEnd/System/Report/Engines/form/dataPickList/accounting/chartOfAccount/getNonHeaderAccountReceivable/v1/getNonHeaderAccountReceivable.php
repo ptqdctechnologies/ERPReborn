@@ -113,11 +113,11 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► fullCode (DEFAULT)
+                                        //---► fullCodeBase
                                             '1-0000 ► 1-1000 ► 1-1200 ► 1-1201 ► 1-1201.01',
-                                        //---► fullName (DEFAULT)
+                                        //---► fullNameBase
                                             'Account Receivable',
-                                        //---► fullCode (CUSTOM)
+                                        //---► fullCode
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'fullCode',
@@ -129,7 +129,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                         ) 
                                                     : null
                                             ),
-                                        //---► fullName (CUSTOM)
+                                        //---► fullName
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'fullName',

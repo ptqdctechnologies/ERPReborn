@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\accounting              |
-|                 \getChartOfAccount\v1                                                                                            |
-| ▪ API Key     : report.form.dataList.accounting.getChartOfAccount                                                                |
+|                 \chartOfAccount\getAll\v1                                                                                        |
+| ▪ API Key     : report.form.dataList.accounting.chartOfAccount.getAll                                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\accounting\getChartOfAccount\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\accounting\chartOfAccount\getAll\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.accounting.getChartOfAccount.v1_throughAPIGateway              |
-        |                     ► http://172.28.0.4/report.form.dataList.accounting.getChartOfAccount.v1_throughAPIGateway           |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.accounting.chartOfAccount.getAll.v1_throughAPIGateway          |
+        |                     ► http://172.28.0.4/report.form.dataList.accounting.chartOfAccount.getAll.v1_throughAPIGateway       |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2026-02-25                                                                                           |
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'report.form.dataList.accounting.getChartOfAccount', 
+                        'report.form.dataList.accounting.chartOfAccount.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -52,7 +52,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'name' => NULL,                     //'Asset'
+                                'fullName' => NULL,                 //'Asset'
                                 ],
                             ]
                         ]
@@ -67,8 +67,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery             |
-        |                     ► http://172.28.0.4/transaction.read.dataList.accounting.getChartOfAccount.v1_throughAPIGatewayJQuery          |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataList.accounting.chartOfAccount.getAll.v1_throughAPIGatewayJQuery                |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.accounting.chartOfAccount.getAll.v1_throughAPIGatewayJQuery              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-08                                                                                           |
@@ -98,7 +100,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.read.dataList.accounting.getChartOfAccount', 
+                        'transaction.read.dataList.accounting.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 

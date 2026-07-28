@@ -1042,7 +1042,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
-        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varFullCode ► Full Code                                                                                  |
+        |      ▪ (string) varFullName ► Full Name                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1051,7 +1052,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
             $varUserSession, int $varSysBranch_RefID,
             string $verEffectiveDate = null,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null)
+            string $varFullCode = null, string $varFullName = null)
             {
             try {
                 $varReturn =
@@ -1069,7 +1070,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varPagination_PageSize, 'bigint'],
                                 [$varPagination_PageShow, 'bigint'],
 
-                                [$varName, 'varchar']
+                                [$varFullCode, 'varchar'],
+                                [$varFullName, 'varchar']
                             ]
                             )
                         );
@@ -1106,12 +1108,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ------------------------------                                                                                      |
         |      ▪ (string) varEffectiveDate ► Effective Date                                                                        |
         |      ------------------------------                                                                                      |
-
         |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
         |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
         |      ------------------------------                                                                                      |
-        |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (string) varAcronym ► Acronym                                                                                     |
+        |      ▪ (string) varFullCode ► Full Code                                                                                  |
+        |      ▪ (string) varFullName ► Full Name                                                                                  |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1120,7 +1121,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
             $varUserSession, int $varSysBranch_RefID,
             string $verEffectiveDate = null,
             int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varAcronym = null)
+            string $varFullCode = null, string $varFullName = null)
             {
             try {
                 $varReturn =
@@ -1138,7 +1139,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varPagination_PageSize, 'bigint'],
                                 [$varPagination_PageShow, 'bigint'],
 
-                                [$varName, 'varchar']
+                                [$varFullCode, 'varchar'],
+                                [$varFullName, 'varchar']
                             ]
                             )
                         );

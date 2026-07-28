@@ -53,7 +53,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                     'pageShow' => 1
                                     ],
                                 'dataFilter' => [
-                                    'name' => NULL,                     //'Asset'
+                                    'fullName' => NULL,                //'Asset'
                                     ]
                                 ]
                             ]
