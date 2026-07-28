@@ -662,14 +662,26 @@ class PurchaseOrderController extends Controller
     public function ReportPOtoDOStore(Request $request)
     {
         try {
-            $date = $request->poToDoDate;
-            $budget = $request->budget_code;
-            $subBudget = $request->site_code;
+            $date = $request->input('poToDoDate');
+            $budget = $request->input('budget_code');
+            $subBudget = $request->input('site_code');
+
+            $page = (int) ($request->input('page') ?? 1);
+
+            if ($request->input('limit') === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->input('limit') ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->purchaseOrderService->getPurchaseOrderToDeliveryOrder(
                 $budget,
                 $subBudget,
                 $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -678,7 +690,11 @@ class PurchaseOrderController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
@@ -705,10 +721,12 @@ class PurchaseOrderController extends Controller
 
             if ($dataPurchaseOrder) {
                 if ($type === "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', ['dataReport' => $dataPurchaseOrder])
-                        ->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', [
+                        'dataReport' => $dataPurchaseOrder
+                    ])->setPaper('a4', 'landscape');
 
                     $pdf->output();
+
                     $dom_pdf = $pdf->getDomPDF();
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
@@ -726,9 +744,9 @@ class PurchaseOrderController extends Controller
                 throw new \Exception('Purchase Order to Delivery Order Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Print Export Report Purchase Order to Delivery Order Function Error: " . $th->getMessage());
+            Log::error($th);
 
-            return response()->json(['statusCode' => 400]);
+            return response($th->getMessage(), 500);
         }
     }
 

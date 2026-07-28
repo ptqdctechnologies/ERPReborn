@@ -43,6 +43,7 @@
     function resetForm() {
         isFromTo = false;
         data = [];
+        dataReport = [];
         currentPage = 1;
         rowsPerPage = 10;
         filteredData = [...data];

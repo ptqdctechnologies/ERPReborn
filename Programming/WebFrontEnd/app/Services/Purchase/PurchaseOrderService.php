@@ -82,7 +82,7 @@ class PurchaseOrderService
         );
     }
 
-    public function getPurchaseOrderToDeliveryOrder($budget, $subBudget, $date)
+    public function getPurchaseOrderToDeliveryOrder($budget, $subBudget, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -103,6 +103,12 @@ class PurchaseOrderService
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

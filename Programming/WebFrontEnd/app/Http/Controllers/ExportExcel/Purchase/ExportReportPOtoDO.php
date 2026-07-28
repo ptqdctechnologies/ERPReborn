@@ -27,6 +27,14 @@ class ExportReportPOtoDO implements FromCollection, WithHeadings, ShouldAutoSize
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
+            $deliveryFrom = !empty($item['deliveryFrom'])
+                ? json_decode($item['deliveryFrom'], true)
+                : [];
+
+            $deliveryTo = !empty($item['deliveryTo'])
+                ? json_decode($item['deliveryTo'], true)
+                : [];
+
             $filteredData[] = [
                 'No' => $counter++,
                 'PO Number' => $item['purchaseOrderNumber'] ?? '-',
@@ -35,8 +43,8 @@ class ExportReportPOtoDO implements FromCollection, WithHeadings, ShouldAutoSize
                 'PO Qty' => isset($item['purchaseOrderQty']) ? (string) $item['purchaseOrderQty'] : '0',
                 'DO Number' => $item['deliveryOrderNumber'] ?? '-',
                 'DO Date' => $item['deliveryOrderDate'] ?? '-',
-                'From' => isset($item['deliveryFrom']) ? $item['deliveryFrom']['address'] : '-',
-                'To' => isset($item['deliveryTo']) ? $item['deliveryTo']['address'] : '-',
+                'From' => $deliveryFrom['Address'] ?? '-',
+                'To' => $deliveryTo['Address'] ?? '-',
                 'Transporter' => $item['transporter_Name'] ?? '-',
                 'DO Qty' => isset($item['deliveryOrderQty']) ? (string) $item['deliveryOrderQty'] : '0',
             ];
