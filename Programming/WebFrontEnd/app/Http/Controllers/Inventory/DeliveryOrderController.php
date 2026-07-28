@@ -281,12 +281,24 @@ class DeliveryOrderController extends Controller
     public function ReportDOToMaterialReceiveStore(Request $request)
     {
         try {
-            $date = $request->poToDoDate;
-            $budget = $request->budget_code;
+            $date = $request->input('poToDoDate');
+            $budget = $request->input('budget_code');
+
+            $page = (int) ($request->input('page') ?? 1);
+
+            if ($request->input('limit') === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->input('limit') ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->deliveryOrderService->getDeliveryOrderToMaterialReceive(
                 $budget,
                 $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -295,7 +307,11 @@ class DeliveryOrderController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
@@ -313,6 +329,43 @@ class DeliveryOrderController extends Controller
 
     public function PrintExportReportDOToMaterialReceive(Request $request)
     {
+        try {
+            ini_set('memory_limit', '512M');
+            set_time_limit(180);
+
+            $type = $request->input('printType');
+            $deliveryOrderToMRData = json_decode($request->dataReport, true);
+
+            if ($deliveryOrderToMRData) {
+                if ($type == "PDF") {
+                    $pdf = PDF::loadView('Inventory.DeliveryOrder.Reports.ReportDOToMaterialReceive_pdf', [
+                        'dataDOToMR' => $deliveryOrderToMRData
+                    ])->setPaper('a4', 'landscape');
+                    $pdf->output();
+
+                    $dom_pdf = $pdf->getDomPDF();
+
+                    $canvas = $dom_pdf->get_canvas();
+                    $width = $canvas->get_width();
+                    $height = $canvas->get_height();
+                    $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
+                    $canvas->page_text(34, $height - 35, "Print by " . $request->session()->get("SessionLoginName"), null, 10, array(0, 0, 0));
+
+                    return $pdf->download('Export Report Delivery Order To Material Receive.pdf');
+                } else if ($type == "EXCEL") {
+                    return Excel::download(new ExportReportDOToMaterialReceive($deliveryOrderToMRData), 'Export Report Delivery Order To Material Receive.xlsx');
+                } else {
+                    throw new \Exception('Failed to Export Report Advance Request To Advance Settlement');
+                }
+            } else {
+                throw new \Exception('Delivery Order To Material Receive Data is Empty');
+            }
+        } catch (\Throwable $th) {
+            Log::error("Print Export Report Delivery Order To Material Receive Function Error: " . $th->getMessage());
+
+            return response()->json(['statusCode' => 400]);
+        }
+
         try {
             ini_set('memory_limit', '512M');
             set_time_limit(180);
