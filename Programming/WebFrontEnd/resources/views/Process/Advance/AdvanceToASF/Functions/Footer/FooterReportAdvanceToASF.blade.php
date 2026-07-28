@@ -715,6 +715,7 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getRequesters();
         getModalAdvance();
         getModalAdvanceSettlement();
 
@@ -740,7 +741,5 @@
         $('#advance_date_range_container_icon').on('click', function () {
             $('#advance_date_range').trigger('click');
         });
-
-        getRequesters();
     });
 </script>

@@ -352,18 +352,28 @@ class PurchaseOrderController extends Controller
     public function ReportPOtoAPStore(Request $request)
     {
         try {
-            $date = $request->poToApDate;
-            $purchaseOrder = $request->purchaseOrder_id;
-            $accountPayable = $request->accountPayable_id;
-            $supplier = $request->supplier_id;
+            $date = $request->input('poToApDate');
+            $purchaseOrder = $request->input('purchaseOrder_id');
+            $accountPayable = $request->input('accountPayable_id');
+            $supplier = $request->input('supplier_id');
             $budget = [
-                "id" => $request->budget_id,
-                "code" => $request->budget_code,
+                "id" => $request->input('budget_id'),
+                "code" => $request->input('budget_code'),
             ];
             $subBudget = [
-                "id" => $request->site_id,
-                "code" => $request->site_code,
+                "id" => $request->input('site_id'),
+                "code" => $request->input('site_code'),
             ];
+
+            $page = (int) ($request->input('page') ?? 1);
+
+            if ($request->input('limit') === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->input('limit') ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->purchaseOrderService->getPurchaseOrderToAccountPayable(
                 $budget['code'],
@@ -371,16 +381,22 @@ class PurchaseOrderController extends Controller
                 $date,
                 $supplier,
                 $purchaseOrder,
-                $accountPayable
+                $accountPayable,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Purchase Order To Account Payable Report');
+                throw new \Exception('Failed to fetch Report Purchase Order To Account Payable Store');
             }
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

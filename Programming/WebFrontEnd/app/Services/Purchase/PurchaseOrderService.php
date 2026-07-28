@@ -108,9 +108,9 @@ class PurchaseOrderService
         );
     }
 
-    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable)
+    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable, $limit = 10, $offset = 0)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -120,7 +120,7 @@ class PurchaseOrderService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.supplyChain.getPurchaseOrderToPaymentInstructionSummary',
             'latest',
             [
@@ -132,6 +132,12 @@ class PurchaseOrderService
                     'AccountPayable_RefID' => $accountPayable ? $accountPayable : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
