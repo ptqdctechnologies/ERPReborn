@@ -27,33 +27,33 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\dat
         public function throughAPIGateway($varAPIWebToken)
             {
             //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
-            if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
-                }
+                if (!$varAPIWebToken) {
+                    $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                    }
 
             //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
-            $varData =
-                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    //-----[ METADATA ]-------------------------------------------------( START )-----
-                        $varAPIWebToken, 
-                        'dataPickList.master.getBank', 
-                        'latest',
-                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+                $varData =
+                    \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        //-----[ METADATA ]-------------------------------------------------( START )-----
+                            $varAPIWebToken, 
+                            'dataPickList.master.getBank', 
+                            'latest',
+                        //-----[ METADATA ]-------------------------------------------------(  END  )-----
 
-                    //-----[ DATA ]-----------------------------------------------------( START )-----
-                        [
-                        'parameter' => [
-                            ]
-                        ],
-                        NULL,
-                        TRUE
-                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
-                    );
+                        //-----[ DATA ]-----------------------------------------------------( START )-----
+                            [
+                            'parameter' => [
+                                ]
+                            ],
+                            NULL,
+                            TRUE
+                        //-----[ DATA ]-----------------------------------------------------(  END  )-----
+                        );
 
             //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
-            return
-                $varData;
+                return
+                    $varData;
             }
 
 

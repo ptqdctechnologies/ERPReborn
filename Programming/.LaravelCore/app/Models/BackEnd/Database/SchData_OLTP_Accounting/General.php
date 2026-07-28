@@ -1159,5 +1159,76 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                 }
             }
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_ChartOfAccountNonHeader                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-07-28                                                                                           |
+        | ▪ Creation Date   : 2026-07-28                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Chart Of Account Non Header                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varEffectiveDate ► Effective Date                                                                        |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varFullCode ► Full Code                                                                                  |
+        |      ▪ (string) varFullName ► Full Name                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_ChartOfAccountNonHeader(
+            $varUserSession, int $varSysBranch_RefID,
+            string $verEffectiveDate = null,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varFullCode_DEFAULT = null, string $varFullName_DEFAULT = null, string $varFullCode_CUSTOM = null, string $varFullName_CUSTOM = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetReport_DataPickList_ChartOfAccountNonHeader',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$verEffectiveDate, 'date'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varFullCode_DEFAULT, 'varchar'],
+                                [$varFullName_DEFAULT, 'varchar'],
+                                [$varFullCode_CUSTOM, 'varchar'],
+                                [$varFullName_CUSTOM, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_ChartOfAccountNonHeader']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
         }
     }

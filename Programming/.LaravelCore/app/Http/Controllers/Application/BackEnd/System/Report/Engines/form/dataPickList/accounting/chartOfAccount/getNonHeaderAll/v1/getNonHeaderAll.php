@@ -3,29 +3,30 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\getChartOfAccount    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\chartOfAccount       |
+|                \getNonHeaderAll                                                                                                  |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\getChartOfAccount\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\chartOfAccount\getNonHeaderAll\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getChartOfAccount                                                                                            |
-    | ▪ Description : Menangani API report.form.dataPickList.accounting.getChartOfAccount Version 1                                |
+    | ▪ Class Name  : getNonHeaderAll                                                                                              |
+    | ▪ Description : Menangani API report.form.dataPickList.accounting.chartOfAccount.getNonHeaderAll Version 1                   |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getChartOfAccount extends \App\Http\Controllers\Controller
+    class getNonHeaderAll extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-09                                                                                           |
-        | ▪ Create date     : 2026-07-09                                                                                           |
+        | ▪ Last Update     : 2026-07-28                                                                                           |
+        | ▪ Create date     : 2026-07-28                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +45,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-09                                                                                           |
-        | ▪ Create date     : 2026-07-09                                                                                           |
+        | ▪ Last Update     : 2026-07-28                                                                                           |
+        | ▪ Create date     : 2026-07-28                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataPickList - Chart Of Account (version 1)'
+                        'Get Report Form - DataPickList - Chart Of Account - Non Header - All (version 1)'
                         );
 
                 try {
@@ -71,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_DataPickList_ChartOfAccount(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_DataPickList_ChartOfAccountNonHeader(
                                     //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
                                         //---► userSession
                                             $varUserSession,
@@ -112,14 +113,26 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                     //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
                                     //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► name
+                                        //---► fullCode (CUSTOM)
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
-                                                'name',
+                                                'fullCode',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['name'])) 
-                                                        ? $varData['parameter']['dataFilter']['name'] 
+                                                    (!is_null($varData['parameter']['dataFilter']['fullCode'])) 
+                                                        ? $varData['parameter']['dataFilter']['fullCode'] 
+                                                        : null
+                                                        ) 
+                                                    : null
+                                            ),
+                                        //---► fullName (CUSTOM)
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'fullName',
+                                                $varData['parameter']['dataFilter']
+                                                ) ? (
+                                                    (!is_null($varData['parameter']['dataFilter']['fullName'])) 
+                                                        ? $varData['parameter']['dataFilter']['fullName'] 
                                                         : null
                                                         ) 
                                                     : null
