@@ -166,6 +166,8 @@
         sortColumn = null;
         sortOrder = 'asc';
 
+        $('#table_container').hide();
+
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");

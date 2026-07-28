@@ -334,11 +334,21 @@ class PurchaseRequisitionController extends Controller
     public function ReportPRtoPOStore(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $projectCode = $request->project_code;
-            $siteCode = $request->site_code;
-            $supplierID = $request->supplier_id;
-            $date = $request->date;
+            $token = Session::get('SessionLogin');
+            $projectCode = $request->input('project_code');
+            $siteCode = $request->input('site_code');
+            $supplierID = $request->input('supplier_id');
+            $date = $request->input('date');
+
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             if ($date) {
                 $dates = explode(' - ', $date);
@@ -348,7 +358,7 @@ class PurchaseRequisitionController extends Controller
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
+                $token,
                 'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary',
                 'latest',
                 [
@@ -361,9 +371,8 @@ class PurchaseRequisitionController extends Controller
                     ],
                     'SQLStatement' => [
                         'paging' => [
-                            'limit' => "20",
-                            // 'limit' => "ALL",
-                            'offset' => 0
+                            'limit' => $limit,
+                            'offset' => $offset
                         ]
                     ]
                 ]
@@ -375,7 +384,11 @@ class PurchaseRequisitionController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
