@@ -43,7 +43,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                     'parameter' => [
-                        'supplier_RefID' => 126000000002253
+                        'supplier_RefID' => 126000000002269
+                        // 'supplier_RefID' => 126000000002270
+                        
                         ],
                     'SQLStatement' => [
                         'pick' => null,

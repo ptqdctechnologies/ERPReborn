@@ -3112,18 +3112,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                 $varReturn['data'] = [];
                 
                 // Initialize variables for data restructuring
-                $category_RefID = null;
+                $category_RefID = 0;
                 $index = 0;
                 $index2 = 0;
                 
                 // Iterate through the result array to group data by Category_RefID
                 foreach ($resultArray as $key => $value) {
                     // Check if this is a new supplier (different Category_RefID)
-                    if ($category_RefID != $value["Category_RefID"]) {
+                    if ($category_RefID != $value["Supplier_RefID"]) {
                         $index2 = 0;
                         // Populate main supplier information
-                        $varReturn['data'][$index]['Sys_ID'] = $value["Sys_ID"];
-                        $varReturn['data'][$index]['Supplier_RefID'] = $value["Supplier_RefID"];
+                        $varReturn['data'][$index]['Sys_ID'] = $value["Supplier_RefID"];
+                        // $varReturn['data'][$index]['Supplier_RefID'] = $value["Supplier_RefID"];
                         $varReturn['data'][$index]['SupplierCode'] = $value["SupplierCode"];
                         $varReturn['data'][$index]['SupplierName'] = $value["SupplierName"];
                         $varReturn['data'][$index]['Tax_ID'] = $value["Tax_ID"];
@@ -3141,19 +3141,21 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$index]['AccountName'] = $value["AccountName"];
                         $varReturn['data'][$index]['Remark'] = $value["Remark"];
                         $varReturn['data'][$index]['LegalEntity'] = $value["LegalEntity"];
-                        $varReturn['data'][$index]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];                        
-                        $varReturn['data'][$index]['Category_RefID'][$index2] = $value["Category_RefID"];
-                        $varReturn['data'][$index]['Specialization_RefID'][$index2] = $value["Specialization_RefID"];
+                        $varReturn['data'][$index]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];           
+                        $varReturn['data'][$index]['DetailSupplier'][$index2]['RecordID'] = $value["Sys_ID"];
+                        $varReturn['data'][$index]['DetailSupplier'][$index2]['Category_RefID'] = $value["Category_RefID"];
+                        $varReturn['data'][$index]['DetailSupplier'][$index2]['Specialization_RefID'] = $value["Specialization_RefID"];
                         
                         // Update current Category_RefID for the next iteration
-                        $category_RefID = $value["Category_RefID"];
+                        $category_RefID = $value["Supplier_RefID"];
                         
                         // Increment main array index for the next supplier
                         $index++;
                     } else {
-                        $index2++;                        
-                        $varReturn['data'][$index - 1]['Category_RefID'][$index2] = $value["Category_RefID"];
-                        $varReturn['data'][$index - 1]['Specialization_RefID'][$index2] = $value["Specialization_RefID"];
+                        $index2++;
+                        $varReturn['data'][$index - 1]['DetailSupplier'][$index2]['RecordID'] = $value["Sys_ID"];
+                        $varReturn['data'][$index - 1]['DetailSupplier'][$index2]['Category_RefID'] = $value["Category_RefID"];
+                        $varReturn['data'][$index - 1]['DetailSupplier'][$index2]['Specialization_RefID'] = $value["Specialization_RefID"];
                     }
                 }
 
