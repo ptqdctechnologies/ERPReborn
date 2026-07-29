@@ -245,7 +245,7 @@
 
     function getDetailBrf(brfID) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("BusinessTripRequest.Detail") !!}?person_business_trip_id=' + brfID,
             success: function (response) {
                 const businessTripRequest = response?.data ?? [];
