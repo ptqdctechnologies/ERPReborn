@@ -107,14 +107,20 @@ namespace App\Models\Database\SchData_OLTP_Taxation
                             $varUserSession,
                             'SchData-OLTP-Taxation.Func_GetDataList_Vat',
                             [
-                                // [$varSysBranch_RefID, 'bigint' ],
-                                // [$varPickStatement, 'varchar'],
-                                // [$varSortStatement, 'varchar'],
-                                // [$varFilterStatement, 'varchar'],
-                                // [$varPagingStatement, 'varchar']
                             ]
                             )
                         );
+
+                        $resultArray = $varReturn['data'];
+
+                        // Description: Generate API.
+                        $varReturn['data'] = [];
+                        $idxArray = 0;
+                        foreach ($resultArray as $key => $value) {
+                            $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
+                            $varReturn['data'][$idxArray]['tariffFixRate'] = number_format($value["TariffFixRate"], 2);
+                            $idxArray++;
+                        }
 
                 return
                     $varReturn;
