@@ -293,7 +293,7 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <div class="input-group-append">
+                            <div class="input-group-append d-none">
                                 <span class="input-group-text form-control" style="cursor:pointer;">
                                     <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
                                         <i class="fas fa-gift"></i>
@@ -805,13 +805,21 @@
             const productRefID = dataRow.sys_ID;
             const productCode = dataRow.code;
             const productName = dataRow.name;
+            const quantityUnitRefID = dataRow.quantityUnit_RefID;
+            const quantityUnitName = dataRow.quantityUnitName;
 
             $(`#product_RefID${indexProduct}`).val(productRefID);
             $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
             $(`#product_name${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
+            $(`#uom_RefID${indexProduct}`).val(quantityUnitRefID);
+            $(`#uom_name${indexProduct}`).val(quantityUnitName);
+            $(`#uom_name${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
             updateField(indexProduct, 'product_RefID', productRefID);
             updateField(indexProduct, 'product_name', `${productCode ?? ''} - ${productName ?? ''}`);
+            updateField(indexProduct, 'uom_RefID', quantityUnitRefID);
+            updateField(indexProduct, 'uom_name', quantityUnitName);
         }
     });
 
