@@ -235,7 +235,7 @@
                             });
                         }
 
-                        window.location.href = "{{ route('dashboard.index') }}";
+                        window.location.href = "{{ route('Dashboard.index') }}";
                     }
                 },
                 error: function (xhr) {
