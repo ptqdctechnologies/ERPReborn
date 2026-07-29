@@ -563,9 +563,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('MaterialReturn', 'Inventory\MaterialReturnController')->only(['index', 'store', 'update']);
 
     // WORKFLOW
-    Route::post('UserAllowedToSubmit', 'Admin\Workflow\WorkflowController@userAllowedToSubmit')->name('Workflow.UserAllowedToSubmit');
-    Route::post('UserAllowedToApprove', 'Admin\Workflow\WorkflowController@userAllowedToApprove')->name('Workflow.UserAllowedToApprove');
-    Route::post('UserAllowedToInvolve', 'Admin\Workflow\WorkflowController@userAllowedToInvolve')->name('Workflow.UserAllowedToInvolve');
+    Route::get('UserAllowedToSubmit', 'Admin\Workflow\WorkflowController@userAllowedToSubmit')->name('Workflow.UserAllowedToSubmit');
+    Route::get('UserAllowedToApprove', 'Admin\Workflow\WorkflowController@userAllowedToApprove')->name('Workflow.UserAllowedToApprove');
+    Route::get('UserAllowedToInvolve', 'Admin\Workflow\WorkflowController@userAllowedToInvolve')->name('Workflow.UserAllowedToInvolve');
     Route::resource('Workflow', 'Admin\Workflow\WorkflowController');
 
     // MATERIAL RECEIVE

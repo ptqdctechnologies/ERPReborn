@@ -307,7 +307,7 @@
 
     function workflowValidate(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             data: {
                 businessDocumentType_RefID: '77000000000057',

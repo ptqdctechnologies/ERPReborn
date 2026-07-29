@@ -13,7 +13,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {
                 businessDocumentType_RefID: 77000000000057,
                 combinedBudget_RefID: budgetRefID
