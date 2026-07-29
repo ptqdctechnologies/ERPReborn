@@ -7,6 +7,8 @@
     let filteredData = [...data];
     let sortColumn = null;
     let sortOrder = 'asc';
+    let totalRecords = 0;
+    let totalPages = 0;
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -39,6 +41,17 @@
     }
 
     function resetForm() {
+        isFromTo = false;
+        data = [];
+        dataReport = [];
+        currentPage = 1;
+        rowsPerPage = 10;
+        filteredData = [...data];
+        sortColumn = null;
+        sortOrder = 'asc';
+
+        $('#table_container').hide();
+
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
@@ -68,8 +81,8 @@
         ErrorHandler.hideErrorInputMessage("#account_payable_number", "#accountPayableMessage");
     }
 
-    function getDataReport() {
-        ShowLoading();
+    function getDataReport(page = currentPage) {
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -83,36 +96,43 @@
                 purchaseOrder_id: purchaseOrderID.value,
                 accountPayable_id: accountPayableID.value,
                 poToApDate: poToApDate.value,
+                page: page,
+                limit: rowsPerPage
             },
             dataType: 'json',
             success: function (response) {
-                console.log('response', response);
+                data = response.data || [];
 
-                data = (response.status === 200 && response.data[0]) ? response.data : [];
+                currentPage = response.page;
+                rowsPerPage = response.limit;
+
+                totalRecords = response.totalRecords;
+                totalPages = Math.ceil(totalRecords / rowsPerPage);
+
                 dataReport = data;
 
-                filteredData = [...data];
-                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
-                sortColumn = null;
-                sortOrder = 'asc';
-
-                renderPage();
+                renderTable(data);
                 renderPagination();
 
-                $('#table_container').css("display", "block");
+                $('#table_container').show();
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
 
     function exportDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             url: '{!! route("PurchaseOrder.PrintExportReportPOtoAP") !!}',
@@ -125,8 +145,8 @@
                 responseType: 'blob'
             },
             success: function (response) {
-                var blob = new Blob([response], { type: response.type });
-                var link = document.createElement('a');
+                let blob = new Blob([response], { type: response.type });
+                let link = document.createElement('a');
                 link.href = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
@@ -139,12 +159,17 @@
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -163,7 +188,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? ind + 1 : rowNumber;
             row.appendChild(noCell);
 
             const poNumberCell = document.createElement('td');
@@ -282,43 +307,11 @@
     }
 
     function renderPage() {
-        const sortedData = sortData(filteredData);
-
-        const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData);
-
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
-            "no": "",
-            "po_number": "",
-            "po_budget": "",
-            "po_date": "",
-            "po_supplier": "",
-            "po_total_idr": "",
-            "po_total_other_currency": "",
-            "po_total_equivalent_idr": "",
-            "po_to_ap_balance": "",
-            "po_status": "",
-            "ap_number": "",
-            "ap_date": "",
-            "ap_total_idr": "",
-            "ap_total_other_currency": "",
-            "ap_total_equivalent_idr": "",
-            "ap_to_payment_balance": "",
-            "ap_status": ""
-        }];
-
-        startLimit.textContent = start + 1;
-        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
-        totalData.textContent = filteredAndSortedData.length;
-
-        renderTable(pageData);
-        updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
+        renderTable(data);
     }
 
     function renderPagination() {
-        totalPages = Math.ceil(data.length / rowsPerPage);
+        totalPages = Math.ceil(totalRecords / rowsPerPage);
 
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
@@ -326,11 +319,30 @@
 
         pageNumbersContainer.innerHTML = '';
 
-        const startLimit = (currentPage - 1) * rowsPerPage + 1;
-        const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
-        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
-        document.querySelector('#total_data').textContent = data.length;
+        // Tambahkan di sini
+        if (rowsPerPage === 'ALL') {
+            document.getElementById('prevPage').style.display = 'none';
+            document.getElementById('nextPage').style.display = 'none';
+            // document.getElementById('pageNumbers').textContent = '1';
+            // document.getElementById('pageNumbers').style.padding = '.5em 1em';
+            // document.getElementById('pageNumbers').style.marginRight = '0.5rem';
+            // document.getElementById('pageNumbers').style.cursor = 'pointer';
+            // document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+            // document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
+        } else {
+            document.getElementById('prevPage').style.display = 'inline';
+            document.getElementById('nextPage').style.display = 'inline';
+        }
+
+        const startLimitValue =
+            totalRecords === 0 ? 0 : ((currentPage - 1) * rowsPerPage) + 1;
+
+        const endLimitValue =
+            Math.min(currentPage * rowsPerPage, totalRecords);
+
+        document.querySelector('#start_limit').textContent = rowsPerPage == 'ALL' ? 1 : startLimitValue;
+        document.querySelector('#end_limit').textContent = rowsPerPage == 'ALL' ? totalRecords : endLimitValue;
+        document.querySelector('#total_data').textContent = totalRecords;
 
         let startPage = Math.max(1, currentPage - 1);
         let endPage = Math.min(totalPages, currentPage + 1);
@@ -367,9 +379,10 @@
             }
 
             pageNumber.addEventListener('click', () => {
-                currentPage = i;
-                renderPage();
-                renderPagination();
+                // currentPage = i;
+                // renderPage();
+                // renderPagination();
+                getDataReport(i);
             });
 
             pageNumbersContainer.appendChild(pageNumber);
@@ -468,7 +481,11 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
     }
 
@@ -482,8 +499,6 @@
             }
         })
             .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
                 if (data.status == 200) {
                     selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName);
                 } else {
@@ -509,32 +524,40 @@
         });
     });
 
-    document.querySelector('#searchInput').addEventListener('input', () => {
-        currentPage = 1;
-        renderPage();
-        renderPagination();
-    });
+    // document.querySelector('#searchInput').addEventListener('input', () => {
+    //     currentPage = 1;
+    //     renderPage();
+    //     renderPagination();
+    // });
 
     document.querySelector('#limitSelect').addEventListener('change', (e) => {
-        rowsPerPage = parseInt(e.target.value);
-        currentPage = 1;
-        renderPage();
-        renderPagination();
+        // rowsPerPage = parseInt(e.target.value);
+        // currentPage = 1;
+        // renderPage();
+        // renderPagination();
+
+        rowsPerPage = e.target.value;
+        getDataReport(1);
     });
 
     document.querySelector('#prevPage').addEventListener('click', () => {
         if (currentPage > 1) {
-            currentPage--;
-            renderPage();
-            renderPagination();
+            // currentPage--;
+            // renderPage();
+            // renderPagination();
+
+            getDataReport(currentPage - 1);
         }
     });
 
     document.querySelector('#nextPage').addEventListener('click', () => {
-        if (currentPage * rowsPerPage < filteredData.length) {
-            currentPage++;
-            renderPage();
-            renderPagination();
+        // if (currentPage * rowsPerPage < filteredData.length) {
+        if (currentPage < totalPages) {
+            // currentPage++;
+            // renderPage();
+            // renderPagination();
+
+            getDataReport(currentPage + 1);
         }
     });
 
@@ -552,7 +575,7 @@
             getWorkflow(sysId, code, name);
         }
 
-        hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
         $("#myProjects").modal('toggle');
     });

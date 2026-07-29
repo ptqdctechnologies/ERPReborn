@@ -36,7 +36,7 @@ class GeneralJournalController extends Controller
     {
     }
 
-    public function RevisionGeneralJournal(Request $request)
+    public function revision(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
         $generalJournalID = $request->input('modal_general_journal_id');

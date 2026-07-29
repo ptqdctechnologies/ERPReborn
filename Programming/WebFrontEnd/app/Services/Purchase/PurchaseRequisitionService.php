@@ -70,9 +70,10 @@ class PurchaseRequisitionService
         );
     }
 
-    public function getPurchaseRequisitionSummary($budget, $subBudget, $date)
+    public function getPurchaseRequisitionSummary($budget, $subBudget, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -91,6 +92,12 @@ class PurchaseRequisitionService
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

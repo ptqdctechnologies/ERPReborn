@@ -245,7 +245,7 @@
 
     function getDetailBrf(brfID) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("BusinessTripRequest.Detail") !!}?person_business_trip_id=' + brfID,
             success: function (response) {
                 const businessTripRequest = response?.data ?? [];
@@ -279,7 +279,7 @@
 
     function getWorkflow(combinedBudgetRefID, businessTripRequestId, businessTripRequestNumber) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID

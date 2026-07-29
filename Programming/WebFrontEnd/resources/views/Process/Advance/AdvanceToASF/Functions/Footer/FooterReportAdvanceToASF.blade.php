@@ -160,11 +160,14 @@
     function resetForm() {
         isFromTo = false;
         data = [];
+        dataReport = [];
         currentPage = 1;
         rowsPerPage = 10;
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+
+        $('#table_container').hide();
 
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
@@ -713,6 +716,7 @@
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getRequesters();
         getModalAdvance();
         getModalAdvanceSettlement();
 
@@ -738,7 +742,5 @@
         $('#advance_date_range_container_icon').on('click', function () {
             $('#advance_date_range').trigger('click');
         });
-
-        getRequesters();
     });
 </script>

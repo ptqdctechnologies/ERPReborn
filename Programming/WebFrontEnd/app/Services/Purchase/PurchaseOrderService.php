@@ -48,9 +48,10 @@ class PurchaseOrderService
         );
     }
 
-    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier)
+    public function getPurchaseOrderSummary($budget, $subBudget, $date, $supplier, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -70,12 +71,18 @@ class PurchaseOrderService
                     'Supplier_RefID' => $supplier ? $supplier : NULL
                     // 'StartDate'              => $date ? $startDate : NULL,
                     // 'EndDate'                => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
     }
 
-    public function getPurchaseOrderToDeliveryOrder($budget, $subBudget, $date)
+    public function getPurchaseOrderToDeliveryOrder($budget, $subBudget, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -96,14 +103,20 @@ class PurchaseOrderService
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
     }
 
-    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable)
+    public function getPurchaseOrderToAccountPayable($budget, $subBudget, $date, $supplier, $purchaseOrder, $accountPayable, $limit = 10, $offset = 0)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -113,7 +126,7 @@ class PurchaseOrderService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.supplyChain.getPurchaseOrderToPaymentInstructionSummary',
             'latest',
             [
@@ -125,6 +138,12 @@ class PurchaseOrderService
                     'AccountPayable_RefID' => $accountPayable ? $accountPayable : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

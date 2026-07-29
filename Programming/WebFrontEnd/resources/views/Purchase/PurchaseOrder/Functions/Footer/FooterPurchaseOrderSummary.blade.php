@@ -52,131 +52,138 @@
     }
 
     function getDataReport() {
-        Utils.showLoading();
+        let totalValuePO = 0;
+        let totalVATPO = 0;
+        let totalValuePOOtherCurrency = 0;
+        let totalVATPOOtherCurrency = 0;
+        let totalValuePOEquivalentIDR = 0;
+        let totalVATPOEquivalentIDR = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("PurchaseOrder.ReportPurchaseOrderSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_code: subBudgetCode.value,
-                supplier_id: supplierID.value,
-                poDate: poDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("PurchaseOrder.ReportPurchaseOrderSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_code = subBudgetCode.value;
+                    d.supplier_id = supplierID.value;
+                    d.poDate = poDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalValuePO += parseFloat(row.total_Idr_WithoutVat) || 0;
+                        totalVATPO += parseFloat(row.total_Vat_IDR) || 0;
+                        totalValuePOOtherCurrency += parseFloat(row.total_Other_Currency_WithoutVat) || 0;
+                        totalVATPOOtherCurrency += parseFloat(row.total_Vat_Other_Currency) || 0;
+                        totalValuePOEquivalentIDR += parseFloat(row.total_Equivalent_Value) || 0;
+                        totalVATPOEquivalentIDR += parseFloat(row.total_Equivalent_Vat) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalValuePO = 0;
-                let totalVATPO = 0;
-                let totalValuePOOtherCurrency = 0;
-                let totalVATPOOtherCurrency = 0;
-                let totalValuePOEquivalentIDR = 0;
-                let totalVATPOEquivalentIDR = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalValuePO += parseFloat(row.total_Idr_WithoutVat) || 0;
-                    totalVATPO += parseFloat(row.total_Vat_IDR) || 0;
-                    totalValuePOOtherCurrency += parseFloat(row.total_Other_Currency_WithoutVat) || 0;
-                    totalVATPOOtherCurrency += parseFloat(row.total_Vat_Other_Currency) || 0;
-                    totalValuePOEquivalentIDR += parseFloat(row.total_Equivalent_Value) || 0;
-                    totalVATPOEquivalentIDR += parseFloat(row.total_Equivalent_Vat) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'documentNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            className: "text-nowrap",
-                            render: function (data, type, row, meta) {
-                                return `${data.supplier_Code || ''} - ${data.supplier_Name || ''}`;
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Idr_WithoutVat || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Vat_IDR || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Other_Currency_WithoutVat || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Vat_Other_Currency || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Equivalent_Value || '0');
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Equivalent_Vat || '0');
-                            }
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalValuePO));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalVATPO));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalValuePOOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalVATPOOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalValuePOEquivalentIDR));
-                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalVATPOEquivalentIDR));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                Utils.hideLoading();
-            },
-            error: function (xhr, status, error) {
-                console.log('xhr, status, error', xhr, status, error);
-
-                Utils.hideLoading();
-                ErrorHandler.notifToast(
-                    'error',
-                    'An error occurred while processing the received data. Please try again later',
-                    'Error!'
-                );
+                },
+                {
+                    data: 'documentNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.supplier_Code || ''} - ${data.supplier_Name || ''}`;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Idr_WithoutVat || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Vat_IDR || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Other_Currency_WithoutVat || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Vat_Other_Currency || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Equivalent_Value || '0');
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Equivalent_Vat || '0');
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalValuePO));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalVATPO));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalValuePOOtherCurrency));
+                $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalVATPOOtherCurrency));
+                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalValuePOEquivalentIDR));
+                $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalVATPOEquivalentIDR));
             }
         });
     }

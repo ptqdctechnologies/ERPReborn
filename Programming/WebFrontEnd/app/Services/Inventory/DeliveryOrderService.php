@@ -212,9 +212,10 @@ class DeliveryOrderService
         );
     }
 
-    public function getDeliveryOrderSummary($budget, $subBudget, $warehouse, $date)
+    public function getDeliveryOrderSummary($budget, $subBudget, $warehouse, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -234,14 +235,20 @@ class DeliveryOrderService
                     'Warehouse_RefID' => $warehouse ? $warehouse : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
     }
 
-    public function getDeliveryOrderToMaterialReceive($budget, $date)
+    public function getDeliveryOrderToMaterialReceive($budget, $date, $limit = 10, $offset = 0)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -251,7 +258,7 @@ class DeliveryOrderService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.supplyChain.getDeliveryOrderToWarehouseInboundOrderSummary',
             'latest',
             [
@@ -262,10 +269,10 @@ class DeliveryOrderService
                     // 'EndDate' => $date ? $endDate : NULL
                 ],
                 'SQLStatement' => [
-                    'pick' => null,
-                    'sort' => null,
-                    'filter' => null,
-                    'paging' => null
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

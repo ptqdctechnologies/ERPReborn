@@ -189,7 +189,7 @@ class CustomerOrderService
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $combinedBudgetCode,
-                    'CombinedBudgetSectionCode' => $combinedBudgetSectionCode ? $combinedBudgetSectionCode : NULL,
+                    // 'CombinedBudgetSectionCode' => $combinedBudgetSectionCode ? $combinedBudgetSectionCode : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
                 ],

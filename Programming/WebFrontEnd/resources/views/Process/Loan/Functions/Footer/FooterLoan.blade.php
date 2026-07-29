@@ -71,7 +71,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID

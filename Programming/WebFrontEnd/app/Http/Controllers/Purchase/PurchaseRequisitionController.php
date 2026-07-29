@@ -222,6 +222,10 @@ class PurchaseRequisitionController extends Controller
     public function ReportPurchaseRequisitionSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->prDate;
             $budget = [
                 "id" => $request->budget_id,
@@ -235,21 +239,28 @@ class PurchaseRequisitionController extends Controller
             $response = $this->purchaseRequisitionService->getPurchaseRequisitionSummary(
                 $budget['code'],
                 $subBudget['code'],
-                $date
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Advance Summary Report');
+                throw new \Exception('Failed to fetch Purchase Request Report');
             }
+
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Purchase Requisition Summary Store Function Error:" . $th->getMessage());
+            Log::error("Report Purchase Request Store Function Error:" . $th->getMessage());
 
             $compact = [
                 'status' => 500,
@@ -323,11 +334,21 @@ class PurchaseRequisitionController extends Controller
     public function ReportPRtoPOStore(Request $request)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $projectCode = $request->project_code;
-            $siteCode = $request->site_code;
-            $supplierID = $request->supplier_id;
-            $date = $request->date;
+            $token = Session::get('SessionLogin');
+            $projectCode = $request->input('project_code');
+            $siteCode = $request->input('site_code');
+            $supplierID = $request->input('supplier_id');
+            $date = $request->input('date');
+
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             if ($date) {
                 $dates = explode(' - ', $date);
@@ -337,7 +358,7 @@ class PurchaseRequisitionController extends Controller
 
             $response = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken,
+                $token,
                 'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary',
                 'latest',
                 [
@@ -347,6 +368,12 @@ class PurchaseRequisitionController extends Controller
                         'Supplier_RefID' => $supplierID ?? null,
                         // 'StartDate'                 => $date ? $startDate : NULL,
                         // 'EndDate'                   => $date ? $endDate : NULL,
+                    ],
+                    'SQLStatement' => [
+                        'paging' => [
+                            'limit' => $limit,
+                            'offset' => $offset
+                        ]
                     ]
                 ]
             );
@@ -357,7 +384,11 @@ class PurchaseRequisitionController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

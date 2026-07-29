@@ -236,7 +236,12 @@ class PurchaseOrderController extends Controller
     public function ReportPurchaseOrderSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->poDate;
+            $supplierID = $request->supplier_id;
             $budget = [
                 "id" => $request->budget_id,
                 "code" => $request->budget_code,
@@ -245,27 +250,33 @@ class PurchaseOrderController extends Controller
                 "id" => $request->site_id,
                 "code" => $request->site_code,
             ];
-            $supplierID = $request->supplier_id;
 
             $response = $this->purchaseOrderService->getPurchaseOrderSummary(
                 $budget['code'],
                 $subBudget['code'],
                 $date,
-                $supplierID
+                $supplierID,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Purchase Order Summary Report');
+                throw new \Exception('Failed to fetch Purchase Order Report');
             }
+
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Report Purchase Order Summary Store Function Error:" . $th->getMessage());
+            Log::error("Report Purchase Order Store Function Error:" . $th->getMessage());
 
             $compact = [
                 'status' => 500,
@@ -341,18 +352,28 @@ class PurchaseOrderController extends Controller
     public function ReportPOtoAPStore(Request $request)
     {
         try {
-            $date = $request->poToApDate;
-            $purchaseOrder = $request->purchaseOrder_id;
-            $accountPayable = $request->accountPayable_id;
-            $supplier = $request->supplier_id;
+            $date = $request->input('poToApDate');
+            $purchaseOrder = $request->input('purchaseOrder_id');
+            $accountPayable = $request->input('accountPayable_id');
+            $supplier = $request->input('supplier_id');
             $budget = [
-                "id" => $request->budget_id,
-                "code" => $request->budget_code,
+                "id" => $request->input('budget_id'),
+                "code" => $request->input('budget_code'),
             ];
             $subBudget = [
-                "id" => $request->site_id,
-                "code" => $request->site_code,
+                "id" => $request->input('site_id'),
+                "code" => $request->input('site_code'),
             ];
+
+            $page = (int) ($request->input('page') ?? 1);
+
+            if ($request->input('limit') === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->input('limit') ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->purchaseOrderService->getPurchaseOrderToAccountPayable(
                 $budget['code'],
@@ -360,16 +381,22 @@ class PurchaseOrderController extends Controller
                 $date,
                 $supplier,
                 $purchaseOrder,
-                $accountPayable
+                $accountPayable,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Purchase Order To Account Payable Report');
+                throw new \Exception('Failed to fetch Report Purchase Order To Account Payable Store');
             }
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
@@ -635,14 +662,26 @@ class PurchaseOrderController extends Controller
     public function ReportPOtoDOStore(Request $request)
     {
         try {
-            $date = $request->poToDoDate;
-            $budget = $request->budget_code;
-            $subBudget = $request->site_code;
+            $date = $request->input('poToDoDate');
+            $budget = $request->input('budget_code');
+            $subBudget = $request->input('site_code');
+
+            $page = (int) ($request->input('page') ?? 1);
+
+            if ($request->input('limit') === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->input('limit') ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->purchaseOrderService->getPurchaseOrderToDeliveryOrder(
                 $budget,
                 $subBudget,
                 $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -651,7 +690,11 @@ class PurchaseOrderController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);
@@ -678,10 +721,12 @@ class PurchaseOrderController extends Controller
 
             if ($dataPurchaseOrder) {
                 if ($type === "PDF") {
-                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', ['dataReport' => $dataPurchaseOrder])
-                        ->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Purchase.PurchaseOrder.Reports.ReportPOtoDO_pdf', [
+                        'dataReport' => $dataPurchaseOrder
+                    ])->setPaper('a4', 'landscape');
 
                     $pdf->output();
+
                     $dom_pdf = $pdf->getDomPDF();
                     $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
@@ -699,9 +744,9 @@ class PurchaseOrderController extends Controller
                 throw new \Exception('Purchase Order to Delivery Order Data is Empty');
             }
         } catch (\Throwable $th) {
-            Log::error("Print Export Report Purchase Order to Delivery Order Function Error: " . $th->getMessage());
+            Log::error($th);
 
-            return response()->json(['statusCode' => 400]);
+            return response($th->getMessage(), 500);
         }
     }
 

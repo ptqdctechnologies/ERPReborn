@@ -496,7 +496,7 @@
                     </td>
                     <td>
                         <div class="input-group">
-                            <div class="input-group-append">
+                            <div class="input-group-append d-none">
                                 <span class="input-group-text form-control" style="cursor:pointer;">
                                     <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
                                         <i class="fas fa-gift"></i>
@@ -504,7 +504,7 @@
                                 </span>
                             </div>
                             <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
-                            <input type="text" id="uom_name${index}" class="form-control" readonly value="${row.entities.uom_name}" onchange="updateField(${index}, 'uom_name', this.value)" style="background-color: ${row.entities.uom_name ? '#e9ecef' : 'white'}; border: ${row.entities.uom_RefID ? '1px solid #ced4da' : '1px solid red'}">
+                            <input type="text" id="uom_name${index}" class="form-control" readonly value="${row.entities.uom_name}" onchange="updateField(${index}, 'uom_name', this.value)" style="border: ${row.entities.uom_RefID ? '1px solid #ced4da' : '1px solid red'}">
                         </div>
                     </td>
                     <td>
@@ -944,7 +944,7 @@
 
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {
                 businessDocumentType_RefID: '77000000000057',
                 combinedBudget_RefID: combinedBudgetRefID
@@ -1023,7 +1023,7 @@
                         const validateSubBudget = findSubBudgetByCode(row[1]);
                         const validateWork = findWorkByCode(row[3]);
                         const validateProduct = findProductByCode(row[5]);
-                        const validateUom = findUomByName(row[7]);
+                        // const validateUom = findUomByName(row[7]);
 
                         dataAddManual.push({
                             entities: {
@@ -1034,12 +1034,14 @@
                                 product_name: validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : `${row[5]} - ${row[6]}`,
                                 work_RefID: validateWork ? validateWork.id : '',
                                 work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
-                                uom_RefID: validateUom ? validateUom.sys_ID : '',
-                                uom_name: validateUom ? validateUom.name : row[7],
-                                quantity: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
-                                price: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
-                                total: row[10] > 0 ? Utils.parseFloatSafe(row[10]) : Utils.parseFloatSafe(0),
-                                notes: row[11] ? row[11] : ''
+                                uom_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
+                                uom_name: validateProduct ? validateProduct.quantityUnitName : '',
+                                // uom_RefID: validateUom ? validateUom.sys_ID : '',
+                                // uom_name: validateUom ? validateUom.name : row[7],
+                                quantity: row[7] > 0 ? Utils.parseFloatSafe(row[7]) : Utils.parseFloatSafe(0),
+                                price: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
+                                total: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
+                                notes: row[10] ? row[10] : ''
                             }
                         });
                     }
@@ -1137,13 +1139,21 @@
             const productRefID = dataRow.sys_ID;
             const productCode = dataRow.code;
             const productName = dataRow.name;
+            const quantityUnitRefID = dataRow.quantityUnit_RefID;
+            const quantityUnitName = dataRow.quantityUnitName;
 
             $(`#product_RefID${indexProduct}`).val(productRefID);
             $(`#product_name${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
             $(`#product_name${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
+            $(`#uom_RefID${indexProduct}`).val(quantityUnitRefID);
+            $(`#uom_name${indexProduct}`).val(quantityUnitName);
+            $(`#uom_name${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
             updateField(indexProduct, 'product_RefID', productRefID);
             updateField(indexProduct, 'product_name', `${productCode ?? ''} - ${productName ?? ''}`);
+            updateField(indexProduct, 'uom_RefID', quantityUnitRefID);
+            updateField(indexProduct, 'uom_name', quantityUnitName);
         }
     });
 

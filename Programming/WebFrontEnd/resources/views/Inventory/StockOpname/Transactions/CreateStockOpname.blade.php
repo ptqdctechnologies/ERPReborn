@@ -37,13 +37,30 @@
                                     </div>
 
                                     <div class="card-body">
-                                        <div class="row py-3">
-                                            <div class="col-sm-12 col-md-12 col-lg-3">
-                                                <div class="row p-0 align-items-center">
-                                                    <label
-                                                        class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0 text-bold">Warehouse</label>
-                                                    <div
-                                                        class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                                        <div class="row py-3" style="gap: 2rem;">
+                                            <div class="col-2">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label class="p-0 text-bold">Type</label>
+                                                    </div>
+                                                    <div class="col">
+                                                        <select type="text" class="form-control" name="stockOpnameValue"
+                                                            id="stockOpnameType" onchange="selectType(this)"
+                                                            style="border-radius:0;">
+                                                            <option disabled selected value="Select a Type">Select a Type
+                                                            </option>
+                                                            <option value="ALL">All</option>
+                                                            <option value="WAREHOUSE">Warehouse</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="containerWarehouseName" class="col-3" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-4">
+                                                        <label class="p-0 text-bold">Warehouse Name</label>
+                                                    </div>
+                                                    <div class="col-6 d-flex">
                                                         <div>
                                                             <span id="warehouseListModalTrigger" data-toggle="modal"
                                                                 data-target="#warehouseListModal"
@@ -52,7 +69,7 @@
                                                                 <i class="fas fa-gift"></i>
                                                             </span>
                                                         </div>
-                                                        <div>
+                                                        <div style="flex: auto;">
                                                             <input type="text" id="warehouse_name" class="form-control"
                                                                 style="border-radius:0;background-color:white;" readonly />
                                                             <input type="hidden" id="warehouse_id" name="warehouse_id"
@@ -184,6 +201,9 @@
                                                             <th
                                                                 style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                                                                 System</th>
+                                                            <th class="containerTypeAll"
+                                                                style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
+                                                                Warehouse</th>
                                                             <th
                                                                 style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; width: 115px;">
                                                                 Good</th>

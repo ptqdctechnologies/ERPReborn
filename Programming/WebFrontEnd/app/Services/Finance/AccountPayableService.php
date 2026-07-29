@@ -10,9 +10,10 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class AccountPayableService
 {
-    public function summaryReport($budget, $subBudget, $supplier, $date)
+    public function summaryReport($budget, $subBudget, $supplier, $date, $limit = 10, $offset = 0)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -22,7 +23,7 @@ class AccountPayableService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.finance.getPaymentInstructionSummary',
             'latest',
             [
@@ -32,6 +33,12 @@ class AccountPayableService
                     'Supplier_RefID' => $supplier ? (int) $supplier : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL,
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

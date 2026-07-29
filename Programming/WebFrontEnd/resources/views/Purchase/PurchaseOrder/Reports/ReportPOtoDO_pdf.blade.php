@@ -107,6 +107,8 @@
       <?php $counter = 1; ?>
 
       <?php foreach ($dataReport as $data) { ?>
+      <?php  $deliveryFrom = json_decode($data['deliveryFrom'] ?? '', true);
+  $deliveryTo = json_decode($data['deliveryTo'] ?? '', true);?>
       <tr>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
@@ -145,12 +147,12 @@
         </td>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
-            <?= $data['deliveryFrom'] ? $data['deliveryFrom']['address'] : '-'; ?>
+            <?= $deliveryFrom['Address'] ?? '-'; ?>
           </div>
         </td>
         <td>
           <div style="margin-top: 4px; font-size: 12px;">
-            <?= $data['deliveryTo'] ? $data['deliveryTo']['address'] : '-'; ?>
+            <?= $deliveryTo['Address'] ?? '-'; ?>
           </div>
         </td>
         <td>

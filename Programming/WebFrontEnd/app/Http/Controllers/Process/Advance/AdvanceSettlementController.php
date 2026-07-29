@@ -404,6 +404,10 @@ class AdvanceSettlementController extends Controller
     public function ReportAdvanceSettlementSummaryStore(Request $request)
     {
         try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
             $date = $request->asfDate;
             $budget = [
                 "id" => $request->budget_id,
@@ -416,15 +420,26 @@ class AdvanceSettlementController extends Controller
                 "code" => $request->site_code,
             ];
 
-            $response = $this->advanceSettlementService->getAdvanceSettlementSummary($budget['code'], $subBudget['code'], $date);
+            $response = $this->advanceSettlementService->getAdvanceSettlementSummary(
+                $budget['code'],
+                $subBudget['code'],
+                $date,
+                $limit,
+                $offset
+            );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Advance Settlement Summary Report');
+                throw new \Exception('Failed to fetch Advance Summary Report');
             }
+
+            $totalRecords = $response['data']['totalRecords'] ?? $response['data']['rowCount'];
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
             ];
 
             return response()->json($compact);

@@ -854,7 +854,7 @@
         $("#invoice_loading_table").show();
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             data: {
                 businessDocumentType_RefID: documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID.value

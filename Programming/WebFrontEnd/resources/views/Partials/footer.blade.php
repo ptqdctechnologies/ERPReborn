@@ -772,7 +772,7 @@
     successFunction = () => { }
   ) {
     $.ajax({
-      type: 'POST',
+      type: 'GET',
       url: '{!! route("Workflow.UserAllowedToInvolve") !!}',
       data: {
         businessDocumentType_RefID: businessDocumentTypeID,
