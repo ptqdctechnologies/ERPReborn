@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use App\Services\Master\Work\WorkService;
+use Illuminate\Support\Facades\Session;
 
 class WorkController extends Controller
 {
@@ -18,10 +19,18 @@ class WorkController extends Controller
 
     public function index()
     {
+        return view('Master.Work.Transactions.index');
     }
 
     public function create()
     {
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken
+        ];
+
+        return view('Master.Work.Transactions.create', $compact);
     }
 
     public function store(Request $request)
