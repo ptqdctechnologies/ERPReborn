@@ -28,9 +28,15 @@
 
                         // Jika hanya ada 1 subgroup dan namanya sama dengan group,
                         // maka langsung tampilkan menu akhirnya.
+                        // $isDirectMenu =
+                        //     count($subGroups) === 1 &&
+                        //     strtolower($subGroups[0]['entities']['menuSubGroupCaption'] ?? '') === strtolower($groupCaption);
                         $isDirectMenu =
                             count($subGroups) === 1 &&
-                            strtolower($subGroups[0]['entities']['menuSubGroupCaption'] ?? '') === strtolower($groupCaption);
+                            (
+                                strtolower($groupCaption) === 'admin' ||
+                                strtolower($subGroups[0]['entities']['menuSubGroupCaption'] ?? '') === strtolower($groupCaption)
+                            );
                     @endphp
 
                     <li class="nav-item has-treeview">
