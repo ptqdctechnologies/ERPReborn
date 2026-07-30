@@ -109,6 +109,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('Product/revision', 'Master\ProductController@revision')->name('Product.revision');
     Route::resource('Product', 'Master\ProductController');
 
+    // WORK
+    Route::resource('Work', 'Master\WorkController');
+
     // APPROVAL DOCUMENT
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
     Route::get('ApprovalRejected', 'Document\ApprovalDocumentController@ApprovalRejected')->name('ApprovalDocument.ApprovalRejected');
