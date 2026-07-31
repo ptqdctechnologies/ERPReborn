@@ -211,6 +211,7 @@
                 success: function (response) {
                     if (response.statusCode === 500) {
                         HideLoading();
+                        $('.submit_button').prop('disabled', false);
                         Swal.fire("Error", response.message, "error");
                     } else {
                         $('#branch_id').empty();
