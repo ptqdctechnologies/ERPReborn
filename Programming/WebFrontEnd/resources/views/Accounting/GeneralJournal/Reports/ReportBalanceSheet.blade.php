@@ -28,6 +28,57 @@
                   </div>
                 </div>
               </div>
+
+              <div class="col-12">
+                @include('Accounting.GeneralJournal.Functions.Header.HeaderReportBalanceSheetCard')
+              </div>
+
+              <div class="col-12" id="table_container" style="margin-top: 1rem;">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <div class="d-flex justify-content-between">
+                      <label>
+                        Show
+                        <select id="limitSelect"
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                          <option value="10" selected>10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                        entries
+                      </label>
+                      <label>
+                        Search:
+                        <input type="text" id="searchInput" autocomplete="off" placeholder="Search..."
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                      </label>
+                    </div>
+
+                    <div class="table-responsive">
+                      <table class="table table-head-fixed w-100" id="table_summary">
+                        <thead>
+                          <tr>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              ITEM</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              31 JULI 2026</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              31 JULI 2025</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              CHANGE</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
