@@ -12,7 +12,8 @@
           <select id="reference_type" name="reference_type" class="form-control" onchange="referenceType(this);">
             <option disabled selected>Select a Source</option>
             <option value="0">Purchase Order</option>
-            <option value="1">Internal Use</option>
+            <option value="1">Inventory Use</option>
+            <!-- <option value="1">Internal Use</option> -->
             <option value="2">Stock Movement</option>
           </select>
         </div>
