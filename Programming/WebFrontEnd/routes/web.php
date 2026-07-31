@@ -201,6 +201,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // BUDGET PROGRESS
+    Route::post('BudgetProgress/revision', 'Master\BudgetProgressController@revision')->name('BudgetProgress.revision');
     Route::resource('BudgetProgress', 'Budget\BudgetProgressController');
 
     // FUNCTION

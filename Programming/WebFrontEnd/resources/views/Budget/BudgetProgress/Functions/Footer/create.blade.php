@@ -20,7 +20,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
 
                     $("#budget_id").val(budgetRefID);

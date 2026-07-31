@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                @include('Budget.BudgetProgress.Functions.Menu.Index')
+                @include('Budget.BudgetProgress.Functions.Menu.index')
 
                 <div class="card">
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -97,10 +97,10 @@
                                         <div class="row justify-content-between" style="margin: 1rem 0rem;">
                                             <div class="col d-flex align-items-center" style="gap: .5rem;">
                                                 <!-- <p style="min-width: fit-content; margin: 0;">Product Status: </p>
-                                                                                            <select class="form-control" id="legal_entity" name="legal_entity_value"
-                                                                                                style="border-radius:4px; max-width: 15%;" type="text">
-                                                                                                <option value="" disabled selected>Select a Status</option>
-                                                                                            </select> -->
+                                                                                                <select class="form-control" id="legal_entity" name="legal_entity_value"
+                                                                                                    style="border-radius:4px; max-width: 15%;" type="text">
+                                                                                                    <option value="" disabled selected>Select a Status</option>
+                                                                                                </select> -->
                                             </div>
                                             <div class="col d-flex align-items-center justify-content-end"
                                                 style="gap: .5rem;">
@@ -159,13 +159,13 @@
                                 <button type="submit" class="btn btn-default btn-sm float-right"
                                     style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt=""
-                                        title="Submit to Stock Opname"> Submit
+                                        title="Submit to Budget Progress"> Submit
                                 </button>
                                 <button type="button" class="btn btn-default btn-sm float-right"
                                     onclick="cancelForm('{{ route('BudgetProgress.index') }}')"
                                     style="background-color:#e9ecef;border:1px solid #ced4da;">
                                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt=""
-                                        title="Cancel to Stock Opname"> Cancel
+                                        title="Cancel to Budget Progress"> Cancel
                                 </button>
                             </div>
                         </div>
@@ -176,5 +176,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Budget.BudgetProgress.Functions.Footer.FooterCreate')
+    @include('Budget.BudgetProgress.Functions.Footer.create')
 @endsection
