@@ -917,6 +917,8 @@ return array(
     'Aws\\Polly\\Exception\\PollyException' => $vendorDir . '/aws/aws-sdk-php/src/Polly/Exception/PollyException.php',
     'Aws\\Polly\\PollyClient' => $vendorDir . '/aws/aws-sdk-php/src/Polly/PollyClient.php',
     'Aws\\PresignUrlMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/PresignUrlMiddleware.php',
+    'Aws\\PricingPlanManager\\Exception\\PricingPlanManagerException' => $vendorDir . '/aws/aws-sdk-php/src/PricingPlanManager/Exception/PricingPlanManagerException.php',
+    'Aws\\PricingPlanManager\\PricingPlanManagerClient' => $vendorDir . '/aws/aws-sdk-php/src/PricingPlanManager/PricingPlanManagerClient.php',
     'Aws\\Pricing\\Exception\\PricingException' => $vendorDir . '/aws/aws-sdk-php/src/Pricing/Exception/PricingException.php',
     'Aws\\Pricing\\PricingClient' => $vendorDir . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
     'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => $vendorDir . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',

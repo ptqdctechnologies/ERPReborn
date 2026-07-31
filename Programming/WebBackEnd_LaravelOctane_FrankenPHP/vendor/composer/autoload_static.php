@@ -1698,6 +1698,8 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Aws\\Polly\\Exception\\PollyException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Polly/Exception/PollyException.php',
         'Aws\\Polly\\PollyClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Polly/PollyClient.php',
         'Aws\\PresignUrlMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PresignUrlMiddleware.php',
+        'Aws\\PricingPlanManager\\Exception\\PricingPlanManagerException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PricingPlanManager/Exception/PricingPlanManagerException.php',
+        'Aws\\PricingPlanManager\\PricingPlanManagerClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PricingPlanManager/PricingPlanManagerClient.php',
         'Aws\\Pricing\\Exception\\PricingException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pricing/Exception/PricingException.php',
         'Aws\\Pricing\\PricingClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Pricing/PricingClient.php',
         'Aws\\PrometheusService\\Exception\\PrometheusServiceException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/PrometheusService/Exception/PrometheusServiceException.php',
