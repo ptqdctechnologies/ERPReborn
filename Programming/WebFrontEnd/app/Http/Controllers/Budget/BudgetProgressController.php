@@ -42,10 +42,13 @@ class BudgetProgressController extends Controller
         $varAPIWebToken = Session::get('SessionLogin');
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken
+            'varAPIWebToken' => $varAPIWebToken,
+            'combinedBudgetRefID' => '46000000000033',
+            'combinedBudgetCode' => 'Q000062',
+            'combinedBudgetName' => 'XL Microcell 2007'
         ];
 
-        return view('Budget.BudgetProgress.Transactions.create', $compact);
+        return view('Budget.BudgetProgress.Transactions.revision', $compact);
     }
 
     public function edit($id)
