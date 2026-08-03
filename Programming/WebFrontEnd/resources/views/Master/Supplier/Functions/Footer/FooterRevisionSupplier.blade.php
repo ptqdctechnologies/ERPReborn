@@ -3,8 +3,7 @@
     let specializationData = [];
     const supplierCategoryId = document.getElementById("supplier_category_code_modal");
     const containerMultipleSpecialization = document.getElementById("multiple-specialization");
-    const categoryRefID = {!! json_encode($category_RefID ?? []) !!};
-    const specializationRefID = {!! json_encode($specialization_RefID ?? []) !!};
+    const supplierTypes = {!! json_encode($supplierType ?? []) !!};
     const formList = {
         supplier_name: {
             component: '#supplier_name',
@@ -172,7 +171,7 @@
                 let html = '';
 
                 data.forEach(function (category) {
-                    let findCategory = categoryRefID.find(val => val == category.category_RefID);
+                    let findCategory = supplierTypes.find(val => val.Category_RefID == category.category_RefID);
 
                     html += `
                         <div class="category-container mb-3">
@@ -206,7 +205,7 @@
                         category.subCategories.forEach(function (sub) {
 
                             if (sub.subCategory_RefID) {
-                                let findSubCategory = specializationRefID.find(val => val == sub.subCategory_RefID);
+                                let findSubCategory = supplierTypes.find(val => val.Specialization_RefID == sub.subCategory_RefID);
 
                                 html += `
                                     <div class="form-check">
@@ -348,6 +347,34 @@
         } else {
             containerMultipleSpecialization.removeAttribute('style');
         }
+    }
+
+    function buildPayload() {
+        let payload = [];
+
+        $(".parent-checkbox:checked").each(function () {
+            const categoryRefID = $(this).val();
+
+            $(`input[name="specialization[${categoryRefID}][]"]:checked`).each(function () {
+                const specializationRefID = $(this).val();
+
+                // Cari data lama berdasarkan category + specialization
+                const existing = supplierTypes.find(item =>
+                    item.Category_RefID == categoryRefID &&
+                    item.Specialization_RefID == specializationRefID
+                );
+
+                payload.push({
+                    recordID: existing ? parseInt(existing.RecordID) : "",
+                    entities: {
+                        category_RefID: parseInt(categoryRefID),
+                        specialization_RefID: parseInt(specializationRefID)
+                    }
+                });
+            });
+        });
+
+        return payload;
     }
 
     $('#tableSupplierCategoryListModal').on('click', 'tbody tr', function () {
@@ -499,15 +526,27 @@
     $('#supplierForm').on('submit', function (e) {
         e.preventDefault();
 
+        const detailSupplier = buildPayload();
+
+        let formData = $(this).serializeArray();
+
+        formData.push({
+            name: 'detailSupplier',
+            value: JSON.stringify(detailSupplier)
+        });
+
         $.ajax({
-            type: 'POST',
-            url: '{!! route("Supplier.store") !!}',
-            data: $(this).serialize(),
+            type: 'PUT',
+            url: '{!! route("Supplier.update", $supplierRefID) !!}',
+            // data: $(this).serialize(),
+            data: $.param(formData),
             beforeSend: function () {
                 Utils.showLoading();
             }
         })
             .done(function (response) {
+                console.log('response', response);
+
                 if (response.status === 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
                         confirmButtonClass: 'btn btn-success btn-sm',

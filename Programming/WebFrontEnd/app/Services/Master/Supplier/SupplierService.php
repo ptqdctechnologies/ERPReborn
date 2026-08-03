@@ -134,4 +134,43 @@ class SupplierService
             ]
         );
     }
+
+    public function revision($request, $id)
+    {
+        $token = Session::get('SessionLogin');
+
+        $detailItems = json_decode($request->detailSupplier, true);
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.update.supplyChain.setSupplier',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    "supplierName" => $request->supplier_name,
+                    "taxID" => $request->tax_id,
+                    "phoneNumber" => $request->phone_number,
+                    "email" => $request->email,
+                    "country" => $request->country_name,
+                    "province" => $request->province_name,
+                    "city" => $request->city_name,
+                    "address" => $request->address,
+                    "contactPerson" => $request->contact_person,
+                    "bank_RefID" => (int) $request->bank_id,
+                    "accountNumber" => $request->account_number,
+                    "accountName" => $request->account_name,
+                    "remark" => $request->remark,
+                    "institutionType_RefID" => (int) $request->legal_entity_value,
+                    "log_FileUpload_Pointer_RefID" => null,
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => $detailItems
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
 }

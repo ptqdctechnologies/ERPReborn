@@ -74,9 +74,8 @@ class SupplierController extends Controller
             $header = $details[0] ?? [];
             $compact = [
                 'varAPIWebToken' => $varAPIWebToken,
-                'supplierRefID' => $header['Supplier_RefID'] ?? '',
-                'category_RefID' => $header['Category_RefID'] ?? '',
-                'specialization_RefID' => $header['Specialization_RefID'] ?? '',
+                'supplierRefID' => $header['Sys_ID'] ?? '',
+                'supplierType' => $header['DetailSupplier'] ?? '',
                 'headerSupplier' => [
                     'supplierName' => $header['SupplierName'] ?? '',
                     'taxID' => $header['Tax_ID'] ?? '',
@@ -98,6 +97,8 @@ class SupplierController extends Controller
                 ],
             ];
 
+            dump($details);
+
             return view('Master.Supplier.Transactions.RevisionSupplier', $compact);
         } catch (\Throwable $th) {
             Log::error('Revision Supplier Error', [
@@ -113,6 +114,24 @@ class SupplierController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->supplierService->revision($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Supplier => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Supplier Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
