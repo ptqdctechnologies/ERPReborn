@@ -412,146 +412,146 @@ class CheckDocumentController extends Controller
                     ]
                 ];
                 break;
-            case "General Journal Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'GL/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'GL/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Journal Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'CNB/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'CNB/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Loan Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'LN/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'LN/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Loan Settlement Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'LNS/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'LNS/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Modify Budget Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'MOB/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'MOB/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Person Business Trip Settlement Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'BTStl/QDC/2025/000001',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'BTStl/QDC/2025/000002',
-                                'combinedBudgetCode' => 'Q000196',
-                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
-            case "Product Form":
-                $varData = [
-                    'data' => [
-                        'data' => [
-                            [
-                                'sys_ID' => 12345678,
-                                'sys_Text' => 'PRD/QDC/2025/000001',
-                                'combinedBudgetCode' => '-',
-                                'combinedBudgetSectionCode' => '-'
-                            ],
-                            [
-                                'sys_ID' => 23456781,
-                                'sys_Text' => 'PRD/QDC/2025/000002',
-                                'combinedBudgetCode' => '-',
-                                'combinedBudgetSectionCode' => '-'
-                            ],
-                        ]
-                    ]
-                ];
-                break;
+            // case "General Journal Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'GL/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'GL/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Journal Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'CNB/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'CNB/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Loan Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'LN/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'LN/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Loan Settlement Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'LNS/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'LNS/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Modify Budget Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'MOB/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'MOB/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Person Business Trip Settlement Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'BTStl/QDC/2025/000001',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'BTStl/QDC/2025/000002',
+            //                     'combinedBudgetCode' => 'Q000196',
+            //                     'combinedBudgetSectionCode' => 'Q000062 ► 235'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
+            // case "Product Form":
+            //     $varData = [
+            //         'data' => [
+            //             'data' => [
+            //                 [
+            //                     'sys_ID' => 12345678,
+            //                     'sys_Text' => 'PRD/QDC/2025/000001',
+            //                     'combinedBudgetCode' => '-',
+            //                     'combinedBudgetSectionCode' => '-'
+            //                 ],
+            //                 [
+            //                     'sys_ID' => 23456781,
+            //                     'sys_Text' => 'PRD/QDC/2025/000002',
+            //                     'combinedBudgetCode' => '-',
+            //                     'combinedBudgetSectionCode' => '-'
+            //                 ],
+            //             ]
+            //         ]
+            //     ];
+            //     break;
             case "Sallary Allocation Form":
                 $varData = [
                     'data' => [
@@ -653,28 +653,58 @@ class CheckDocumentController extends Controller
                 ];
                 break;
             default:
-                $varAPIWebToken = Session::get('SessionLogin');
+                $start = $request->input('start', 0);
+                $length = $request->input('length', 10);
+                $offset = floor($start / $length) + 1;
+                $limit = $length;
+
+                $searchValue = $request->input('search.value');
+
+                $token = Session::get('SessionLogin');
                 $varData = Helper_APICall::setCallAPIGateway(
                     Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken,
-                    'dataPickList.master.getBusinessDocumentFormLatestVersion',
+                    $token,
+                    'report.form.dataPickList.master.getCombinedBusinessDocumentForm',
                     'latest',
                     [
                         'parameter' => [
-                            'businessDocumentType_RefID' => (int) $DocumentTypeID
+                            'businessDocumentType_RefID' => (int) $DocumentTypeID,
+                            'pagination' => [
+                                'pageSize' => (int) $limit,
+                                'pageShow' => (int) $offset
+                            ],
+                            'dataFilter' => [
+                                'businessDocumentNumber' => $searchValue,
+                                'documentDateStart' => NULL,
+                                'documentDateFinish' => NULL,
+                                'requesterName' => NULL,
+                                'combinedBudget' => NULL,
+                                'combinedBudgetSection' => NULL
+                            ]
                         ]
-                    ],
-                    false
+                    ]
                 );
                 break;
         }
 
-        $compact = [
-            "data" => $varData['data']['data'],
-            "DocumentTypeName" => $DocumentTypeName
-        ];
+        if ($varData['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
 
-        return response()->json($compact);
+        $documentData = $varData['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $documentData['header']['dataCount'],
+            'recordsFiltered' => $documentData['header']['dataCount'],
+            'data' => $documentData['content']['itemList'],
+            "DocumentTypeName" => $DocumentTypeName
+        ]);
     }
 
     public function LogTransaction(Request $request)
