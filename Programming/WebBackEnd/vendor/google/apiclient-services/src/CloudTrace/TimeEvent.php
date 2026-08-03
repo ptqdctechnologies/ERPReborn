@@ -24,7 +24,7 @@ class TimeEvent extends \Google\Model
   protected $messageEventType = MessageEvent::class;
   protected $messageEventDataType = '';
   /**
-   * The timestamp indicating the time the event occurred.
+   * Optional. The timestamp indicating the time the event occurred.
    *
    * @var string
    */
@@ -63,7 +63,7 @@ class TimeEvent extends \Google\Model
     return $this->messageEvent;
   }
   /**
-   * The timestamp indicating the time the event occurred.
+   * Optional. The timestamp indicating the time the event occurred.
    *
    * @param string $time
    */

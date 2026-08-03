@@ -378,6 +378,8 @@ class GoogleAdsSearchads360V23ResourcesAsset extends \Google\Collection
   public $status;
   protected $structuredSnippetAssetType = GoogleAdsSearchads360V23CommonStructuredSnippetAsset::class;
   protected $structuredSnippetAssetDataType = '';
+  protected $syntheticContentInfoType = GoogleAdsSearchads360V23CommonSyntheticContentInfo::class;
+  protected $syntheticContentInfoDataType = '';
   protected $textAssetType = GoogleAdsSearchads360V23CommonTextAsset::class;
   protected $textAssetDataType = '';
   /**
@@ -1147,6 +1149,24 @@ class GoogleAdsSearchads360V23ResourcesAsset extends \Google\Collection
   public function getStructuredSnippetAsset()
   {
     return $this->structuredSnippetAsset;
+  }
+  /**
+   * Synthetic content info for the asset. Only assets with specific asset types
+   * are eligible for updates using the `synthetic_content_info` field. Allowed
+   * `AssetType` values: * `IMAGE` * `MEDIA_BUNDLE` * `YOUTUBE_VIDEO`
+   *
+   * @param GoogleAdsSearchads360V23CommonSyntheticContentInfo $syntheticContentInfo
+   */
+  public function setSyntheticContentInfo(GoogleAdsSearchads360V23CommonSyntheticContentInfo $syntheticContentInfo)
+  {
+    $this->syntheticContentInfo = $syntheticContentInfo;
+  }
+  /**
+   * @return GoogleAdsSearchads360V23CommonSyntheticContentInfo
+   */
+  public function getSyntheticContentInfo()
+  {
+    return $this->syntheticContentInfo;
   }
   /**
    * Immutable. A text asset.

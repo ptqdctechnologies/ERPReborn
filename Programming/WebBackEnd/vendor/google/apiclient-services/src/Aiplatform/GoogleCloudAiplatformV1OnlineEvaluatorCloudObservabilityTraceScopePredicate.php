@@ -25,7 +25,7 @@ class GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityTraceScopePredicat
   protected $totalTokenUsageDataType = '';
 
   /**
-   * Filter on the duration of a trace.
+   * Filter on the duration of a trace (in seconds).
    *
    * @param GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate $duration
    */

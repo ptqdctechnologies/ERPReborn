@@ -52,6 +52,18 @@ class ColumnFamilyStats extends \Google\Model
    * @var string
    */
   public $logicalDataBytes;
+  /**
+   * Output only. The logical data bytes of the column family stored on HDD.
+   *
+   * @var string
+   */
+  public $logicalDataHddBytes;
+  /**
+   * Output only. The logical data bytes of the column family stored on SSD.
+   *
+   * @var string
+   */
+  public $logicalDataSsdBytes;
 
   public function setAverageCellsPerColumn($averageCellsPerColumn)
   {
@@ -86,6 +98,38 @@ class ColumnFamilyStats extends \Google\Model
   public function getLogicalDataBytes()
   {
     return $this->logicalDataBytes;
+  }
+  /**
+   * Output only. The logical data bytes of the column family stored on HDD.
+   *
+   * @param string $logicalDataHddBytes
+   */
+  public function setLogicalDataHddBytes($logicalDataHddBytes)
+  {
+    $this->logicalDataHddBytes = $logicalDataHddBytes;
+  }
+  /**
+   * @return string
+   */
+  public function getLogicalDataHddBytes()
+  {
+    return $this->logicalDataHddBytes;
+  }
+  /**
+   * Output only. The logical data bytes of the column family stored on SSD.
+   *
+   * @param string $logicalDataSsdBytes
+   */
+  public function setLogicalDataSsdBytes($logicalDataSsdBytes)
+  {
+    $this->logicalDataSsdBytes = $logicalDataSsdBytes;
+  }
+  /**
+   * @return string
+   */
+  public function getLogicalDataSsdBytes()
+  {
+    return $this->logicalDataSsdBytes;
   }
 }
 

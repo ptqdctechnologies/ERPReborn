@@ -21,10 +21,14 @@ class RemoveAudienceMembersStatus extends \Google\Model
 {
   protected $compositeDataRemovalStatusType = RemoveCompositeDataStatus::class;
   protected $compositeDataRemovalStatusDataType = '';
+  protected $googleUserIdDataRemovalStatusType = RemoveGoogleUserIdDataStatus::class;
+  protected $googleUserIdDataRemovalStatusDataType = '';
   protected $mobileDataRemovalStatusType = RemoveMobileDataStatus::class;
   protected $mobileDataRemovalStatusDataType = '';
   protected $pairDataRemovalStatusType = RemovePairDataStatus::class;
   protected $pairDataRemovalStatusDataType = '';
+  protected $partnerProvidedIdDataRemovalStatusType = RemovePartnerProvidedIdDataStatus::class;
+  protected $partnerProvidedIdDataRemovalStatusDataType = '';
   protected $ppidDataRemovalStatusType = RemovePpidDataStatus::class;
   protected $ppidDataRemovalStatusDataType = '';
   protected $userDataRemovalStatusType = RemoveUserDataStatus::class;
@@ -47,6 +51,22 @@ class RemoveAudienceMembersStatus extends \Google\Model
   public function getCompositeDataRemovalStatus()
   {
     return $this->compositeDataRemovalStatus;
+  }
+  /**
+   * The status of the google user id data removal from the destination.
+   *
+   * @param RemoveGoogleUserIdDataStatus $googleUserIdDataRemovalStatus
+   */
+  public function setGoogleUserIdDataRemovalStatus(RemoveGoogleUserIdDataStatus $googleUserIdDataRemovalStatus)
+  {
+    $this->googleUserIdDataRemovalStatus = $googleUserIdDataRemovalStatus;
+  }
+  /**
+   * @return RemoveGoogleUserIdDataStatus
+   */
+  public function getGoogleUserIdDataRemovalStatus()
+  {
+    return $this->googleUserIdDataRemovalStatus;
   }
   /**
    * The status of the mobile data removal from the destination.
@@ -79,6 +99,22 @@ class RemoveAudienceMembersStatus extends \Google\Model
   public function getPairDataRemovalStatus()
   {
     return $this->pairDataRemovalStatus;
+  }
+  /**
+   * The status of the partner provided id data removal from the destination.
+   *
+   * @param RemovePartnerProvidedIdDataStatus $partnerProvidedIdDataRemovalStatus
+   */
+  public function setPartnerProvidedIdDataRemovalStatus(RemovePartnerProvidedIdDataStatus $partnerProvidedIdDataRemovalStatus)
+  {
+    $this->partnerProvidedIdDataRemovalStatus = $partnerProvidedIdDataRemovalStatus;
+  }
+  /**
+   * @return RemovePartnerProvidedIdDataStatus
+   */
+  public function getPartnerProvidedIdDataRemovalStatus()
+  {
+    return $this->partnerProvidedIdDataRemovalStatus;
   }
   /**
    * The status of the ppid data removal from the destination.

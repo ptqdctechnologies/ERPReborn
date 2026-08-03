@@ -74,7 +74,7 @@ class Span extends \Google\Model
   protected $linksType = Links::class;
   protected $linksDataType = '';
   /**
-   * Required. The resource name of the span in the following format: *
+   * Identifier. The resource name of the span in the following format: *
    * `projects/[PROJECT_ID]/traces/[TRACE_ID]/spans/[SPAN_ID]` `[TRACE_ID]` is a
    * unique identifier for a trace within a project; it is a 32-character
    * hexadecimal encoding of a 16-byte array. It should not be zero. `[SPAN_ID]`
@@ -85,8 +85,8 @@ class Span extends \Google\Model
    */
   public $name;
   /**
-   * The `[SPAN_ID]` of this span's parent span. If this is a root span, then
-   * this field must be empty.
+   * Optional. The `[SPAN_ID]` of this span's parent span. If this is a root
+   * span, then this field must be empty.
    *
    * @var string
    */
@@ -130,7 +130,8 @@ class Span extends \Google\Model
   protected $timeEventsDataType = '';
 
   /**
-   * A set of attributes on the span. You can have up to 32 attributes per span.
+   * Optional. A set of attributes on the span. You can have up to 32 attributes
+   * per span.
    *
    * @param Attributes $attributes
    */
@@ -202,7 +203,8 @@ class Span extends \Google\Model
     return $this->endTime;
   }
   /**
-   * Links associated with the span. You can have up to 128 links per Span.
+   * Optional. Links associated with the span. You can have up to 128 links per
+   * Span.
    *
    * @param Links $links
    */
@@ -218,7 +220,7 @@ class Span extends \Google\Model
     return $this->links;
   }
   /**
-   * Required. The resource name of the span in the following format: *
+   * Identifier. The resource name of the span in the following format: *
    * `projects/[PROJECT_ID]/traces/[TRACE_ID]/spans/[SPAN_ID]` `[TRACE_ID]` is a
    * unique identifier for a trace within a project; it is a 32-character
    * hexadecimal encoding of a 16-byte array. It should not be zero. `[SPAN_ID]`
@@ -239,8 +241,8 @@ class Span extends \Google\Model
     return $this->name;
   }
   /**
-   * The `[SPAN_ID]` of this span's parent span. If this is a root span, then
-   * this field must be empty.
+   * Optional. The `[SPAN_ID]` of this span's parent span. If this is a root
+   * span, then this field must be empty.
    *
    * @param string $parentSpanId
    */
@@ -311,7 +313,7 @@ class Span extends \Google\Model
     return $this->spanKind;
   }
   /**
-   * Stack trace captured at the start of the span.
+   * Optional. Stack trace captured at the start of the span.
    *
    * @param StackTrace $stackTrace
    */
@@ -362,8 +364,8 @@ class Span extends \Google\Model
     return $this->status;
   }
   /**
-   * A set of time events. You can have up to 32 annotations and 128 message
-   * events per span.
+   * Optional. A set of time events. You can have up to 32 annotations and 128
+   * message events per span.
    *
    * @param TimeEvents $timeEvents
    */

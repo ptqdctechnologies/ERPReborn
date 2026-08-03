@@ -36,13 +36,13 @@ class OrganizationsLocationsJobTriggers extends \Google\Service\Resource
   /**
    * Creates a job trigger to run DLP actions such as scanning storage for
    * sensitive information on a set schedule. See
-   * https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
-   * to learn more. (jobTriggers.create)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/creating-job-
+   * triggers to learn more. (jobTriggers.create)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-
@@ -60,7 +60,7 @@ class OrganizationsLocationsJobTriggers extends \Google\Service\Resource
     return $this->call('create', [$params], GooglePrivacyDlpV2JobTrigger::class);
   }
   /**
-   * Deletes a job trigger. See https://cloud.google.com/sensitive-data-
+   * Deletes a job trigger. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-job-triggers to learn more. (jobTriggers.delete)
    *
    * @param string $name Required. Resource name of the project and the
@@ -76,7 +76,7 @@ class OrganizationsLocationsJobTriggers extends \Google\Service\Resource
     return $this->call('delete', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Gets a job trigger. See https://cloud.google.com/sensitive-data-
+   * Gets a job trigger. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-job-triggers to learn more. (jobTriggers.get)
    *
    * @param string $name Required. Resource name of the project and the
@@ -92,14 +92,14 @@ class OrganizationsLocationsJobTriggers extends \Google\Service\Resource
     return $this->call('get', [$params], GooglePrivacyDlpV2JobTrigger::class);
   }
   /**
-   * Lists job triggers. See https://cloud.google.com/sensitive-data-
+   * Lists job triggers. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-job-triggers to learn more.
    * (jobTriggers.listOrganizationsLocationsJobTriggers)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-
@@ -150,7 +150,7 @@ class OrganizationsLocationsJobTriggers extends \Google\Service\Resource
     return $this->call('list', [$params], GooglePrivacyDlpV2ListJobTriggersResponse::class);
   }
   /**
-   * Updates a job trigger. See https://cloud.google.com/sensitive-data-
+   * Updates a job trigger. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-job-triggers to learn more. (jobTriggers.patch)
    *
    * @param string $name Required. Resource name of the project and the

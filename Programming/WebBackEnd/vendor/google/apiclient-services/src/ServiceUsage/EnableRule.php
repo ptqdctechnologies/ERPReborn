@@ -56,10 +56,12 @@ class EnableRule extends \Google\Collection
    */
   public $services;
   /**
-   * The names of the services or service groups that are enabled. Example:
+   * Deprecated: Use the `services` field instead. The names of the services or
+   * service groups that are enabled. Example:
    * `services/storage.googleapis.com`, `groups/googleServices`,
    * `groups/allServices`.
    *
+   * @deprecated
    * @var string[]
    */
   public $values;
@@ -100,10 +102,12 @@ class EnableRule extends \Google\Collection
     return $this->services;
   }
   /**
-   * The names of the services or service groups that are enabled. Example:
+   * Deprecated: Use the `services` field instead. The names of the services or
+   * service groups that are enabled. Example:
    * `services/storage.googleapis.com`, `groups/googleServices`,
    * `groups/allServices`.
    *
+   * @deprecated
    * @param string[] $values
    */
   public function setValues($values)
@@ -111,6 +115,7 @@ class EnableRule extends \Google\Collection
     $this->values = $values;
   }
   /**
+   * @deprecated
    * @return string[]
    */
   public function getValues()

@@ -38,6 +38,9 @@ class SecurityCommandCenter extends \Google\Service
   /** See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.. */
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
+  /** See, edit, configure, and delete your Google Cloud Security Command Center data and see the email address for your Google Account. */
+  const SECURITYCENTER =
+      "https://www.googleapis.com/auth/securitycenter";
 
   public $folders_assets;
   public $folders_bigQueryExports;

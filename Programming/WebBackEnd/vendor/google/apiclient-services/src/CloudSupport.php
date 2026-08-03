@@ -44,7 +44,7 @@ class CloudSupport extends \Google\Service
   public $cases_attachments;
   public $cases_comments;
   public $media;
-  public $supportEventSubscriptions;
+  public $organizations_supportEventSubscriptions;
   public $rootUrlTemplate;
 
   /**
@@ -315,7 +315,7 @@ class CloudSupport extends \Google\Service
           ]
         ]
     );
-    $this->supportEventSubscriptions = new CloudSupport\Resource\SupportEventSubscriptions(
+    $this->organizations_supportEventSubscriptions = new CloudSupport\Resource\OrganizationsSupportEventSubscriptions(
         $this,
         $this->serviceName,
         'supportEventSubscriptions',

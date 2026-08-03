@@ -55,12 +55,21 @@ class Activities extends \Google\Service\Resource
    * example, the IP address can be the user's proxy server's address or a virtual
    * private network (VPN) address. This parameter supports both IPv4 and IPv6
    * address versions.
+   * @opt_param string agentInfoFilter Optional. Filters on agent info fields in
+   * the activity. This filter gets applied in conjunction(AND) with other
+   * filters. Example: "agentInfoFilter=agentId=\"agent-id\" AND
+   * agentName=\"agent-name\" AND agentOwnerEmail=\"agent-owner-email\""
    * @opt_param string applicationInfoFilter Optional. Used to filter on the
    * `oAuthClientId` field present in [`ApplicationInfo`](#applicationinfo)
    * message. **Usage** ``` GET...&applicationInfoFilter=oAuthClientId="clientId"
    * GET...&applicationInfoFilter=oAuthClientId=%22clientId%22 ```
    * @opt_param string customerId The unique ID of the customer to retrieve data
    * for.
+   * @opt_param string deviceFilter Optional. Used to filter on the fields present
+   * in [`UserDeviceInfo`](#userdeviceinfo) message like `deviceId`, `deviceType`,
+   * and `deviceOsVersion`. **Usage** ``` GET...&deviceFilter=deviceId="123"
+   * GET...&deviceFilter=deviceType="ANDROID"
+   * GET...&deviceFilter=deviceOsVersion="14.0" ```
    * @opt_param string endTime Sets the end of the range of time shown in the
    * report. The date is in the RFC 3339 format, for example
    * 2010-10-28T10:26:35.000Z. The default value is the approximate time of the

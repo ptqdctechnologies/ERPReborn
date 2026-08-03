@@ -447,7 +447,7 @@ class AdEvent extends \Google\Model
    */
   public $platformTypeString;
   /**
-   * Required. The ISO 3166-2 country plus subdivision.
+   * Optional. The ISO 3166-2 country plus subdivision.
    *
    * @var string
    */
@@ -730,7 +730,7 @@ class AdEvent extends \Google\Model
     return $this->campaignName;
   }
   /**
-   * Optional. Information gathered about the device being used when the ad
+   * Required. Information gathered about the device being used when the ad
    * event happened.
    *
    * @param DeviceInfo $deviceInfo
@@ -940,7 +940,7 @@ class AdEvent extends \Google\Model
     return $this->platformTypeString;
   }
   /**
-   * Required. The ISO 3166-2 country plus subdivision.
+   * Optional. The ISO 3166-2 country plus subdivision.
    *
    * @param string $regionCode
    */

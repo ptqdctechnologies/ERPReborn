@@ -34,27 +34,27 @@ class Link extends \Google\Model
   protected $attributesType = Attributes::class;
   protected $attributesDataType = '';
   /**
-   * The `[SPAN_ID]` for a span within a trace.
+   * Optional. The `[SPAN_ID]` for a span within a trace.
    *
    * @var string
    */
   public $spanId;
   /**
-   * The `[TRACE_ID]` for a trace within a project.
+   * Optional. The `[TRACE_ID]` for a trace within a project.
    *
    * @var string
    */
   public $traceId;
   /**
-   * The relationship of the current span relative to the linked span.
+   * Optional. The relationship of the current span relative to the linked span.
    *
    * @var string
    */
   public $type;
 
   /**
-   * A set of attributes on the link. Up to 32 attributes can be specified per
-   * link.
+   * Optional. A set of attributes on the link. Up to 32 attributes can be
+   * specified per link.
    *
    * @param Attributes $attributes
    */
@@ -70,7 +70,7 @@ class Link extends \Google\Model
     return $this->attributes;
   }
   /**
-   * The `[SPAN_ID]` for a span within a trace.
+   * Optional. The `[SPAN_ID]` for a span within a trace.
    *
    * @param string $spanId
    */
@@ -86,7 +86,7 @@ class Link extends \Google\Model
     return $this->spanId;
   }
   /**
-   * The `[TRACE_ID]` for a trace within a project.
+   * Optional. The `[TRACE_ID]` for a trace within a project.
    *
    * @param string $traceId
    */
@@ -102,7 +102,7 @@ class Link extends \Google\Model
     return $this->traceId;
   }
   /**
-   * The relationship of the current span relative to the linked span.
+   * Optional. The relationship of the current span relative to the linked span.
    *
    * Accepted values: TYPE_UNSPECIFIED, CHILD_LINKED_SPAN, PARENT_LINKED_SPAN
    *

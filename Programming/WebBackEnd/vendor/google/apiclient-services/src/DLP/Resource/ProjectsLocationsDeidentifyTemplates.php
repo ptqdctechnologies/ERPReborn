@@ -36,14 +36,14 @@ class ProjectsLocationsDeidentifyTemplates extends \Google\Service\Resource
   /**
    * Creates a DeidentifyTemplate for reusing frequently used configuration for
    * de-identifying content, images, and storage. See
-   * https://cloud.google.com/sensitive-data-protection/docs/creating-templates-
-   * deid to learn more. (deidentifyTemplates.create)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/creating-
+   * templates-deid to learn more. (deidentifyTemplates.create)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` + Organizations
    * scope, location specified: `organizations/{org_id}/locations/{location_id}` +
@@ -64,8 +64,8 @@ class ProjectsLocationsDeidentifyTemplates extends \Google\Service\Resource
     return $this->call('create', [$params], GooglePrivacyDlpV2DeidentifyTemplate::class);
   }
   /**
-   * Deletes a DeidentifyTemplate. See https://cloud.google.com/sensitive-data-
-   * protection/docs/creating-templates-deid to learn more.
+   * Deletes a DeidentifyTemplate. See https://docs.cloud.google.com/sensitive-
+   * data-protection/docs/creating-templates-deid to learn more.
    * (deidentifyTemplates.delete)
    *
    * @param string $name Required. Resource name of the organization and
@@ -83,7 +83,7 @@ class ProjectsLocationsDeidentifyTemplates extends \Google\Service\Resource
     return $this->call('delete', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Gets a DeidentifyTemplate. See https://cloud.google.com/sensitive-data-
+   * Gets a DeidentifyTemplate. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-templates-deid to learn more.
    * (deidentifyTemplates.get)
    *
@@ -102,15 +102,15 @@ class ProjectsLocationsDeidentifyTemplates extends \Google\Service\Resource
     return $this->call('get', [$params], GooglePrivacyDlpV2DeidentifyTemplate::class);
   }
   /**
-   * Lists DeidentifyTemplates. See https://cloud.google.com/sensitive-data-
+   * Lists DeidentifyTemplates. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-templates-deid to learn more.
    * (deidentifyTemplates.listProjectsLocationsDeidentifyTemplates)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` + Organizations
    * scope, location specified: `organizations/{org_id}/locations/{location_id}` +
@@ -144,8 +144,8 @@ class ProjectsLocationsDeidentifyTemplates extends \Google\Service\Resource
     return $this->call('list', [$params], GooglePrivacyDlpV2ListDeidentifyTemplatesResponse::class);
   }
   /**
-   * Updates the DeidentifyTemplate. See https://cloud.google.com/sensitive-data-
-   * protection/docs/creating-templates-deid to learn more.
+   * Updates the DeidentifyTemplate. See https://docs.cloud.google.com/sensitive-
+   * data-protection/docs/creating-templates-deid to learn more.
    * (deidentifyTemplates.patch)
    *
    * @param string $name Required. Resource name of organization and deidentify

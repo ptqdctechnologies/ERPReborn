@@ -21,15 +21,16 @@ class GoogleAdsSearchads360V23ResourcesCustomerLabel extends \Google\Model
 {
   /**
    * Output only. The resource name of the customer to which the label is
-   * attached. Read only.
+   * attached. This field should not be set when creating a new `CustomerLabel`.
    *
    * @var string
    */
   public $customer;
   /**
-   * Output only. The resource name of the label assigned to the customer. Note:
-   * the Customer ID portion of the label resource name is not validated when
-   * creating a new CustomerLabel.
+   * Output only. The resource name of the label assigned to the customer. This
+   * field should not be set when creating a new `CustomerLabel`. Note: the
+   * Customer ID portion of the label resource name is not validated when
+   * creating a new `CustomerLabel`.
    *
    * @var string
    */
@@ -44,7 +45,7 @@ class GoogleAdsSearchads360V23ResourcesCustomerLabel extends \Google\Model
 
   /**
    * Output only. The resource name of the customer to which the label is
-   * attached. Read only.
+   * attached. This field should not be set when creating a new `CustomerLabel`.
    *
    * @param string $customer
    */
@@ -60,9 +61,10 @@ class GoogleAdsSearchads360V23ResourcesCustomerLabel extends \Google\Model
     return $this->customer;
   }
   /**
-   * Output only. The resource name of the label assigned to the customer. Note:
-   * the Customer ID portion of the label resource name is not validated when
-   * creating a new CustomerLabel.
+   * Output only. The resource name of the label assigned to the customer. This
+   * field should not be set when creating a new `CustomerLabel`. Note: the
+   * Customer ID portion of the label resource name is not validated when
+   * creating a new `CustomerLabel`.
    *
    * @param string $label
    */

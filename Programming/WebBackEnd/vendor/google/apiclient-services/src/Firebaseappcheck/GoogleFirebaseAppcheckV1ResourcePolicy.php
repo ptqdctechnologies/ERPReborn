@@ -52,19 +52,19 @@ class GoogleFirebaseAppcheckV1ResourcePolicy extends \Google\Model
    * credentials without an App Check token. App Check metrics continue to be
    * collected to help you detect issues with your App Check integration and
    * monitor the composition of your callers. While the service is protected by
-   * App Check, other applicable protections outside of App check, such as user
+   * App Check, other applicable protections outside of App Check, such as user
    * authorization, continue to be applied at the same time. Use caution when
    * choosing to enforce App Check protections. If your users have not updated
    * to a version of your app that meets the requirements of the relevant App
    * Check protection, their app may stop working. App Check metrics can help
-   * you decide when to enforce App Check on your services and resources. If
-   * your app has not launched yet, you should enable enforcement as soon as you
-   * verify that your App Check implementation is correct, since there are no
-   * outdated clients in use. Some services require certain conditions to be met
-   * before they will work with App Check, such as requiring you to upgrade to a
-   * specific service tier. Until those requirements are met for a service, this
-   * `ENFORCED` setting will have no effect and App Check will not work with
-   * that service.
+   * you decide when to enforce that protection on your services and resources.
+   * If you have not yet published your app, you should enable enforcement as
+   * soon as you verify that your App Check implementation is correct, since
+   * there are no outdated clients in use. Some services require certain
+   * conditions to be met before they will work with App Check, such as
+   * requiring you to upgrade to a specific service tier. Until those
+   * requirements are met for a service, this `ENFORCED` setting will have no
+   * effect and App Check will not work with that service.
    */
   public const ENFORCEMENT_MODE_ENFORCED = 'ENFORCED';
   /**

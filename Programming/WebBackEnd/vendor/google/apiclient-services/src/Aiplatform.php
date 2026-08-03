@@ -137,6 +137,7 @@ class Aiplatform extends \Google\Service
   public $projects_locations_indexEndpoints_operations;
   public $projects_locations_indexes;
   public $projects_locations_indexes_operations;
+  public $projects_locations_memoryBanks;
   public $projects_locations_memoryBanks_memories;
   public $projects_locations_memoryBanks_memories_operations;
   public $projects_locations_memoryBanks_memories_revisions;
@@ -177,6 +178,7 @@ class Aiplatform extends \Google\Service
   public $projects_locations_publishers_models;
   public $projects_locations_publishers_models_invoke;
   public $projects_locations_publishers_v1;
+  public $projects_locations_publishers_v1_responses;
   public $projects_locations_ragCorpora;
   public $projects_locations_ragCorpora_operations;
   public $projects_locations_ragCorpora_ragFiles;
@@ -202,6 +204,7 @@ class Aiplatform extends \Google\Service
   public $projects_locations_semanticGovernancePolicies;
   public $projects_locations_semanticGovernancePolicies_operations;
   public $projects_locations_semanticGovernancePolicyEngine;
+  public $projects_locations_servingProfiles_operations;
   public $projects_locations_skills_operations;
   public $projects_locations_specialistPools;
   public $projects_locations_specialistPools_operations;
@@ -238,6 +241,7 @@ class Aiplatform extends \Google\Service
   public $reasoningEngines_sessions_operations;
   public $schedules_operations;
   public $semanticGovernancePolicies_operations;
+  public $servingProfiles_operations;
   public $skills_operations;
   public $specialistPools_operations;
   public $studies_operations;
@@ -7875,6 +7879,10 @@ class Aiplatform extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'patch' => [
               'path' => 'v1/{+name}',
@@ -8168,6 +8176,26 @@ class Aiplatform extends \Google\Service
                 'timeout' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_memoryBanks = new Aiplatform\Resource\ProjectsLocationsMemoryBanks(
+        $this,
+        $this->serviceName,
+        'memoryBanks',
+        [
+          'methods' => [
+            'ingestEvents' => [
+              'path' => 'v1/{+parent}:ingestEvents',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],
@@ -11561,6 +11589,30 @@ class Aiplatform extends \Google\Service
           ]
         ]
     );
+    $this->projects_locations_publishers_v1_responses = new Aiplatform\Resource\ProjectsLocationsPublishersV1Responses(
+        $this,
+        $this->serviceName,
+        'responses',
+        [
+          'methods' => [
+            'compact' => [
+              'path' => 'v1/{+endpoint}/v1/responses/compact',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'endpoint' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'deployedModelId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->projects_locations_ragCorpora = new Aiplatform\Resource\ProjectsLocationsRagCorpora(
         $this,
         $this->serviceName,
@@ -13412,6 +13464,86 @@ class Aiplatform extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_servingProfiles_operations = new Aiplatform\Resource\ProjectsLocationsServingProfilesOperations(
+        $this,
+        $this->serviceName,
+        'operations',
+        [
+          'methods' => [
+            'cancel' => [
+              'path' => 'v1/{+name}:cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+name}/operations',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'returnPartialSuccess' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+              ],
+            ],'wait' => [
+              'path' => 'v1/{+name}:wait',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'timeout' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],
@@ -16301,6 +16433,86 @@ class Aiplatform extends \Google\Service
         ]
     );
     $this->semanticGovernancePolicies_operations = new Aiplatform\Resource\SemanticGovernancePoliciesOperations(
+        $this,
+        $this->serviceName,
+        'operations',
+        [
+          'methods' => [
+            'cancel' => [
+              'path' => 'v1/{+name}:cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+name}/operations',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'returnPartialSuccess' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+              ],
+            ],'wait' => [
+              'path' => 'v1/{+name}:wait',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'timeout' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->servingProfiles_operations = new Aiplatform\Resource\ServingProfilesOperations(
         $this,
         $this->serviceName,
         'operations',

@@ -27,6 +27,8 @@ class SearchSpacesResponse extends \Google\Collection
    * @var string
    */
   public $nextPageToken;
+  protected $resultsType = SearchSpaceResult::class;
+  protected $resultsDataType = 'array';
   protected $spacesType = Space::class;
   protected $spacesDataType = 'array';
   /**
@@ -53,6 +55,22 @@ class SearchSpacesResponse extends \Google\Collection
   public function getNextPageToken()
   {
     return $this->nextPageToken;
+  }
+  /**
+   * Output only. The list of search results that matched the query.
+   *
+   * @param SearchSpaceResult[] $results
+   */
+  public function setResults($results)
+  {
+    $this->results = $results;
+  }
+  /**
+   * @return SearchSpaceResult[]
+   */
+  public function getResults()
+  {
+    return $this->results;
   }
   /**
    * Deprecated: Please use the new `results` field instead. A page of the

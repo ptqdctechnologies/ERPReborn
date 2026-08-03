@@ -55,7 +55,7 @@ class GooglePrivacyDlpV2BigQueryOptions extends \Google\Collection
    * 100 means no limit. Defaults to 0. Only one of rows_limit and
    * rows_limit_percent can be specified. Cannot be used in conjunction with
    * TimespanConfig. Caution: A [known
-   * issue](https://cloud.google.com/sensitive-data-protection/docs/known-
+   * issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-
    * issues#bq-sampling) is causing the `rowsLimitPercent` field to behave
    * unexpectedly. We recommend using `rowsLimit` instead.
    *
@@ -154,7 +154,7 @@ class GooglePrivacyDlpV2BigQueryOptions extends \Google\Collection
    * 100 means no limit. Defaults to 0. Only one of rows_limit and
    * rows_limit_percent can be specified. Cannot be used in conjunction with
    * TimespanConfig. Caution: A [known
-   * issue](https://cloud.google.com/sensitive-data-protection/docs/known-
+   * issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-
    * issues#bq-sampling) is causing the `rowsLimitPercent` field to behave
    * unexpectedly. We recommend using `rowsLimit` instead.
    *

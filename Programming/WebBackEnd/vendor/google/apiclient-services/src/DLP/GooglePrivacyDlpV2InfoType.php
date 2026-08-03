@@ -22,9 +22,9 @@ class GooglePrivacyDlpV2InfoType extends \Google\Model
   /**
    * Name of the information type. Either a name of your choosing when creating
    * a CustomInfoType, or one of the names listed at
-   * https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference
-   * when specifying a built-in type. When sending Cloud DLP results to Data
-   * Catalog, infoType names should conform to the pattern
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-
+   * reference when specifying a built-in type. When sending Cloud DLP results
+   * to Data Catalog, infoType names should conform to the pattern
    * `[A-Za-z0-9$_-]{1,64}`.
    *
    * @var string
@@ -42,9 +42,9 @@ class GooglePrivacyDlpV2InfoType extends \Google\Model
   /**
    * Name of the information type. Either a name of your choosing when creating
    * a CustomInfoType, or one of the names listed at
-   * https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference
-   * when specifying a built-in type. When sending Cloud DLP results to Data
-   * Catalog, infoType names should conform to the pattern
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-
+   * reference when specifying a built-in type. When sending Cloud DLP results
+   * to Data Catalog, infoType names should conform to the pattern
    * `[A-Za-z0-9$_-]{1,64}`.
    *
    * @param string $name

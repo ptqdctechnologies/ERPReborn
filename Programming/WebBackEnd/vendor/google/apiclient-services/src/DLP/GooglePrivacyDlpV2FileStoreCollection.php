@@ -48,8 +48,8 @@ class GooglePrivacyDlpV2FileStoreCollection extends \Google\Model
    * pattern. For a resource to match the tag filters, the resource must have
    * all of the provided tags attached. Tags refer to Resource Manager tags
    * bound to the resource or its ancestors. For more information, see [Manage
-   * schedules](https://cloud.google.com/sensitive-data-protection/docs/profile-
-   * project-cloud-storage#manage-schedules).
+   * schedules](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/profile-project-cloud-storage#manage-schedules).
    *
    * @param GooglePrivacyDlpV2TagFilters $includeTags
    */

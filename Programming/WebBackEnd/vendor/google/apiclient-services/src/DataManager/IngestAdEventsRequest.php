@@ -27,6 +27,7 @@ class IngestAdEventsRequest extends \Google\Collection
   /**
    * Optional. If true, the request is validated, but not executed.
    *
+   * @deprecated
    * @var bool
    */
   public $validateOnly;
@@ -48,7 +49,7 @@ class IngestAdEventsRequest extends \Google\Collection
     return $this->adEvents;
   }
   /**
-   * Optional. Information about encryption keys which are used to encrypt the
+   * Required. Information about encryption keys which are used to encrypt the
    * data.
    *
    * @param EncryptionInfo $encryptionInfo
@@ -67,6 +68,7 @@ class IngestAdEventsRequest extends \Google\Collection
   /**
    * Optional. If true, the request is validated, but not executed.
    *
+   * @deprecated
    * @param bool $validateOnly
    */
   public function setValidateOnly($validateOnly)
@@ -74,6 +76,7 @@ class IngestAdEventsRequest extends \Google\Collection
     $this->validateOnly = $validateOnly;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getValidateOnly()

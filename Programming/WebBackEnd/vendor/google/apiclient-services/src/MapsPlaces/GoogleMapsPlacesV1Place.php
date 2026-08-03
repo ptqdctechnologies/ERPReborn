@@ -120,6 +120,8 @@ class GoogleMapsPlacesV1Place extends \Google\Collection
   protected $displayNameDataType = '';
   protected $editorialSummaryType = GoogleTypeLocalizedText::class;
   protected $editorialSummaryDataType = '';
+  protected $entrancesType = GoogleMapsPlacesV1PlaceEntrance::class;
+  protected $entrancesDataType = 'array';
   protected $evChargeAmenitySummaryType = GoogleMapsPlacesV1PlaceEvChargeAmenitySummary::class;
   protected $evChargeAmenitySummaryDataType = '';
   protected $evChargeOptionsType = GoogleMapsPlacesV1EVChargeOptions::class;
@@ -233,6 +235,8 @@ class GoogleMapsPlacesV1Place extends \Google\Collection
    * @var string
    */
   public $nationalPhoneNumber;
+  protected $navigationPointsType = GoogleMapsPlacesV1PlaceNavigationPoint::class;
+  protected $navigationPointsDataType = 'array';
   protected $neighborhoodSummaryType = GoogleMapsPlacesV1PlaceNeighborhoodSummary::class;
   protected $neighborhoodSummaryDataType = '';
   protected $openingDateType = GoogleTypeDate::class;
@@ -718,6 +722,22 @@ class GoogleMapsPlacesV1Place extends \Google\Collection
     return $this->editorialSummary;
   }
   /**
+   * Entrances for this destination.
+   *
+   * @param GoogleMapsPlacesV1PlaceEntrance[] $entrances
+   */
+  public function setEntrances($entrances)
+  {
+    $this->entrances = $entrances;
+  }
+  /**
+   * @return GoogleMapsPlacesV1PlaceEntrance[]
+   */
+  public function getEntrances()
+  {
+    return $this->entrances;
+  }
+  /**
    * The summary of amenities near the EV charging station.
    *
    * @param GoogleMapsPlacesV1PlaceEvChargeAmenitySummary $evChargeAmenitySummary
@@ -1083,6 +1103,22 @@ class GoogleMapsPlacesV1Place extends \Google\Collection
   public function getNationalPhoneNumber()
   {
     return $this->nationalPhoneNumber;
+  }
+  /**
+   * Navigation points for this destination.
+   *
+   * @param GoogleMapsPlacesV1PlaceNavigationPoint[] $navigationPoints
+   */
+  public function setNavigationPoints($navigationPoints)
+  {
+    $this->navigationPoints = $navigationPoints;
+  }
+  /**
+   * @return GoogleMapsPlacesV1PlaceNavigationPoint[]
+   */
+  public function getNavigationPoints()
+  {
+    return $this->navigationPoints;
   }
   /**
    * A summary of points of interest near the place.

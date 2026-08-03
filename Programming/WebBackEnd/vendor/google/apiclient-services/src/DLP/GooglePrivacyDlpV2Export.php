@@ -32,9 +32,9 @@ class GooglePrivacyDlpV2Export extends \Google\Model
    * container project running the scan. After the first profile is generated
    * and the dataset and table are created, the discovery scan configuration
    * will be updated with the dataset and table names. * See [Analyze data
-   * profiles stored in BigQuery](https://cloud.google.com/sensitive-data-
+   * profiles stored in BigQuery](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/analyze-data-profiles). * See [Sample queries for your
-   * BigQuery table](https://cloud.google.com/sensitive-data-
+   * BigQuery table](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/analyze-data-profiles#sample_sql_queries). * Data is
    * inserted using [streaming
    * insert](https://cloud.google.com/blog/products/bigquery/life-of-a-bigquery-
@@ -44,10 +44,10 @@ class GooglePrivacyDlpV2Export extends \Google\Model
    * instantly visible to queries by the time your topic receives the Pub/Sub
    * notification. * The best practice is to use the same table for an entire
    * organization so that you can take advantage of the [provided Data Studio
-   * reports](https://cloud.google.com/sensitive-data-protection/docs/analyze-
-   * data-profiles#use_a_premade_report). If you use VPC Service Controls to
-   * define security perimeters, then you must use a separate table for each
-   * boundary.
+   * reports](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/analyze-data-profiles#use_a_premade_report). If you use VPC
+   * Service Controls to define security perimeters, then you must use a
+   * separate table for each boundary.
    *
    * @param GooglePrivacyDlpV2BigQueryTable $profileTable
    */

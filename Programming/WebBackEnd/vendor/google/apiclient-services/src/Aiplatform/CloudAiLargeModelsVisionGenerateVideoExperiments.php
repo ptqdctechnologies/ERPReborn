@@ -54,6 +54,12 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var array[]
    */
   public $customParameters;
+  /**
+   * Optional. Colorspace to be used for all EXR inputs.
+   *
+   * @var string
+   */
+  public $exrColorSpaceOverride;
   protected $humanPoseType = CloudAiLargeModelsVisionHumanPose::class;
   protected $humanPoseDataType = '';
   /**
@@ -68,6 +74,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var int
    */
   public $numDiffusionSteps;
+  protected $omniRewriterType = CloudAiLargeModelsVisionGenerateVideoExperimentsOmniRewriterConfig::class;
+  protected $omniRewriterDataType = '';
   /**
    * The original REST API request JSON sent by the user, in the
    * instances/parameters format. Preserved for saving alongside output
@@ -220,6 +228,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
     return $this->customParameters;
   }
   /**
+   * Optional. Colorspace to be used for all EXR inputs.
+   *
+   * @param string $exrColorSpaceOverride
+   */
+  public function setExrColorSpaceOverride($exrColorSpaceOverride)
+  {
+    $this->exrColorSpaceOverride = $exrColorSpaceOverride;
+  }
+  /**
+   * @return string
+   */
+  public function getExrColorSpaceOverride()
+  {
+    return $this->exrColorSpaceOverride;
+  }
+  /**
    * Human pose parameters for Pose Control
    *
    * @param CloudAiLargeModelsVisionHumanPose $humanPose
@@ -266,6 +290,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getNumDiffusionSteps()
   {
     return $this->numDiffusionSteps;
+  }
+  /**
+   * Optional. Omni Rewriter configuration.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsOmniRewriterConfig $omniRewriter
+   */
+  public function setOmniRewriter(CloudAiLargeModelsVisionGenerateVideoExperimentsOmniRewriterConfig $omniRewriter)
+  {
+    $this->omniRewriter = $omniRewriter;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsOmniRewriterConfig
+   */
+  public function getOmniRewriter()
+  {
+    return $this->omniRewriter;
   }
   /**
    * The original REST API request JSON sent by the user, in the

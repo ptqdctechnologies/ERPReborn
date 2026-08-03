@@ -32,8 +32,8 @@ class GooglePrivacyDlpV2DataProfileJobConfig extends \Google\Collection
    * specified, it will be copied to that region and used instead. If no global
    * or region-specific template is provided for a region with data, that
    * region's data will not be scanned. For more information, see
-   * https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-
-   * residency.
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/data-
+   * profiles#data-residency.
    *
    * @var string[]
    */
@@ -77,8 +77,8 @@ class GooglePrivacyDlpV2DataProfileJobConfig extends \Google\Collection
    * specified, it will be copied to that region and used instead. If no global
    * or region-specific template is provided for a region with data, that
    * region's data will not be scanned. For more information, see
-   * https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-
-   * residency.
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/data-
+   * profiles#data-residency.
    *
    * @param string[] $inspectTemplates
    */

@@ -35,14 +35,14 @@ class ProjectsLocationsStoredInfoTypes extends \Google\Service\Resource
 {
   /**
    * Creates a pre-built stored infoType to be used for inspection. See
-   * https://cloud.google.com/sensitive-data-protection/docs/creating-stored-
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-
    * infotypes to learn more. (storedInfoTypes.create)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` + Organizations
    * scope, location specified: `organizations/{org_id}/locations/{location_id}` +
@@ -63,7 +63,7 @@ class ProjectsLocationsStoredInfoTypes extends \Google\Service\Resource
     return $this->call('create', [$params], GooglePrivacyDlpV2StoredInfoType::class);
   }
   /**
-   * Deletes a stored infoType. See https://cloud.google.com/sensitive-data-
+   * Deletes a stored infoType. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-stored-infotypes to learn more.
    * (storedInfoTypes.delete)
    *
@@ -82,7 +82,7 @@ class ProjectsLocationsStoredInfoTypes extends \Google\Service\Resource
     return $this->call('delete', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Gets a stored infoType. See https://cloud.google.com/sensitive-data-
+   * Gets a stored infoType. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-stored-infotypes to learn more.
    * (storedInfoTypes.get)
    *
@@ -101,15 +101,15 @@ class ProjectsLocationsStoredInfoTypes extends \Google\Service\Resource
     return $this->call('get', [$params], GooglePrivacyDlpV2StoredInfoType::class);
   }
   /**
-   * Lists stored infoTypes. See https://cloud.google.com/sensitive-data-
+   * Lists stored infoTypes. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-stored-infotypes to learn more.
    * (storedInfoTypes.listProjectsLocationsStoredInfoTypes)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-
@@ -142,7 +142,7 @@ class ProjectsLocationsStoredInfoTypes extends \Google\Service\Resource
   /**
    * Updates the stored infoType by creating a new version. The existing version
    * will continue to be used until the new version is ready. See
-   * https://cloud.google.com/sensitive-data-protection/docs/creating-stored-
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/creating-stored-
    * infotypes to learn more. (storedInfoTypes.patch)
    *
    * @param string $name Required. Resource name of organization and

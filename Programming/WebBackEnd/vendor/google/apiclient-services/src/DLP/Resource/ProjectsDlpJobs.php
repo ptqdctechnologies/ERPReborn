@@ -36,9 +36,9 @@ class ProjectsDlpJobs extends \Google\Service\Resource
   /**
    * Starts asynchronous cancellation on a long-running DlpJob. The server makes a
    * best effort to cancel the DlpJob, but success is not guaranteed. See
-   * https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
-   * and https://cloud.google.com/sensitive-data-protection/docs/compute-risk-
-   * analysis to learn more. (dlpJobs.cancel)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more. (dlpJobs.cancel)
    *
    * @param string $name Required. The name of the DlpJob resource to be
    * cancelled.
@@ -55,17 +55,17 @@ class ProjectsDlpJobs extends \Google\Service\Resource
   }
   /**
    * Creates a new job to inspect storage or calculate risk metrics. See
-   * https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
-   * and https://cloud.google.com/sensitive-data-protection/docs/compute-risk-
-   * analysis to learn more. When no InfoTypes or CustomInfoTypes are specified in
-   * inspect jobs, the system will automatically choose what detectors to run. By
-   * default this may be all types, but may change over time as detectors are
-   * updated. (dlpJobs.create)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more. When no InfoTypes or
+   * CustomInfoTypes are specified in inspect jobs, the system will automatically
+   * choose what detectors to run. By default this may be all types, but may
+   * change over time as detectors are updated. (dlpJobs.create)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-
@@ -85,9 +85,9 @@ class ProjectsDlpJobs extends \Google\Service\Resource
   /**
    * Deletes a long-running DlpJob. This method indicates that the client is no
    * longer interested in the DlpJob result. The job will be canceled if possible.
-   * See https://cloud.google.com/sensitive-data-protection/docs/inspecting-
-   * storage and https://cloud.google.com/sensitive-data-protection/docs/compute-
-   * risk-analysis to learn more. (dlpJobs.delete)
+   * See https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more. (dlpJobs.delete)
    *
    * @param string $name Required. The name of the DlpJob resource to be deleted.
    * @param array $optParams Optional parameters.
@@ -102,9 +102,9 @@ class ProjectsDlpJobs extends \Google\Service\Resource
   }
   /**
    * Gets the latest state of a long-running DlpJob. See
-   * https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
-   * and https://cloud.google.com/sensitive-data-protection/docs/compute-risk-
-   * analysis to learn more. (dlpJobs.get)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more. (dlpJobs.get)
    *
    * @param string $name Required. The name of the DlpJob resource.
    * @param array $optParams Optional parameters.
@@ -119,14 +119,15 @@ class ProjectsDlpJobs extends \Google\Service\Resource
   }
   /**
    * Lists DlpJobs that match the specified filter in the request. See
-   * https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
-   * and https://cloud.google.com/sensitive-data-protection/docs/compute-risk-
-   * analysis to learn more. (dlpJobs.listProjectsDlpJobs)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more.
+   * (dlpJobs.listProjectsDlpJobs)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-

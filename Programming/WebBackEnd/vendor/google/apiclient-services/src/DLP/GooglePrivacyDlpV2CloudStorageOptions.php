@@ -39,7 +39,7 @@ class GooglePrivacyDlpV2CloudStorageOptions extends \Google\Collection
    * `bytes_limit_per_file` and `bytes_limit_per_file_percent` can be specified.
    * This field can't be set if de-identification is requested. For certain file
    * types, setting this field has no effect. For more information, see [Limits
-   * on bytes scanned per file](https://cloud.google.com/sensitive-data-
+   * on bytes scanned per file](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/supported-file-types#max-byte-size-per-file).
    *
    * @var string
@@ -52,7 +52,7 @@ class GooglePrivacyDlpV2CloudStorageOptions extends \Google\Collection
    * bytes_limit_per_file and bytes_limit_per_file_percent can be specified.
    * This field can't be set if de-identification is requested. For certain file
    * types, setting this field has no effect. For more information, see [Limits
-   * on bytes scanned per file](https://cloud.google.com/sensitive-data-
+   * on bytes scanned per file](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/supported-file-types#max-byte-size-per-file).
    *
    * @var int
@@ -92,7 +92,7 @@ class GooglePrivacyDlpV2CloudStorageOptions extends \Google\Collection
    * `bytes_limit_per_file` and `bytes_limit_per_file_percent` can be specified.
    * This field can't be set if de-identification is requested. For certain file
    * types, setting this field has no effect. For more information, see [Limits
-   * on bytes scanned per file](https://cloud.google.com/sensitive-data-
+   * on bytes scanned per file](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/supported-file-types#max-byte-size-per-file).
    *
    * @param string $bytesLimitPerFile
@@ -115,7 +115,7 @@ class GooglePrivacyDlpV2CloudStorageOptions extends \Google\Collection
    * bytes_limit_per_file and bytes_limit_per_file_percent can be specified.
    * This field can't be set if de-identification is requested. For certain file
    * types, setting this field has no effect. For more information, see [Limits
-   * on bytes scanned per file](https://cloud.google.com/sensitive-data-
+   * on bytes scanned per file](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/supported-file-types#max-byte-size-per-file).
    *
    * @param int $bytesLimitPerFilePercent

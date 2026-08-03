@@ -36,14 +36,14 @@ class OrganizationsInspectTemplates extends \Google\Service\Resource
   /**
    * Creates an InspectTemplate for reusing frequently used configuration for
    * inspecting content, images, and storage. See
-   * https://cloud.google.com/sensitive-data-protection/docs/creating-templates to
-   * learn more. (inspectTemplates.create)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/creating-
+   * templates to learn more. (inspectTemplates.create)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` + Organizations
    * scope, location specified: `organizations/{org_id}/locations/{location_id}` +
@@ -64,7 +64,7 @@ class OrganizationsInspectTemplates extends \Google\Service\Resource
     return $this->call('create', [$params], GooglePrivacyDlpV2InspectTemplate::class);
   }
   /**
-   * Deletes an InspectTemplate. See https://cloud.google.com/sensitive-data-
+   * Deletes an InspectTemplate. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-templates to learn more. (inspectTemplates.delete)
    *
    * @param string $name Required. Resource name of the organization and
@@ -82,7 +82,7 @@ class OrganizationsInspectTemplates extends \Google\Service\Resource
     return $this->call('delete', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Gets an InspectTemplate. See https://cloud.google.com/sensitive-data-
+   * Gets an InspectTemplate. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-templates to learn more. (inspectTemplates.get)
    *
    * @param string $name Required. Resource name of the organization and
@@ -100,15 +100,15 @@ class OrganizationsInspectTemplates extends \Google\Service\Resource
     return $this->call('get', [$params], GooglePrivacyDlpV2InspectTemplate::class);
   }
   /**
-   * Lists InspectTemplates. See https://cloud.google.com/sensitive-data-
+   * Lists InspectTemplates. See https://docs.cloud.google.com/sensitive-data-
    * protection/docs/creating-templates to learn more.
    * (inspectTemplates.listOrganizationsInspectTemplates)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on the scope of the request (project or organization)
    * and whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` + Organizations
    * scope, location specified: `organizations/{org_id}/locations/{location_id}` +
@@ -142,8 +142,9 @@ class OrganizationsInspectTemplates extends \Google\Service\Resource
     return $this->call('list', [$params], GooglePrivacyDlpV2ListInspectTemplatesResponse::class);
   }
   /**
-   * Updates the InspectTemplate. See https://cloud.google.com/sensitive-data-
-   * protection/docs/creating-templates to learn more. (inspectTemplates.patch)
+   * Updates the InspectTemplate. See https://docs.cloud.google.com/sensitive-
+   * data-protection/docs/creating-templates to learn more.
+   * (inspectTemplates.patch)
    *
    * @param string $name Required. Resource name of organization and
    * inspectTemplate to be updated, for example

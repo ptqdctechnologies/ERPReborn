@@ -57,6 +57,12 @@ class ReleaseChannelConfig extends \Google\Collection
    */
   public $channel;
   /**
+   * Output only. List of custom versions for the channel.
+   *
+   * @var string[]
+   */
+  public $customVersions;
+  /**
    * The default version for newly created clusters on the channel.
    *
    * @var string
@@ -92,6 +98,22 @@ class ReleaseChannelConfig extends \Google\Collection
   public function getChannel()
   {
     return $this->channel;
+  }
+  /**
+   * Output only. List of custom versions for the channel.
+   *
+   * @param string[] $customVersions
+   */
+  public function setCustomVersions($customVersions)
+  {
+    $this->customVersions = $customVersions;
+  }
+  /**
+   * @return string[]
+   */
+  public function getCustomVersions()
+  {
+    return $this->customVersions;
   }
   /**
    * The default version for newly created clusters on the channel.

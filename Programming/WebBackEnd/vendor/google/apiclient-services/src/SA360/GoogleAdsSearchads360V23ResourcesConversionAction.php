@@ -351,9 +351,9 @@ class GoogleAdsSearchads360V23ResourcesConversionAction extends \Google\Collecti
    */
   public const TYPE_LEAD_FORM_SUBMIT = 'LEAD_FORM_SUBMIT';
   /**
-   * Deprecated: The Salesforce integration will be going away and replaced with
-   * an improved way to import your conversions from Salesforce. - see
-   * https://support.google.com/google-ads/answer/14728349
+   * Deprecated: The Salesforce integration ended on May 31, 2025. See [Legacy
+   * Salesforce integration for conversions upgrade
+   * FAQ](//support.google.com/google-ads/answer/14728349).
    *
    * @deprecated
    */

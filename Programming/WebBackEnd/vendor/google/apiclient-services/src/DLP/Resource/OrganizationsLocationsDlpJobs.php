@@ -31,14 +31,15 @@ class OrganizationsLocationsDlpJobs extends \Google\Service\Resource
 {
   /**
    * Lists DlpJobs that match the specified filter in the request. See
-   * https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
-   * and https://cloud.google.com/sensitive-data-protection/docs/compute-risk-
-   * analysis to learn more. (dlpJobs.listOrganizationsLocationsDlpJobs)
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * storage and https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/compute-risk-analysis to learn more.
+   * (dlpJobs.listOrganizationsLocationsDlpJobs)
    *
    * @param string $parent Required. Parent resource name. The format of this
    * value varies depending on whether you have [specified a processing
-   * location](https://cloud.google.com/sensitive-data-protection/docs/specifying-
-   * location): + Projects scope, location specified:
+   * location](https://docs.cloud.google.com/sensitive-data-
+   * protection/docs/specifying-location): + Projects scope, location specified:
    * `projects/{project_id}/locations/{location_id}` + Projects scope, no location
    * specified (defaults to global): `projects/{project_id}` The following example
    * `parent` string specifies a parent project with the identifier `example-

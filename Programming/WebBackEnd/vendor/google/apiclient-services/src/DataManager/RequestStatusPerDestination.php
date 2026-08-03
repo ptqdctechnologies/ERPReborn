@@ -53,6 +53,8 @@ class RequestStatusPerDestination extends \Google\Model
   protected $errorInfoDataType = '';
   protected $eventsIngestionStatusType = IngestEventsStatus::class;
   protected $eventsIngestionStatusDataType = '';
+  protected $removeAllAudienceMembersStatusType = RemoveAllAudienceMembersStatus::class;
+  protected $removeAllAudienceMembersStatusDataType = '';
   /**
    * The request status of the destination.
    *
@@ -144,6 +146,22 @@ class RequestStatusPerDestination extends \Google\Model
   public function getEventsIngestionStatus()
   {
     return $this->eventsIngestionStatus;
+  }
+  /**
+   * The status of the remove all audience members request.
+   *
+   * @param RemoveAllAudienceMembersStatus $removeAllAudienceMembersStatus
+   */
+  public function setRemoveAllAudienceMembersStatus(RemoveAllAudienceMembersStatus $removeAllAudienceMembersStatus)
+  {
+    $this->removeAllAudienceMembersStatus = $removeAllAudienceMembersStatus;
+  }
+  /**
+   * @return RemoveAllAudienceMembersStatus
+   */
+  public function getRemoveAllAudienceMembersStatus()
+  {
+    return $this->removeAllAudienceMembersStatus;
   }
   /**
    * The request status of the destination.

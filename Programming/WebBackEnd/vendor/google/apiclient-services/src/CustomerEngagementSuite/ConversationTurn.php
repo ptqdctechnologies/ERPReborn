@@ -24,6 +24,13 @@ class ConversationTurn extends \Google\Collection
   protected $messagesDataType = 'array';
   protected $rootSpanType = Span::class;
   protected $rootSpanDataType = '';
+  /**
+   * Optional. The intended ground-truth text from the Simulated Caller
+   * (Polysynth). Only populated when word error rate metrics are enabled.
+   *
+   * @var string
+   */
+  public $userIntendedText;
 
   /**
    * Optional. List of messages in the conversation turn, including user input,
@@ -57,6 +64,23 @@ class ConversationTurn extends \Google\Collection
   public function getRootSpan()
   {
     return $this->rootSpan;
+  }
+  /**
+   * Optional. The intended ground-truth text from the Simulated Caller
+   * (Polysynth). Only populated when word error rate metrics are enabled.
+   *
+   * @param string $userIntendedText
+   */
+  public function setUserIntendedText($userIntendedText)
+  {
+    $this->userIntendedText = $userIntendedText;
+  }
+  /**
+   * @return string
+   */
+  public function getUserIntendedText()
+  {
+    return $this->userIntendedText;
   }
 }
 

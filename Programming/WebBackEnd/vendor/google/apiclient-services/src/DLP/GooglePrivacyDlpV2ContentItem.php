@@ -102,8 +102,9 @@ class GooglePrivacyDlpV2ContentItem extends \Google\Model
     return $this->conversation;
   }
   /**
-   * Structured content for inspection. See https://cloud.google.com/sensitive-
-   * data-protection/docs/inspecting-text#inspecting_a_table to learn more.
+   * Structured content for inspection. See
+   * https://docs.cloud.google.com/sensitive-data-protection/docs/inspecting-
+   * text#inspecting_a_table to learn more.
    *
    * @param GooglePrivacyDlpV2Table $table
    */

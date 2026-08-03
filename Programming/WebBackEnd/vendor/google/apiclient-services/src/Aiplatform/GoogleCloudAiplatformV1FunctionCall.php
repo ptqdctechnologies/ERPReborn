@@ -28,6 +28,13 @@ class GoogleCloudAiplatformV1FunctionCall extends \Google\Collection
    */
   public $args;
   /**
+   * Optional. The unique id of the function call. If populated, the client to
+   * execute the `function_call` and return the response with the matching `id`.
+   *
+   * @var string
+   */
+  public $id;
+  /**
    * Optional. The name of the function to call. Matches
    * FunctionDeclaration.name.
    *
@@ -60,6 +67,23 @@ class GoogleCloudAiplatformV1FunctionCall extends \Google\Collection
   public function getArgs()
   {
     return $this->args;
+  }
+  /**
+   * Optional. The unique id of the function call. If populated, the client to
+   * execute the `function_call` and return the response with the matching `id`.
+   *
+   * @param string $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
   }
   /**
    * Optional. The name of the function to call. Matches

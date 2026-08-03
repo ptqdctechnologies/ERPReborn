@@ -116,6 +116,10 @@ class RuleViolationInfo extends \Google\Collection
    * Agent execution.
    */
   public const TRIGGER_AGENT_EXECUTION = 'AGENT_EXECUTION';
+  /**
+   * Text copied from Chrome.
+   */
+  public const TRIGGER_CHROME_DATA_COPIED = 'CHROME_DATA_COPIED';
   protected $collection_key = 'triggeredActionTypes';
   /**
    * Optional. Agent type that triggered the rule.
@@ -325,7 +329,8 @@ class RuleViolationInfo extends \Google\Collection
    * Accepted values: TRIGGER_UNSPECIFIED, DRIVE_SHARE, MAIL_BEING_SENT,
    * CHROME_FILE_DOWNLOAD, CHROME_FILE_UPLOAD, CHROME_WEB_CONTENT_UPLOAD,
    * CHAT_MESSAGE_SENT, CHAT_ATTACHMENT_UPLOADED, CHROME_PAGE_PRINT,
-   * CHROME_URL_VISITED, CHROMEOS_FILE_TRANSFER, GEMINI_ACCESS, AGENT_EXECUTION
+   * CHROME_URL_VISITED, CHROMEOS_FILE_TRANSFER, GEMINI_ACCESS, AGENT_EXECUTION,
+   * CHROME_DATA_COPIED
    *
    * @param self::TRIGGER_* $trigger
    */

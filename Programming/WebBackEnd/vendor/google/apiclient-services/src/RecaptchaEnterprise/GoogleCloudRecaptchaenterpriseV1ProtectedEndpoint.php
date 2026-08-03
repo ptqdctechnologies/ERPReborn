@@ -21,8 +21,8 @@ class GoogleCloudRecaptchaenterpriseV1ProtectedEndpoint extends \Google\Model
 {
   /**
    * Required. Action name to be used for token generation for this endpoint.
-   * The action name is not case-sensitive and can only contain alphanumeric
-   * characters, slashes, and underscores.
+   * The action name can only contain alphanumeric characters, slashes, and
+   * underscores.
    *
    * @var string
    */
@@ -31,10 +31,10 @@ class GoogleCloudRecaptchaenterpriseV1ProtectedEndpoint extends \Google\Model
    * Required. URI path of the API endpoint to protect. Must start with '/'.
    * Supports glob characters '*' to match a single path segment and '**' to
    * match multiple path segments. Standalone root catch-alls ('' and '*') are
-   * invalid because it would hurt performance to trigger reCAPTCHA on every
-   * single request to your backend. Matching is evaluated against the URL path
-   * only (domain, scheme, and query parameters are ignored). Examples: -
-   * `/login` matches `/login`, `https://example.com/login`, and
+   * invalid because it can negatively impact performance to trigger reCAPTCHA
+   * on every single request to your backend. Matching is evaluated against the
+   * URL path only (domain, scheme, and query parameters are ignored). Examples:
+   * - `/login` matches `/login`, `https://example.com/login`, and
    * `/login?query=1`, but not `/login/step1`. - `/products` matches
    * `/products/123`, but not `/products/123/456`. - `/content*` matches
    * `/content/articles/2024/01/01`.
@@ -45,8 +45,8 @@ class GoogleCloudRecaptchaenterpriseV1ProtectedEndpoint extends \Google\Model
 
   /**
    * Required. Action name to be used for token generation for this endpoint.
-   * The action name is not case-sensitive and can only contain alphanumeric
-   * characters, slashes, and underscores.
+   * The action name can only contain alphanumeric characters, slashes, and
+   * underscores.
    *
    * @param string $action
    */
@@ -65,10 +65,10 @@ class GoogleCloudRecaptchaenterpriseV1ProtectedEndpoint extends \Google\Model
    * Required. URI path of the API endpoint to protect. Must start with '/'.
    * Supports glob characters '*' to match a single path segment and '**' to
    * match multiple path segments. Standalone root catch-alls ('' and '*') are
-   * invalid because it would hurt performance to trigger reCAPTCHA on every
-   * single request to your backend. Matching is evaluated against the URL path
-   * only (domain, scheme, and query parameters are ignored). Examples: -
-   * `/login` matches `/login`, `https://example.com/login`, and
+   * invalid because it can negatively impact performance to trigger reCAPTCHA
+   * on every single request to your backend. Matching is evaluated against the
+   * URL path only (domain, scheme, and query parameters are ignored). Examples:
+   * - `/login` matches `/login`, `https://example.com/login`, and
    * `/login?query=1`, but not `/login/step1`. - `/products` matches
    * `/products/123`, but not `/products/123/456`. - `/content*` matches
    * `/content/articles/2024/01/01`.

@@ -20,8 +20,10 @@ namespace Google\Service\CustomerEngagementSuite;
 class SynthesizeSpeechConfig extends \Google\Model
 {
   /**
-   * Optional. The Cloud Storage URI to the consent audio for voice cloning.
+   * Optional. Deprecated: Use `custom_voice_samples` in AudioProcessingConfig
+   * instead. The Cloud Storage URI to the consent audio for voice cloning.
    *
+   * @deprecated
    * @var string
    */
   public $consentAudioGcsUri;
@@ -59,18 +61,22 @@ class SynthesizeSpeechConfig extends \Google\Model
    */
   public $voice;
   /**
-   * Optional. The Cloud Storage URI to the audio sample for voice cloning. The
+   * Optional. Deprecated: Use `custom_voice_samples` in AudioProcessingConfig
+   * instead. The Cloud Storage URI to the audio sample for voice cloning. The
    * audio sample should be a mono-channel, 24kHz WAV file. Note: Please make
    * sure the CES service agent `service-@gcp-sa-ces.iam.gserviceaccount.com`
    * has `storage.objects.get` permission to the Cloud Storage object.
    *
+   * @deprecated
    * @var string
    */
   public $voiceSampleGcsUri;
 
   /**
-   * Optional. The Cloud Storage URI to the consent audio for voice cloning.
+   * Optional. Deprecated: Use `custom_voice_samples` in AudioProcessingConfig
+   * instead. The Cloud Storage URI to the consent audio for voice cloning.
    *
+   * @deprecated
    * @param string $consentAudioGcsUri
    */
   public function setConsentAudioGcsUri($consentAudioGcsUri)
@@ -78,6 +84,7 @@ class SynthesizeSpeechConfig extends \Google\Model
     $this->consentAudioGcsUri = $consentAudioGcsUri;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getConsentAudioGcsUri()
@@ -147,11 +154,13 @@ class SynthesizeSpeechConfig extends \Google\Model
     return $this->voice;
   }
   /**
-   * Optional. The Cloud Storage URI to the audio sample for voice cloning. The
+   * Optional. Deprecated: Use `custom_voice_samples` in AudioProcessingConfig
+   * instead. The Cloud Storage URI to the audio sample for voice cloning. The
    * audio sample should be a mono-channel, 24kHz WAV file. Note: Please make
    * sure the CES service agent `service-@gcp-sa-ces.iam.gserviceaccount.com`
    * has `storage.objects.get` permission to the Cloud Storage object.
    *
+   * @deprecated
    * @param string $voiceSampleGcsUri
    */
   public function setVoiceSampleGcsUri($voiceSampleGcsUri)
@@ -159,6 +168,7 @@ class SynthesizeSpeechConfig extends \Google\Model
     $this->voiceSampleGcsUri = $voiceSampleGcsUri;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getVoiceSampleGcsUri()

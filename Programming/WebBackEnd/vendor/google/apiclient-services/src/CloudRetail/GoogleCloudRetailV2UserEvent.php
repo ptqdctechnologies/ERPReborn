@@ -81,8 +81,8 @@ class GoogleCloudRetailV2UserEvent extends \Google\Collection
   /**
    * A list of identifiers for the independent experiment groups this user event
    * belongs to. This is used to distinguish between user events associated with
-   * different experiment setups (e.g. using Retail API, using different
-   * recommendation models).
+   * different experiment setups (such as by using AI Commerce Search API, or
+   * using different recommendation models).
    *
    * @var string[]
    */
@@ -214,9 +214,9 @@ class GoogleCloudRetailV2UserEvent extends \Google\Collection
    * provide custom attributes for ingested user events, also include them in
    * the user events that you associate with prediction requests. Custom
    * attribute formatting must be consistent between imported events and events
-   * provided with prediction requests. This lets the Retail API use those
-   * custom attributes when training models and serving predictions, which helps
-   * improve recommendation quality. This field needs to pass all below
+   * provided with prediction requests. This lets the AI Commerce Search API use
+   * those custom attributes when training models and serving predictions, which
+   * helps improve recommendation quality. This field needs to pass all below
    * criteria, otherwise an INVALID_ARGUMENT error is returned: * The key must
    * be a UTF-8 encoded string with a length limit of 5,000 characters. * For
    * text attributes, at most 400 values are allowed. Empty values are not
@@ -365,8 +365,8 @@ class GoogleCloudRetailV2UserEvent extends \Google\Collection
   /**
    * A list of identifiers for the independent experiment groups this user event
    * belongs to. This is used to distinguish between user events associated with
-   * different experiment setups (e.g. using Retail API, using different
-   * recommendation models).
+   * different experiment setups (such as by using AI Commerce Search API, or
+   * using different recommendation models).
    *
    * @param string[] $experimentIds
    */

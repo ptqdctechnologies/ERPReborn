@@ -20,6 +20,32 @@ namespace Google\Service\DataManager;
 class AddressInfo extends \Google\Model
 {
   /**
+   * Optional. The street and number of the user's address. Used only for Google
+   * Analytics. This field is hashed and possibly encrypted. Normalize the value
+   * before hashing: - Remove symbol characters - Convert to lowercase - Remove
+   * leading and trailing whitespace
+   *
+   * @var string
+   */
+  public $addressLine;
+  /**
+   * Optional. The administrative area (state/province) of the user's address.
+   * Used only for Google Analytics. The value should be normalized as such: -
+   * Remove symbol characters - Convert to lowercase - Remove leading and
+   * trailing whitespace
+   *
+   * @var string
+   */
+  public $administrativeArea;
+  /**
+   * Optional. The city of the user's address. Used only for Google Analytics.
+   * The value should be normalized as such: - Remove symbol characters -
+   * Convert to lowercase - Remove leading and trailing whitespace
+   *
+   * @var string
+   */
+  public $city;
+  /**
    * Required. Family (last) name of the user, all lowercase, with no
    * punctuation, no leading or trailing whitespace, and hashed as SHA-256.
    *
@@ -47,6 +73,62 @@ class AddressInfo extends \Google\Model
    */
   public $regionCode;
 
+  /**
+   * Optional. The street and number of the user's address. Used only for Google
+   * Analytics. This field is hashed and possibly encrypted. Normalize the value
+   * before hashing: - Remove symbol characters - Convert to lowercase - Remove
+   * leading and trailing whitespace
+   *
+   * @param string $addressLine
+   */
+  public function setAddressLine($addressLine)
+  {
+    $this->addressLine = $addressLine;
+  }
+  /**
+   * @return string
+   */
+  public function getAddressLine()
+  {
+    return $this->addressLine;
+  }
+  /**
+   * Optional. The administrative area (state/province) of the user's address.
+   * Used only for Google Analytics. The value should be normalized as such: -
+   * Remove symbol characters - Convert to lowercase - Remove leading and
+   * trailing whitespace
+   *
+   * @param string $administrativeArea
+   */
+  public function setAdministrativeArea($administrativeArea)
+  {
+    $this->administrativeArea = $administrativeArea;
+  }
+  /**
+   * @return string
+   */
+  public function getAdministrativeArea()
+  {
+    return $this->administrativeArea;
+  }
+  /**
+   * Optional. The city of the user's address. Used only for Google Analytics.
+   * The value should be normalized as such: - Remove symbol characters -
+   * Convert to lowercase - Remove leading and trailing whitespace
+   *
+   * @param string $city
+   */
+  public function setCity($city)
+  {
+    $this->city = $city;
+  }
+  /**
+   * @return string
+   */
+  public function getCity()
+  {
+    return $this->city;
+  }
   /**
    * Required. Family (last) name of the user, all lowercase, with no
    * punctuation, no leading or trailing whitespace, and hashed as SHA-256.

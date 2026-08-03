@@ -73,7 +73,7 @@ class GoogleAdsSearchads360V23ResourcesAd extends \Google\Collection
    */
   public const TYPE_TEXT_AD = 'TEXT_AD';
   /**
-   * The ad is an expanded text ad.
+   * The ad is an expanded text ad. Expanded text ads are deprecated.
    */
   public const TYPE_EXPANDED_TEXT_AD = 'EXPANDED_TEXT_AD';
   /**
@@ -314,6 +314,8 @@ class GoogleAdsSearchads360V23ResourcesAd extends \Google\Collection
   protected $shoppingSmartAdDataType = '';
   protected $smartCampaignAdType = GoogleAdsSearchads360V23CommonSmartCampaignAdInfo::class;
   protected $smartCampaignAdDataType = '';
+  protected $syntheticContentInfoType = GoogleAdsSearchads360V23CommonSyntheticContentInfo::class;
+  protected $syntheticContentInfoDataType = '';
   /**
    * Output only. If this ad is system managed, then this field will indicate
    * the source. This field is read-only.
@@ -549,7 +551,8 @@ class GoogleAdsSearchads360V23ResourcesAd extends \Google\Collection
     return $this->expandedDynamicSearchAd;
   }
   /**
-   * Details pertaining to an expanded text ad.
+   * Details pertaining to an expanded text ad. Expanded text ads are
+   * deprecated. Use `ResponsiveSearchAd` instead.
    *
    * @param GoogleAdsSearchads360V23CommonExpandedTextAdInfo $expandedTextAd
    */
@@ -826,7 +829,8 @@ class GoogleAdsSearchads360V23ResourcesAd extends \Google\Collection
     return $this->searchAds360ExpandedDynamicSearchAd;
   }
   /**
-   * Immutable. Details pertaining to an expanded text ad.
+   * Immutable. Details pertaining to an expanded text ad. Expanded text ads are
+   * deprecated. Use `SearchAds360ResponsiveSearchAd` instead.
    *
    * @param GoogleAdsSearchads360V23CommonSearchAds360ExpandedTextAdInfo $searchAds360ExpandedTextAd
    */
@@ -936,6 +940,24 @@ class GoogleAdsSearchads360V23ResourcesAd extends \Google\Collection
   public function getSmartCampaignAd()
   {
     return $this->smartCampaignAd;
+  }
+  /**
+   * Synthetic content info for the ad. Only ads with specific ad types are
+   * eligible for updates using the `synthetic_content_info` field. Allowed
+   * `AdType` values: * `HTML5_UPLOAD_AD` * `DYNAMIC_HTML5_AD` * `IMAGE_AD`
+   *
+   * @param GoogleAdsSearchads360V23CommonSyntheticContentInfo $syntheticContentInfo
+   */
+  public function setSyntheticContentInfo(GoogleAdsSearchads360V23CommonSyntheticContentInfo $syntheticContentInfo)
+  {
+    $this->syntheticContentInfo = $syntheticContentInfo;
+  }
+  /**
+   * @return GoogleAdsSearchads360V23CommonSyntheticContentInfo
+   */
+  public function getSyntheticContentInfo()
+  {
+    return $this->syntheticContentInfo;
   }
   /**
    * Output only. If this ad is system managed, then this field will indicate

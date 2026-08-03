@@ -20,6 +20,22 @@ namespace Google\Service\Batch;
 class NetworkInterface extends \Google\Model
 {
   /**
+   * No type specified.
+   */
+  public const NIC_TYPE_NIC_TYPE_UNSPECIFIED = 'NIC_TYPE_UNSPECIFIED';
+  /**
+   * GVNIC
+   */
+  public const NIC_TYPE_GVNIC = 'GVNIC';
+  /**
+   * IRDMA
+   */
+  public const NIC_TYPE_IRDMA = 'IRDMA';
+  /**
+   * MRDMA
+   */
+  public const NIC_TYPE_MRDMA = 'MRDMA';
+  /**
    * The URL of an existing network resource. You can specify the network as a
    * full or partial URL. For example, the following are all valid URLs: * https
    * ://www.googleapis.com/compute/v1/projects/{project}/global/networks/{networ
@@ -29,6 +45,12 @@ class NetworkInterface extends \Google\Model
    * @var string
    */
   public $network;
+  /**
+   * Optional. The NIC type of the network interface.
+   *
+   * @var string
+   */
+  public $nicType;
   /**
    * Default is false (with an external IP address). Required if no external
    * public IP address is attached to the VM. If no external public IP address,
@@ -71,6 +93,24 @@ class NetworkInterface extends \Google\Model
   public function getNetwork()
   {
     return $this->network;
+  }
+  /**
+   * Optional. The NIC type of the network interface.
+   *
+   * Accepted values: NIC_TYPE_UNSPECIFIED, GVNIC, IRDMA, MRDMA
+   *
+   * @param self::NIC_TYPE_* $nicType
+   */
+  public function setNicType($nicType)
+  {
+    $this->nicType = $nicType;
+  }
+  /**
+   * @return self::NIC_TYPE_*
+   */
+  public function getNicType()
+  {
+    return $this->nicType;
   }
   /**
    * Default is false (with an external IP address). Required if no external

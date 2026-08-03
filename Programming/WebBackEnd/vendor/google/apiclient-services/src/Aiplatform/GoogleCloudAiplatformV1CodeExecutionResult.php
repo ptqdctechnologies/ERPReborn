@@ -38,6 +38,13 @@ class GoogleCloudAiplatformV1CodeExecutionResult extends \Google\Model
    */
   public const OUTCOME_OUTCOME_DEADLINE_EXCEEDED = 'OUTCOME_DEADLINE_EXCEEDED';
   /**
+   * Optional. The identifier of the `ExecutableCode` part this result is for.
+   * Only populated if the corresponding `ExecutableCode` has an id.
+   *
+   * @var string
+   */
+  public $id;
+  /**
    * Required. Outcome of the code execution.
    *
    * @var string
@@ -51,6 +58,23 @@ class GoogleCloudAiplatformV1CodeExecutionResult extends \Google\Model
    */
   public $output;
 
+  /**
+   * Optional. The identifier of the `ExecutableCode` part this result is for.
+   * Only populated if the corresponding `ExecutableCode` has an id.
+   *
+   * @param string $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
   /**
    * Required. Outcome of the code execution.
    *

@@ -32,14 +32,14 @@ class GoogleCloudRetailV2alphaEnrollSolutionResponse extends \Google\Model
    */
   public const ENROLLED_SOLUTION_SOLUTION_TYPE_SEARCH = 'SOLUTION_TYPE_SEARCH';
   /**
-   * Retail API solution that the project has enrolled.
+   * AI Commerce Search API solution that the project has enrolled.
    *
    * @var string
    */
   public $enrolledSolution;
 
   /**
-   * Retail API solution that the project has enrolled.
+   * AI Commerce Search API solution that the project has enrolled.
    *
    * Accepted values: SOLUTION_TYPE_UNSPECIFIED, SOLUTION_TYPE_RECOMMENDATION,
    * SOLUTION_TYPE_SEARCH

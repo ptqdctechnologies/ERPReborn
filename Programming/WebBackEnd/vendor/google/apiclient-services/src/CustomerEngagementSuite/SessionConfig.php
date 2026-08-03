@@ -44,6 +44,12 @@ class SessionConfig extends \Google\Collection
    * @var string
    */
   public $entryAgent;
+  /**
+   * Optional. Whether to exclude diagnostic info from the session output.
+   *
+   * @var bool
+   */
+  public $excludeDiagnosticInfo;
   protected $historicalContextsType = Message::class;
   protected $historicalContextsDataType = 'array';
   protected $inputAudioConfigType = InputAudioConfig::class;
@@ -122,6 +128,22 @@ class SessionConfig extends \Google\Collection
   public function getEntryAgent()
   {
     return $this->entryAgent;
+  }
+  /**
+   * Optional. Whether to exclude diagnostic info from the session output.
+   *
+   * @param bool $excludeDiagnosticInfo
+   */
+  public function setExcludeDiagnosticInfo($excludeDiagnosticInfo)
+  {
+    $this->excludeDiagnosticInfo = $excludeDiagnosticInfo;
+  }
+  /**
+   * @return bool
+   */
+  public function getExcludeDiagnosticInfo()
+  {
+    return $this->excludeDiagnosticInfo;
   }
   /**
    * Optional. The historical context of the session, including user inputs,

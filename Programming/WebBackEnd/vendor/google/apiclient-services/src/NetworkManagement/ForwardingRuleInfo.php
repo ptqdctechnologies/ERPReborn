@@ -20,11 +20,48 @@ namespace Google\Service\NetworkManagement;
 class ForwardingRuleInfo extends \Google\Model
 {
   /**
+   * Configuration state unspecified. It usually means that there are no
+   * relevant health checks for this load balancer frontend, or there was an
+   * unexpected configuration error preventing Connectivity Tests from verifying
+   * health check configuration.
+   */
+  public const ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED = 'HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED';
+  /**
+   * Firewall rules (policies) allow health check traffic to the load balancer
+   * frontend.
+   */
+  public const ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_FIREWALLS_CONFIGURED = 'FIREWALLS_CONFIGURED';
+  /**
+   * Firewall rules (policies) allow health check traffic to the load balancer
+   * frontend only from a part of the required IP ranges.
+   */
+  public const ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_FIREWALLS_PARTIALLY_CONFIGURED = 'FIREWALLS_PARTIALLY_CONFIGURED';
+  /**
+   * Firewall rules (policies) deny health check traffic to the load balancer
+   * frontend.
+   */
+  public const ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_FIREWALLS_NOT_CONFIGURED = 'FIREWALLS_NOT_CONFIGURED';
+  /**
+   * Connectivity Tests doesn't support evaluating some of the firewall rules in
+   * the network, so it's not able to verify health check configuration status.
+   */
+  public const ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_FIREWALLS_UNSUPPORTED = 'FIREWALLS_UNSUPPORTED';
+  /**
    * Name of the forwarding rule.
    *
    * @var string
    */
   public $displayName;
+  /**
+   * Output only. State of the firewalls allowing health check traffic to the
+   * load balancer frontend (Envoy proxies). This is the result of the firewall
+   * configuration analysis verifying that health check traffic from required IP
+   * ranges to the the Envoy-based load balancer frontend is allowed by firewall
+   * rules with the load balancer target.
+   *
+   * @var string
+   */
+  public $envoyHealthCheckFirewallsConfigState;
   /**
    * Name of the load balancer the forwarding rule belongs to. Empty for
    * forwarding rules not related to load balancers (like PSC forwarding rules).
@@ -108,6 +145,30 @@ class ForwardingRuleInfo extends \Google\Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  /**
+   * Output only. State of the firewalls allowing health check traffic to the
+   * load balancer frontend (Envoy proxies). This is the result of the firewall
+   * configuration analysis verifying that health check traffic from required IP
+   * ranges to the the Envoy-based load balancer frontend is allowed by firewall
+   * rules with the load balancer target.
+   *
+   * Accepted values: HEALTH_CHECK_FIREWALLS_CONFIG_STATE_UNSPECIFIED,
+   * FIREWALLS_CONFIGURED, FIREWALLS_PARTIALLY_CONFIGURED,
+   * FIREWALLS_NOT_CONFIGURED, FIREWALLS_UNSUPPORTED
+   *
+   * @param self::ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_* $envoyHealthCheckFirewallsConfigState
+   */
+  public function setEnvoyHealthCheckFirewallsConfigState($envoyHealthCheckFirewallsConfigState)
+  {
+    $this->envoyHealthCheckFirewallsConfigState = $envoyHealthCheckFirewallsConfigState;
+  }
+  /**
+   * @return self::ENVOY_HEALTH_CHECK_FIREWALLS_CONFIG_STATE_*
+   */
+  public function getEnvoyHealthCheckFirewallsConfigState()
+  {
+    return $this->envoyHealthCheckFirewallsConfigState;
   }
   /**
    * Name of the load balancer the forwarding rule belongs to. Empty for

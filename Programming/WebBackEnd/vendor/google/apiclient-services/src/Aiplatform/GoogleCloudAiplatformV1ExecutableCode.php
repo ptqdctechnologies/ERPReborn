@@ -34,6 +34,13 @@ class GoogleCloudAiplatformV1ExecutableCode extends \Google\Model
    */
   public $code;
   /**
+   * Optional. Unique identifier of the `ExecutableCode` part. The server
+   * returns the `CodeExecutionResult` with the matching `id`.
+   *
+   * @var string
+   */
+  public $id;
+  /**
    * Required. Programming language of the `code`.
    *
    * @var string
@@ -55,6 +62,23 @@ class GoogleCloudAiplatformV1ExecutableCode extends \Google\Model
   public function getCode()
   {
     return $this->code;
+  }
+  /**
+   * Optional. Unique identifier of the `ExecutableCode` part. The server
+   * returns the `CodeExecutionResult` with the matching `id`.
+   *
+   * @param string $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
   }
   /**
    * Required. Programming language of the `code`.

@@ -50,6 +50,11 @@ class UsersSettingsCseKeypairs extends \Google\Service\Resource
    * authenticated user, you can use the special value `me`.
    * @param CseKeyPair $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string chainValidation The type of certificate chain validation to
+   * perform at creation. The request will be rejected if the uploaded chain fails
+   * to satisfy the requested validation checks. When unspecified, this parameter
+   * defaults to `all`.
    * @return CseKeyPair
    * @throws \Google\Service\Exception
    */
