@@ -240,12 +240,19 @@
 
         $("#modal_supplier_id").val(sysId);
         $("#modal_supplier_number").val(`${code} - ${name}`);
+        $("#modal_supplier_number").css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 
         $('#mySuppliers').modal('toggle');
+        $('#mySupplierRevision').modal('toggle');
     });
 
     $('#revision_supplier').on('click', function (e) {
         getSuppliers();
+    });
+
+    $('#modal_supplier_number_icon').on('click', function (e) {
+        $('#mySuppliers').modal('toggle');
+        $('#mySupplierRevision').modal('toggle');
     });
 
     $('#tableCountries').on('click', 'tbody tr', function () {
