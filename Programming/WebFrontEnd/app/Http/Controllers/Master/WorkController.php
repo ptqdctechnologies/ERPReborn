@@ -39,6 +39,14 @@ class WorkController extends Controller
 
     public function revision(Request $request)
     {
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'workCode' => ''
+        ];
+
+        return view('Master.Work.Transactions.revision', $compact);
     }
 
     public function update(Request $request, $id)

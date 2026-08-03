@@ -15,7 +15,7 @@ class BudgetProgressController extends Controller
 
     public function index(Request $request)
     {
-        return view('Budget.BudgetProgress.Transactions.Index');
+        return view('Budget.BudgetProgress.Transactions.index');
     }
 
     public function create()
@@ -26,7 +26,7 @@ class BudgetProgressController extends Controller
             'varAPIWebToken' => $varAPIWebToken
         ];
 
-        return view('Budget.BudgetProgress.Transactions.Create', $compact);
+        return view('Budget.BudgetProgress.Transactions.create', $compact);
     }
 
     public function store(Request $request)
@@ -35,6 +35,20 @@ class BudgetProgressController extends Controller
 
     public function show($id)
     {
+    }
+
+    public function revision()
+    {
+        $varAPIWebToken = Session::get('SessionLogin');
+
+        $compact = [
+            'varAPIWebToken' => $varAPIWebToken,
+            'combinedBudgetRefID' => '46000000000033',
+            'combinedBudgetCode' => 'Q000062',
+            'combinedBudgetName' => 'XL Microcell 2007'
+        ];
+
+        return view('Budget.BudgetProgress.Transactions.revision', $compact);
     }
 
     public function edit($id)

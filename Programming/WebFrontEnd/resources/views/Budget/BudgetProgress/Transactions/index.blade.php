@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('Budget.BudgetProgress.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -15,7 +16,7 @@
                     </div>
                 </div>
 
-                @include('Budget.BudgetProgress.Functions.Menu.Index')
+                @include('Budget.BudgetProgress.Functions.Menu.index')
             </div>
         </section>
     </div>

@@ -33,14 +33,14 @@
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                    aria-label="Collapse Section Budget Information">
+                                                    aria-label="Collapse Section Work Information">
                                                     <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                                 </button>
                                             </div>
                                         </div>
 
                                         <!-- BODY -->
-                                        @include('Master.Work.Functions.Header.create')
+                                        @include('Master.Work.Functions.Header.sectionOne')
                                     </div>
                                 </div>
                             </div>

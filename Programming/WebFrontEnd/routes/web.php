@@ -201,6 +201,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // BUDGET PROGRESS
+    Route::post('BudgetProgress/revision', 'Budget\BudgetProgressController@revision')->name('BudgetProgress.revision');
     Route::resource('BudgetProgress', 'Budget\BudgetProgressController');
 
     // FUNCTION
@@ -265,6 +266,8 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('AccountPayable', 'Finance\AccountPayableController')->only(['index', 'store']);
 
     // FINANCIAL REPORT
+    Route::get('ReportProfitLoss', 'Finance\FinancialReportController@ReportProfitLoss')->name('FinancialReport.ReportProfitLoss');
+    Route::get('ReportBalanceSheet', 'Finance\FinancialReportController@ReportBalanceSheet')->name('FinancialReport.ReportBalanceSheet');
     Route::get('ReportGeneralLedger', 'Finance\FinancialReportController@ReportGeneralLedger')->name('FinancialReport.ReportGeneralLedger');
     Route::post('ReportGeneralLedgerStore', 'Finance\FinancialReportController@ReportGeneralLedgerStore')->name('FinancialReport.ReportGeneralLedgerStore');
     Route::post('PrintExportReportGeneralLedger', 'Finance\FinancialReportController@PrintExportReportGeneralLedger')->name('FinancialReport.PrintExportReportGeneralLedger');

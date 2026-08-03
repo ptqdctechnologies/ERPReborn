@@ -1,0 +1,90 @@
+@extends('Partials.app')
+@section('main')
+  @include('Partials.navbar')
+  @include('Partials.sidebar')
+
+  <div class="content-wrapper">
+    <section class="content">
+      <div class="container-fluid">
+        <!-- TITLE -->
+        <div class="row mb-1" style="background-color:#4B586A;">
+          <div class="col-sm-6" style="height:30px;">
+            <label style="font-size:15px;position:relative;top:7px;color:white;">
+              Report Profit & Loss
+            </label>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="tab-content p-3" id="nav-tabContent">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row p-1" style="row-gap: 1rem;">
+                      @include('Accounting.GeneralJournal.Functions.Header.HeaderReportProfitLoss')
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-12">
+                @include('Accounting.GeneralJournal.Functions.Header.HeaderReportProfitLossCard')
+              </div>
+
+              <div class="col-12" id="table_container" style="margin-top: 1rem;">
+                <div class="card">
+                  <div class="card-body p-0">
+                    <div class="d-flex justify-content-between">
+                      <label>
+                        Show
+                        <select id="limitSelect"
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
+                          <option value="10" selected>10</option>
+                          <option value="25">25</option>
+                          <option value="50">50</option>
+                          <option value="100">100</option>
+                        </select>
+                        entries
+                      </label>
+                      <label>
+                        Search:
+                        <input type="text" id="searchInput" autocomplete="off" placeholder="Search..."
+                          style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                      </label>
+                    </div>
+
+                    <div class="table-responsive">
+                      <table class="table table-head-fixed w-100" id="table_summary">
+                        <thead>
+                          <tr>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              ITEM</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              31 JULI 2026</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              31 JULI 2025</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              CHANGE</th>
+                          </tr>
+                        </thead>
+                        <tbody></tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  @include('Accounting.GeneralJournal.Functions.Footer.FooterReportProfitLoss')
+  @include('Partials.footer')
+@endsection

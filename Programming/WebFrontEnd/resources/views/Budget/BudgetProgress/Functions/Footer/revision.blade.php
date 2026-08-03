@@ -1,45 +1,5 @@
 <script>
-    let dataWorkflow = {
-        workFlowPathRefID: null,
-        approverEntityRefID: null,
-        comment: null
-    };
-
-    function getWorkflow(budgetRefID, budgetCode, budgetName) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            data: {
-                businessDocumentType_RefID: 77000000000057,
-                combinedBudget_RefID: budgetRefID
-            },
-            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
-            success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
-                    dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
-
-                    $("#budget_id").val(budgetRefID);
-                    $("#budget_name").val(`${budgetCode} - ${budgetName}`);
-                    $("#budget_name").css("background-color", "#e9ecef");
-
-                    getSites(budgetRefID);
-                } else {
-                    Swal.fire("Error", "You are not included in this budget", "error");
-                }
-
-                $("#loadingBudget").css({ "display": "none" });
-                $("#iconBudget").css({ "display": "block" });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-
-            }
-        });
-    }
+    const combinedBudgetRefID = document.getElementById('budget_id');
 
     function getSites(budgetId) {
         $("#loadingTableBudgetProgress").show();
@@ -93,16 +53,7 @@
         });
     }
 
-    $('#tableProjects').on('click', 'tbody tr', async function () {
-        const id = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
-
-        $("#loadingBudget").css({ "display": "block" });
-        $("#iconBudget").css({ "display": "none" });
-
-        getWorkflow(id, code, name);
-
-        $("#myProjects").modal('toggle');
+    $(document).ready(function () {
+        getSites(combinedBudgetRefID.value);
     });
 </script>

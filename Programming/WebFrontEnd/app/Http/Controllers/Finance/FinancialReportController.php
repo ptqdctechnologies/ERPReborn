@@ -11,7 +11,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 
 class FinancialReportController extends Controller
 {
-    public function ReportGeneralLedger(Request $request)
+    public function ReportGeneralLedger()
     {
         return view('Accounting.GeneralJournal.Reports.ReportGeneralLedger');
     }
@@ -234,5 +234,15 @@ class FinancialReportController extends Controller
 
             return response()->json(['statusCode' => 400]);
         }
+    }
+
+    public function ReportBalanceSheet()
+    {
+        return view('Accounting.GeneralJournal.Reports.ReportBalanceSheet');
+    }
+
+    public function ReportProfitLoss()
+    {
+        return view('Accounting.GeneralJournal.Reports.ReportProfitLoss');
     }
 }
