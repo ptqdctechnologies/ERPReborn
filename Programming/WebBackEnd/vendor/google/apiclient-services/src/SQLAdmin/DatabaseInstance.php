@@ -380,6 +380,13 @@ class DatabaseInstance extends \Google\Collection
    */
   public $currentDiskSize;
   /**
+   * Optional. If true, instance metadata is sent to the Database Center. If
+   * false, instance metadata is not sent to the Database Center.
+   *
+   * @var bool
+   */
+  public $databaseCenterIntegrationEnabled;
+  /**
    * Output only. Stores the current database version running on the instance
    * including minor version such as `MYSQL_8_0_18`.
    *
@@ -717,6 +724,23 @@ class DatabaseInstance extends \Google\Collection
   public function getCurrentDiskSize()
   {
     return $this->currentDiskSize;
+  }
+  /**
+   * Optional. If true, instance metadata is sent to the Database Center. If
+   * false, instance metadata is not sent to the Database Center.
+   *
+   * @param bool $databaseCenterIntegrationEnabled
+   */
+  public function setDatabaseCenterIntegrationEnabled($databaseCenterIntegrationEnabled)
+  {
+    $this->databaseCenterIntegrationEnabled = $databaseCenterIntegrationEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getDatabaseCenterIntegrationEnabled()
+  {
+    return $this->databaseCenterIntegrationEnabled;
   }
   /**
    * Output only. Stores the current database version running on the instance

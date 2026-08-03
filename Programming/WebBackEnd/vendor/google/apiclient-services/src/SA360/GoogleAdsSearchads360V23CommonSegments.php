@@ -310,6 +310,31 @@ class GoogleAdsSearchads360V23CommonSegments extends \Google\Collection
   /**
    * Not specified.
    */
+  public const MOBILE_DEVICE_PLATFORM_UNSPECIFIED = 'UNSPECIFIED';
+  /**
+   * Used for return value only. Represents value unknown in this version. Non-
+   * mobile and non-desktop devices will fall into this segment.
+   */
+  public const MOBILE_DEVICE_PLATFORM_UNKNOWN = 'UNKNOWN';
+  /**
+   * Android devices.
+   */
+  public const MOBILE_DEVICE_PLATFORM_ANDROID = 'ANDROID';
+  /**
+   * iOS devices.
+   */
+  public const MOBILE_DEVICE_PLATFORM_IOS = 'IOS';
+  /**
+   * Mobile devices that are not Android or iOS devices.
+   */
+  public const MOBILE_DEVICE_PLATFORM_OTHER_MOBILE = 'OTHER_MOBILE';
+  /**
+   * Desktop devices.
+   */
+  public const MOBILE_DEVICE_PLATFORM_DESKTOP = 'DESKTOP';
+  /**
+   * Not specified.
+   */
   public const PRODUCT_CHANNEL_UNSPECIFIED = 'UNSPECIFIED';
   /**
    * Used for return value only. Represents value unknown in this version.
@@ -504,6 +529,12 @@ class GoogleAdsSearchads360V23CommonSegments extends \Google\Collection
   public $hour;
   protected $keywordType = GoogleAdsSearchads360V23CommonKeyword::class;
   protected $keywordDataType = '';
+  /**
+   * Mobile device platform to which metrics apply.
+   *
+   * @var string
+   */
+  public $mobileDevicePlatform;
   /**
    * Month as represented by the date of the first day of a month. Formatted as
    * yyyy-MM-dd.
@@ -1152,6 +1183,24 @@ class GoogleAdsSearchads360V23CommonSegments extends \Google\Collection
   public function getKeyword()
   {
     return $this->keyword;
+  }
+  /**
+   * Mobile device platform to which metrics apply.
+   *
+   * Accepted values: UNSPECIFIED, UNKNOWN, ANDROID, IOS, OTHER_MOBILE, DESKTOP
+   *
+   * @param self::MOBILE_DEVICE_PLATFORM_* $mobileDevicePlatform
+   */
+  public function setMobileDevicePlatform($mobileDevicePlatform)
+  {
+    $this->mobileDevicePlatform = $mobileDevicePlatform;
+  }
+  /**
+   * @return self::MOBILE_DEVICE_PLATFORM_*
+   */
+  public function getMobileDevicePlatform()
+  {
+    return $this->mobileDevicePlatform;
   }
   /**
    * Month as represented by the date of the first day of a month. Formatted as

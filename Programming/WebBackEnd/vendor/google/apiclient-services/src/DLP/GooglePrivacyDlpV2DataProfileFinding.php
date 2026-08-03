@@ -151,7 +151,7 @@ class GooglePrivacyDlpV2DataProfileFinding extends \Google\Model
     return $this->fullResourceName;
   }
   /**
-   * The [type of content](https://cloud.google.com/sensitive-data-
+   * The [type of content](https://docs.cloud.google.com/sensitive-data-
    * protection/docs/infotypes-reference) that might have been found.
    *
    * @param GooglePrivacyDlpV2InfoType $infotype

@@ -423,6 +423,10 @@ class DataManager extends \Google\Service
               'path' => 'v1/audienceMembers:remove',
               'httpMethod' => 'POST',
               'parameters' => [],
+            ],'removeAll' => [
+              'path' => 'v1/audienceMembers:removeAll',
+              'httpMethod' => 'POST',
+              'parameters' => [],
             ],
           ]
         ]

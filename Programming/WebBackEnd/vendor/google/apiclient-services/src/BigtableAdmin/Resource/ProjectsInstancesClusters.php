@@ -173,6 +173,26 @@ class ProjectsInstancesClusters extends \Google\Service\Resource
     $params = array_merge($params, $optParams);
     return $this->call('update', [$params], Operation::class);
   }
+  /**
+   * Updates the memory layer of a cluster. To enable the memory layer, set the
+   * memory_config. To disable the memory layer, unset the memory_config.
+   * (clusters.updateMemoryLayer)
+   *
+   * @param string $name Identifier. Name of the memory layer. This is always:
+   * "projects/{project}/instances/{instance}/clusters/{cluster}/memoryLayer".
+   * @param MemoryLayer $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The list of fields to update.
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function updateMemoryLayer($name, MemoryLayer $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('updateMemoryLayer', [$params], Operation::class);
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

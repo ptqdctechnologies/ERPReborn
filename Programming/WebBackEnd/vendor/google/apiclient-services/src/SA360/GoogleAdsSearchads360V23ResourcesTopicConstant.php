@@ -31,7 +31,7 @@ class GoogleAdsSearchads360V23ResourcesTopicConstant extends \Google\Collection
    * the array describes a more specific sub-category. For example, {"Pets &
    * Animals", "Pets", "Dogs"} represents the "Pets & Animals/Pets/Dogs"
    * category. List of available topic categories at
-   * https://developers.google.com/google-ads/api/reference/data/verticals
+   * https://developers.google.com/google-ads/api/data/topics
    *
    * @var string[]
    */
@@ -71,7 +71,7 @@ class GoogleAdsSearchads360V23ResourcesTopicConstant extends \Google\Collection
    * the array describes a more specific sub-category. For example, {"Pets &
    * Animals", "Pets", "Dogs"} represents the "Pets & Animals/Pets/Dogs"
    * category. List of available topic categories at
-   * https://developers.google.com/google-ads/api/reference/data/verticals
+   * https://developers.google.com/google-ads/api/data/topics
    *
    * @param string[] $path
    */

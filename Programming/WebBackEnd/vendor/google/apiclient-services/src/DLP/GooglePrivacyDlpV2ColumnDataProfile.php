@@ -180,8 +180,8 @@ class GooglePrivacyDlpV2ColumnDataProfile extends \Google\Collection
   public $datasetId;
   /**
    * If supported, the location where the dataset's data is stored. See
-   * https://cloud.google.com/bigquery/docs/locations for supported BigQuery
-   * locations.
+   * https://docs.cloud.google.com/bigquery/docs/locations for supported
+   * BigQuery locations.
    *
    * @var string
    */
@@ -351,8 +351,8 @@ class GooglePrivacyDlpV2ColumnDataProfile extends \Google\Collection
   }
   /**
    * If supported, the location where the dataset's data is stored. See
-   * https://cloud.google.com/bigquery/docs/locations for supported BigQuery
-   * locations.
+   * https://docs.cloud.google.com/bigquery/docs/locations for supported
+   * BigQuery locations.
    *
    * @param string $datasetLocation
    */

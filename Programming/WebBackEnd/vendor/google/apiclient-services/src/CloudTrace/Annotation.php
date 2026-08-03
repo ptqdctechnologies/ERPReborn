@@ -25,8 +25,8 @@ class Annotation extends \Google\Model
   protected $descriptionDataType = '';
 
   /**
-   * A set of attributes on the annotation. You can have up to 4 attributes per
-   * Annotation.
+   * Optional. A set of attributes on the annotation. You can have up to 4
+   * attributes per Annotation.
    *
    * @param Attributes $attributes
    */
@@ -42,8 +42,8 @@ class Annotation extends \Google\Model
     return $this->attributes;
   }
   /**
-   * A user-supplied message describing the event. The maximum length for the
-   * description is 256 bytes.
+   * Optional. A user-supplied message describing the event. The maximum length
+   * for the description is 256 bytes.
    *
    * @param TruncatableString $description
    */

@@ -132,10 +132,10 @@ class Preview extends \Google\Collection
    */
   public $createTime;
   /**
-   * Optional. Optional deployment reference. If specified, the preview will be
-   * performed using the provided deployment's current state and use any
-   * relevant fields from the deployment unless explicitly specified in the
-   * preview create request.
+   * Optional. Deployment reference. If specified, the preview will be performed
+   * using the provided deployment's current state and use any relevant fields
+   * from the deployment unless explicitly specified in the preview create
+   * request.
    *
    * @var string
    */
@@ -303,10 +303,10 @@ class Preview extends \Google\Collection
     return $this->createTime;
   }
   /**
-   * Optional. Optional deployment reference. If specified, the preview will be
-   * performed using the provided deployment's current state and use any
-   * relevant fields from the deployment unless explicitly specified in the
-   * preview create request.
+   * Optional. Deployment reference. If specified, the preview will be performed
+   * using the provided deployment's current state and use any relevant fields
+   * from the deployment unless explicitly specified in the preview create
+   * request.
    *
    * @param string $deployment
    */

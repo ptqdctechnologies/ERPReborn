@@ -38,6 +38,12 @@ class OrgPolicyAPI extends \Google\Service
   /** See, edit, configure, and delete your Google Cloud data and see the email address for your Google Account.. */
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
+  /** See, edit, configure, and delete your Google Cloud Organization Policy data and see the email address for your Google Account. */
+  const ORGANIZATIONPOLICY =
+      "https://www.googleapis.com/auth/organizationpolicy";
+  /** See your Google Cloud Organization Policy data and the email address of your Google Account. */
+  const ORGANIZATIONPOLICY_READONLY =
+      "https://www.googleapis.com/auth/organizationpolicy.readonly";
 
   public $folders_constraints;
   public $folders_policies;

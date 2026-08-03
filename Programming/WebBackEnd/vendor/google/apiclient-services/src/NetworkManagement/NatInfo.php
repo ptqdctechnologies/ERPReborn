@@ -150,6 +150,12 @@ class NatInfo extends \Google\Model
    */
   public $routerUri;
   /**
+   * The number of the NAT rule that was matched.
+   *
+   * @var int
+   */
+  public $ruleNumber;
+  /**
    * Type of NAT.
    *
    * @var string
@@ -370,6 +376,22 @@ class NatInfo extends \Google\Model
   public function getRouterUri()
   {
     return $this->routerUri;
+  }
+  /**
+   * The number of the NAT rule that was matched.
+   *
+   * @param int $ruleNumber
+   */
+  public function setRuleNumber($ruleNumber)
+  {
+    $this->ruleNumber = $ruleNumber;
+  }
+  /**
+   * @return int
+   */
+  public function getRuleNumber()
+  {
+    return $this->ruleNumber;
   }
   /**
    * Type of NAT.

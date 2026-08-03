@@ -50,7 +50,7 @@ class GoogleIdentityStsV1Jwk extends \Google\Model
    */
   public $n;
   /**
-   * Public key use. Currently "jwt-svid".
+   * Public key use. Currently "sig".
    *
    * @var string
    */
@@ -137,7 +137,7 @@ class GoogleIdentityStsV1Jwk extends \Google\Model
     return $this->n;
   }
   /**
-   * Public key use. Currently "jwt-svid".
+   * Public key use. Currently "sig".
    *
    * @param string $use
    */

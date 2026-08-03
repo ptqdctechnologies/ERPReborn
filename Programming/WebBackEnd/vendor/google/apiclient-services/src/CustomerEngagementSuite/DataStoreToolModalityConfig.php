@@ -41,6 +41,8 @@ class DataStoreToolModalityConfig extends \Google\Model
   public $modalityType;
   protected $rewriterConfigType = DataStoreToolRewriterConfig::class;
   protected $rewriterConfigDataType = '';
+  protected $snippetsConfigType = DataStoreToolSnippetsConfig::class;
+  protected $snippetsConfigDataType = '';
   protected $summarizationConfigType = DataStoreToolSummarizationConfig::class;
   protected $summarizationConfigDataType = '';
 
@@ -93,6 +95,22 @@ class DataStoreToolModalityConfig extends \Google\Model
   public function getRewriterConfig()
   {
     return $this->rewriterConfig;
+  }
+  /**
+   * Optional. The snippets configuration.
+   *
+   * @param DataStoreToolSnippetsConfig $snippetsConfig
+   */
+  public function setSnippetsConfig(DataStoreToolSnippetsConfig $snippetsConfig)
+  {
+    $this->snippetsConfig = $snippetsConfig;
+  }
+  /**
+   * @return DataStoreToolSnippetsConfig
+   */
+  public function getSnippetsConfig()
+  {
+    return $this->snippetsConfig;
   }
   /**
    * Optional. The summarization config.

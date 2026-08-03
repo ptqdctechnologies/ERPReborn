@@ -25,6 +25,8 @@ class GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpec extends \
   protected $networkSpecDataType = '';
   protected $persistentDiskSpecType = GoogleCloudAiplatformV1PersistentDiskSpec::class;
   protected $persistentDiskSpecDataType = '';
+  protected $shieldedInstanceConfigType = GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpecShieldedInstanceConfig::class;
+  protected $shieldedInstanceConfigDataType = '';
 
   /**
    * The specification of a single machine for the execution job.
@@ -73,6 +75,23 @@ class GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpec extends \
   public function getPersistentDiskSpec()
   {
     return $this->persistentDiskSpec;
+  }
+  /**
+   * Optional. Shielded VM configuration (for example, Secure Boot) for the
+   * execution VM.
+   *
+   * @param GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpecShieldedInstanceConfig $shieldedInstanceConfig
+   */
+  public function setShieldedInstanceConfig(GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpecShieldedInstanceConfig $shieldedInstanceConfig)
+  {
+    $this->shieldedInstanceConfig = $shieldedInstanceConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1NotebookExecutionJobCustomEnvironmentSpecShieldedInstanceConfig
+   */
+  public function getShieldedInstanceConfig()
+  {
+    return $this->shieldedInstanceConfig;
   }
 }
 

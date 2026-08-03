@@ -312,6 +312,12 @@ class GoogleAdsSearchads360V0ErrorsErrorCode extends \Google\Model
    */
   public const DATE_RANGE_ERROR_CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED = 'CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED';
   /**
+   * The requested time granularity is not supported for the date range in the
+   * query. Metrics with daily, hourly, or weekly segmentation are only
+   * available for the last 37 months.
+   */
+  public const DATE_RANGE_ERROR_REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED = 'REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED';
+  /**
    * Enum unspecified.
    */
   public const DISTINCT_ERROR_UNSPECIFIED = 'UNSPECIFIED';
@@ -979,7 +985,8 @@ class GoogleAdsSearchads360V0ErrorsErrorCode extends \Google\Model
    *
    * Accepted values: UNSPECIFIED, UNKNOWN, INVALID_DATE,
    * START_DATE_AFTER_END_DATE, CANNOT_SET_DATE_TO_PAST,
-   * AFTER_MAXIMUM_ALLOWABLE_DATE, CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED
+   * AFTER_MAXIMUM_ALLOWABLE_DATE, CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED,
+   * REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED
    *
    * @param self::DATE_RANGE_ERROR_* $dateRangeError
    */

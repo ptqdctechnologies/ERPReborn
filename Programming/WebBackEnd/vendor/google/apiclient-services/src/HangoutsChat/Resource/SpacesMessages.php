@@ -20,6 +20,8 @@ namespace Google\Service\HangoutsChat\Resource;
 use Google\Service\HangoutsChat\ChatEmpty;
 use Google\Service\HangoutsChat\ListMessagesResponse;
 use Google\Service\HangoutsChat\Message;
+use Google\Service\HangoutsChat\SearchMessagesRequest;
+use Google\Service\HangoutsChat\SearchMessagesResponse;
 
 /**
  * The "messages" collection of methods.
@@ -176,6 +178,9 @@ class SpacesMessages extends \Google\Service\Resource
    * (https://developers.google.com/workspace/chat/create-
    * messages#name_a_created_message).
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string markupSyntax Optional. Specifies the desired output syntax
+   * for the Chat message `formatted_text` field.
    * @return Message
    * @throws \Google\Service\Exception
    */
@@ -231,6 +236,8 @@ class SpacesMessages extends \Google\Service\Resource
    * "2013-01-01T00:00:00+00:00" AND thread.name = spaces/AAAAAAAAAAA/threads/123
    * thread.name = spaces/AAAAAAAAAAA/threads/123 ``` Invalid queries are rejected
    * by the server with an `INVALID_ARGUMENT` error.
+   * @opt_param string markupSyntax Optional. Specifies the desired output syntax
+   * for the Chat message `formatted_text` field.
    * @opt_param string orderBy Optional. How the list of messages is ordered.
    * Specify a value to order by an ordering operation. Valid ordering operation
    * values are as follows: - `ASC` for ascending. - `DESC` for descending. The
@@ -309,6 +316,41 @@ class SpacesMessages extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], Message::class);
+  }
+  /**
+   * Searches for messages in Google Chat that the calling user has access to.
+   * Returns a list of messages matching the search criteria. To search across all
+   * spaces the user has access to, set `parent` to `spaces/-`. Using any other
+   * value for `parent` results in an `INVALID_ARGUMENT` error. The returned
+   * messages have their `name` field populated with the full resource name, which
+   * includes the specific `space` in which the message resides. This API doesn't
+   * return all message types. The types of messages listed below aren't included
+   * in the response. Use ListMessages to list all messages. - Private Messages
+   * that are visible to the authenticated user. - Messages posted by Chat apps in
+   * spaces or group chats. - Messages in a Chat app DM. - Messages from blocked
+   * users. - Messages in spaces that the caller has muted. Requires [user
+   * authentication](https://developers.google.com/workspace/chat/authenticate-
+   * authorize-chat-user) with one of the following [authorization
+   * scopes](https://developers.google.com/workspace/chat/authenticate-
+   * authorize#chat-api-scopes): -
+   * `https://www.googleapis.com/auth/chat.messages.readonly` -
+   * `https://www.googleapis.com/auth/chat.messages` (messages.search)
+   *
+   * @param string $parent Required. The resource name of the space to search
+   * within. To search across all spaces the user has access to, set this field to
+   * `spaces/-`. Using any other value for `parent` results in an
+   * `INVALID_ARGUMENT` error. To limit the search to one or more spaces, use
+   * `space.name` or `space.display_name` in the `filter`.
+   * @param SearchMessagesRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return SearchMessagesResponse
+   * @throws \Google\Service\Exception
+   */
+  public function search($parent, SearchMessagesRequest $postBody, $optParams = [])
+  {
+    $params = ['parent' => $parent, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('search', [$params], SearchMessagesResponse::class);
   }
   /**
    * Updates a message. There's a difference between the `patch` and `update`

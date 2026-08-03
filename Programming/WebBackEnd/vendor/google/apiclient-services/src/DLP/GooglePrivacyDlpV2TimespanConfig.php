@@ -29,7 +29,7 @@ class GooglePrivacyDlpV2TimespanConfig extends \Google\Model
    * hours old when the job starts. This is because streaming buffer rows are
    * not read during inspection and reading up to the current timestamp will
    * result in skipped rows. See the [known
-   * issue](https://cloud.google.com/sensitive-data-protection/docs/known-
+   * issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-
    * issues#recently-streamed-data) related to this operation.
    *
    * @var bool
@@ -62,7 +62,7 @@ class GooglePrivacyDlpV2TimespanConfig extends \Google\Model
    * hours old when the job starts. This is because streaming buffer rows are
    * not read during inspection and reading up to the current timestamp will
    * result in skipped rows. See the [known
-   * issue](https://cloud.google.com/sensitive-data-protection/docs/known-
+   * issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-
    * issues#recently-streamed-data) related to this operation.
    *
    * @param bool $enableAutoPopulationOfTimespanConfig
@@ -121,7 +121,7 @@ class GooglePrivacyDlpV2TimespanConfig extends \Google\Model
    * Rows with a `NULL` value in the provided BigQuery column are skipped. Valid
    * data types of the provided BigQuery column are: `INTEGER`, `DATE`,
    * `TIMESTAMP`, and `DATETIME`. If your BigQuery table is [partitioned at
-   * ingestion time](https://cloud.google.com/bigquery/docs/partitioned-
+   * ingestion time](https://docs.cloud.google.com/bigquery/docs/partitioned-
    * tables#ingestion_time), you can use any of the following pseudo-columns as
    * your timestamp field. When used with Cloud DLP, these pseudo-column names
    * are case sensitive. - `_PARTITIONTIME` - `_PARTITIONDATE` -
@@ -130,7 +130,7 @@ class GooglePrivacyDlpV2TimespanConfig extends \Google\Model
    * does not contain the provided timestamp property or contains empty or
    * invalid values, then it is included. Valid data types of the provided
    * timestamp property are: `TIMESTAMP`. See the [known
-   * issue](https://cloud.google.com/sensitive-data-protection/docs/known-
+   * issue](https://docs.cloud.google.com/sensitive-data-protection/docs/known-
    * issues#bq-timespan) related to this operation.
    *
    * @param GooglePrivacyDlpV2FieldId $timestampField

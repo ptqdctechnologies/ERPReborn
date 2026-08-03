@@ -78,8 +78,8 @@ class DataDisk extends \Google\Collection
   public const DISK_TYPE_HYPERDISK_ML = 'HYPERDISK_ML';
   protected $collection_key = 'resourcePolicies';
   /**
-   * Optional. Input only. Disk encryption method used on the boot and data
-   * disks, defaults to GMEK.
+   * Optional. Disk encryption method used on the boot and data disks, defaults
+   * to GMEK.
    *
    * @var string
    */
@@ -98,10 +98,10 @@ class DataDisk extends \Google\Collection
    */
   public $diskType;
   /**
-   * Optional. Input only. The KMS key used to encrypt the disks, only
-   * applicable if disk_encryption is CMEK. Format: `projects/{project_id}/locat
-   * ions/{location}/keyRings/{key_ring_id}/cryptoKeys/{key_id}` Learn more
-   * about using your own encryption keys.
+   * Optional. The KMS key used to encrypt the disks, only applicable if
+   * disk_encryption is CMEK. Format: `projects/{project_id}/locations/{location
+   * }/keyRings/{key_ring_id}/cryptoKeys/{key_id}` Learn more about using your
+   * own encryption keys.
    *
    * @var string
    */
@@ -114,8 +114,8 @@ class DataDisk extends \Google\Collection
   public $resourcePolicies;
 
   /**
-   * Optional. Input only. Disk encryption method used on the boot and data
-   * disks, defaults to GMEK.
+   * Optional. Disk encryption method used on the boot and data disks, defaults
+   * to GMEK.
    *
    * Accepted values: DISK_ENCRYPTION_UNSPECIFIED, GMEK, CMEK
    *
@@ -170,10 +170,10 @@ class DataDisk extends \Google\Collection
     return $this->diskType;
   }
   /**
-   * Optional. Input only. The KMS key used to encrypt the disks, only
-   * applicable if disk_encryption is CMEK. Format: `projects/{project_id}/locat
-   * ions/{location}/keyRings/{key_ring_id}/cryptoKeys/{key_id}` Learn more
-   * about using your own encryption keys.
+   * Optional. The KMS key used to encrypt the disks, only applicable if
+   * disk_encryption is CMEK. Format: `projects/{project_id}/locations/{location
+   * }/keyRings/{key_ring_id}/cryptoKeys/{key_id}` Learn more about using your
+   * own encryption keys.
    *
    * @param string $kmsKey
    */

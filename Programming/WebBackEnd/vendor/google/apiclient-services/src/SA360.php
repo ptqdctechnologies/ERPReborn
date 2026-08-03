@@ -127,6 +127,7 @@ class SA360 extends \Google\Service
   public $customers_recommendations;
   public $customers_remarketingActions;
   public $customers_searchAds360;
+  public $customers_searchAds360Campaigns;
   public $customers_sharedCriteria;
   public $customers_sharedSets;
   public $customers_smartCampaignSettings;
@@ -393,6 +394,36 @@ class SA360 extends \Google\Service
               ],
             ],'suggestTravelAssets' => [
               'path' => 'v23/customers/{+customerId}:suggestTravelAssets',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'customerId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'uploadCallConversions' => [
+              'path' => 'v23/customers/{+customerId}:uploadCallConversions',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'customerId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'uploadClickConversions' => [
+              'path' => 'v23/customers/{+customerId}:uploadClickConversions',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'customerId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'uploadConversionAdjustments' => [
+              'path' => 'v23/customers/{+customerId}:uploadConversionAdjustments',
               'httpMethod' => 'POST',
               'parameters' => [
                 'customerId' => [
@@ -2422,6 +2453,26 @@ class SA360 extends \Google\Service
               ],
             ],'search' => [
               'path' => 'v23/customers/{+customerId}/searchAds360:search',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'customerId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->customers_searchAds360Campaigns = new SA360\Resource\CustomersSearchAds360Campaigns(
+        $this,
+        $this->serviceName,
+        'searchAds360Campaigns',
+        [
+          'methods' => [
+            'mutate' => [
+              'path' => 'v23/customers/{+customerId}/searchAds360Campaigns:mutate',
               'httpMethod' => 'POST',
               'parameters' => [
                 'customerId' => [

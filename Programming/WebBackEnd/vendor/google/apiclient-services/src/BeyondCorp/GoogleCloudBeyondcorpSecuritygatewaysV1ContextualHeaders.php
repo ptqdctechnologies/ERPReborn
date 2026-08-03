@@ -37,6 +37,8 @@ class GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeaders extends \Google\M
   public const OUTPUT_TYPE_NONE = 'NONE';
   protected $deviceInfoType = GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedDeviceInfo::class;
   protected $deviceInfoDataType = '';
+  protected $dispatchInfoType = GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedDispatchInfo::class;
+  protected $dispatchInfoDataType = '';
   protected $groupInfoType = GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedGroupInfo::class;
   protected $groupInfoDataType = '';
   /**
@@ -63,6 +65,22 @@ class GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeaders extends \Google\M
   public function getDeviceInfo()
   {
     return $this->deviceInfo;
+  }
+  /**
+   * Optional. The dispatch information configuration.
+   *
+   * @param GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedDispatchInfo $dispatchInfo
+   */
+  public function setDispatchInfo(GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedDispatchInfo $dispatchInfo)
+  {
+    $this->dispatchInfo = $dispatchInfo;
+  }
+  /**
+   * @return GoogleCloudBeyondcorpSecuritygatewaysV1ContextualHeadersDelegatedDispatchInfo
+   */
+  public function getDispatchInfo()
+  {
+    return $this->dispatchInfo;
   }
   /**
    * Optional. Group details.

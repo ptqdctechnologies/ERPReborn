@@ -62,16 +62,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.390.1",
+            "version": "3.390.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "c75d5f489113e3c140d5a37602375e4359b66a75"
+                "reference": "a09e95bf062e15b7343f9c1362fd45c7a0dec39b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/c75d5f489113e3c140d5a37602375e4359b66a75",
-                "reference": "c75d5f489113e3c140d5a37602375e4359b66a75",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/a09e95bf062e15b7343f9c1362fd45c7a0dec39b",
+                "reference": "a09e95bf062e15b7343f9c1362fd45c7a0dec39b",
                 "shasum": ""
             },
             "require": {
@@ -153,9 +153,9 @@
             "support": {
                 "forum": "https://github.com/aws/aws-sdk-php/discussions",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.390.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.390.2"
             },
-            "time": "2026-07-31T02:53:14+00:00"
+            "time": "2026-07-31T18:06:07+00:00"
         },
         {
             "name": "brick/math",
@@ -1321,16 +1321,16 @@
         },
         {
             "name": "google/apiclient-services",
-            "version": "v0.452.0",
+            "version": "v0.453.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/googleapis/google-api-php-client-services.git",
-                "reference": "2b86a7203ffd6520968ec568d58131ed380a59e1"
+                "reference": "9eeab572613c0b533f8268e5df0954a63100061d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/2b86a7203ffd6520968ec568d58131ed380a59e1",
-                "reference": "2b86a7203ffd6520968ec568d58131ed380a59e1",
+                "url": "https://api.github.com/repos/googleapis/google-api-php-client-services/zipball/9eeab572613c0b533f8268e5df0954a63100061d",
+                "reference": "9eeab572613c0b533f8268e5df0954a63100061d",
                 "shasum": ""
             },
             "require": {
@@ -1359,9 +1359,9 @@
             ],
             "support": {
                 "issues": "https://github.com/googleapis/google-api-php-client-services/issues",
-                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.452.0"
+                "source": "https://github.com/googleapis/google-api-php-client-services/tree/v0.453.0"
             },
-            "time": "2026-07-27T01:28:26+00:00"
+            "time": "2026-08-03T01:20:25+00:00"
         },
         {
             "name": "google/auth",

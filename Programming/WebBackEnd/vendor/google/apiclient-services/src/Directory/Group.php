@@ -68,6 +68,8 @@ class Group extends \Google\Collection
    * @var string
    */
   public $etag;
+  protected $externalIdsType = ExternalId::class;
+  protected $externalIdsDataType = 'array';
   /**
    * Read-only. The unique ID of a group. A group `id` can be used as a group
    * request URI's `groupKey`.
@@ -206,6 +208,24 @@ class Group extends \Google\Collection
   public function getEtag()
   {
     return $this->etag;
+  }
+  /**
+   * Optional. The list of external IDs for the group, such as an immutable
+   * identifier from an external identity provider or directory sync client.
+   * Each entry contains a namespace and an ID value.
+   *
+   * @param ExternalId[] $externalIds
+   */
+  public function setExternalIds($externalIds)
+  {
+    $this->externalIds = $externalIds;
+  }
+  /**
+   * @return ExternalId[]
+   */
+  public function getExternalIds()
+  {
+    return $this->externalIds;
   }
   /**
    * Read-only. The unique ID of a group. A group `id` can be used as a group

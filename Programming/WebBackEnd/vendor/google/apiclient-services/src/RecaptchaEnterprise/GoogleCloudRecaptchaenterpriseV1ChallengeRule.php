@@ -22,12 +22,13 @@ class GoogleCloudRecaptchaenterpriseV1ChallengeRule extends \Google\Model
   protected $challengeType = GoogleCloudRecaptchaenterpriseV1ChallengeRuleChallengeOutcome::class;
   protected $challengeDataType = '';
   /**
-   * Optional. A CEL condition that must be met for this rule to apply. The
-   * following fields can be referenced in the condition: * `score` *
-   * `user_ip_address` * `user_asn` * `user_agent` * `verified_bots.name` *
-   * `verified_bots.bot_type` Examples: * `score < 0.5` * `user_ip_address ==
-   * "123.45.67.89"` * `user_agent.contains("Chrome")` * `score < 0.5 &&
-   * user_ip_address == "123.45.67.89"`
+   * Optional. A CEL condition that must be met for this rule to apply. If
+   * unspecified, the rule applies unconditionally. The following fields can be
+   * referenced in the condition: * `score` * `user_ip_address` * `user_asn` *
+   * `user_agent` * `verified_bots.name` * `verified_bots.bot_type` Examples: *
+   * `score < 0.5` * `user_ip_address == "123.45.67.89"` *
+   * `user_agent.contains("Chrome")` * `score < 0.5 && user_ip_address ==
+   * "123.45.67.89"`
    *
    * @var string
    */
@@ -52,12 +53,13 @@ class GoogleCloudRecaptchaenterpriseV1ChallengeRule extends \Google\Model
     return $this->challenge;
   }
   /**
-   * Optional. A CEL condition that must be met for this rule to apply. The
-   * following fields can be referenced in the condition: * `score` *
-   * `user_ip_address` * `user_asn` * `user_agent` * `verified_bots.name` *
-   * `verified_bots.bot_type` Examples: * `score < 0.5` * `user_ip_address ==
-   * "123.45.67.89"` * `user_agent.contains("Chrome")` * `score < 0.5 &&
-   * user_ip_address == "123.45.67.89"`
+   * Optional. A CEL condition that must be met for this rule to apply. If
+   * unspecified, the rule applies unconditionally. The following fields can be
+   * referenced in the condition: * `score` * `user_ip_address` * `user_asn` *
+   * `user_agent` * `verified_bots.name` * `verified_bots.bot_type` Examples: *
+   * `score < 0.5` * `user_ip_address == "123.45.67.89"` *
+   * `user_agent.contains("Chrome")` * `score < 0.5 && user_ip_address ==
+   * "123.45.67.89"`
    *
    * @param string $condition
    */

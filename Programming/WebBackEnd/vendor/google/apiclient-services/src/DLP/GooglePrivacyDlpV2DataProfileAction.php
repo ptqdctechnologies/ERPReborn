@@ -67,8 +67,8 @@ class GooglePrivacyDlpV2DataProfileAction extends \Google\Model
   /**
    * Publishes generated data profiles to Google Security Operations. For more
    * information, see [Use Sensitive Data Protection data in context-aware
-   * analytics](https://cloud.google.com/chronicle/docs/detection/usecase-dlp-
-   * high-risk-user-download).
+   * analytics](https://docs.cloud.google.com/chronicle/docs/detection/usecase-
+   * dlp-high-risk-user-download).
    *
    * @param GooglePrivacyDlpV2PublishToChronicle $publishToChronicle
    */

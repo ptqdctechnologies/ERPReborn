@@ -21,10 +21,14 @@ class IngestAudienceMembersStatus extends \Google\Model
 {
   protected $compositeDataIngestionStatusType = IngestCompositeDataStatus::class;
   protected $compositeDataIngestionStatusDataType = '';
+  protected $googleUserIdDataIngestionStatusType = IngestGoogleUserIdDataStatus::class;
+  protected $googleUserIdDataIngestionStatusDataType = '';
   protected $mobileDataIngestionStatusType = IngestMobileDataStatus::class;
   protected $mobileDataIngestionStatusDataType = '';
   protected $pairDataIngestionStatusType = IngestPairDataStatus::class;
   protected $pairDataIngestionStatusDataType = '';
+  protected $partnerProvidedIdDataIngestionStatusType = IngestPartnerProvidedIdDataStatus::class;
+  protected $partnerProvidedIdDataIngestionStatusDataType = '';
   protected $ppidDataIngestionStatusType = IngestPpidDataStatus::class;
   protected $ppidDataIngestionStatusDataType = '';
   protected $userDataIngestionStatusType = IngestUserDataStatus::class;
@@ -47,6 +51,22 @@ class IngestAudienceMembersStatus extends \Google\Model
   public function getCompositeDataIngestionStatus()
   {
     return $this->compositeDataIngestionStatus;
+  }
+  /**
+   * The status of the google user id data ingestion to the destination.
+   *
+   * @param IngestGoogleUserIdDataStatus $googleUserIdDataIngestionStatus
+   */
+  public function setGoogleUserIdDataIngestionStatus(IngestGoogleUserIdDataStatus $googleUserIdDataIngestionStatus)
+  {
+    $this->googleUserIdDataIngestionStatus = $googleUserIdDataIngestionStatus;
+  }
+  /**
+   * @return IngestGoogleUserIdDataStatus
+   */
+  public function getGoogleUserIdDataIngestionStatus()
+  {
+    return $this->googleUserIdDataIngestionStatus;
   }
   /**
    * The status of the mobile data ingestion to the destination.
@@ -79,6 +99,22 @@ class IngestAudienceMembersStatus extends \Google\Model
   public function getPairDataIngestionStatus()
   {
     return $this->pairDataIngestionStatus;
+  }
+  /**
+   * The status of the partner provided id data ingestion to the destination.
+   *
+   * @param IngestPartnerProvidedIdDataStatus $partnerProvidedIdDataIngestionStatus
+   */
+  public function setPartnerProvidedIdDataIngestionStatus(IngestPartnerProvidedIdDataStatus $partnerProvidedIdDataIngestionStatus)
+  {
+    $this->partnerProvidedIdDataIngestionStatus = $partnerProvidedIdDataIngestionStatus;
+  }
+  /**
+   * @return IngestPartnerProvidedIdDataStatus
+   */
+  public function getPartnerProvidedIdDataIngestionStatus()
+  {
+    return $this->partnerProvidedIdDataIngestionStatus;
   }
   /**
    * The status of the ppid data ingestion to the destination.

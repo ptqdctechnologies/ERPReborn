@@ -47,6 +47,14 @@ class ImportAppRequestImportOptions extends \Google\Model
    * @var string
    */
   public $conflictResolutionStrategy;
+  /**
+   * Optional. Flag for dry-running the import process. If set to true, the
+   * import process will only perform validations and will not make any changes
+   * to the existing app or create a new one.
+   *
+   * @var bool
+   */
+  public $validateOnly;
 
   /**
    * Optional. The strategy to use when resolving conflicts during import.
@@ -66,6 +74,24 @@ class ImportAppRequestImportOptions extends \Google\Model
   public function getConflictResolutionStrategy()
   {
     return $this->conflictResolutionStrategy;
+  }
+  /**
+   * Optional. Flag for dry-running the import process. If set to true, the
+   * import process will only perform validations and will not make any changes
+   * to the existing app or create a new one.
+   *
+   * @param bool $validateOnly
+   */
+  public function setValidateOnly($validateOnly)
+  {
+    $this->validateOnly = $validateOnly;
+  }
+  /**
+   * @return bool
+   */
+  public function getValidateOnly()
+  {
+    return $this->validateOnly;
   }
 }
 

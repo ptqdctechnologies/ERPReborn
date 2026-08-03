@@ -462,8 +462,7 @@ class Spaces extends \Google\Service\Resource
    * spaces](https://developers.google.com/workspace/chat/search-manage-admin).
    * When `use_admin_access` is set to `false`, the results are limited to spaces
    * where the calling user is a joined member. To search with administrator
-   * privileges, set `use_admin_access` to `true`. Setting `use_admin_access` to
-   * `false` is available under Developer Preview. Supports the following types of
+   * privileges, set `use_admin_access` to `true`. Supports the following types of
    * [authentication](https://developers.google.com/workspace/chat/authenticate-
    * authorize): - [User
    * authentication](https://developers.google.com/workspace/chat/authenticate-
@@ -557,9 +556,7 @@ class Spaces extends \Google\Service\Resource
    * privilege](https://support.google.com/a/answer/13369245). Requires either the
    * `chat.admin.spaces.readonly` or `chat.admin.spaces` [OAuth 2.0
    * scope](https://developers.google.com/workspace/chat/authenticate-
-   * authorize#chat-api-scopes). Setting `use_admin_access` to `false` is
-   * available under Developer Preview. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * authorize#chat-api-scopes).
    * @return SearchSpacesResponse
    * @throws \Google\Service\Exception
    */

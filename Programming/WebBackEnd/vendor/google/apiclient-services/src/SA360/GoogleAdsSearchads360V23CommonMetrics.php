@@ -98,8 +98,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * The total number of conversions. This includes all conversions regardless
    * of the value of include_in_conversions_metric. When this column is selected
    * with date, the values in date column means the conversion date. Details for
-   * the by_conversion_date columns are available at
-   * https://support.google.com/sa360/answer/9250611.
+   * the `by_conversion_date` columns are available at [About the "All
+   * conversions" column](https://support.google.com/sa360/answer/9250611).
    *
    * @var 
    */
@@ -179,8 +179,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The value of all conversions. When this column is selected with date, the
    * values in date column means the conversion date. Details for the
-   * by_conversion_date columns are available at
-   * https://support.google.com/sa360/answer/9250611.
+   * `by_conversion_date` columns are available at [About the "All conversions"
+   * column](https://support.google.com/sa360/answer/9250611).
    *
    * @var 
    */
@@ -214,9 +214,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The total cost of all clicks divided by the total number of clicks
    * received. This metric is a monetary value and returned in the customer's
-   * currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * currency by default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var 
    */
@@ -224,8 +224,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * Average cost-per-thousand impressions (CPM). This metric is a monetary
    * value and returned in the customer's currency by default. See the
-   * metrics_currency parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var 
    */
@@ -265,18 +266,18 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   public $clicks;
   /**
    * The number of client account conversions. This only includes conversion
-   * actions which include_in_client_account_conversions_metric attribute is set
-   * to true. If you use conversion-based bidding, your bid strategies will
-   * optimize for these conversions.
+   * actions which `include_in_client_account_conversions_metric` attribute is
+   * set to `true`. If you use conversion-based bidding, your bid strategies
+   * will optimize for these conversions.
    *
    * @var 
    */
   public $clientAccountConversions;
   /**
    * The value of client account conversions. This only includes conversion
-   * actions which include_in_client_account_conversions_metric attribute is set
-   * to true. If you use conversion-based bidding, your bid strategies will
-   * optimize for these conversions.
+   * actions which `include_in_client_account_conversions_metric` attribute is
+   * set to `true`. If you use conversion-based bidding, your bid strategies
+   * will optimize for these conversions.
    *
    * @var 
    */
@@ -296,8 +297,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * cross-sell cost of goods sold for this order is $5. This metric is only
    * available if you report conversions with cart data. This metric is a
    * monetary value and returned in the customer's currency by default. See the
-   * metrics_currency parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -317,9 +319,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * of $5. The cross-sell gross profit of this order is $15 = $20 - $5. This
    * metric is only available if you report conversions with cart data. This
    * metric is a monetary value and returned in the customer's currency by
-   * default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -338,8 +340,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * is priced $20. The cross-sell revenue of this order is $20. This metric is
    * only available if you report conversions with cart data. This metric is a
    * monetary value and returned in the customer's currency by default. See the
-   * metrics_currency parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -374,9 +377,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * sold value of $3, the shirt has a cost of goods sold value of $5. The lead
    * cost of goods sold for this order is $3. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -395,9 +398,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * has a cost of goods sold value of $3. The lead gross profit of this order
    * is $7 = $10 - $3. This metric is only available if you report conversions
    * with cart data. This metric is a monetary value and returned in the
-   * customer's currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * customer's currency by default. See the `metrics_currency` parameter at
+   * [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -415,9 +418,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * The hat is priced $10 and the shirt is priced $20. The lead revenue of this
    * order is $10. This metric is only available if you report conversions with
    * cart data. This metric is a monetary value and returned in the customer's
-   * currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * currency by default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -487,7 +490,7 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The sum of conversions by conversion date for biddable conversion types.
    * Can be fractional due to attribution modeling. When this column is selected
-   * with date, the values in date column means the conversion date.
+   * with date, the values in the date column mean the conversion date.
    *
    * @var 
    */
@@ -503,7 +506,7 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The value of conversions from interactions divided by the number of ad
    * interactions. This only includes conversion actions which
-   * include_in_conversions_metric attribute is set to true. If you use
+   * `include_in_conversions_metric` attribute is set to `true`. If you use
    * conversion-based bidding, your bid strategies will optimize for these
    * conversions.
    *
@@ -535,9 +538,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The sum of your cost-per-click (CPC) and cost-per-thousand impressions
    * (CPM) costs during this period. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause) for more details.
    *
    * @var string
    */
@@ -572,7 +575,7 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The cost of ad interactions divided by current model attributed
    * conversions. This only includes conversion actions which
-   * include_in_conversions_metric attribute is set to true. If you use
+   * `include_in_conversions_metric` attribute is set to `true`. If you use
    * conversion-based bidding, your bid strategies will optimize for these
    * conversions.
    *
@@ -582,15 +585,15 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * Conversions from when a customer clicks on an ad on one device, then
    * converts on a different device or browser. Cross-device conversions are
-   * already included in all_conversions.
+   * already included in `all_conversions`.
    *
    * @var 
    */
   public $crossDeviceConversions;
   /**
    * The number of cross-device conversions by conversion date. Details for the
-   * by_conversion_date columns are available at
-   * https://support.google.com/sa360/answer/9250611.
+   * `by_conversion_date` columns are available at [About the "All conversions"
+   * column](https://support.google.com/sa360/answer/9250611)
    *
    * @var 
    */
@@ -603,8 +606,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   public $crossDeviceConversionsValue;
   /**
    * The sum of cross-device conversions value by conversion date. Details for
-   * the by_conversion_date columns are available at
-   * https://support.google.com/sa360/answer/9250611.
+   * the `by_conversion_date` columns are available at [About the "All
+   * conversions" column](https://support.google.com/sa360/answer/9250611)
    *
    * @var 
    */
@@ -623,9 +626,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * shirt has a cost of goods sold value of $5. The cross-sell cost of goods
    * sold for this order is $5. This metric is only available if you report
    * conversions with cart data. This metric is a monetary value and returned in
-   * the customer's currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * the customer's currency by default. See the `metrics_currency` parameter at
+   * [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -644,9 +647,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * priced $20 and has a cost of goods sold value of $5. The cross-sell gross
    * profit of this order is $15 = $20 - $5. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -664,9 +667,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * hat and a shirt. The hat is priced $10 and the shirt is priced $20. The
    * cross-sell revenue of this order is $20. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -702,8 +705,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * through routine means of filtration (that is, known invalid data-center
    * traffic, bots and spiders or other crawlers, irregular patterns, etc).
    * You're not charged for them, and they don't affect your account statistics.
-   * See the help page at
-   * https://support.google.com/campaignmanager/answer/6076504 for details.
+   * See [Filtering invalid traffic to ensure
+   * quality](https://support.google.com/campaignmanager/answer/6076504).
    *
    * @var 
    */
@@ -713,8 +716,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * that are detected through routine means of filtration (such as known
    * invalid data-center traffic, bots and spiders or other crawlers, irregular
    * patterns, etc.). You're not charged for them, and they don't affect your
-   * account statistics. See the help page at
-   * https://support.google.com/campaignmanager/answer/6076504 for details.
+   * account statistics. See [Filtering invalid traffic to ensure
+   * quality](https://support.google.com/campaignmanager/answer/6076504).
    *
    * @var string
    */
@@ -830,9 +833,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * sold value of $3, the shirt has a cost of goods sold value of $5. The lead
    * cost of goods sold for this order is $3. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @var string
    */
@@ -851,9 +854,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * goods sold value of $3. The lead gross profit of this order is $7 = $10 -
    * $3. This metric is only available if you report conversions with cart data.
    * This metric is a monetary value and returned in the customer's currency by
-   * default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -871,9 +874,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * The hat is priced $10 and the shirt is priced $20. The lead revenue of this
    * order is $10. This metric is only available if you report conversions with
    * cart data. This metric is a monetary value and returned in the customer's
-   * currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * currency by default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @var string
    */
@@ -931,9 +934,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   public $revenueMicros;
   /**
    * The percentage of the customer's Shopping or Search ad impressions that are
-   * shown in the most prominent Shopping position. See
-   * https://support.google.com/sa360/answer/9566729 for details. Any value
-   * below 0.1 is reported as 0.0999.
+   * shown in the most prominent Shopping position. See [About top and absolute
+   * top metrics](https://support.google.com/sa360/answer/9566729) for details.
+   * Any value below 0.1 is reported as 0.0999.
    *
    * @var 
    */
@@ -957,7 +960,7 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    */
   public $searchBudgetLostImpressionShare;
   /**
-   * The number estimating how often your ad didn't show adjacent to the top
+   * The estimated percent of times that your ad didn't show adjacent to the top
    * organic search results due to a low budget. Note: Search budget lost top
    * impression share is reported in the range of 0 to 0.9. Any value above 0.9
    * is reported as 0.9001.
@@ -1069,8 +1072,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The value of all conversions divided by the number of all conversions. When
    * this column is selected with date, the values in date column means the
-   * conversion date. Details for the by_conversion_date columns are available
-   * at https://support.google.com/sa360/answer/9250611.
+   * conversion date. Details for the `by_conversion_date` columns are available
+   * at [About the "All conversions"
+   * column](https://support.google.com/sa360/answer/9250611).
    *
    * @var 
    */
@@ -1337,8 +1341,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * cross-sell cost of goods sold for this order is $5. This metric is only
    * available if you report conversions with cart data. This metric is a
    * monetary value and returned in the customer's currency by default. See the
-   * metrics_currency parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $clientAccountCrossSellCostOfGoodsSoldMicros
    */
@@ -1368,9 +1373,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * of $5. The cross-sell gross profit of this order is $15 = $20 - $5. This
    * metric is only available if you report conversions with cart data. This
    * metric is a monetary value and returned in the customer's currency by
-   * default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $clientAccountCrossSellGrossProfitMicros
    */
@@ -1399,8 +1404,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * is priced $20. The cross-sell revenue of this order is $20. This metric is
    * only available if you report conversions with cart data. This metric is a
    * monetary value and returned in the customer's currency by default. See the
-   * metrics_currency parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $clientAccountCrossSellRevenueMicros
    */
@@ -1436,9 +1442,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * sold value of $3, the shirt has a cost of goods sold value of $5. The lead
    * cost of goods sold for this order is $3. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $clientAccountLeadCostOfGoodsSoldMicros
    */
@@ -1467,9 +1473,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * has a cost of goods sold value of $3. The lead gross profit of this order
    * is $7 = $10 - $3. This metric is only available if you report conversions
    * with cart data. This metric is a monetary value and returned in the
-   * customer's currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * customer's currency by default. See the `metrics_currency` parameter at
+   * [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $clientAccountLeadGrossProfitMicros
    */
@@ -1497,9 +1503,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * The hat is priced $10 and the shirt is priced $20. The lead revenue of this
    * order is $10. This metric is only available if you report conversions with
    * cart data. This metric is a monetary value and returned in the customer's
-   * currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * currency by default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $clientAccountLeadRevenueMicros
    */
@@ -1639,9 +1645,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
   /**
    * The sum of your cost-per-click (CPC) and cost-per-thousand impressions
    * (CPM) costs during this period. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause) for more details.
    *
    * @param string $costMicros
    */
@@ -1751,9 +1757,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * shirt has a cost of goods sold value of $5. The cross-sell cost of goods
    * sold for this order is $5. This metric is only available if you report
    * conversions with cart data. This metric is a monetary value and returned in
-   * the customer's currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * the customer's currency by default. See the `metrics_currency` parameter at
+   * [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $crossSellCostOfGoodsSoldMicros
    */
@@ -1782,9 +1788,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * priced $20 and has a cost of goods sold value of $5. The cross-sell gross
    * profit of this order is $15 = $20 - $5. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $crossSellGrossProfitMicros
    */
@@ -1812,9 +1818,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * hat and a shirt. The hat is priced $10 and the shirt is priced $20. The
    * cross-sell revenue of this order is $20. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $crossSellRevenueMicros
    */
@@ -1858,8 +1864,8 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * that are detected through routine means of filtration (such as known
    * invalid data-center traffic, bots and spiders or other crawlers, irregular
    * patterns, etc.). You're not charged for them, and they don't affect your
-   * account statistics. See the help page at
-   * https://support.google.com/campaignmanager/answer/6076504 for details.
+   * account statistics. See [Filtering invalid traffic to ensure
+   * quality](https://support.google.com/campaignmanager/answer/6076504).
    *
    * @param string $generalInvalidClicks
    */
@@ -2077,9 +2083,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * sold value of $3, the shirt has a cost of goods sold value of $5. The lead
    * cost of goods sold for this order is $3. This metric is only available if
    * you report conversions with cart data. This metric is a monetary value and
-   * returned in the customer's currency by default. See the metrics_currency
-   * parameter at https://developers.google.com/search-
-   * ads/reporting/query/query-structure#parameters_clause
+   * returned in the customer's currency by default. See the `metrics_currency`
+   * parameter at [PARAMETERS clause](https://developers.google.com/search-
+   * ads/reporting/query/query-structure#parameters_clause).
    *
    * @param string $leadCostOfGoodsSoldMicros
    */
@@ -2108,9 +2114,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * goods sold value of $3. The lead gross profit of this order is $7 = $10 -
    * $3. This metric is only available if you report conversions with cart data.
    * This metric is a monetary value and returned in the customer's currency by
-   * default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $leadGrossProfitMicros
    */
@@ -2138,9 +2144,9 @@ class GoogleAdsSearchads360V23CommonMetrics extends \Google\Collection
    * The hat is priced $10 and the shirt is priced $20. The lead revenue of this
    * order is $10. This metric is only available if you report conversions with
    * cart data. This metric is a monetary value and returned in the customer's
-   * currency by default. See the metrics_currency parameter at
-   * https://developers.google.com/search-ads/reporting/query/query-
-   * structure#parameters_clause
+   * currency by default. See the `metrics_currency` parameter at [PARAMETERS
+   * clause](https://developers.google.com/search-ads/reporting/query/query-
+   * structure#parameters_clause).
    *
    * @param string $leadRevenueMicros
    */

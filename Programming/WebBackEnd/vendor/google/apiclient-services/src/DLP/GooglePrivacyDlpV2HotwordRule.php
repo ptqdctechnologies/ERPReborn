@@ -68,8 +68,8 @@ class GooglePrivacyDlpV2HotwordRule extends \Google\Model
    * regex "\(xxx\)", where "xxx" is the area code in question. For tabular
    * data, if you want to modify the likelihood of an entire column of findngs,
    * see [Hotword example: Set the match likelihood of a table column]
-   * (https://cloud.google.com/sensitive-data-protection/docs/creating-custom-
-   * infotypes-likelihood#match-column-values).
+   * (https://docs.cloud.google.com/sensitive-data-protection/docs/creating-
+   * custom-infotypes-likelihood#match-column-values).
    *
    * @param GooglePrivacyDlpV2Proximity $proximity
    */

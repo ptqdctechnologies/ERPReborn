@@ -41,9 +41,7 @@ class GoogleFirebaseFcmDataV1beta1DeliveryPerformancePercents extends \Google\Mo
    * The percentage of accepted messages that were delayed due to message
    * throttling, such as [collapsible message
    * throttling](https://firebase.google.com/docs/cloud-messaging/concept-
-   * options#collapsible_throttling) or [maximum message rate
-   * throttling](https://firebase.google.com/docs/cloud-messaging/concept-
-   * options#device_throttling).
+   * options#collapsible_throttling).
    *
    * @var float
    */
@@ -108,9 +106,7 @@ class GoogleFirebaseFcmDataV1beta1DeliveryPerformancePercents extends \Google\Mo
    * The percentage of accepted messages that were delayed due to message
    * throttling, such as [collapsible message
    * throttling](https://firebase.google.com/docs/cloud-messaging/concept-
-   * options#collapsible_throttling) or [maximum message rate
-   * throttling](https://firebase.google.com/docs/cloud-messaging/concept-
-   * options#device_throttling).
+   * options#collapsible_throttling).
    *
    * @param float $delayedMessageThrottled
    */

@@ -71,7 +71,9 @@ class GoogleAdsSearchads360V23ResourcesExperimentArm extends \Google\Collection
   public $trafficSplit;
 
   /**
-   * List of asset groups in the experiment arm.
+   * List of asset groups in the experiment arm. The max length is one. In the
+   * Optimize Assets experiment construction, the control arm and treatment arm
+   * should both contain the same asset group ID.
    *
    * @param GoogleAdsSearchads360V23ResourcesExperimentArmAssetGroupInfo[] $assetGroups
    */

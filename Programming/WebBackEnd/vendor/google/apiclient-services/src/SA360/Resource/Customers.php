@@ -60,6 +60,12 @@ use Google\Service\SA360\GoogleAdsSearchads360V23ServicesSuggestSmartCampaignBud
 use Google\Service\SA360\GoogleAdsSearchads360V23ServicesSuggestSmartCampaignBudgetOptionsResponse;
 use Google\Service\SA360\GoogleAdsSearchads360V23ServicesSuggestTravelAssetsRequest;
 use Google\Service\SA360\GoogleAdsSearchads360V23ServicesSuggestTravelAssetsResponse;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadCallConversionsRequest;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadCallConversionsResponse;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadClickConversionsRequest;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadClickConversionsResponse;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsRequest;
+use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsResponse;
 use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadUserDataRequest;
 use Google\Service\SA360\GoogleAdsSearchads360V23ServicesUploadUserDataResponse;
 use Google\Service\SA360\GoogleProtobufEmpty;
@@ -500,6 +506,63 @@ class Customers extends \Google\Service\Resource
     $params = ['customerId' => $customerId, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('suggestTravelAssets', [$params], GoogleAdsSearchads360V23ServicesSuggestTravelAssetsResponse::class);
+  }
+  /**
+   * Processes the given call conversions. List of thrown errors:
+   * [AuthenticationError]() [AuthorizationError]() [HeaderError]()
+   * [InternalError]() [PartialFailureError]() [QuotaError]() [RequestError]()
+   * (customers.uploadCallConversions)
+   *
+   * @param string $customerId Required. The ID of the customer performing the
+   * upload.
+   * @param GoogleAdsSearchads360V23ServicesUploadCallConversionsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleAdsSearchads360V23ServicesUploadCallConversionsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function uploadCallConversions($customerId, GoogleAdsSearchads360V23ServicesUploadCallConversionsRequest $postBody, $optParams = [])
+  {
+    $params = ['customerId' => $customerId, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('uploadCallConversions', [$params], GoogleAdsSearchads360V23ServicesUploadCallConversionsResponse::class);
+  }
+  /**
+   * Processes the given click conversions. List of thrown errors:
+   * [AuthenticationError]() [AuthorizationError]() [ConversionUploadError]()
+   * [HeaderError]() [InternalError]() [PartialFailureError]() [QuotaError]()
+   * [RequestError]() (customers.uploadClickConversions)
+   *
+   * @param string $customerId Required. The ID of the customer performing the
+   * upload.
+   * @param GoogleAdsSearchads360V23ServicesUploadClickConversionsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleAdsSearchads360V23ServicesUploadClickConversionsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function uploadClickConversions($customerId, GoogleAdsSearchads360V23ServicesUploadClickConversionsRequest $postBody, $optParams = [])
+  {
+    $params = ['customerId' => $customerId, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('uploadClickConversions', [$params], GoogleAdsSearchads360V23ServicesUploadClickConversionsResponse::class);
+  }
+  /**
+   * Processes the given conversion adjustments. List of thrown errors:
+   * [AuthenticationError]() [AuthorizationError]() [HeaderError]()
+   * [InternalError]() [PartialFailureError]() [QuotaError]() [RequestError]()
+   * (customers.uploadConversionAdjustments)
+   *
+   * @param string $customerId Required. The ID of the customer performing the
+   * upload.
+   * @param GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function uploadConversionAdjustments($customerId, GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsRequest $postBody, $optParams = [])
+  {
+    $params = ['customerId' => $customerId, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('uploadConversionAdjustments', [$params], GoogleAdsSearchads360V23ServicesUploadConversionAdjustmentsResponse::class);
   }
   /**
    * Uploads the given user data. List of thrown errors: [AuthenticationError]()

@@ -2368,6 +2368,20 @@ class GoogleAdsSearchads360V23ErrorsErrorCode extends \Google\Model
    */
   public const AUTHORIZATION_ERROR_ACTION_NOT_PERMITTED_FOR_SUSPENDED_ACCOUNT = 'ACTION_NOT_PERMITTED_FOR_SUSPENDED_ACCOUNT';
   /**
+   * The user does not have permission to perform mutates on accounts that are
+   * not owned by Search Ads 360.
+   */
+  public const AUTHORIZATION_ERROR_SEARCH_ADS360_OTHER_ENGINE_MUTATE_DENIED = 'SEARCH_ADS360_OTHER_ENGINE_MUTATE_DENIED';
+  /**
+   * This account does not have permission to perform mutates using the Search
+   * Ads 360 API.
+   */
+  public const AUTHORIZATION_ERROR_SEARCH_ADS360_MUTATE_ALLOWLIST_DENIED = 'SEARCH_ADS360_MUTATE_ALLOWLIST_DENIED';
+  /**
+   * This field is not allowed for mutates.
+   */
+  public const AUTHORIZATION_ERROR_SEARCH_ADS360_MUTATE_FIELD_DENIED = 'SEARCH_ADS360_MUTATE_FIELD_DENIED';
+  /**
    * Enum unspecified.
    */
   public const AUTOMATICALLY_CREATED_ASSET_REMOVAL_ERROR_UNSPECIFIED = 'UNSPECIFIED';
@@ -5824,6 +5838,12 @@ class GoogleAdsSearchads360V23ErrorsErrorCode extends \Google\Model
    * Trying to change start date on a resource that has started.
    */
   public const DATE_RANGE_ERROR_CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED = 'CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED';
+  /**
+   * The requested time granularity is not supported for the date range in the
+   * query. Metrics with daily, hourly, or weekly segmentation are only
+   * available for the last 37 months.
+   */
+  public const DATE_RANGE_ERROR_REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED = 'REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED';
   /**
    * Enum unspecified.
    */
@@ -12463,7 +12483,9 @@ class GoogleAdsSearchads360V23ErrorsErrorCode extends \Google\Model
    * INVALID_LOGIN_CUSTOMER_ID_SERVING_CUSTOMER_ID_COMBINATION,
    * SERVICE_ACCESS_DENIED, ACCESS_DENIED_FOR_ACCOUNT_TYPE,
    * METRIC_ACCESS_DENIED, CLOUD_PROJECT_NOT_UNDER_ORGANIZATION,
-   * ACTION_NOT_PERMITTED_FOR_SUSPENDED_ACCOUNT
+   * ACTION_NOT_PERMITTED_FOR_SUSPENDED_ACCOUNT,
+   * SEARCH_ADS360_OTHER_ENGINE_MUTATE_DENIED,
+   * SEARCH_ADS360_MUTATE_ALLOWLIST_DENIED, SEARCH_ADS360_MUTATE_FIELD_DENIED
    *
    * @param self::AUTHORIZATION_ERROR_* $authorizationError
    */
@@ -13809,7 +13831,8 @@ class GoogleAdsSearchads360V23ErrorsErrorCode extends \Google\Model
    *
    * Accepted values: UNSPECIFIED, UNKNOWN, INVALID_DATE,
    * START_DATE_AFTER_END_DATE, CANNOT_SET_DATE_TO_PAST,
-   * AFTER_MAXIMUM_ALLOWABLE_DATE, CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED
+   * AFTER_MAXIMUM_ALLOWABLE_DATE, CANNOT_MODIFY_START_DATE_IF_ALREADY_STARTED,
+   * REQUESTED_DATE_GRANULARITY_NOT_SUPPORTED
    *
    * @param self::DATE_RANGE_ERROR_* $dateRangeError
    */

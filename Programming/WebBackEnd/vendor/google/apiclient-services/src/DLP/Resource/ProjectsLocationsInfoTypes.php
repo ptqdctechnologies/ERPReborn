@@ -31,7 +31,7 @@ class ProjectsLocationsInfoTypes extends \Google\Service\Resource
 {
   /**
    * Returns a list of the sensitive information types that the DLP API supports.
-   * See https://cloud.google.com/sensitive-data-protection/docs/infotypes-
+   * See https://docs.cloud.google.com/sensitive-data-protection/docs/infotypes-
    * reference to learn more. (infoTypes.listProjectsLocationsInfoTypes)
    *
    * @param string $parent The parent resource name. The format of this value is

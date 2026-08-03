@@ -40,6 +40,13 @@ class GoogleCloudAiplatformV1FunctionResponse extends \Google\Collection
   public const SCHEDULING_INTERRUPT = 'INTERRUPT';
   protected $collection_key = 'parts';
   /**
+   * Optional. The id of the function call this response is for. Populated by
+   * the client to match the corresponding function call `id`.
+   *
+   * @var string
+   */
+  public $id;
+  /**
    * Required. The name of the function to call. Matches
    * FunctionDeclaration.name and FunctionCall.name.
    *
@@ -66,6 +73,23 @@ class GoogleCloudAiplatformV1FunctionResponse extends \Google\Collection
    */
   public $scheduling;
 
+  /**
+   * Optional. The id of the function call this response is for. Populated by
+   * the client to match the corresponding function call `id`.
+   *
+   * @param string $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
+  }
   /**
    * Required. The name of the function to call. Matches
    * FunctionDeclaration.name and FunctionCall.name.

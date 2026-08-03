@@ -29,6 +29,8 @@ class GoogleCloudAiplatformV1GoogleMaps extends \Google\Model
    * @var bool
    */
   public $enableWidget;
+  protected $groundingTypesType = GoogleCloudAiplatformV1GoogleMapsGroundingTypes::class;
+  protected $groundingTypesDataType = '';
 
   /**
    * Optional. Deprecated: The Google Maps contextual widget behavior in
@@ -50,6 +52,23 @@ class GoogleCloudAiplatformV1GoogleMaps extends \Google\Model
   public function getEnableWidget()
   {
     return $this->enableWidget;
+  }
+  /**
+   * Optional. Specifies the types of Google Maps grounding to enable. Defaults
+   * to `places` when unset.
+   *
+   * @param GoogleCloudAiplatformV1GoogleMapsGroundingTypes $groundingTypes
+   */
+  public function setGroundingTypes(GoogleCloudAiplatformV1GoogleMapsGroundingTypes $groundingTypes)
+  {
+    $this->groundingTypes = $groundingTypes;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1GoogleMapsGroundingTypes
+   */
+  public function getGroundingTypes()
+  {
+    return $this->groundingTypes;
   }
 }
 

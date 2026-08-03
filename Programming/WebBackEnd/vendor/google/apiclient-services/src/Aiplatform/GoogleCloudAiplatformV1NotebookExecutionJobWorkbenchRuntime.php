@@ -19,6 +19,44 @@ namespace Google\Service\Aiplatform;
 
 class GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntime extends \Google\Model
 {
+  protected $customContainerImageType = GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeContainerImage::class;
+  protected $customContainerImageDataType = '';
+  protected $vmImageType = GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeVmImage::class;
+  protected $vmImageDataType = '';
+
+  /**
+   * A user-provided container image. The notebook executes inside this
+   * container on a managed container-host (COS) VM.
+   *
+   * @param GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeContainerImage $customContainerImage
+   */
+  public function setCustomContainerImage(GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeContainerImage $customContainerImage)
+  {
+    $this->customContainerImage = $customContainerImage;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeContainerImage
+   */
+  public function getCustomContainerImage()
+  {
+    return $this->customContainerImage;
+  }
+  /**
+   * A specific Compute Engine VM image to run the notebook on.
+   *
+   * @param GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeVmImage $vmImage
+   */
+  public function setVmImage(GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeVmImage $vmImage)
+  {
+    $this->vmImage = $vmImage;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1NotebookExecutionJobWorkbenchRuntimeVmImage
+   */
+  public function getVmImage()
+  {
+    return $this->vmImage;
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

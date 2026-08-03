@@ -19,6 +19,8 @@ namespace Google\Service\DataManager\Resource;
 
 use Google\Service\DataManager\IngestAudienceMembersRequest;
 use Google\Service\DataManager\IngestAudienceMembersResponse;
+use Google\Service\DataManager\RemoveAllAudienceMembersRequest;
+use Google\Service\DataManager\RemoveAllAudienceMembersResponse;
 use Google\Service\DataManager\RemoveAudienceMembersRequest;
 use Google\Service\DataManager\RemoveAudienceMembersResponse;
 
@@ -61,6 +63,21 @@ class AudienceMembers extends \Google\Service\Resource
     $params = ['postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('remove', [$params], RemoveAudienceMembersResponse::class);
+  }
+  /**
+   * Removes all audience members from the provided destinations.
+   * (audienceMembers.removeAll)
+   *
+   * @param RemoveAllAudienceMembersRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return RemoveAllAudienceMembersResponse
+   * @throws \Google\Service\Exception
+   */
+  public function removeAll(RemoveAllAudienceMembersRequest $postBody, $optParams = [])
+  {
+    $params = ['postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('removeAll', [$params], RemoveAllAudienceMembersResponse::class);
   }
 }
 

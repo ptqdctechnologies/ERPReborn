@@ -20,9 +20,9 @@ namespace Google\Service\Firebaseappcheck;
 class GoogleFirebaseAppcheckV1PlayIntegrityConfigDeviceIntegrity extends \Google\Model
 {
   /**
-   * Default value. Do not specify this value directly. When this default value
-   * is detected in a configuration, the `NO_INTEGRITY` default level takes
-   * effect.
+   * Default value. Do not specify this value directly. If this value is
+   * detected in a configuration, it will have the same effect as the value
+   * `NO_INTEGRITY`.
    */
   public const MIN_DEVICE_RECOGNITION_LEVEL_DEVICE_RECOGNITION_LEVEL_UNSPECIFIED = 'DEVICE_RECOGNITION_LEVEL_UNSPECIFIED';
   /**

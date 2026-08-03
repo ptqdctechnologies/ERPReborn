@@ -825,6 +825,10 @@ class Gmail extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'chainValidation' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'disable' => [
               'path' => 'gmail/v1/users/{userId}/settings/cse/keypairs/{keyPairId}:disable',

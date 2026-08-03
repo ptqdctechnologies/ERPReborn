@@ -54,7 +54,7 @@ class GooglePrivacyDlpV2Action extends \Google\Model
   }
   /**
    * Sends an email when the job completes. The email goes to IAM project owners
-   * and technical [Essential Contacts](https://cloud.google.com/resource-
+   * and technical [Essential Contacts](https://docs.cloud.google.com/resource-
    * manager/docs/managing-notification-contacts).
    *
    * @param GooglePrivacyDlpV2JobNotificationEmails $jobNotificationEmails

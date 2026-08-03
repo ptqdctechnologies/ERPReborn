@@ -56,6 +56,13 @@ class OnPremisesConfiguration extends \Google\Collection
    */
   public $clientKey;
   /**
+   * Output only. Indicates whether the resource is managed by Database
+   * Migration Service.
+   *
+   * @var bool
+   */
+  public $dmsManaged;
+  /**
    * The dump file to create the Cloud SQL replica.
    *
    * @var string
@@ -144,6 +151,23 @@ class OnPremisesConfiguration extends \Google\Collection
   public function getClientKey()
   {
     return $this->clientKey;
+  }
+  /**
+   * Output only. Indicates whether the resource is managed by Database
+   * Migration Service.
+   *
+   * @param bool $dmsManaged
+   */
+  public function setDmsManaged($dmsManaged)
+  {
+    $this->dmsManaged = $dmsManaged;
+  }
+  /**
+   * @return bool
+   */
+  public function getDmsManaged()
+  {
+    return $this->dmsManaged;
   }
   /**
    * The dump file to create the Cloud SQL replica.

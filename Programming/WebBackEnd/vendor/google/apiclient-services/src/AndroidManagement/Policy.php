@@ -485,6 +485,8 @@ class Policy extends \Google\Collection
    * @var bool
    */
   public $credentialsConfigDisabled;
+  protected $crossDevicePoliciesType = CrossDevicePolicies::class;
+  protected $crossDevicePoliciesDataType = '';
   protected $crossProfilePoliciesType = CrossProfilePolicies::class;
   protected $crossProfilePoliciesDataType = '';
   /**
@@ -1388,6 +1390,22 @@ class Policy extends \Google\Collection
   public function getCredentialsConfigDisabled()
   {
     return $this->credentialsConfigDisabled;
+  }
+  /**
+   * Optional. Policies controlling cross-device communication.
+   *
+   * @param CrossDevicePolicies $crossDevicePolicies
+   */
+  public function setCrossDevicePolicies(CrossDevicePolicies $crossDevicePolicies)
+  {
+    $this->crossDevicePolicies = $crossDevicePolicies;
+  }
+  /**
+   * @return CrossDevicePolicies
+   */
+  public function getCrossDevicePolicies()
+  {
+    return $this->crossDevicePolicies;
   }
   /**
    * Cross-profile policies applied on the device.

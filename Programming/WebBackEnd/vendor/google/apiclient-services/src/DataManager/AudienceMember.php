@@ -30,10 +30,14 @@ class AudienceMember extends \Google\Collection
    * @var string[]
    */
   public $destinationReferences;
+  protected $googleUserIdDataType = GoogleUserIdData::class;
+  protected $googleUserIdDataDataType = '';
   protected $mobileDataType = MobileData::class;
   protected $mobileDataDataType = '';
   protected $pairDataType = PairData::class;
   protected $pairDataDataType = '';
+  protected $partnerProvidedIdDataType = PartnerProvidedIdData::class;
+  protected $partnerProvidedIdDataDataType = '';
   protected $ppidDataType = PpidData::class;
   protected $ppidDataDataType = '';
   protected $userDataType = UserData::class;
@@ -90,6 +94,22 @@ class AudienceMember extends \Google\Collection
     return $this->destinationReferences;
   }
   /**
+   * Encrypted Google User IDs.
+   *
+   * @param GoogleUserIdData $googleUserIdData
+   */
+  public function setGoogleUserIdData(GoogleUserIdData $googleUserIdData)
+  {
+    $this->googleUserIdData = $googleUserIdData;
+  }
+  /**
+   * @return GoogleUserIdData
+   */
+  public function getGoogleUserIdData()
+  {
+    return $this->googleUserIdData;
+  }
+  /**
    * Data identifying the user's mobile devices.
    *
    * @param MobileData $mobileData
@@ -122,6 +142,22 @@ class AudienceMember extends \Google\Collection
   public function getPairData()
   {
     return $this->pairData;
+  }
+  /**
+   * Partner-provided identifiers.
+   *
+   * @param PartnerProvidedIdData $partnerProvidedIdData
+   */
+  public function setPartnerProvidedIdData(PartnerProvidedIdData $partnerProvidedIdData)
+  {
+    $this->partnerProvidedIdData = $partnerProvidedIdData;
+  }
+  /**
+   * @return PartnerProvidedIdData
+   */
+  public function getPartnerProvidedIdData()
+  {
+    return $this->partnerProvidedIdData;
   }
   /**
    * Data related to publisher provided identifiers. This feature is only

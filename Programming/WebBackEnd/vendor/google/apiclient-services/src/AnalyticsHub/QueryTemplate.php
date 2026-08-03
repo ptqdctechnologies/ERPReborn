@@ -84,9 +84,10 @@ class QueryTemplate extends \Google\Model
    */
   public $primaryContact;
   /**
-   * Optional. Will be deprecated. Email or URL of the primary point of contact
-   * of the QueryTemplate. Max Length: 1000 bytes.
+   * Optional. Deprecated: Use `primary_contact` instead. Email or URL of the
+   * primary point of contact of the QueryTemplate. Max Length: 1000 bytes.
    *
+   * @deprecated
    * @var string
    */
   public $proposer;
@@ -210,9 +211,10 @@ class QueryTemplate extends \Google\Model
     return $this->primaryContact;
   }
   /**
-   * Optional. Will be deprecated. Email or URL of the primary point of contact
-   * of the QueryTemplate. Max Length: 1000 bytes.
+   * Optional. Deprecated: Use `primary_contact` instead. Email or URL of the
+   * primary point of contact of the QueryTemplate. Max Length: 1000 bytes.
    *
+   * @deprecated
    * @param string $proposer
    */
   public function setProposer($proposer)
@@ -220,6 +222,7 @@ class QueryTemplate extends \Google\Model
     $this->proposer = $proposer;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getProposer()

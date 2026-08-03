@@ -1025,6 +1025,10 @@ class SQLAdmin extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'location' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'get' => [
               'path' => 'v1/projects/{project}/operations/{operation}',
@@ -1040,6 +1044,10 @@ class SQLAdmin extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'location' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'list' => [
               'path' => 'v1/projects/{project}/operations',
@@ -1051,6 +1059,10 @@ class SQLAdmin extends \Google\Service
                   'required' => true,
                 ],
                 'instance' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'location' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],
@@ -1414,6 +1426,15 @@ class SQLAdmin extends \Google\Service
                 'revokeExistingRoles' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'revokeExistingServerRoles' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+                'serverRoles' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ],
               ],
             ],
