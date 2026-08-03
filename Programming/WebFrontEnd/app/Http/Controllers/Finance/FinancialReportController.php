@@ -240,4 +240,9 @@ class FinancialReportController extends Controller
     {
         return view('Accounting.GeneralJournal.Reports.ReportBalanceSheet');
     }
+
+    public function ReportProfitLoss()
+    {
+        return view('Accounting.GeneralJournal.Reports.ReportProfitLoss');
+    }
 }
