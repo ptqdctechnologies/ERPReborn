@@ -35,6 +35,24 @@ class WorkController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $response = $this->workService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Store Work => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => '-',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Work Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function revision(Request $request)

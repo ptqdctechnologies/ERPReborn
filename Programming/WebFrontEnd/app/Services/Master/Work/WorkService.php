@@ -10,6 +10,20 @@ class WorkService
 {
     public function create($request)
     {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.create.master.setWorkStructure',
+            'latest',
+            [
+                'entities' => [
+                    "code" => $request->work_code,
+                    "name" => $request->work_name
+                ]
+            ]
+        );
     }
 
     public function revision($request, $id)
