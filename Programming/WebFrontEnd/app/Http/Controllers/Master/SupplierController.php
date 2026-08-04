@@ -97,7 +97,7 @@ class SupplierController extends Controller
                 ],
             ];
 
-            dump($details);
+            // dump($details);
 
             return view('Master.Supplier.Transactions.RevisionSupplier', $compact);
         } catch (\Throwable $th) {
