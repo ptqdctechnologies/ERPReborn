@@ -2143,6 +2143,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
                         $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
                         $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
+                        $varReturn['data'][$idxArray]['totalTransactions'] = $value["TotalTransactions"];
+                        $varReturn['data'][$idxArray]['totalPayment'] = $value["TotalPayment"];
                         $idxArray++;
                     }
 
