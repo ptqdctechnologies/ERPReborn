@@ -58,6 +58,7 @@ class WorkController extends Controller
     public function revision(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
+        $workRefID = $request->input('modal_work_id');
 
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -77,21 +78,27 @@ class WorkController extends Controller
 
     public function picklist(Request $request)
     {
-        $start = $request->input('start', 0);
-        $length = $request->input('length', 10);
-        $offset = floor($start / $length) + 1;
-        $limit = $length;
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
 
+        $formatLimit = $length > 0 ? $length : null;
+
+        $offset = $formatLimit
+            ? (int) floor($start / $formatLimit) + 1
+            : 1;
+
+        $code = $request->input('work_code');
+        $name = $request->input('work_name');
         $searchValue = $request->input('search.value');
 
         $formatted = [
             'pagination' => [
-                'pageSize' => (int) $limit,
+                'pageSize' => $formatLimit,
                 'pageShow' => (int) $offset
             ],
             'dataFilter' => [
-                'name' => NULL,
-                'code' => $searchValue
+                'name' => $name,
+                'code' => $code
             ],
         ];
 

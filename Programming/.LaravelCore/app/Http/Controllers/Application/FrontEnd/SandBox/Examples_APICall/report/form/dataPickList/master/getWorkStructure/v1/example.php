@@ -46,7 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     [
                         'parameter' => [
                             'pagination' => [
-                                'pageSize' => 10,
+                                'pageSize' => 10, // => NULL for show all data
                                 'pageShow' => 1
                             ],
                             'dataFilter' => [
