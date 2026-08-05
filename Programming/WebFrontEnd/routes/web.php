@@ -28,7 +28,7 @@ $varUserSession =
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
 
 $varAPIWebToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzg1NDgyNjEyfQ.ZjU0MTA0OTIwMjVjYzk0NWY1YWU0ZGEzNjhjZjc1MzYwZTM1OWUyNzY2ZGM0NGY0NmZlZjdiODEzYTVmNDg3Ng';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dnZWRJbkFzIjoid2lzbnUudHJlbmdnb25vIiwiaWF0IjoxNzg1NzI0ODQ2fQ.NjJiODMxZGQwODFiOGY5NzFkOTBlMWJlYTBiNDBiNDY4YTA0YmU0ZGRkYmU3MmEwNDg2Mzc3ZTE3YjUxNTcyZg';
 
 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_LaravelRoute::setDynamicRoute_Examples_APICall(
     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -111,6 +111,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // WORK
     Route::post('Work/revision', 'Master\WorkController@revision')->name('Work.revision');
+    Route::get('Work/picklist', 'Master\WorkController@picklist')->name('Work.picklist');
     Route::resource('Work', 'Master\WorkController');
 
     // APPROVAL DOCUMENT
@@ -248,7 +249,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
     Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
     Route::get('getAssetCategory', 'Function\FunctionController@getAssetCategory')->name('getAssetCategory');
-    Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
     Route::get('getInstitutionBankAccount', 'Function\FunctionController@getInstitutionBankAccount')->name('getInstitutionBankAccount');
     Route::get('getDepreciationMethod', 'Function\FunctionController@getDepreciationMethod')->name('getDepreciationMethod');
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');

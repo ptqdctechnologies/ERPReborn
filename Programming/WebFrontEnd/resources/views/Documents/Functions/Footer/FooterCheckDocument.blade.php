@@ -25,65 +25,110 @@
     }
 
     function getListDocumentType(params) {
-        var keys = 0;
-        var DocumentTypeID = params.value;
-        var selectedOption = $(params).find('option:selected');
-        var DocumentTypeName = selectedOption.data('name');
+        let DocumentTypeID = params.value;
+        let selectedOption = $(params).find('option:selected');
+        let DocumentTypeName = selectedOption.data('name');
 
-        $('#TableCheckDocument tbody').empty();
-        $(".loadingGetCheckDocument").show();
-        $(".errorModalCheckDocumentMessageContainerSecond").hide();
-        $("#TableCheckDocument_length").hide();
-        $("#TableCheckDocument_filter").hide();
-        $("#TableCheckDocument_info").hide();
-        $("#TableCheckDocument_paginate").hide();
+        let table = $('#TableCheckDocument').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("CheckDocument.ShowDocumentListData") !!}',
+                type: 'GET',
+                data: function (d) {
+                    d.DocumentTypeID = DocumentTypeID;
+                    d.DocumentTypeName = DocumentTypeName;
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("CheckDocument.ShowDocumentListData") !!}?DocumentTypeID=' + DocumentTypeID + '&DocumentTypeName=' + DocumentTypeName,
-            success: function (data) {
-                $(".loadingGetCheckDocument").hide();
-
-                var no = 1;
-                var table = $('#TableCheckDocument').DataTable();
-                table.clear();
-
-                if (Array.isArray(data.data) && data.data.length > 0) {
-                    $.each(data.data, function (key, val) {
-                        keys += 1;
-                        table.row.add([
-                            '<input id="sys_id_check_document' + keys + '" value="' + val.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' + no++,
-                            '<input id="sys_document_type_name' + keys + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' + val.sys_Text || '-',
-                            '<input id="sys_id_combined_budget' + keys + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' + val.combinedBudgetCode || '-',
-                            '<input id="sys_id_document_type' + keys + '" value="' + val.combinedBudget_RefID + '" data-trigger="sys_id_document_type" type="hidden">' + val.combinedBudgetSectionCode || '-',
-                        ]).draw();
-                    });
-
-                    $("#TableCheckDocument_length").show();
-                    $("#TableCheckDocument_filter").show();
-                    $("#TableCheckDocument_info").show();
-                    $("#TableCheckDocument_paginate").show();
-                } else {
-                    $(".errorModalCheckDocumentMessageContainerSecond").show();
-                    $("#errorModalCheckDocumentMessageSecond").text(`Data not found.`);
-
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#TableCheckDocument tbody').empty();
+                    $(".loadingGetCheckDocument").show();
+                    $(".errorModalCheckDocumentMessageContainerSecond").hide();
                     $("#TableCheckDocument_length").hide();
                     $("#TableCheckDocument_filter").hide();
                     $("#TableCheckDocument_info").hide();
                     $("#TableCheckDocument_paginate").hide();
+                },
+                complete: function () {
+                    $(".loadingGetCheckDocument").hide();
+                    $("#TableCheckDocument_length").show();
+                    $("#TableCheckDocument_filter").show();
+                    $("#TableCheckDocument_info").show();
+                    $("#TableCheckDocument_paginate").show();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#loadingGetCheckDocument").hide();
                 }
             },
-            error: function (textStatus, errorThrown) {
-                $('#TableCheckDocument tbody').empty();
-                $(".loadingGetCheckDocument").hide();
-                $(".errorModalCheckDocumentMessageContainerSecond").show();
-                $("#errorModalCheckDocumentMessageSecond").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (
+                            '<input id="sys_id_check_document' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' +
+                            '<input id="sys_document_type_name' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' +
+                            '<input id="sys_id_combined_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' +
+                            '<input id="sys_id_document_type' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_document_type" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                        )
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        return `${data.additionalData.combinedBudgetCode || '-'}`
+                        // return `${data.additionalData.combinedBudgetCode} - ${data.additionalData.combinedBudgetName}`
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        return `${data.additionalData.combinedBudgetSectionCode || '-'}`
+                        // return `${data.additionalData.combinedBudgetSectionCode} - ${data.additionalData.combinedBudgetSectionName}`
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#TableCheckDocument_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintDocument').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintDocument" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
+
             }
         });
     }
@@ -108,10 +153,10 @@
                     });
 
                     $('#DocumentType').append('<option value="' + 67812345 + '" data-name="General Journal Form">General Journal Form</option>');
-                    $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
-                    $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
-                    $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
-                    $('#DocumentType').append('<option value="' + 78912345 + '" data-name="Product Form">Product Form</option>');
+                    // $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
+                    // $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
+                    // $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
+                    // $('#DocumentType').append('<option value="' + 78912345 + '" data-name="Product Form">Product Form</option>');
                     $('#DocumentType').append('<option value="' + 12345678 + '" data-name="Sallary Allocation Form">Sallary Allocation Form</option>');
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Supplier Form">Supplier Form</option>');
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Tax Recon Form">Tax Recon Form</option>');

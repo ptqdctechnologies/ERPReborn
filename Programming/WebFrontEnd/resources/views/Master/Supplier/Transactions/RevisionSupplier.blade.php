@@ -27,6 +27,8 @@
                 @include('Master.Supplier.Functions.Menu.MenuSupplier')
 
                 <form id="supplierForm">
+                    @csrf
+                    @method('PUT')
                     <div class="card">
                         <!-- MASTER SUPPLIER -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

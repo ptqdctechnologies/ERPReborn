@@ -10,7 +10,7 @@
                     <div class="input-group">
                         <input class="form-control" id="supplier_name" name="supplier_name" style="border-radius:0;"
                             autocomplete="off" value="<?= $headerSupplier['supplierName']; ?>"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="tax_id" name="tax_id"
                             style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['taxID']; ?>"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="phone_number" name="phone_number"
                             style="border-radius:0;" autocomplete="off" value="<?= $headerSupplier['phoneNumber']; ?>"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -54,7 +54,7 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="email" name="email" style="border-radius:0;" autocomplete="off"
-                            value="<?= $headerSupplier['email']; ?>" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            value="<?= $headerSupplier['email']; ?>" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -147,7 +147,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Address</label>
                 <div class="col-5">
                     <textarea id="address" name="address" cols="30" rows="4" class="form-control" autocomplete="off"
-                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>><?= $headerSupplier['address']; ?></textarea>
+                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>><?= $headerSupplier['address']; ?></textarea>
                 </div>
             </div>
             <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
@@ -164,22 +164,11 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Supplier Status</label>
                 <div class="col-5 d-flex" style="gap: 1rem;">
                     <div class="form-check d-flex align-items-center">
-                        <input
-                            class="form-check-input"
-                            type="radio"
-                            name="radioGroup"
-                            id="active"
-                            checked
-                        />
+                        <input class="form-check-input" type="radio" name="radioGroup" id="active" checked />
                         <label class="form-check-label" for="active">Active</label>
                     </div>
                     <div class="form-check d-flex align-items-center">
-                        <input
-                            class="form-check-input"
-                            type="radio"
-                            name="radioGroup"
-                            id="inactive"
-                        />
+                        <input class="form-check-input" type="radio" name="radioGroup" id="inactive" />
                         <label class="form-check-label" for="inactive">Inactive</label>
                     </div>
                     <!-- <div class="form-check form-switch" style="margin-bottom: 0rem; min-height: auto;">
@@ -197,8 +186,8 @@
                     Entity</label>
                 <div class="col-5">
                     <select class="form-control" id="legal_entity" name="legal_entity_value"
-                        style="border-radius:0;width: 100%;" type="text" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
-                        <option value="" disabled selected>Select a Legal Entity</option>
+                        style="border-radius:0;width: 100%;" type="text" <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
+                        <option value="" readonly selected>Select a Legal Entity</option>
                         <!-- <option value="PT (Perseroan Terbatas)">PT (Perseroan Terbatas)</option>
                         <option value="CV (Commanditaire Vennootschap)">CV (Commanditaire Vennootschap)</option>
                         <option value="Koperasi">Koperasi</option>
@@ -222,7 +211,7 @@
                     <div class="input-group">
                         <input class="form-control" id="contact_person" name="contact_person" style="border-radius:0;"
                             autocomplete="off" value="<?= $headerSupplier['contactPerson']; ?>"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -249,7 +238,8 @@
                         <div class="input-group">
                             <input id="bank_name" style="border-radius:0;" class="form-control" readonly
                                 value="<?= $headerSupplier['bankAcronym'] . ' - ' . $headerSupplier['bankName']; ?>">
-                            <input id="bank_id" style="border-radius:0;" class="form-control" name="bank_id" hidden>
+                            <input id="bank_id" style="border-radius:0;" class="form-control" name="bank_id"
+                                value="<?= $headerSupplier['bankRefID']; ?>" hidden>
                         </div>
                     </div>
                 </div>
@@ -267,7 +257,7 @@
                     <div class="input-group">
                         <input class="form-control number-without-characters" id="account_number" name="account_number"
                             value="<?= $headerSupplier['accountNumber']; ?>" style="border-radius:0;" autocomplete="off"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -284,7 +274,7 @@
                     <div class="input-group">
                         <input class="form-control" id="account_name" name="account_name"
                             value="<?= $headerSupplier['accountName']; ?>" style="border-radius:0;" autocomplete="off"
-                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>>
+                            <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>>
                     </div>
                 </div>
             </div>
@@ -298,7 +288,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Remark</label>
                 <div class="col-5">
                     <textarea id="remark" class="form-control" cols="30" rows="4" autocomplete="off" name="remark"
-                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'disabled' : '' ?>><?= $headerSupplier['remark']; ?></textarea>
+                        <?= $headerSupplier['status'] === 'FINAL APPROVED' ? 'readonly' : '' ?>><?= $headerSupplier['remark']; ?></textarea>
                 </div>
             </div>
             <div class="row" id="remarkMessage" style="margin-top: .3rem;display: none;">

@@ -1,70 +1,62 @@
-<div id="mySupplierRevision" class="modal fade" role="dialog" aria-hidden="true"
-    style="margin-top: 180px;margin-left:6px;">
-    <div class="modal-dialog modal-dialog-scrollable" role="document">
-        <div class="modal-content" style="width:90%;">
+<div class="modal fade" id="mySupplierRevision" tabindex="-1" aria-labelledby="mySupplierRevisionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
             <div class="modal-header">
-                <div class="modal-body">
-                    <span style="font-size: 15px;position:relative;left:35%;font-weight:bold;">
-                        SUPPLIER REVISION
-                    </span>
-                    <br><br><br>
-
-                    <div class="card" style="margin-left: 8%;">
-                        <div class="card-body">
-                            <div class="form-group">
-                                <table>
-                                    <tr>
-                                        <td>
-                                            <label>Revision Number&nbsp;</label>
-                                        </td>
-                                        <td>
-                                            <div class="input-group">
-                                                <form id="editForm" action="{{ route('Supplier.revision') }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    <input id="modal_supplier_id" style="border-radius:0;"
-                                                        name="modal_supplier_id" type="hidden" class="form-control">
-                                                </form>
-
-                                                <div class="input-group-append" style="cursor: pointer;">
-                                                    <span style="border-radius:0;" class="input-group-text form-control"
-                                                        id="modal_supplier_number_icon">
-                                                        <a data-toggle="modal" data-target="#mySuppliers">
-                                                            <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}"
-                                                                width="13" alt="">
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                                <input required="" id="modal_supplier_number" style="border-radius:0;"
-                                                    name="modal_supplier_number" type="text" class="form-control"
-                                                    required readonly>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
+                <h5 class="modal-title" id="mySupplierRevisionLabel"
+                    style="font-size: 15px; font-weight:bold; text-align: center;">
+                    SUPPLIER REVISION
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body d-flex justify-content-center">
+                <form id="editForm" method="POST" action="{{ route('Supplier.revision') }}">
+                    @csrf
+                    <div class="card mb-0" style="width: fit-content;">
+                        <div class="card-body d-flex align-items-center justify-content-center" style="gap: 1rem;">
+                            <label class="p-0 m-0">Revision Number</label>
+                            <div class="form-group d-flex">
+                                <div>
+                                    <span id="modal_supplier_number_icon" class="input-group-text form-control"
+                                        data-toggle="modal" data-target="#mySuppliers"
+                                        style="cursor:pointer; border-radius: 0;">
+                                        <i class="fas fa-gift"></i>
+                                    </span>
+                                </div>
+                                <div>
+                                    <input id="modal_supplier_number" class="form-control"
+                                        style="border-radius:0; background-color: white;" readonly />
+                                    <input id="modal_supplier_id" class="form-control" name="modal_supplier_id"
+                                        style="border-radius:0; background-color: white;" hidden />
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <a class="btn btn-sm btn-cancel" data-dismiss="modal"
-                        style="margin-left: 38%;background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel">
-                        Cancel
-                    </a>
-                    <a class="btn btn-sm btn-edit" style="background-color:#e9ecef;border:1px solid #ced4da;">
-                        <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit"> Edit
-                    </a>
-                </div>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn-cancel" class="btn btn-sm" data-dismiss="modal"
+                    style="background-color: #e9ecef; border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" title="Cancel" />
+                    Cancel
+                </button>
+                <button type="button" id="btn-edit" class="btn btn-sm"
+                    style="background-color:#e9ecef;border:1px solid #ced4da;">
+                    <img src="{{ asset('AdminLTE-master/dist/img/edit.png') }}" width="13" alt="" title="Edit" />
+                    Edit
+                </button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    $('.btn-edit').on('click', function () {
-        const loanRefID = $('#modal_supplier_id').val();
+    $('#btn-edit').on('click', function () {
+        const supplierRefIDs = $('#modal_supplier_id').val();
 
-        if (loanRefID) {
+        if (supplierRefIDs) {
             ShowLoading();
 
             $('#editForm').submit();
@@ -74,7 +66,7 @@
         }
     });
 
-    $('.btn-cancel').on('click', function () {
+    $('#btn-cancel').on('click', function () {
         $('#modal_supplier_id').val("");
         $('#modal_supplier_number').val("");
     });

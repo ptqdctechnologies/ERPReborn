@@ -2,6 +2,9 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCities')
+    @include('getFunction.getCountries')
+    @include('getFunction.getProvincies')
     @include('getFunction.getWarehouses')
     @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
@@ -69,5 +72,6 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.Warehouse.Functions.Footer.create')
     @include('Master.Warehouse.Functions.Footer.index')
 @endsection
