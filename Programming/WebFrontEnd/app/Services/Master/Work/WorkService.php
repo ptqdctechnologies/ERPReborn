@@ -34,8 +34,19 @@ class WorkService
     {
     }
 
-    public function picklist()
+    public function picklist($formatted)
     {
+        $sessionToken = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $sessionToken,
+            'report.form.dataPickList.master.getWorkStructure',
+            'latest',
+            [
+                'parameter' => $formatted
+            ]
+        );
     }
 
     public function summary($search, $limit = 10, $offset = 0)

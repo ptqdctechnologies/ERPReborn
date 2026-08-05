@@ -643,52 +643,82 @@
     }
 
     function getCustomWorks() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        let table = $('#tableWorks').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("Work.picklist") !!}',
+                type: 'GET',
+                data: function (d) {
+                    // d.combinedBudgetCode = combinedBudgetCode;
+                    // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#tableWorks tbody').empty();
+                    $("#loadingGetModalWorks").show();
+                },
+                complete: function () {
+                    $("#loadingGetModalWorks").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#loadingGetModalWorks").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_work" type="hidden">' + (meta.row + 1)
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.code
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#tableWorks_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintWork').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintWork" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getWorks") !!}',
-        })
-            .done(function (response) {
-                const data = response && response[0] ? response : [];
-                dataWorks = data;
-
-                $('#tableWorks').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_work' + (meta.row + 1) + '" value="' + data.id + '" data-trigger="sys_id_work" type="hidden">' + (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'code',
-                            defaultContent: '-',
-                            className: "align-middle"
-                        },
-                        {
-                            data: 'name',
-                            defaultContent: '-',
-                            className: "align-middle"
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingGetModalWorks").hide();
-            });
     }
 
     function getCustomUom() {
@@ -848,9 +878,9 @@
         if (dataRow) {
             $("#myWorks").modal('toggle');
 
-            const workRefID = dataRow.id;
-            const workCode = dataRow.code;
-            const workName = dataRow.name;
+            const workRefID = dataRow.sys_ID;
+            const workCode = dataRow.additionalData.code;
+            const workName = dataRow.sys_Text;
 
             $(`#work_RefID${indexWork}`).val(workRefID);
             $(`#work_name${indexWork}`).val(`${workCode ?? ''} - ${workName ?? ''}`);

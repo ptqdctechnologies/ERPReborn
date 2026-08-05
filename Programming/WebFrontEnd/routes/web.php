@@ -111,6 +111,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // WORK
     Route::post('Work/revision', 'Master\WorkController@revision')->name('Work.revision');
+    Route::get('Work/picklist', 'Master\WorkController@picklist')->name('Work.picklist');
     Route::resource('Work', 'Master\WorkController');
 
     // APPROVAL DOCUMENT
@@ -248,7 +249,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('getTransporter', 'Function\FunctionController@getTransporter')->name('getTransporter');
     Route::get('getListTransactionByDocumentTypeID', 'Function\FunctionController@getListTransactionByDocumentTypeID')->name('getListTransactionByDocumentTypeID');
     Route::get('getAssetCategory', 'Function\FunctionController@getAssetCategory')->name('getAssetCategory');
-    Route::get('getWorks', 'Function\FunctionController@getWorks')->name('getWorks');
     Route::get('getInstitutionBankAccount', 'Function\FunctionController@getInstitutionBankAccount')->name('getInstitutionBankAccount');
     Route::get('getDepreciationMethod', 'Function\FunctionController@getDepreciationMethod')->name('getDepreciationMethod');
     Route::get('getDepreciationRateYears', 'Function\FunctionController@getDepreciationRateYears')->name('getDepreciationRateYears');
