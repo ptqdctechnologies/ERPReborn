@@ -118,7 +118,8 @@ namespace App\Models\Database\SchData_OLTP_Master {
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varCode, 'varchar'],
-                            [$varName, 'varchar']
+                            [$varName, 'varchar'],
+                            [null, 'smallint']
                         ]
                     )
                 );
@@ -133,7 +134,7 @@ namespace App\Models\Database\SchData_OLTP_Master {
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-08-04                                                                                           |
+        | ▪ Last Update     : 2026-08-06                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -155,7 +156,10 @@ namespace App\Models\Database\SchData_OLTP_Master {
             string $varSysDataAnnotation = null,
             int $varSysPartitionRemovableRecordKeyRefType = null,
             int $varSysBranch_RefID = null,
-            string $varName = null
+            $varSysBaseCurrency_RefID = null,
+            string $varCode = null,
+            string $varName = null,
+            int $varStatus = null
         ) {
             $varReturn =
                 Helper_PostgreSQL::getQueryExecution(
@@ -169,8 +173,11 @@ namespace App\Models\Database\SchData_OLTP_Master {
                             [$varSysDataAnnotation, 'varchar'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
+                            [$varSysBaseCurrency_RefID, 'bigint'],
 
-                            [$varName, 'varchar']
+                            [$varCode, 'varchar'],
+                            [$varName, 'varchar'],
+                            [$varStatus, 'smallint']
                         ]
                     )
                 );
