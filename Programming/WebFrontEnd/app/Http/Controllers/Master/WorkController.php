@@ -98,7 +98,7 @@ class WorkController extends Controller
             ],
             'dataFilter' => [
                 'name' => $name,
-                'code' => $code
+                'code' => $code ? $code : $searchValue
             ],
         ];
 
