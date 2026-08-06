@@ -28,6 +28,22 @@ class WorkService
 
     public function revision($request, $id)
     {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.update.master.setWorkStructure',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    "code" => $request->work_code,
+                    "name" => $request->work_name,
+                    "status" => (int) $request->work_status
+                ]
+            ]
+        );
     }
 
     public function detail($workCode)

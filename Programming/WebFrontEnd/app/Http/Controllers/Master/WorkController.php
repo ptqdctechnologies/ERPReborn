@@ -84,6 +84,24 @@ class WorkController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->workService->revision($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Work => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Work Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)

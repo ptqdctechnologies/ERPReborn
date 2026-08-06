@@ -20,8 +20,8 @@
                 @include('Master.Work.Functions.Menu.index')
 
                 <form id="workForm">
-                    <input type="hidden" id="work_id" name="work_id" value="<?= isset($workRefID) ? $workRefID : ''; ?>">
-
+                    @csrf
+                    @method('PUT')
                     <div class="card">
                         <!-- MASTER WORK -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -73,6 +73,34 @@
         </section>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="margin: 0px;font-weight:bold;">
+                        Confirmation
+                    </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 1.0rem; line-height: normal;">
+                    Are you sure all the information you entered is correct? </br />
+                    Please review your data carefully before proceeding.
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-confirmation" type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel</button>
+                    <button id="submit-confirmation" type="button" class="btn btn-primary"
+                        data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     @include('Partials.footer')
+    @include('Master.Work.Functions.Footer.revision')
     @include('Master.Work.Functions.Footer.index')
 @endsection

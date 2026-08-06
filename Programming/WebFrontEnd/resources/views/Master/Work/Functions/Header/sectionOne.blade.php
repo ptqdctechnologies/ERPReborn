@@ -9,7 +9,7 @@
                 <div class="col-6 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="work_code" name="work_code" style="border-radius:0;"
-                            autocomplete="off" value="<?= isset($workCode) ? $workCode : ''; ?>" readonly>
+                            autocomplete="off" value="<?= isset($workCode) ? $workCode : ''; ?>" <?= isset($workCode) ? 'readonly' : ''; ?> />
                     </div>
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="col-6 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="work_name" name="work_name" style="border-radius:0;"
-                            autocomplete="off" value="<?= isset($workName) ? $workName : ''; ?>" readonly>
+                            autocomplete="off" value="<?= isset($workName) ? $workName : ''; ?>" <?= isset($workName) ? 'readonly' : ''; ?> />
                     </div>
                 </div>
             </div>
@@ -38,16 +38,16 @@
         <!-- RIGHT -->
         <div class="col-md-12 col-lg-5">
             <!-- STATUS -->
-            <div class="row" style="margin-bottom: 1rem;">
+            <div class="row" style="margin-bottom: 1rem; display: <?= isset($workStatus) ? 'flex' : 'none'; ?>">
                 <label class="col-sm-3 col-md-4 col-lg-2 col-form-label p-0">Work Status</label>
                 <div class="col-4 d-flex" style="gap: 1rem;">
                     <div class="form-check d-flex align-items-center">
-                        <input class="form-check-input" type="radio" name="work_status" id="active"
+                        <input class="form-check-input" type="radio" name="work_status" id="active" value="1"
                             <?= isset($workStatus) && $workStatus == 1 ? 'checked' : ''; ?> />
                         <label class="form-check-label" for="active">Active</label>
                     </div>
                     <div class="form-check d-flex align-items-center">
-                        <input class="form-check-input" type="radio" name="work_status" id="inactive"
+                        <input class="form-check-input" type="radio" name="work_status" id="inactive" value="0"
                             <?= isset($workStatus) && $workStatus == 0 ? 'checked' : ''; ?> />
                         <label class="form-check-label" for="inactive">Inactive</label>
                     </div>
