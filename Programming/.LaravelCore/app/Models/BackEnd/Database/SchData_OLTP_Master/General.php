@@ -5968,27 +5968,27 @@ namespace App\Models\Database\SchData_OLTP_Master {
 
 
         /*
-    +--------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Method Name     : getReport_Form_DataPickList_Work_Structure                                                                     |
-    +--------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Version         : 1.0001.0000000                                                                                       |
-    | ▪ Last Update     : 2026-08-05                                                                                           |
-    | ▪ Creation Date   : 2026-08-05                                                                                           |
-    | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Bank                                                       |
-    +--------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Input Variable  :                                                                                                      |
-    |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-    |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-    |      ------------------------------                                                                                      |
-    |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
-    |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
-    |      ------------------------------                                                                                      |
-    |      ▪ (string) varName ► Name                                                                                           |
-    |      ▪ (string) varCode ► Code                                                                                     |
-    | ▪ Output Variable :                                                                                                      |
-    |      ▪ (array)  varReturn                                                                                                |
-    +--------------------------------------------------------------------------------------------------------------------------+
-    */
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_Work_Structure                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-05                                                                                           |
+        | ▪ Creation Date   : 2026-08-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Bank                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCode ► Code                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
         public function getReport_Form_DataPickList_Work_Structure(
             $varUserSession,
             int $varSysBranch_RefID,
@@ -6021,6 +6021,71 @@ namespace App\Models\Database\SchData_OLTP_Master {
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_Work_Structure']
+                    );
+
+                return
+                    $varReturn;
+            } catch (\Exception $ex) {
+                return
+                    [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_Work_Structure                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-06                                                                                           |
+        | ▪ Creation Date   : 2026-08-06                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Work Structure                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCode ► Code                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_Work_Structure(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCode = null
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_Work_Structure',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varCode, 'varchar']
+                            ]
+                        )
+                    );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_Work_Structure']
                     );
 
                 return
