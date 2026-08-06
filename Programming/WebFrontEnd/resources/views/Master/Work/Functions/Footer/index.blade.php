@@ -81,7 +81,7 @@
         const workCode = $(this).find('td:nth-child(2)').text();
         const workName = $(this).find('td:nth-child(3)').text();
 
-        $(`#modal_work_id`).val(workRefID);
+        $(`#modal_work_id`).val(workCode);
         $(`#modal_work_document_number`).val(`${workCode ?? ''} - ${workName ?? ''}`);
         $(`#modal_work_document_number`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 

@@ -20,6 +20,8 @@
                 @include('Master.Work.Functions.Menu.index')
 
                 <form id="workForm">
+                    <input type="hidden" id="work_id" name="work_id" value="<?= isset($workRefID) ? $workRefID : ''; ?>">
+
                     <div class="card">
                         <!-- MASTER WORK -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">

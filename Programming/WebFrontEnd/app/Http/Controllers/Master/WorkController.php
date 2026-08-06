@@ -57,12 +57,26 @@ class WorkController extends Controller
 
     public function revision(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
-        $workRefID = $request->input('modal_work_id');
+        $workCode = $request->input('modal_work_id');
+        $response = $this->workService->detail($workCode);
+
+        $header = $response['data']['data']['document']['header'] ?? [];
+        $record = $response['data']['data']['document']['content']['itemList']['ungrouped'][0] ?? null;
+
+        if (
+            ($response['metadata']['HTTPStatusCode'] ?? 500) !== 200 ||
+            ($header['dataCount'] ?? 0) === 0 ||
+            !$record
+        ) {
+            throw new \Exception('Failed to fetch work detail.');
+        }
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'workCode' => ''
+            'varAPIWebToken' => Session::get('SessionLogin'),
+            'workRefID' => $record['recordID'],
+            'workCode' => $record['entities']['code'],
+            'workName' => $record['entities']['name'],
+            'workStatus' => $record['entities']['status'],
         ];
 
         return view('Master.Work.Transactions.revision', $compact);
