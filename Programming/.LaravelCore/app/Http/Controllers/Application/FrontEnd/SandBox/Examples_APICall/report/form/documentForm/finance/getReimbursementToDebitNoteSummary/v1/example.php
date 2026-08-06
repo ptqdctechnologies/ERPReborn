@@ -43,6 +43,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'CombinedBudgetSectionCode' => '235',
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "9",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
