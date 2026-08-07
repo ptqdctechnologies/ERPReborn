@@ -10,7 +10,7 @@
                     <div class="col-5">
                         <select class="form-control select2" id="DocumentType"
                             onchange="getAllTransactions(this.value);" style="width: 100%;">
-                            <option disabled selected>Select a Document Type</option>
+                            <option disabled>Select a Document Type</option>
                         </select>
                     </div>
                 </div>
@@ -64,6 +64,9 @@
 
 <script>
     function getAllTransactions(businessDocumentTypeRefID) {
+        const selectDocumentType = document.getElementById("DocumentType");
+        const selectedDocumentTypeText = selectDocumentType.options[selectDocumentType.selectedIndex].text;
+
         let table = $('#tableAllTransactions').DataTable({
             processing: true,
             serverSide: true,
@@ -111,6 +114,8 @@
                         return (
                             '<input id="sys_id_transaction' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' +
                             '<input id="sys_id_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' +
+                            '<input id="selected_document_type_id' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + businessDocumentTypeRefID + '" data-trigger="selected_document_type_id" type="hidden">' +
+                            '<input id="selected_document_type_name' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + selectedDocumentTypeText + '" data-trigger="selected_document_type_name" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                         )
                     }
