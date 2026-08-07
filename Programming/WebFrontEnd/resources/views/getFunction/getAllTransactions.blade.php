@@ -8,7 +8,8 @@
             <div class="modal-body">
                 <div class="row" style="margin-bottom: 1rem;">
                     <div class="col-5">
-                        <select class="form-control select2" id="DocumentType" onchange="getAllTransactions(this);" style="width: 100%;">
+                        <select class="form-control select2" id="DocumentType"
+                            onchange="getAllTransactions(this.value);" style="width: 100%;">
                             <option disabled selected>Select a Document Type</option>
                         </select>
                     </div>
@@ -30,7 +31,8 @@
                                     <tfoot>
                                         <tr class="loadingAllTransactions" style="display: none;">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -42,8 +44,10 @@
                                         </tr>
                                         <tr class="errorAllTransactionsMessageContainer" style="display: none;">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorAllTransactionsMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorAllTransactionsMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -60,77 +64,103 @@
 
 <script>
     function getAllTransactions(businessDocumentTypeRefID) {
-        $('#tableAllTransactions tbody').empty();
-        $(".loadingAllTransactions").show();
-        $(".errorAllTransactionsMessageContainer").hide();
+        let table = $('#tableAllTransactions').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("CheckDocument.ShowDocumentListData") !!}',
+                type: 'GET',
+                data: function (d) {
+                    d.DocumentTypeID = businessDocumentTypeRefID;
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getListTransactionByDocumentTypeID") !!}?businessDocumentTypeRef_ID=' + businessDocumentTypeRefID.value,
-            success: function(data) {
-                $(".loadingAllTransactions").hide();
-                
-                let table = $('#tableAllTransactions').DataTable();
-                table.clear();
-
-                if (Array.isArray(data) && data.length > 0) {
-                    $('#tableAllTransactions').DataTable({
-                        destroy: true,
-                        data: data,
-                        deferRender: true,
-                        scrollCollapse: true,
-                        scroller: true,
-                        columns: [
-                            {
-                                data: null,
-                                render: function (data, type, row, meta) {
-                                    return '<td class="align-middle text-center">' +
-                                        '<input id="sys_id_transaction' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' +
-                                        '<input id="sys_id_budget' + (meta.row + 1) + '" value="' + data.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' +
-                                        (meta.row + 1) +
-                                    '</td>';
-                                }
-                            },
-                            {
-                                data: 'sys_Text',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'combinedBudgetName',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            },
-                            {
-                                data: 'combinedBudgetSectionName',
-                                defaultContent: '-',
-                                className: "align-middle"
-                            }
-                        ]
-                    });
-
-                    $('#tableAllTransactions').css("width", "100%");
-                } else {
-                    $(".errorAllTransactionsMessageContainer").show();
-                    $("#errorAllTransactionsMessage").text(`Data not found.`);
-
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#tableAllTransactions tbody').empty();
+                    $(".loadingAllTransactions").show();
+                    $(".errorAllTransactionsMessageContainer").hide();
                     $("#tableAllTransactions_length").hide();
                     $("#tableAllTransactions_filter").hide();
                     $("#tableAllTransactions_info").hide();
                     $("#tableAllTransactions_paginate").hide();
+                },
+                complete: function () {
+                    $(".loadingAllTransactions").hide();
+                    $("#tableAllTransactions_length").show();
+                    $("#tableAllTransactions_filter").show();
+                    $("#tableAllTransactions_info").show();
+                    $("#tableAllTransactions_paginate").show();
+                },
+                error: function (xhr, error, thrown) {
+                    $('#tableAllTransactions tbody').empty();
+                    $(".loadingAllTransactions").hide();
+                    $(".errorAllTransactionsMessageContainer").show();
+                    $("#errorAllTransactionsMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
                 }
             },
-            error: function (textStatus, errorThrown) {
-                $('#tableAllTransactions tbody').empty();
-                $(".loadingAllTransactions").hide();
-                $(".errorAllTransactionsMessageContainer").show();
-                $("#errorAllTransactionsMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (
+                            '<input id="sys_id_transaction' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' +
+                            '<input id="sys_id_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' +
+                            (meta.row + meta.settings._iDisplayStart + 1)
+                        )
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        return `${data.additionalData.combinedBudgetCode || '-'}`
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        return `${data.additionalData.combinedBudgetSectionCode || '-'}`
+                    }
+                }
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#tableAllTransactions_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    });
+
+                if ($('#searchHintAllTransactions').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintAllTransactions" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
     }
@@ -145,12 +175,12 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getDocumentType") !!}',
-            success: function(data) {
+            success: function (data) {
                 if (data && Array.isArray(data)) {
                     $('#DocumentType').empty();
                     $('#DocumentType').append('<option disabled selected>Select a Project Code</option>');
 
-                    data.forEach(function(document) {
+                    data.forEach(function (document) {
                         $('#DocumentType').append('<option value="' + document.sys_ID + '" data-name="' + document.name + '">' + document.name + '</option>');
                     });
                 } else {
@@ -162,7 +192,7 @@
         });
     }
 
-    $(window).one('load', function(e) {
+    $(document).ready(function () {
         getAllDocumentType();
     });
 </script>
