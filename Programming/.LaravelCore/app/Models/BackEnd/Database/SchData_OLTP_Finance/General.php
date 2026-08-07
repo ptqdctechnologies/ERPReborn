@@ -6057,7 +6057,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6073,9 +6073,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varDebitor_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
