@@ -111,6 +111,11 @@
                         if (e.which === 13) {
                             api.search(this.value).draw();
                         }
+                    })
+                    .on('input', function () {
+                        if ($(this).val() === '') {
+                            api.search('').draw();
+                        }
                     });
 
                 if ($('#searchHintWork').length === 0) {

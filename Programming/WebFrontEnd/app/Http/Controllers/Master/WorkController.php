@@ -57,11 +57,26 @@ class WorkController extends Controller
 
     public function revision(Request $request)
     {
-        $varAPIWebToken = Session::get('SessionLogin');
+        $workCode = $request->input('modal_work_id');
+        $response = $this->workService->detail($workCode);
+
+        $header = $response['data']['data']['document']['header'] ?? [];
+        $record = $response['data']['data']['document']['content']['itemList']['ungrouped'][0] ?? null;
+
+        if (
+            ($response['metadata']['HTTPStatusCode'] ?? 500) !== 200 ||
+            ($header['dataCount'] ?? 0) === 0 ||
+            !$record
+        ) {
+            throw new \Exception('Failed to fetch work detail.');
+        }
 
         $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'workCode' => ''
+            'varAPIWebToken' => Session::get('SessionLogin'),
+            'workRefID' => $record['recordID'],
+            'workCode' => $record['entities']['code'],
+            'workName' => $record['entities']['name'],
+            'workStatus' => $record['entities']['status'],
         ];
 
         return view('Master.Work.Transactions.revision', $compact);
@@ -69,6 +84,24 @@ class WorkController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->workService->revision($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Work => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Work Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
@@ -77,21 +110,27 @@ class WorkController extends Controller
 
     public function picklist(Request $request)
     {
-        $start = $request->input('start', 0);
-        $length = $request->input('length', 10);
-        $offset = floor($start / $length) + 1;
-        $limit = $length;
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
 
+        $formatLimit = $length > 0 ? $length : null;
+
+        $offset = $formatLimit
+            ? (int) floor($start / $formatLimit) + 1
+            : 1;
+
+        $code = $request->input('work_code');
+        $name = $request->input('work_name');
         $searchValue = $request->input('search.value');
 
         $formatted = [
             'pagination' => [
-                'pageSize' => (int) $limit,
+                'pageSize' => $formatLimit,
                 'pageShow' => (int) $offset
             ],
             'dataFilter' => [
-                'name' => NULL,
-                'code' => $searchValue
+                'name' => $name,
+                'code' => $code ? $code : $searchValue
             ],
         ];
 

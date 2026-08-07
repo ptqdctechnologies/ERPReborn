@@ -28,10 +28,46 @@ class WorkService
 
     public function revision($request, $id)
     {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.update.master.setWorkStructure',
+            'latest',
+            [
+                'recordID' => (int) $id,
+                'entities' => [
+                    "code" => $request->work_code,
+                    "name" => $request->work_name,
+                    "status" => (int) $request->work_status
+                ]
+            ]
+        );
     }
 
-    public function detail($workID)
+    public function detail($workCode)
     {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.dataList.master.getWorkStructure',
+            'latest',
+            [
+                'parameter' => [
+                    'pagination' => [
+                        'pageSize' => 10,
+                        'pageShow' => 1
+                    ],
+                    'dataFilter' => [
+                        'name' => NULL,     //'Bank'
+                        'code' => $workCode   //'BCA'
+                    ],
+                ]
+            ]
+        );
     }
 
     public function picklist($formatted)
