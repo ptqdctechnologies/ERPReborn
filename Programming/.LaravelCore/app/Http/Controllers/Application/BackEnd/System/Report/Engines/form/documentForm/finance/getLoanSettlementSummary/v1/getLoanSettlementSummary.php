@@ -70,7 +70,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['Creditor_RefID'],
                             $varData['parameter']['Debitor_RefID'],
                             $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate']
+                            $varData['parameter']['EndDate'],
+
+	                        $varData['SQLStatement']['paging']
                             ))))
                             {
                             throw new \Exception();

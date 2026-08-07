@@ -6107,7 +6107,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, string  $varStartDate = null, string  $varEndDate = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6123,9 +6123,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varDebitor_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
                 }
@@ -6154,7 +6157,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanToLoanSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6165,10 +6168,13 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             $varUserSession,
                             'SchData-OLTP-Finance.Func_GetReport_DocForm_LoanToLoanSettlementSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ]
+                                [$varCombinedBudgetCode, 'varchar' ],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
