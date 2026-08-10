@@ -54,8 +54,9 @@
                                 </span>
                             </div>
                             <input readonly type="text" class="form-control"
-                                style="height: 21.8px;border-radius:0;background-color:white;" id="rate_date_range"
-                                name="rate_date_range" />
+                                style="height: 21.8px;border-radius:0;background-color: <?= isset($startDate) && isset($endDate) ? '' : 'white'; ?>;"
+                                id="rate_date_range" name="rate_date_range"
+                                value="<?= isset($startDate) && isset($endDate) ? $startDate . ' - ' . $endDate : ''; ?>" />
                         </div>
                     </div>
                 </div>

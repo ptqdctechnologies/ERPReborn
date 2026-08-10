@@ -32,7 +32,8 @@ class RateController extends Controller
             'currencyCode' => 'IDR',
             'currencyName' => 'Indonesian Rupiah',
             'rate' => 16000,
-            'dateRange' => ''
+            'startDate' => '08/04/2026',
+            'endDate' => '08/10/2026'
         ];
 
         return view('Master.Rate.Transactions.revision', $compact);

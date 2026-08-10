@@ -15,6 +15,8 @@
     $(document).ready(function () {
         $('#rate_date_range').daterangepicker({
             autoUpdateInput: false,
+            startDate: moment('<?= isset($startDate) ? $startDate : ''; ?>', 'MM/DD/YYYY'),
+            endDate: moment('<?= isset($endDate) ? $endDate : ''; ?>', 'MM/DD/YYYY'),
             minDate: moment().subtract(7, 'days'),
             maxDate: moment(),
             locale: {

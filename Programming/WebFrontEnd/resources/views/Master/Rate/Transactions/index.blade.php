@@ -3,6 +3,7 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getCurrencies')
+    @include('Master.Rate.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
