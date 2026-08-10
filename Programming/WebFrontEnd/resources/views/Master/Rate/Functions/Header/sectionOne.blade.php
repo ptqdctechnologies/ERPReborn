@@ -7,7 +7,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                 <div class="col-6 d-flex">
                     <div>
-                        <span class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
+                        <span class="input-group-text form-control" data-toggle="modal" data-target="#myCurrencies"
+                            style="border-radius:0;cursor:pointer;">
                             <i class="fas fa-gift"></i>
                         </span>
                     </div>
@@ -25,8 +26,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Rate</label>
                 <div class="col-6 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-without-characters" id="rate" name="rate"
-                            style="border-radius:0;" autocomplete="off" />
+                        <input class="form-control number-only" id="rate" name="rate" style="border-radius:0;"
+                            autocomplete="off" />
                     </div>
                 </div>
             </div>

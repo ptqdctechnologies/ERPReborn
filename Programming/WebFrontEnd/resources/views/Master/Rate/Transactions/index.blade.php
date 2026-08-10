@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCurrencies')
 
     <div class="content-wrapper">
         <section class="content">
@@ -35,4 +36,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.Rate.Functions.Footer.index')
 @endsection
