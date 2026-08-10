@@ -1,22 +1,22 @@
 <script>
-    let dummyBeginningBalance       = 5000000000;
-    let journalDetails              = [];
-    let dataStore                   = [];
-    let cashDisbursementItemList    = [];
-    let cashReceiptItemList         = [];
-    let dataWorkflow                = {
+    let dummyBeginningBalance = 5000000000;
+    let journalDetails = [];
+    let dataStore = [];
+    let cashDisbursementItemList = [];
+    let cashReceiptItemList = [];
+    let dataWorkflow = {
         workFlowPathRefID: null,
         approverEntityRefID: null,
         comment: null
     };
-    let currentIndexPickCOA         = null;
-    let currentIndexPickRefNumber   = null;
-    let currentIndexPickFromTo      = null;
-    let triggerButtonModal          = null;
-    const COABank                   = 65000000000003;
-    const dateNow                   = new Date();
-    const accountNumber             = document.getElementById("bank_accounts_id");
-    const journalDate               = document.getElementById("journal_date");
+    let currentIndexPickCOA = null;
+    let currentIndexPickRefNumber = null;
+    let currentIndexPickFromTo = null;
+    let triggerButtonModal = null;
+    const COABank = 65000000000003;
+    const dateNow = new Date();
+    const accountNumber = document.getElementById("bank_accounts_id");
+    const journalDate = document.getElementById("journal_date");
 
     function pickFromTo(index) {
         currentIndexPickFromTo = index;
@@ -79,7 +79,7 @@
         if (!file) return;
 
         const fileUrl = URL.createObjectURL(file);
-        
+
         journalDetails[index].attachment = file;
         journalDetails[index].attachment_url = fileUrl;
 
@@ -100,38 +100,38 @@
 
     function totalDebitCredit() {
         totalCredit = 0;
-        totalDebit  = 0;
-        
+        totalDebit = 0;
+
         for (let index = 0; index < journalDetails.length; index++) {
             if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
                 totalDebit += 1;
             }
             if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                 totalCredit += 1;
-            } 
+            }
         }
 
-        document.getElementById('total_cash_out').textContent   = totalDebit;
-        document.getElementById('total_cash_in').textContent    = totalCredit;
+        document.getElementById('total_cash_out').textContent = totalDebit;
+        document.getElementById('total_cash_in').textContent = totalCredit;
     }
 
     function totalPayments() {
-        let totalCashOut    = 0;
-        let totalCashIn     = 0;
-        let totalPayment    = 0;
-        let isTypeNotEmpty  = false;
+        let totalCashOut = 0;
+        let totalCashIn = 0;
+        let totalPayment = 0;
+        let isTypeNotEmpty = false;
 
-        document.querySelectorAll('input[id^="amountCurrencyValue"]').forEach(function(input, index) {
+        document.querySelectorAll('input[id^="amountCurrencyValue"]').forEach(function (input, index) {
             let value = parseFloat(input.value.replace(/,/g, ''));
             if (!isNaN(value)) {
                 if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000002") {
                     totalCashOut += value;
-                    isTypeNotEmpty =  true;
+                    isTypeNotEmpty = true;
                 }
                 if (journalDetails[index].accountingEntryRecordType_RefID === "214000000000001") {
                     totalCashIn += value;
-                    isTypeNotEmpty =  true;
-                } 
+                    isTypeNotEmpty = true;
+                }
 
                 totalPayment += value;
             }
@@ -140,14 +140,32 @@
         let totalEndingBalance = parseFloat(dummyBeginningBalance) - parseFloat(totalCashOut) + parseFloat(totalCashIn);
 
         if (isTypeNotEmpty) {
-            document.getElementById('nominal_ending_balance').textContent   = `IDR ${currencyTotal(totalEndingBalance)}`;
+            document.getElementById('nominal_ending_balance').textContent = `IDR ${currencyTotal(totalEndingBalance)}`;
         } else {
-            document.getElementById('nominal_ending_balance').textContent   = `IDR 0.00`;
+            document.getElementById('nominal_ending_balance').textContent = `IDR 0.00`;
         }
 
-        document.getElementById('nominal_cash_out').textContent             = `IDR ${currencyTotal(totalCashOut)}`;
-        document.getElementById('nominal_cash_in').textContent              = `IDR ${currencyTotal(totalCashIn)}`;
-        document.getElementById('journal_details_table_total').textContent  = currencyTotal(totalPayment);
+        document.getElementById('nominal_cash_out').textContent = `IDR ${currencyTotal(totalCashOut)}`;
+        document.getElementById('nominal_cash_in').textContent = `IDR ${currencyTotal(totalCashIn)}`;
+        document.getElementById('journal_details_table_total').textContent = currencyTotal(totalPayment);
+    }
+
+    function calculateBalance(index) {
+        // Ambil nilai value
+        let value = $(`#value${index}`).val().replace(/,/g, '') || 0;
+
+        // Ambil nilai amountCurrencyValue
+        let amount = $(`#amountCurrencyValue${index}`).val().replace(/,/g, '') || 0;
+
+        // Konversi ke number
+        value = parseFloat(value) || 0;
+        amount = parseFloat(amount) || 0;
+
+        // Hitung balance
+        let balance = value - amount;
+
+        // Tampilkan ke input balance
+        $(`#balance${index}`).val(balance.toLocaleString('en-US'));
     }
 
     function renderTable() {
@@ -239,7 +257,7 @@
                     </td>
 
                     <td>
-                        <input id="balance${index}" type="number" class="form-control" readonly />
+                        <input id="balance${index}" type="text" class="form-control" readonly />
                     </td>
 
                     <td>
@@ -269,22 +287,22 @@
 
                     <td style="text-align:center;padding-right:unset;">
                         ${row.attachment_url ?
-                            `
+                        `
                                 <div class="d-flex align-items-center" style="gap: 6px;">
                                     <div style="cursor:pointer;color:red;font-size:12px;" onclick="deleteAttachment(${index})">
                                         <i class="fas fa-trash"></i>
                                     </div>
                                     <a href="${row.attachment_url}" target="_blank" style="font-size:12px;overflow: hidden;white-space: nowrap;text-overflow: ellipsis;width: 50px;">${row.attachment.name}</a>
                                 </div>
-                            ` : 
-                            `
+                            ` :
+                        `
                                 <label class="btn btn-sm mb-0" style="cursor:pointer; background-color: #e9ecef; border: 1px solid #ced4da;">
                                     <i class="fas fa-paperclip"></i>
                                     <input type="file" accept="image/*,.pdf,.doc,.docx" 
                                         style="display:none;" onchange="handleFileUpload(${index}, this)">
                                 </label>
                             `
-                        }
+                    }
                     </td>
                 `;
 
@@ -316,43 +334,44 @@
                 tbody.appendChild(tr);
             }
 
-            $(`#accountingEntryRecordType_RefID${index}`).on('change', function() {
+            $(`#accountingEntryRecordType_RefID${index}`).on('change', function () {
                 totalPayments();
             });
 
-            $(`#amountCurrencyValue${index}`).on('keyup', function() {
-                let payment     = $(this).val().replace(/,/g, '');
+            $(`#amountCurrencyValue${index}`).on('keyup', function () {
+                let payment = $(this).val().replace(/,/g, '');
                 let typePayment = $(`#accountingEntryRecordType_RefID${index}`).val();
 
+                calculateBalance(index);
                 totalPayments();
             });
         });
     }
 
     function summaryData() {
-        const year              = dateNow.getFullYear();
-        const month             = String(dateNow.getMonth() + 1).padStart(2, '0');
-        const day               = String(dateNow.getDate()).padStart(2, '0');
-        const journalDateTimeTZ = journalDate.value.split('/'); 
-        const sourceTable       = document.getElementById('journal_details_table').getElementsByTagName('tbody')[0];
-        const targetTable       = document.getElementById('journal_summary_table').getElementsByTagName('tbody')[0];
+        const year = dateNow.getFullYear();
+        const month = String(dateNow.getMonth() + 1).padStart(2, '0');
+        const day = String(dateNow.getDate()).padStart(2, '0');
+        const journalDateTimeTZ = journalDate.value.split('/');
+        const sourceTable = document.getElementById('journal_details_table').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('journal_summary_table').getElementsByTagName('tbody')[0];
 
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
-            const refNumberRefID                    = row.querySelector('input[id^="ref_number_id"]');
-            const refNumberName                     = row.querySelector('input[id^="ref_number_name"]');
-            const accountingEntryRecordTypeRefID    = row.querySelector('select[id^="accountingEntryRecordType_RefID"]');
-            const quantityUnitRefID                 = row.querySelector('input[id^="quantityUnit_RefID"]');
-            const amountCurrencyExchangeRate        = row.querySelector('input[id^="amountCurrencyExchangeRate"]');
-            const amountCurrencyRefID               = row.querySelector('input[id^="amountCurrency_RefID"]');
-            const sourceRefID                       = row.querySelector('input[id^="source_RefID"]');
-            const source                            = row.querySelector('input[id^="source"]');
-            const chartOfAccountRefID               = row.querySelector('input[id^="chartOfAccount_RefID"]');
-            const chartOfAccountName                = row.querySelector('input[id^="chartOfAccountName"]');
-            const quantityInput                     = row.querySelector('input[id^="quantity"]');
-            const paymentInput                      = row.querySelector('input[id^="amountCurrencyValue"]');
-            const budgetInput                       = row.querySelector('input[id^="budget"]');
+            const refNumberRefID = row.querySelector('input[id^="ref_number_id"]');
+            const refNumberName = row.querySelector('input[id^="ref_number_name"]');
+            const accountingEntryRecordTypeRefID = row.querySelector('select[id^="accountingEntryRecordType_RefID"]');
+            const quantityUnitRefID = row.querySelector('input[id^="quantityUnit_RefID"]');
+            const amountCurrencyExchangeRate = row.querySelector('input[id^="amountCurrencyExchangeRate"]');
+            const amountCurrencyRefID = row.querySelector('input[id^="amountCurrency_RefID"]');
+            const sourceRefID = row.querySelector('input[id^="source_RefID"]');
+            const source = row.querySelector('input[id^="source"]');
+            const chartOfAccountRefID = row.querySelector('input[id^="chartOfAccount_RefID"]');
+            const chartOfAccountName = row.querySelector('input[id^="chartOfAccountName"]');
+            const quantityInput = row.querySelector('input[id^="quantity"]');
+            const paymentInput = row.querySelector('input[id^="amountCurrencyValue"]');
+            const budgetInput = row.querySelector('input[id^="budget"]');
 
             if (
                 refNumberName && accountingEntryRecordTypeRefID && paymentInput && source && chartOfAccountName &&
@@ -362,8 +381,8 @@
                 source.value.trim() !== '' &&
                 chartOfAccountName.value.trim() !== ''
             ) {
-                let found           = false;
-                const existingRows  = targetTable.getElementsByTagName('tr');
+                let found = false;
+                const existingRows = targetTable.getElementsByTagName('tr');
 
                 for (let targetRow of existingRows) {
                     // const targetCode = targetRow.querySelector("input").value;
@@ -384,7 +403,7 @@
                             dataStore[indexToUpdate] = {
                                 documentDateTimeTZ: `${year}-${month}-${day}`,
                                 businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
-                                refNumberName: refNumberName.value, 
+                                refNumberName: refNumberName.value,
                                 accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
                                 budgetInput: budgetInput.value,
                                 paymentInput: paymentInput.value,
@@ -502,7 +521,7 @@
                     dataStore.push({
                         documentDateTimeTZ: `${year}-${month}-${day}`,
                         businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
-                        refNumberName: refNumberName.value, 
+                        refNumberName: refNumberName.value,
                         accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
                         budgetInput: budgetInput.value,
                         paymentInput: paymentInput.value,
@@ -621,7 +640,7 @@
                         return '<td class="align-middle text-center">' +
                             '<input id="refID' + (meta.row + 1) + '" value="' + data.businessDocument_RefID + '" data-trigger="refID" type="hidden">' +
                             (meta.row + 1) +
-                        '</td>';
+                            '</td>';
                     }
                 },
                 {
@@ -663,8 +682,8 @@
     }
 
     function validationForm() {
-        const isAccountNumberNotEmpty   = accountNumber.value.trim() !== '';
-        const isJournalDateNotEmpty     = journalDate.value.trim() !== '';
+        const isAccountNumberNotEmpty = accountNumber.value.trim() !== '';
+        const isJournalDateNotEmpty = journalDate.value.trim() !== '';
 
         if (isAccountNumberNotEmpty && isJournalDateNotEmpty) {
             $('#journalFormModal').modal('show');
@@ -757,7 +776,7 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
-        
+
         $.ajax({
             type: 'POST',
             data: {
@@ -770,7 +789,7 @@
                 }
             },
             url: '{{ route("Journal.store") }}',
-            success: function(res) {
+            success: function (res) {
                 HideLoading();
 
                 if (res.status === 200) {
@@ -811,7 +830,7 @@
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -840,13 +859,13 @@
                     ErrorNotif("Data Cancel Inputed");
                 }
             },
-            error: function(jqXHR, textStatus, errorThrown) {
+            error: function (jqXHR, textStatus, errorThrown) {
                 HideLoading();
                 console.log('error', jqXHR, textStatus, errorThrown);
             }
         });
     }
-    
+
     function submitForm(value) {
         triggerButtonModal = value;
         $('#journalFormModal').modal('hide');
@@ -856,76 +875,124 @@
                 // if (totalNextApprover > 1) {
                 //     $('#myWorkflows').modal('show');
                 // } else {
-                    commentWorkflow();
+                commentWorkflow();
                 // }
             }
         });
     }
 
-    $('#tableAllTransactions').on('click', 'tbody tr', function() {
+    function getDetailTransaction(documentType, referenceId, currentIndexPickRefNumbers) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: `{{ route('Journal.detailTransactions') }}`,
+            data: {
+                documentType: documentType,
+                referenceId: referenceId
+            },
+            success: function (response) {
+                if (response.status == 200 && Array.isArray(response.data) && response.data.length > 0) {
+                    const dataTransaction = response.data[0];
+                    if (response.documentTypeName == "Advance Form") {
+                        const unpaidValue =
+                            parseFloat(dataTransaction.totalTransactions || 0) -
+                            parseFloat(dataTransaction.totalPayment || 0);
+
+                        $(`#budget${currentIndexPickRefNumbers}`).val(`${dataTransaction.combinedBudgetCode} - ${dataTransaction.combinedBudgetName}`);
+                        $(`#value${currentIndexPickRefNumbers}`).val(dataTransaction.totalTransactions);
+                        $(`#unpaid${currentIndexPickRefNumbers}`).val(unpaidValue);
+                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.advance_RefID);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.businessDocumentNumber);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
+
+                        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(dataTransaction.advance_RefID));
+                        updateField(currentIndexPickRefNumber, 'ref_number_name', dataTransaction.businessDocumentNumber);
+                        updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
+                    }
+                } else {
+
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                HideLoading();
+                console.log(jqXHR, textStatus, errorThrown);
+            }
+        });
+    }
+
+    $('#tableAllTransactions').on('click', 'tbody tr', function () {
         if (currentIndexPickRefNumber === null) return null;
-        
-        const sysId     = $(this).find('input[data-trigger="sys_id_transaction"]').val();
-        const trano     = $(this).find('td:nth-child(2)').text();
-        const project   = $(this).find('td:nth-child(3)').text();
-        const site      = $(this).find('td:nth-child(4)').text();
-        const findID    = sysId.substring(0, 3);
 
-        if (findID == "211" || findID == "293") {
-            $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
-            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'not-allowed');
-            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', true);
-        } else {
-            $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', 'white');
-            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'pointer');
-            $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', false);
-        }
+        const sysId = $(this).find('input[data-trigger="sys_id_transaction"]').val();
+        const selectedDocumentTypeId = $(this).find('input[data-trigger="selected_document_type_id"]').val();
+        const selectedDocumentTypeName = $(this).find('input[data-trigger="selected_document_type_name"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const project = $(this).find('td:nth-child(3)').text();
+        const site = $(this).find('td:nth-child(4)').text();
+        const findID = sysId.substring(0, 3);
 
-        $(`#ref_number_id${currentIndexPickRefNumber}`).val(sysId);
-        $(`#ref_number_name${currentIndexPickRefNumber}`).val(trano);
-        $(`#ref_number_name${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
+        getDetailTransaction(selectedDocumentTypeName, sysId, currentIndexPickRefNumber);
 
-        $(`#budget${currentIndexPickRefNumber}`).val(project);
+        // if (findID == "211" || findID == "293") { // Account Payable (211), Loan (293)
+        //     $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
+        //     $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'not-allowed');
+        //     $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', true);
+        // } else {
+        //     $(`#chartOfAccountName${currentIndexPickRefNumber}`).css('background-color', 'white');
+        //     $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).css('cursor', 'pointer');
+        //     $(`#chartOfAccountTrigger${currentIndexPickRefNumber}`).prop('disabled', false);
+        // }
 
-        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(sysId));
-        updateField(currentIndexPickRefNumber, 'ref_number_name', trano);
-        updateField(currentIndexPickRefNumber, 'budget_name', project);
+        // $(`#ref_number_id${currentIndexPickRefNumber}`).val(sysId);
+        // $(`#ref_number_name${currentIndexPickRefNumber}`).val(trano);
+        // $(`#ref_number_name${currentIndexPickRefNumber}`).css('background-color', '#e9ecef');
 
-        $('#myAllTransactions').modal('hide');
+        // $(`#budget${currentIndexPickRefNumber}`).val(project);
+
+        // updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(sysId));
+        // updateField(currentIndexPickRefNumber, 'ref_number_name', trano);
+        // updateField(currentIndexPickRefNumber, 'budget_name', project);
+
+        $('#myAllTransactions').modal('toggle');
     });
 
-    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function() {
+    $('#tableGetChartOfAccount').on('click', 'tbody tr', async function () {
         let sysId = $(this).find('input[data-trigger="sys_id_modal_coa"]').val();
-        let code  = $(this).find('td:nth-child(2)').text();
-        let name  = $(this).find('td:nth-child(3)').text();
-        
+        let code = $(this).find('td:nth-child(2)').text();
+        let name = $(this).find('td:nth-child(3)').text();
+
         $(`#chartOfAccount_RefID${currentIndexPickCOA}`).val(sysId);
         $(`#chartOfAccountName${currentIndexPickCOA}`).val(`${code} - ${name}`);
         $(`#chartOfAccountName${currentIndexPickCOA}`).css('background-color', '#e9ecef');
 
         updateField(currentIndexPickCOA, 'chartOfAccount_RefID', parseInt(sysId));
         updateField(currentIndexPickCOA, 'chartOfAccountName', `${code} - ${name}`);
-        
+
         $('#myGetChartOfAccount').modal('hide');
     });
 
-    $('#tableBanksAccount').on('click', 'tbody tr', function() {
-        const sysID       = $(this).find('input[type="hidden"]').val();
-        const bankName    = $(this).find('td:nth-child(2)').text();
+    $('#tableBanksAccount').on('click', 'tbody tr', function () {
+        const sysID = $(this).find('input[type="hidden"]').val();
+        const bankName = $(this).find('td:nth-child(2)').text();
         const bankAccount = $(this).find('td:nth-child(3)').text();
         const accountName = $(this).find('td:nth-child(4)').text();
 
         if (currentIndexPickFromTo !== null) {
             $(`#source_RefID${currentIndexPickFromTo}`).val(sysID);
             $(`#source${currentIndexPickFromTo}`).val(`(${bankName}) ${bankAccount} - ${accountName}`);
-            $(`#source${currentIndexPickFromTo}`).css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+            $(`#source${currentIndexPickFromTo}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
             updateField(currentIndexPickFromTo, 'source_RefID', sysID);
             updateField(currentIndexPickFromTo, 'source', `(${bankName}) ${bankAccount} - ${accountName}`);
         } else {
             $("#bank_accounts_id").val(sysID);
             $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
-            $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+            $("#bank_accounts_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
             $("#bank_accounts_message").hide();
         }
 
@@ -934,23 +1001,23 @@
         $('#myBanksAccount').modal('hide');
     });
 
-    $('#tableInstitutionBankAccount').on('click', 'tbody tr', function() {
-        const sysID       = $(this).find('input[type="hidden"]').val();
-        const bankName    = $(this).find('td:nth-child(2)').text();
+    $('#tableInstitutionBankAccount').on('click', 'tbody tr', function () {
+        const sysID = $(this).find('input[type="hidden"]').val();
+        const bankName = $(this).find('td:nth-child(2)').text();
         const bankAccount = $(this).find('td:nth-child(3)').text();
         const accountName = $(this).find('td:nth-child(4)').text();
 
         $("#bank_accounts_id").val(sysID);
         $("#bank_accounts_name").val(`(${bankName}) ${bankAccount} - ${accountName}`);
-        $("#bank_accounts_name").css({"background-color":"#e9ecef", "border": "1px solid #ced4da"});
+        $("#bank_accounts_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
         $("#bank_accounts_message").hide();
 
         $('#myInstitutionBankAccount').modal('hide');
     });
 
-    $('#tableGetJournal').on('click', 'tbody tr', function() {
-        const sysID     = $(this).find('input[data-trigger="sys_id_journal"]').val();
-        const sysText   = $(this).find('td:nth-child(2)').text();
+    $('#tableGetJournal').on('click', 'tbody tr', function () {
+        const sysID = $(this).find('input[data-trigger="sys_id_journal"]').val();
+        const sysText = $(this).find('td:nth-child(2)').text();
 
         $(`#modal_journal_id`).val(sysID);
         $(`#modal_journal_document_number`).val(sysText);
@@ -958,29 +1025,29 @@
         $('#myJournal').modal('hide');
     });
 
-    $('#tableWorkflows').on('click', 'tbody tr', function() {
-        const sysId             = $(this).find('input[data-trigger="sys_id_approver"]').val();
-        const workflowName      = $(this).find('td:nth-child(2)').text();
-        const workflowPosition  = $(this).find('td:nth-child(3)').text();
+    $('#tableWorkflows').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_approver"]').val();
+        const workflowName = $(this).find('td:nth-child(2)').text();
+        const workflowPosition = $(this).find('td:nth-child(3)').text();
 
         dataWorkflow.approverEntityRefID = parseInt(sysId);
 
         $("#myWorkflows").modal('toggle');
     });
 
-    $('#btn_revision_journal').on('click', function() {
+    $('#btn_revision_journal').on('click', function () {
         getJournal();
     });
 
-    $('#journal_date').on('keypress', function() {
+    $('#journal_date').on('keypress', function () {
         $("#journal_date").val("");
     });
 
-    $('#journal_date').on('keyup', function() {
+    $('#journal_date').on('keyup', function () {
         $("#journal_date").val("");
     });
 
-    $(window).one('load', function() {
+    $(document).ready(function () {
         detailCashBank();
         getBanksAccount("", "");
         getInstitutionBankAccount();
