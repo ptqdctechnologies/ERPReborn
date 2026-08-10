@@ -42,7 +42,7 @@ class ProjectsLocationsReportConfigsReports extends \Google\Service\Resource
    * will become the last component of the report name. The id must be unique
    * within the project, must conform with RFC-1034, is restricted to lower-cased
    * letters, and has a maximum length of 63 characters. The id must match the
-   * regular expression: [a-z]([a-z0-9-]{0,61}[a-z0-9])?.
+   * regular expression: `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
    * @opt_param string requestId Optional. An optional request ID to identify
    * requests. Specify a unique request ID so that if you must retry your request,
    * the server will know to ignore the request if it has already been completed.

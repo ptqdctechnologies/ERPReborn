@@ -208,15 +208,15 @@ class Creative extends \Google\Collection
    */
   public const HOSTING_SOURCE_HOSTING_SOURCE_RICH_MEDIA = 'HOSTING_SOURCE_RICH_MEDIA';
   /**
-   * Attestation status is unspecified.
+   * No attestation has been provided.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED = 'SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED';
   /**
-   * Not synthetic content.
+   * Attested as not created or edited using AI.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_NOT_SYNTHETIC = 'NOT_SYNTHETIC';
   /**
-   * Is synthetic content.
+   * Attested as created or edited using AI.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_IS_SYNTHETIC = 'IS_SYNTHETIC';
   protected $collection_key = 'transcodes';
@@ -474,8 +474,8 @@ class Creative extends \Google\Collection
    */
   public $skippable;
   /**
-   * Optional. Whether the creative contains synthetic content or was created
-   * using AI.
+   * Optional. Whether to add a label to the creative as created or edited using
+   * AI when served in regions with local AI labeling regulations.
    *
    * @var string
    */
@@ -1264,8 +1264,8 @@ class Creative extends \Google\Collection
     return $this->skippable;
   }
   /**
-   * Optional. Whether the creative contains synthetic content or was created
-   * using AI.
+   * Optional. Whether to add a label to the creative as created or edited using
+   * AI when served in regions with local AI labeling regulations.
    *
    * Accepted values: SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED,
    * NOT_SYNTHETIC, IS_SYNTHETIC

@@ -20,7 +20,7 @@ namespace Google\Service\CloudIdentity;
 class Setting extends \Google\Model
 {
   /**
-   * Required. Immutable. The type of the Setting. .
+   * Required. Immutable. The type of the Setting.
    *
    * @var string
    */
@@ -33,7 +33,7 @@ class Setting extends \Google\Model
   public $value;
 
   /**
-   * Required. Immutable. The type of the Setting. .
+   * Required. Immutable. The type of the Setting.
    *
    * @param string $type
    */

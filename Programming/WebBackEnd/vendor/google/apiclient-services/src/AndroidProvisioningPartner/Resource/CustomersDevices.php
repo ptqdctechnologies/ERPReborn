@@ -76,8 +76,8 @@ class CustomersDevices extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string pageSize Optional. The maximum number of devices to show in
-   * a page of results. If unset or 0, defaults to 1000. If a value greater than
-   * 1000 is specified, it will be coerced to 1000.
+   * a page of results. If unset or `0`, defaults to `5000`. If a value greater
+   * than `10000` is specified, it will be coerced to `10000`.
    * @opt_param string pageToken A token specifying which result page to return.
    * @return CustomerListDevicesResponse
    * @throws \Google\Service\Exception

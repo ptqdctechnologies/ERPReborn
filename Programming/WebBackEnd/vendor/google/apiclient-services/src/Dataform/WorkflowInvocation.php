@@ -71,6 +71,8 @@ class WorkflowInvocation extends \Google\Model
    * @var string
    */
   public $name;
+  protected $pipelineConfigType = PipelineConfig::class;
+  protected $pipelineConfigDataType = '';
   protected $privateResourceMetadataType = PrivateResourceMetadata::class;
   protected $privateResourceMetadataDataType = '';
   /**
@@ -193,6 +195,23 @@ class WorkflowInvocation extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Output only. The pipeline options which defines the pipeline type and path
+   * within the Git repository.
+   *
+   * @param PipelineConfig $pipelineConfig
+   */
+  public function setPipelineConfig(PipelineConfig $pipelineConfig)
+  {
+    $this->pipelineConfig = $pipelineConfig;
+  }
+  /**
+   * @return PipelineConfig
+   */
+  public function getPipelineConfig()
+  {
+    return $this->pipelineConfig;
   }
   /**
    * Output only. Metadata indicating whether this resource is user-scoped.

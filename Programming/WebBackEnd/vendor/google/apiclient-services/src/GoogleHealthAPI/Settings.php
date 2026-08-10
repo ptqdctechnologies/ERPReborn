@@ -152,7 +152,6 @@ class Settings extends \Google\Model
   public $autoStrideEnabled;
   /**
    * Optional. The measurement unit defined in the user's account settings.
-   * Updates to this field are currently not supported.
    *
    * @var string
    */
@@ -270,7 +269,6 @@ class Settings extends \Google\Model
   }
   /**
    * Optional. The measurement unit defined in the user's account settings.
-   * Updates to this field are currently not supported.
    *
    * Accepted values: DISTANCE_UNIT_UNSPECIFIED, DISTANCE_UNIT_MILES,
    * DISTANCE_UNIT_KILOMETERS

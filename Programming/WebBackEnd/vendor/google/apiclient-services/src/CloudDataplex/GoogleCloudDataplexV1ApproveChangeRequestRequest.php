@@ -20,12 +20,36 @@ namespace Google\Service\CloudDataplex;
 class GoogleCloudDataplexV1ApproveChangeRequestRequest extends \Google\Model
 {
   /**
+   * Optional. The comment or reason for approving the ChangeRequest. Maximum
+   * length is 1024 characters.
+   *
+   * @var string
+   */
+  public $comment;
+  /**
    * Optional. The etag of the ChangeRequest.
    *
    * @var string
    */
   public $etag;
 
+  /**
+   * Optional. The comment or reason for approving the ChangeRequest. Maximum
+   * length is 1024 characters.
+   *
+   * @param string $comment
+   */
+  public function setComment($comment)
+  {
+    $this->comment = $comment;
+  }
+  /**
+   * @return string
+   */
+  public function getComment()
+  {
+    return $this->comment;
+  }
   /**
    * Optional. The etag of the ChangeRequest.
    *

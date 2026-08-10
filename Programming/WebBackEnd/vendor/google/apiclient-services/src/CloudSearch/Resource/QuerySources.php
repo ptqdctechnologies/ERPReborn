@@ -43,6 +43,9 @@ class QuerySources extends \Google\Service\Resource
    * @opt_param string requestOptions.clientDisplayLanguageCode The BCP-47
    * language code, such as "pt" or "en". It represents the user's preferred
    * Display Language.
+   * @opt_param string requestOptions.countryCode Optional. Specifies the
+   * country/region where the query originated, as a lowercase ISO 3166-1 alpha-2
+   * region code (using 'uk' instead of 'gb' for the United Kingdom).
    * @opt_param bool requestOptions.debugOptions.enableDebugging If you are asked
    * by Google to help with debugging, set this field. Otherwise, ignore this
    * field.

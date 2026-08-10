@@ -23,9 +23,8 @@ class ListInstancesResponse extends \Google\Collection
   protected $instancesType = Instance::class;
   protected $instancesDataType = 'array';
   /**
-   * If provided, a page token that can look up the next
-   * ListInstancesRequest.pageSize results. If empty, the results list is
-   * exhausted.
+   * If provided, a page token that can look up the next `pageSize` results. If
+   * empty, the results list is exhausted.
    *
    * @var string
    */
@@ -39,7 +38,7 @@ class ListInstancesResponse extends \Google\Collection
 
   /**
    * The list of instances matching the request filters, up to the requested
-   * ListInstancesRequest.pageSize.
+   * `pageSize`.
    *
    * @param Instance[] $instances
    */
@@ -55,9 +54,8 @@ class ListInstancesResponse extends \Google\Collection
     return $this->instances;
   }
   /**
-   * If provided, a page token that can look up the next
-   * ListInstancesRequest.pageSize results. If empty, the results list is
-   * exhausted.
+   * If provided, a page token that can look up the next `pageSize` results. If
+   * empty, the results list is exhausted.
    *
    * @param string $nextPageToken
    */

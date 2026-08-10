@@ -190,6 +190,10 @@ class TestIssue extends \Google\Model
    * Licensing protection termination (Pairip) was detected.
    */
   public const TYPE_licensingProtectionTermination = 'licensingProtectionTermination';
+  /**
+   * Anti-tampering termination was detected.
+   */
+  public const TYPE_antiTamperingTermination = 'antiTamperingTermination';
   protected $internal_gapi_mappings = [
         "warningMigration" => "warning_migration",
   ];
@@ -306,7 +310,7 @@ class TestIssue extends \Google\Model
    * inAppPurchases, crashDialogError, uiElementsTooDeep, blankScreen,
    * overlappingUiElements, unityException, deviceOutOfMemory,
    * logcatCollectionError, detectedAppSplashScreen, assetIssue,
-   * licensingProtectionTermination
+   * licensingProtectionTermination, antiTamperingTermination
    *
    * @param self::TYPE_* $type
    */

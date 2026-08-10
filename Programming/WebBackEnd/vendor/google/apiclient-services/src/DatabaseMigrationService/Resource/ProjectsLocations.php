@@ -40,6 +40,10 @@ class ProjectsLocations extends \Google\Service\Resource
    * static IPs should be returned. Must be in the format `projects/locations`.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param bool fetchReservedPublicIps Optional. Indicates whether to fetch
+   * the reserved public IP addresses allocated for private connections in this
+   * location. If false or not set, fetches the shared external static IP
+   * addresses instead.
    * @opt_param int pageSize Optional. Maximum number of IPs to return.
    * @opt_param string pageToken Optional. A page token, received from a previous
    * `FetchStaticIps` call.

@@ -32,15 +32,15 @@ class UploadAdAssetRequest extends \Google\Model
    */
   public const AD_ASSET_TYPE_AD_ASSET_TYPE_YOUTUBE_VIDEO = 'AD_ASSET_TYPE_YOUTUBE_VIDEO';
   /**
-   * Attestation status is unspecified.
+   * No attestation has been provided.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED = 'SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED';
   /**
-   * Not synthetic content.
+   * Attested as not created or edited using AI.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_NOT_SYNTHETIC = 'NOT_SYNTHETIC';
   /**
-   * Is synthetic content.
+   * Attested as created or edited using AI.
    */
   public const SYNTHETIC_CONTENT_ATTESTATION_STATUS_IS_SYNTHETIC = 'IS_SYNTHETIC';
   /**
@@ -58,8 +58,8 @@ class UploadAdAssetRequest extends \Google\Model
    */
   public $filename;
   /**
-   * Optional. Whether the asset contains synthetic content or was created using
-   * AI.
+   * Optional. Whether to add a label to the asset as created or edited using AI
+   * when served in regions with local AI labeling regulations.
    *
    * @var string
    */
@@ -103,8 +103,8 @@ class UploadAdAssetRequest extends \Google\Model
     return $this->filename;
   }
   /**
-   * Optional. Whether the asset contains synthetic content or was created using
-   * AI.
+   * Optional. Whether to add a label to the asset as created or edited using AI
+   * when served in regions with local AI labeling regulations.
    *
    * Accepted values: SYNTHETIC_CONTENT_ATTESTATION_STATUS_UNSPECIFIED,
    * NOT_SYNTHETIC, IS_SYNTHETIC

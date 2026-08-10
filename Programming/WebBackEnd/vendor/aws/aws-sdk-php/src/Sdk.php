@@ -18,6 +18,10 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionAccount(array $args = [])
  * @method \Aws\Acm\AcmClient createAcm(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAcm(array $args = [])
+ * @method \Aws\AgentRegistry\AgentRegistryClient createAgentRegistry(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAgentRegistry(array $args = [])
+ * @method \Aws\AgentRegistryControl\AgentRegistryControlClient createAgentRegistryControl(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAgentRegistryControl(array $args = [])
  * @method \Aws\Amplify\AmplifyClient createAmplify(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAmplify(array $args = [])
  * @method \Aws\AmplifyBackend\AmplifyBackendClient createAmplifyBackend(array $args = [])
@@ -859,7 +863,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.390.2';
+    const VERSION = '3.391.1';
 
     /** @var array Arguments for creating clients */
     private $args;

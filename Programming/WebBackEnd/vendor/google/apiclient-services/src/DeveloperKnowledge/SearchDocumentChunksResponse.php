@@ -21,8 +21,8 @@ class SearchDocumentChunksResponse extends \Google\Collection
 {
   protected $collection_key = 'results';
   /**
-   * Optional. Provides a token that can be sent as `page_token` to retrieve the
-   * next page. If this field is omitted, there are no subsequent pages.
+   * Provides a token that can be sent as `page_token` to retrieve the next
+   * page. If this field is omitted, there are no subsequent pages.
    *
    * @var string
    */
@@ -31,8 +31,8 @@ class SearchDocumentChunksResponse extends \Google\Collection
   protected $resultsDataType = 'array';
 
   /**
-   * Optional. Provides a token that can be sent as `page_token` to retrieve the
-   * next page. If this field is omitted, there are no subsequent pages.
+   * Provides a token that can be sent as `page_token` to retrieve the next
+   * page. If this field is omitted, there are no subsequent pages.
    *
    * @param string $nextPageToken
    */

@@ -81,6 +81,10 @@ class DatabaseMigrationService extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'fetchReservedPublicIps' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'pageSize' => [
                   'location' => 'query',
                   'type' => 'integer',

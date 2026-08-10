@@ -49,7 +49,7 @@ class GoogleCloudDiscoveryengineV1BatchUpdateUserLicensesRequest extends \Google
     return $this->deleteUnassignedUserLicenses;
   }
   /**
-   * The inline source for the input content for document embeddings.
+   * The inline source for the input content for license assignment.
    *
    * @param GoogleCloudDiscoveryengineV1BatchUpdateUserLicensesRequestInlineSource $inlineSource
    */

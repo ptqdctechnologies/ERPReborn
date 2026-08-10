@@ -23,7 +23,8 @@ use Google\Client;
  * Service definition for CloudProductRegistry (v1).
  *
  * <p>
- * cloudproductregistry.googleapis.com API.</p>
+ * Cloud Product Registry API provides capabilities to access all first Google
+ * Cloud products.</p>
  *
  * <p>
  * For more information about this service, see the API

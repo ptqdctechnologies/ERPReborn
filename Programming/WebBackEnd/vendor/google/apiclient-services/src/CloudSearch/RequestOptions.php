@@ -26,6 +26,14 @@ class RequestOptions extends \Google\Model
    * @var string
    */
   public $clientDisplayLanguageCode;
+  /**
+   * Optional. Specifies the country/region where the query originated, as a
+   * lowercase ISO 3166-1 alpha-2 region code (using 'uk' instead of 'gb' for
+   * the United Kingdom).
+   *
+   * @var string
+   */
+  public $countryCode;
   protected $debugOptionsType = DebugOptions::class;
   protected $debugOptionsDataType = '';
   /**
@@ -77,6 +85,24 @@ class RequestOptions extends \Google\Model
   public function getClientDisplayLanguageCode()
   {
     return $this->clientDisplayLanguageCode;
+  }
+  /**
+   * Optional. Specifies the country/region where the query originated, as a
+   * lowercase ISO 3166-1 alpha-2 region code (using 'uk' instead of 'gb' for
+   * the United Kingdom).
+   *
+   * @param string $countryCode
+   */
+  public function setCountryCode($countryCode)
+  {
+    $this->countryCode = $countryCode;
+  }
+  /**
+   * @return string
+   */
+  public function getCountryCode()
+  {
+    return $this->countryCode;
   }
   /**
    * Debug options of the request

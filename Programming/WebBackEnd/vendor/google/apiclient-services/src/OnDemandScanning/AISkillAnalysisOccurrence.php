@@ -35,11 +35,13 @@ class AISkillAnalysisOccurrence extends \Google\Collection
   protected $findingsType = Finding::class;
   protected $findingsDataType = 'array';
   /**
-   * Maximum severity found among findings.
+   * Maximum severity found among findings. Per scanner verdict details.
    *
    * @var string
    */
   public $maxSeverity;
+  protected $perScannerVerdictType = PerScannerVerdict::class;
+  protected $perScannerVerdictDataType = '';
   /**
    * Name of the skill that produced this analysis.
    *
@@ -64,7 +66,7 @@ class AISkillAnalysisOccurrence extends \Google\Collection
     return $this->findings;
   }
   /**
-   * Maximum severity found among findings.
+   * Maximum severity found among findings. Per scanner verdict details.
    *
    * Accepted values: SEVERITY_UNSPECIFIED, CRITICAL, HIGH
    *
@@ -80,6 +82,22 @@ class AISkillAnalysisOccurrence extends \Google\Collection
   public function getMaxSeverity()
   {
     return $this->maxSeverity;
+  }
+  /**
+   * Per scanner verdict.
+   *
+   * @param PerScannerVerdict $perScannerVerdict
+   */
+  public function setPerScannerVerdict(PerScannerVerdict $perScannerVerdict)
+  {
+    $this->perScannerVerdict = $perScannerVerdict;
+  }
+  /**
+   * @return PerScannerVerdict
+   */
+  public function getPerScannerVerdict()
+  {
+    return $this->perScannerVerdict;
   }
   /**
    * Name of the skill that produced this analysis.

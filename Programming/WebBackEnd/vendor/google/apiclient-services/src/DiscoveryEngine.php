@@ -224,6 +224,16 @@ class DiscoveryEngine extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'provision' => [
+              'path' => 'v1/{+name}:provision',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'setUpDataConnector' => [
               'path' => 'v1/{+parent}:setUpDataConnector',
               'httpMethod' => 'POST',

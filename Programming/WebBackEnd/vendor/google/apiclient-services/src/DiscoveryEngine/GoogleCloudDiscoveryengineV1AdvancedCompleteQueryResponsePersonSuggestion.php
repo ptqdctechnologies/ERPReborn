@@ -32,6 +32,10 @@ class GoogleCloudDiscoveryengineV1AdvancedCompleteQueryResponsePersonSuggestion 
    */
   public const PERSON_TYPE_THIRD_PARTY_IDENTITY = 'THIRD_PARTY_IDENTITY';
   /**
+   * The suggestion is a group (e.g. a Google Group), not an individual.
+   */
+  public const PERSON_TYPE_GOOGLE_GROUP = 'GOOGLE_GROUP';
+  /**
    * The name of the dataStore that this suggestion belongs to.
    *
    * @var string
@@ -139,7 +143,7 @@ class GoogleCloudDiscoveryengineV1AdvancedCompleteQueryResponsePersonSuggestion 
    * The type of the person.
    *
    * Accepted values: PERSON_TYPE_UNSPECIFIED, CLOUD_IDENTITY,
-   * THIRD_PARTY_IDENTITY
+   * THIRD_PARTY_IDENTITY, GOOGLE_GROUP
    *
    * @param self::PERSON_TYPE_* $personType
    */

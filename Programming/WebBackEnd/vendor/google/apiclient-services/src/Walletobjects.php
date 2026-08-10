@@ -713,6 +713,10 @@ class Walletobjects extends \Google\Service
               'path' => 'walletobjects/v1/jwt',
               'httpMethod' => 'POST',
               'parameters' => [],
+            ],'validate' => [
+              'path' => 'walletobjects/v1/jwt/validate',
+              'httpMethod' => 'POST',
+              'parameters' => [],
             ],
           ]
         ]

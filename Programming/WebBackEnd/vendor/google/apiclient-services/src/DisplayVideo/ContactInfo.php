@@ -22,7 +22,7 @@ class ContactInfo extends \Google\Collection
   protected $collection_key = 'zipCodes';
   /**
    * Optional. Country code of the member. Must also be set with the following
-   * fields: * country_code * hashed_first_name * hashed_last_name * zip_codes
+   * fields: * hashed_first_name * hashed_last_name * zip_codes
    *
    * @var string
    */
@@ -69,7 +69,7 @@ class ContactInfo extends \Google\Collection
 
   /**
    * Optional. Country code of the member. Must also be set with the following
-   * fields: * country_code * hashed_first_name * hashed_last_name * zip_codes
+   * fields: * hashed_first_name * hashed_last_name * zip_codes
    *
    * @param string $countryCode
    */
