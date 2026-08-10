@@ -41,7 +41,11 @@
         const newRow = {
             ref_number_id: "", // REF NUMBER
             ref_number_name: "", // REF NUMBER
+            budget_ref_id: "",
             budget_name: "",
+            value: "",
+            unpaid: "",
+            balance: "",
             accountingEntryRecordType_RefID: "", // DEBIT OR CREDIT
             amountCurrency_RefID: 62000000000001,
             amountCurrencyValue: "", // PAYMENT
@@ -166,6 +170,7 @@
 
         // Tampilkan ke input balance
         $(`#balance${index}`).val(balance.toLocaleString('en-US'));
+        updateField(index, 'balance', balance.toLocaleString('en-US'));
     }
 
     function renderTable() {
@@ -239,14 +244,15 @@
 
                     <td>
                         <input id="budget${index}" type="text" class="form-control" value="${row.budget_name}" readonly />
+                        <input id="budget_ref_id${index}" type="hidden" value="${row.budget_ref_id}" />
                     </td>
 
                     <td>
-                        <input id="value${index}" type="text" class="form-control" readonly />
+                        <input id="value${index}" type="text" class="form-control" readonly value="${row.value ? currencyTotal(row.value) : row.value}" />
                     </td>
 
                     <td>
-                        <input id="unpaid${index}" type="text" class="form-control" readonly />
+                        <input id="unpaid${index}" type="text" class="form-control" readonly value="${row.unpaid ? currencyTotal(row.unpaid) : row.unpaid}" />
                     </td>
 
                     <td>
@@ -257,7 +263,7 @@
                     </td>
 
                     <td>
-                        <input id="balance${index}" type="text" class="form-control" readonly />
+                        <input id="balance${index}" type="text" class="form-control" readonly value="${row.balance ? currencyTotal(row.balance) : row.balance}" />
                     </td>
 
                     <td>
@@ -359,6 +365,7 @@
         const rows = sourceTable.getElementsByTagName('tr');
 
         for (let row of rows) {
+            const budgetRefID = row.querySelector('input[id^="budget_ref_id"]');
             const refNumberRefID = row.querySelector('input[id^="ref_number_id"]');
             const refNumberName = row.querySelector('input[id^="ref_number_name"]');
             const accountingEntryRecordTypeRefID = row.querySelector('select[id^="accountingEntryRecordType_RefID"]');
@@ -402,14 +409,14 @@
                         if (indexToUpdate !== -1) {
                             dataStore[indexToUpdate] = {
                                 documentDateTimeTZ: `${year}-${month}-${day}`,
-                                businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                businessDocument_RefID: parseInt(refNumberRefID.value), // parseInt(refNumberRefID.value)
                                 refNumberName: refNumberName.value,
                                 accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
                                 budgetInput: budgetInput.value,
                                 paymentInput: paymentInput.value,
                                 chartOfAccountName: chartOfAccountName.value,
                                 bankAccount_RefID: parseInt(accountNumber.value),
-                                combinedBudget_RefID: 46000000000033,
+                                combinedBudget_RefID: parseInt(budgetRefID.value),
                                 journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
                                 additionalData: {
                                     itemList: {
@@ -419,9 +426,9 @@
                                                     items: {
                                                         entities: {
                                                             documentDateTimeTZ: `${year}-${month}-${day}`,
-                                                            businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                                            businessDocument_RefID: parseInt(refNumberRefID.value), // parseInt(refNumberRefID.value)
                                                             log_FileUpload_Pointer_RefID: null,
-                                                            combinedBudget_RefID: 46000000000033,
+                                                            combinedBudget_RefID: parseInt(budgetRefID.value),
                                                             beneficiaryBankAccount_RefID: parseInt(sourceRefID.value),
                                                             chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
                                                             amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
@@ -520,14 +527,14 @@
 
                     dataStore.push({
                         documentDateTimeTZ: `${year}-${month}-${day}`,
-                        businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                        businessDocument_RefID: parseInt(refNumberRefID.value), // parseInt(refNumberRefID.value)
                         refNumberName: refNumberName.value,
                         accountingEntryRecordTypeRefID: accountingEntryRecordTypeRefID.value,
                         budgetInput: budgetInput.value,
                         paymentInput: paymentInput.value,
                         chartOfAccountName: chartOfAccountName.value,
                         bankAccount_RefID: parseInt(accountNumber.value),
-                        combinedBudget_RefID: 46000000000033,
+                        combinedBudget_RefID: parseInt(budgetRefID.value),
                         journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
                         additionalData: {
                             itemList: {
@@ -537,9 +544,9 @@
                                             items: {
                                                 entities: {
                                                     documentDateTimeTZ: `${year}-${month}-${day}`,
-                                                    businessDocument_RefID: 74000000027381, // parseInt(refNumberRefID.value)
+                                                    businessDocument_RefID: parseInt(refNumberRefID.value), // parseInt(refNumberRefID.value)
                                                     log_FileUpload_Pointer_RefID: null,
-                                                    combinedBudget_RefID: 46000000000033,
+                                                    combinedBudget_RefID: parseInt(budgetRefID.value),
                                                     beneficiaryBankAccount_RefID: parseInt(sourceRefID.value),
                                                     chartOfAccount_RefID: parseInt(chartOfAccountRefID.value),
                                                     amountCurrency_RefID: parseInt(amountCurrencyRefID.value),
@@ -898,21 +905,26 @@
             success: function (response) {
                 if (response.status == 200 && Array.isArray(response.data) && response.data.length > 0) {
                     const dataTransaction = response.data[0];
+
                     if (response.documentTypeName == "Advance Form") {
                         const unpaidValue =
                             parseFloat(dataTransaction.totalTransactions || 0) -
                             parseFloat(dataTransaction.totalPayment || 0);
 
-                        $(`#budget${currentIndexPickRefNumbers}`).val(`${dataTransaction.combinedBudgetCode} - ${dataTransaction.combinedBudgetName}`);
+                        $(`#budget_ref_id${currentIndexPickRefNumbers}`).val(dataTransaction.combinedBudget_RefID);
+                        $(`#budget${currentIndexPickRefNumbers}`).val(dataTransaction.combinedBudgetCode);
                         $(`#value${currentIndexPickRefNumbers}`).val(dataTransaction.totalTransactions);
                         $(`#unpaid${currentIndexPickRefNumbers}`).val(unpaidValue);
-                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.advance_RefID);
+                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.businessDocument_RefID);
                         $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.businessDocumentNumber);
                         $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
 
-                        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(dataTransaction.advance_RefID));
+                        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(dataTransaction.businessDocument_RefID));
                         updateField(currentIndexPickRefNumber, 'ref_number_name', dataTransaction.businessDocumentNumber);
+                        updateField(currentIndexPickRefNumber, 'budget_ref_id', dataTransaction.combinedBudget_RefID);
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
+                        updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
+                        updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
                     }
                 } else {
 
