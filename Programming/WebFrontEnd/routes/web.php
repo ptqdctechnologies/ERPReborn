@@ -114,6 +114,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('Work/picklist', 'Master\WorkController@picklist')->name('Work.picklist');
     Route::resource('Work', 'Master\WorkController');
 
+    // RATE
+    Route::resource('Rate', 'Master\RateController');
+
     // APPROVAL DOCUMENT
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');
     Route::get('ApprovalRejected', 'Document\ApprovalDocumentController@ApprovalRejected')->name('ApprovalDocument.ApprovalRejected');
