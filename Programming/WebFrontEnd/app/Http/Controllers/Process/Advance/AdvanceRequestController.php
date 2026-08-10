@@ -122,6 +122,7 @@ class AdvanceRequestController extends Controller
                     'bankAccountNumber' => $header['beneficiaryBankAccountNumber'] ?? '',
                     'bankAccountId' => $header['beneficiaryBankAccount_RefID'] ?? '',
                     'bankAccountName' => $header['beneficiaryBankAccountName'] ?? '',
+                    'totalPayment' => $header['totalPayment'] ?? '',
                 ],
                 'dataAdvanceList' => $details,
                 'fileAttachment' => $header['log_FileUpload_Pointer_RefID'] ?? null,

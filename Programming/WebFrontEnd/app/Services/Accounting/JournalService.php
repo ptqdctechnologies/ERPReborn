@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use App\Services\Document\DocumentTypeMapper;
 
 class JournalService
 {
@@ -20,19 +21,43 @@ class JournalService
             'dataPickList.accounting.getJournal',
             'latest',
             [
-            'parameter' => [
+                'parameter' => [
                 ]
             ]
         );
     }
 
+    public function detailTransaction($documentType, $referenceId)
+    {
+        $token = Session::get('SessionLogin');
+
+        $apiConfig = DocumentTypeMapper::getApiConfig($documentType, $referenceId);
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            $apiConfig['key'],
+            'latest',
+            [
+                'parameter' => $apiConfig['parameter'],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ],
+            false
+        );
+    }
+
     public function create(Request $request)
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data                       = $request->storeData;
-        $journalDetail              = json_decode($data['journalDetail'], true);
+        $data = $request->storeData;
+        $journalDetail = json_decode($data['journalDetail'], true);
         // $cashDisbursementItemList   = json_decode($data['cashDisbursementItemList'], true);
         // $cashReceiptItemList        = json_decode($data['cashReceiptItemList'], true);
 
@@ -42,20 +67,20 @@ class JournalService
             'transaction.create.accounting.setJournal',
             'latest',
             [
-            'entities' => $journalDetail
-            // 'entities' => [
-            //     'additionalData'    => [
-            //         'itemList'      => [
-            //             'items'     => $journalDetail
-            //             ],
-            //         "cashDisbursementItemList"  => [
-            //             "items"                 => $cashDisbursementItemList
-            //             ],
-            //         "cashReceiptItemList"   => [
-            //             "items"             => $cashReceiptItemList
-            //             ]
-            //         ]
-            //     ]
+                'entities' => $journalDetail
+                // 'entities' => [
+                //     'additionalData'    => [
+                //         'itemList'      => [
+                //             'items'     => $journalDetail
+                //             ],
+                //         "cashDisbursementItemList"  => [
+                //             "items"                 => $cashDisbursementItemList
+                //             ],
+                //         "cashReceiptItemList"   => [
+                //             "items"             => $cashReceiptItemList
+                //             ]
+                //         ]
+                //     ]
             ]
         );
     }

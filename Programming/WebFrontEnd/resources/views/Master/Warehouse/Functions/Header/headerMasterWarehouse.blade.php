@@ -31,6 +31,85 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
                 <div class="col text-red" id="warehouseNameMessageText"></div>
             </div>
+
+            <!-- COUNTRY -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Country</label>
+                <div class="col-5 d-flex">
+                    <div>
+                        <span style="border-radius:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="myCountryTrigger" data-toggle="modal" data-target="#myCountries">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
+                                    alt="countryTrigger">
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input id="country_name" class="form-control" readonly name="country_name"
+                                style="border-radius:0; background-color: white;">
+                            <input id="country_id" class="form-control" hidden name="country_id"
+                                style="border-radius:0; background-color: white;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="countryMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="countryMessageText"></div>
+            </div>
+
+            <!-- PROVINCE -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Province</label>
+                <div class="col-5 d-flex">
+                    <div>
+                        <span style="border-radius:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="provinceTrigger" data-toggle="modal" data-target="#myProvincies">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
+                                    alt="provinceTrigger">
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input id="province_name" class="form-control" name="province_name" readonly
+                                style="border-radius:0; background-color: white;">
+                            <input id="province_id" class="form-control" name="province_id" hidden
+                                style="border-radius:0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="provinceMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="provinceMessageText"></div>
+            </div>
+
+            <!-- CITY -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">City</label>
+                <div class="col-5 d-flex">
+                    <div>
+                        <span style="border-radius:0;" class="input-group-text form-control">
+                            <a href="javascript:;" id="cityTrigger" data-toggle="modal" data-target="#myCities">
+                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="cityTrigger">
+                            </a>
+                        </span>
+                    </div>
+                    <div style="flex: 100%;">
+                        <div class="input-group">
+                            <input id="city_name" class="form-control" name="city_name" readonly
+                                style="border-radius:0; background-color: white;">
+                            <input id="city_id" class="form-control" name="city_id" hidden style="border-radius:0;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="cityMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="cityMessageText"></div>
+            </div>
         </div>
 
         <!-- RIGHT -->

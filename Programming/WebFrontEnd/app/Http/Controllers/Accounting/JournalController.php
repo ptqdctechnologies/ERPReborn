@@ -191,4 +191,30 @@ class JournalController extends Controller
             return response()->json($compact);
         }
     }
+
+    public function detailTransactions(Request $request)
+    {
+        try {
+            $documentType = $request->input('documentType');
+            $referenceId = $request->input('referenceId');
+
+            $response = $this->journalService->detailTransaction($documentType, $referenceId);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Transaction');
+            }
+
+            $compact = [
+                "data" => $response['data']['data'],
+                "documentTypeName" => $documentType,
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Detail Transaction Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
 }

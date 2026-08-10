@@ -8,8 +8,7 @@
 | ▪ Copyleft 🄯 2020 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Master
-    {
+namespace App\Models\Database\SchData_OLTP_Master {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : General                                                                                                      |
@@ -17,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_Master
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class General //extends \Illuminate\Database\Eloquent\Model
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getBusinessDocumentLastVersionByBusDocType                                                           |
@@ -37,8 +36,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByBusDocType(
-            $varUserSession, int $BusinessDocumentTypeID)
-            {
+            $varUserSession,
+            int $BusinessDocumentTypeID
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -48,11 +48,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [
                             [$BusinessDocumentTypeID, 'bigint']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return $varReturn['data'];
-            }
+        }
 
 
         /*
@@ -74,9 +74,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByFormNumberKeyword(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varFormNumberKeyword, int $varApproverEntity_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varFormNumberKeyword,
+            int $varApproverEntity_RefID = null
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -87,11 +89,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varFormNumberKeyword, 'varchar'],
                             [$varApproverEntity_RefID, 'bigint']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return $varReturn['data'];
-            }
+        }
 
 
         /*
@@ -112,9 +114,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getIDTranslation_BusinessDocumentVersionToBusinessDocumentForm(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocumentVersionID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocumentVersionID = null
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -122,13 +125,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                         $varUserSession,
                         'SchData-OLTP-Master.Func_GetIDTranslation_BusinessDocVersionToBusinessDocForm',
                         [
-                            ['{'.$varBusinessDocumentVersionID.'}', 'bigint[]']
+                            ['{' . $varBusinessDocumentVersionID . '}', 'bigint[]']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return $varReturn['data'];
-            }
+        }
 
 
         /*
@@ -150,8 +153,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataEntities_CountryAdministrativeArea(
             $varUserSession,
-            string $varIDSet)
-            {
+            string $varIDSet
+        ) {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_CountryAdministrativeArea';
 
@@ -161,28 +164,26 @@ namespace App\Models\Database\SchData_OLTP_Master
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
-                                [
-                                    [$varUserSession, 'bigint'],
-                                    [$varIDSet, 'bigint[]']
-                                ]
-                            )
-                        );
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    );
 
-                for ($i=0; $i!=count($varTemp['data']); $i++)
-                    {
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
-                            );
-                    }
+                        );
+                }
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -204,8 +205,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataEntities_Entity(
             $varUserSession,
-            string $varIDSet)
-            {
+            string $varIDSet
+        ) {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_Entity';
 
@@ -219,23 +220,21 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varUserSession, 'bigint'],
                                 [$varIDSet, 'bigint[]']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                for ($i=0; $i!=count($varTemp['data']); $i++)
-                    {
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
-                            );
-                    }
+                        );
+                }
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -257,8 +256,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getDataEntities_EntityContactNumber(
             $varUserSession,
-            string $varIDSet)
-            {
+            string $varIDSet
+        ) {
             try {
                 $varFunctionName = 'SchData-OLTP-Master.Func_GetDataEntities_EntityContactNumber';
 
@@ -272,24 +271,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varUserSession, 'bigint'],
                                 [$varIDSet, 'bigint[]']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                for ($i=0; $i!=count($varTemp['data']); $i++)
-                    {
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
-                            );
-                    }
+                        );
+                }
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -313,13 +310,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getData_CentralBankCurrencyExchangtMiddleRateByCurrencyISOCode(
             $varUserSession,
-            string $varDateTimeTZ, string $varCurrencyISOCode, string $varBaseCurrencyISOCode = null)
-            {
+            string $varDateTimeTZ,
+            string $varCurrencyISOCode,
+            string $varBaseCurrencyISOCode = null
+        ) {
             try {
-                if(!$varBaseCurrencyISOCode)
-                    {
+                if (!$varBaseCurrencyISOCode) {
                     $varBaseCurrencyISOCode = 'IDR';
-                    }
+                }
 
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -332,15 +330,14 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varBaseCurrencyISOCode, 'varchar'],
                                 [$varCurrencyISOCode, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return $varReturn['data'][0]['Func_General_GetCurrencyExchangeRateCentralBankByISOCode'];
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -366,9 +363,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_AccountingEntryRecordType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -384,17 +385,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -420,10 +419,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Bank(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -439,17 +441,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -476,11 +476,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BankAccount(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBank_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -498,17 +501,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -535,11 +536,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BankBranch(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBank_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -557,17 +561,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -593,10 +595,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BloodAglutinogenType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -612,17 +617,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-                    
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -648,10 +651,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BudgetOrigin(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -667,17 +673,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -704,11 +708,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocument(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -726,17 +733,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -762,11 +767,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocumentType(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varStatusPayment = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -778,17 +786,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varStatusPayment, 'smallint']
                             ]
-                            )
-			);
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -815,11 +821,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_BusinessDocumentVersion(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocument_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -837,16 +846,14 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -872,10 +879,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CitizenGender(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -891,17 +901,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -927,10 +935,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CitizenIdentity(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -946,17 +957,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -982,10 +991,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ContactNumberType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1001,17 +1013,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1036,10 +1046,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Country(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1055,17 +1068,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1091,10 +1102,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeArea(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1110,17 +1124,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1147,11 +1159,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel1(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varCountry_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1169,17 +1184,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1206,11 +1219,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel2(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varCountryAdministrativeAreaLevel1_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1228,17 +1244,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1265,11 +1279,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel3(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varCountryAdministrativeAreaLevel2_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1287,17 +1304,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1324,11 +1339,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_CountryAdministrativeAreaLevel4(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varCountryAdministrativeAreaLevel3_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1346,17 +1364,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1381,10 +1397,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Currency(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1400,17 +1419,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1437,11 +1454,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_EntityBankAccount(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varEntity_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1459,17 +1479,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1496,11 +1514,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_EntityContactNumber(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varEntity_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1518,17 +1539,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1555,11 +1574,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_GoodsModel(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varTradeMark_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1577,17 +1599,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1613,10 +1633,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Institution(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1632,17 +1655,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1668,10 +1689,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_InstitutionType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1687,17 +1711,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1723,10 +1745,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentDisbursementMethod(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1742,17 +1767,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1778,10 +1801,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentMethod(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1797,17 +1823,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1833,10 +1857,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PaymentTerm(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1852,17 +1879,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1888,10 +1913,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TermOfPayment(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1907,17 +1935,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1943,10 +1969,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Period(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1962,17 +1991,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1998,10 +2025,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Person(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2017,17 +2047,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2054,11 +2082,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonAccountEMail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varPerson_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2076,17 +2107,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2112,10 +2141,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PersonGender(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2131,17 +2163,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2168,11 +2198,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Product(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             string $varDateTime = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2190,17 +2223,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2225,8 +2256,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProductDetail_LatestVersion(
-            $varUserSession, int $varProduct_RefID = null)
-            {
+            $varUserSession,
+            int $varProduct_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2235,19 +2267,17 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_ProductDetail',
                             [
-                                [$varProduct_RefID, 'bigint' ],
+                                [$varProduct_RefID, 'bigint'],
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2272,8 +2302,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SupplierCategoryDetail_LatestVersion(
-            $varUserSession, int $varCategory_RefID = null)
-            {
+            $varUserSession,
+            int $varCategory_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2282,19 +2313,17 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_SupplierCategoryDetail',
                             [
-                                [$varCategory_RefID, 'bigint' ],
+                                [$varCategory_RefID, 'bigint'],
                             ]
-                            )
-		    );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2319,8 +2348,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SupplierSubCategoryDetail_LatestVersion(
-            $varUserSession, string $varSubCategoryCode = null)
-            {
+            $varUserSession,
+            string $varSubCategoryCode = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2329,19 +2359,17 @@ namespace App\Models\Database\SchData_OLTP_Master
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetDataList_SupplierSubCategoryDetail',
                             [
-                                [$varSubCategoryCode, 'varchar' ]
+                                [$varSubCategoryCode, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2367,10 +2395,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProductType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2386,17 +2417,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2422,10 +2451,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_QuantityUnit(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2441,17 +2473,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2477,10 +2507,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Religion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2496,17 +2529,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2532,10 +2563,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TradeMark(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2551,17 +2585,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2587,10 +2619,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_TransactionAdditionalCostType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2606,17 +2641,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2642,10 +2675,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_VehicleType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2661,17 +2697,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2696,10 +2730,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Bank(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2715,26 +2752,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_Bank']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2761,10 +2796,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_BusinessDocument(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2782,26 +2821,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_BusinessDocument']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2826,10 +2863,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Country(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2845,26 +2885,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_Country']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2890,10 +2928,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_CountryAdministrativeArea(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2909,26 +2950,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_CountryAdministrativeArea']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2955,11 +2994,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_CountryAdministrativeAreaLevel1(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varCountry_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null
-            )
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2977,26 +3019,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_CountryAdministrativeAreaLevel1']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3022,9 +3062,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PersonGender(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3040,25 +3084,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PersonGender']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3085,10 +3128,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Product(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             string $varDateTime = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3106,27 +3153,25 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_Product']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -3153,9 +3198,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ProductSummary(
-            $varUserSession, int $varSysBranch_RefID,
-            array $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3167,20 +3213,18 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );                        
+                        )
+                    );
                 // Set total records count dari first record
                 $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -3200,9 +3244,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_AccountingEntryRecordType(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3213,17 +3257,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3243,9 +3285,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Bank(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3256,17 +3298,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3288,10 +3328,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankAccount(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBank_RefID = null
-            )
-            {
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3304,17 +3344,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBank_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3336,10 +3374,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BankBranch(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBank_RefID = null
-            )
-            {
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3352,17 +3390,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBank_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3384,9 +3420,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessDocumentFormLatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocumentType_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocumentType_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3399,17 +3436,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocumentType_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3431,9 +3466,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BusinessDocumentLatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocumentType_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocumentType_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3446,17 +3482,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocumentType_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3476,8 +3510,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ContactNumberType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3488,17 +3523,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3518,9 +3551,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Country(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3531,17 +3564,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3563,9 +3594,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel1(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCountry_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCountry_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3578,17 +3610,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varCountry_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3610,9 +3640,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel2(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCountryAdministrativeAreaLevel1_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCountryAdministrativeAreaLevel1_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3625,17 +3656,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varCountryAdministrativeAreaLevel1_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3657,9 +3686,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel3(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCountryAdministrativeAreaLevel2_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCountryAdministrativeAreaLevel2_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3672,17 +3702,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varCountryAdministrativeAreaLevel2_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3704,9 +3732,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CountryAdministrativeAreaLevel4(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCountryAdministrativeAreaLevel3_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCountryAdministrativeAreaLevel3_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3719,17 +3748,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varCountryAdministrativeAreaLevel3_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3749,8 +3776,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_BudgetOrigin(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3761,17 +3789,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3793,9 +3819,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_EntityBankAccount(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varEntity_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varEntity_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3808,17 +3835,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varEntity_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3840,8 +3865,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_InstitutionBankAccount(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3852,17 +3878,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint'],
                             ]
-                            )
-			);
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3884,9 +3908,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_EntityContactNumber(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varEntity_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varEntity_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3899,17 +3924,15 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varEntity_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3929,8 +3952,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Institution(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3941,17 +3965,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3971,8 +3993,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_InstitutionType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3983,17 +4006,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4013,8 +4034,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentDisbursementMethod(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4025,17 +4047,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4055,8 +4075,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentMethod(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4067,17 +4088,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4097,8 +4116,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PaymentTerm(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4109,17 +4129,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4139,9 +4157,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Person(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4152,17 +4170,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4184,9 +4200,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Product(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4197,17 +4213,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4229,9 +4243,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_SupplierCategory(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4242,17 +4256,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4274,9 +4286,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_SupplierCategorySubCategory(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4287,8 +4299,8 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $resultArray = $varReturn['data'];
                 // Description: Generate API.
@@ -4317,12 +4329,10 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4344,9 +4354,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_SupplierSubCategory(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4357,17 +4367,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4387,8 +4395,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_TransactionAdditionalCostType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4399,17 +4408,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4429,8 +4436,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_VehicleType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4441,17 +4449,15 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4471,9 +4477,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_Bank(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4484,26 +4490,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_Bank']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4525,10 +4529,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_BusinessDocumentFormLatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID
-            )
-            {
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4541,26 +4545,24 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocumentType_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_BusinessDocumentFormLatestVersion']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4582,10 +4584,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_BusinessDocumentLatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID
-            )
-            {
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4598,26 +4600,24 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocumentType_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_BusinessDocumentLatestVersion']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4637,9 +4637,9 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_Country(
-            $varUserSession, int $varSysBranch_RefID
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4650,26 +4650,24 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_Country']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4691,9 +4689,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_BusinessDocumentFormAndLinkageFileUpload(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocumentForm_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocumentForm_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4708,19 +4707,18 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [TRUE, 'boolean']
                             ]
-                            )
+                        )
                     );
 
                 return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
-                        );
-                }
-            catch (\Exception $ex) {
+                    );
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4742,9 +4740,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_BusinessDocumentFormSelfFileUpload(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocumentForm_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocumentForm_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4757,19 +4756,18 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocumentForm_RefID, 'bigint']
                             ]
-                            )
+                        )
                     );
 
                 return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_BusinessDocumentFileUpload']
-                        );
-                }
-            catch (\Exception $ex) {
+                    );
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4791,9 +4789,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataResume_EntityContactNumber(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varEntity_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varEntity_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4806,19 +4805,18 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varEntity_RefID, 'bigint']
                             ]
-                            )
+                        )
                     );
 
                 return
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataResume_EntityContactNumber']
-                        );
-                }
-            catch (\Exception $ex) {
+                    );
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4840,9 +4838,11 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getBusinessDocumentLastVersionByFormNumber(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varFormNumber = null, int $varApproverEntity_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varFormNumber = null,
+            int $varApproverEntity_RefID = null
+        ) {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -4853,17 +4853,16 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varFormNumber, 'varchar'],
                             [$varApproverEntity_RefID, 'bigint']
                         ]
-                        )
-                    );
+                    )
+                );
 
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4889,10 +4888,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_Bank(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varAcronym = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varAcronym = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4910,24 +4912,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varName, 'varchar'],
                                 [$varAcronym, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_Bank']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4953,10 +4953,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_BankAccount(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varFullBankAccountNumber = null, string $varBankName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varFullBankAccountNumber = null,
+            string $varBankName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4974,24 +4977,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFullBankAccountNumber, 'varchar'],
                                 [$varBankName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_BankAccount']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5018,10 +5019,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_InstitutionType(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, int $varCountry_RefID = null, string $varCountryName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            int $varCountry_RefID = null,
+            string $varCountryName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5040,24 +5045,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varCountry_RefID, 'bigint'],
                                 [$varCountryName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_InstitutionType']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5083,10 +5086,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_Person(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varCitizenIdentityNumber = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCitizenIdentityNumber = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5104,24 +5110,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varName, 'varchar'],
                                 [$varCitizenIdentityNumber, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_Person']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5143,9 +5147,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentDispositionHistory(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocument_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocument_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5158,21 +5163,19 @@ namespace App\Models\Database\SchData_OLTP_Master
 
                                 [$varBusinessDocument_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5200,11 +5203,15 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_BusinessDocumentIssuanceDisposition(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varSysID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
-            {
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            int $varBusinessDocumentType_RefID = null,
+            int $varCombinedBudget_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5224,24 +5231,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varBusinessDocumentType_RefID, 'bigint'],
                                 [$varCombinedBudget_RefID, 'bigint']
                             ]
-                            )
-                        );
-               
-                $varReturn['data'] = 
+                        )
+                    );
+
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_BusDocIssuanceDisposition']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5273,11 +5278,18 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_CombinedBusinessDocumentForm_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varBusinessDocumentType_RefID = null,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5301,24 +5313,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_CombinedBusDocForm']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5345,10 +5355,14 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_InstitutionType(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, int $varCountry_RefID = null, string $varCountryName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            int $varCountry_RefID = null,
+            string $varCountryName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5367,24 +5381,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varCountry_RefID, 'bigint'],
                                 [$varCountryName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_InstitutionType']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5405,9 +5417,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentIssuanceDispositionCount(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5420,24 +5433,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_BusDocIssuanceDispositionCount']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5458,8 +5469,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BusinessDocumentFilterByDocumentTypeID(
-            $varUserSession, int $varSysBranch_RefID, int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5471,15 +5484,14 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return $varReturn['data'];
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5500,9 +5512,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AllDocumentType(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5514,19 +5527,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_AllType'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_AllType']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5547,9 +5560,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_CitizenIdentity(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5561,19 +5575,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_CitizenIdentity'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_CitizenIdentity']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5594,9 +5608,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_Person(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5608,19 +5623,19 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varSysBranch_RefID, 'bigint'],
                                 [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_Person'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_Person']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5640,8 +5655,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getFileExtensionOfMIME(
             $varUserSession,
-            string $varMIME)
-            {
+            string $varMIME
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -5651,11 +5666,11 @@ namespace App\Models\Database\SchData_OLTP_Master
                         [
                             [$varMIME, 'varchar']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return $varReturn['data'][0]['Func_General_GetFileExtensionOfMIME'];
-            }
+        }
 
 
         /*
@@ -5677,8 +5692,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getIDOfMIME(
             $varUserSession,
-            string $varMIME)
-            {
+            string $varMIME
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5689,15 +5704,14 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varMIME, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return $varReturn['data'][0]['Func_General_GetIDOfMIME'];
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5719,8 +5733,8 @@ namespace App\Models\Database\SchData_OLTP_Master
         */
         public function getBusinessDocumentByRecordID(
             $varUserSession,
-            int $varRecordID)
-            {
+            int $varRecordID
+        ) {
             try {
                 $varData =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5731,16 +5745,16 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varRecordID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn = [
                     'fullDocumentNumber' =>
-                        $varData['data'][0]['DocumentTypeName'].
-                        ' No : '.
-                        $varData['data'][0]['DocumentNumber'].
-                        ' (Version : '.
-                        $varData['data'][0]['Version'].
+                        $varData['data'][0]['DocumentTypeName'] .
+                        ' No : ' .
+                        $varData['data'][0]['DocumentNumber'] .
+                        ' (Version : ' .
+                        $varData['data'][0]['Version'] .
                         ')',
                     'businessDocumentType_RefID' => $varData['data'][0]['BusinessDocumentType_RefID'],
                     'businessDocument_RefID' => $varData['data'][0]['BusinessDocument_RefID'],
@@ -5749,15 +5763,13 @@ namespace App\Models\Database\SchData_OLTP_Master
                     'documentNumber' => $varData['data'][0]['DocumentNumber'],
                     'version' => $varData['data'][0]['Version'],
                     'documentDateTimeTZ' => $varData['data'][0]['DocumentDateTimeTZ']
-                    ];
+                ];
 
                 return $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5783,10 +5795,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_Bank(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varAcronym = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varAcronym = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5804,24 +5819,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varName, 'varchar'],
                                 [$varAcronym, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_Bank']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5847,10 +5860,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_BankAccount(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varFullBankAccountNumber = null, string $varBankName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varFullBankAccountNumber = null,
+            string $varBankName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5868,24 +5884,22 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varFullBankAccountNumber, 'varchar'],
                                 [$varBankName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_BankAccount']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -5911,10 +5925,13 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_Person(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null, string $varCitizenIdentityNumber = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCitizenIdentityNumber = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5932,24 +5949,152 @@ namespace App\Models\Database\SchData_OLTP_Master
                                 [$varName, 'varchar'],
                                 [$varCitizenIdentityNumber, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_Person']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_Work_Structure                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-05                                                                                           |
+        | ▪ Creation Date   : 2026-08-05                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Bank                                                       |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCode ► Code                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_Work_Structure(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCode = null
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataPickList_Work_Structure',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varCode, 'varchar']
+                            ]
+                        )
+                    );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_Work_Structure']
+                    );
+
+                return
+                    $varReturn;
+            } catch (\Exception $ex) {
+                return
+                    [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_Work_Structure                                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-06                                                                                           |
+        | ▪ Creation Date   : 2026-08-06                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Work Structure                                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCode ► Code                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_Work_Structure(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCode = null
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_Work_Structure',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varCode, 'varchar']
+                            ]
+                        )
+                    );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_Work_Structure']
+                    );
+
+                return
+                    $varReturn;
+            } catch (\Exception $ex) {
+                return
+                    [];
+            }
+        }
 
 
         /*
@@ -5971,9 +6116,10 @@ namespace App\Models\Database\SchData_OLTP_Master
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function isBusinessDocumentFinalApproved(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varBusinessDocument_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varBusinessDocument_RefID = null
+        ) {
             try {
                 $varData =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5984,20 +6130,18 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [
                                 [$varBusinessDocument_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn = [
                     'status' => $varData['data'][0]['Func_General_IsBusinessDocumentFinalApproved']
-                    ];
+                ];
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
         }
     }
+}
