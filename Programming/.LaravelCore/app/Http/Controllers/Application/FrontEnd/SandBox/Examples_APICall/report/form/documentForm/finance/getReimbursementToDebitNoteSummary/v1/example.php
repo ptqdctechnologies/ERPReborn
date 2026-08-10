@@ -46,7 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     ],
                 'SQLStatement' => [
                     'paging' => [
-                        'limit' => "9",
+                        'limit' => "20",
                         // 'limit' => "ALL",
                         'offset' => 0
                         ]
