@@ -205,7 +205,7 @@ class JournalController extends Controller
             }
 
             $compact = [
-                "data" => $response['data']['data'],
+                "data" => $response['data'] ?? $response['data']['data'],
                 "documentTypeName" => $documentType,
                 "status" => $response['metadata']['HTTPStatusCode'],
             ];

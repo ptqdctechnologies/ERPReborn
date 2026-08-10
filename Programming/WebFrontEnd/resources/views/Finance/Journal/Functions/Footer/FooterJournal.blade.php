@@ -925,6 +925,18 @@
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
                         updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
                         updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
+                    } else if (response.documentTypeName == "Payment Instruction Form") {
+                        const unpaidValue =
+                            parseFloat(dataTransaction.totalTransactions || 0) -
+                            parseFloat(dataTransaction.totalPayment || 0);
+
+                        $(`#budget_ref_id${currentIndexPickRefNumbers}`).val(dataTransaction.combinedBudget_RefID);
+                        $(`#budget${currentIndexPickRefNumbers}`).val('-'); // dataTransaction.combinedBudgetCode
+                        $(`#value${currentIndexPickRefNumbers}`).val(dataTransaction.totalTransactions);
+                        $(`#unpaid${currentIndexPickRefNumbers}`).val(unpaidValue);
+                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.businessDocument_RefID);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.documentNumber);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
                     }
                 } else {
 
