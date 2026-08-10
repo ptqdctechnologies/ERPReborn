@@ -13,10 +13,14 @@
                         </span>
                     </div>
                     <div class="input-group">
-                        <input type="hidden" id="currency_id" />
-                        <input type="hidden" id="currency_code" />
+                        <input type="hidden" id="currency_id"
+                            value="<?= isset($currencyRefID) ? $currencyRefID : ''; ?>" />
+                        <input type="hidden" id="currency_code"
+                            value="<?= isset($currencyCode) ? $currencyCode : ''; ?>" />
                         <input type="text" id="currency_name" class="form-control"
-                            style="border-radius:0;background-color:white;" readonly />
+                            value="<?= isset($currencyCode) && isset($currencyName) ? $currencyCode . ' - ' . $currencyName : ''; ?>"
+                            style="border-radius:0;background-color:<?= isset($currencyCode) && isset($currencyName) ? '' : 'white'; ?>;"
+                            readonly />
                     </div>
                 </div>
             </div>
@@ -26,7 +30,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Rate</label>
                 <div class="col-6 d-flex">
                     <div class="input-group">
-                        <input class="form-control number-only" id="rate" name="rate" style="border-radius:0;"
+                        <input class="form-control number-only" id="rate" name="rate"
+                            value="<?= isset($rate) ? number_format($rate, 2) : ''; ?>" style="border-radius:0;"
                             autocomplete="off" />
                     </div>
                 </div>

@@ -115,6 +115,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Work', 'Master\WorkController');
 
     // RATE
+    Route::post('Rate/revision', 'Master\RateController@revision')->name('Rate.revision');
     Route::resource('Rate', 'Master\RateController');
 
     // APPROVAL DOCUMENT
