@@ -104,14 +104,14 @@
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Total Payment</label>
                 <div class="col-5 d-flex">
-                    <div>
+                    <!-- <div>
                         <span style="border-radius:0;" class="input-group-text form-control">
                             <a href="javascript:;" id="myBankAccountTrigger" data-toggle="modal"
                                 data-target="#myBankAccount" class="myBankAccount" style="cursor: not-allowed;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
                             </a>
                         </span>
-                    </div>
+                    </div> -->
                     <div style="flex: 100%;">
                         <input id="total_payment_arf" style="border-radius:0;" class="form-control"
                             name="total_payment_arf" readonly value="{{ $headerAdvanceRequestDetail['totalPayment'] }}">
