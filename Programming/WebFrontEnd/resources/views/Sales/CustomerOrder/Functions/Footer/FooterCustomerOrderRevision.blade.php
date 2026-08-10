@@ -1,5 +1,6 @@
 <script>
     let data = [];
+    let dataDelete = [];
     let dataAddManual = [];
     let dataSubBudget = [];
     let dataProducts = [];
@@ -115,7 +116,7 @@
     function addRow() {
         if (customerOrderType.value == "SUB_BUDGET_BASE") {
             dataAddManual.push({
-                recordID: "",
+                recordID: null,
                 entities: {
                     combinedBudgetSection_RefID: "",
                     combinedBudgetSectionName: "",
@@ -126,7 +127,7 @@
             });
         } else {
             dataAddManual.push({
-                recordID: "",
+                recordID: null,
                 entities: {
                     combinedBudgetSection_RefID: "",
                     combinedBudgetSectionName: "",
@@ -149,6 +150,12 @@
     }
 
     function removeRow(index) {
+        if (dataAddManual[index].recordID) {
+            dataDelete.push({
+                recordID: dataAddManual[index].recordID
+            });
+        }
+
         dataAddManual.splice(index, 1);
         renderTable();
     }
@@ -430,6 +437,7 @@
                     combinedBudgetRefID: budgetID.value,
                     currencyRefID: currencyID.value,
                     logFileUploadPointerRefID: fileID.value,
+                    customerOrderDelete: JSON.stringify(dataDelete),
                     customerOrderDetail: JSON.stringify(dataAddManual.filter(val => val.entities.combinedBudgetSection_RefID))
                 }
             },

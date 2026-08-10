@@ -111,6 +111,7 @@ class CustomerOrderService
         $sessionToken = Session::get('SessionLogin');
         $data = $request->storeData;
         $detailItems = json_decode($data['customerOrderDetail'], true);
+        $deleteItems = json_decode($data['customerOrderDelete'], true);
         $vatRatio = !isset($data['coRatio']) || $data['coRatio'] == "Select a VAT" ? 0 : $data['coRatio'];
         $fileID = isset($data['logFileUploadPointerRefID']) ? (int) $data['logFileUploadPointerRefID'] : null;
 
@@ -133,6 +134,9 @@ class CustomerOrderService
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems
+                            ],
+                            "deleteList" => [
+                                "items" => $deleteItems
                             ]
                         ]
                     ]
@@ -157,6 +161,9 @@ class CustomerOrderService
                         "additionalData" => [
                             "itemList" => [
                                 "items" => $detailItems
+                            ],
+                            "deleteList" => [
+                                "items" => $deleteItems
                             ]
                         ]
                     ]
