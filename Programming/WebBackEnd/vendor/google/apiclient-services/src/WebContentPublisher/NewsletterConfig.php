@@ -38,6 +38,12 @@ class NewsletterConfig extends \Google\Model
    */
   public $nameRequired;
   /**
+   * Optional. Whether checking the opt-in checkbox is required.
+   *
+   * @var bool
+   */
+  public $optInRequired;
+  /**
    * Required. The title of the newsletter signup prompt.
    *
    * @var string
@@ -91,6 +97,22 @@ class NewsletterConfig extends \Google\Model
   public function getNameRequired()
   {
     return $this->nameRequired;
+  }
+  /**
+   * Optional. Whether checking the opt-in checkbox is required.
+   *
+   * @param bool $optInRequired
+   */
+  public function setOptInRequired($optInRequired)
+  {
+    $this->optInRequired = $optInRequired;
+  }
+  /**
+   * @return bool
+   */
+  public function getOptInRequired()
+  {
+    return $this->optInRequired;
   }
   /**
    * Required. The title of the newsletter signup prompt.

@@ -41,6 +41,21 @@ class GoogleCloudDiscoveryengineV1WidgetConfigCollectionComponent extends \Googl
    * @var string
    */
   public $dataSourceDisplayName;
+  /**
+   * Output only. The end-user-facing display name of the data source, sourced
+   * from `ConnectorSource.end_user_display_name`. When unset, clients fall back
+   * to `data_source_display_name`.
+   *
+   * @var string
+   */
+  public $dataSourceEndUserDisplayName;
+  /**
+   * Output only. The version of the connector definition backing this
+   * collection, mirroring `DataConnector.data_source_version`.
+   *
+   * @var 
+   */
+  public $dataSourceVersion;
   protected $dataStoreComponentsType = GoogleCloudDiscoveryengineV1WidgetConfigDataStoreComponent::class;
   protected $dataStoreComponentsDataType = 'array';
   /**
@@ -59,6 +74,18 @@ class GoogleCloudDiscoveryengineV1WidgetConfigCollectionComponent extends \Googl
    * @var string
    */
   public $id;
+  /**
+   * Output only. Whether this is a first-party (Google-owned) connector, as
+   * opposed to a third-party connector. Used by the frontend to group 1P vs 3P
+   * connectors. Sourced from `ConnectorSource.is_first_party` once that field
+   * is universally populated (b/534727761); until then derived from
+   * `ConnectorSource.connector_type == FIRST_PARTY`.
+   *
+   * @var bool
+   */
+  public $isFirstParty;
+  protected $metadataType = GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata::class;
+  protected $metadataDataType = '';
   /**
    * The name of the collection. It should be collection resource name. Format:
    * `projects/{project}/locations/{location}/collections/{collection_id}`. For
@@ -139,6 +166,32 @@ class GoogleCloudDiscoveryengineV1WidgetConfigCollectionComponent extends \Googl
     return $this->dataSourceDisplayName;
   }
   /**
+   * Output only. The end-user-facing display name of the data source, sourced
+   * from `ConnectorSource.end_user_display_name`. When unset, clients fall back
+   * to `data_source_display_name`.
+   *
+   * @param string $dataSourceEndUserDisplayName
+   */
+  public function setDataSourceEndUserDisplayName($dataSourceEndUserDisplayName)
+  {
+    $this->dataSourceEndUserDisplayName = $dataSourceEndUserDisplayName;
+  }
+  /**
+   * @return string
+   */
+  public function getDataSourceEndUserDisplayName()
+  {
+    return $this->dataSourceEndUserDisplayName;
+  }
+  public function setDataSourceVersion($dataSourceVersion)
+  {
+    $this->dataSourceVersion = $dataSourceVersion;
+  }
+  public function getDataSourceVersion()
+  {
+    return $this->dataSourceVersion;
+  }
+  /**
    * For the data store collection, list of the children data stores.
    *
    * @param GoogleCloudDiscoveryengineV1WidgetConfigDataStoreComponent[] $dataStoreComponents
@@ -189,6 +242,45 @@ class GoogleCloudDiscoveryengineV1WidgetConfigCollectionComponent extends \Googl
   public function getId()
   {
     return $this->id;
+  }
+  /**
+   * Output only. Whether this is a first-party (Google-owned) connector, as
+   * opposed to a third-party connector. Used by the frontend to group 1P vs 3P
+   * connectors. Sourced from `ConnectorSource.is_first_party` once that field
+   * is universally populated (b/534727761); until then derived from
+   * `ConnectorSource.connector_type == FIRST_PARTY`.
+   *
+   * @param bool $isFirstParty
+   */
+  public function setIsFirstParty($isFirstParty)
+  {
+    $this->isFirstParty = $isFirstParty;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsFirstParty()
+  {
+    return $this->isFirstParty;
+  }
+  /**
+   * Output only. User-facing connector metadata (`title`, `description`,
+   * `short_description`, `author`, `note`), retrieved from the registry
+   * `ConnectorSource.metadata` (joined by data source). Shown on the connector
+   * detail page.
+   *
+   * @param GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata $metadata
+   */
+  public function setMetadata(GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata $metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
   }
   /**
    * The name of the collection. It should be collection resource name. Format:

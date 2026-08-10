@@ -26,6 +26,12 @@ class NotebookAction extends \Google\Model
    */
   public $contents;
   /**
+   * Output only. The path to the notebook file in the repository.
+   *
+   * @var string
+   */
+  public $filePath;
+  /**
    * Output only. The ID of the Gemini Enterprise Agent Platform job that
    * executed the notebook in contents and also the ID used for the outputs
    * created in Google Cloud Storage buckets. Only set once the job has started
@@ -50,6 +56,22 @@ class NotebookAction extends \Google\Model
   public function getContents()
   {
     return $this->contents;
+  }
+  /**
+   * Output only. The path to the notebook file in the repository.
+   *
+   * @param string $filePath
+   */
+  public function setFilePath($filePath)
+  {
+    $this->filePath = $filePath;
+  }
+  /**
+   * @return string
+   */
+  public function getFilePath()
+  {
+    return $this->filePath;
   }
   /**
    * Output only. The ID of the Gemini Enterprise Agent Platform job that

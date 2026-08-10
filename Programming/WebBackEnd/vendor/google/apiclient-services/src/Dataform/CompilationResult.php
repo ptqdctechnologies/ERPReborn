@@ -38,6 +38,8 @@ class CompilationResult extends \Google\Collection
    * @var string
    */
   public $dataformCoreVersion;
+  protected $gcsRepositorySnapshotMetadataType = GcsRepositorySnapshotMetadata::class;
+  protected $gcsRepositorySnapshotMetadataDataType = '';
   /**
    * Immutable. Git commit/tag/branch name at which the repository should be
    * compiled. Must exist in the remote repository. Examples: - a commit SHA:
@@ -164,6 +166,23 @@ class CompilationResult extends \Google\Collection
   public function getDataformCoreVersion()
   {
     return $this->dataformCoreVersion;
+  }
+  /**
+   * Output only. Metadata about the repository snapshot used by scheduled
+   * notebooks.
+   *
+   * @param GcsRepositorySnapshotMetadata $gcsRepositorySnapshotMetadata
+   */
+  public function setGcsRepositorySnapshotMetadata(GcsRepositorySnapshotMetadata $gcsRepositorySnapshotMetadata)
+  {
+    $this->gcsRepositorySnapshotMetadata = $gcsRepositorySnapshotMetadata;
+  }
+  /**
+   * @return GcsRepositorySnapshotMetadata
+   */
+  public function getGcsRepositorySnapshotMetadata()
+  {
+    return $this->gcsRepositorySnapshotMetadata;
   }
   /**
    * Immutable. Git commit/tag/branch name at which the repository should be

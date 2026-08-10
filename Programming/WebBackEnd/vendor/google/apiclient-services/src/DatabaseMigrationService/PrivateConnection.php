@@ -75,6 +75,8 @@ class PrivateConnection extends \Google\Model
   public $name;
   protected $pscInterfaceConfigType = PscInterfaceConfig::class;
   protected $pscInterfaceConfigDataType = '';
+  protected $reservedPublicIpConfigType = ReservedPublicIpConfig::class;
+  protected $reservedPublicIpConfigDataType = '';
   /**
    * Output only. Reserved for future use.
    *
@@ -200,6 +202,22 @@ class PrivateConnection extends \Google\Model
   public function getPscInterfaceConfig()
   {
     return $this->pscInterfaceConfig;
+  }
+  /**
+   * Reserved Public IP configuration.
+   *
+   * @param ReservedPublicIpConfig $reservedPublicIpConfig
+   */
+  public function setReservedPublicIpConfig(ReservedPublicIpConfig $reservedPublicIpConfig)
+  {
+    $this->reservedPublicIpConfig = $reservedPublicIpConfig;
+  }
+  /**
+   * @return ReservedPublicIpConfig
+   */
+  public function getReservedPublicIpConfig()
+  {
+    return $this->reservedPublicIpConfig;
   }
   /**
    * Output only. Reserved for future use.

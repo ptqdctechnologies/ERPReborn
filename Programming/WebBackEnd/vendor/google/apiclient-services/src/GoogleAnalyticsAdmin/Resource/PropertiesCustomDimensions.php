@@ -49,7 +49,10 @@ class PropertiesCustomDimensions extends \Google\Service\Resource
     return $this->call('archive', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Creates a CustomDimension. (customDimensions.create)
+   * Creates a CustomDimension. Warning: It's not permissible to use this method
+   * to collect data on individual users. In particular, sending user IDs in
+   * custom dimensions violates the [Google Analytics Terms of
+   * Service](https://www.google.com/analytics/terms/). (customDimensions.create)
    *
    * @param string $parent Required. Example format: properties/1234
    * @param GoogleAnalyticsAdminV1betaCustomDimension $postBody

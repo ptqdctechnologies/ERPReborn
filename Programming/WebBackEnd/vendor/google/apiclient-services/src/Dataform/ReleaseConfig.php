@@ -73,9 +73,9 @@ class ReleaseConfig extends \Google\Collection
   public $releaseCompilationResult;
   /**
    * Optional. Specifies the time zone to be used when interpreting
-   * cron_schedule. Must be a time zone name from the time zone database
-   * (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If left
-   * unspecified, the default is UTC.
+   * cron_schedule. Must be a time zone name from the [time zone
+   * database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If
+   * left unspecified, the default is `UTC`.
    *
    * @var string
    */
@@ -225,9 +225,9 @@ class ReleaseConfig extends \Google\Collection
   }
   /**
    * Optional. Specifies the time zone to be used when interpreting
-   * cron_schedule. Must be a time zone name from the time zone database
-   * (https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If left
-   * unspecified, the default is UTC.
+   * cron_schedule. Must be a time zone name from the [time zone
+   * database](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones). If
+   * left unspecified, the default is `UTC`.
    *
    * @param string $timeZone
    */

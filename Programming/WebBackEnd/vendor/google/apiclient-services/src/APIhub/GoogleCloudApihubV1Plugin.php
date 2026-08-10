@@ -56,6 +56,10 @@ class GoogleCloudApihubV1Plugin extends \Google\Collection
    */
   public const GATEWAY_TYPE_AWS_API_GATEWAY = 'AWS_API_GATEWAY';
   /**
+   * The gateway type is Azure API Management.
+   */
+  public const GATEWAY_TYPE_AZURE_API_MANAGEMENT = 'AZURE_API_MANAGEMENT';
+  /**
    * Default unspecified type.
    */
   public const OWNERSHIP_TYPE_OWNERSHIP_TYPE_UNSPECIFIED = 'OWNERSHIP_TYPE_UNSPECIFIED';
@@ -273,7 +277,8 @@ class GoogleCloudApihubV1Plugin extends \Google\Collection
    *
    * Accepted values: GATEWAY_TYPE_UNSPECIFIED, APIGEE_X_AND_HYBRID,
    * APIGEE_EDGE_PUBLIC_CLOUD, APIGEE_EDGE_PRIVATE_CLOUD, CLOUD_API_GATEWAY,
-   * CLOUD_ENDPOINTS, API_DISCOVERY, OTHERS, AWS_API_GATEWAY
+   * CLOUD_ENDPOINTS, API_DISCOVERY, OTHERS, AWS_API_GATEWAY,
+   * AZURE_API_MANAGEMENT
    *
    * @param self::GATEWAY_TYPE_* $gatewayType
    */

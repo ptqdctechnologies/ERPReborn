@@ -20,14 +20,6 @@ namespace Google\Service\DiscoveryEngine;
 class GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata extends \Google\Model
 {
   /**
-   * Optional. The end user's account as authenticated to the connector, so the
-   * end user can see which account is connected. May be an email, a username,
-   * or any identifier the connector/third party provides.
-   *
-   * @var string
-   */
-  public $authenticatedAccount;
-  /**
    * Optional. The party that authored the connector, e.g. "Google" or a third-
    * party provider name. Lets end users see who authored a connector (future:
    * third-party-authored connectors).
@@ -63,24 +55,6 @@ class GoogleCloudDiscoveryengineV1DataConnectorConnectorMetadata extends \Google
    */
   public $title;
 
-  /**
-   * Optional. The end user's account as authenticated to the connector, so the
-   * end user can see which account is connected. May be an email, a username,
-   * or any identifier the connector/third party provides.
-   *
-   * @param string $authenticatedAccount
-   */
-  public function setAuthenticatedAccount($authenticatedAccount)
-  {
-    $this->authenticatedAccount = $authenticatedAccount;
-  }
-  /**
-   * @return string
-   */
-  public function getAuthenticatedAccount()
-  {
-    return $this->authenticatedAccount;
-  }
   /**
    * Optional. The party that authored the connector, e.g. "Google" or a third-
    * party provider name. Lets end users see who authored a connector (future:

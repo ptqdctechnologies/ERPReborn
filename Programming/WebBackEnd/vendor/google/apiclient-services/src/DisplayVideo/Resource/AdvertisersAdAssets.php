@@ -128,8 +128,8 @@ class AdvertisersAdAssets extends \Google\Service\Resource
   /**
    * Updates an ad asset. Returns the updated ad asset if successful. Supports
    * updating assets of AdAssetType `AD_ASSET_TYPE_YOUTUBE_VIDEO` and
-   * `AD_ASSET_TYPE_IMAGE`. Only the `synthetic_content_attestation_status` field
-   * is mutable. (adAssets.patch)
+   * `AD_ASSET_TYPE_IMAGE`. Only the AdAsset.synthetic_content_attestation_status
+   * field is mutable. (adAssets.patch)
    *
    * @param string $advertiserId Required. The ID of the advertiser this ad asset
    * belongs to.

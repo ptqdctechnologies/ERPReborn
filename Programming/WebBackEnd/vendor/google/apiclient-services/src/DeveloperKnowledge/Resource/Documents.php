@@ -41,7 +41,9 @@ class Documents extends \Google\Service\Resource
    * retrieve. A maximum of 20 documents can be retrieved in a batch. The
    * documents are returned in the same order as the `names` in the request.
    * Format: `documents/{uri_without_scheme}` Example:
-   * `documents/docs.cloud.google.com/storage/docs/creating-buckets`
+   * `documents/docs.cloud.google.com/storage/docs/creating-buckets` Each name
+   * must not exceed 500 characters; values longer than 500 characters will result
+   * in an `INVALID_ARGUMENT` error.
    * @opt_param string view Optional. Specifies the DocumentView of the document.
    * If unspecified, DeveloperKnowledge.BatchGetDocuments defaults to
    * `DOCUMENT_VIEW_CONTENT`.
@@ -59,7 +61,9 @@ class Documents extends \Google\Service\Resource
    *
    * @param string $name Required. Specifies the name of the document to retrieve.
    * Format: `documents/{uri_without_scheme}` Example:
-   * `documents/docs.cloud.google.com/storage/docs/creating-buckets`
+   * `documents/docs.cloud.google.com/storage/docs/creating-buckets` The name must
+   * not exceed 500 characters; values longer than 500 characters will result in
+   * an `INVALID_ARGUMENT` error.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string view Optional. Specifies the DocumentView of the document.
@@ -120,7 +124,9 @@ class Documents extends \Google\Service\Resource
    * previous `SearchDocumentChunks` call. Provide this to retrieve the subsequent
    * page.
    * @opt_param string query Required. Provides the raw query string provided by
-   * the user, such as "How to create a Cloud Storage bucket?".
+   * the user, such as "How to create a Cloud Storage bucket?". The query must not
+   * exceed 500 characters; values longer than 500 characters will result in an
+   * `INVALID_ARGUMENT` error.
    * @return SearchDocumentChunksResponse
    * @throws \Google\Service\Exception
    */

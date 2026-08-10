@@ -131,6 +131,10 @@ class ApiKeysService extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'checkExistingUsage' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'etag' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -186,6 +190,10 @@ class ApiKeysService extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+                'checkExistingUsage' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'updateMask' => [
                   'location' => 'query',

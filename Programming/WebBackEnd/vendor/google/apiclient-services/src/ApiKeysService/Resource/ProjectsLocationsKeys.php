@@ -66,6 +66,8 @@ class ProjectsLocationsKeys extends \Google\Service\Resource
    * @param string $name Required. The resource name of the API key to be deleted.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string checkExistingUsage Optional. Defines the behavior for
+   * checking existing usage when deleting a key.
    * @opt_param string etag Optional. The etag known to the client for the
    * expected state of the key. This is to be used for optimistic concurrency.
    * @return Operation
@@ -144,6 +146,8 @@ class ProjectsLocationsKeys extends \Google\Service\Resource
    * @param V2Key $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string checkExistingUsage Optional. Defines the behavior for
+   * checking existing usage when updating a key.
    * @opt_param string updateMask The field mask specifies which fields to be
    * updated as part of this request. All other fields are ignored. Mutable fields
    * are: `display_name`, `restrictions`, and `annotations`. If an update mask is

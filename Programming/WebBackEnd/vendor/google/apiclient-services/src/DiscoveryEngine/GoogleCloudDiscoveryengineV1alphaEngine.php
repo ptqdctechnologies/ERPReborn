@@ -187,10 +187,11 @@ class GoogleCloudDiscoveryengineV1alphaEngine extends \Google\Collection
    * highlights` * `mobile-app-access` * `disable-agent-sharing` * `disable-
    * image-generation` * `disable-video-generation` * `disable-onedrive-upload`
    * * `disable-talk-to-content` * `disable-google-drive-upload` * `disable-
-   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `disable-skills`
-   * * `disable-projects` * `enable-end-user-sharing-with-groups` * `single-
-   * agent-orchestration` * `multi-agent-orchestration` * `cross-product-
-   * intelligence`
+   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `skills` *
+   * `skill-sharing` * `skill-sharing-without-admin-approval` * `disable-
+   * projects` * `sobi` * `enable-end-user-sharing-with-groups` * `single-agent-
+   * orchestration` * `multi-agent-orchestration` * `cross-product-intelligence`
+   * * `workflow-agents` * `in-app-notifications`
    *
    * @var string[]
    */
@@ -501,10 +502,11 @@ class GoogleCloudDiscoveryengineV1alphaEngine extends \Google\Collection
    * highlights` * `mobile-app-access` * `disable-agent-sharing` * `disable-
    * image-generation` * `disable-video-generation` * `disable-onedrive-upload`
    * * `disable-talk-to-content` * `disable-google-drive-upload` * `disable-
-   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `disable-skills`
-   * * `disable-projects` * `enable-end-user-sharing-with-groups` * `single-
-   * agent-orchestration` * `multi-agent-orchestration` * `cross-product-
-   * intelligence`
+   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `skills` *
+   * `skill-sharing` * `skill-sharing-without-admin-approval` * `disable-
+   * projects` * `sobi` * `enable-end-user-sharing-with-groups` * `single-agent-
+   * orchestration` * `multi-agent-orchestration` * `cross-product-intelligence`
+   * * `workflow-agents` * `in-app-notifications`
    *
    * @param string[] $features
    */

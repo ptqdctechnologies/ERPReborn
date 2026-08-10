@@ -35,6 +35,8 @@ class NotebookRuntimeOptions extends \Google\Model
    * @var string
    */
   public $gcsOutputBucket;
+  protected $gcsRepositorySnapshotDestinationType = GcsRepositorySnapshotDestination::class;
+  protected $gcsRepositorySnapshotDestinationDataType = '';
 
   /**
    * Optional. The resource name of the [Colab runtime template]
@@ -71,6 +73,24 @@ class NotebookRuntimeOptions extends \Google\Model
   public function getGcsOutputBucket()
   {
     return $this->gcsOutputBucket;
+  }
+  /**
+   * Optional. The Google Cloud Storage destination to upload the snapshot to.
+   * For empty URI it defaults to the provided gcs_output_bucket. Format:
+   * `gs://bucket-name/path/`.
+   *
+   * @param GcsRepositorySnapshotDestination $gcsRepositorySnapshotDestination
+   */
+  public function setGcsRepositorySnapshotDestination(GcsRepositorySnapshotDestination $gcsRepositorySnapshotDestination)
+  {
+    $this->gcsRepositorySnapshotDestination = $gcsRepositorySnapshotDestination;
+  }
+  /**
+   * @return GcsRepositorySnapshotDestination
+   */
+  public function getGcsRepositorySnapshotDestination()
+  {
+    return $this->gcsRepositorySnapshotDestination;
   }
 }
 

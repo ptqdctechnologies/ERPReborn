@@ -19,6 +19,8 @@ namespace Google\Service\ThreatIntelligenceService;
 
 class ConfigurationDetail extends \Google\Model
 {
+  protected $customThreatScenarioType = CustomThreatScenarioConfig::class;
+  protected $customThreatScenarioDataType = '';
   protected $customerProfileType = CustomerProfileConfig::class;
   protected $customerProfileDataType = '';
   /**
@@ -31,6 +33,22 @@ class ConfigurationDetail extends \Google\Model
   protected $technologyWatchlistType = TechnologyWatchListConfig::class;
   protected $technologyWatchlistDataType = '';
 
+  /**
+   * Custom Threat Scenario detail config.
+   *
+   * @param CustomThreatScenarioConfig $customThreatScenario
+   */
+  public function setCustomThreatScenario(CustomThreatScenarioConfig $customThreatScenario)
+  {
+    $this->customThreatScenario = $customThreatScenario;
+  }
+  /**
+   * @return CustomThreatScenarioConfig
+   */
+  public function getCustomThreatScenario()
+  {
+    return $this->customThreatScenario;
+  }
   /**
    * Customer Profile detail config.
    *

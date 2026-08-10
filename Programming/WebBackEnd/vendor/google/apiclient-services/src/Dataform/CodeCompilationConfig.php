@@ -60,6 +60,8 @@ class CodeCompilationConfig extends \Google\Model
    * @var string
    */
   public $defaultSchema;
+  protected $pipelineConfigType = PipelineConfig::class;
+  protected $pipelineConfigDataType = '';
   /**
    * Optional. The suffix that should be appended to all schema (BigQuery
    * dataset ID) names.
@@ -195,6 +197,23 @@ class CodeCompilationConfig extends \Google\Model
   public function getDefaultSchema()
   {
     return $this->defaultSchema;
+  }
+  /**
+   * Optional. The pipeline options which defines the pipeline type and path
+   * within the Git repository.
+   *
+   * @param PipelineConfig $pipelineConfig
+   */
+  public function setPipelineConfig(PipelineConfig $pipelineConfig)
+  {
+    $this->pipelineConfig = $pipelineConfig;
+  }
+  /**
+   * @return PipelineConfig
+   */
+  public function getPipelineConfig()
+  {
+    return $this->pipelineConfig;
   }
   /**
    * Optional. The suffix that should be appended to all schema (BigQuery

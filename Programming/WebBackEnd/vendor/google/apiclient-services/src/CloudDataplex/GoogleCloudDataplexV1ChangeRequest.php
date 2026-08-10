@@ -199,6 +199,13 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    */
   public $resource;
   /**
+   * Output only. The comment provided by the reviewer when approving or
+   * rejecting the ChangeRequest. Maximum length is 1024 characters.
+   *
+   * @var string
+   */
+  public $reviewerComment;
+  /**
    * Output only. The current state of the ChangeRequest.
    *
    * @var string
@@ -575,6 +582,23 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
   public function getResource()
   {
     return $this->resource;
+  }
+  /**
+   * Output only. The comment provided by the reviewer when approving or
+   * rejecting the ChangeRequest. Maximum length is 1024 characters.
+   *
+   * @param string $reviewerComment
+   */
+  public function setReviewerComment($reviewerComment)
+  {
+    $this->reviewerComment = $reviewerComment;
+  }
+  /**
+   * @return string
+   */
+  public function getReviewerComment()
+  {
+    return $this->reviewerComment;
   }
   /**
    * Output only. The current state of the ChangeRequest.

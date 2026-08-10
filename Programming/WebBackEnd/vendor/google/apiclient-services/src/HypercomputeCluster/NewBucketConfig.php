@@ -40,6 +40,10 @@ class NewBucketConfig extends \Google\Model
    * recovery.
    */
   public const STORAGE_CLASS_ARCHIVE = 'ARCHIVE';
+  /**
+   * Storage class optimized for I/O intensive workloads.
+   */
+  public const STORAGE_CLASS_RAPID = 'RAPID';
   protected $autoclassType = GcsAutoclassConfig::class;
   protected $autoclassDataType = '';
   /**
@@ -114,7 +118,7 @@ class NewBucketConfig extends \Google\Model
    * bucket's default storage class.
    *
    * Accepted values: STORAGE_CLASS_UNSPECIFIED, STANDARD, NEARLINE, COLDLINE,
-   * ARCHIVE
+   * ARCHIVE, RAPID
    *
    * @param self::STORAGE_CLASS_* $storageClass
    */

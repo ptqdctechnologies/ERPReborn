@@ -24,11 +24,15 @@ class ApiDimensionFilterGroup extends \Google\Collection
   protected $filtersType = ApiDimensionFilter::class;
   protected $filtersDataType = 'array';
   /**
+   * Optional. The logic operator between filters of the same group.
+   *
    * @var string
    */
   public $groupType;
 
   /**
+   * Optional. A list of single-value filters in this group.
+   *
    * @param ApiDimensionFilter[] $filters
    */
   public function setFilters($filters)
@@ -43,6 +47,10 @@ class ApiDimensionFilterGroup extends \Google\Collection
     return $this->filters;
   }
   /**
+   * Optional. The logic operator between filters of the same group.
+   *
+   * Accepted values: AND
+   *
    * @param self::GROUP_TYPE_* $groupType
    */
   public function setGroupType($groupType)

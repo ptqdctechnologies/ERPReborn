@@ -553,6 +553,10 @@ class CloudSearch extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'requestOptions.countryCode' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'requestOptions.debugOptions.enableDebugging' => [
                   'location' => 'query',
                   'type' => 'boolean',
