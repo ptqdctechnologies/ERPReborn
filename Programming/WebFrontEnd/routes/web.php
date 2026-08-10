@@ -274,6 +274,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('FinancialReport', 'Finance\FinancialReportController');
 
     // JOURNAL
+    Route::get('Journal/detail-transactions', 'Accounting\JournalController@detailTransactions')->name('Journal.detailTransactions');
     Route::get('Journal/picklist', 'Accounting\JournalController@DataPickList')->name('Journal.DataPickList');
     Route::get('ReportPaymentJournal', 'Accounting\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
     Route::post('Journal/report/store', 'Accounting\JournalController@ReportPaymentJournalStore')->name('Journal.ReportPaymentJournalStore');
