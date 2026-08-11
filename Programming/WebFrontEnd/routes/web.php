@@ -81,6 +81,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
+    Route::get('Warehouse/Type/picklist', 'Master\WarehouseController@type')->name('Warehouse.Type.picklist');
     Route::get('Warehouse/picklist', 'Master\WarehouseController@picklist')->name('Warehouse.picklist');
     Route::post('Warehouse/revision', 'Master\WarehouseController@revision')->name('Warehouse.revision');
     Route::resource('Warehouse', 'Master\WarehouseController');
