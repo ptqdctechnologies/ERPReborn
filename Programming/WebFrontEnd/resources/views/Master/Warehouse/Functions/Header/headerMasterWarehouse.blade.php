@@ -125,7 +125,7 @@
                         </span>
                     </div>
                     <div style="flex: 1;">
-                        <input type="text" id="supplier_province" class="form-control"
+                        <input type="text" id="warehouse_type" name="warehouse_type" class="form-control"
                             style="border-radius:0;background-color:white;" readonly />
                     </div>
                 </div>
@@ -135,7 +135,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Address</label>
                 <div class="col-5">
-                    <textarea id="address" name="address" cols="30" rows="4" class="form-control"
+                    <textarea id="warehouse_address" name="warehouse_address" cols="30" rows="4" class="form-control"
                         autocomplete="off"></textarea>
                 </div>
             </div>
