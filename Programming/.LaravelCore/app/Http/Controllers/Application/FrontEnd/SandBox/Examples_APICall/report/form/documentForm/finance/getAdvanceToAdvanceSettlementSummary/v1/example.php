@@ -42,13 +42,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
                     'RequesterWorkerJobsPosition_RefID' => 164000000000559,
-                    'StartDate' => '2025-02-25',
-                    'EndDate' => '2026-03-04',
+                    'StartDate' => '2025-01-01',
+                    'EndDate' => '2026-08-04',
+                    'Advance_RefID' => 76000000000544,
+                    'AdvanceSettlement_RefID' => 203000000000005,
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
                     // 'RequesterWorkerJobsPosition_RefID' => NULL,     // ARF Requester
                     // 'StartDate' => NULL,
                     // 'EndDate' => NULL,
+                    // 'Advance_RefID' => NULL,
+                    // 'AdvanceSettlement_RefID' => NULL,
                     ],
                 'SQLStatement' => [
                     'paging' => [
