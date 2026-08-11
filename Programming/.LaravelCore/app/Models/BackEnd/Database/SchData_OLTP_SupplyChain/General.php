@@ -5526,7 +5526,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionToPurchaseOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, int $varPurchaseRequisition_RefID = null, int $varPurchaseOrder_RefID = null, string $varStartDate = null, string $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5540,6 +5540,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
                                 [$varSupplier_RefID, 'bigint' ],
+                                [$varPurchaseRequisition_RefID, 'bigint' ],
+                                [$varPurchaseOrder_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
