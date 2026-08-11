@@ -6307,7 +6307,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AdvanceToAdvanceSettlementSummary(
-		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
+		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null, int $varAdvance_RefID = null, int $varAdvanceSettlement_RefID = null,
 		array $varPagingStatement = null
             )
             {
@@ -6324,6 +6324,8 @@ namespace App\Models\Database\SchData_OLTP_Finance
                                 [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
+                                [$varAdvance_RefID, 'bigint'],
+                                [$varAdvanceSettlement_RefID, 'bigint'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
