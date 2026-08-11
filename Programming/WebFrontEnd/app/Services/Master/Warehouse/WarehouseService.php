@@ -23,4 +23,19 @@ class WarehouseService
             ]
         );
     }
+
+    public function typePicklist()
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'dataPickList.supplyChain.getWarehouseType',
+            'latest',
+            [
+                'parameter' => []
+            ]
+        );
+    }
 }

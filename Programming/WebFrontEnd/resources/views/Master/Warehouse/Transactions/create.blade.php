@@ -6,6 +6,7 @@
     @include('getFunction.getCountries')
     @include('getFunction.getProvincies')
     @include('getFunction.getWarehouses')
+    @include('getFunction.getWarehouseTypes')
     @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
     <div class="content-wrapper">
@@ -71,6 +72,33 @@
                 </form>
             </div>
         </section>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="margin: 0px;font-weight:bold;">
+                        Confirmation
+                    </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="font-size: 1.0rem; line-height: normal;">
+                    Are you sure all the information you entered is correct? </br />
+                    Please review your data carefully before proceeding.
+                </div>
+                <div class="modal-footer">
+                    <button id="cancel-confirmation" type="button" class="btn btn-default"
+                        data-dismiss="modal">Cancel</button>
+                    <button id="submit-confirmation" type="button" class="btn btn-primary"
+                        data-dismiss="modal">Submit</button>
+                </div>
+            </div>
+        </div>
     </div>
 
     @include('Partials.footer')

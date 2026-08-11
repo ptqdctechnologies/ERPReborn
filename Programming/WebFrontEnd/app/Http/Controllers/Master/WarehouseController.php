@@ -15,6 +15,23 @@ class WarehouseController extends Controller
         $this->warehouseService = $warehouseService;
     }
 
+    public function type()
+    {
+        $response = $this->warehouseService->typePicklist();
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'data' => [],
+                'status' => $response['metadata']['HTTPStatusCode']
+            ]);
+        }
+
+        return response()->json([
+            'data' => $response['data']['data'],
+            'status' => $response['metadata']['HTTPStatusCode']
+        ]);
+    }
+
     public function index()
     {
         return view('Master.Warehouse.Transactions.index');
@@ -27,6 +44,7 @@ class WarehouseController extends Controller
 
     public function store(Request $request)
     {
+        return response()->json($request->all());
     }
 
     public function revision(Request $request)
