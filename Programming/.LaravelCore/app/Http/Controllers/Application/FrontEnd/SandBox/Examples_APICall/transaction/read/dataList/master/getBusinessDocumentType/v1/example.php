@@ -46,7 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----------------------------------------------------( START )-----
                         [
                         'parameter' => [
-                            'statusPayment' => 2,    // 0 => "Non-Payment", 1 => "Payment", 2 => "Settlement", NULL => "All"
+                            'statusPayment' => 2,    // 0 => "Cash & Bank Transactional", 1 => "All Transactional", 2 => "Non Transactional", NULL => "All"
                             ],
                         'SQLStatement' => [
                             'pick' => null,
