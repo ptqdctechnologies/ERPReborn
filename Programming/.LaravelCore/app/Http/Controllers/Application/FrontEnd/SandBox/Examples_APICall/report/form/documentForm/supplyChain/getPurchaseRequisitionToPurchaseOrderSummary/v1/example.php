@@ -41,10 +41,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
-                    // 'Supplier_RefID' => 126000000000002
+                    'Supplier_RefID' => 126000000000002,
+                    'PurchaseRequisition_RefID' => 83000000000208,
+                    'PurchaseOrder_RefID' => 85000000000009,
+                    'StartDate' => '2025-01-01',
+                    'EndDate' => '2026-08-11'
+
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
-                    'Supplier_RefID' => NULL
+                    // 'Supplier_RefID' => NULL
+                    // 'PurchaseRequisition_RefID' => NULL,
+                    // 'PurchaseOrder_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
