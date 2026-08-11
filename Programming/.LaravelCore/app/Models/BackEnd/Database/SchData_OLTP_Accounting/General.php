@@ -1232,5 +1232,66 @@ namespace App\Models\Database\SchData_OLTP_Accounting
             }
 
 
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_GeneralLedger                                                                  |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-11                                                                                           |
+        | ▪ Creation Date   : 2026-08-11                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Resume - Buku Besar (General Ledger)                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (string) varStartDate ► Start Date                                                                                |
+        |      ▪ (string) varFinishDate ► Finish Date                                                                              |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_GeneralLedger(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varSysID, string $varStartDate, string $varFinishDate)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Accounting.Func_GetReport_Resume_GeneralLedger',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varSysID, 'bigint'],
+                                [$varStartDate, 'date'],
+                                [$varFinishDate, 'date']
+                            ]
+                            )
+                        );
+
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_Resume_GeneralLedger']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+
+
         }
     }
