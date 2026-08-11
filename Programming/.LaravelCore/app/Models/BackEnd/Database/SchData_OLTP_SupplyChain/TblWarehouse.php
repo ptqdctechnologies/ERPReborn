@@ -94,7 +94,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                     |
         |      ▪ (string) varAddress ► Address                                                                                     |
-        |      ▪ (string) varLocation ► Location JSON                            |
+        |      ▪ (string) varLocation ► Location JSON                                                                              |
         |      ▪ (string) varCode ► Code                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -138,7 +138,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                             [$varWarehouseType_RefID, 'bigint'],
                             [$varAddress, 'varchar'],
                             [$varLocation, 'jsonb'],
-                            [$varCode, 'varchar']
+                            [$varCode, 'varchar'],
+                            [true, 'boolean']
                         ]
                     )
                 );
@@ -165,14 +166,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
-        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                            |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |      ▪ (int)    varInstitutionBranch_RefID ► Institution Branch Reference ID                                             |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                    |
+        |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                     |
         |      ▪ (string) varAddress ► Address                                                                                     |
         |      ▪ (string) varLocation ► Location (JSON)                                                                            |
         |      ▪ (string) varCode ► Code                                                                                           |
-        | ----------------------------------------                                                                                  |
+        |      ▪ (bool)   varStatus ► Status                                                                                           |
+        | ----------------------------------------                                                                                 |
         | ▪ Output Variable :                                                                                                      |
         | ▪ (array)  varReturn                                                                                                     |
         | +--------------------------------------------------------------------------------------------------------------------------+ |
@@ -191,7 +193,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
             int $varWarehouseType_RefID = null,
             string $varAddress = null,
             string $varLocation = null,
-            string $varCode = null
+            string $varCode = null,
+            bool $varStatus = null
         ) {
             $varReturn =
                 Helper_PostgreSQL::getQueryExecution(
@@ -215,7 +218,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                             [$varWarehouseType_RefID, 'bigint'],
                             [$varAddress, 'varchar'],
                             [$varLocation, 'jsonb'],
-                            [$varCode, 'varchar']
+                            [$varCode, 'varchar'],
+                            [$varStatus, 'boolean']
                         ]
                     )
                 );

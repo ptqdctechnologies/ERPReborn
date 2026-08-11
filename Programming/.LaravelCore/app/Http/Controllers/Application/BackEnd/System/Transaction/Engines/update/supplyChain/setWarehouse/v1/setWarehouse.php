@@ -106,7 +106,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         $varData['entities']['warehouseType_RefID'],
                                         $varData['entities']['address'],
                                         json_encode($varData['entities']['location']),
-                                        $varData['entities']['code']
+                                        $varData['entities']['code'],
+                                        $varData['entities']['status']
                                     )
                                 )
                             )

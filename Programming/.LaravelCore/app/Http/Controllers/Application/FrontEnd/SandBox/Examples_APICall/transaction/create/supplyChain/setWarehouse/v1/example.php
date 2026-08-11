@@ -46,7 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     [
                         'entities' => [
                             'institutionBranch_RefID' => 124000000000001,
-                            'name' => 'Testing',
+                            'name' => 'Testing 1',
                             'warehouseType_RefID' => 172000000000001,
                             'address' => 'Graha Sentra Mampang QDC, Jl. Mampang Prapatan Raya No. 28 Blok C',
                             'location' => [
@@ -54,7 +54,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                 'province' => 'DKI Jakarta',
                                 'city' => 'Jakarta Selatan',
                             ],
-                            'code' => 'WH-Test',
+                            'code' => 'WH-Test1',
                         ]
                     ]
                 );

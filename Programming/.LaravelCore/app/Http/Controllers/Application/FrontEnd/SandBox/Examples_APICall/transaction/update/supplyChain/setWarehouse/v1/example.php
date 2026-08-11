@@ -44,18 +44,19 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'transaction.update.supplyChain.setWarehouse',
                     'latest',
                     [
-                        'recordID' => 173000000000006,
+                        'recordID' => 173000000000007,
                         'entities' => [
                             'institutionBranch_RefID' => 124000000000001,
-                            'name' => 'Testing',
+                            'name' => 'Testing Update',
                             'warehouseType_RefID' => 172000000000001,
-                            'address' => 'Graha Sentra Mampang QDC, Jl. Mampang Prapatan Raya No. 28 Blok C',
+                            'address' => 'Update',
                             'location' => [
-                                'country' => 'Indonesia',
-                                'province' => 'DKI Jakarta',
-                                'city' => 'Jakarta Timur'
+                                'country' => 'Amerika',
+                                'province' => 'New York',
+                                'city' => 'Citayem'
                             ],
-                            'code' => 'WH-Testing',
+                            'code' => 'WH-Tes',
+                            'status' => false
                         ]
                     ]
                 );
