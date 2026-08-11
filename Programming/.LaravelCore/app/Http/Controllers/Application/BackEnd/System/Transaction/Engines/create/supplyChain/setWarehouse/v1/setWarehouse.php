@@ -5,19 +5,21 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setWarehouse\v1           |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com), 2026 Wisnu (wisnu.wirayuda01@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setWarehouse\v1
-    {
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\supplyChain\setWarehouse\v1 {
+    use App\Http\Controllers\Controller;
+    use App\Helpers\ZhtHelper\Logger\Helper_SystemLog;
+    use App\Helpers\ZhtHelper\System\BackEnd\Helper_API;
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : setWarehouse                                                                                                 |
     | ▪ Description : Menangani API transaction.create.supplyChain.setWarehouse Version 1                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class setWarehouse extends \App\Http\Controllers\Controller
-        {
+    class setWarehouse extends Controller
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -34,16 +36,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
-            }
+        {
+        }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-08                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-11                                                                                           |
         | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -55,94 +57,91 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-            {
-            $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
+        {
+            $varReturn = Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
                 $varSysDataProcess =
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Create Warehouse Data (version 1)');
+                    Helper_SystemLog::setLogOutputMethodProcessHeader(
+                        $varUserSession,
+                        __CLASS__,
+                        __FUNCTION__,
+                        'Create Warehouse Data (version 1)'
+                    );
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate(
-                                $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouse())->setDataInsert(
+                        if (
+                            !($varDataSend =
+                                Helper_API::getEngineDataSend_DataCreate(
                                     $varUserSession,
-
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
-                                        $varUserSession
-                                        )
-                                    )['branchID'],
-                                    (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                    (new \App\Models\Database\SchData_OLTP_SupplyChain\TblWarehouse())->setDataInsert(
                                         $varUserSession,
-                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
-                                            $varUserSession
-                                            )
-                                        )['branchID'],
-                                        'Env.System.BaseCurrency.ID'
-                                        )
-                                    ),
 
-                                    $varData['entities']['institutionBranch_RefID'],
-                                    $varData['entities']['name'],
-                                    $varData['entities']['warehouseType_RefID'],
-                                    $varData['entities']['address'],
-                                    $varData['entities']['countryAdministrativeArea_RefID'],
-                                    $varData['entities']['postalCode'],
-                                    $varData['entities']['GPSPoint'],
-                                    $varData['entities']['code']
+                                        null,
+                                        null,
+                                        null,
+                                        null,
+                                        (Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                            $varUserSession
+                                        )
+                                        )['branchID'],
+                                        (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                            $varUserSession,
+                                            (Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                                $varUserSession
+                                            )
+                                            )['branchID'],
+                                            'Env.System.BaseCurrency.ID'
+                                        )
+                                        ),
+
+                                        $varData['entities']['institutionBranch_RefID'],
+                                        $varData['entities']['name'],
+                                        $varData['entities']['warehouseType_RefID'],
+                                        $varData['entities']['address'],
+                                        json_encode($varData['entities']['location']),
+                                        $varData['entities']['code']
                                     )
                                 )
-                            ))
-                            {
+                            )
+                        ) {
                             throw new \Exception();
-                            }
+                        }
 
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
+                            Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
-                                );
-                        }
-
-                    catch (\Exception $ex) {
+                            );
+                    } catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn =
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
                                 500,
-                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
-                                );
-                        }
-                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                                'Invalid SQL Syntax' . ($varErrorMessage ? ' (' . $varErrorMessage . ')' : '')
+                            );
                     }
-
-                catch (\Exception $ex) {
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
+                    Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                } catch (\Exception $ex) {
                     $varReturn =
-                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                        Helper_API::setEngineResponseDataReturn_Fail(
                             $varUserSession,
                             401,
                             $ex->getMessage()
-                            );
+                        );
 
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+                    Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-
-            catch (\Exception $ex) {
-                }
+                Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
+            }
 
             return
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
+                Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
         }
     }
+}

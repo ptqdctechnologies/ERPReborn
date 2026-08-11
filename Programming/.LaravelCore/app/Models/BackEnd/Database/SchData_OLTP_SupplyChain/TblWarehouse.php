@@ -5,19 +5,20 @@
 | ▪ Category   : Laravel Models                                                                                                    |
 | ▪ Name Space : \App\Models\Database\SchData_OLTP_SupplyChain                                                                     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2022 - 2025 Zheta (teguhpjs@gmail.com), 2026 Wisnu (wisnu.wirayuda01@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_SupplyChain
-    {
+namespace App\Models\Database\SchData_OLTP_SupplyChain {
+    use App\Models\Database\DefaultClassPrototype;
+    use App\Helpers\ZhtHelper\Database\Helper_PostgreSQL;
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : TblWarehouse                                                                                                 |
     | ▪ Description : Menangani Models Database ► SchData-OLTP-SupplyChain ► TblWarehouse                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblWarehouse extends \App\Models\Database\DefaultClassPrototype
-        {
+    class TblWarehouse extends DefaultClassPrototype
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -34,9 +35,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
+        {
             parent::__construct(__CLASS__);
-            }
+        }
 
 
         /*
@@ -55,28 +56,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataInitialize($varUserSession)
-            {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+        {
+            $varReturn =
+                Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        'SchSysConfig-Initialize.Func_'.parent::getSchemaName($varUserSession).'_'.parent::getTableName($varUserSession),
+                        'SchSysConfig-Initialize.Func_' . parent::getSchemaName($varUserSession) . '_' . parent::getTableName($varUserSession),
                         []
-                        )
-                    );
+                    )
+                );
 
             return
                 $varReturn;
-            }
+        }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-08                                                                                           |
+        | ▪ Version         : 1.0003.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-11                                                                                           |
         | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -93,9 +94,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varName ► Name                                                                                           |
         |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                     |
         |      ▪ (string) varAddress ► Address                                                                                     |
-        |      ▪ (int)    varCountryAdministrativeArea_RefID ► Country Administrative Area Reference ID                            |
-        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
-        |      ▪ (string) varGPSPoint ► GPS Point                                                                                  |
+        |      ▪ (string) varLocation ► Location JSON                            |
         |      ▪ (string) varCode ► Code                                                                                           |
         |        ----------------------------------------                                                                          |
         | ▪ Output Variable :                                                                                                      |
@@ -104,16 +103,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function setDataInsert(
             $varUserSession,
-            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varInstitutionBranch_RefID = null, string $varName = null, int $varWarehouseType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null, string $varGPSPoint = null, string $varCode = null
-            )
-            {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            string $varSysDataAnnotation = null,
+            string $varSysDataValidityStartDateTimeTZ = null,
+            string $varSysDataValidityFinishDateTimeTZ = null,
+            int $varSysPartitionRemovableRecordKeyRefType = null,
+            int $varSysBranch_RefID = null,
+            $varSysBaseCurrency_RefID = null,
+            int $varInstitutionBranch_RefID = null,
+            string $varName = null,
+            int $varWarehouseType_RefID = null,
+            string $varAddress = null,
+            string $varLocation = null,
+            string $varCode = null
+        ) {
+            $varReturn =
+                Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession) . '.Func_' . parent::getTableName($varUserSession) . '_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -129,25 +137,23 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varName, 'varchar'],
                             [$varWarehouseType_RefID, 'bigint'],
                             [$varAddress, 'varchar'],
-                            [$varCountryAdministrativeArea_RefID, 'bigint'],
-                            [$varPostalCode, 'varchar'],
-                            [$varGPSPoint, 'point'],
+                            [$varLocation, 'jsonb'],
                             [$varCode, 'varchar']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return
                 $varReturn;
-            }
+        }
 
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0002.0000000                                                                                       |
-        | ▪ Last Update     : 2025-01-08                                                                                           |
+        | ▪ Version         : 1.0004.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-11                                                                                           |
         | ▪ Creation Date   : 2022-03-01                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -159,34 +165,40 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         |      ▪ (string) varSysDataValidityFinishDateTimeTZ ► System Validity Finish DateTimeTZ                                   |
         |      ▪ (string) varSysPartitionRemovableRecordKeyRefType ► System Partition Removable Record Key Reference Type          |
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
-        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
-        |        ----------------------------------------                                                                          |
-        |      ▪ (int)    varInstitutionBranch_RefID ► Institution Branch_Reference ID                                             |
+        |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                            |
+        |      ▪ (int)    varInstitutionBranch_RefID ► Institution Branch Reference ID                                             |
         |      ▪ (string) varName ► Name                                                                                           |
-        |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                     |
+        |      ▪ (int)    varWarehouseType_RefID ► Warehouse Type Reference ID                                                    |
         |      ▪ (string) varAddress ► Address                                                                                     |
-        |      ▪ (int)    varCountryAdministrativeArea_RefID ► Country Administrative Area Reference ID                            |
-        |      ▪ (string) varPostalCode ► Postal Code                                                                              |
-        |      ▪ (string) varGPSPoint ► GPS Point                                                                                  |
+        |      ▪ (string) varLocation ► Location (JSON)                                                                            |
         |      ▪ (string) varCode ► Code                                                                                           |
-        |        ----------------------------------------                                                                          |
+        | ----------------------------------------                                                                                  |
         | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                | 
-        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ (array)  varReturn                                                                                                     |
+        | +--------------------------------------------------------------------------------------------------------------------------+ |
         */
         public function setDataUpdate(
-            $varUserSession, 
+            $varUserSession,
             int $varSysID,
-            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varInstitutionBranch_RefID = null, string $varName = null, int $varWarehouseType_RefID = null, string $varAddress = null, int $varCountryAdministrativeArea_RefID = null, string $varPostalCode = null, string $varGPSPoint = null, string $varCode = null
-            )
-            {
-            $varReturn = 
-                \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
-                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+            string $varSysDataAnnotation = null,
+            string $varSysDataValidityStartDateTimeTZ = null,
+            string $varSysDataValidityFinishDateTimeTZ = null,
+            int $varSysPartitionRemovableRecordKeyRefType = null,
+            int $varSysBranch_RefID = null,
+            $varSysBaseCurrency_RefID = null,
+            int $varInstitutionBranch_RefID = null,
+            string $varName = null,
+            int $varWarehouseType_RefID = null,
+            string $varAddress = null,
+            string $varLocation = null,
+            string $varCode = null
+        ) {
+            $varReturn =
+                Helper_PostgreSQL::getQueryExecution(
+                    $varUserSession,
+                    Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession) . '.Func_' . parent::getTableName($varUserSession) . '_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -202,16 +214,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varName, 'varchar'],
                             [$varWarehouseType_RefID, 'bigint'],
                             [$varAddress, 'varchar'],
-                            [$varCountryAdministrativeArea_RefID, 'bigint'],
-                            [$varPostalCode, 'varchar'],
-                            [$varGPSPoint, 'point'],
+                            [$varLocation, 'jsonb'],
                             [$varCode, 'varchar']
                         ]
-                        )
-                    );
+                    )
+                );
 
             return
                 $varReturn;
-            }
         }
     }
+}
