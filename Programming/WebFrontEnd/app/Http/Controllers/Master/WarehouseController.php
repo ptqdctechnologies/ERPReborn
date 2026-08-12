@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Services\Master\Warehouse\WarehouseService;
 use App\Http\Requests\Master\Warehouse\StoreWarehouse;
@@ -45,7 +46,24 @@ class WarehouseController extends Controller
 
     public function store(StoreWarehouse $request)
     {
-        return response()->json($request->all());
+        try {
+            $response = $this->warehouseService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Store Warehouse => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => '-',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Warehouse Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function revision(Request $request)
