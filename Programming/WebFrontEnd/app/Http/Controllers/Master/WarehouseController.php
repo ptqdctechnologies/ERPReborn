@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\Master\Warehouse\WarehouseService;
+use App\Http\Requests\Master\Warehouse\StoreWarehouse;
 
 class WarehouseController extends Controller
 {
@@ -42,7 +43,7 @@ class WarehouseController extends Controller
         return view('Master.Warehouse.Transactions.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreWarehouse $request)
     {
         return response()->json($request->all());
     }
