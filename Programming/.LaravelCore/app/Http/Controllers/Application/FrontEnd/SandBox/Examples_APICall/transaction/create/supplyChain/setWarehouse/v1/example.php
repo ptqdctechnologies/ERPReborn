@@ -50,7 +50,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             'warehouseType_RefID' => 172000000000001,
                             'address' => 'Graha Sentra Mampang QDC, Jl. Mampang Prapatan Raya No. 28 Blok C',
                             'location' => [
+                                'country_code' => 'Indonesia',
                                 'country' => 'Indonesia',
+                                'province_code' => 'DKI Jakarta',
                                 'province' => 'DKI Jakarta',
                                 'city' => 'Jakarta Selatan',
                             ],

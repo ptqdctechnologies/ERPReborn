@@ -78,7 +78,21 @@
                                 "null"
                             ],
                             "properties": {
+                                "country_code": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "minLength": 1
+                                },
                                 "country": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "minLength": 1
+                                },
+                                "province_code": {
                                     "type": [
                                         "string",
                                         "null"
@@ -101,7 +115,9 @@
                                 }
                             },
                             "required": [
+                                "country_code",
                                 "country",
+                                "province_code",
                                 "province",
                                 "city"
                             ]
