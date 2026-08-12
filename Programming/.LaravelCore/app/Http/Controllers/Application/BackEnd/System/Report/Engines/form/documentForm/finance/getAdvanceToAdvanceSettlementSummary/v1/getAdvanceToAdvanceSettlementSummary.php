@@ -71,6 +71,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['RequesterWorkerJobsPosition_RefID'],
                             $varData['parameter']['StartDate'],
                             $varData['parameter']['EndDate'],
+                            $varData['parameter']['Advance_RefID'],
+                            $varData['parameter']['AdvanceSettlement_RefID'],
 
                             $varData['SQLStatement']['paging']
                             ))))
