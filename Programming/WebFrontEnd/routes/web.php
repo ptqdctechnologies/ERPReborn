@@ -81,6 +81,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
+    Route::get('Warehouse/Type/picklist', 'Master\WarehouseController@type')->name('Warehouse.Type.picklist');
     Route::get('Warehouse/picklist', 'Master\WarehouseController@picklist')->name('Warehouse.picklist');
     Route::post('Warehouse/revision', 'Master\WarehouseController@revision')->name('Warehouse.revision');
     Route::resource('Warehouse', 'Master\WarehouseController');
@@ -113,6 +114,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('Work/revision', 'Master\WorkController@revision')->name('Work.revision');
     Route::get('Work/picklist', 'Master\WorkController@picklist')->name('Work.picklist');
     Route::resource('Work', 'Master\WorkController');
+
+    // RATE
+    Route::post('Rate/revision', 'Master\RateController@revision')->name('Rate.revision');
+    Route::resource('Rate', 'Master\RateController');
 
     // APPROVAL DOCUMENT
     Route::get('ApprovalAccepted', 'Document\ApprovalDocumentController@ApprovalAccepted')->name('ApprovalDocument.ApprovalAccepted');

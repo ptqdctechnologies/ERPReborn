@@ -8,8 +8,7 @@
 | ▪ Copyleft 🄯 2020 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Helpers\ZhtHelper\Database
-    {
+namespace App\Helpers\ZhtHelper\Database {
     use Illuminate\Support\Facades\DB;
 
 
@@ -20,7 +19,7 @@ namespace App\Helpers\ZhtHelper\Database
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class Helper_PostgreSQL
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | Class Properties                                                                                                         |
@@ -28,7 +27,7 @@ namespace App\Helpers\ZhtHelper\Database
         */
         private static $varNameSpace;
 
-        
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -44,10 +43,10 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function __construct()
-            {
-            }
+        {
+        }
 
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __destruct                                                                                           |
@@ -63,8 +62,8 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function __destruct()
-            {
-            }
+        {
+        }
 
 
         /*
@@ -82,16 +81,15 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function init($varUserSession)
-            {
+        {
             try {
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationIncrease($varUserSession);
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '('.__FUNCTION__.') Class initializing');
-                self::$varNameSpace=get_class();
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutput($varUserSession, __CLASS__, '(' . __FUNCTION__ . ') Class initializing');
+                self::$varNameSpace = get_class();
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogIndentationDecrease($varUserSession);
-                } 
-            catch (\Exception $ex) {
-                }
+            } catch (\Exception $ex) {
             }
+        }
 
 
         /*
@@ -112,59 +110,57 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private static function getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
                 $varSysDataProcess =
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Fetch Array Data from SQL syntax `'.$varSQLQuery.'`'
-                        );
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader(
+                        $varUserSession,
+                        __CLASS__,
+                        __FUNCTION__,
+                        'Fetch Array Data from SQL syntax `' . $varSQLQuery . '`'
+                    );
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                        //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);                   
-                        $i = 0;
+                    //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);                   
+                    $i = 0;
 
-                        $varDataFetch =
-                            self::getQueryExecutionDataFetch(
-                                $varUserSession,
-                                $varSQLQuery
-                                );
+                    $varDataFetch =
+                        self::getQueryExecutionDataFetch(
+                            $varUserSession,
+                            $varSQLQuery
+                        );
 
-                        //var_dump($varReturn);
-                        //var_dump($varSQLQuery);
+                    //var_dump($varReturn);
+                    //var_dump($varSQLQuery);
 
-                        $varData = [];
-                        $varNotice = null;
-                        foreach($varDataFetch as $row)
-                            {
-                            $varData[] = (array) $row;
-                            $i++;
-                            }
+                    $varData = [];
+                    $varNotice = null;
+                    foreach ($varDataFetch as $row) {
+                        $varData[] = (array) $row;
+                        $i++;
+                    }
 
-                        $varReturn['data'] = $varData;
-                        $varReturn['Notice'] = null;
-                        $varReturn['rowCount']=$i;
+                    $varReturn['data'] = $varData;
+                    $varReturn['Notice'] = null;
+                    $varReturn['rowCount'] = $i;
 
-                        unset($varData);                    
+                    unset($varData);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-
-            catch (\Exception $ex) {
-                }
+            } catch (\Exception $ex) {
+            }
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
+        }
 
 
         /*
@@ -185,33 +181,31 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private static function getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection($varUserSession, $varSQLQuery)
-            {  
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax Using PGSQL/Connection`'.$varSQLQuery.'`');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax Using PGSQL/Connection`' . $varSQLQuery . '`');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     $varConfig = (array) (\Illuminate\Support\Facades\DB::getConfig());
 
-                    if(!is_null($varConfig))
-                        {
-                        $varConnectionString = 
-                            'host='.$varConfig['host'].' '.
-                            'port='.$varConfig['port'].' '.
-                            'dbname='.$varConfig['database'].' '.
-                            'user='.$varConfig['username'].' '.
-                            'password='.$varConfig['password'];
+                    if (!is_null($varConfig)) {
+                        $varConnectionString =
+                            'host=' . $varConfig['host'] . ' ' .
+                            'port=' . $varConfig['port'] . ' ' .
+                            'dbname=' . $varConfig['database'] . ' ' .
+                            'user=' . $varConfig['username'] . ' ' .
+                            'password=' . $varConfig['password'];
                         //var_dump($varConnectionString);
-                        
-                        $i=0;
+
+                        $i = 0;
                         $varData = [];
                         $varNotice = null;
                         //---> [PERF Q4] Use a persistent connection (pg_pconnect) reused across queries instead
                         //     of pg_connect()+pg_close() per query, which forced a Postgres backend-fork on
                         //     every call. The connection is pooled per PHP worker and is NOT closed per query;
                         //     notices are cleared per query (PGSQL_NOTICE_CLEAR below) so reuse stays clean.
-                        if($DBConnection = @pg_pconnect($varConnectionString))
-                            {
+                        if ($DBConnection = @pg_pconnect($varConnectionString)) {
                             /*
                             var_dump($varConnectionString);
                             echo "<br>";
@@ -228,18 +222,17 @@ namespace App\Helpers\ZhtHelper\Database
                                 (hrtime(true) - $varProfilerStartNs) / 1e6,
                                 ($varResult !== false),
                                 ($varResult === false ? pg_last_error($DBConnection) : null)
-                                );
+                            );
 
                             //---> [PERF Q3] Now that the pre-query syntax-validation probe is removed, an
                             //     invalid statement surfaces here. Fail cleanly instead of letting
                             //     pg_num_fields(false) raise a TypeError in the fetch loop below.
-                            if ($varResult === false)
-                                {
+                            if ($varResult === false) {
                                 //---> [PERF Q4] Do not close the persistent connection; a failed statement in
                                 //     autocommit leaves it healthy for reuse by the next query.
                                 $varErrorMessage = pg_last_error($DBConnection);
-                                throw new \Exception('Incorrect SQL syntax: '.$varErrorMessage);
-                                }
+                                throw new \Exception('Incorrect SQL syntax: ' . $varErrorMessage);
+                            }
 
                             $varNotice = pg_last_notice($DBConnection, PGSQL_NOTICE_ALL);
 
@@ -253,92 +246,80 @@ namespace App\Helpers\ZhtHelper\Database
                             //---> Field Type Initializing
                             unset($varFieldType);
                             //echo "<br>@@@--->";
-                            for ($j=0, $jMax = pg_num_fields($varResult); $j!=$jMax; $j++)
-                                {
+                            for ($j = 0, $jMax = pg_num_fields($varResult); $j != $jMax; $j++) {
                                 $varFieldType[$j] = pg_field_type($varResult, $j);
                                 //echo $varFieldType[$j];
                                 //echo ",";
-                                }
+                            }
 
                             while ($row = pg_fetch_assoc($varResult)) {
                                 $varDataContent = null;
                                 $varData[$i] = $row;
                                 $j = 0;
-                                foreach($varData[$i] as $key => $value)
-                                    {
+                                foreach ($varData[$i] as $key => $value) {
                                     $varData[$i][$key] = $value;
-//                                    echo "<br><br><br>";
+                                    //                                    echo "<br><br><br>";
 //                                    var_dump($key);
 //                                    var_dump($value);
 
                                     $varData[$i][$key] = null;
-                                    switch($varFieldType[$j++])
-                                        {
+                                    switch ($varFieldType[$j++]) {
                                         case 'bool':
                                             $varData[$i][$key] = self::getBooleanConvertion($varUserSession, $value);
                                             break;
                                         case 'int2':
                                         case 'int4':
                                         case 'int8':
-                                            if (!is_null($value))
-                                                {
+                                            if (!is_null($value)) {
                                                 $varData[$i][$key] = (int) $value;
-                                                }
+                                            }
                                             break;
                                         case 'float4':
                                         case 'float8':
-                                            if (!is_null($value))
-                                                {
+                                            if (!is_null($value)) {
                                                 $varData[$i][$key] = (float) $value;
-                                                }
+                                            }
                                             break;
                                         case 'varchar':
                                         default:
-                                            if (!is_null($value))
-                                                {
+                                            if (!is_null($value)) {
                                                 $varData[$i][$key] = $value;
-                                                }
+                                            }
                                             break;
-                                        }
                                     }
+                                }
                                 //var_dump($varDataContent);
                                 //$varData[$i] = $varDataContent;
                                 $i++;
-                                }
-                            //---> [PERF Q4] Persistent connection kept open for reuse (no per-query pg_close).
                             }
-                        else
-                            {
+                            //---> [PERF Q4] Persistent connection kept open for reuse (no per-query pg_close).
+                        } else {
                             //---> [PERF Q1] Now that the pre-query "SELECT 1" probe is removed, availability
                             //     is enforced here: a failed connection raises a clean, logged error instead
                             //     of silently returning an empty result set.
                             throw new \Exception('Database connection is not available');
-                            }
+                        }
 
                         $varReturn['data'] = $varData;
                         $varReturn['notice'] = $varNotice;
-                        $varReturn['rowCount']=$i;
-                        }
-                    else
-                        {
+                        $varReturn['rowCount'] = $i;
+                    } else {
                         //dd($varConfig);
                         $varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
                         $varReturn['data'] = $varDataTemp['data'];
                         $varReturn['notice'] = $varDataTemp['notice'];
-                        $varReturn['rowCount'] = $varDataTemp['rowCount'];                        
-                        }
+                        $varReturn['rowCount'] = $varDataTemp['rowCount'];
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -358,31 +339,28 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getBooleanConvertion($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Boolean Convertion From PostgreSQL To PHP');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----                    
                     $varReturn = true;
-                    if ((strcmp($varData, 'f') == 0) OR ((boolean) $varData == false))
-                        {
+                    if ((strcmp($varData, 'f') == 0) OR ((boolean) $varData == false)) {
                         $varReturn = false;
-                        }
+                    }
                     //dd($varReturn);
                     return $varReturn;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -403,238 +381,202 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getBuildStringLiteral_StoredProcedure(
-            $varUserSession, 
-            string $varStoredProcedureName, array $varData, array $varReturnField = null)
-            {
+            $varUserSession,
+            string $varStoredProcedureName,
+            array $varData,
+            array $varReturnField = null
+        ) {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
                 $varSysDataProcess =
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader(
+                        $varUserSession,
+                        __CLASS__,
+                        __FUNCTION__,
                         'Get Build String Literal for Stored Procedure'
-                        );
+                    );
 
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //---> Parameter Reinitialization
-                    if (!$varReturnField)
-                        {
+                    if (!$varReturnField) {
                         $varReturnField = ['*'];
-                        }
-                    
+                    }
+
                     //---> Check data integrity
-                    if ((!$varStoredProcedureName) OR (count($varReturnField) == 0))
-                        {
+                    if ((!$varStoredProcedureName) OR (count($varReturnField) == 0)) {
                         throw new \Exception('Invalid data entry');
-                        }
+                    }
                     //---> Build SELECT
-                    if ((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0))
-                        {
+                    if ((count($varReturnField) == 1) && (strcmp($varReturnField[0], '*') == 0)) {
                         $varSQL = "SELECT * FROM ";
-                        }
-                    else
-                        {
+                    } else {
                         $varSQL = "SELECT ";
-                        for ($i = 0; $i != count($varReturnField); $i++)
-                            {
-                            if ($i != 0)
-                                {
+                        for ($i = 0; $i != count($varReturnField); $i++) {
+                            if ($i != 0) {
                                 $varSQL .= ", ";
-                                }
-                            $varSQL .= "\"".$varReturnField[$i]."\"";
                             }
-                        $varSQL .= " FROM ";
+                            $varSQL .= "\"" . $varReturnField[$i] . "\"";
                         }
+                        $varSQL .= " FROM ";
+                    }
                     //--->
                     $varTemp = explode('.', str_replace('"', '', $varStoredProcedureName));
-                    $varSQL .= "\"".$varTemp[0]."\".\"".$varTemp[1]."\"";
+                    $varSQL .= "\"" . $varTemp[0] . "\".\"" . $varTemp[1] . "\"";
                     //--->
                     $varSQL .= "(";
                     //--->
                     $varSpecialKeyword = ['NOW()'];
-                    for ($i = 0; $i != count($varData); $i++)
-                        {
-                        if ($i != 0)
-                            {
+                    for ($i = 0; $i != count($varData); $i++) {
+                        if ($i != 0) {
                             $varSQL .= ", ";
-                            }
-                        if (strcmp($varData[$i][1], 'point') == 0)
-                            {
+                        }
+                        if (strcmp($varData[$i][1], 'point') == 0) {
                             $varSQL .= (
                                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                     $varUserSession,
                                     $varData[$i][0]
-                                    )
-                                )."::point";                            
-                            }                                    
-                        elseif ((is_array($varData[$i][0]) == FALSE) && (strcmp(substr($varData[$i][0], 0, 1), '(')==0) && (strcmp(substr($varData[$i][0], strlen($varData[$i][0])-1, 1), ')')==0))
-                            {
-                            $varSQL .= $varData[$i][0]."::".$varData[$i][1];
-                            }
-                        elseif ((is_array($varData[$i][0]) == FALSE) && (in_array(strtoupper($varData[$i][0]), $varSpecialKeyword))) 
-                            { 
-                            $varSQL .= $varData[$i][0]."::".$varData[$i][1];
-                            }
-                        else
-                            {
-                            switch ($varData[$i][1])
-                                {
-                                case 'bigint':
-                                    {
-                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
-                                        {
+                                )
+                            ) . "::point";
+                        } elseif ((is_array($varData[$i][0]) == FALSE) && (strcmp(substr($varData[$i][0], 0, 1), '(') == 0) && (strcmp(substr($varData[$i][0], strlen($varData[$i][0]) - 1, 1), ')') == 0)) {
+                            $varSQL .= $varData[$i][0] . "::" . $varData[$i][1];
+                        } elseif ((is_array($varData[$i][0]) == FALSE) && (in_array(strtoupper($varData[$i][0]), $varSpecialKeyword))) {
+                            $varSQL .= $varData[$i][0] . "::" . $varData[$i][1];
+                        } else {
+                            switch ($varData[$i][1]) {
+                                case 'bigint': {
+                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE)) {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBigInteger(
                                                 $varUserSession,
                                                 $varData[$i][0]
-                                                )
-                                            )."::bigint";
-                                        }
-                                    else
-                                        {
-                                        throw new \Exception('Error');                                        
-                                        }
-                                    break;
+                                            )
+                                        ) . "::bigint";
+                                    } else {
+                                        throw new \Exception('Error');
                                     }
-                                case 'bigint[]':
-                                    {
-                                    if (is_array($varData[$i][0])==FALSE)
-                                        {
+                                    break;
+                                }
+                                case 'bigint[]': {
+                                    if (is_array($varData[$i][0]) == FALSE) {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                                 $varUserSession,
                                                 $varData[$i][0]
-                                                )
-                                            )."::bigint[]";                                
-                                        }
-                                    else
-                                        {
+                                            )
+                                        ) . "::bigint[]";
+                                    } else {
                                         $varSQL .= "'{";
-                                        for ($j=0, $jMax=count($varData[$i][0]); $j!=$jMax; $j++)
-                                            {
-                                            if ($j>0) {
-                                                $varSQL .= ", ";                                        
-                                                }
-                                            $varSQL .= $varData[$i][0][$j];
+                                        for ($j = 0, $jMax = count($varData[$i][0]); $j != $jMax; $j++) {
+                                            if ($j > 0) {
+                                                $varSQL .= ", ";
                                             }
-                                        $varSQL .= "}'::bigint[]";
+                                            $varSQL .= $varData[$i][0][$j];
                                         }
-                                    break;
+                                        $varSQL .= "}'::bigint[]";
                                     }
-                                case 'boolean':
-                                    {
+                                    break;
+                                }
+                                case 'boolean': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
-                                            ($varData[$i][0] == null ? null : ($varData[$i][0] == true ? 'TRUE' : 'FALSE'))
-                                            )
-                                        )."::boolean";
+                                            ($varData[$i][0] === null ? null : ($varData[$i][0] === true ? 'TRUE' : 'FALSE'))
+                                            // ($varData[$i][0] == null ? null : ($varData[$i][0] == true ? 'TRUE' : 'FALSE')) => BEFORE
+                                        )
+                                    ) . "::boolean";
                                     break;
-                                    }
-                                case 'bytea':
-                                    {
+                                }
+                                case 'bytea': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForBytea(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::bytea";
+                                        )
+                                    ) . "::bytea";
                                     break;
-                                    }
-                                case 'cidr':
-                                    {
+                                }
+                                case 'cidr': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::cidr";
+                                        )
+                                    ) . "::cidr";
                                     break;
-                                    }
+                                }
                                 case 'character varying':
-                                case 'varchar':
-                                    {
+                                case 'varchar': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::varchar";
+                                        )
+                                    ) . "::varchar";
                                     break;
-                                    }
+                                }
                                 case 'character varying[]':
-                                case 'varchar[]':
-                                    {
+                                case 'varchar[]': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::varchar[]";
+                                        )
+                                    ) . "::varchar[]";
                                     break;
-                                    }
-                                case 'date':
-                                    {
+                                }
+                                case 'date': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::date";
+                                        )
+                                    ) . "::date";
                                     break;
-                                    }
-                                case 'interval':
-                                    {
+                                }
+                                case 'interval': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::interval";
+                                        )
+                                    ) . "::interval";
                                     break;
-                                    }
-                                case 'numeric':
-                                    {
-                                    if ((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE))
-                                        {
+                                }
+                                case 'numeric': {
+                                    if ((!$varData[$i][0]) OR (is_numeric($varData[$i][0]) == TRUE)) {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                                 $varUserSession,
                                                 $varData[$i][0]
-                                                )
-                                            )."::numeric";
-                                        }
-                                    else
-                                        {
+                                            )
+                                        ) . "::numeric";
+                                    } else {
                                         throw new \Exception('Error');
-                                        }
-                                    break;
                                     }
-                                case 'json':
-                                    {
+                                    break;
+                                }
+                                case 'json': {
                                     $varSQL .= (
                                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar(
                                             $varUserSession,
                                             $varData[$i][0]
-                                            )
-                                        )."::json";
+                                        )
+                                    ) . "::json";
                                     break;
-                                    }
-                                case 'smallint':
-                                    {
-                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE))
-                                        {
+                                }
+                                case 'smallint': {
+                                    if ((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE) OR (is_int((int) $varData[$i][0]) == TRUE)) {
                                         $varSQL .= (
                                             \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForSmallInteger(
                                                 $varUserSession,
                                                 $varData[$i][0]
-                                                )
-                                            )."::smallint";
-                                        }
-                                    else
-                                        {
-                                        throw new \Exception('Error');                                        
-                                        }
+                                            )
+                                        ) . "::smallint";
+                                    } else {
+                                        throw new \Exception('Error');
+                                    }
                                     break;
                                     /*
                                     if((!$varData[$i][0]) OR (is_int($varData[$i][0]) == TRUE))
@@ -646,49 +588,42 @@ namespace App\Helpers\ZhtHelper\Database
                                     break;
                                      * 
                                      */
-                                    }
+                                }
                                 case 'timestamp without time zone':
-                                case 'timestamp':
-                                    {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamp";
+                                case 'timestamp': {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0])) . "::timestamp";
                                     break;
-                                    }
+                                }
                                 case 'timestamp with time zone':
-                                case 'timestamptz':
-                                    {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::timestamptz";
+                                case 'timestamptz': {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0])) . "::timestamptz";
                                     break;
-                                    }
-                                default:
-                                    {
-                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0]))."::".$varData[$i][1];
+                                }
+                                default: {
+                                    $varSQL .= (\App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getStringLiteralConvertForVarChar($varUserSession, $varData[$i][0])) . "::" . $varData[$i][1];
                                     break;
-                                    }
                                 }
                             }
                         }
+                    }
                     //--->
                     $varSQL .= ");";
-                    
+
                     $varReturn =
                         $varSQL;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-
-            catch (\Exception $ex) {
-                }
+            } catch (\Exception $ex) {
+            }
 
             return
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);            
-            }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -707,34 +642,30 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getCurrentDateTimeTZ($varUserSession)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get date and time');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(self::getStatusAvailability($varUserSession)==false)
-                        {
+                    if (self::getStatusAvailability($varUserSession) == false) {
                         throw new \Exception('Database not available');
-                        }
+                    }
                     $varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT NOW();');
-                    foreach($varDataFetch as $row)
-                        {
+                    foreach ($varDataFetch as $row) {
                         $varData = (array) $row;
-                        }
+                    }
                     $varReturn = $varData['now'];
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -752,36 +683,32 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getCurrentUnixTime($varUserSession)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get date and time');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(self::getStatusAvailability($varUserSession)==false)
-                        {
+                    if (self::getStatusAvailability($varUserSession) == false) {
                         throw new \Exception('Database not available');
-                        }
+                    }
                     $varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT "SchSysConfig"."FuncSys_General_GetUnixTime"(NOW()) AS "UnixTime";');
-                    foreach($varDataFetch as $row)
-                        {
+                    foreach ($varDataFetch as $row) {
                         $varData = (array) $row;
-                        }
+                    }
                     $varReturn = $varData['UnixTime'];
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
- 
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getCurrentYear                                                                                       |
@@ -797,34 +724,30 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getCurrentYear($varUserSession)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get date and time');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(self::getStatusAvailability($varUserSession)==false)
-                        {
+                    if (self::getStatusAvailability($varUserSession) == false) {
                         throw new \Exception('Database not available');
-                        }
+                    }
                     $varDataFetch = \Illuminate\Support\Facades\DB::select("SELECT EXTRACT('YEAR' FROM NOW())::smallint AS \"CurrentYear\";");
-                    foreach($varDataFetch as $row)
-                        {
+                    foreach ($varDataFetch as $row) {
                         $varData = (array) $row;
-                        }
+                    }
                     $varReturn = $varData['CurrentYear'];
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -842,29 +765,26 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStatusAvailability($varUserSession)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, false, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check PostgreSQL database availability to accept request');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if(!$varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT 1;'))
-                        {
+                    if (!$varDataFetch = \Illuminate\Support\Facades\DB::select('SELECT 1;')) {
                         throw new \Exception("Error");
-                        }
+                    }
                     $varReturn = true;
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, PostgreSQL database connection not available to accept request. Please to check environment configuration, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, PostgreSQL database connection not available to accept request. Please to check environment configuration, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -884,33 +804,29 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getSQLSyntax_Source_NumberArrayToBigIntArray($varUserSession, array $varJSONArray)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, '', __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get SQLSyntax Source : PHP Number Array To PostgreSQL BigInt Array');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    for($i=0, $iMax=count($varJSONArray); $i != $iMax; $i++)
-                        {
-                        if ($i!=0)
-                            {
+                    for ($i = 0, $iMax = count($varJSONArray); $i != $iMax; $i++) {
+                        if ($i != 0) {
                             $varReturn .= ',';
-                            }
-                        $varReturn .= $varJSONArray[$i];
                         }
-                    $varReturn = '(SELECT \'{'.$varReturn.'}\'::bigint[])';
+                        $varReturn .= $varJSONArray[$i];
+                    }
+                    $varReturn = '(SELECT \'{' . $varReturn . '}\'::bigint[])';
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-            catch (\Exception $ex) {
-                }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -930,7 +846,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getQueryExecution($varUserSession, $varSQLQuery)
-            {
+        {
             /*
             if(stristr($varSQLQuery, 'Func_GetData_APIWebToken_ByUserSessionID'))
                 {
@@ -942,86 +858,79 @@ namespace App\Helpers\ZhtHelper\Database
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Query Execution');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if (!$varSQLQuery)
-                        {
+                    if (!$varSQLQuery) {
                         throw
                             new \Exception('Incorrect SQL syntax');
-                        }
-                    else
-                        {
-                        $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                    } else {
+                        $varSQLQuery = ltrim(str_replace("\n", "", $varSQLQuery));
 
                         //echo $varSQLQuery."<br><br>";
                         //---> [PERF Q1] Dropped the "SELECT 1" availability probe (getStatusAvailability)
                         //     to remove one DB round-trip per query. Connectivity is now enforced at the
                         //     real pg_pconnect() below (getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection),
                         //     which throws 'Database connection is not available' when the connection fails.
-                            //---> [PERF Q3] Dropped the pre-query isValid_SQLSyntax() round-trip.
-                            //     That server-side probe only ran PREPARE/DEALLOCATE to test parseability
-                            //     (not a security gate) and was redundant with executing the query. An
-                            //     invalid statement is now caught at the real pg_query() below, which raises
-                            //     'Incorrect SQL syntax'. (isValid_SQLSyntax() is kept for its other callers.)
-                                $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
+                        //---> [PERF Q3] Dropped the pre-query isValid_SQLSyntax() round-trip.
+                        //     That server-side probe only ran PREPARE/DEALLOCATE to test parseability
+                        //     (not a security gate) and was redundant with executing the query. An
+                        //     invalid statement is now caught at the real pg_query() below, which raises
+                        //     'Incorrect SQL syntax'. (isValid_SQLSyntax() is kept for its other callers.)
+                        $varReturn['process']['DBMS']['executionTime']['interval'] = NULL;
 
-                                //---> Inisialisasi [Process][StartDateTime]
-                                //---> [PERF Q1] Removed the redundant "SELECT NOW();" DB round-trip.
-                                //     The start timestamp is taken from the PHP clock (new \DateTime()) below;
-                                //     the previously-fetched SQL NOW() value was discarded (dead work).
-                                $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
-                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
-                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                        (new \DateTime())
-                                        );
+                        //---> Inisialisasi [Process][StartDateTime]
+                        //---> [PERF Q1] Removed the redundant "SELECT NOW();" DB round-trip.
+                        //     The start timestamp is taken from the PHP clock (new \DateTime()) below;
+                        //     the previously-fetched SQL NOW() value was discarded (dead work).
+                        $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'] =
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                (new \DateTime())
+                            );
 
-                                //---> Inisialisasi [Data], [RowCount], [Notice]
-                                //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
-                                $varDataTemp = 
-                                    self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
-                                        $varUserSession,
-                                        $varSQLQuery
-                                        );
+                        //---> Inisialisasi [Data], [RowCount], [Notice]
+                        //$varDataTemp = self::getArrayFromQueryExecutionDataFetch_UsingLaravelConnection($varUserSession, $varSQLQuery);
+                        $varDataTemp =
+                            self::getArrayFromQueryExecutionDataFetch_UsingPGSQLConnection(
+                                $varUserSession,
+                                $varSQLQuery
+                            );
 
-                                $varReturn['data'] = $varDataTemp['data'];
-                                $varReturn['rowCount'] = $varDataTemp['rowCount'];
-                                $varReturn['notice'] = $varDataTemp['notice'];
+                        $varReturn['data'] = $varDataTemp['data'];
+                        $varReturn['rowCount'] = $varDataTemp['rowCount'];
+                        $varReturn['notice'] = $varDataTemp['notice'];
 
-                                unset($varDataTemp);
-                                
-                                //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
-                                //---> [PERF Q1] Removed the redundant "SELECT NOW() ... ::interval" DB round-trip.
-                                //     The finish timestamp is taken from the PHP clock (new \DateTime()) below and the
-                                //     interval is computed in PHP; the previously-fetched SQL values were discarded.
-                                $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
-                                    \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
-                                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                        (new \DateTime())
-                                        );
+                        unset($varDataTemp);
 
-                                //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
-                                $varReturn['process']['DBMS']['executionTime']['interval'] =
-                                     \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
-                                        $varUserSession,
-                                        $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
-                                        $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
-                                        );
-                        }
+                        //---> Inisialisasi : varReturn[process][DBMS][finishDateTimeTZ]
+                        //---> [PERF Q1] Removed the redundant "SELECT NOW() ... ::interval" DB round-trip.
+                        //     The finish timestamp is taken from the PHP clock (new \DateTime()) below and the
+                        //     interval is computed in PHP; the previously-fetched SQL values were discarded.
+                        $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ'] =
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getTimeStampTZConvert_PHPDateTimeToDateTimeTZString(
+                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                (new \DateTime())
+                            );
+
+                        //---> Inisialisasi : varReturn[process][DBMS][executionInterval]
+                        $varReturn['process']['DBMS']['executionTime']['interval'] =
+                            \App\Helpers\ZhtHelper\General\Helper_DateTime::getDifferenceOfDateTimeTZString(
+                                $varUserSession,
+                                $varReturn['process']['DBMS']['executionTime']['startDateTimeTZ'],
+                                $varReturn['process']['DBMS']['executionTime']['finishDateTimeTZ']
+                            );
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    }
-
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
-
-            catch (\Exception $ex) {
-                }
+            } catch (\Exception $ex) {
+            }
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
+        }
 
 
         /*
@@ -1041,14 +950,14 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         private static function getQueryExecutionDataFetch($varUserSession, $varSQLQuery)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax `'.$varSQLQuery.'`');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Fetch data from SQL syntax `' . $varSQLQuery . '`');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
                     //$varSQLQuery = preg_replace('/\s+/', '', $varSQLQuery);
-                    $varSQLQuery = ltrim(str_replace("\n", "" , $varSQLQuery));
+                    $varSQLQuery = ltrim(str_replace("\n", "", $varSQLQuery));
 
                     $varProfilerStartNs = hrtime(true);
                     try {
@@ -1059,47 +968,44 @@ namespace App\Helpers\ZhtHelper\Database
                             (hrtime(true) - $varProfilerStartNs) / 1e6,
                             true,
                             null
-                            );
-                        }
-                    catch (\Throwable $varProfilerEx) {
+                        );
+                    } catch (\Throwable $varProfilerEx) {
                         \App\Helpers\ZhtHelper\Logger\Helper_QueryProfiler::record(
                             'laravel',
                             $varSQLQuery,
                             (hrtime(true) - $varProfilerStartNs) / 1e6,
                             false,
                             $varProfilerEx->getMessage()
-                            );
+                        );
                         throw $varProfilerEx;
-                        }
-                    
+                    }
+
                     //dd(((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']);
                     //$connection = \Illuminate\Support\Facades\DB::connection();
 //(array) (\Illuminate\Support\Facades\DB::getConnections())['pgsql'];
                     //dd($connection);
-                    
-                    
-                    
+
+
+
                     ///$varPDOConnection = (((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']->getRawPdo());
-                    
+
                     //dd(((array) \Illuminate\Support\Facades\DB::getConnections())['pgsql']);
-                    
+
                     //dd($varPDOConnection);
-                    
+
                     //pg_last_notice($connection);
-                    
-                    
+
+
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1120,24 +1026,23 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getQueryExecutionDataFetch_DataOnly_All($varUserSession, string $varSchemaName, string $varTableName, bool $varStatusAuthenticatedDataOnly = null)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded field data only');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if($varStatusAuthenticatedDataOnly === null)
-                        {
+                    if ($varStatusAuthenticatedDataOnly === null) {
                         $varStatusAuthenticatedDataOnly = true;
-                        }
+                    }
                     $varSQL = '
                         SELECT 
                             "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All" AS "QueryBuilderString"
                         FROM 
                             "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(
-                                \''.$varSchemaName.'\'::varchar,
-                                \''.$varTableName.'\'::varchar,
-                                '.($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE').'::boolean
+                                \'' . $varSchemaName . '\'::varchar,
+                                \'' . $varTableName . '\'::varchar,
+                                ' . ($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE') . '::boolean
                                 )
                         ';
                     //echo $varSQL."<br><br>";
@@ -1149,18 +1054,16 @@ namespace App\Helpers\ZhtHelper\Database
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
-            
+
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getQueryExecutionDataFetch_DataOnly_Filtered                                                         |
@@ -1181,24 +1084,23 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getQueryExecutionDataFetch_DataOnly_Filtered($varUserSession, string $varSchemaName, string $varTableName, string $varFilterCondition = null, bool $varStatusAuthenticatedDataOnly = null)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filtered field data only');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if($varStatusAuthenticatedDataOnly === null)
-                        {
+                    if ($varStatusAuthenticatedDataOnly === null) {
                         $varStatusAuthenticatedDataOnly = true;
-                        }
+                    }
                     $varSQL = '
                         SELECT 
                             "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All" AS "QueryBuilderString"
                         FROM 
                             "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_All"(
-                                \''.$varSchemaName.'\'::varchar,
-                                \''.$varTableName.'\'::varchar,
-                                '.($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE').'::boolean
+                                \'' . $varSchemaName . '\'::varchar,
+                                \'' . $varTableName . '\'::varchar,
+                                ' . ($varStatusAuthenticatedDataOnly == true ? 'TRUE' : 'FALSE') . '::boolean
                                 )
                         ';
                     //echo $varSQL."<br><br>";
@@ -1207,27 +1109,25 @@ namespace App\Helpers\ZhtHelper\Database
                         SELECT
                             * 
                         FROM 
-                            ('.$varData['data'][0]['QueryBuilderString'].') AS "SubSQL"
+                            (' . $varData['data'][0]['QueryBuilderString'] . ') AS "SubSQL"
                         WHERE
                             1 = 1
-                            '.($varFilterCondition ? ' AND ' .$varFilterCondition : '').'
+                            ' . ($varFilterCondition ? ' AND ' . $varFilterCondition : '') . '
                         ';
                     //--->
-                    echo $varSQL."<br><br>";
+                    echo $varSQL . "<br><br>";
                     //$varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1247,7 +1147,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getQueryExecutionDataFetch_DataOnly_Specific($varUserSession, int $varRecordID)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
@@ -1257,7 +1157,7 @@ namespace App\Helpers\ZhtHelper\Database
                         SELECT 
                             "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific" AS "QueryBuilderString"
                         FROM 
-                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific"('.$varRecordID.'::bigint)
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_Specific"(' . $varRecordID . '::bigint)
                         ';
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varSQL = $varData['data'][0]['QueryBuilderString'];
@@ -1267,16 +1167,14 @@ namespace App\Helpers\ZhtHelper\Database
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1296,7 +1194,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getQueryExecutionDataFetch_DataOnly_SpecificWithFacade($varUserSession, int $varRecordID)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get a literal build string to retrieve recorded filed data only');
@@ -1306,7 +1204,7 @@ namespace App\Helpers\ZhtHelper\Database
                         SELECT 
                             "FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade" AS "QueryBuilderString"
                         FROM 
-                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade"('.$varRecordID.'::bigint)
+                            "SchSysConfig"."FuncSys_General_GetStringLiteralFieldSelect_DataOnly_SpcfFacade"(' . $varRecordID . '::bigint)
                         ';
                     $varData = self::getQueryExecution($varUserSession, $varSQL);
                     $varSQL = $varData['data'][0]['QueryBuilderString'];
@@ -1316,17 +1214,15 @@ namespace App\Helpers\ZhtHelper\Database
                     $varReturn = $varData;
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
+            }
             return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }            
-            
+        }
+
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1345,39 +1241,31 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralConvertForBigInteger($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if ((strcmp($varData, '0')==0))
-                        {
+                    if ((strcmp($varData, '0') == 0)) {
                         $varReturn = '0';
-                        }
-                    else
-                        {
-                        if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') ==0) ) 
-                            {
+                    } else {
+                        if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') == 0)) {
                             $varReturn = 'NULL';
-                            }
-                        else
-                            {
+                        } else {
                             $varReturn = $varData;
-                            }
                         }
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1397,33 +1285,28 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralConvertForBytea($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for VarChar');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
-                        {
+                    if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') == 0)) {
                         $varReturn = 'NULL';
-                        }
-                    else
-                        {
-                        $varReturn = '\''.self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession,$varData).'\'';
-//                        $varReturn = '\''.pg_escape_bytea($varUserSession,$varData).'\'';
-                        }
+                    } else {
+                        $varReturn = '\'' . self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession, $varData) . '\'';
+                        //                        $varReturn = '\''.pg_escape_bytea($varUserSession,$varData).'\'';
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1443,39 +1326,31 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralConvertForInteger($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if ((strcmp($varData, '0')==0))
-                        {
+                    if ((strcmp($varData, '0') == 0)) {
                         $varReturn = '0';
-                        }
-                    else
-                        {
-                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
-                            {
+                    } else {
+                        if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') == 0)) {
                             $varReturn = 'NULL';
-                            }
-                        else
-                            {
+                        } else {
                             $varReturn = $varData;
-                            }                        
                         }
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1495,39 +1370,31 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralConvertForSmallInteger($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for BigInteger');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if ((strcmp($varData, '0')==0))
-                        {
+                    if ((strcmp($varData, '0') == 0)) {
                         $varReturn = '0';
-                        }
-                    else
-                        {
-                        if((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
-                            {
+                    } else {
+                        if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') == 0)) {
                             $varReturn = 'NULL';
-                            }
-                        else
-                            {
+                        } else {
                             $varReturn = $varData;
-                            }
                         }
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1546,37 +1413,32 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralConvertForVarChar($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Convertion for VarChar');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    if ((!$varData) || (strcmp($varData, '')==0) || (strcmp(strtolower($varData), 'null')==0)) 
-                        {
+                    if ((!$varData) || (strcmp($varData, '') == 0) || (strcmp(strtolower($varData), 'null') == 0)) {
                         $varReturn =
                             'NULL';
-                        }
-                    else
-                        {
+                    } else {
                         $varReturn =
-                            '\''.self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession,$varData).'\'';
-                        }
+                            '\'' . self::getStringLiteralEscapedCharacter_SingleQuote($varUserSession, $varData) . '\'';
+                    }
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
 
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
-                }
+            } catch (\Exception $ex) {
+            }
 
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
+        }
 
 
         /*
@@ -1595,7 +1457,7 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function getStringLiteralEscapedCharacter_SingleQuote($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get String Literal Escaped Character for Single Quote');
@@ -1604,16 +1466,14 @@ namespace App\Helpers\ZhtHelper\Database
                     $varReturn = str_replace('\'', '\'\'', $varData);
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1632,33 +1492,31 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function isValid_SQLSyntax($varUserSession, $varSQL)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
                 $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Check if SQL is valid');
                 try {
                     //---- ( MAIN CODE ) --------------------------------------------------------------------- [ START POINT ] -----
-                    $varReturn = ((array)((\Illuminate\Support\Facades\DB::select(
+                    $varReturn = ((array) ((\Illuminate\Support\Facades\DB::select(
                         self::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchSysConfig.FuncSys_General_IsValid_SQLSyntax',
                             [
                                 [$varSQL, 'varchar']
                             ]
-                            )
-                        ))[0]))['FuncSys_General_IsValid_SQLSyntax'];
+                        )
+                    ))[0]))['FuncSys_General_IsValid_SQLSyntax'];
                     //---- ( MAIN CODE ) ----------------------------------------------------------------------- [ END POINT ] -----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
-                    } 
-                catch (\Exception $ex) {
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
-                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                } 
-            catch (\Exception $ex) {
+                } catch (\Exception $ex) {
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
                 }
-            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+                \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
+            } catch (\Exception $ex) {
             }
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
+        }
 
 
         /*
@@ -1677,11 +1535,11 @@ namespace App\Helpers\ZhtHelper\Database
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public static function setStatementExecution($varUserSession, $varSQL)
-            {
+        {
             $varReturn = \Illuminate\Support\Facades\DB::statement($varSQL);
             return $varReturn;
-            }
         }
     }
+}
 
 ?>

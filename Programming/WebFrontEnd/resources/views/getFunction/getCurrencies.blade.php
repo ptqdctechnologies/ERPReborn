@@ -141,7 +141,7 @@
         });
     }
 
-    $(window).one('load', function (e) {
+    $(document).ready(function () {
         getCurrencies();
     });
 </script>

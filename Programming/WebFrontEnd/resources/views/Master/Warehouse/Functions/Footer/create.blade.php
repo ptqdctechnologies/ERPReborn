@@ -60,7 +60,41 @@
         $("#myCities").modal('toggle');
     });
 
+    $('#warehouseTypeListTable').on('click', 'tbody tr', function () {
+        const id = $(this).find('input[data-trigger="sys_id_modal_warehouse_type"]').val();
+        const name = $(this).find('td:nth-child(2)').text();
+
+        $("#warehouse_type_id").val(id);
+        $("#warehouse_type").val(name);
+        $("#warehouse_type").css('background-color', '#e9ecef');
+
+        $("#warehouseTypeListModal").modal('toggle');
+    });
+
+    $('#submit-confirmation').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Warehouse.store") !!}',
+            data: $('#warehouseForm').serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                console.log('response', response);
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+    });
+
     $(document).ready(function () {
         getCountries();
+        getWarehouseTypeList();
     });
 </script>

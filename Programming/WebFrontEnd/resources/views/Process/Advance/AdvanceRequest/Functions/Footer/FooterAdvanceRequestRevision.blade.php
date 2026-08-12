@@ -143,6 +143,15 @@
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+        // const totalPaymentArfInput = document.getElementById('total_payment_arf');
+        // const totalPaymentArfValue = totalPaymentArfInput ? totalPaymentArfInput.value : '0';
+        // const totalPaymentArf = parseFloat(totalPaymentArfValue.replace(/,/g, '')) || 0;
+
+        // if (total < totalPaymentArf) {
+        //     ErrorNotif("Total Budget Selected cannot be less than Total Payment ARF !");
+        //     return;
+        // }
     }
 
     function updateGrandTotal() {
@@ -306,6 +315,18 @@
         const isRemarkNotEmpty = remark.value.trim() !== '';
         const isTableNotEmpty = checkOneLineBudgetContents();
         const isInputNotEmpty = validateQtyAndPriceWithHighlight();
+
+        const totalBudgetSelectedText = document.getElementById('TotalBudgetSelected')?.textContent || '0';
+        const totalBudgetSelected = parseFloat(totalBudgetSelectedText.replace(/,/g, '')) || 0;
+
+        const totalPaymentArfInput = document.getElementById('total_payment_arf');
+        const totalPaymentArfValue = totalPaymentArfInput ? totalPaymentArfInput.value : '0';
+        const totalPaymentArf = parseFloat(totalPaymentArfValue.replace(/,/g, '')) || 0;
+
+        if (totalBudgetSelected < totalPaymentArf) {
+            ErrorNotif("Total Budget can't be less than Total Payment!");
+            return;
+        }
 
         if (isRemarkNotEmpty && isTableNotEmpty && isInputNotEmpty) {
             $('#advanceRequestFormModal').modal('show');

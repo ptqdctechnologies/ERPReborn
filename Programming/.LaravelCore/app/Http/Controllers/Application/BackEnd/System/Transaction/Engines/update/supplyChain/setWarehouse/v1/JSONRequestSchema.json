@@ -1,109 +1,152 @@
 {
-"title": "JSON Request Schema",
-"description": "JSON Request Schema of transaction.update.supplyChain.setWarehouse (version 1)",
-"type": "object",
-"properties": {
-    "metadata": {
-        "type": "object",
-        "properties": {
-            "API": {
-                "type": "object",
-                "properties": {
-                    "key": {
-                        "type": "string",
-                        "enum": [ "transaction.update.supplyChain.setWarehouse" ]
+    "title": "JSON Request Schema",
+    "description": "JSON Request Schema of transaction.update.supplyChain.setWarehouse (version 1)",
+    "type": "object",
+    "properties": {
+        "metadata": {
+            "type": "object",
+            "properties": {
+                "API": {
+                    "type": "object",
+                    "properties": {
+                        "key": {
+                            "type": "string",
+                            "enum": [
+                                "transaction.update.supplyChain.setWarehouse"
+                            ]
                         },
-                    "version": {
-                        "type": [ "integer", "string" ],
-                        "minimum": 1,
-                        "minLength": 1
+                        "version": {
+                            "type": [
+                                "integer",
+                                "string"
+                            ],
+                            "minimum": 1,
+                            "minLength": 1
                         }
                     },
-                "required": [
-                    "key",
-                    "version"
+                    "required": [
+                        "key",
+                        "version"
                     ]
                 }
             },
-        "required": [
-            "API"
+            "required": [
+                "API"
             ]
         },
-    "data": {
-        "type": "object",
-        "properties": {
-            "recordID" : {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 9223372036854775807
+        "data": {
+            "type": "object",
+            "properties": {
+                "recordID": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 9223372036854775807
                 },
-            "entities" :
-                {
-                "type": "object",
-                "properties": {
-                    "institutionBranch_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                "entities": {
+                    "type": "object",
+                    "properties": {
+                        "institutionBranch_RefID": {
+                            "type": [
+                                "integer",
+                                "null"
+                            ],
+                            "minimum": 1,
+                            "maximum": 9223372036854775807
                         },
-                    "name": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "minLength": 1,
+                            "maxLength": 256
                         },
-                    "warehouseType_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                        "warehouseType_RefID": {
+                            "type": [
+                                "integer",
+                                "null"
+                            ],
+                            "minimum": 1,
+                            "maximum": 9223372036854775807
                         },
-                    "address": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 256
+                        "address": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "minLength": 1,
+                            "maxLength": 256
                         },
-                    "countryAdministrativeArea_RefID": {
-                        "type": [ "integer", "null" ],
-                        "minimum": 1,
-                        "maximum": 9223372036854775807
+                        "location": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "country": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "minLength": 1
+                                },
+                                "province": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "minLength": 1
+                                },
+                                "city": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "minLength": 1
+                                }
+                            },
+                            "required": [
+                                "country",
+                                "province",
+                                "city"
+                            ],
+                            "additionalProperties": false
                         },
-                    "postalCode": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 5
+                        "code": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "minLength": 1,
+                            "maxLength": 10
                         },
-                    "GPSPoint": {
-                        "type": [ "string", "null" ],
-                        "format": "string",
-                        "pattern": "^(([ ]{0,})([(]{0,1})([ ]{0,})(([+]{0,1}|[-]{0,1}){0,1})((([0-8]{0,1})([0-9]{0,1})([.])([0-9]{0,7}))|((90)((([.])([0]{0,7})){0,1})))([ ]{0,})([,])([ ]{0,})(([+]{0,1}|[-]{0,1}){0,1})((((([0-9])|([1-9][0-9])|(1([0-7][0-9]))){0,1})((([.])([0-9]{0,7})){0,1}))|((180)((([.])([0]{0,7})){0,1})))([ ]{0,})([)]{0,1})([ ]{0,}))$",
-                        "minLength": 1,
-                        "maxLength": 27
-                        },
-                    "code": {
-                        "type": [ "string", "null" ],
-                        "minLength": 1,
-                        "maxLength": 10
+                        "status": {
+                            "type": [
+                                "boolean",
+                                "null"
+                            ]
                         }
                     },
-                "required": [
-                    "institutionBranch_RefID",
-                    "name",
-                    "warehouseType_RefID",
-                    "address",
-                    "countryAdministrativeArea_RefID",
-                    "postalCode",
-                    "GPSPoint",
-                    "code"
-                    ]
+                    "required": [
+                        "institutionBranch_RefID",
+                        "name",
+                        "warehouseType_RefID",
+                        "address",
+                        "location",
+                        "code",
+                        "status"
+                    ],
+                    "additionalProperties": false
                 }
             },
-        "required": [
-            "recordID",
-            "entities"
+            "required": [
+                "recordID",
+                "entities"
             ]
         }
     },
-"required": [
-    "metadata",
-    "data"
+    "required": [
+        "metadata",
+        "data"
     ]
 }

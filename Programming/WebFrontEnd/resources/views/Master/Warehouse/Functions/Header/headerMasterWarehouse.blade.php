@@ -37,11 +37,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Country</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="myCountryTrigger" data-toggle="modal" data-target="#myCountries">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                    alt="countryTrigger">
-                            </a>
+                        <span id="myCountryTrigger" data-toggle="modal" data-target="#myCountries"
+                            class="input-group-text form-control" style="border-radius:0; cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div style="flex: 100%;">
@@ -64,11 +62,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Province</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="provinceTrigger" data-toggle="modal" data-target="#myProvincies">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13"
-                                    alt="provinceTrigger">
-                            </a>
+                        <span id="provinceTrigger" data-toggle="modal" data-target="#myProvincies"
+                            class="input-group-text form-control" style="border-radius:0; cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div style="flex: 100%;">
@@ -91,10 +87,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">City</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <span style="border-radius:0;" class="input-group-text form-control">
-                            <a href="javascript:;" id="cityTrigger" data-toggle="modal" data-target="#myCities">
-                                <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="cityTrigger">
-                            </a>
+                        <span id="cityTrigger" data-toggle="modal" data-target="#myCities"
+                            class="input-group-text form-control" style="border-radius:0; cursor:pointer;">
+                            <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div style="flex: 100%;">
@@ -119,13 +114,14 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Type</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <span id="provinceTrigger" data-toggle="modal" data-target="#myProvincies"
+                        <span id="warehouseTypeTrigger" data-toggle="modal" data-target="#warehouseTypeListModal"
                             class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
                             <i class="fas fa-gift"></i>
                         </span>
                     </div>
                     <div style="flex: 1;">
-                        <input type="text" id="supplier_province" class="form-control"
+                        <input type="hidden" id="warehouse_type_id" name="warehouse_type_id" class="form-control" />
+                        <input type="text" id="warehouse_type" class="form-control"
                             style="border-radius:0;background-color:white;" readonly />
                     </div>
                 </div>
@@ -135,7 +131,7 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Address</label>
                 <div class="col-5">
-                    <textarea id="address" name="address" cols="30" rows="4" class="form-control"
+                    <textarea id="warehouse_address" name="warehouse_address" cols="30" rows="4" class="form-control"
                         autocomplete="off"></textarea>
                 </div>
             </div>
