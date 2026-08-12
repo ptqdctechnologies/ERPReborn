@@ -1,5 +1,4 @@
 <script>
-    let countryCodeTemp = null;
     const formList = {
         warehouse_code: {
             component: '#warehouse_code',

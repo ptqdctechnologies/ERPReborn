@@ -2,7 +2,11 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCities')
+    @include('getFunction.getCountries')
+    @include('getFunction.getProvincies')
     @include('getFunction.getWarehouses')
+    @include('getFunction.getWarehouseTypes')
     @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
     <div class="content-wrapper">
