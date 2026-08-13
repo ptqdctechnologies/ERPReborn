@@ -3,29 +3,29 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting\getGeneralLedger           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting\getProfitLoss              |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting\getGeneralLedger\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting\getProfitLoss\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getGeneralLedger                                                                                             |
-    | ▪ Description : Menangani API report.form.resume.accounting.getGeneralLedger Version 1                                       |
+    | ▪ Class Name  : getProfitLoss                                                                                                |
+    | ▪ Description : Menangani API report.form.resume.accounting.getProfitLoss Version 1                                          |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getGeneralLedger extends \App\Http\Controllers\Controller
+    class getProfitLoss extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-08-11                                                                                           |
-        | ▪ Creation Date   : 2026-08-11                                                                                           |
+        | ▪ Last Update     : 2026-08-13                                                                                           |
+        | ▪ Creation Date   : 2026-08-13                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +44,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-08-11                                                                                           |
-        | ▪ Creation Date   : 2026-08-11                                                                                           |
+        | ▪ Last Update     : 2026-08-13                                                                                           |
+        | ▪ Creation Date   : 2026-08-13                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +62,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - Resume - General Ledger (version 1)'
+                        'Get Report Form - Resume - Profit Loss (version 1)'
                         );
 
                 try {
@@ -71,11 +71,10 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
                         if (!($varDataSend =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_Resume_GeneralLedger(
+                                (new \App\Models\Database\SchData_OLTP_Accounting\General())->getReport_Form_Resume_ProfitLoss(
                                     $varUserSession,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                                    $varData['parameter']['recordID'],
                                     $varData['parameter']['startDate'],
                                     $varData['parameter']['finishDate']
                                     )
