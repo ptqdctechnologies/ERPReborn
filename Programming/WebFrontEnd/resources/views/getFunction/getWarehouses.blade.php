@@ -20,8 +20,8 @@
                                     <thead>
                                         <tr>
                                             <th>No</th>
+                                            <th>Code</th>
                                             <th>Name</th>
-                                            <th>Address</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -52,50 +52,86 @@
 
 <script>
     function getWarehouseList() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        let table = $('#warehouseListTable').DataTable({
+            processing: true,
+            serverSide: true,
+            destroy: true,
+            info: true,
+            paging: true,
+            searching: true,
+            lengthChange: true,
+            pageLength: 10,
+            ajax: {
+                url: '{!! route("Warehouse.picklist") !!}',
+                type: 'GET',
+                data: function (d) {
+                    // d.combinedBudgetCode = combinedBudgetCode;
+                    // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
+
+                    return d;
+                },
+                beforeSend: function () {
+                    $('#warehouseListTable tbody').empty();
+                    $("#warehouseListLoadingTable").show();
+                },
+                complete: function () {
+                    $("#warehouseListLoadingTable").hide();
+                },
+                error: function (xhr, error, thrown) {
+                    $("#warehouseListLoadingTable").hide();
+                }
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return '<input id="sys_id_modal_warehouse' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_warehouse" type="hidden">' + (meta.row + meta.settings._iDisplayStart + 1)
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.code
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+            ],
+            initComplete: function () {
+                let api = this.api();
+
+                let $filter = $('#warehouseListTable_filter');
+                let $searchLabel = $filter.find('label');
+                let $searchInput = $filter.find('input');
+
+                $searchLabel.css('margin-bottom', '0');
+                $searchInput
+                    .attr('placeholder', 'Search...')
+                    .off('.DT')
+                    .on('keypress', function (e) {
+                        if (e.which === 13) {
+                            api.search(this.value).draw();
+                        }
+                    })
+                    .on('input', function () {
+                        if ($(this).val() === '') {
+                            api.search('').draw();
+                        }
+                    });
+
+                if ($('#searchHintWarehouse').length === 0) {
+                    $filter.append(
+                        '<small id="searchHintWarehouse" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        'Press <strong>Enter</strong> to start searching.' +
+                        '</small>'
+                    );
+                }
             }
         });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("Warehouse.picklist") !!}',
-        })
-            .done(function (response) {
-                let data = (response.status == 200 && response.data[0]) ? response.data : [];
-
-                $('#warehouseListTable').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return '<input id="sys_id_modal_warehouse' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_warehouse" type="hidden">' + (meta.row + 1)
-                            }
-                        },
-                        {
-                            data: 'sys_Text',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'address',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#warehouseListLoadingTable").hide();
-            });
     }
 </script>

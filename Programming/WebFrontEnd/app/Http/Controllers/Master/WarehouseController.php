@@ -81,18 +81,50 @@ class WarehouseController extends Controller
 
     public function picklist(Request $request)
     {
-        $response = $this->warehouseService->picklist();
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
 
-        $status = $response['metadata']['HTTPStatusCode'];
-        $data = [];
+        $formatLimit = $length > 0 ? $length : null;
 
-        if ($status == 200) {
-            $data = $response['data']['data'] ?? [];
+        $offset = $formatLimit
+            ? (int) floor($start / $formatLimit) + 1
+            : 1;
+
+        $code = $request->input('warehouse_code');
+        $name = $request->input('warehouse_name');
+        $warehouseTypeRefID = $request->input('warehouseType_RefID');
+        $searchValue = $request->input('search.value');
+
+        $formatted = [
+            'pagination' => [
+                'pageSize' => $formatLimit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'name' => $name,
+                'code' => $code ? $code : $searchValue,
+                'warehouseType_RefID' => $warehouseTypeRefID ? (int) $warehouseTypeRefID : null
+            ],
+        ];
+
+        $response = $this->warehouseService->picklist($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
         }
 
+        $workData = $response['data']['data'];
+
         return response()->json([
-            'data' => $data,
-            'status' => $status
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $workData['header']['dataCount'],
+            'recordsFiltered' => $workData['header']['dataCount'],
+            'data' => $workData['content']['itemList']
         ]);
     }
 

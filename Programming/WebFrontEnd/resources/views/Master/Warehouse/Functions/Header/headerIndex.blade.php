@@ -42,7 +42,7 @@
         </div>
 
         <!-- WAREHOUSE COUNTRY -->
-        <div class="row p-0 align-items-center" style="margin-top: 1rem;">
+        <div class="row p-0 align-items-center d-none" style="margin-top: 1rem;">
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Country</label>
             <div class="col-sm-9 col-md-8 col-lg-6 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="col-sm-12 col-md-12 col-lg-3">
+    <div class="col-sm-12 col-md-12 col-lg-3 d-none">
         <!-- WAREHOUSE PROVINCE -->
         <div class="row p-0 align-items-center">
             <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Province</label>
@@ -109,7 +109,7 @@
                     <option value="EXCEL">Export Excel</option>
                 </select>
             </div>
-            <button type="button" class="btn btn-default btn-sm" onclick="exportDataSuppliers()">
+            <button type="button" class="btn btn-default btn-sm" onclick="exportDataWarehouse()">
                 <span>
                     <img src="{{ asset('AdminLTE-master/dist/img/printer.png') }}" width="17" alt="" />
                 </span>
@@ -118,7 +118,7 @@
 
         <!-- SUBMIT -->
         <div class="row" style="gap: 0.5rem;">
-            <button type="submit" class="btn btn-default btn-sm" onclick="validateShowButton()"
+            <button type="submit" class="btn btn-default btn-sm" onclick="getDataWarehouses()"
                 style="margin-top: -5px;">
                 <img src="{{ asset('AdminLTE-master/dist/img/backwards.png') }}" width="12" alt="show" title="Show">
                 Show

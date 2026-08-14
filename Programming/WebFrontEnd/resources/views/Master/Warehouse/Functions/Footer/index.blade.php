@@ -1,75 +1,122 @@
 <script>
+    let dataReport = [];
     let countryCodeTemp = null;
 
+    function resetForm() {
+        $(`#warehouse_code`).val("");
+        $(`#warehouse_name`).val("");
+        $(`#warehouse_type_id`).val("");
+        $(`#warehouse_type`).val("");
+        $(`#warehouse_type`).css({ 'background-color': '#fff' });
+
+        getDataWarehouses();
+    }
+
     function getDataWarehouses() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
+        $('#table_warehouse').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'GET',
+                url: '{!! route("Warehouse.picklist") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.warehouse_code = $('#warehouse_code').val();
+                    d.warehouse_name = $('#warehouse_name').val();
+                    d.warehouseType_RefID = $('#warehouse_type_id').val();
+
+                    return d;
+                },
+                dataSrc: function (json) {
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    $('#loading-table').show();
+                    $('#table_warehouse tbody').empty();
+                },
+                complete: function () {
+                    $('#loading-table').hide();
+                },
+            },
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return `
+                            <input type="hidden" value="${data.sys_ID}">
+                            ${meta.row + meta.settings._iDisplayStart + 1}
+                        `;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.code
+                    }
+                },
+                {
+                    data: 'sys_Text',
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.warehouseTypeName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.location ? data.additionalData.location.country : '-'
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.location ? data.additionalData.location.province : '-'
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.location ? data.additionalData.location.city : '-'
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.address
+                    }
+                },
+            ]
         });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("Warehouse.picklist") !!}',
-        })
-            .done(function (response) {
-                let data = (response.status == 200 && response.data[0]) ? response.data : [];
-
-                $('#table_warehouse').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return `
-                                    <input type="hidden" value="${data.sys_ID}">
-                                    ${meta.row + meta.settings._iDisplayStart + 1}
-                                `;
-                            }
-                        },
-                        {
-                            data: "code",
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'sys_Text',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: 'address',
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            className: "align-middle text-nowrap"
-                        }
-                    ]
-                });
-            })
-            .fail(function (jqXHR, textStatus, errorThrown) {
-                console.error("Error:", errorThrown);
-            })
-            .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loading-table").hide();
-            });
     }
 
     $('#warehouseListTable').on('click', 'tbody tr', function () {

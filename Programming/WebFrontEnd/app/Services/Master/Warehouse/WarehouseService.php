@@ -9,17 +9,17 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class WarehouseService
 {
-    public function picklist()
+    public function picklist($formatted)
     {
         $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
-            'dataPickList.supplyChain.getWarehouse',
+            'report.form.dataPickList.supplyChain.getWarehouse',
             'latest',
             [
-                'parameter' => []
+                'parameter' => $formatted
             ]
         );
     }
