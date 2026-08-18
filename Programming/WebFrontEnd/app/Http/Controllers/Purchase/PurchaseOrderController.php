@@ -53,16 +53,16 @@ class PurchaseOrderController extends Controller
                 throw new \Exception('Failed to fetch Create Purchase Order');
             }
 
-            // $responseWorkflow = $this->workflowService->submit(
-            //     $response['data']['businessDocument']['businessDocument_RefID'],
-            //     $request->workFlowPath_RefID,
-            //     $request->comment,
-            //     $request->approverEntity,
-            // );
+            $responseWorkflow = $this->workflowService->submit(
+                $response['data']['businessDocument']['businessDocument_RefID'],
+                $request->workFlowPath_RefID,
+                $request->comment,
+                $request->approverEntity,
+            );
 
-            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-            //     throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order');
-            // }
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order');
+            }
 
             $compact = [
                 "documentNumber" => $response['data']['businessDocument']['documentNumber'],

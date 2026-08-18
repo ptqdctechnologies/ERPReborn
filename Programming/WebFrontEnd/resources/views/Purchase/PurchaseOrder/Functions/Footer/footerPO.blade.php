@@ -124,9 +124,9 @@
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[5].innerText}): ${decimalFormat(total)}`;
         document.getElementById('GrandVAT').innerText = `VAT: ${TotalPpns.innerText}`;
-        document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[6].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
+        document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[5].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
     }
 
     function summaryData() {
@@ -792,6 +792,7 @@
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
@@ -833,7 +834,7 @@
         $("#supplier_name").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
         $("#supplierMessage").hide();
 
-        $('#mySuppliers').modal('hide');
+        $('#mySuppliers').modal('toggle');
     });
 
     $('#tableGetModalPurchaseRequisition').on('click', 'tbody tr', function () {
@@ -890,15 +891,13 @@
         const workflowName = $(this).find('td:nth-child(2)').text();
         const workflowPosition = $(this).find('td:nth-child(3)').text();
 
-        // dataWorkflow.approverEntityRefID = sysId;
+        dataWorkflow.approverEntityRefID = sysId;
 
         $("#myWorkflows").modal('toggle');
 
         $('#myWorkflows').on('hidden.bs.modal', function () {
             commentWorkflow();
         });
-
-        // console.log('dataWorkflow', dataWorkflow);
     });
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
