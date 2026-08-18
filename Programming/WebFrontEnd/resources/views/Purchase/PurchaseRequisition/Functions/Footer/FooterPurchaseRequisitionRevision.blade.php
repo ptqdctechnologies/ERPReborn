@@ -192,7 +192,7 @@
                 const qtyAvail = row.children[11].innerText.trim();
                 const uom = row.children[12].innerText.trim();
                 const priceAvail = row.children[13].innerText.trim();
-                const currency = row.children[15].innerText.trim();
+                const currency = row.children[16].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty = qtyInput.value.trim();
@@ -525,6 +525,7 @@
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                            <td style="text-align: center;">${val2.po_Value ? currencyTotal(val2.po_Value) : '-'}</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode || '-'}</td>
                             ${componentsInput}
                         </tr>
@@ -769,8 +770,9 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && !response.data[0].signAccess) {
+                if (response.status === 200 && response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 

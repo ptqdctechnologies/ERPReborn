@@ -3,20 +3,42 @@
     <table class="table table-head-fixed text-nowrap table-sm" id="tableGetPRDetails">
         <thead>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Work</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Product</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Qty Avail</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">UOM</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Unit Price</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Total Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">Currency</th>
-                <th class="sticky-col sixth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                <th class="sticky-col fifth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
-                <th class="sticky-col forth-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                <th class="sticky-col third-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance Qty</th>
-                <th class="sticky-col second-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Asset</th>
-                <th class="sticky-col first-col-pr" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Note</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Work</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Product</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Qty Budget</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Qty Avail</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    UOM</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Unit Price</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Total Budget</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    PO Value</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    Currency</th>
+                <th class="sticky-col sixth-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Qty Req</th>
+                <th class="sticky-col fifth-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Price Req</th>
+                <th class="sticky-col forth-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Total Req</th>
+                <th class="sticky-col third-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Balance Qty</th>
+                <th class="sticky-col second-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Asset</th>
+                <th class="sticky-col first-col-pr"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -36,7 +58,8 @@
             <tr class="errorMessageContainerPRDetails">
                 <td colspan="13" class="p-0" style="border: 0px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                        <div id="errorMessagePRDetails" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                        <div id="errorMessagePRDetails" class="mt-3 text-red"
+                            style="font-size: 1rem; font-weight: 700;"></div>
                     </div>
                 </td>
             </tr>
