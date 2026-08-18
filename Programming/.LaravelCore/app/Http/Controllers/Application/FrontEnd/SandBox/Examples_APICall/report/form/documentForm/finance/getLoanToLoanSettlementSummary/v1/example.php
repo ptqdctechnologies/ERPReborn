@@ -39,8 +39,20 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000055',
-                    'CombinedBudgetCode' => NULL,
+                    'CombinedBudgetCode' => 'Q000055',
+                    'Creditor_RefID' => 166000000000001,
+                    'Debitor_RefID' => 25000000000001,
+                    'Loan_RefID' => 293000000000006,
+                    'LoanSettlement_RefID' => 295000000000010,
+                    'StartDate' => '2020-01-01',
+                    'EndDate' => '2026-08-13'
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'Creditor_RefID' => NULL,
+                    // 'Debitor_RefID' => NULL,
+                    // 'Loan_RefID' => NULL,
+                    // 'LoanSettlement_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
