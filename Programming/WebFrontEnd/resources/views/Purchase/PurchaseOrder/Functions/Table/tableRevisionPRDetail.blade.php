@@ -1,23 +1,46 @@
-<div class="wrapper-budget card-body table-responsive p-0"  style="height: 230px;">
+<div class="wrapper-budget card-body table-responsive p-0" style="height: 230px;">
     <table class="table table-head-fixed text-nowrap table-striped" id="tablePurchaseOrderDetail">
         <thead>
             <tr>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR Number</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Sub Budget</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty PR</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty Avail</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Work
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">PR
+                    Number</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Sub
+                    Budget</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Product
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty PR
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Qty
+                    Avail</th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">UOM</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit Price</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total</th>
-                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency</th>
-                <th class="sticky-col sixth-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Qty Req</th>
-                <th class="sticky-col fifth-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Price Req</th>
-                <th class="sticky-col forth-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Total Req</th>
-                <th class="sticky-col third-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Balance</th>
-                <th class="sticky-col second-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Asset</th>
-                <th class="sticky-col first-col-po" style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">Note</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Unit
+                    Price</th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Total
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">AP Value
+                </th>
+                <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;">Currency
+                </th>
+                <th class="sticky-col sixth-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Qty Req</th>
+                <th class="sticky-col fifth-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Price Req</th>
+                <th class="sticky-col forth-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Total Req</th>
+                <th class="sticky-col third-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Balance</th>
+                <th class="sticky-col second-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Asset</th>
+                <th class="sticky-col first-col-po"
+                    style="padding-top: 10px;padding-bottom: 10px;text-align: center;background-color:#4B586A;color:white;">
+                    Note</th>
             </tr>
         </thead>
         <tbody></tbody>
@@ -37,7 +60,8 @@
             <tr class="errorPurchaseOrderTable">
                 <td colspan="15" class="p-0" style="height: 12.3rem;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                        <div id="errorPurchaseOrderMessageTable" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;">Error</div>
+                        <div id="errorPurchaseOrderMessageTable" class="mt-3 text-red"
+                            style="font-size: 1rem; font-weight: 700;">Error</div>
                     </div>
                 </td>
             </tr>
@@ -73,7 +97,8 @@
                         </td>
                         <td id="containerSelectPPN" style="border:1px solid #e9ecef;">
                             <input hidden id="vatOptionValue" style="width: 20%;" value="<?= $header['vatValue']; ?>" />
-                            <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control" onChange="calculateTotal();">
+                            <select name="vatValue" id="vatOption" style="border-radius:0;" class="form-control"
+                                onChange="calculateTotal();">
                                 <option disabled selected>Select a VAT</option>
                             </select>
                         </td>
@@ -84,7 +109,7 @@
     </div>
 </div>
 
-<div class="card-body tableShowHidePRDetail" >
+<div class="card-body tableShowHidePRDetail">
     <table style="float:right;">
         <tr>
             <th style="position: relative;right:20px;"> Total Request: <span id="TotalBudgetSelected">0.00</span></th>
@@ -93,7 +118,8 @@
             <th style="position: relative;right:20px;"> VAT: <span id="TotalPpn">0.00</span></th>
         </tr>
         <tr>
-            <th style="position: relative;right:20px;"> Total Request + VAT: <span id="TotalBudgetSelectedPpn">0.00</span></th>
+            <th style="position: relative;right:20px;"> Total Request + VAT: <span
+                    id="TotalBudgetSelectedPpn">0.00</span></th>
         </tr>
     </table>
 </div>
