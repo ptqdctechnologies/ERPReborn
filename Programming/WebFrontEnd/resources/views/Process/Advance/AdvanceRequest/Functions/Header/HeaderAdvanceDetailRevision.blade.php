@@ -114,7 +114,8 @@
                     </div> -->
                     <div style="flex: 100%;">
                         <input id="total_payment_arf" style="border-radius:0;" class="form-control"
-                            name="total_payment_arf" readonly value="{{ $headerAdvanceRequestDetail['totalPayment'] }}">
+                            name="total_payment_arf" readonly
+                            value="{{ number_format($headerAdvanceRequestDetail['totalPayment'], 2) }}">
                     </div>
                 </div>
             </div>
