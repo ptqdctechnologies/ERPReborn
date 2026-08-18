@@ -3,7 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting]getGeneralLedger           |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\accounting\getGeneralLedger           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
