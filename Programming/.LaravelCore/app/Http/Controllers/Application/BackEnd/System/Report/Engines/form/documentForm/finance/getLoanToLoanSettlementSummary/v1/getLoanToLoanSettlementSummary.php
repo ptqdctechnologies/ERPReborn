@@ -67,6 +67,12 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varUserSession, 
                             (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                             $varData['parameter']['CombinedBudgetCode'],
+                            $varData['parameter']['Creditor_RefID'],
+                            $varData['parameter']['Debitor_RefID'],
+                            $varData['parameter']['Loan_RefID'],
+                            $varData['parameter']['LoanSettlement_RefID'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate'],
 
 	                        $varData['SQLStatement']['paging']
                             ))))
