@@ -633,6 +633,7 @@
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
+                    dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
@@ -740,7 +741,7 @@
         const workflowName = $(this).find('td:nth-child(2)').text();
         const workflowPosition = $(this).find('td:nth-child(3)').text();
 
-        // dataWorkflow.approverEntityRefID = sysId;
+        dataWorkflow.approverEntityRefID = parseInt(sysId);
 
         $("#myWorkflows").modal('toggle');
 
@@ -788,6 +789,8 @@
     });
 
     $(document).ready(function () {
+        getWarehouseList();
+
         $(".loadingBudgetDetails").hide();
         $(".errorMessageContainerBudgetDetails").hide();
         $("#deliverModalTrigger").prop("disabled", true);
