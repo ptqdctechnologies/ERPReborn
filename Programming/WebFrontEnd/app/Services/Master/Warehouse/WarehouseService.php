@@ -9,17 +9,17 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class WarehouseService
 {
-    public function picklist()
+    public function picklist($formatted)
     {
         $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
-            'dataPickList.supplyChain.getWarehouse',
+            'report.form.dataPickList.supplyChain.getWarehouse',
             'latest',
             [
-                'parameter' => []
+                'parameter' => $formatted
             ]
         );
     }
@@ -35,6 +35,34 @@ class WarehouseService
             'latest',
             [
                 'parameter' => []
+            ]
+        );
+    }
+
+    public function create($request)
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.create.supplyChain.setWarehouse',
+            'latest',
+            [
+                'entities' => [
+                    'institutionBranch_RefID' => 124000000000001,
+                    'name' => $request->warehouse_name,
+                    'warehouseType_RefID' => (int) $request->warehouse_type_id,
+                    'address' => $request->warehouse_address,
+                    'location' => [
+                        'country_code' => $request->country_code,
+                        'country' => $request->country_name,
+                        'province_code' => $request->province_code,
+                        'province' => $request->province_name,
+                        'city' => $request->city_name
+                    ],
+                    'code' => $request->warehouse_code
+                ]
             ]
         );
     }

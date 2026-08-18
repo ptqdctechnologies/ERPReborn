@@ -8,8 +8,7 @@
 | ▪ Copyleft 🄯 2022 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_SupplyChain
-    {
+namespace App\Models\Database\SchData_OLTP_SupplyChain {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : General                                                                                                      |
@@ -17,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class General
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities_Delivery                                                                             |
@@ -36,8 +35,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         */
         public function getDataEntities_Delivery(
             $varUserSession,
-            string $varIDSet)
-            {
+            string $varIDSet
+        ) {
             try {
                 $varFunctionName = 'SchData-OLTP-SupplyChain.Func_GetDataEntities_Delivery';
                 $varTemp =
@@ -46,30 +45,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
-                                [
-                                    [$varUserSession, 'bigint'],
-                                    [$varIDSet, 'bigint[]']
-                                ]
-                            )
-                        );
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    );
 
                 for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                             $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
-                            );
-                    }
+                        );
+                }
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -96,10 +93,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varPurchaseRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -108,7 +109,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisitionDetail',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPurchaseRequisition_RefID, 'bigint'],
 
@@ -117,17 +118,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -154,10 +153,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varDeliveryDestinationType_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -176,17 +179,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -211,9 +212,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryDestinationType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -222,24 +227,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryDestinationType',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -264,9 +267,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -284,17 +291,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -319,9 +324,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -330,21 +339,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -369,9 +376,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_DeliveryOrderDetail_LatestVersion(
-            $varUserSession, int $varDeliveryOrder_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varDeliveryOrder_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -380,251 +391,249 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_DeliveryOrderDetail_New',
                             [
-                                [$varDeliveryOrder_RefID, 'bigint' ]
+                                [$varDeliveryOrder_RefID, 'bigint']
                             ]
-                            )
-                        );
-                        $collection = collect($varReturn['data']);
-                        /*
-                            Contact Number Type:
-                            - 223000000000002 (Mobile Phone)
-                            - 223000000000004 (Office Phone)
-                            - 223000000000005 (Faximile)
-                        */
-                        $unique = $collection->unique(function (array $item) {
-                            return $item['DeliveryOrderDetail_ID'].$item['ContactNumberType_RefID_TblPerson'];
-                        })->whereIn('ContactNumberType_RefID_TblPerson', [223000000000002, 223000000000004, 223000000000005])->toArray();
+                        )
+                    );
+                $collection = collect($varReturn['data']);
+                /*
+                    Contact Number Type:
+                    - 223000000000002 (Mobile Phone)
+                    - 223000000000004 (Office Phone)
+                    - 223000000000005 (Faximile)
+                */
+                $unique = $collection->unique(function (array $item) {
+                    return $item['DeliveryOrderDetail_ID'] . $item['ContactNumberType_RefID_TblPerson'];
+                })->whereIn('ContactNumberType_RefID_TblPerson', [223000000000002, 223000000000004, 223000000000005])->toArray();
 
-                        // get contact number list
-                        $contactNumbers = [];
-                        foreach ($unique as $value2) {
-                            if (array_key_exists($value2['DeliveryOrderDetail_ID'], $contactNumbers)) {
-                                $contactNumbers[$value2['DeliveryOrderDetail_ID']] += [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
-                            } else {
-                                $contactNumbers[$value2['DeliveryOrderDetail_ID']] = [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
-                            }
+                // get contact number list
+                $contactNumbers = [];
+                foreach ($unique as $value2) {
+                    if (array_key_exists($value2['DeliveryOrderDetail_ID'], $contactNumbers)) {
+                        $contactNumbers[$value2['DeliveryOrderDetail_ID']] += [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
+                    } else {
+                        $contactNumbers[$value2['DeliveryOrderDetail_ID']] = [$value2['ContactNumberType_RefID_TblPerson'] => $value2['ContactNumber_TblPerson']];
+                    }
+                }
+
+                $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();
+                $resultArray = $unique2;
+
+                // Menjumlahkan Quantity WarehouseInboundOrderDetail berdasarkan ID DO Detail tersebut.
+                $qtyWarehouseInboundOrderDetail = [];
+                $listIdDODetail = [];
+                foreach ($resultArray as $key => $value) {
+                    if (in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail)) {
+                        $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = (float) $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] + (float) $value["Quantity_TblWarehouseInboundOrderDetail"];
+                    } else {
+                        array_push($listIdDODetail, $value["DeliveryOrderDetail_ID"]);
+                        $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["DeliveryOrderDetail_ID"] = $value["DeliveryOrderDetail_ID"];
+                        $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = $value["Quantity_TblWarehouseInboundOrderDetail"];
+                    }
+                }
+
+                $varReturn['rowCount'] = count($unique2);
+                $varReturn['data'] = [];
+                $idxArray = 0;
+                foreach ($resultArray as $key => $value) {
+                    $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
+                    $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
+                    $varReturn['data'][$idxArray]['sys_SID'] = $value["Sys_SID"];
+                    $varReturn['data'][$idxArray]['sys_RPK'] = $value["Sys_RPK"];
+                    $varReturn['data'][$idxArray]['sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
+                    $varReturn['data'][$idxArray]['sys_BaseBranch_RefID'] = $value["Sys_BaseBranch_RefID"];
+                    $varReturn['data'][$idxArray]['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
+                    $varReturn['data'][$idxArray]['sys_Data_Entry_DateTimeTZ'] = $value["Sys_Data_Entry_DateTimeTZ"];
+                    $varReturn['data'][$idxArray]['sys_Data_Edit_DateTimeTZ'] = $value["Sys_Data_Edit_DateTimeTZ"];
+                    $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
+                    $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                    $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
+                    $varReturn['data'][$idxArray]['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
+                    $varReturn['data'][$idxArray]['version'] = $value["Version"];
+                    $varReturn['data'][$idxArray]['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
+                    $varReturn['data'][$idxArray]['annotation'] = $value["Annotation"];
+                    $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
+                    $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
+                    $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
+                    $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
+                    $varReturn['data'][$idxArray]['stockMovementRequester_RefID'] = $value["StockMovementRequester_RefID"];
+                    if ($value["StockMovementStatus"] === 0) {
+                        $varReturn['data'][$idxArray]['stockMovementStatus'] = 'RENT';
+                    } elseif ($value["StockMovementStatus"] === 1) {
+                        $varReturn['data'][$idxArray]['stockMovementStatus'] = 'PERMANENT';
+                    } else {
+                        $varReturn['data'][$idxArray]['stockMovementStatus'] = null;
+                    }
+                    if ($value["Type"] === 0) {
+                        $varReturn['data'][$idxArray]['type'] = 'PURCHASE_ORDER';
+                    } elseif ($value["Type"] === 1) {
+                        $varReturn['data'][$idxArray]['type'] = 'INTERNAL_USE';
+                    } elseif ($value["Type"] === 2) {
+                        $varReturn['data'][$idxArray]['type'] = 'STOCK_MOVEMENT';
+                    } else {
+                        $varReturn['data'][$idxArray]['type'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['stockMovementRequesterName'] = $value["StockMovementRequesterName"];
+                    $varReturn['data'][$idxArray]['stockMovementRequesterPosition'] = $value["StockMovementRequesterPosition"];
+                    $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
+                    $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
+                    $varReturn['data'][$idxArray]['reference_ID'] = $value["UnderlyingDetail_RefID"];
+                    $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
+                    $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
+                    $varReturn['data'][$idxArray]['notes'] = $value["Note"];
+                    $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
+                    $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
+                    $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
+                    if ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 86) {
+                        $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_TblPurchaseRequisitionDetail"];
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_New"];
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_New"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_New"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_New"];
+                        $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_New"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_New"];
+                    } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 169) {
+                        $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_TblCombinedBudget"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_TblCombinedBudget"];
+                    } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 173) {
+                        $varReturn['data'][$idxArray]['quantity'] = $value["Type"] === 1 || $value["Type"] === 2 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
+                        $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblWarehouseInboundDetail"];
+                        $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_StockMove"];
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_StockMove"];
+                        $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_StockMove"];
+                    } else {
+                        $varReturn['data'][$idxArray]['quantity'] = null;
+                        $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = null;
+                        $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = null;
+                        $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = null;
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = null;
+                        $varReturn['data'][$idxArray]['priceCurrency_RefID'] = null;
+                        $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = null;
+                        $varReturn['data'][$idxArray]['quantityUnitName'] = null;
+                        $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetCode'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetName'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudget_RefID'] = null;
+                        $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
+                    $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
+                    $varReturn['data'][$idxArray]['sys_PID_TblPurchaseRequisitionDetail'] = $value["Sys_PID_TblPurchaseRequisitionDetail"];
+                    $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
+                    $varReturn['data'][$idxArray]['requesterWorkerName'] = $value["RequesterWorkerName"];
+                    if ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 164) {
+                        $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblWorkerCareerInternal"];
+                        $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblWorkerCareerInternal"];
+                        $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblWorkerCareerInternal"];
+                        $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblWorkerCareerInternal"];
+                        if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
+                            $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                            $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                            $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
                         }
-
-                        $unique2 = $collection->unique('DeliveryOrderDetail_ID')->toArray();
-                        $resultArray = $unique2;
-
-                        // Menjumlahkan Quantity WarehouseInboundOrderDetail berdasarkan ID DO Detail tersebut.
-                        $qtyWarehouseInboundOrderDetail = [];
-                        $listIdDODetail = [];
-                        foreach ($resultArray as $key => $value) {
-                            if (in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail)) {
-                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = (float) $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] + (float) $value["Quantity_TblWarehouseInboundOrderDetail"];
-                            } else {
-                                array_push($listIdDODetail, $value["DeliveryOrderDetail_ID"]);
-                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["DeliveryOrderDetail_ID"] = $value["DeliveryOrderDetail_ID"];
-                                $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"] = $value["Quantity_TblWarehouseInboundOrderDetail"];
+                    } elseif ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 284) {
+                        $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblTransporter"];
+                        if ((($value["Entity_RefID"] / 1000000000000) % 10000) === 124) {
+                            $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblInstitutionBranch"];
+                            $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblInstitutionBranch"];
+                            $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblInstitutionBranch"];
+                            if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
+                                $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                                $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                                $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
                             }
+                        } elseif ((($value["Entity_RefID"] / 1000000000000) % 10000) === 25) {
+                            $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblPerson"];
+                            $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblPerson"];
+                            $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblPerson"];
+                            if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
+                                $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
+                                $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
+                                $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
+                            }
+                        } else {
+                            $varReturn['data'][$idxArray]['transporterName'] = null;
+                            $varReturn['data'][$idxArray]['transporterAddress'] = null;
+                            $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
+                            $varReturn['data'][$idxArray]['transporterHandphone'] = null;
+                            $varReturn['data'][$idxArray]['transporterPhone'] = null;
+                            $varReturn['data'][$idxArray]['transporterFax'] = null;
                         }
-
-                        $varReturn['rowCount'] = count($unique2);
-                        $varReturn['data'] = [];
-                        $idxArray = 0;
-                        foreach ($resultArray as $key => $value) {
-                            $varReturn['data'][$idxArray]['sys_ID'] = $value["Sys_ID"];
-                            $varReturn['data'][$idxArray]['sys_PID'] = $value["Sys_PID"];
-                            $varReturn['data'][$idxArray]['sys_SID'] = $value["Sys_SID"];
-                            $varReturn['data'][$idxArray]['sys_RPK'] = $value["Sys_RPK"];
-                            $varReturn['data'][$idxArray]['sys_Branch_RefID'] = $value["Sys_Branch_RefID"];
-                            $varReturn['data'][$idxArray]['sys_BaseBranch_RefID'] = $value["Sys_BaseBranch_RefID"];
-                            $varReturn['data'][$idxArray]['sys_BaseCurrency_RefID'] = $value["Sys_BaseCurrency_RefID"];
-                            $varReturn['data'][$idxArray]['sys_Data_Entry_DateTimeTZ'] = $value["Sys_Data_Entry_DateTimeTZ"];
-                            $varReturn['data'][$idxArray]['sys_Data_Edit_DateTimeTZ'] = $value["Sys_Data_Edit_DateTimeTZ"];
-                            $varReturn['data'][$idxArray]['log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
-                            $varReturn['data'][$idxArray]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
-                            $varReturn['data'][$idxArray]['documentNumber'] = $value["DocumentNumber"];
-                            $varReturn['data'][$idxArray]['businessDocumentVersion_RefID'] = $value["BusinessDocumentVersion_RefID"];
-                            $varReturn['data'][$idxArray]['version'] = $value["Version"];
-                            $varReturn['data'][$idxArray]['documentDateTimeTZ'] = $value["DocumentDateTimeTZ"];
-                            $varReturn['data'][$idxArray]['annotation'] = $value["Annotation"];
-                            $varReturn['data'][$idxArray]['deliveryFrom_RefID'] = $value["DeliveryFrom_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryFrom_NonRefID'] = json_decode($value["DeliveryFrom_NonRefID"]);
-                            $varReturn['data'][$idxArray]['deliveryTo_RefID'] = $value["DeliveryTo_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryTo_NonRefID'] = json_decode($value["DeliveryTo_NonRefID"]);
-                            $varReturn['data'][$idxArray]['deliveryDateTimeTZ'] = $value["DeliveryDateTimeTZ"];
-                            $varReturn['data'][$idxArray]['transporter_RefID'] = $value["Transporter_RefID"];
-                            $varReturn['data'][$idxArray]['stockMovementRequester_RefID'] = $value["StockMovementRequester_RefID"];
-                            if ($value["StockMovementStatus"] === 0) {
-                                $varReturn['data'][$idxArray]['stockMovementStatus'] = 'RENT';
-                            } elseif ($value["StockMovementStatus"] === 1) {
-                                $varReturn['data'][$idxArray]['stockMovementStatus'] = 'PERMANENT';
-                            } else {
-                                $varReturn['data'][$idxArray]['stockMovementStatus'] = null;
-                            }
-                            if ($value["Type"] === 0) {
-                                $varReturn['data'][$idxArray]['type'] = 'PURCHASE_ORDER';
-                            } elseif ($value["Type"] === 1) {
-                                $varReturn['data'][$idxArray]['type'] = 'INTERNAL_USE';
-                            } elseif ($value["Type"] === 2) {
-                                $varReturn['data'][$idxArray]['type'] = 'STOCK_MOVEMENT';
-                            } else {
-                                $varReturn['data'][$idxArray]['type'] = null;
-                            }
-                            $varReturn['data'][$idxArray]['stockMovementRequesterName'] = $value["StockMovementRequesterName"];
-                            $varReturn['data'][$idxArray]['stockMovementRequesterPosition'] = $value["StockMovementRequesterPosition"];
-                            $varReturn['data'][$idxArray]['remarks'] = $value["Remarks"];
-                            $varReturn['data'][$idxArray]['qtyReq'] = $value["QtyReq"];
-                            $varReturn['data'][$idxArray]['reference_ID'] = $value["UnderlyingDetail_RefID"];
-                            $varReturn['data'][$idxArray]['product_RefID'] = $value["Product_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryOrder_RefID'] = $value["DeliveryOrder_RefID"];
-                            $varReturn['data'][$idxArray]['deliveryOrderDetail_ID'] = $value["DeliveryOrderDetail_ID"];
-                            $varReturn['data'][$idxArray]['notes'] = $value["Note"];
-                            $varReturn['data'][$idxArray]['productName'] = $value["ProductName"];
-                            $varReturn['data'][$idxArray]['productCode'] = $value["ProductCode"];
-                            $varReturn['data'][$idxArray]['entity_RefID'] = $value["Entity_RefID"];
-                            if ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 86) {
-                                $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceFinalCurrencyValue_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblQuantityUnit_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCurrency_TblPurchaseOrderDetail"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_TblPurchaseRequisitionDetail"];
-                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_New"];
-                                $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_New"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_New"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_New"];
-                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_New"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_New"];
-                            } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 169) {
-                                $varReturn['data'][$idxArray]['quantity'] = $value["Quantity_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_TblCombinedBudget"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_TblCombinedBudget"];
-                            } elseif ((($value["UnderlyingDetail_RefID"] / 1000000000000) % 10000) === 173) {
-                                $varReturn['data'][$idxArray]['quantity'] = $value["Type"] === 1 || $value["Type"] === 2 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
-                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = $value["QuantityUnit_RefID_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = $value["ProductUnitPriceCurrency_RefID_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = $value["ProductUnitPriceBaseCurrencyValue_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = $value["ProductUnitPriceFinalCurrency_RefID_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = $value["ProductUnitPriceCurrencyExchangeRate_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = $value["PriceCurrency_RefID_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = $value["PriceBaseCurrencyValue_TblWarehouseInboundDetail"];
-                                $varReturn['data'][$idxArray]['quantityUnitName'] = $value["QuantityUnitName_StockMove"];
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = $value["ISOCode_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = $value["CombinedBudgetSectionDetail_RefID_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = $value["CombinedBudgetCode_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = $value["CombinedBudget_RefID_StockMove"];
-                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = $value["CombinedBudgetSection_RefID_StockMove"];
-                            } else {
-                                $varReturn['data'][$idxArray]['quantity'] = null;
-                                $varReturn['data'][$idxArray]['quantityUnit_RefID'] = null;
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['productUnitPriceBaseCurrencyValue'] = null;
-                                $varReturn['data'][$idxArray]['productUnitPriceFinalCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyExchangeRate'] = null;
-                                $varReturn['data'][$idxArray]['priceCurrency_RefID'] = null;
-                                $varReturn['data'][$idxArray]['priceBaseCurrencyValue'] = null;
-                                $varReturn['data'][$idxArray]['quantityUnitName'] = null;
-                                $varReturn['data'][$idxArray]['productUnitPriceCurrencyISOCode'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionDetail_RefID'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetCode'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetName'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudget_RefID'] = null;
-                                $varReturn['data'][$idxArray]['combinedBudgetSection_RefID'] = null;
-                            }
-                            $varReturn['data'][$idxArray]['businessDocumentType_RefID'] = $value["BusinessDocumentType_RefID"];
-                            $varReturn['data'][$idxArray]['businessDocumentType_Name'] = $value["BusinessDocumentType_Name"];
-                            $varReturn['data'][$idxArray]['sys_PID_TblPurchaseRequisitionDetail'] = $value["Sys_PID_TblPurchaseRequisitionDetail"];
-                            $varReturn['data'][$idxArray]['requesterWorkerJobsPosition_RefID'] = $value["RequesterWorkerJobsPosition_RefID"];
-                            $varReturn['data'][$idxArray]['requesterWorkerName'] = $value["RequesterWorkerName"];
-                            if ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 164) {
-                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblWorkerCareerInternal"];
-                                $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblWorkerCareerInternal"];
-                                $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblWorkerCareerInternal"];
-                                $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblWorkerCareerInternal"];
-                                if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
-                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
-                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
-                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
-                                }
-                            } elseif ((($value["Transporter_RefID"] / 1000000000000) % 10000) === 284) {
-                                $varReturn['data'][$idxArray]['transporterCode'] = $value["TransporterCode_TblTransporter"];
-                                if ((($value["Entity_RefID"] / 1000000000000) % 10000) === 124) {
-                                    $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblInstitutionBranch"];
-                                    $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblInstitutionBranch"];
-                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblInstitutionBranch"];
-                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
-                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
-                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
-                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
-                                    }
-                                } elseif ((($value["Entity_RefID"] / 1000000000000) % 10000) === 25) {
-                                    $varReturn['data'][$idxArray]['transporterName'] = $value["TransporterName_TblPerson"];
-                                    $varReturn['data'][$idxArray]['transporterAddress'] = $value["TransporterAddress_TblPerson"];
-                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = $value["TransporterContactPerson_TblPerson"];
-                                    if (array_key_exists($value["DeliveryOrderDetail_ID"], $contactNumbers)) {
-                                        $varReturn['data'][$idxArray]['transporterHandphone'] = array_key_exists(223000000000002, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000002] : null;
-                                        $varReturn['data'][$idxArray]['transporterPhone'] = array_key_exists(223000000000004, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000004] : null;
-                                        $varReturn['data'][$idxArray]['transporterFax'] = array_key_exists(223000000000005, $contactNumbers[$value["DeliveryOrderDetail_ID"]]) ? $contactNumbers[$value["DeliveryOrderDetail_ID"]][223000000000005] : null;
-                                    }
-                                } else {
-                                    $varReturn['data'][$idxArray]['transporterName'] = null;
-                                    $varReturn['data'][$idxArray]['transporterAddress'] = null;
-                                    $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
-                                    $varReturn['data'][$idxArray]['transporterHandphone'] = null;
-                                    $varReturn['data'][$idxArray]['transporterPhone'] = null;
-                                    $varReturn['data'][$idxArray]['transporterFax'] = null;
-                                }
-                            } else {
-                                $varReturn['data'][$idxArray]['transporterCode'] = null;
-                                $varReturn['data'][$idxArray]['transporterName'] = null;
-                                $varReturn['data'][$idxArray]['transporterAddress'] = null;
-                                $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
-                                $varReturn['data'][$idxArray]['transporterHandphone'] = null;
-                                $varReturn['data'][$idxArray]['transporterPhone'] = null;
-                                $varReturn['data'][$idxArray]['transporterFax'] = null;
-                            }
-                            $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail) ? round($value["QtyReq"] - $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"], 2) : null;
-                            $varReturn['data'][$idxArray]['purchaseOrderNumber'] = $value["DocumentNumber_TblPurchaseOrder"];
-                            $varReturn['data'][$idxArray]['qtyBudget'] = $value["Quantity_CombinedBudget_New"];
-                            $varReturn['data'][$idxArray]['qtyAvailBudget'] = $value["QtyAvailBudget"];
-                            $varReturn['data'][$idxArray]['priceBudget'] = $value["UnitPriceCurrencyValue_CombinedBudget_New"];
-                            $varReturn['data'][$idxArray]['qtyStock'] = $value["Type"] === 1 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
-                            $varReturn['data'][$idxArray]['stockPrice'] = $value["StockPrice"];
-                            $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
-                            $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
-                            $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
-                            $varReturn['data'][$idxArray]['quantityGood'] = $value["QtyGood"];
-                            $varReturn['data'][$idxArray]['quantityReject'] = $value["QtyReject"];
-                            $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
-                            $idxArray++;
-                        }
+                    } else {
+                        $varReturn['data'][$idxArray]['transporterCode'] = null;
+                        $varReturn['data'][$idxArray]['transporterName'] = null;
+                        $varReturn['data'][$idxArray]['transporterAddress'] = null;
+                        $varReturn['data'][$idxArray]['transporterContactPerson'] = null;
+                        $varReturn['data'][$idxArray]['transporterHandphone'] = null;
+                        $varReturn['data'][$idxArray]['transporterPhone'] = null;
+                        $varReturn['data'][$idxArray]['transporterFax'] = null;
+                    }
+                    $varReturn['data'][$idxArray]['qtyAvail'] = in_array($value["DeliveryOrderDetail_ID"], $listIdDODetail) ? round($value["QtyReq"] - $qtyWarehouseInboundOrderDetail[$value["DeliveryOrderDetail_ID"]]["Qty"], 2) : null;
+                    $varReturn['data'][$idxArray]['purchaseOrderNumber'] = $value["DocumentNumber_TblPurchaseOrder"];
+                    $varReturn['data'][$idxArray]['qtyBudget'] = $value["Quantity_CombinedBudget_New"];
+                    $varReturn['data'][$idxArray]['qtyAvailBudget'] = $value["QtyAvailBudget"];
+                    $varReturn['data'][$idxArray]['priceBudget'] = $value["UnitPriceCurrencyValue_CombinedBudget_New"];
+                    $varReturn['data'][$idxArray]['qtyStock'] = $value["Type"] === 1 ? $value["Quantity_TblWarehouseInboundDetail"] - ($value["Quantity_WarehouseOutboundDetail"] + $value["QtyReq"]) : 0;
+                    $varReturn['data'][$idxArray]['stockPrice'] = $value["StockPrice"];
+                    $varReturn['data'][$idxArray]['workStructure_RefID'] = $value["WorkStructure_RefID"];
+                    $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
+                    $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
+                    $varReturn['data'][$idxArray]['quantityGood'] = $value["QtyGood"];
+                    $varReturn['data'][$idxArray]['quantityReject'] = $value["QtyReject"];
+                    $varReturn['data'][$idxArray]['orderSequence'] = $idxArray + 1;
+                    $idxArray++;
+                }
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -652,8 +661,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_MaterialServiceRequisition_AllVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -671,17 +683,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -709,8 +719,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_MaterialServiceRequisition_LatestVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -728,17 +741,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -766,8 +777,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_OrderPicking_AllVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -785,17 +799,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -823,8 +835,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_OrderPicking_LatestVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -842,17 +857,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -880,8 +893,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_OrderPickingRequisition_AllVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -899,17 +915,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -937,8 +951,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function getDataList_OrderPickingRequisition_LatestVersion(
             $varUserSession,
             int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -956,17 +973,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -992,9 +1007,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1012,17 +1031,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1048,9 +1065,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1068,17 +1089,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1103,9 +1122,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseOrderDetail_LatestVersion(
-            $varUserSession, int $varPurchaseOrder_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varPurchaseOrder_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1114,7 +1137,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseOrderDetail',
                             [
-                                [$varPurchaseOrder_RefID, 'bigint' ],
+                                [$varPurchaseOrder_RefID, 'bigint'],
                             ]
                             )
 		            );
@@ -1196,44 +1219,47 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['ap_Value'] = $value["AP_Value"];
                         $idxArray++;
                     }
+                }
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
-       /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataList_PurchaseRequisition_AllVersion                                                           |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2022-03-07                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Semua Versi                               |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |        ------------------------------                                                                                    |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        |        ------------------------------                                                                                    |
-        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
-        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
-        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
-        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
+        /*
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Method Name     : getDataList_PurchaseRequisition_AllVersion                                                           |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Version         : 1.0000.0000001                                                                                       |
+         | ▪ Last Update     : 2024-10-16                                                                                           |
+         | ▪ Creation Date   : 2022-03-07                                                                                           |
+         | ▪ Description     : Mendapatkan Daftar Permintaan Pembelian (Purchase Request) Semua Versi                               |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Input Variable  :                                                                                                      |
+         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+         |        ------------------------------                                                                                    |
+         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+         |        ------------------------------                                                                                    |
+         |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+         |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+         |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+         |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+         | ▪ Output Variable :                                                                                                      |
+         |      ▪ (array)  varReturn                                                                                                |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         */
         public function getDataList_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1251,17 +1277,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1287,9 +1311,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1307,17 +1335,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1342,9 +1368,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Supplier(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1360,17 +1390,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-		    );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1395,9 +1423,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_SupplierList(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, array $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1409,19 +1441,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-		        );
+                        )
+                    );
 
                 // Extract the result data from the database query response
                 $resultArray = $varReturn['data'];
                 $varReturn['data'] = [];
-                
+
                 // Initialize variables for data restructuring
                 $sys_ID = null;
                 $idxArray = 0;
                 $idxArray2 = 0;
                 $categoryName = '';
-                
+
                 // Iterate through the result array to group data by Sys_ID
                 foreach ($resultArray as $key => $value) {
                     // Check if this is a new supplier (different Sys_ID)
@@ -1447,11 +1479,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$idxArray]['institutionTypeName'] = $value["InstitutionTypeName"];
                         $varReturn['data'][$idxArray]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
                         $varReturn['data'][$idxArray]['type'][$idxArray2]['specializationName'] = [$value["SpecializationName"]];
-                        
+
                         // Update current Sys_ID & CategoryName for the next iteration
                         $sys_ID = $value["Sys_ID"];
                         $categoryName = $value["CategoryName"];
-                        
+
                         // Increment main array index for the next supplier
                         $idxArray++;
                     } else {
@@ -1465,22 +1497,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['categoryName'] = $value["CategoryName"];
                             $varReturn['data'][$idxArray - 1]['type'][$idxArray2]['specializationName'] = [$value["SpecializationName"]];
                         }
-                                    // Update current category untuk tracking berikutnya
-                                                
-			            $categoryName = $value["CategoryName"];
+                        // Update current category untuk tracking berikutnya
+
+                        $categoryName = $value["CategoryName"];
                     }
-				}
-					// Set total records count dari first record
-					$varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
+                }
+                // Set total records count dari first record
+                $varReturn['totalRecords'] = $resultArray[0]['TotalRecords'];
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1505,9 +1535,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Transporter(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1523,17 +1557,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1558,9 +1590,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_Warehouse(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1576,17 +1612,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1611,9 +1645,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1631,17 +1669,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1666,9 +1702,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1681,17 +1721,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1716,9 +1754,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseInboundOrderDetail_LatestVersion(
-            $varUserSession, int $varWarehouseInboundOrder_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varWarehouseInboundOrder_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1727,10 +1769,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseInboundOrderDetail',
                             [
-                                [$varWarehouseInboundOrder_RefID, 'bigint' ],
+                                [$varWarehouseInboundOrder_RefID, 'bigint'],
                             ]
-                            )
-		    	);
+                        )
+                    );
                 $resultArray = $varReturn['data'];
 
                 // Menjumlahkan Quantity Material Receive Detail berdasarkan ID DO Detail yg sama.
@@ -1802,13 +1844,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1833,9 +1873,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrderDetail_LatestVersion(
-            $varUserSession, int $varWarehouseOutboundOrder_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varWarehouseOutboundOrder_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1844,20 +1888,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrderDetail',
                             [
-                                [$varWarehouseOutboundOrder_RefID, 'bigint' ],
+                                [$varWarehouseOutboundOrder_RefID, 'bigint'],
                             ]
-                            )
-		    	);
+                        )
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1883,9 +1925,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_StockDetail_LatestVersion(
-            $varUserSession, int $varCombinedBudget_RefID = null, int $varWarehouse_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varCombinedBudget_RefID = null,
+            int $varWarehouse_RefID = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1894,21 +1941,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_StockDetail',
                             [
-                                [$varCombinedBudget_RefID, 'bigint' ],
-                                [$varWarehouse_RefID, 'bigint' ],
+                                [$varCombinedBudget_RefID, 'bigint'],
+                                [$varWarehouse_RefID, 'bigint'],
                             ]
-                            )
-		    	);
+                        )
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1933,9 +1978,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1944,7 +1993,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -1953,17 +2002,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -1988,9 +2035,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseOutboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1999,7 +2050,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseOutboundOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2008,17 +2059,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2043,9 +2092,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_WarehouseType(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2054,24 +2107,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_WarehouseType',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -2098,10 +2149,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varDeliveryDestinationType_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2120,27 +2175,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_DeliveryDestination']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2166,9 +2219,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2177,7 +2234,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -2186,27 +2243,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2232,9 +2287,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2243,7 +2302,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2252,27 +2311,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2299,10 +2356,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_MaterialServiceRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varMaterialServiceRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2311,36 +2372,34 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_MaterialServiceRequisitionDetail',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
-                                [$varMaterialServiceRequisition_RefID, 'bigint' ],
+                                [$varMaterialServiceRequisition_RefID, 'bigint'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_MaterialServiceRequisitionDetail']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2365,9 +2424,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPicking_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2376,7 +2439,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -2385,27 +2448,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2430,9 +2491,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPicking_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2441,7 +2506,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPicking',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2450,27 +2515,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPicking']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2496,9 +2559,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2507,7 +2574,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -2516,27 +2583,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2562,9 +2627,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2573,7 +2642,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_OrderPickingRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2582,27 +2651,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2629,10 +2696,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_OrderPickingRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varOrderPickingRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2650,27 +2721,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_OrderPickingRequisitionDetail']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2695,9 +2764,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2706,7 +2779,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -2715,27 +2788,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2760,9 +2831,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2771,7 +2846,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2780,27 +2855,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseOrder']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2826,9 +2899,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2837,7 +2914,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean'],
 
@@ -2846,27 +2923,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2892,9 +2967,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2903,7 +2982,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataListJSON_PurchaseRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean'],
 
@@ -2912,27 +2991,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_PurchaseRequisition']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -2959,10 +3036,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_PurchaseRequisitionDetail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varPurchaseRequisition_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -2971,7 +3052,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_PurchaseRequisitionDetail_New',
                             [
-                                [$varPurchaseRequisition_RefID, 'bigint' ],
+                                [$varPurchaseRequisition_RefID, 'bigint'],
                             ]
                             )
                         );
@@ -3055,16 +3136,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varReturn['data'][$idxArray]['orderSequence'] = $value["OrderSequence"];
                             $idxArray++;
                         }
-
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -3091,10 +3169,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_SupplierDetail(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varSupplier_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3103,21 +3185,21 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataList_SupplierDetail_New',
                             [
-                                [$varSupplier_RefID, 'bigint' ],
+                                [$varSupplier_RefID, 'bigint'],
                             ]
-                            )
-                        );
+                        )
+                    );
 
 
                 // Extract the result data from the database query response
                 $resultArray = $varReturn['data'];
                 $varReturn['data'] = [];
-                
+
                 // Initialize variables for data restructuring
                 $category_RefID = 0;
                 $index = 0;
                 $index2 = 0;
-                
+
                 // Iterate through the result array to group data by Category_RefID
                 foreach ($resultArray as $key => $value) {
                     // Check if this is a new supplier (different Category_RefID)
@@ -3143,14 +3225,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                         $varReturn['data'][$index]['AccountName'] = $value["AccountName"];
                         $varReturn['data'][$index]['Remark'] = $value["Remark"];
                         $varReturn['data'][$index]['LegalEntity'] = $value["LegalEntity"];
-                        $varReturn['data'][$index]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];           
+                        $varReturn['data'][$index]['Log_FileUpload_Pointer_RefID'] = $value["Log_FileUpload_Pointer_RefID"];
                         $varReturn['data'][$index]['DetailSupplier'][$index2]['RecordID'] = $value["Sys_ID"];
                         $varReturn['data'][$index]['DetailSupplier'][$index2]['Category_RefID'] = $value["Category_RefID"];
                         $varReturn['data'][$index]['DetailSupplier'][$index2]['Specialization_RefID'] = $value["Specialization_RefID"];
-                        
+
                         // Update current Category_RefID for the next iteration
                         $category_RefID = $value["Supplier_RefID"];
-                        
+
                         // Increment main array index for the next supplier
                         $index++;
                     } else {
@@ -3163,13 +3245,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -3195,9 +3275,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_Transporter(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3213,27 +3297,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_Transporter']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -3253,8 +3335,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestination(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3263,19 +3346,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestination',
                             [
-                                [$varSysBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3295,8 +3376,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryDestinationType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3305,19 +3387,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_DeliveryDestinationType',
                             [
-                                [$varSysBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3337,8 +3417,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3351,17 +3432,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3381,8 +3460,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3393,39 +3473,38 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
-       /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickList_MaterialServiceRequisition_AllVersion                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Last Update     : 2024-10-16                                                                                           |
-        | ▪ Creation Date   : 2024-08-13                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Material dan Service (Material Service Requsition) Semua  |
-        |                     Versi                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
+        /*
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Method Name     : getDataPickList_MaterialServiceRequisition_AllVersion                                                |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Version         : 1.0000.0000001                                                                                       |
+         | ▪ Last Update     : 2024-10-16                                                                                           |
+         | ▪ Creation Date   : 2024-08-13                                                                                           |
+         | ▪ Description     : Mendapatkan Daftar Pilihan Data Permintaan Material dan Service (Material Service Requsition) Semua  |
+         |                     Versi                                                                                                |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Input Variable  :                                                                                                      |
+         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+         | ▪ Output Variable :                                                                                                      |
+         |      ▪ (array)  varReturn                                                                                                |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         */
         public function getDataPickList_MaterialServiceRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3434,21 +3513,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3469,8 +3546,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_MaterialServiceRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3479,21 +3557,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_MaterialServiceRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3513,8 +3589,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPicking_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3523,21 +3600,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPicking',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3557,8 +3632,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPicking_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3567,21 +3643,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPicking',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3601,8 +3675,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPickingRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3611,21 +3686,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPickingRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3646,8 +3719,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_OrderPickingRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3656,21 +3730,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_OrderPickingRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
+                                [$varSysBranch_RefID, 'bigint'],
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3690,8 +3762,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3704,17 +3777,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3734,9 +3805,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3752,18 +3827,16 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
                 $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3783,8 +3856,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseOrderAdditionalCostType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3795,17 +3869,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3825,8 +3897,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseRequisition_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3839,17 +3912,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3869,8 +3940,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3881,17 +3953,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3911,8 +3981,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Supplier(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3921,19 +3992,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_Supplier_NEW',
                             [
-                                [$varSysBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3953,8 +4022,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Warehouse(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -3965,17 +4035,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -3995,8 +4063,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4007,17 +4076,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4037,8 +4104,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4049,17 +4117,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4079,8 +4145,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Transporter(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4091,17 +4158,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4121,8 +4186,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4135,17 +4201,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4165,8 +4229,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4179,17 +4244,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4209,8 +4272,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder_AllVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4223,17 +4287,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [TRUE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4253,8 +4315,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseOutboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4267,17 +4330,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [FALSE, 'boolean']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4297,8 +4358,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_WarehouseType(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4307,40 +4369,39 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetDataPickList_WarehouseType',
                             [
-                                [$varSysBranch_RefID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
-       /*
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getDataPickListJSON_Transporter                                                                      |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-05-14                                                                                           |
-        | ▪ Creation Date   : 2025-05-14                                                                                           |
-        | ▪ Description     : Mendapatkan Daftar Pilihan Data Transporter                                                          |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (array)  varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
+        /*
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Method Name     : getDataPickListJSON_Transporter                                                                      |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Version         : 1.0000.0000000                                                                                       |
+         | ▪ Last Update     : 2025-05-14                                                                                           |
+         | ▪ Creation Date   : 2025-05-14                                                                                           |
+         | ▪ Description     : Mendapatkan Daftar Pilihan Data Transporter                                                          |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         | ▪ Input Variable  :                                                                                                      |
+         |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+         | ▪ Output Variable :                                                                                                      |
+         |      ▪ (array)  varReturn                                                                                                |
+         +--------------------------------------------------------------------------------------------------------------------------+
+         */
         public function getDataPickListJSON_Transporter(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4351,26 +4412,24 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_Transporter']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -4401,10 +4460,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null,
+            int $varType_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4426,24 +4493,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_DeliveryOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4473,10 +4538,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4498,24 +4570,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_PurchaseOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4545,10 +4615,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4570,24 +4647,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_PurchaseRequisition']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4612,10 +4687,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_Supplier(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4632,24 +4709,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [$varName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_Supplier']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4680,10 +4755,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4705,24 +4787,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_WarehouseInboundOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4753,10 +4833,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null,
+            int $varType_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4778,24 +4866,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_DeliveryOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4825,10 +4911,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_PurchaseOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4850,24 +4943,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_PurchaseOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4897,10 +4988,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_PurchaseRequisition_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4922,24 +5020,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_PurchaseRequisition']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4964,10 +5060,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_Supplier(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varName = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4984,24 +5082,94 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
 
                                 [$varName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_Supplier']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_Warehouse                                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-12                                                                                           |
+        | ▪ Creation Date   : 2026-08-12                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Warehouse                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varCode ► Code                                                                                           |
+        |      ▪ (int) varWarehouseType_RefID ► Type                                                                               |
+        |      ▪ (string) varLocation_CountryCode ► Country Code                                                                   |
+        |      ▪ (string) varLocation_Country ► Country                                                                            |
+        |      ▪ (string) varLocation_ProvinceCode ► Province Code                                                                 |
+        |      ▪ (string) varLocation_Province ► Province                                                                          |
+        |      ▪ (string) varLocation_City ► City                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_Warehouse(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varCode = null,
+            int $varWarehouseType_RefID = null
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetReport_DataPickList_Warehouse',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varCode, 'varchar'],
+                                [$varWarehouseType_RefID, 'bigint']
+                            ]
+                        )
+                    );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_Warehouse']
+                    );
+
+                return
+                    $varReturn;
+            } catch (\Exception $ex) {
+                return
+                    [];
+            }
+        }
 
 
         /*
@@ -5032,10 +5200,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_WarehouseInboundOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5057,24 +5232,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varCombinedBudget, 'varchar'],
                                 [$varCombinedBudgetSection, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_WarehouseInboundOrder']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
 
@@ -5134,9 +5307,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrder(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5145,22 +5319,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrder'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrder']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5182,9 +5356,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderAdditionalCost(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5193,22 +5368,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderAdditionalCost',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderAdditionalCost'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderAdditionalCost']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5230,9 +5405,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderPaymentTerm(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5241,22 +5417,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderPaymentTerm',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderPaymentTerm'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseOrderPaymentTerm']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5277,9 +5453,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisition(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5288,22 +5465,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisition',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseRequisition'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_PurchaseRequisition']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5325,9 +5502,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5336,23 +5518,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseRequisitionSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5375,9 +5556,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            int $varSupplier_RefID = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5386,21 +5571,20 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
-                                [$varSupplier_RefID, 'bigint' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
+                                [$varSupplier_RefID, 'bigint'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5426,9 +5610,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderToPaymentInstructionSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, int $varPurchaseOrder_RefID = null, int $varAccountPayable_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            int $varSupplier_RefID = null,
+            int $varPurchaseOrder_RefID = null,
+            int $varAccountPayable_RefID = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5437,26 +5629,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderToPISummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
-                                [$varSupplier_RefID, 'bigint' ],
-                                [$varPurchaseOrder_RefID, 'bigint' ],
-                                [$varAccountPayable_RefID, 'bigint' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
+                                [$varSupplier_RefID, 'bigint'],
+                                [$varPurchaseOrder_RefID, 'bigint'],
+                                [$varAccountPayable_RefID, 'bigint'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-		$varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords']
-			;
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords']
+                ;
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5478,9 +5669,14 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseOrderToDeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5489,23 +5685,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PurchaseOrderToDeliveryOrderSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5528,9 +5723,17 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_PurchaseRequisitionToPurchaseOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varSupplier_RefID = null, int $varPurchaseRequisition_RefID = null, int $varPurchaseOrder_RefID = null, string $varStartDate = null, string $varEndDate = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            int $varSupplier_RefID = null,
+            int $varPurchaseRequisition_RefID = null,
+            int $varPurchaseOrder_RefID = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5539,26 +5742,25 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_PR_To_PO_Summary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
-                                [$varSupplier_RefID, 'bigint' ],
-                                [$varPurchaseRequisition_RefID, 'bigint' ],
-                                [$varPurchaseOrder_RefID, 'bigint' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
+                                [$varSupplier_RefID, 'bigint'],
+                                [$varPurchaseRequisition_RefID, 'bigint'],
+                                [$varPurchaseOrder_RefID, 'bigint'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-		$varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5581,9 +5783,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varWarehouse_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            int $varWarehouse_RefID = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5592,23 +5800,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_DeliveryOrderSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
-                                [$varWarehouse_RefID, 'bigint' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
+                                [$varWarehouse_RefID, 'bigint'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5630,9 +5837,12 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DeliveryOrderToWarehouseInboundOrderSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            string $varCombinedBudgetSectionCode = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5641,20 +5851,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_DeliveryOrderToWarehouseInboundOrder',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varCombinedBudgetSectionCode, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5677,10 +5886,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrderSummary(
-		$varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varDeliveryFrom_RefID = null, int $varDeliveryTo_RefID = null, string  $varStartDate = null, string  $varEndDate = null,
-		array $varPagingStatement = null
-            )
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varCombinedBudgetCode = null,
+            int $varDeliveryFrom_RefID = null,
+            int $varDeliveryTo_RefID = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
+            array $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5689,24 +5903,23 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrderSummary',
                             [
-                                [$varCombinedBudgetCode, 'varchar' ],
-                                [$varDeliveryFrom_RefID, 'bigint' ],
-                                [$varDeliveryTo_RefID, 'bigint' ],
+                                [$varCombinedBudgetCode, 'varchar'],
+                                [$varDeliveryFrom_RefID, 'bigint'],
+                                [$varDeliveryTo_RefID, 'bigint'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
-                            )
-                        );
-	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
+                        )
+                    );
+                $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
 
                 return $varReturn;
-                }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5727,9 +5940,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseInboundOrder(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5738,22 +5952,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseInboundOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseInboundOrder']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5775,9 +5989,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_WarehouseOutboundOrder(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5786,22 +6001,22 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             $varUserSession,
                             'SchData-OLTP-SupplyChain.Func_GetReport_DocForm_WarehouseOutboundOrder',
                             [
-                                [$varSysBranch_RefID, 'bigint' ],
-                                [$varSysID, 'bigint' ]
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_DocForm_WarehouseOutboundOrder']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -5822,10 +6037,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_PurchaseOrderProductPriceHistory(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             int $varSysID,
-            string $varBusinessDocumentNumber = null, int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null)
-            {
+            string $varBusinessDocumentNumber = null,
+            int $varBusinessDocumentType_RefID = null,
+            int $varCombinedBudget_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5841,19 +6059,19 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varBusinessDocumentType_RefID, 'bigint'],
                                 [$varCombinedBudget_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return [
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
-                        $varReturn['data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory'])
-                    ];
-                }
-            catch (\Exception $ex) {
+                        $varReturn['data'][0]['Func_GetReport_Resume_PurchaseOrderProductPriceHistory']
+                    )
+                ];
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5881,10 +6099,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_PurchaseRequisitonToPurchaseOrder(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCombinedBudget_RefID = null, int $varCombinedBudgetSection_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCombinedBudget_RefID = null,
+            int $varCombinedBudgetSection_RefID = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5903,17 +6126,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5941,10 +6162,15 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_ResumeJSON_PurchaseRequisitonToPurchaseOrder(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varCombinedBudget_RefID = null, int $varCombinedBudgetSection_RefID = null,
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varCombinedBudget_RefID = null,
+            int $varCombinedBudgetSection_RefID = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -5963,30 +6189,28 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_ResumeJSON_PurchaseRequisitionToPurchaseOrder']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
-
-
-
-
         }
+
+
+
+
     }
+}

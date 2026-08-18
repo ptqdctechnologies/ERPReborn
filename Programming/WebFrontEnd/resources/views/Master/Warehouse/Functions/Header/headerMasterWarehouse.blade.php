@@ -46,15 +46,15 @@
                         <div class="input-group">
                             <input id="country_name" class="form-control" readonly name="country_name"
                                 style="border-radius:0; background-color: white;">
-                            <input id="country_id" class="form-control" hidden name="country_id"
+                            <input id="country_code" class="form-control" hidden name="country_code"
                                 style="border-radius:0; background-color: white;">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="countryMessage" style="margin-top: .3rem;display: none;">
+            <div class="row" id="warehouseCountryMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red" id="countryMessageText"></div>
+                <div class="col text-red" id="warehouseCountryMessageText"></div>
             </div>
 
             <!-- PROVINCE -->
@@ -71,15 +71,15 @@
                         <div class="input-group">
                             <input id="province_name" class="form-control" name="province_name" readonly
                                 style="border-radius:0; background-color: white;">
-                            <input id="province_id" class="form-control" name="province_id" hidden
+                            <input id="province_code" class="form-control" name="province_code" hidden
                                 style="border-radius:0;">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="provinceMessage" style="margin-top: .3rem;display: none;">
+            <div class="row" id="warehouseProvinceMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red" id="provinceMessageText"></div>
+                <div class="col text-red" id="warehouseProvinceMessageText"></div>
             </div>
 
             <!-- CITY -->
@@ -96,14 +96,13 @@
                         <div class="input-group">
                             <input id="city_name" class="form-control" name="city_name" readonly
                                 style="border-radius:0; background-color: white;">
-                            <input id="city_id" class="form-control" name="city_id" hidden style="border-radius:0;">
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row" id="cityMessage" style="margin-top: .3rem;display: none;">
+            <div class="row" id="warehouseCityMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red" id="cityMessageText"></div>
+                <div class="col text-red" id="warehouseCityMessageText"></div>
             </div>
         </div>
 
@@ -121,10 +120,14 @@
                     </div>
                     <div style="flex: 1;">
                         <input type="hidden" id="warehouse_type_id" name="warehouse_type_id" class="form-control" />
-                        <input type="text" id="warehouse_type" class="form-control"
+                        <input type="text" id="warehouse_type" name="warehouse_type" class="form-control"
                             style="border-radius:0;background-color:white;" readonly />
                     </div>
                 </div>
+            </div>
+            <div class="row" id="warehouseTypeMessage" style="margin-top: .3rem;display: none;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+                <div class="col text-red" id="warehouseTypeMessageText"></div>
             </div>
 
             <!-- ADDRESS -->
@@ -135,9 +138,9 @@
                         autocomplete="off"></textarea>
                 </div>
             </div>
-            <div class="row" id="addressMessage" style="margin-top: .3rem;display: none;">
+            <div class="row" id="warehouseAddressMessage" style="margin-top: .3rem;display: none;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-                <div class="col text-red" id="addressMessageText"></div>
+                <div class="col text-red" id="warehouseAddressMessageText"></div>
             </div>
         </div>
     </div>

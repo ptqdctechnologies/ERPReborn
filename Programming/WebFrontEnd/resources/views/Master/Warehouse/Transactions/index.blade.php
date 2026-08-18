@@ -2,7 +2,11 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getCities')
+    @include('getFunction.getCountries')
+    @include('getFunction.getProvincies')
     @include('getFunction.getWarehouses')
+    @include('getFunction.getWarehouseTypes')
     @include('Master.Warehouse.Functions.PopUp.PopUpWarehouseRevision')
 
     <div class="content-wrapper">
@@ -51,19 +55,22 @@
                                                             Type</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                            Country</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                            Province</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                            City</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                                                             Address</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Stock</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
-                                                            Status</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody></tbody>
                                                 <tfoot>
                                                     <tr id="loading-table">
-                                                        <td colspan="7" class="p-0" style="height: 22rem;">
+                                                        <td colspan="8" class="p-0" style="height: 22rem;">
                                                             <div
                                                                 class="d-flex flex-column justify-content-center align-items-center py-3">
                                                                 <div class="spinner-border" role="status">
