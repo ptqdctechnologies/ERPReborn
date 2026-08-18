@@ -23,12 +23,12 @@ use Google\Client;
  * Service definition for CloudFTP (v1).
  *
  * <p>
- * Cloud FTP is a managed service that allows transferring files directly to
- * Google Cloud Storage using SFTP.</p>
+ * A managed, cloud-native solution to move data in and out of Google Cloud by
+ * using SSH File Transfer Protocol (SFTP).</p>
  *
  * <p>
  * For more information about this service, see the API
- * <a href="https://cloud.google.com/cloud-ftp/overview" target="_blank">Documentation</a>
+ * <a href="https://docs.cloud.google.com/cloud-ftp" target="_blank">Documentation</a>
  * </p>
  *
  * @author Google, Inc.

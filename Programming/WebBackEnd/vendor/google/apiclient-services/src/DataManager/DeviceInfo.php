@@ -46,15 +46,7 @@ class DeviceInfo extends \Google\Model
   public $category;
   /**
    * Optional. The IP address of the device for the given context. Required when
-   * used in an AdEvent. **Note:** Google Ads does not support IP address
-   * matching for end users in the European Economic Area (EEA), United Kingdom
-   * (UK), or Switzerland (CH). Add logic to conditionally exclude sharing IP
-   * addresses from users from these regions and ensure that you provide users
-   * with clear and comprehensive information about the data you collect on your
-   * sites, apps, and other properties and get consent where required by law or
-   * any applicable Google policies. See the [About offline conversion
-   * imports](https://support.google.com/google-ads/answer/2998031) page for
-   * more details.
+   * used in an AdEvent.
    *
    * @var string
    */
@@ -169,15 +161,7 @@ class DeviceInfo extends \Google\Model
   }
   /**
    * Optional. The IP address of the device for the given context. Required when
-   * used in an AdEvent. **Note:** Google Ads does not support IP address
-   * matching for end users in the European Economic Area (EEA), United Kingdom
-   * (UK), or Switzerland (CH). Add logic to conditionally exclude sharing IP
-   * addresses from users from these regions and ensure that you provide users
-   * with clear and comprehensive information about the data you collect on your
-   * sites, apps, and other properties and get consent where required by law or
-   * any applicable Google policies. See the [About offline conversion
-   * imports](https://support.google.com/google-ads/answer/2998031) page for
-   * more details.
+   * used in an AdEvent.
    *
    * @param string $ipAddress
    */

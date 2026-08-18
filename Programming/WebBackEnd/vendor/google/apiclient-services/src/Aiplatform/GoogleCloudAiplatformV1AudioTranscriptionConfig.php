@@ -21,7 +21,8 @@ class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
 {
   protected $collection_key = 'languageCodes';
   /**
-   * Optional. A list of phrases to bias the ASR model towards.
+   * Optional. Deprecated: Use `custom_vocabulary` instead. A list of phrases to
+   * bias the speech recognition model towards.
    *
    * @deprecated
    * @var string[]
@@ -60,7 +61,8 @@ class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
   public $wordTimestamp;
 
   /**
-   * Optional. A list of phrases to bias the ASR model towards.
+   * Optional. Deprecated: Use `custom_vocabulary` instead. A list of phrases to
+   * bias the speech recognition model towards.
    *
    * @deprecated
    * @param string[] $adaptationPhrases

@@ -167,7 +167,7 @@ class GcpUserAccessBinding extends \Google\Collection
     return $this->principal;
   }
   /**
-   * Optional. Deprecated: use scoped_access_settings instead. A list of
+   * Optional. Deprecated: Use `scoped_access_settings` instead. A list of
    * applications that are subject to this binding's restrictions. If the list
    * is empty, the binding restrictions will universally apply to all
    * applications.

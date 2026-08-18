@@ -865,7 +865,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.392.1';
+    const VERSION = '3.393.0';
 
     /** @var array Arguments for creating clients */
     private $args;
@@ -884,7 +884,10 @@ class Sdk
         $this->args = $args;
 
         if (!isset($args['handler']) && !isset($args['http_handler'])) {
-            $this->args['http_handler'] = default_http_handler();
+            $this->args['http_handler'] = default_http_handler(
+                $args['transport_sharing'] ?? null
+            );
+            unset($this->args['transport_sharing']);
         }
     }
 

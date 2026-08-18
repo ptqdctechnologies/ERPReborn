@@ -21,6 +21,8 @@ class ClientScope extends \Google\Model
 {
   protected $restrictedClientApplicationType = Application::class;
   protected $restrictedClientApplicationDataType = '';
+  protected $restrictedProjectType = Project::class;
+  protected $restrictedProjectDataType = '';
 
   /**
    * Optional. The application that is subject to this binding's scope.
@@ -37,6 +39,22 @@ class ClientScope extends \Google\Model
   public function getRestrictedClientApplication()
   {
     return $this->restrictedClientApplication;
+  }
+  /**
+   * Optional. The GCP project that is subject to this binding's scope.
+   *
+   * @param Project $restrictedProject
+   */
+  public function setRestrictedProject(Project $restrictedProject)
+  {
+    $this->restrictedProject = $restrictedProject;
+  }
+  /**
+   * @return Project
+   */
+  public function getRestrictedProject()
+  {
+    return $this->restrictedProject;
   }
 }
 

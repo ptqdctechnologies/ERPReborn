@@ -44,6 +44,7 @@ class WebContentPublisher extends \Google\Service
   public $organizations_publications;
   public $organizations_publications_ctas;
   public $publications;
+  public $users;
   public $rootUrlTemplate;
 
   /**
@@ -221,6 +222,26 @@ class WebContentPublisher extends \Google\Service
                 'uri' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->users = new WebContentPublisher\Resource\Users(
+        $this,
+        $this->serviceName,
+        'users',
+        [
+          'methods' => [
+            'generatePlatformSiteTokens' => [
+              'path' => 'v1/{+name}:generatePlatformSiteTokens',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

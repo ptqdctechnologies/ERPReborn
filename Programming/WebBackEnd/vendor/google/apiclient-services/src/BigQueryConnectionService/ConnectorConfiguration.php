@@ -36,6 +36,8 @@ class ConnectorConfiguration extends \Google\Model
   protected $networkDataType = '';
   protected $parametersType = ConnectorConfigurationParameterValue::class;
   protected $parametersDataType = 'map';
+  protected $tlsType = ConnectorConfigurationTls::class;
+  protected $tlsDataType = '';
 
   /**
    * Data asset.
@@ -120,12 +122,12 @@ class ConnectorConfiguration extends \Google\Model
   }
   /**
    * Optional. A map of name-value pairs for connector-specific parameters.
-   * Extra configuration parameters, that are not standardized in configuration
-   * sections. To update a single parameter value call
+   * These extra configuration parameters aren't standardized in the
+   * configuration sections. To update a single parameter value, call
    * ConnectionService.UpdateConnection with `update_mask` set to
-   * `configuration.parameters.parameter_id`. If parameter id does not fit
-   * `[a-zA-Z0-9_]+` pattern, it should be escaped with backticks - for example
-   * ``configuration.parameters.`parameter id` ``.
+   * `configuration.parameters.parameter_id`. If ``parameter_id`` doesn't fit
+   * the `[a-zA-Z0-9_]+` pattern, ``parameter_id`` should be escaped with
+   * backticks—for example, ``configuration.parameters.`parameter id` ``.
    *
    * @param ConnectorConfigurationParameterValue[] $parameters
    */
@@ -139,6 +141,22 @@ class ConnectorConfiguration extends \Google\Model
   public function getParameters()
   {
     return $this->parameters;
+  }
+  /**
+   * Optional. TLS configuration options.
+   *
+   * @param ConnectorConfigurationTls $tls
+   */
+  public function setTls(ConnectorConfigurationTls $tls)
+  {
+    $this->tls = $tls;
+  }
+  /**
+   * @return ConnectorConfigurationTls
+   */
+  public function getTls()
+  {
+    return $this->tls;
   }
 }
 

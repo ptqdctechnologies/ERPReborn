@@ -443,6 +443,10 @@ class CustomerEngagementSuite extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'view' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
               ],
             ],'list' => [
               'path' => 'v1/{+parent}/conversations',

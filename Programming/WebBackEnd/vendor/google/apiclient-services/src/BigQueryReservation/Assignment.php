@@ -66,6 +66,12 @@ class Assignment extends \Google\Model
    */
   public const JOB_TYPE_BACKGROUND_SEARCH_INDEX_REFRESH = 'BACKGROUND_SEARCH_INDEX_REFRESH';
   /**
+   * Automated materialized view refresh jobs will use the reservation.
+   * Reservations with this job type will take priority over a default QUERY
+   * reservation assignment (if it exists).
+   */
+  public const JOB_TYPE_AUTOMATIC_MATERIALIZED_VIEW_REFRESH = 'AUTOMATIC_MATERIALIZED_VIEW_REFRESH';
+  /**
    * Invalid state value.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -179,7 +185,8 @@ class Assignment extends \Google\Model
    *
    * Accepted values: JOB_TYPE_UNSPECIFIED, PIPELINE, QUERY, ML_EXTERNAL,
    * BACKGROUND, CONTINUOUS, BACKGROUND_CHANGE_DATA_CAPTURE,
-   * BACKGROUND_COLUMN_METADATA_INDEX, BACKGROUND_SEARCH_INDEX_REFRESH
+   * BACKGROUND_COLUMN_METADATA_INDEX, BACKGROUND_SEARCH_INDEX_REFRESH,
+   * AUTOMATIC_MATERIALIZED_VIEW_REFRESH
    *
    * @param self::JOB_TYPE_* $jobType
    */

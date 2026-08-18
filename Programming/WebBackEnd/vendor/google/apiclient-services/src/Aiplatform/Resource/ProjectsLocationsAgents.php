@@ -78,7 +78,11 @@ class ProjectsLocationsAgents extends \Google\Service\Resource
     return $this->call('get', [$params], GoogleCloudAiplatformV1Agent::class);
   }
   /**
-   * Lists agents in a location. (agents.listProjectsLocationsAgents)
+   * Lists the agents in a location that belong to the caller. An agent belongs to
+   * the end user recorded as its owner when it was created, so the response holds
+   * that caller's agents and no others. It is empty for a caller that is not an
+   * end user, and an agent with no recorded owner is listed for nobody.
+   * (agents.listProjectsLocationsAgents)
    *
    * @param string $parent Required. The resource name of the location to list
    * agents from. Format: `projects/{project}/locations/{location}`.

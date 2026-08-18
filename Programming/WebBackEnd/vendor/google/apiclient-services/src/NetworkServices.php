@@ -46,6 +46,7 @@ class NetworkServices extends \Google\Service
   public $projects_locations_edgeCacheOrigins;
   public $projects_locations_edgeCacheServices;
   public $projects_locations_endpointPolicies;
+  public $projects_locations_extensionBindings;
   public $projects_locations_gateways;
   public $projects_locations_gateways_routeViews;
   public $projects_locations_grpcRoutes;
@@ -58,6 +59,7 @@ class NetworkServices extends \Google\Service
   public $projects_locations_multicastConsumerAssociations;
   public $projects_locations_multicastGroupConsumerActivations;
   public $projects_locations_operations;
+  public $projects_locations_producerExtensions;
   public $projects_locations_serviceBindings;
   public $projects_locations_serviceLbPolicies;
   public $projects_locations_tcpRoutes;
@@ -586,6 +588,86 @@ class NetworkServices extends \Google\Service
                 'returnPartialSuccess' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+              ],
+            ],'patch' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'PATCH',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_extensionBindings = new NetworkServices\Resource\ProjectsLocationsExtensionBindings(
+        $this,
+        $this->serviceName,
+        'extensionBindings',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}/extensionBindings',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'extensionBindingId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'etag' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/extensionBindings',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],'patch' => [
@@ -1546,6 +1628,72 @@ class NetworkServices extends \Google\Service
                 'returnPartialSuccess' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_producerExtensions = new NetworkServices\Resource\ProjectsLocationsProducerExtensions(
+        $this,
+        $this->serviceName,
+        'producerExtensions',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}/producerExtensions',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'producerExtensionId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'etag' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/producerExtensions',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],

@@ -53,6 +53,8 @@ class OrganizationsLocationsFirewallEndpoints extends \Google\Service\Resource
    * clients from accidentally creating duplicate commitments. The request ID must
    * be a valid UUID with the exception that zero UUID is not supported
    * (00000000-0000-0000-0000-000000000000).
+   * @opt_param bool validateOnly Optional. If set, validate the request and
+   * preview the endpoint, but do not actually create it.
    * @return Operation
    * @throws \Google\Service\Exception
    */

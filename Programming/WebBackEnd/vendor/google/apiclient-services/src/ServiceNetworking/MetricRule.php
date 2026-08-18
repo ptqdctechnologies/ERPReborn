@@ -20,6 +20,16 @@ namespace Google\Service\ServiceNetworking;
 class MetricRule extends \Google\Model
 {
   /**
+   * Optional. Metrics to update when the selected methods are called, and the
+   * associated cost applied to each metric, iff the source of the call is an
+   * agent. The key of the map is the metric name, and the values are the amount
+   * increased for the metric against which the quota limits are defined. The
+   * value must not be negative.
+   *
+   * @var string[]
+   */
+  public $agenticMetricCosts;
+  /**
    * Metrics to update when the selected methods are called, and the associated
    * cost applied to each metric. The key of the map is the metric name, and the
    * values are the amount increased for the metric against which the quota
@@ -29,6 +39,16 @@ class MetricRule extends \Google\Model
    */
   public $metricCosts;
   /**
+   * Optional. Metrics to update when the selected methods are called, and the
+   * associated cost applied to each metric, iff the source of the call is not
+   * an agent. The key of the map is the metric name, and the values are the
+   * amount increased for the metric against which the quota limits are defined.
+   * The value must not be negative.
+   *
+   * @var string[]
+   */
+  public $nonagenticMetricCosts;
+  /**
    * Selects the methods to which this rule applies. Refer to selector for
    * syntax details.
    *
@@ -36,6 +56,26 @@ class MetricRule extends \Google\Model
    */
   public $selector;
 
+  /**
+   * Optional. Metrics to update when the selected methods are called, and the
+   * associated cost applied to each metric, iff the source of the call is an
+   * agent. The key of the map is the metric name, and the values are the amount
+   * increased for the metric against which the quota limits are defined. The
+   * value must not be negative.
+   *
+   * @param string[] $agenticMetricCosts
+   */
+  public function setAgenticMetricCosts($agenticMetricCosts)
+  {
+    $this->agenticMetricCosts = $agenticMetricCosts;
+  }
+  /**
+   * @return string[]
+   */
+  public function getAgenticMetricCosts()
+  {
+    return $this->agenticMetricCosts;
+  }
   /**
    * Metrics to update when the selected methods are called, and the associated
    * cost applied to each metric. The key of the map is the metric name, and the
@@ -54,6 +94,26 @@ class MetricRule extends \Google\Model
   public function getMetricCosts()
   {
     return $this->metricCosts;
+  }
+  /**
+   * Optional. Metrics to update when the selected methods are called, and the
+   * associated cost applied to each metric, iff the source of the call is not
+   * an agent. The key of the map is the metric name, and the values are the
+   * amount increased for the metric against which the quota limits are defined.
+   * The value must not be negative.
+   *
+   * @param string[] $nonagenticMetricCosts
+   */
+  public function setNonagenticMetricCosts($nonagenticMetricCosts)
+  {
+    $this->nonagenticMetricCosts = $nonagenticMetricCosts;
+  }
+  /**
+   * @return string[]
+   */
+  public function getNonagenticMetricCosts()
+  {
+    return $this->nonagenticMetricCosts;
   }
   /**
    * Selects the methods to which this rule applies. Refer to selector for

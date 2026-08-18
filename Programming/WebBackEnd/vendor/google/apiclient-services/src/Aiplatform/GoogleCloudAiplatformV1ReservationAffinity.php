@@ -53,7 +53,8 @@ class GoogleCloudAiplatformV1ReservationAffinity extends \Google\Collection
   public $reservationAffinityType;
   /**
    * Optional. Corresponds to the label values of a reservation resource. This
-   * must be the full resource name of the reservation or reservation block.
+   * must be the resource name of the reservation, reservation block, or
+   * reservation sub- block.
    *
    * @var string[]
    */
@@ -98,7 +99,8 @@ class GoogleCloudAiplatformV1ReservationAffinity extends \Google\Collection
   }
   /**
    * Optional. Corresponds to the label values of a reservation resource. This
-   * must be the full resource name of the reservation or reservation block.
+   * must be the resource name of the reservation, reservation block, or
+   * reservation sub- block.
    *
    * @param string[] $values
    */

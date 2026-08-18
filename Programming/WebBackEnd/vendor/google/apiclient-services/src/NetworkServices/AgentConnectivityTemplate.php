@@ -31,6 +31,34 @@ class AgentConnectivityTemplate extends \Google\Collection
    * Govern agent connections to destinations.
    */
   public const ACCESS_PATH_AGENT_TO_ANYWHERE = 'AGENT_TO_ANYWHERE';
+  /**
+   * Unspecified compute type.
+   */
+  public const AGENT_COMPUTE_AGENT_COMPUTE_UNSPECIFIED = 'AGENT_COMPUTE_UNSPECIFIED';
+  /**
+   * Google Kubernetes Engine.
+   */
+  public const AGENT_COMPUTE_GKE = 'GKE';
+  /**
+   * Google Cloud Run.
+   */
+  public const AGENT_COMPUTE_CLOUD_RUN = 'CLOUD_RUN';
+  /**
+   * Google Borg (for 1P producers).
+   */
+  public const AGENT_COMPUTE_BORG = 'BORG';
+  /**
+   * Unspecified deployment model.
+   */
+  public const DEPLOYMENT_MODEL_DEPLOYMENT_MODEL_UNSPECIFIED = 'DEPLOYMENT_MODEL_UNSPECIFIED';
+  /**
+   * Centralized deployment.
+   */
+  public const DEPLOYMENT_MODEL_CENTRALIZED = 'CENTRALIZED';
+  /**
+   * Ambient deployment.
+   */
+  public const DEPLOYMENT_MODEL_AMBIENT = 'AMBIENT';
   protected $collection_key = 'accessTypes';
   /**
    * Required. Immutable. The path of the access. Maps roughly to
@@ -49,11 +77,24 @@ class AgentConnectivityTemplate extends \Google\Collection
    */
   public $accessTypes;
   /**
+   * Optional. The compute environment where the agent is hosted. Exactly one
+   * type of compute must be chosen.
+   *
+   * @var string
+   */
+  public $agentCompute;
+  /**
    * Output only. The timestamp when the resource was created.
    *
    * @var string
    */
   public $createTime;
+  /**
+   * Required. The deployment model for the gateway.
+   *
+   * @var string
+   */
+  public $deploymentModel;
   /**
    * Optional. A free-text description of the resource. Max length 1024
    * characters.
@@ -132,6 +173,25 @@ class AgentConnectivityTemplate extends \Google\Collection
     return $this->accessTypes;
   }
   /**
+   * Optional. The compute environment where the agent is hosted. Exactly one
+   * type of compute must be chosen.
+   *
+   * Accepted values: AGENT_COMPUTE_UNSPECIFIED, GKE, CLOUD_RUN, BORG
+   *
+   * @param self::AGENT_COMPUTE_* $agentCompute
+   */
+  public function setAgentCompute($agentCompute)
+  {
+    $this->agentCompute = $agentCompute;
+  }
+  /**
+   * @return self::AGENT_COMPUTE_*
+   */
+  public function getAgentCompute()
+  {
+    return $this->agentCompute;
+  }
+  /**
    * Output only. The timestamp when the resource was created.
    *
    * @param string $createTime
@@ -146,6 +206,24 @@ class AgentConnectivityTemplate extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Required. The deployment model for the gateway.
+   *
+   * Accepted values: DEPLOYMENT_MODEL_UNSPECIFIED, CENTRALIZED, AMBIENT
+   *
+   * @param self::DEPLOYMENT_MODEL_* $deploymentModel
+   */
+  public function setDeploymentModel($deploymentModel)
+  {
+    $this->deploymentModel = $deploymentModel;
+  }
+  /**
+   * @return self::DEPLOYMENT_MODEL_*
+   */
+  public function getDeploymentModel()
+  {
+    return $this->deploymentModel;
   }
   /**
    * Optional. A free-text description of the resource. Max length 1024

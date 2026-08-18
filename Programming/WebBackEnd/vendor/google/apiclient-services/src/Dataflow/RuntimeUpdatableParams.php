@@ -17,8 +17,9 @@
 
 namespace Google\Service\Dataflow;
 
-class RuntimeUpdatableParams extends \Google\Model
+class RuntimeUpdatableParams extends \Google\Collection
 {
+  protected $collection_key = 'schedules';
   /**
    * Optional. Deprecated: Use `latency_tier` instead. The backlog threshold
    * duration in seconds for autoscaling. Value must be non-negative.
@@ -57,6 +58,8 @@ class RuntimeUpdatableParams extends \Google\Model
    * @var int
    */
   public $minNumWorkers;
+  protected $schedulesType = AutoscalingSchedule::class;
+  protected $schedulesDataType = 'array';
   /**
    * Target worker utilization, compared against the aggregate utilization of
    * the worker pool by autoscaler, to determine upscaling and downscaling when
@@ -158,6 +161,22 @@ class RuntimeUpdatableParams extends \Google\Model
   public function getMinNumWorkers()
   {
     return $this->minNumWorkers;
+  }
+  /**
+   * Optional. The schedule for autoscaling.
+   *
+   * @param AutoscalingSchedule[] $schedules
+   */
+  public function setSchedules($schedules)
+  {
+    $this->schedules = $schedules;
+  }
+  /**
+   * @return AutoscalingSchedule[]
+   */
+  public function getSchedules()
+  {
+    return $this->schedules;
   }
   public function setWorkerUtilizationHint($workerUtilizationHint)
   {

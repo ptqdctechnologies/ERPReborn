@@ -101,6 +101,30 @@ class CloudVmClusterProperties extends \Google\Collection
    * Exascale storage management.
    */
   public const STORAGE_MANAGEMENT_TYPE_EXASCALE = 'EXASCALE';
+  /**
+   * Unspecified storage type.
+   */
+  public const VM_BACKUP_STORAGE_TYPE_VM_BACKUP_STORAGE_TYPE_UNSPECIFIED = 'VM_BACKUP_STORAGE_TYPE_UNSPECIFIED';
+  /**
+   * Local DB server storage.
+   */
+  public const VM_BACKUP_STORAGE_TYPE_VM_BACKUP_STORAGE_TYPE_LOCAL = 'VM_BACKUP_STORAGE_TYPE_LOCAL';
+  /**
+   * Exascale storage.
+   */
+  public const VM_BACKUP_STORAGE_TYPE_VM_BACKUP_STORAGE_TYPE_EXASCALE = 'VM_BACKUP_STORAGE_TYPE_EXASCALE';
+  /**
+   * Unspecified storage type.
+   */
+  public const VM_FILE_SYSTEM_STORAGE_TYPE_VM_FILE_SYSTEM_STORAGE_TYPE_UNSPECIFIED = 'VM_FILE_SYSTEM_STORAGE_TYPE_UNSPECIFIED';
+  /**
+   * Local DB server storage.
+   */
+  public const VM_FILE_SYSTEM_STORAGE_TYPE_VM_FILE_SYSTEM_STORAGE_TYPE_LOCAL = 'VM_FILE_SYSTEM_STORAGE_TYPE_LOCAL';
+  /**
+   * Exascale storage.
+   */
+  public const VM_FILE_SYSTEM_STORAGE_TYPE_VM_FILE_SYSTEM_STORAGE_TYPE_EXASCALE = 'VM_FILE_SYSTEM_STORAGE_TYPE_EXASCALE';
   protected $collection_key = 'sshPublicKeys';
   /**
    * Optional. OCI Cluster name.
@@ -301,6 +325,20 @@ class CloudVmClusterProperties extends \Google\Collection
   public $systemVersion;
   protected $timeZoneType = TimeZone::class;
   protected $timeZoneDataType = '';
+  /**
+   * Optional. Specifies whether VM backups are stored on local DB server
+   * storage or Exascale storage.
+   *
+   * @var string
+   */
+  public $vmBackupStorageType;
+  /**
+   * Optional. Specifies whether VM file system storage / VM images are stored
+   * on local DB server storage or Exascale storage.
+   *
+   * @var string
+   */
+  public $vmFileSystemStorageType;
 
   /**
    * Optional. OCI Cluster name.
@@ -853,6 +891,46 @@ class CloudVmClusterProperties extends \Google\Collection
   public function getTimeZone()
   {
     return $this->timeZone;
+  }
+  /**
+   * Optional. Specifies whether VM backups are stored on local DB server
+   * storage or Exascale storage.
+   *
+   * Accepted values: VM_BACKUP_STORAGE_TYPE_UNSPECIFIED,
+   * VM_BACKUP_STORAGE_TYPE_LOCAL, VM_BACKUP_STORAGE_TYPE_EXASCALE
+   *
+   * @param self::VM_BACKUP_STORAGE_TYPE_* $vmBackupStorageType
+   */
+  public function setVmBackupStorageType($vmBackupStorageType)
+  {
+    $this->vmBackupStorageType = $vmBackupStorageType;
+  }
+  /**
+   * @return self::VM_BACKUP_STORAGE_TYPE_*
+   */
+  public function getVmBackupStorageType()
+  {
+    return $this->vmBackupStorageType;
+  }
+  /**
+   * Optional. Specifies whether VM file system storage / VM images are stored
+   * on local DB server storage or Exascale storage.
+   *
+   * Accepted values: VM_FILE_SYSTEM_STORAGE_TYPE_UNSPECIFIED,
+   * VM_FILE_SYSTEM_STORAGE_TYPE_LOCAL, VM_FILE_SYSTEM_STORAGE_TYPE_EXASCALE
+   *
+   * @param self::VM_FILE_SYSTEM_STORAGE_TYPE_* $vmFileSystemStorageType
+   */
+  public function setVmFileSystemStorageType($vmFileSystemStorageType)
+  {
+    $this->vmFileSystemStorageType = $vmFileSystemStorageType;
+  }
+  /**
+   * @return self::VM_FILE_SYSTEM_STORAGE_TYPE_*
+   */
+  public function getVmFileSystemStorageType()
+  {
+    return $this->vmFileSystemStorageType;
   }
 }
 

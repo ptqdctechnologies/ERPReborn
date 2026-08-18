@@ -33,6 +33,11 @@ class AppCommandMetadata extends \Google\Model
    */
   public const APP_COMMAND_TYPE_QUICK_COMMAND = 'QUICK_COMMAND';
   /**
+   * A message action. The user selects the command from the message context
+   * menu in Chat.
+   */
+  public const APP_COMMAND_TYPE_MESSAGE_ACTION = 'MESSAGE_ACTION';
+  /**
    * The ID for the command specified in the Chat API configuration.
    *
    * @var int
@@ -64,7 +69,8 @@ class AppCommandMetadata extends \Google\Model
   /**
    * The type of Chat app command.
    *
-   * Accepted values: APP_COMMAND_TYPE_UNSPECIFIED, SLASH_COMMAND, QUICK_COMMAND
+   * Accepted values: APP_COMMAND_TYPE_UNSPECIFIED, SLASH_COMMAND,
+   * QUICK_COMMAND, MESSAGE_ACTION
    *
    * @param self::APP_COMMAND_TYPE_* $appCommandType
    */

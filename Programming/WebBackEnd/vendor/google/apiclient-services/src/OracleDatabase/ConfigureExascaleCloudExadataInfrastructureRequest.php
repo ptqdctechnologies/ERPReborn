@@ -31,6 +31,12 @@ class ConfigureExascaleCloudExadataInfrastructureRequest extends \Google\Model
    * @var int
    */
   public $totalStorageSizeGb;
+  /**
+   * Optional. Storage size needed for VM storage on Exascale in GBs.
+   *
+   * @var int
+   */
+  public $totalVmStorageSizeGb;
 
   /**
    * Optional. An optional ID to identify the request.
@@ -63,6 +69,22 @@ class ConfigureExascaleCloudExadataInfrastructureRequest extends \Google\Model
   public function getTotalStorageSizeGb()
   {
     return $this->totalStorageSizeGb;
+  }
+  /**
+   * Optional. Storage size needed for VM storage on Exascale in GBs.
+   *
+   * @param int $totalVmStorageSizeGb
+   */
+  public function setTotalVmStorageSizeGb($totalVmStorageSizeGb)
+  {
+    $this->totalVmStorageSizeGb = $totalVmStorageSizeGb;
+  }
+  /**
+   * @return int
+   */
+  public function getTotalVmStorageSizeGb()
+  {
+    return $this->totalVmStorageSizeGb;
   }
 }
 

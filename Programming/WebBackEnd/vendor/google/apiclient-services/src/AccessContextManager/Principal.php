@@ -20,12 +20,24 @@ namespace Google\Service\AccessContextManager;
 class Principal extends \Google\Model
 {
   /**
+   * Immutable. IAM federated principal name to assign policies to
+   * workforce/workload federated identities. Can be principal set or single
+   * principal, here are some examples: Single principal: principal://iam.google
+   * apis.com/projects/{project_number}/locations/global/workloadIdentityPools/{
+   * pool_id}/subject/{subject_attribute_value} PrincipalSet: principalSet://iam
+   * .googleapis.com/projects/{project_number}/locations/global/workloadIdentity
+   * Pools/{pool_id}
+   *
+   * @var string
+   */
+  public $federatedPrincipal;
+  /**
    * Immutable. Service account email used to assign policies to a specific
    * service account. If a service account is subject to multiple policies
    * (e.g., if there is a policy for all service accounts in a project and a
    * policy for the service account), the closest (i.e. the most specific) dry-
    * run policy will be used for the dry-run functionality and the closest
-   * policy will be used for the enforcement.
+   * enforcement policy will be used for the enforcement.
    *
    * @var string
    */
@@ -39,12 +51,34 @@ class Principal extends \Google\Model
   public $serviceAccountProjectNumber;
 
   /**
+   * Immutable. IAM federated principal name to assign policies to
+   * workforce/workload federated identities. Can be principal set or single
+   * principal, here are some examples: Single principal: principal://iam.google
+   * apis.com/projects/{project_number}/locations/global/workloadIdentityPools/{
+   * pool_id}/subject/{subject_attribute_value} PrincipalSet: principalSet://iam
+   * .googleapis.com/projects/{project_number}/locations/global/workloadIdentity
+   * Pools/{pool_id}
+   *
+   * @param string $federatedPrincipal
+   */
+  public function setFederatedPrincipal($federatedPrincipal)
+  {
+    $this->federatedPrincipal = $federatedPrincipal;
+  }
+  /**
+   * @return string
+   */
+  public function getFederatedPrincipal()
+  {
+    return $this->federatedPrincipal;
+  }
+  /**
    * Immutable. Service account email used to assign policies to a specific
    * service account. If a service account is subject to multiple policies
    * (e.g., if there is a policy for all service accounts in a project and a
    * policy for the service account), the closest (i.e. the most specific) dry-
    * run policy will be used for the dry-run functionality and the closest
-   * policy will be used for the enforcement.
+   * enforcement policy will be used for the enforcement.
    *
    * @param string $serviceAccount
    */

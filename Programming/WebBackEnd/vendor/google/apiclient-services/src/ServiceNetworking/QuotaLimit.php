@@ -20,6 +20,18 @@ namespace Google\Service\ServiceNetworking;
 class QuotaLimit extends \Google\Model
 {
   /**
+   * This quota limit applies to all traffic. This is the default value.
+   */
+  public const TRAFFIC_SOURCE_TRAFFIC_SOURCE_UNSPECIFIED = 'TRAFFIC_SOURCE_UNSPECIFIED';
+  /**
+   * This quota limit applies to traffic not recognized as agentic.
+   */
+  public const TRAFFIC_SOURCE_TRAFFIC_SOURCE_NONAGENTIC = 'TRAFFIC_SOURCE_NONAGENTIC';
+  /**
+   * This quota limit applies to only agentic traffic.
+   */
+  public const TRAFFIC_SOURCE_TRAFFIC_SOURCE_AGENTIC = 'TRAFFIC_SOURCE_AGENTIC';
+  /**
    * Default number of tokens that can be consumed during the specified
    * duration. This is the number of tokens assigned when a client application
    * developer activates the service for his/her project. Specifying a value of
@@ -93,6 +105,14 @@ class QuotaLimit extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * Optional. This is only informational, the logic to allocate the quota to
+   * the correct metric (such as in `metric_rules`) should identify which quota
+   * metrics to allocate to.
+   *
+   * @var string
+   */
+  public $trafficSource;
   /**
    * Specify the unit of the quota limit. It uses the same syntax as
    * MetricDescriptor.unit. The supported unit kinds are determined by the quota
@@ -265,6 +285,27 @@ class QuotaLimit extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. This is only informational, the logic to allocate the quota to
+   * the correct metric (such as in `metric_rules`) should identify which quota
+   * metrics to allocate to.
+   *
+   * Accepted values: TRAFFIC_SOURCE_UNSPECIFIED, TRAFFIC_SOURCE_NONAGENTIC,
+   * TRAFFIC_SOURCE_AGENTIC
+   *
+   * @param self::TRAFFIC_SOURCE_* $trafficSource
+   */
+  public function setTrafficSource($trafficSource)
+  {
+    $this->trafficSource = $trafficSource;
+  }
+  /**
+   * @return self::TRAFFIC_SOURCE_*
+   */
+  public function getTrafficSource()
+  {
+    return $this->trafficSource;
   }
   /**
    * Specify the unit of the quota limit. It uses the same syntax as

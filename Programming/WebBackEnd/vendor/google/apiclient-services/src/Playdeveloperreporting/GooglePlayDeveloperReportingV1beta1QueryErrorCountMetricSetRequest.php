@@ -32,22 +32,22 @@ class GooglePlayDeveloperReportingV1beta1QueryErrorCountMetricSetRequest extends
    * of error. The value should correspond to one of the possible values in
    * ErrorType. * `issueId` (string): the id an error was assigned to. The value
    * should correspond to the `{issue}` component of the issue name. *
-   * `deviceRamBucket` (int64): RAM of the device, in MB, in buckets (3GB, 4GB,
-   * etc.). * `deviceSocMake` (string): Make of the device's primary system-on-
-   * chip, e.g., Samsung. [Reference](https://developer.android.com/reference/an
-   * droid/os/Build#SOC_MANUFACTURER) * `deviceSocModel` (string): Model of the
-   * device's primary system-on-chip, e.g., "Exynos 2100". [Reference](https://d
-   * eveloper.android.com/reference/android/os/Build#SOC_MODEL) *
-   * `deviceCpuMake` (string): Make of the device's CPU, e.g., Qualcomm. *
-   * `deviceCpuModel` (string): Model of the device's CPU, e.g., "Kryo 240". *
-   * `deviceGpuMake` (string): Make of the device's GPU, e.g., ARM. *
-   * `deviceGpuModel` (string): Model of the device's GPU, e.g., Mali. *
-   * `deviceGpuVersion` (string): Version of the device's GPU, e.g., T750. *
-   * `deviceVulkanVersion` (string): Vulkan version of the device, e.g.,
-   * "4198400". * `deviceGlEsVersion` (string): OpenGL ES version of the device,
-   * e.g., "196610". * `deviceScreenSize` (string): Screen size of the device,
-   * e.g., NORMAL, LARGE. * `deviceScreenDpi` (string): Screen density of the
-   * device, e.g., mdpi, hdpi.
+   * `deviceRamBucket` (int64): RAM of the device, in MB, in buckets (e.g., 1024
+   * for 1-1.5GB, 4096 for 4-6GB). * `deviceSocMake` (string): Make of the
+   * device's primary system-on-chip, e.g., Samsung. [Reference](https://develop
+   * er.android.com/reference/android/os/Build#SOC_MANUFACTURER) *
+   * `deviceSocModel` (string): Model of the device's primary system-on-chip,
+   * e.g., "Exynos 2100". [Reference](https://developer.android.com/reference/an
+   * droid/os/Build#SOC_MODEL) * `deviceCpuMake` (string): Make of the device's
+   * CPU, e.g., Qualcomm. * `deviceCpuModel` (string): Model of the device's
+   * CPU, e.g., "Kryo 240". * `deviceGpuMake` (string): Make of the device's
+   * GPU, e.g., ARM. * `deviceGpuModel` (string): Model of the device's GPU,
+   * e.g., Mali. * `deviceGpuVersion` (string): Version of the device's GPU,
+   * e.g., T750. * `deviceVulkanVersion` (string): Vulkan version of the device,
+   * e.g., "4198400". * `deviceGlEsVersion` (string): OpenGL ES version of the
+   * device, e.g., "196610". * `deviceScreenSize` (string): Screen size of the
+   * device, e.g., NORMAL, LARGE. * `deviceScreenDpi` (string): Screen density
+   * of the device, e.g., mdpi, hdpi.
    *
    * @var string[]
    */
@@ -105,22 +105,22 @@ class GooglePlayDeveloperReportingV1beta1QueryErrorCountMetricSetRequest extends
    * of error. The value should correspond to one of the possible values in
    * ErrorType. * `issueId` (string): the id an error was assigned to. The value
    * should correspond to the `{issue}` component of the issue name. *
-   * `deviceRamBucket` (int64): RAM of the device, in MB, in buckets (3GB, 4GB,
-   * etc.). * `deviceSocMake` (string): Make of the device's primary system-on-
-   * chip, e.g., Samsung. [Reference](https://developer.android.com/reference/an
-   * droid/os/Build#SOC_MANUFACTURER) * `deviceSocModel` (string): Model of the
-   * device's primary system-on-chip, e.g., "Exynos 2100". [Reference](https://d
-   * eveloper.android.com/reference/android/os/Build#SOC_MODEL) *
-   * `deviceCpuMake` (string): Make of the device's CPU, e.g., Qualcomm. *
-   * `deviceCpuModel` (string): Model of the device's CPU, e.g., "Kryo 240". *
-   * `deviceGpuMake` (string): Make of the device's GPU, e.g., ARM. *
-   * `deviceGpuModel` (string): Model of the device's GPU, e.g., Mali. *
-   * `deviceGpuVersion` (string): Version of the device's GPU, e.g., T750. *
-   * `deviceVulkanVersion` (string): Vulkan version of the device, e.g.,
-   * "4198400". * `deviceGlEsVersion` (string): OpenGL ES version of the device,
-   * e.g., "196610". * `deviceScreenSize` (string): Screen size of the device,
-   * e.g., NORMAL, LARGE. * `deviceScreenDpi` (string): Screen density of the
-   * device, e.g., mdpi, hdpi.
+   * `deviceRamBucket` (int64): RAM of the device, in MB, in buckets (e.g., 1024
+   * for 1-1.5GB, 4096 for 4-6GB). * `deviceSocMake` (string): Make of the
+   * device's primary system-on-chip, e.g., Samsung. [Reference](https://develop
+   * er.android.com/reference/android/os/Build#SOC_MANUFACTURER) *
+   * `deviceSocModel` (string): Model of the device's primary system-on-chip,
+   * e.g., "Exynos 2100". [Reference](https://developer.android.com/reference/an
+   * droid/os/Build#SOC_MODEL) * `deviceCpuMake` (string): Make of the device's
+   * CPU, e.g., Qualcomm. * `deviceCpuModel` (string): Model of the device's
+   * CPU, e.g., "Kryo 240". * `deviceGpuMake` (string): Make of the device's
+   * GPU, e.g., ARM. * `deviceGpuModel` (string): Model of the device's GPU,
+   * e.g., Mali. * `deviceGpuVersion` (string): Version of the device's GPU,
+   * e.g., T750. * `deviceVulkanVersion` (string): Vulkan version of the device,
+   * e.g., "4198400". * `deviceGlEsVersion` (string): OpenGL ES version of the
+   * device, e.g., "196610". * `deviceScreenSize` (string): Screen size of the
+   * device, e.g., NORMAL, LARGE. * `deviceScreenDpi` (string): Screen density
+   * of the device, e.g., mdpi, hdpi.
    *
    * @param string[] $dimensions
    */
