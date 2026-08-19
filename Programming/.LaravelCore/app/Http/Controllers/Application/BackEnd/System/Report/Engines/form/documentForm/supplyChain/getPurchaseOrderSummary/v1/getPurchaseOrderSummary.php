@@ -69,6 +69,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
                             $varData['parameter']['CombinedBudgetCode'],
                             $varData['parameter']['CombinedBudgetSectionCode'],
                             $varData['parameter']['Supplier_RefID'],
+                            $varData['parameter']['StartDate'],
+                            $varData['parameter']['EndDate'],
 
 	                        $varData['SQLStatement']['paging']
                             ))))
