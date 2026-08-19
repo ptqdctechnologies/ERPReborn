@@ -44,19 +44,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'transaction.update.supplyChain.setWarehouse',
                     'latest',
                     [
-                        'recordID' => 173000000000007,
+                        'recordID' => 173000000000013,
                         'entities' => [
                             'institutionBranch_RefID' => 124000000000001,
-                            'name' => 'Testing Update',
-                            'warehouseType_RefID' => 172000000000001,
-                            'address' => 'Update',
+                            'name' => 'Warehouse Medan',
+                            'warehouseType_RefID' => 172000000000006,
+                            'address' => 'Jl. Margomulyo No. 88, Medan',
                             'location' => [
-                                'country' => 'Amerika',
-                                'province' => 'New York',
-                                'city' => 'Citayem'
+                                'country_code' => 'ID',
+                                'country' => 'Indonesia',
+                                'province_code' => 'SU',
+                                'province' => 'Sumatera Utara',
+                                'city' => 'Medan'
                             ],
-                            'code' => 'WH-Tes',
-                            'status' => false
+                            'code' => 'WH-004',
+                            'status' => true
                         ]
                     ]
                 );
