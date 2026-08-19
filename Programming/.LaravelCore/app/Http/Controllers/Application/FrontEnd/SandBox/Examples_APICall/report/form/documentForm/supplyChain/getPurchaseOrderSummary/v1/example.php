@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseOrderSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-20                                                                                           |
+        | ▪ Last Update     : 2026-08-19                                                                                           |
         | ▪ Creation Date   : 2025-07-10                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -39,12 +39,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000062',
-                    // 'CombinedBudgetSectionCode' => '235',
-                    // 'Supplier_RefID' => 126000000000002,
-                    'CombinedBudgetCode' => NULL,
-                    'CombinedBudgetSectionCode' => NULL,
-                    'Supplier_RefID' => NULL
+                    'CombinedBudgetCode' => 'Q000062',
+                    'CombinedBudgetSectionCode' => '240',
+                    'Supplier_RefID' => 126000000002269,
+                    'StartDate' => '2020-01-01',
+                    'EndDate' => '2026-08-19'
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'CombinedBudgetSectionCode' => NULL,
+                    // 'Supplier_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [

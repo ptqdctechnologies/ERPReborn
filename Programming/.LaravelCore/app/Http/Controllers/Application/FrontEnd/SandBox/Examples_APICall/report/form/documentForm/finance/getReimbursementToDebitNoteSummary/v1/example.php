@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.finance.getReimbursementToDebitNoteSummary.v1_throughAPIGateway        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-28                                                                                           |
+        | ▪ Last Update     : 2026-08-18                                                                                           |
         | ▪ Creation Date   : 2025-08-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -40,9 +40,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 [
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
-                    'CombinedBudgetSectionCode' => '235',
+                    'Customer_RefID' => 125000000000001,
+                    'Reimbursement_RefID' => 288000000000001,
+                    'DebitNote_RefID' => 240000000000001,
+                    'StartDate' => '2020-01-01',
+                    'EndDate' => '2026-08-13'
                     // 'CombinedBudgetCode' => NULL,
-                    // 'CombinedBudgetSectionCode' => NULL,
+                    // 'Customer_RefID' => NULL,
+                    // 'Reimbursement_RefID' => NULL,
+                    // 'DebitNote_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
