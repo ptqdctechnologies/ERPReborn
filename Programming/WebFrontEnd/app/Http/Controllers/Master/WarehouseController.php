@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use App\Services\Master\Warehouse\WarehouseService;
 use App\Http\Requests\Master\Warehouse\StoreWarehouse;
+use Illuminate\Support\Facades\Session;
 
 class WarehouseController extends Controller
 {
@@ -68,11 +69,55 @@ class WarehouseController extends Controller
 
     public function revision(Request $request)
     {
-        return view('Master.Warehouse.Transactions.revision');
+        $warehouseCode = $request->input('modal_warehouse_id');
+        $response = $this->warehouseService->detail($warehouseCode);
+
+        $header = $response['data']['data']['document']['header'] ?? [];
+        $record = $response['data']['data']['document']['content']['itemList']['ungrouped'][0] ?? null;
+
+        if (
+            ($response['metadata']['HTTPStatusCode'] ?? 500) !== 200 ||
+            ($header['dataCount'] ?? 0) === 0 ||
+            !$record
+        ) {
+            throw new \Exception('Failed to fetch work detail.');
+        }
+
+        $compact = [
+            'varAPIWebToken' => Session::get('SessionLogin'),
+            'warehouseRefID' => $record['recordID'],
+            'warehouseCode' => $record['entities']['code'],
+            'warehouseName' => $record['entities']['name'],
+            'warehouseAddress' => $record['entities']['address'],
+            'warehouseLocation' => $record['entities']['location'],
+            'warehouseTypeRefID' => $record['entities']['warehouseType_RefID'],
+            'warehouseTypeName' => $record['entities']['warehouseTypeName'],
+            'warehouseStatus' => $record['entities']['status']
+        ];
+
+        return view('Master.Warehouse.Transactions.revision', $compact);
     }
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->warehouseService->revision($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Warehouse => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Warehouse Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
