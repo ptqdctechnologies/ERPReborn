@@ -937,6 +937,13 @@
                         $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.businessDocument_RefID);
                         $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.documentNumber);
                         $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
+
+                        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(dataTransaction.businessDocument_RefID));
+                        updateField(currentIndexPickRefNumber, 'ref_number_name', dataTransaction.documentNumber);
+                        updateField(currentIndexPickRefNumber, 'budget_ref_id', dataTransaction.combinedBudget_RefID);
+                        updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
+                        updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
+                        updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
                     }
                 } else {
 

@@ -235,7 +235,8 @@ class AccountPayableController extends Controller
                     'depreciationCOACode' => $dataAccountPayableDetail[0]['depreciationCOA_Code'] ?? '',
                     'depreciationCOAName' => $dataAccountPayableDetail[0]['depreciationCOA_Name'] ?? '',
                     'depreciationRateYears_RefID' => $dataAccountPayableDetail[0]['depreciationAssetCategory_RefID'] ?? '',
-                    'deduction' => $dataAccountPayableDetail[0]['deduction'] ?? ''
+                    'deduction' => $dataAccountPayableDetail[0]['deduction'] ?? '',
+                    'totalPayment' => $dataAccountPayableDetail[0]['totalPayment'] ?? ''
                 ],
                 'detail' => $dataAccountPayableDetail
             ];
