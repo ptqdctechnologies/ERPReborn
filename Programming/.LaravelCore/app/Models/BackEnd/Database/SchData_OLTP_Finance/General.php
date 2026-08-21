@@ -5907,7 +5907,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_ReimbursementSummary                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-11                                                                                           |
+        | ▪ Last Update     : 2026-08-20                                                                                           |
         | ▪ Creation Date   : 2025-08-11                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Reimbursement                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5921,7 +5921,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_ReimbursementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varVendor_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varVendor_RefID = null, string $varStartDate = null, string $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5934,9 +5934,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varVendor_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
