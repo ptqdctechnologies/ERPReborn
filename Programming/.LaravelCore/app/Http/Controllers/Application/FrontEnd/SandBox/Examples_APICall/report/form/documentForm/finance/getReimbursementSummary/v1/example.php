@@ -39,10 +39,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'latest',
                 [
                 'parameter' => [
-                    // 'CombinedBudgetCode' => 'Q000062',
-                    // 'Vendor_RefID' => 126000000000002,
-                    'CombinedBudgetCode' => NULL,
-                    'Vendor_RefID' => NULL
+                    'CombinedBudgetCode' => 'Q000062',
+                    'Vendor_RefID' => 126000000000002,
+                    'StartDate' => '2020-01-01',
+                    'EndDate' => '2026-08-19'
+                    // 'CombinedBudgetCode' => NULL,
+                    // 'Vendor_RefID' => NULL,
+                    // 'StartDate' => NULL,
+                    // 'EndDate' => NULL
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        // 'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );
