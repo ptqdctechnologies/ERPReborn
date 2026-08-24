@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.6.15] - 2026-08-19
+
+### Fixed
+
+- [1515: Fix partial mocks skipping real `__construct` and `__clone`](https://github.com/mockery/mockery/pull/1515)
+
+## [1.6.14] - 2026-08-18
+
+### Changed
+
+- [1512: Allow mocking `__clone` magic method](https://github.com/mockery/mockery/pull/1512)
+
+### Fixed
+
+- [1509: Fix str_* polyfills documenting non-empty-string parameters](https://github.com/mockery/mockery/pull/1509)
+
 ## [1.6.13] - 2026-08-14
 
 ### Added

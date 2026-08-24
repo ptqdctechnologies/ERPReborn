@@ -135,6 +135,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
      */
     private array $typeCache = [];
     private array $attributesCache = [];
+    private array $typePropertiesCache = [];
     private readonly \Closure $objectClassResolver;
 
     public function __construct(
@@ -578,6 +579,44 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                         $class = $collectionValueBaseType->getClassName().'[]';
                         $context['key_type'] = $collectionKeyType;
                         $context['value_type'] = $collectionValueType;
+                    } elseif (\is_array($data) && $collectionValueBaseType instanceof BuiltinType && \in_array($collectionValueBaseType->getTypeIdentifier(), [TypeIdentifier::BOOL, TypeIdentifier::FLOAT, TypeIdentifier::INT, TypeIdentifier::STRING], true)) {
+                        // elements of a scalar collection are converted and enforced with the very same rules as any other value
+                        $result = [];
+                        $childContext = null;
+                        $valueTypeIdentifier = $collectionValueBaseType->getTypeIdentifier();
+                        $valueIsNullable = $collectionValueType->isNullable();
+                        // a union that still has another viable member must fail over to it instead of reporting elements
+                        $collectElementErrors = isset($context['not_normalizable_value_exceptions']) && 1 === \count(array_filter($types, static fn (Type $t) => !$t->isIdentifiedBy(TypeIdentifier::NULL)));
+
+                        foreach ($data as $key => $value) {
+                            // values that already have the expected type are the common case, keep them as is
+                            if (null === $value ? $valueIsNullable : match ($valueTypeIdentifier) {
+                                TypeIdentifier::BOOL => \is_bool($value),
+                                TypeIdentifier::FLOAT => \is_float($value),
+                                TypeIdentifier::INT => \is_int($value),
+                                default => \is_string($value),
+                            }) {
+                                $result[$key] = $value;
+                                continue;
+                            }
+
+                            $childContext ??= $this->createChildContext($context, $attribute, $format);
+                            $childContext['deserialization_path'] = ($context['deserialization_path'] ?? false) ? \sprintf('%s[%s]', $context['deserialization_path'], $key) : "[$key]";
+
+                            try {
+                                // the wrapped type is passed on so that a nullable element type keeps accepting null
+                                $result[$key] = $this->validateAndDenormalize($collectionValueType, $currentClass, $attribute, $value, $format, $childContext);
+                            } catch (NotNormalizableValueException $exception) {
+                                if (!$collectElementErrors) {
+                                    throw $exception;
+                                }
+
+                                // report every offending element, the way nested objects already do
+                                $context['not_normalizable_value_exceptions'][] = $exception;
+                            }
+                        }
+
+                        return $result;
                     } elseif ($collectionValueBaseType instanceof BuiltinType && TypeIdentifier::ARRAY === $collectionValueBaseType->getTypeIdentifier()) {
                         // get inner type for any nested array
                         $innerType = $collectionValueType;
@@ -902,14 +941,66 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             // are all allowed. The class of an object is known and the others cannot be read from it.
             if (!\is_object($classOrObject) && null !== $discriminatorMapping = $this->classDiscriminatorResolver->getMappingForClass($classOrObject)) {
                 $attributes = [];
-                foreach ($discriminatorMapping->getTypesMapping() as $mappedClass) {
-                    $attributes[] = parent::getAllowedAttributes($mappedClass, $context, $attributesAsString);
+                $mappedClasses = array_values($discriminatorMapping->getTypesMapping());
+                $visited = [$classOrObject => true];
+
+                // Forcing extra attributes off makes the mapped classes return their attributes instead of false
+                $mappedContext = [self::ALLOW_EXTRA_ATTRIBUTES => false] + $context;
+
+                while (null !== $mappedClass = array_shift($mappedClasses)) {
+                    if (isset($visited[$mappedClass])) {
+                        continue;
+                    }
+                    $visited[$mappedClass] = true;
+
+                    $attributes[] = parent::getAllowedAttributes($mappedClass, $mappedContext, $attributesAsString);
+
+                    // Mapped classes can declare a discriminator map of their own
+                    if (null !== $nestedMapping = $this->classDiscriminatorResolver->getMappingForClass($mappedClass)) {
+                        $typeProperty = $nestedMapping->getTypeProperty();
+                        $attributes[] = [$attributesAsString ? $typeProperty : new AttributeMetadata($typeProperty)];
+                        $mappedClasses = array_merge($mappedClasses, array_values($nestedMapping->getTypesMapping()));
+                    }
                 }
+
                 $allowedAttributes = array_merge($allowedAttributes, ...$attributes);
             }
         }
 
         return $allowedAttributes;
+    }
+
+    /**
+     * Tells whether the attribute holds the type of a discriminator map the class takes part in.
+     *
+     * @internal
+     */
+    protected function isDiscriminatorTypeProperty(object|string $classOrObject, string $attribute): bool
+    {
+        if (null === $this->classDiscriminatorResolver) {
+            return false;
+        }
+
+        $class = \is_object($classOrObject) ? $classOrObject::class : $classOrObject;
+
+        if (!isset($this->typePropertiesCache[$class])) {
+            $typeProperties = [];
+
+            if (null !== $mapping = $this->classDiscriminatorResolver->getMappingForMappedObject($classOrObject)) {
+                $typeProperties[$mapping->getTypeProperty()] = true;
+            }
+
+            // getMappingForMappedObject() returns the innermost map only, while nested maps read one type property per level
+            foreach ([$class => $class] + class_parents($class) + class_implements($class) as $mappedClass) {
+                if (null !== $mapping = $this->classDiscriminatorResolver->getMappingForClass($mappedClass)) {
+                    $typeProperties[$mapping->getTypeProperty()] = true;
+                }
+            }
+
+            $this->typePropertiesCache[$class] = $typeProperties;
+        }
+
+        return isset($this->typePropertiesCache[$class][$attribute]);
     }
 
     /**
