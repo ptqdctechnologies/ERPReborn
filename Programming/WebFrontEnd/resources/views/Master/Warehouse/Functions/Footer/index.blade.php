@@ -124,7 +124,7 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        $(`#modal_warehouse_id`).val(sysId);
+        $(`#modal_warehouse_id`).val(code);
         $(`#modal_warehouse_document_number`).val(`${code} - ${name}`);
         $(`#modal_warehouse_document_number`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
 

@@ -1,4 +1,6 @@
 <script>
+    const dateRate = document.getElementById("rate_date");
+
     $('#tableCurrencies').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_currencies"]').val();
         const code = $(this).find('td:nth-child(2)').text();
@@ -13,28 +15,20 @@
     });
 
     $(document).ready(function () {
-        $('#rate_date_range').daterangepicker({
-            autoUpdateInput: false,
+        $('#rate_date_range').datetimepicker({
+            format: 'L',
             minDate: moment().subtract(7, 'days'),
             maxDate: moment(),
-            locale: {
-                cancelLabel: 'Clear'
+        });
+
+        $('#rate_date_range').on('change.datetimepicker', function (e) {
+            if (dateRate.value) {
+                $("#rate_date").css({
+                    "background-color": "#e9ecef",
+                    "border": "1px solid #ced4da"
+                });
+                // $("#dateOfDeliveryMessage").hide();
             }
-        });
-
-        $('#rate_date_range').on('apply.daterangepicker', function (ev, picker) {
-            $("#rate_date_range").css('background-color', '#e9ecef');
-            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            ErrorHandler.hideErrorInputMessage("#rate_date_range", "#dateRangeMessage");
-        });
-
-        $('#rate_date_range').on('cancel.daterangepicker', function (ev, picker) {
-            $("#rate_date_range").css('background-color', '#fff');
-            $(this).val('');
-        });
-
-        $('#rate_date_range_container_icon').on('click', function () {
-            $('#rate_date_range').trigger('click');
         });
     });
 </script>

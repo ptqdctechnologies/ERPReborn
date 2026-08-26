@@ -203,9 +203,9 @@
             total += value;
         });
 
-        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[7].innerText}): ${decimalFormat(total)}`;
+        document.getElementById('GrandTotal').innerText = `Total (${rows[0].children[6].innerText}): ${decimalFormat(total)}`;
         document.getElementById('GrandVAT').innerText = `VAT: ${TotalPpns.innerText}`;
-        document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[7].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
+        document.getElementById('GrandTotalVAT').innerText = `Total (${rows[0].children[6].innerText}) + VAT: ${decimalFormat(total + parseFloat(TotalPpns.innerText))}`;
     }
 
     function summaryData() {
@@ -613,6 +613,7 @@
                     <td style="text-align: center; padding: 10px !important;">${val2.quantityUnitName || '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(val2.productUnitPriceCurrencyValue || 0)}</td>
                     <td style="text-align: center; padding: 10px !important;">${currencyTotal(totalReq || 0)}</td>
+                    <td style="text-align: center; padding: 10px !important;">${val2.ap_Value ? currencyTotal(val2.ap_Value) : '-'}</td>
                     <td style="text-align: center; padding: 10px !important;">${val2.productUnitPriceCurrencyISOCode}</td>
                     <td class="sticky-col sixth-col-po" style="border:1px solid #e9ecef;background-color:white;">
                         <input class="form-control number-without-negative" id="qty_req${key}" data-index=${key} data-total-request=${totalReq} data-default="${currencyTotal(val2.quantity || 0)}" autocomplete="off" style="border-radius:0px;" value="${currencyTotal(val2.quantity || 0)}" />
@@ -780,7 +781,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;

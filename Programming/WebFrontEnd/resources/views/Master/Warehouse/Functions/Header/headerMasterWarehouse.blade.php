@@ -8,7 +8,7 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="warehouse_code" name="warehouse_code" style="border-radius:0;"
-                            autocomplete="off" />
+                            autocomplete="off" value="<?= isset($warehouseCode) ? $warehouseCode : ''; ?>" />
                     </div>
                 </div>
             </div>
@@ -23,7 +23,7 @@
                 <div class="col-5 d-flex">
                     <div class="input-group">
                         <input class="form-control" id="warehouse_name" name="warehouse_name" style="border-radius:0;"
-                            autocomplete="off" />
+                            autocomplete="off" value="<?= isset($warehouseName) ? $warehouseName : ''; ?>" />
                     </div>
                 </div>
             </div>
@@ -45,8 +45,10 @@
                     <div style="flex: 100%;">
                         <div class="input-group">
                             <input id="country_name" class="form-control" readonly name="country_name"
-                                style="border-radius:0; background-color: white;">
+                                value="<?= isset($warehouseLocation) && isset($warehouseLocation['country']) ? $warehouseLocation['country'] : ''; ?>"
+                                style="border-radius:0; background-color: <?= isset($warehouseLocation) && isset($warehouseLocation['country']) ? '#e9ecef' : 'white' ?>;">
                             <input id="country_code" class="form-control" hidden name="country_code"
+                                value="<?= isset($warehouseLocation) && isset($warehouseLocation['country_code']) ? $warehouseLocation['country_code'] : ''; ?>"
                                 style="border-radius:0; background-color: white;">
                         </div>
                     </div>
@@ -70,8 +72,10 @@
                     <div style="flex: 100%;">
                         <div class="input-group">
                             <input id="province_name" class="form-control" name="province_name" readonly
-                                style="border-radius:0; background-color: white;">
+                                value="<?= isset($warehouseLocation) && isset($warehouseLocation['province']) ? $warehouseLocation['province'] : ''; ?>"
+                                style="border-radius:0; background-color: <?= isset($warehouseLocation) && isset($warehouseLocation['province']) ? '#e9ecef' : 'white' ?>;">
                             <input id="province_code" class="form-control" name="province_code" hidden
+                                value="<?= isset($warehouseLocation) && isset($warehouseLocation['province_code']) ? $warehouseLocation['province_code'] : ''; ?>"
                                 style="border-radius:0;">
                         </div>
                     </div>
@@ -95,7 +99,8 @@
                     <div style="flex: 100%;">
                         <div class="input-group">
                             <input id="city_name" class="form-control" name="city_name" readonly
-                                style="border-radius:0; background-color: white;">
+                                value="<?= isset($warehouseLocation) && isset($warehouseLocation['city']) ? $warehouseLocation['city'] : ''; ?>"
+                                style="border-radius:0; background-color: <?= isset($warehouseLocation) && isset($warehouseLocation['city']) ? '#e9ecef' : 'white' ?>;">
                         </div>
                     </div>
                 </div>
@@ -108,6 +113,23 @@
 
         <!-- RIGHT -->
         <div class="col-md-12 col-lg-5">
+            <!-- STATUS -->
+            <div class="row" style="margin-bottom: 1rem; display: <?= isset($warehouseStatus) ? 'flex' : 'none'; ?>">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Status</label>
+                <div class="col-4 d-flex" style="gap: 1rem;">
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input" type="radio" name="warehouse_status" id="active" value="1"
+                            <?= isset($warehouseStatus) && $warehouseStatus == 1 ? 'checked' : ''; ?> />
+                        <label class="form-check-label" for="active">Active</label>
+                    </div>
+                    <div class="form-check d-flex align-items-center">
+                        <input class="form-check-input" type="radio" name="warehouse_status" id="inactive" value="0"
+                            <?= isset($warehouseStatus) && $warehouseStatus == 0 ? 'checked' : ''; ?> />
+                        <label class="form-check-label" for="inactive">Inactive</label>
+                    </div>
+                </div>
+            </div>
+
             <!-- WAREHOUSE TYPE -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Type</label>
@@ -119,9 +141,12 @@
                         </span>
                     </div>
                     <div style="flex: 1;">
-                        <input type="hidden" id="warehouse_type_id" name="warehouse_type_id" class="form-control" />
+                        <input type="hidden" id="warehouse_type_id" name="warehouse_type_id" class="form-control"
+                            value="<?= isset($warehouseTypeRefID) ? $warehouseTypeRefID : ''; ?>" />
                         <input type="text" id="warehouse_type" name="warehouse_type" class="form-control"
-                            style="border-radius:0;background-color:white;" readonly />
+                            value="<?= isset($warehouseTypeName) ? $warehouseTypeName : ''; ?>"
+                            style="border-radius:0;background-color:<?= isset($warehouseTypeName) ? '#e9ecef' : ''; ?>;"
+                            readonly />
                     </div>
                 </div>
             </div>
@@ -135,7 +160,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Address</label>
                 <div class="col-5">
                     <textarea id="warehouse_address" name="warehouse_address" cols="30" rows="4" class="form-control"
-                        autocomplete="off"></textarea>
+                        autocomplete="off"><?= isset($warehouseAddress) ? $warehouseAddress : ''; ?></textarea>
                 </div>
             </div>
             <div class="row" id="warehouseAddressMessage" style="margin-top: .3rem;display: none;">

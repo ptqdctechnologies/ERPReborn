@@ -841,19 +841,25 @@
         const dataRow = table.row(this).data();
 
         if (dataRow) {
-            $("#myCurrencies").modal('toggle');
-
             const currencyRefID = dataRow.sys_ID;
             const currencyISOCode = dataRow.ISOCode;
             const currencyName = dataRow.name;
 
-            $(`#currency_RefID${indexCurrency}`).val(currencyRefID);
-            $(`#currencyName${indexCurrency}`).val(`${currencyISOCode ?? ''} - ${currencyName ?? ''}`);
-            $(`#currencyName${indexCurrency}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+            if (currencyISOCode != "USD" && currencyISOCode != "IDR" && currencyISOCode != "EUR") {
+                Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
 
-            updateField(indexCurrency, 'currency_RefID', currencyRefID);
-            updateField(indexCurrency, 'currrencyISOCode', currencyISOCode);
-            updateField(indexCurrency, 'currencyName', currencyName);
+                return;
+            } else {
+                $(`#currency_RefID${indexCurrency}`).val(currencyRefID);
+                $(`#currencyName${indexCurrency}`).val(`${currencyISOCode ?? ''} - ${currencyName ?? ''}`);
+                $(`#currencyName${indexCurrency}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+                updateField(indexCurrency, 'currency_RefID', currencyRefID);
+                updateField(indexCurrency, 'currrencyISOCode', currencyISOCode);
+                updateField(indexCurrency, 'currencyName', currencyName);
+            }
+
+            $("#myCurrencies").modal('toggle');
         }
     });
 

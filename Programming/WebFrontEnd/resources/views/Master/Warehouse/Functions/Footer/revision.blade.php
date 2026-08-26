@@ -1,5 +1,6 @@
 <script>
-    let countryCodeTemp = null;
+    const countryCode = document.getElementById("country_code");
+    const provinceCode = document.getElementById("province_code");
 
     $('#tableCountries').on('click', 'tbody tr', function () {
         const id = $(this).find('input[data-trigger="sys_id_country"]').val();
@@ -60,7 +61,54 @@
         $("#myCities").modal('toggle');
     });
 
+    $('#submit-confirmation').on('click', function (e) {
+        e.preventDefault();
+
+        $.ajax({
+            type: 'PUT',
+            url: '{!! route("Warehouse.update", $warehouseRefID) !!}',
+            data: $('#warehouseForm').serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            }
+        })
+            .done(function (response) {
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        Utils.cancelForm("{{ route('Warehouse.index') }}");
+                    });
+                }
+            })
+            .fail(function (jqXHR, textStatus, errorThrown) {
+                console.error("Error:", errorThrown);
+            })
+            .always(function (jqXHR, textStatus, errorThrown) {
+                Utils.hideLoading();
+            });
+    });
+
     $(document).ready(function () {
+        countryCodeTemp = countryCode.value;
+
         getCountries();
+        getProvincies(countryCode.value);
+        getCities(countryCode.value, provinceCode.value);
     });
 </script>
