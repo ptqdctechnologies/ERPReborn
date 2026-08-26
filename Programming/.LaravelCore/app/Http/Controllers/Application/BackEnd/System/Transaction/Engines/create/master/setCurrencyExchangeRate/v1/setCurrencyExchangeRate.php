@@ -3,29 +3,27 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance                     |
-|                \getReimbursementSummary\v1                                                                         |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setCurrencyExchangeRate\v1     |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2025 ijonk7 (rizal.devapps@gmail.com)                                                                               |
+| ▪ Copyleft 🄯 2026 ijonk7 (rizal.devapps@gmail.com)                                                                               |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\documentForm\finance\getReimbursementSummary\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\master\setCurrencyExchangeRate\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getReimbursementSummary                                                                        |
-    | ▪ Description : Menangani API report.form.documentForm.finance.getReimbursementSummary Version 1           |
+    | ▪ Class Name  : setCurrencyExchangeRate                                                                                      |
+    | ▪ Description : Menangani API transaction.create.master.setCurrencyExchangeRate Version 1                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getReimbursementSummary extends \App\Http\Controllers\Controller
+    class setCurrencyExchangeRate extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Create date     : 2025-08-11                                                                                           |
-        | ▪ Last Update     : 2025-08-11                                                                                           |
+        | ▪ Last Update     : 2026-08-21                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -43,9 +41,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000001                                                                                       |
-        | ▪ Create date     : 2025-08-11                                                                                           |
-        | ▪ Last Update     : 2025-08-11                                                                                           |
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-08-21                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -59,19 +56,33 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\do
             {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
             try {
-                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Get Report Form - Purchase Requisition Document Form (version 1)');
+                $varSysDataProcess = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__, 'Create Currency Exchange Rate Data (version 1)');
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
-                    try {
-                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead($varUserSession, (new \App\Models\Database\SchData_OLTP_Finance\General())->getReport_Form_DocumentForm_ReimbursementSummary(
-                            $varUserSession, 
-                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
-                            $varData['parameter']['CombinedBudgetCode'],
-                            $varData['parameter']['Vendor_RefID'],
-                            $varData['parameter']['StartDate'],
-                            $varData['parameter']['EndDate'],
+                    try{
+                        if(!($varDataSend = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataCreate($varUserSession, (new \App\Models\Database\SchData_OLTP_Master\TblCurrencyExchangeRate())->setDataInsert(
+                            $varUserSession,
 
-	                        $varData['SQLStatement']['paging']
+                            null,
+                            null,
+                            null,
+                            null,
+                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                $varUserSession
+                                )
+                            )['branchID'],
+                            (\App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID(
+                                $varUserSession,
+                                (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                    $varUserSession
+                                    )
+                                )['branchID'],
+                                'Env.System.BaseCurrency.ID'
+                                )
+                            ),
+
+                            $varData['entities']['currency_RefID'],
+                            $varData['entities']['rate']
                             ))))
                             {
                             throw new \Exception();

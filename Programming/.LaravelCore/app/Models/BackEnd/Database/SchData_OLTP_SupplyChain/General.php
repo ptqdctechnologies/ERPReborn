@@ -5537,10 +5537,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseOrderSummary                                               |
+        | ▪ Method Name     : getReport_Form_DocumentForm_PurchaseOrderSummary                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-07-10                                                                                           |
+        | ▪ Last Update     : 2026-08-19                                                                                           |
         | ▪ Creation Date   : 2025-07-10                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen PurchaseOrder                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5549,7 +5549,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
         |      ▪ (string)    varCombinedBudgetCode ► Combined Budget Code                                                          |
         |      ▪ (string)    varCombinedBudgetSectionCode ► Combined Budget Section Code                                           |
-        |      ▪ (int)    varSupplier_RefID ► Supplier ID                                                                        |
+        |      ▪ (int)    varSupplier_RefID ► Supplier ID                                                                          |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5560,6 +5560,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
             string $varCombinedBudgetCode = null,
             string $varCombinedBudgetSectionCode = null,
             int $varSupplier_RefID = null,
+            string $varStartDate = null,
+            string $varEndDate = null,
             array $varPagingStatement = null
         ) {
             try {
@@ -5573,6 +5575,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                                 [$varCombinedBudgetCode, 'varchar'],
                                 [$varCombinedBudgetSectionCode, 'varchar'],
                                 [$varSupplier_RefID, 'bigint'],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]

@@ -5907,7 +5907,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_ReimbursementSummary                                                     |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-11                                                                                           |
+        | ▪ Last Update     : 2026-08-20                                                                                           |
         | ▪ Creation Date   : 2025-08-11                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Reimbursement                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5921,7 +5921,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_ReimbursementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varVendor_RefID = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varVendor_RefID = null, string $varStartDate = null, string $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5934,9 +5934,14 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varVendor_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+                                [$varPagingStatement['limit'], 'varchar'],
+                                [$varPagingStatement['offset'], 'bigint']
                             ]
                             )
                         );
+	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
             catch (\Exception $ex) {
@@ -6143,7 +6148,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_LoanToLoanSettlementSummary                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-02-06                                                                                           |
+        | ▪ Last Update     : 2026-08-18                                                                                           |
         | ▪ Creation Date   : 2025-09-29                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen Loan To Loan Settlement                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -6157,7 +6162,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_LoanToLoanSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCreditor_RefID = null, int $varDebitor_RefID = null, int $varLoan_RefID = null, int $varLoanSettlement_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6169,6 +6174,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             'SchData-OLTP-Finance.Func_GetReport_DocForm_LoanToLoanSettlementSummary',
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
+                                [$varCreditor_RefID, 'bigint' ],
+                                [$varDebitor_RefID, 'bigint' ],
+                                [$varLoan_RefID, 'bigint' ],
+                                [$varLoanSettlement_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
@@ -6202,7 +6213,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_ReimbursementToDebitNoteSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, int $varCustomer_RefID = null, int $varReimbursement_RefID = null, int $varDebitNote_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6214,7 +6225,12 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             'SchData-OLTP-Finance.Func_GetReport_DocForm_ReimbursementToDNSummary',
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
-                                [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCustomer_RefID, 'bigint' ],
+                                [$varReimbursement_RefID, 'bigint' ],
+                                [$varDebitNote_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
+
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]
