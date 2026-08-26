@@ -581,6 +581,8 @@ class AdvanceRequestController extends Controller
                         'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null,
                         'StartDate' => $date ? $startDate : NULL,
                         'EndDate' => $date ? $endDate : NULL,
+                        'Advance_RefID' => NULL,
+                        'AdvanceSettlement_RefID' => NULL
                     ],
                     'SQLStatement' => [
                         'paging' => [

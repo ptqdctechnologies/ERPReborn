@@ -54,12 +54,12 @@
                                                 </select>
                                                 entries
                                             </label>
-                                            <label>
-                                                Search:
-                                                <input type="text" id="searchInput" autocomplete="off"
-                                                    placeholder="Search..."
-                                                    style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                            </label>
+                                            <!-- <label>
+                                                    Search:
+                                                    <input type="text" id="searchInput" autocomplete="off"
+                                                        placeholder="Search..."
+                                                        style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                                </label> -->
                                         </div>
 
                                         <div class="table-responsive">
@@ -76,8 +76,8 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Debit Note</th>
                                                         <!-- <th colspan="2"
-                                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                    Balance</th> -->
+                                                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                        Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th

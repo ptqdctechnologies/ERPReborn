@@ -342,12 +342,28 @@ class ReimbursementController extends Controller
         try {
             $budgetCode = $request->budget_code;
             $customerID = $request->customer_id;
+            $reimbursementID = $request->reimbursement_id;
+            $debitNoteID = $request->debit_note_id;
             $date = $request->date;
+
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->reimbursementService->getReimbursementToDebitNote(
                 $budgetCode,
                 $customerID,
-                $date
+                $reimbursementID,
+                $debitNoteID,
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -356,7 +372,11 @@ class ReimbursementController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

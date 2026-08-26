@@ -7,12 +7,16 @@
     let filteredData = [...data];
     let sortColumn = null;
     let sortOrder = 'asc';
+    let totalRecords = 0;
+    let totalPages = 0;
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
     const budgetID = document.getElementById("budget_id");
     const budgetCode = document.getElementById("budget_code");
     const customerID = document.getElementById("customer_id");
+    const reimbursementID = document.getElementById("rem_id");
+    const debitNoteID = document.getElementById("dn_id");
     const date = document.getElementById("reimbursement_date_range");
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
@@ -153,12 +157,20 @@
         $(`#customer_code`).val("");
         $(`#customer_id`).val("");
 
+        $("#rem_number").css('background-color', '#fff');
+        $(`#rem_number`).val("");
+        $(`#rem_id`).val("");
+
+        $("#dn_number").css('background-color', '#fff');
+        $(`#dn_number`).val("");
+        $(`#dn_id`).val("");
+
         $("#reimbursement_date_range").css('background-color', '#fff');
         $(`#reimbursement_date_range`).val("");
     }
 
-    function getDataReport() {
-        ShowLoading();
+    function getDataReport(page = currentPage) {
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -166,35 +178,47 @@
             data: {
                 budget_code: budgetCode.value,
                 customer_id: customerID.value,
-                date: date.value
+                reimbursement_id: reimbursementID.value,
+                debit_note_id: debitNoteID.value,
+                date: date.value,
+                page: page,
+                limit: rowsPerPage
             },
             dataType: 'json',
             success: function (response) {
-                data = (response.status === 200 && response.data[0]) ? response.data : [];
+
+                data = response.data || [];
+
+                currentPage = response.page;
+                rowsPerPage = response.limit;
+
+                totalRecords = response.totalRecords;
+                totalPages = Math.ceil(totalRecords / rowsPerPage);
+
                 dataReport = data;
 
-                filteredData = [...data];
-                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
-                sortColumn = null;
-                sortOrder = 'asc';
-
-                renderPage();
+                renderTable(data);
                 renderPagination();
 
-                $('#table_container').css("display", "block");
+                $('#table_container').show();
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
-        })
+        });
     }
 
     function exportDataReport() {
-        ShowLoading();
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -212,25 +236,28 @@
                 link.href = window.URL.createObjectURL(blob);
 
                 if (response.type === "application/pdf") {
-                    link.download = "Export Report Reimbursement to Debit Note.pdf";
+                    link.download = 'Report Reimbursement To Debit Note Summary.pdf';
                 } else {
-                    link.download = "Export Report Reimbursement to Debit Note.xlsx";
+                    link.download = 'Report Reimbursement To Debit Note Summary.xlsx';
                 }
 
                 link.click();
 
                 window.URL.revokeObjectURL(link.href);
 
-                HideLoading();
+                Utils.hideLoading();
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
-
-        HideLoading();
     }
 
     function renderTable(data) {
@@ -247,7 +274,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? ind + 1 : rowNumber;
             row.appendChild(noCell);
 
             const remNumberCell = document.createElement('td');
@@ -391,42 +418,11 @@
     }
 
     function renderPage() {
-        const sortedData = sortData(filteredData);
-
-        const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData);
-
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
-            "no": "",
-            "rem_number": "",
-            "rem_date": "",
-            "rem_customer": "",
-            "rem_total": "",
-            "rem_total_other": "",
-            "rem_total_equivalent": "",
-            "rem_status": "",
-            "dn_number": "",
-            "dn_date": "",
-            "dn_total": "",
-            "dn_total_other": "",
-            "dn_total_equivalent": "",
-            "dn_status": "",
-            "balance_rem_to_payment": "",
-            "balance_rem_to_dn": ""
-        }];
-
-        startLimit.textContent = start + 1;
-        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
-        totalData.textContent = filteredAndSortedData.length;
-
-        renderTable(pageData);
-        updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
+        renderTable(data);
     }
 
     function renderPagination() {
-        totalPages = Math.ceil(data.length / rowsPerPage);
+        totalPages = Math.ceil(totalRecords / rowsPerPage);
 
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
@@ -434,11 +430,31 @@
 
         pageNumbersContainer.innerHTML = '';
 
-        const startLimit = (currentPage - 1) * rowsPerPage + 1;
-        const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
-        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
-        document.querySelector('#total_data').textContent = data.length;
+        // Tambahkan di sini
+        if (rowsPerPage === 'ALL') {
+            document.getElementById('prevPage').style.display = 'none';
+            document.getElementById('nextPage').style.display = 'none';
+            // document.getElementById('pageNumbers').textContent = '1';
+            // document.getElementById('pageNumbers').style.padding = '.5em 1em';
+            // document.getElementById('pageNumbers').style.marginRight = '0.5rem';
+            // document.getElementById('pageNumbers').style.cursor = 'pointer';
+            // document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+            // document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
+        } else {
+            document.getElementById('prevPage').style.display = 'inline';
+            document.getElementById('nextPage').style.display = 'inline';
+        }
+
+        const startLimitValue =
+            totalRecords === 0 ? 0 : ((currentPage - 1) * rowsPerPage) + 1;
+
+        const endLimitValue =
+            Math.min(currentPage * rowsPerPage, totalRecords);
+
+        document.querySelector('#start_limit').textContent = rowsPerPage == 'ALL' ? 1 : startLimitValue;
+        document.querySelector('#end_limit').textContent = rowsPerPage == 'ALL' ? totalRecords : endLimitValue;
+        document.querySelector('#total_data').textContent = totalRecords;
+
         let startPage = Math.max(1, currentPage - 1);
         let endPage = Math.min(totalPages, currentPage + 1);
 
@@ -474,9 +490,10 @@
             }
 
             pageNumber.addEventListener('click', () => {
-                currentPage = i;
-                renderPage();
-                renderPagination();
+                // currentPage = i;
+                // renderPage();
+                // renderPagination();
+                getDataReport(i);
             });
 
             pageNumbersContainer.appendChild(pageNumber);
@@ -566,7 +583,11 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
     }
 
@@ -576,32 +597,39 @@
         });
     });
 
-    document.querySelector('#searchInput').addEventListener('input', () => {
-        currentPage = 1;
-        renderPage();
-        renderPagination();
-    });
+    // document.querySelector('#searchInput').addEventListener('input', () => {
+    //     currentPage = 1;
+    //     renderPage();
+    //     renderPagination();
+    // });
 
     document.querySelector('#limitSelect').addEventListener('change', (e) => {
-        rowsPerPage = parseInt(e.target.value);
-        currentPage = 1;
-        renderPage();
-        renderPagination();
+        // rowsPerPage = parseInt(e.target.value);
+        // currentPage = 1;
+        // renderPage();
+        // renderPagination();
+
+        rowsPerPage = e.target.value;
+        getDataReport(1);
     });
 
     document.querySelector('#prevPage').addEventListener('click', () => {
         if (currentPage > 1) {
-            currentPage--;
-            renderPage();
-            renderPagination();
+            // currentPage--;
+            // renderPage();
+            // renderPagination();
+            getDataReport(currentPage - 1);
         }
     });
 
     document.querySelector('#nextPage').addEventListener('click', () => {
-        if (currentPage * rowsPerPage < filteredData.length) {
-            currentPage++;
-            renderPage();
-            renderPagination();
+        // if (currentPage * rowsPerPage < filteredData.length) {
+        //     currentPage++;
+        //     renderPage();
+        //     renderPagination();
+        // }
+        if (currentPage < totalPages) {
+            getDataReport(currentPage + 1);
         }
     });
 
@@ -651,7 +679,7 @@
         $("#rem_number").val(trano);
         $("#rem_number").css({ "background-color": "#e9ecef" });
 
-        $('#myGetModalReimbursement').modal('toggle');
+        $('#reimbursementListModal').modal('toggle');
     });
 
     $('#tableDebitNote').on('click', 'tbody tr', function () {
@@ -669,6 +697,7 @@
         renderPage();
         renderPagination();
         getModalCustomers();
+        getReimbursementList();
 
         $('#reimbursement_date_range').daterangepicker({
             autoUpdateInput: false,

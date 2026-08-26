@@ -74,9 +74,9 @@ class ReimbursementService
         );
     }
 
-    public function getReimbursementToDebitNote($budget, $customer, $date)
+    public function getReimbursementToDebitNote($budget, $customer, $reimbursement, $debitNote, $date, $limit, $offset)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -86,16 +86,23 @@ class ReimbursementService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.finance.getReimbursementToDebitNoteSummary',
             'latest',
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
-                    // 'Customer_RefID' => $customer ? $customer : NULL,
-                    // 'StartDate' => $date ? $startDate : NULL,
-                    // 'EndDate' => $date ? $endDate : NULL
+                    'Customer_RefID' => $customer ? $customer : NULL,
+                    'Reimbursement_RefID' => $reimbursement ? $reimbursement : NULL,
+                    'DebitNote_RefID' => $debitNote ? $debitNote : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => $offset
+                    ]
                 ]
             ]
         );
