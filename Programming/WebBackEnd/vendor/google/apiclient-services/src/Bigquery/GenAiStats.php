@@ -42,8 +42,10 @@ class GenAiStats extends \Google\Collection
     return $this->errorStats;
   }
   /**
-   * Function level stats for GenAi Functions. See
-   * https://docs.cloud.google.com/bigquery/docs/generative-ai-overview
+   * Function level stats for GenAI Functions. For more information, see
+   * [Generative AI
+   * overview](https://docs.cloud.google.com/bigquery/docs/generative-ai-
+   * overview).
    *
    * @param GenAiFunctionStats[] $functionStats
    */

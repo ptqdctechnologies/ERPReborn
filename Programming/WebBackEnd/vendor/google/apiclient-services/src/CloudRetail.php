@@ -23,7 +23,7 @@ use Google\Client;
  * Service definition for CloudRetail (v2).
  *
  * <p>
- * Vertex AI Search for commerce API is made up of Retail Search, Browse and
+ * The AI Commerce Search API is made up of Retail Search, Browse and
  * Recommendations. These discovery AI solutions help you implement personalized
  * search, browse and recommendations, based on machine learning models, across
  * your websites and mobile applications.</p>

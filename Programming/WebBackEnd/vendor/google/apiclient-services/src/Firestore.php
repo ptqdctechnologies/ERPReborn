@@ -44,6 +44,7 @@ class Firestore extends \Google\Service
 
   public $projects_databases;
   public $projects_databases_backupSchedules;
+  public $projects_databases_changeStreams;
   public $projects_databases_collectionGroups_fields;
   public $projects_databases_collectionGroups_indexes;
   public $projects_databases_documents;
@@ -260,6 +261,64 @@ class Firestore extends \Google\Service
           ]
         ]
     );
+    $this->projects_databases_changeStreams = new Firestore\Resource\ProjectsDatabasesChangeStreams(
+        $this,
+        $this->serviceName,
+        'changeStreams',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}/changeStreams',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'changeStreamId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'etag' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/changeStreams',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->projects_databases_collectionGroups_fields = new Firestore\Resource\ProjectsDatabasesCollectionGroupsFields(
         $this,
         $this->serviceName,
@@ -447,6 +506,11 @@ class Firestore extends \Google\Service
                   'type' => 'string',
                   'repeated' => true,
                 ],
+                'requestOptions.requestTags' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
               ],
             ],'delete' => [
               'path' => 'v1/{+name}',
@@ -464,6 +528,11 @@ class Firestore extends \Google\Service
                 'currentDocument.updateTime' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+                'requestOptions.requestTags' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ],
               ],
             ],'executePipeline' => [
@@ -493,6 +562,11 @@ class Firestore extends \Google\Service
                 'readTime' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+                'requestOptions.requestTags' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ],
                 'transaction' => [
                   'location' => 'query',
@@ -537,6 +611,11 @@ class Firestore extends \Google\Service
                 'recursive' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'requestOptions.requestTags' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
                 ],
                 'showMissing' => [
                   'location' => 'query',
@@ -596,6 +675,11 @@ class Firestore extends \Google\Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ],
+                'requestOptions.requestTags' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
                 'showMissing' => [
                   'location' => 'query',
                   'type' => 'boolean',
@@ -643,6 +727,11 @@ class Firestore extends \Google\Service
                   'type' => 'string',
                 ],
                 'mask.fieldPaths' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
+                'requestOptions.requestTags' => [
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,

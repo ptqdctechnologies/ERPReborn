@@ -62,6 +62,10 @@ class StartOAuthResponse extends \Google\Collection
    * Dynatrace provider.
    */
   public const SYSTEM_PROVIDER_ID_DYNATRACE = 'DYNATRACE';
+  /**
+   * Bitbucket Cloud provider.
+   */
+  public const SYSTEM_PROVIDER_ID_BITBUCKET_CLOUD = 'BITBUCKET_CLOUD';
   protected $collection_key = 'scopes';
   /**
    * The authorization server URL to the OAuth flow of the service provider.
@@ -191,7 +195,7 @@ class StartOAuthResponse extends \Google\Collection
    * The ID of the system provider.
    *
    * Accepted values: SYSTEM_PROVIDER_UNSPECIFIED, GITHUB, GITLAB, GOOGLE,
-   * SENTRY, ROVO, NEW_RELIC, DATASTAX, DYNATRACE
+   * SENTRY, ROVO, NEW_RELIC, DATASTAX, DYNATRACE, BITBUCKET_CLOUD
    *
    * @param self::SYSTEM_PROVIDER_ID_* $systemProviderId
    */

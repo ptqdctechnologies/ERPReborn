@@ -20,7 +20,13 @@ namespace Google\Service\SaaSServiceManagement;
 class Saas extends \Google\Collection
 {
   /**
-   * State type is unspecified.
+   * State is unspecified.
+   */
+  public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
+  /**
+   * State type is unspecified. Deprecated: Use STATE_UNSPECIFIED instead.
+   *
+   * @deprecated
    */
   public const STATE_STATE_TYPE_UNSPECIFIED = 'STATE_TYPE_UNSPECIFIED';
   /**
@@ -251,8 +257,8 @@ class Saas extends \Google\Collection
    * Output only. State of the Saas. It is always in STATE_ACTIVE state if the
    * application_template is empty.
    *
-   * Accepted values: STATE_TYPE_UNSPECIFIED, STATE_ACTIVE, STATE_RUNNING,
-   * STATE_FAILED
+   * Accepted values: STATE_UNSPECIFIED, STATE_TYPE_UNSPECIFIED, STATE_ACTIVE,
+   * STATE_RUNNING, STATE_FAILED
    *
    * @param self::STATE_* $state
    */

@@ -22,8 +22,8 @@ class GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsRequest extends \G
   protected $collection_key = 'scopes';
   /**
    * Optional. The URI to redirect the user to after consent is completed. This
-   * field is required for authproviders using the 3-legged OAuth flow. For
-   * other authprovider types, this field is unused but not rejected.
+   * field is required for auth providers using the 3-legged OAuth flow. For
+   * other auth provider types, this field is unused but not rejected.
    *
    * @var string
    */
@@ -31,8 +31,8 @@ class GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsRequest extends \G
   /**
    * Optional. Input only. Set this field only if the previous token was expired
    * or invalid. This value must be the full, previously returned token string.
-   * Will trigger a refresh of the access token with a stored refresh token, if
-   * possible, or a new consent flow.
+   * Setting this field triggers a refresh of the access token with a stored
+   * refresh token, if possible, or a new consent flow.
    *
    * @var string
    */
@@ -52,8 +52,8 @@ class GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsRequest extends \G
 
   /**
    * Optional. The URI to redirect the user to after consent is completed. This
-   * field is required for authproviders using the 3-legged OAuth flow. For
-   * other authprovider types, this field is unused but not rejected.
+   * field is required for auth providers using the 3-legged OAuth flow. For
+   * other auth provider types, this field is unused but not rejected.
    *
    * @param string $continueUri
    */
@@ -71,8 +71,8 @@ class GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsRequest extends \G
   /**
    * Optional. Input only. Set this field only if the previous token was expired
    * or invalid. This value must be the full, previously returned token string.
-   * Will trigger a refresh of the access token with a stored refresh token, if
-   * possible, or a new consent flow.
+   * Setting this field triggers a refresh of the access token with a stored
+   * refresh token, if possible, or a new consent flow.
    *
    * @param string $forceRefreshToken
    */

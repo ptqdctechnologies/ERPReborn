@@ -36,6 +36,8 @@ class GoogleCloudApigeeV1RuntimeAddonsConfig extends \Google\Model
    * @var string
    */
   public $revisionId;
+  protected $specGenerationConfigType = GoogleCloudApigeeV1RuntimeSpecGenerationAddonConfig::class;
+  protected $specGenerationConfigDataType = '';
   /**
    * UID is to detect if config is recreated after deletion. The add-on config
    * will only be deleted when the environment itself gets deleted, thus it will
@@ -109,6 +111,22 @@ class GoogleCloudApigeeV1RuntimeAddonsConfig extends \Google\Model
   public function getRevisionId()
   {
     return $this->revisionId;
+  }
+  /**
+   * Runtime configuration for Spec Generation add-on.
+   *
+   * @param GoogleCloudApigeeV1RuntimeSpecGenerationAddonConfig $specGenerationConfig
+   */
+  public function setSpecGenerationConfig(GoogleCloudApigeeV1RuntimeSpecGenerationAddonConfig $specGenerationConfig)
+  {
+    $this->specGenerationConfig = $specGenerationConfig;
+  }
+  /**
+   * @return GoogleCloudApigeeV1RuntimeSpecGenerationAddonConfig
+   */
+  public function getSpecGenerationConfig()
+  {
+    return $this->specGenerationConfig;
   }
   /**
    * UID is to detect if config is recreated after deletion. The add-on config

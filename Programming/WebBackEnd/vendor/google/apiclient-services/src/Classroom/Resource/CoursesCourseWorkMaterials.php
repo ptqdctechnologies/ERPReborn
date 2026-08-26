@@ -207,7 +207,7 @@ class CoursesCourseWorkMaterials extends \Google\Service\Resource
    * the update mask and not set in the course work material object, an
    * `INVALID_ARGUMENT` error is returned. The following fields may be specified
    * by teachers: * `title` * `description` * `state` * `scheduled_time` *
-   * `topic_id`
+   * `topic_id` * `learning_goals`
    * @return CourseWorkMaterial
    * @throws \Google\Service\Exception
    */

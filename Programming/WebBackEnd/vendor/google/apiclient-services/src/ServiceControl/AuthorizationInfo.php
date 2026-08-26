@@ -59,6 +59,8 @@ class AuthorizationInfo extends \Google\Model
    * @var string
    */
   public $permissionType;
+  protected $privilegedAccessManagerMetadataType = PrivilegedAccessManagerMetadata::class;
+  protected $privilegedAccessManagerMetadataDataType = '';
   /**
    * The resource being accessed, as a REST-style or cloud resource string. For
    * example: bigquery.googleapis.com/projects/PROJECTID/datasets/DATASETID or
@@ -122,6 +124,25 @@ class AuthorizationInfo extends \Google\Model
   public function getPermissionType()
   {
     return $this->permissionType;
+  }
+  /**
+   * Output only. Metadata about the Privileged Access Manager (PAM) backed
+   * authorization decisions. This field is populated if the access is granted
+   * via an IAM policy with a binding which is managed by Privileged Access
+   * Manager.
+   *
+   * @param PrivilegedAccessManagerMetadata $privilegedAccessManagerMetadata
+   */
+  public function setPrivilegedAccessManagerMetadata(PrivilegedAccessManagerMetadata $privilegedAccessManagerMetadata)
+  {
+    $this->privilegedAccessManagerMetadata = $privilegedAccessManagerMetadata;
+  }
+  /**
+   * @return PrivilegedAccessManagerMetadata
+   */
+  public function getPrivilegedAccessManagerMetadata()
+  {
+    return $this->privilegedAccessManagerMetadata;
   }
   /**
    * The resource being accessed, as a REST-style or cloud resource string. For

@@ -40,6 +40,21 @@ class GoogleCloudApigeeV1TraceConfig extends \Google\Model
    */
   public const EXPORTER_OPEN_TELEMETRY_CLOUD_TRACE = 'OPEN_TELEMETRY_CLOUD_TRACE';
   /**
+   * Unspecified. Behavior is identical to NONE.
+   */
+  public const OTEL_COLLECTOR_SECURITY_SCHEME_OTEL_COLLECTOR_SECURITY_SCHEME_UNSPECIFIED = 'OTEL_COLLECTOR_SECURITY_SCHEME_UNSPECIFIED';
+  /**
+   * Default. Unauthenticated OTLP/HTTP export. Preserves today's behavior byte-
+   * for-byte for existing configurations.
+   */
+  public const OTEL_COLLECTOR_SECURITY_SCHEME_NONE = 'NONE';
+  /**
+   * Mutual TLS via customer PKI. Cert material is stored in Apigee
+   * Keystores/Truststores and referenced by resource ID in `mtls_config` (same
+   * mechanism as TargetServer.tls_info).
+   */
+  public const OTEL_COLLECTOR_SECURITY_SCHEME_MTLS = 'MTLS';
+  /**
    * Semantics unspecified. Defaults to LEGACY.
    */
   public const SPAN_SEMANTICS_SPAN_SEMANTICS_UNSPECIFIED = 'SPAN_SEMANTICS_UNSPECIFIED';
@@ -78,6 +93,17 @@ class GoogleCloudApigeeV1TraceConfig extends \Google\Model
    * @var string
    */
   public $exporter;
+  protected $mtlsConfigType = GoogleCloudApigeeV1TraceConfigOtelMtlsConfig::class;
+  protected $mtlsConfigDataType = '';
+  /**
+   * Optional. The security scheme for the OTel Collector endpoint. Defaults to
+   * NONE (unauthenticated OTLP/HTTP), preserving today's behavior for existing
+   * configurations. Only applicable when `exporter` ==
+   * OPEN_TELEMETRY_COLLECTOR.
+   *
+   * @var string
+   */
+  public $otelCollectorSecurityScheme;
   protected $samplingConfigType = GoogleCloudApigeeV1TraceSamplingConfig::class;
   protected $samplingConfigDataType = '';
   /**
@@ -135,6 +161,44 @@ class GoogleCloudApigeeV1TraceConfig extends \Google\Model
   public function getExporter()
   {
     return $this->exporter;
+  }
+  /**
+   * Optional. mTLS configuration for the OTel Collector endpoint. Required when
+   * `otel_collector_security_scheme` == MTLS; must not be set otherwise.
+   *
+   * @param GoogleCloudApigeeV1TraceConfigOtelMtlsConfig $mtlsConfig
+   */
+  public function setMtlsConfig(GoogleCloudApigeeV1TraceConfigOtelMtlsConfig $mtlsConfig)
+  {
+    $this->mtlsConfig = $mtlsConfig;
+  }
+  /**
+   * @return GoogleCloudApigeeV1TraceConfigOtelMtlsConfig
+   */
+  public function getMtlsConfig()
+  {
+    return $this->mtlsConfig;
+  }
+  /**
+   * Optional. The security scheme for the OTel Collector endpoint. Defaults to
+   * NONE (unauthenticated OTLP/HTTP), preserving today's behavior for existing
+   * configurations. Only applicable when `exporter` ==
+   * OPEN_TELEMETRY_COLLECTOR.
+   *
+   * Accepted values: OTEL_COLLECTOR_SECURITY_SCHEME_UNSPECIFIED, NONE, MTLS
+   *
+   * @param self::OTEL_COLLECTOR_SECURITY_SCHEME_* $otelCollectorSecurityScheme
+   */
+  public function setOtelCollectorSecurityScheme($otelCollectorSecurityScheme)
+  {
+    $this->otelCollectorSecurityScheme = $otelCollectorSecurityScheme;
+  }
+  /**
+   * @return self::OTEL_COLLECTOR_SECURITY_SCHEME_*
+   */
+  public function getOtelCollectorSecurityScheme()
+  {
+    return $this->otelCollectorSecurityScheme;
   }
   /**
    * Distributed trace configuration for all API proxies in an environment. You

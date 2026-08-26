@@ -32,6 +32,14 @@ class GoogleCloudContactcenterinsightsV1SignedAudioUris extends \Google\Collecti
    * @var string
    */
   public $signedGcsAudioUri;
+  /**
+   * Output only. The signed URIs for the audio from the Cloud Storage
+   * conversation source when multiple audio files exist (e.g. multi-leg
+   * conversations).
+   *
+   * @var string[]
+   */
+  public $signedGcsAudioUris;
   protected $signedTurnLevelAudiosType = GoogleCloudContactcenterinsightsV1ConversationDataSourceTurnLevelAudio::class;
   protected $signedTurnLevelAudiosDataType = 'array';
 
@@ -66,6 +74,24 @@ class GoogleCloudContactcenterinsightsV1SignedAudioUris extends \Google\Collecti
   public function getSignedGcsAudioUri()
   {
     return $this->signedGcsAudioUri;
+  }
+  /**
+   * Output only. The signed URIs for the audio from the Cloud Storage
+   * conversation source when multiple audio files exist (e.g. multi-leg
+   * conversations).
+   *
+   * @param string[] $signedGcsAudioUris
+   */
+  public function setSignedGcsAudioUris($signedGcsAudioUris)
+  {
+    $this->signedGcsAudioUris = $signedGcsAudioUris;
+  }
+  /**
+   * @return string[]
+   */
+  public function getSignedGcsAudioUris()
+  {
+    return $this->signedGcsAudioUris;
   }
   /**
    * The signed URI for the audio corresponding to each turn in the

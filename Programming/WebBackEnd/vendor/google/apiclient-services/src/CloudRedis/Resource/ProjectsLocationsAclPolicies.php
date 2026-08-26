@@ -63,7 +63,7 @@ class ProjectsLocationsAclPolicies extends \Google\Service\Resource
    *
    * @param string $name Required. Redis ACL policy resource name using the form:
    * `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}`
-   * where `location_id` refers to a GCP region.
+   * where `location_id` refers to a Google Cloud region.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string etag Optional. Etag of the ACL policy. If this is different
@@ -83,7 +83,7 @@ class ProjectsLocationsAclPolicies extends \Google\Service\Resource
    *
    * @param string $name Required. Redis ACL policy resource name using the form:
    * `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_policy_id}`
-   * where `location_id` refers to a GCP region.
+   * where `location_id` refers to a Google Cloud region.
    * @param array $optParams Optional parameters.
    * @return AclPolicy
    * @throws \Google\Service\Exception

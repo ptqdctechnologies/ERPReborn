@@ -20,8 +20,10 @@ namespace Google\Service\AgentIdentityCredentials;
 class GoogleCloudAgentidentitycredentialsV1FinalizeCredentialsRequest extends \Google\Model
 {
   /**
-   * Required. The same consent_nonce value that was provided during redirect in
-   * the UriConsentRequired metadata.
+   * Required. The same `consent_nonce` value that was provided during retrieval
+   * in the [UriConsentRequired](https://cloud.google.com/iam/docs/reference/age
+   * ntidentitycredentials/rest/v1/projects.locations.authProviders.credentials/
+   * retrieve#UriConsentRequired) metadata.
    *
    * @var string
    */
@@ -40,8 +42,10 @@ class GoogleCloudAgentidentitycredentialsV1FinalizeCredentialsRequest extends \G
   public $userIdValidationState;
 
   /**
-   * Required. The same consent_nonce value that was provided during redirect in
-   * the UriConsentRequired metadata.
+   * Required. The same `consent_nonce` value that was provided during retrieval
+   * in the [UriConsentRequired](https://cloud.google.com/iam/docs/reference/age
+   * ntidentitycredentials/rest/v1/projects.locations.authProviders.credentials/
+   * retrieve#UriConsentRequired) metadata.
    *
    * @param string $consentNonce
    */

@@ -1434,6 +1434,8 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Aws\\Health\\Exception\\HealthException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Health/Exception/HealthException.php',
         'Aws\\Health\\HealthClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Health/HealthClient.php',
         'Aws\\History' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/History.php',
+        'Aws\\IAMToolbox\\Exception\\IAMToolboxException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IAMToolbox/Exception/IAMToolboxException.php',
+        'Aws\\IAMToolbox\\IAMToolboxClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IAMToolbox/IAMToolboxClient.php',
         'Aws\\IVSRealTime\\Exception\\IVSRealTimeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVSRealTime/Exception/IVSRealTimeException.php',
         'Aws\\IVSRealTime\\IVSRealTimeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVSRealTime/IVSRealTimeClient.php',
         'Aws\\IVS\\Exception\\IVSException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/IVS/Exception/IVSException.php',

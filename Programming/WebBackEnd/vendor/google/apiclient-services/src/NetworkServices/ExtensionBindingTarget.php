@@ -22,11 +22,7 @@ class ExtensionBindingTarget extends \Google\Collection
   protected $collection_key = 'resources';
   /**
    * Optional. The reference to the target resource, to which this binding
-   * should attach. Exactly one of `resources` or `scope` must be set. For Agent
-   * Gateway, this would be the full resource name, in the format:
-   * `projects/{project}/locations/{location}/agentGateways/{agent_gateway}`.
-   * For AI App, this would be the full resource name, in the format:
-   * `projects/{project}/locations/{location}/applications/{application}`.
+   * should attach. Exactly one of `resources` or `scope` must be set.
    *
    * @var string[]
    */
@@ -36,11 +32,7 @@ class ExtensionBindingTarget extends \Google\Collection
 
   /**
    * Optional. The reference to the target resource, to which this binding
-   * should attach. Exactly one of `resources` or `scope` must be set. For Agent
-   * Gateway, this would be the full resource name, in the format:
-   * `projects/{project}/locations/{location}/agentGateways/{agent_gateway}`.
-   * For AI App, this would be the full resource name, in the format:
-   * `projects/{project}/locations/{location}/applications/{application}`.
+   * should attach. Exactly one of `resources` or `scope` must be set.
    *
    * @param string[] $resources
    */

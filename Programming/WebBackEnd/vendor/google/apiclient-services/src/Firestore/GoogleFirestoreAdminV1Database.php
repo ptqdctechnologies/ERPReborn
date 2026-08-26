@@ -41,13 +41,13 @@ class GoogleFirestoreAdminV1Database extends \Google\Model
   /**
    * Use optimistic concurrency control by default. This mode is available for
    * Cloud Firestore databases. This is the default setting for Cloud Firestore
-   * Enterprise Edition databases.
+   * Enterprise edition databases.
    */
   public const CONCURRENCY_MODE_OPTIMISTIC = 'OPTIMISTIC';
   /**
    * Use pessimistic concurrency control by default. This mode is available for
    * Cloud Firestore databases. This is the default setting for Cloud Firestore
-   * Standard Edition databases.
+   * Standard edition databases.
    */
   public const CONCURRENCY_MODE_PESSIMISTIC = 'PESSIMISTIC';
   /**
@@ -216,8 +216,8 @@ class GoogleFirestoreAdminV1Database extends \Google\Model
   /**
    * Optional. The Firestore API data access mode to use for this database. If
    * not set on write: - the default value is DATA_ACCESS_MODE_DISABLED for
-   * Enterprise Edition. - the default value is DATA_ACCESS_MODE_ENABLED for
-   * Standard Edition.
+   * Enterprise edition. - the default value is DATA_ACCESS_MODE_ENABLED for
+   * Standard edition.
    *
    * @var string
    */
@@ -255,8 +255,8 @@ class GoogleFirestoreAdminV1Database extends \Google\Model
   /**
    * Optional. The MongoDB compatible API data access mode to use for this
    * database. If not set on write, the default value is
-   * DATA_ACCESS_MODE_ENABLED for Enterprise Edition. The value is always
-   * DATA_ACCESS_MODE_DISABLED for Standard Edition.
+   * DATA_ACCESS_MODE_ENABLED for Enterprise edition. The value is always
+   * DATA_ACCESS_MODE_DISABLED for Standard edition.
    *
    * @var string
    */
@@ -504,8 +504,8 @@ class GoogleFirestoreAdminV1Database extends \Google\Model
   /**
    * Optional. The Firestore API data access mode to use for this database. If
    * not set on write: - the default value is DATA_ACCESS_MODE_DISABLED for
-   * Enterprise Edition. - the default value is DATA_ACCESS_MODE_ENABLED for
-   * Standard Edition.
+   * Enterprise edition. - the default value is DATA_ACCESS_MODE_ENABLED for
+   * Standard edition.
    *
    * Accepted values: DATA_ACCESS_MODE_UNSPECIFIED, DATA_ACCESS_MODE_ENABLED,
    * DATA_ACCESS_MODE_DISABLED
@@ -586,8 +586,8 @@ class GoogleFirestoreAdminV1Database extends \Google\Model
   /**
    * Optional. The MongoDB compatible API data access mode to use for this
    * database. If not set on write, the default value is
-   * DATA_ACCESS_MODE_ENABLED for Enterprise Edition. The value is always
-   * DATA_ACCESS_MODE_DISABLED for Standard Edition.
+   * DATA_ACCESS_MODE_ENABLED for Enterprise edition. The value is always
+   * DATA_ACCESS_MODE_DISABLED for Standard edition.
    *
    * Accepted values: DATA_ACCESS_MODE_UNSPECIFIED, DATA_ACCESS_MODE_ENABLED,
    * DATA_ACCESS_MODE_DISABLED

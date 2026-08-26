@@ -29,9 +29,9 @@ class GoogleCloudAgentidentitycredentialsV1UriConsentRequired extends \Google\Mo
   /**
    * Output only. A one-time, randomly generated value that validates the entire
    * consent flow is handled by a single user, avoiding CSRF attacks. It must be
-   * submitted with the FinalizeCredentials request to complete the OAuth
-   * exchange. This will always be present. Implemented per https://www.rfc-
-   * editor.org/rfc/rfc6819#section-5.3.5
+   * submitted with the `FinalizeCredentials` request to complete the OAuth
+   * exchange. This will always be present. Implemented per [RFC 6819 Section
+   * 5.3.5](https://www.rfc-editor.org/rfc/rfc6819#section-5.3.5).
    *
    * @var string
    */
@@ -63,9 +63,9 @@ class GoogleCloudAgentidentitycredentialsV1UriConsentRequired extends \Google\Mo
   /**
    * Output only. A one-time, randomly generated value that validates the entire
    * consent flow is handled by a single user, avoiding CSRF attacks. It must be
-   * submitted with the FinalizeCredentials request to complete the OAuth
-   * exchange. This will always be present. Implemented per https://www.rfc-
-   * editor.org/rfc/rfc6819#section-5.3.5
+   * submitted with the `FinalizeCredentials` request to complete the OAuth
+   * exchange. This will always be present. Implemented per [RFC 6819 Section
+   * 5.3.5](https://www.rfc-editor.org/rfc/rfc6819#section-5.3.5).
    *
    * @param string $consentNonce
    */

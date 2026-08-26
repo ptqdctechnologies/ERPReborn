@@ -85,9 +85,11 @@ class ExtensionBindingMatchConditionToDestination extends \Google\Collection
   }
   /**
    * Optional. A list of non-empty strings whose value is matched against the
-   * resource value. If not specified, any resource is allowed. If specified, a
-   * match occurs if any of the resources matches the resource value in the
-   * request. Limited to 5 resources.
+   * resource to which a request is sent (e.g., an Agent in AiApplication). If
+   * not specified, any resource is allowed. If specified, a match occurs if any
+   * of the resources matches the resource value in the request. Limited to 5
+   * resources. When matching against resources in the AgentRegistry, use the
+   * URNs of the registry resources.
    *
    * @param ExtensionBindingMatchConditionStringMatch[] $resources
    */

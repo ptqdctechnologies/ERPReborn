@@ -94,12 +94,10 @@ class Company extends \Google\Collection
    */
   public $ownerEmails;
   /**
-   * Input only. If set to true, welcome email will not be sent to the customer.
-   * It is recommended to skip the welcome email if devices will be claimed with
-   * additional DEVICE_PROTECTION service, as the customer will receive separate
-   * emails at device claim time. This field is ignored if this is not a Zero-
-   * touch customer.
+   * Input only. Deprecated: This field is no longer supported and is ignored by
+   * the server.
    *
+   * @deprecated
    * @var bool
    */
   public $skipWelcomeEmail;
@@ -243,12 +241,10 @@ class Company extends \Google\Collection
     return $this->ownerEmails;
   }
   /**
-   * Input only. If set to true, welcome email will not be sent to the customer.
-   * It is recommended to skip the welcome email if devices will be claimed with
-   * additional DEVICE_PROTECTION service, as the customer will receive separate
-   * emails at device claim time. This field is ignored if this is not a Zero-
-   * touch customer.
+   * Input only. Deprecated: This field is no longer supported and is ignored by
+   * the server.
    *
+   * @deprecated
    * @param bool $skipWelcomeEmail
    */
   public function setSkipWelcomeEmail($skipWelcomeEmail)
@@ -256,6 +252,7 @@ class Company extends \Google\Collection
     $this->skipWelcomeEmail = $skipWelcomeEmail;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getSkipWelcomeEmail()

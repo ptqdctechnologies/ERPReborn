@@ -81,6 +81,8 @@ class GoogleAdsSearchads360V23ServicesMutateOperationResponse extends \Google\Mo
   protected $campaignCustomizerResultDataType = '';
   protected $campaignDraftResultType = GoogleAdsSearchads360V23ServicesMutateCampaignDraftResult::class;
   protected $campaignDraftResultDataType = '';
+  protected $campaignGoalConfigResultType = GoogleAdsSearchads360V23ServicesMutateCampaignGoalConfigResult::class;
+  protected $campaignGoalConfigResultDataType = '';
   protected $campaignGroupResultType = GoogleAdsSearchads360V23ServicesMutateCampaignGroupResult::class;
   protected $campaignGroupResultDataType = '';
   protected $campaignLabelResultType = GoogleAdsSearchads360V23ServicesMutateCampaignLabelResult::class;
@@ -641,6 +643,22 @@ class GoogleAdsSearchads360V23ServicesMutateOperationResponse extends \Google\Mo
   public function getCampaignDraftResult()
   {
     return $this->campaignDraftResult;
+  }
+  /**
+   * The result for the campaign goal config mutate.
+   *
+   * @param GoogleAdsSearchads360V23ServicesMutateCampaignGoalConfigResult $campaignGoalConfigResult
+   */
+  public function setCampaignGoalConfigResult(GoogleAdsSearchads360V23ServicesMutateCampaignGoalConfigResult $campaignGoalConfigResult)
+  {
+    $this->campaignGoalConfigResult = $campaignGoalConfigResult;
+  }
+  /**
+   * @return GoogleAdsSearchads360V23ServicesMutateCampaignGoalConfigResult
+   */
+  public function getCampaignGoalConfigResult()
+  {
+    return $this->campaignGoalConfigResult;
   }
   /**
    * The result for the campaign group mutate.

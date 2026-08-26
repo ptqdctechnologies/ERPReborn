@@ -44,6 +44,9 @@ class UnitOperation extends \Google\Collection
    * budget
    */
   public const ERROR_CATEGORY_STANDARD = 'STANDARD';
+  /**
+   * Unit operation state is unknown.
+   */
   public const STATE_UNIT_OPERATION_STATE_UNKNOWN = 'UNIT_OPERATION_STATE_UNKNOWN';
   /**
    * Unit operation is accepted but not ready to run.

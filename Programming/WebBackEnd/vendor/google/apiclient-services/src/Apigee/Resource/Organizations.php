@@ -311,7 +311,8 @@ class Organizations extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string updateMask List of fields to be updated. Fields that can be
-   * updated: synchronizer_identities, publisher_identities.
+   * updated: synchronizer_identities, analytics_publisher_identities,
+   * watcher_identities.
    * @return GoogleLongrunningOperation
    * @throws \Google\Service\Exception
    */

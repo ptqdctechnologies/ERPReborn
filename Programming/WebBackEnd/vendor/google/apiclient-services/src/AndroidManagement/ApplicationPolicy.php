@@ -82,6 +82,10 @@ class ApplicationPolicy extends \Google\Collection
    */
   public const CREDENTIAL_PROVIDER_POLICY_CREDENTIAL_PROVIDER_ALLOWED = 'CREDENTIAL_PROVIDER_ALLOWED';
   /**
+   * App is not allowed to act as a credential provider.
+   */
+  public const CREDENTIAL_PROVIDER_POLICY_CREDENTIAL_PROVIDER_DISALLOWED = 'CREDENTIAL_PROVIDER_DISALLOWED';
+  /**
    * Policy not specified. If no policy is specified for a permission at any
    * level, then the PROMPT behavior is used by default.
    */
@@ -509,7 +513,7 @@ class ApplicationPolicy extends \Google\Collection
    * Android 14 and above.
    *
    * Accepted values: CREDENTIAL_PROVIDER_POLICY_UNSPECIFIED,
-   * CREDENTIAL_PROVIDER_ALLOWED
+   * CREDENTIAL_PROVIDER_ALLOWED, CREDENTIAL_PROVIDER_DISALLOWED
    *
    * @param self::CREDENTIAL_PROVIDER_POLICY_* $credentialProviderPolicy
    */

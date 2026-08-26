@@ -56,7 +56,7 @@ class ProducerExtension extends \Google\Model
   /**
    * Optional. Set of labels associated with the `ProducerExtension` resource.
    * The format must comply with [the following
-   * requirements]((https://cloud.google.com/compute/docs/labeling-
+   * requirements](https://cloud.google.com/compute/docs/labeling-
    * resources#requirements).
    *
    * @var string[]
@@ -153,7 +153,7 @@ class ProducerExtension extends \Google\Model
   /**
    * Optional. Set of labels associated with the `ProducerExtension` resource.
    * The format must comply with [the following
-   * requirements]((https://cloud.google.com/compute/docs/labeling-
+   * requirements](https://cloud.google.com/compute/docs/labeling-
    * resources#requirements).
    *
    * @param string[] $labels

@@ -66,12 +66,16 @@ class Folders extends \Google\Service\Resource
   }
   /**
    * Returns the effective Cloud KMS Autokey configuration for a given project or
-   * folder. (folders.showEffectiveAutokeyConfig)
+   * folder. Note on permissions: - If called on a project (`projects/{project}`),
+   * requires `cloudkms.projects.showEffectiveAutokeyConfig`. - If called on a
+   * folder (`folders/{folder}`), requires
+   * `cloudkms.folders.showEffectiveAutokeyConfig`.
+   * (folders.showEffectiveAutokeyConfig)
    *
    * @param string $parent Required. Name of the resource project or folder to
    * show the effective Cloud KMS Autokey configuration for. This may be helpful
-   * for interrogating the effect of nested folder configurations on a given
-   * resource project. Format: * projects/{project} * folders/{folder}
+   * for evaluating the effect of nested folder configurations on a given resource
+   * project. Format: * projects/{project} * folders/{folder}
    * @param array $optParams Optional parameters.
    * @return ShowEffectiveAutokeyConfigResponse
    * @throws \Google\Service\Exception

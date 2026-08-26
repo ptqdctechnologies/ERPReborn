@@ -38,6 +38,8 @@ class BulkDeleteResourcesRequest extends \Google\Model
   public const VERSION_CONFIG_HISTORY_ONLY = 'HISTORY_ONLY';
   protected $gcsDestinationType = GoogleCloudHealthcareV1FhirGcsDestination::class;
   protected $gcsDestinationDataType = '';
+  protected $gcsSourceType = GoogleCloudHealthcareV1FhirGcsSource::class;
+  protected $gcsSourceDataType = '';
   /**
    * Optional. String of comma-delimited FHIR resource types. If provided, only
    * resources of the specified resource type(s) will be deleted.
@@ -90,6 +92,26 @@ class BulkDeleteResourcesRequest extends \Google\Model
   public function getGcsDestination()
   {
     return $this->gcsDestination;
+  }
+  /**
+   * Optional. Specifies the Cloud Storage source data location containing the
+   * list of resource IDs to delete. Each file inside `gcs_source` must contain
+   * newline-delimited strings in the format `{resourceType}/{resourceId}`. This
+   * field is mutually exclusive with filter parameters such as `type` and
+   * `until`.
+   *
+   * @param GoogleCloudHealthcareV1FhirGcsSource $gcsSource
+   */
+  public function setGcsSource(GoogleCloudHealthcareV1FhirGcsSource $gcsSource)
+  {
+    $this->gcsSource = $gcsSource;
+  }
+  /**
+   * @return GoogleCloudHealthcareV1FhirGcsSource
+   */
+  public function getGcsSource()
+  {
+    return $this->gcsSource;
   }
   /**
    * Optional. String of comma-delimited FHIR resource types. If provided, only

@@ -27,6 +27,15 @@ class VmImage extends \Google\Model
    */
   public $family;
   /**
+   * Output only. A human-readable description of the image running on the
+   * instance (for example, "Debian 11, Python 3.10"), derived at read time from
+   * the image release configuration (the source of truth). Set to "Custom" for
+   * unrecognized boot-disk images.
+   *
+   * @var string
+   */
+  public $imageDescription;
+  /**
    * Optional. Use VM image name to find the image.
    *
    * @var string
@@ -56,6 +65,25 @@ class VmImage extends \Google\Model
   public function getFamily()
   {
     return $this->family;
+  }
+  /**
+   * Output only. A human-readable description of the image running on the
+   * instance (for example, "Debian 11, Python 3.10"), derived at read time from
+   * the image release configuration (the source of truth). Set to "Custom" for
+   * unrecognized boot-disk images.
+   *
+   * @param string $imageDescription
+   */
+  public function setImageDescription($imageDescription)
+  {
+    $this->imageDescription = $imageDescription;
+  }
+  /**
+   * @return string
+   */
+  public function getImageDescription()
+  {
+    return $this->imageDescription;
   }
   /**
    * Optional. Use VM image name to find the image.

@@ -653,6 +653,8 @@ return array(
     'Aws\\Health\\Exception\\HealthException' => $vendorDir . '/aws/aws-sdk-php/src/Health/Exception/HealthException.php',
     'Aws\\Health\\HealthClient' => $vendorDir . '/aws/aws-sdk-php/src/Health/HealthClient.php',
     'Aws\\History' => $vendorDir . '/aws/aws-sdk-php/src/History.php',
+    'Aws\\IAMToolbox\\Exception\\IAMToolboxException' => $vendorDir . '/aws/aws-sdk-php/src/IAMToolbox/Exception/IAMToolboxException.php',
+    'Aws\\IAMToolbox\\IAMToolboxClient' => $vendorDir . '/aws/aws-sdk-php/src/IAMToolbox/IAMToolboxClient.php',
     'Aws\\IVSRealTime\\Exception\\IVSRealTimeException' => $vendorDir . '/aws/aws-sdk-php/src/IVSRealTime/Exception/IVSRealTimeException.php',
     'Aws\\IVSRealTime\\IVSRealTimeClient' => $vendorDir . '/aws/aws-sdk-php/src/IVSRealTime/IVSRealTimeClient.php',
     'Aws\\IVS\\Exception\\IVSException' => $vendorDir . '/aws/aws-sdk-php/src/IVS/Exception/IVSException.php',
