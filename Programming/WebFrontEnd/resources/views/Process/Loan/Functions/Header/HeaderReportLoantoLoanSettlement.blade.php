@@ -4,7 +4,7 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Loan Number</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span class="input-group-text form-control" data-toggle="modal" data-target="#myLoans"
+        <span class="input-group-text form-control" data-toggle="modal" data-target="#loanListModal"
           style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>

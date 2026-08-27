@@ -240,17 +240,32 @@ class LoanController extends Controller
     public function ReportLoantoLoanSettlementStore(Request $request)
     {
         try {
+            $budgetCode = $request->budget_code;
+            $creditorID = $request->creditor_id;
+            $debitorID = $request->debitor_id;
+            $loanID = $request->loan_id;
+            $loanSettlementID = $request->loan_settlement_id;
             $date = $request->loanToSettlementDate;
-            $budget = [
-                "id" => $request->budget_id,
-                "code" => $request->budget_code,
-            ];
+
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
+            }
 
             $response = $this->loanService->getLoanToLoanSettlementSummary(
-                $budget['code'],
-                null,
-                null,
-                $date
+                $budgetCode,
+                $creditorID,
+                $debitorID,
+                $loanID,
+                $loanSettlementID,
+                $date,
+                $limit,
+                $offset
             );
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
@@ -259,7 +274,11 @@ class LoanController extends Controller
 
             $compact = [
                 'status' => $response['metadata']['HTTPStatusCode'],
-                'data' => $response['data']['data']
+                'data' => $response['data']['data'],
+                'totalRecords' => $response['data']['totalRecords'],
+                'rowCount' => $response['data']['rowCount'],
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

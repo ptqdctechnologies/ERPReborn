@@ -6,6 +6,8 @@
     let filteredData = [...data];
     let sortColumn = null;
     let sortOrder = 'asc';
+    let totalRecords = 0;
+    let totalPages = 0;
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -14,6 +16,8 @@
     const budgetName = document.getElementById("budget_name");
     const creditorID = document.getElementById("creditor_id");
     const debitorID = document.getElementById("debitor_id");
+    const loanID = document.getElementById("loan_id");
+    const loanSettlementID = document.getElementById("loan_settlement_id");
     const loanToSettlementDate = document.getElementById("loan_to_settlement_date_range");
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
@@ -165,8 +169,8 @@
         $(`#debitor_code`).val("");
     }
 
-    function getDataReport() {
-        ShowLoading();
+    function getDataReport(page = currentPage) {
+        Utils.showLoading();
 
         $.ajax({
             type: 'POST',
@@ -174,31 +178,43 @@
             data: {
                 creditor_id: creditorID.value,
                 debitor_id: debitorID.value,
-                budget_id: budgetID.value,
                 budget_code: budgetCode.value,
-                loanToSettlementDate: loanToSettlementDate.value
+                loan_id: loanID.value,
+                loan_settlement_id: loanSettlementID.value,
+                loanToSettlementDate: loanToSettlementDate.value,
+                page: page,
+                limit: rowsPerPage
             },
             dataType: 'json',
             success: function (response) {
-                data = (response.status === 200 && response.data[0]) ? response.data : [];
+
+                data = response.data || [];
+
+                currentPage = response.page;
+                rowsPerPage = response.limit;
+
+                totalRecords = response.totalRecords;
+                totalPages = Math.ceil(totalRecords / rowsPerPage);
+
                 dataReport = data;
 
-                filteredData = [...data];
-                currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
-                sortColumn = null;
-                sortOrder = 'asc';
-
-                renderPage();
+                renderTable(data);
                 renderPagination();
 
-                $('#table_container').css("display", "block");
+                $('#table_container').show();
 
-                HideLoading();
+                Utils.hideLoading();
+
             },
             error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
+
+                Utils.hideLoading();
+                ErrorHandler.notifToast(
+                    'error',
+                    'An error occurred while processing the received data. Please try again later',
+                    'Error!'
+                );
             }
         });
     }
@@ -250,8 +266,8 @@
         const tbody = document.querySelector('#table_summary tbody');
         tbody.innerHTML = '';
 
-        // let lastTransactionNumber = null;
-        // let rowspan = 1;
+        let lastTransactionNumber = null;
+        let rowspan = 1;
         let rowIndex = 0;
 
         data.forEach((item, ind) => {
@@ -260,7 +276,7 @@
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
 
             const noCell = document.createElement('td');
-            noCell.textContent = isNaN(rowNumber) ? '-' : rowNumber;
+            noCell.textContent = isNaN(rowNumber) ? ind + 1 : rowNumber;
             row.appendChild(noCell);
 
             const loanNumberCell = document.createElement('td');
@@ -422,6 +438,14 @@
             tbody.appendChild(row);
             rowIndex++;
         });
+
+        if (rowspan > 1) {
+            const targetIndex = tbody.rows.length - rowspan;
+            if (tbody.rows[targetIndex]) {
+                tbody.rows[targetIndex].cells[1].rowSpan = rowspan;
+            }
+            // tbody.rows[tbody.rows.length - rowspan].cells[1].rowSpan = rowspan;
+        }
     }
 
     function updatePaginationInfo() {
@@ -447,61 +471,11 @@
     }
 
     function renderPage() {
-        const sortedData = sortData(filteredData);
-
-        const searchQuery = document.querySelector('#searchInput').value;
-        const filteredAndSortedData = filterData(searchQuery, sortedData);
-
-        const start = (currentPage - 1) * rowsPerPage;
-        const end = start + rowsPerPage;
-        const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
-            "no": "",
-            "loan_number": "",
-            "loan_date": "",
-            "loan_debitor": "",
-            "loan_creditor": "",
-            "loan_rate": "",
-            "loan_term": "",
-            "loan_principal_idr": "",
-            "loan_principal_other_currency": "",
-            "loan_principal_equivalent_idr": "",
-            "loan_principal_payment": "",
-            "loan_principal_settlement": "",
-            "loan_total_idr": "",
-            "loan_total_other_currency": "",
-            "loan_total_equivalent_idr": "",
-            "loan_payment": "",
-            "loan_status": "",
-            "loan_remark": "",
-            "loan_settlement_number": "",
-            "loan_settlement_date": "",
-            "loan_settlement_debitor": "",
-            "loan_settlement_creditor": "",
-            "loan_settlement_settlement_idr": "",
-            "loan_settlement_settlement_other_currency": "",
-            "loan_settlement_settlement_equivalent_idr": "",
-            "loan_settlement_settlement_to_payment": "",
-            "loan_settlement_penalty_idr": "",
-            "loan_settlement_penalty_other_currency": "",
-            "loan_settlement_penalty_equivalent_idr": "",
-            "loan_settlement_interest_idr": "",
-            "loan_settlement_interest_other_currency": "",
-            "loan_settlement_interest_equivalent_idr": "",
-            "loan_settlement_payment": "",
-            "loan_settlement_status": "",
-            "loan_settlement_remark": ""
-        }];
-
-        startLimit.textContent = start + 1;
-        endLimit.textContent = Math.min(end, filteredAndSortedData.length);
-        totalData.textContent = filteredAndSortedData.length;
-
-        renderTable(pageData);
-        updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
+        renderTable(data);
     }
 
     function renderPagination() {
-        totalPages = Math.ceil(data.length / rowsPerPage);
+        totalPages = Math.ceil(totalRecords / rowsPerPage);
 
         const pageNumbersContainer = document.querySelector('#pageNumbers');
         const prevButton = document.querySelector('#prevPage');
@@ -509,11 +483,30 @@
 
         pageNumbersContainer.innerHTML = '';
 
-        const startLimit = (currentPage - 1) * rowsPerPage + 1;
-        const endLimit = Math.min(currentPage * rowsPerPage, data.length);
-        document.querySelector('#start_limit').textContent = isNaN(startLimit) ? '0' : startLimit;
-        document.querySelector('#end_limit').textContent = isNaN(endLimit) ? '0' : endLimit;
-        document.querySelector('#total_data').textContent = data.length;
+        // Tambahkan di sini
+        if (rowsPerPage === 'ALL') {
+            document.getElementById('prevPage').style.display = 'none';
+            document.getElementById('nextPage').style.display = 'none';
+            // document.getElementById('pageNumbers').textContent = '1';
+            // document.getElementById('pageNumbers').style.padding = '.5em 1em';
+            // document.getElementById('pageNumbers').style.marginRight = '0.5rem';
+            // document.getElementById('pageNumbers').style.cursor = 'pointer';
+            // document.getElementById('pageNumbers').style.background = 'linear-gradient(to bottom, rgba(230, 230, 230, 0.1) 0%, rgba(0, 0, 0, 0.1) 100%)';
+            // document.getElementById('pageNumbers').style.border = '1px solid rgba(0, 0, 0, 0.3)';
+        } else {
+            document.getElementById('prevPage').style.display = 'inline';
+            document.getElementById('nextPage').style.display = 'inline';
+        }
+
+        const startLimitValue =
+            totalRecords === 0 ? 0 : ((currentPage - 1) * rowsPerPage) + 1;
+
+        const endLimitValue =
+            Math.min(currentPage * rowsPerPage, totalRecords);
+
+        document.querySelector('#start_limit').textContent = rowsPerPage == 'ALL' ? 1 : startLimitValue;
+        document.querySelector('#end_limit').textContent = rowsPerPage == 'ALL' ? totalRecords : endLimitValue;
+        document.querySelector('#total_data').textContent = totalRecords;
 
         let startPage = Math.max(1, currentPage - 1);
         let endPage = Math.min(totalPages, currentPage + 1);
@@ -550,9 +543,10 @@
             }
 
             pageNumber.addEventListener('click', () => {
-                currentPage = i;
-                renderPage();
-                renderPagination();
+                // currentPage = i;
+                // renderPage();
+                // renderPagination();
+                getDataReport(i);
             });
 
             pageNumbersContainer.appendChild(pageNumber);
@@ -646,7 +640,11 @@
         if (dataReport.length > 0) {
             exportDataReport();
         } else {
-            ErrorNotif("No data available to export. Please display the data first.");
+            ErrorHandler.notifToast(
+                'error',
+                'No data available to export. Please display the data first',
+                'Error!'
+            );
         }
     }
 
@@ -656,32 +654,43 @@
         });
     });
 
-    document.querySelector('#searchInput').addEventListener('input', () => {
-        currentPage = 1;
-        renderPage();
-        renderPagination();
-    });
+    // document.querySelector('#searchInput').addEventListener('input', () => {
+    //     currentPage = 1;
+    //     renderPage();
+    //     renderPagination();
+    // });
 
     document.querySelector('#limitSelect').addEventListener('change', (e) => {
-        rowsPerPage = parseInt(e.target.value);
-        currentPage = 1;
-        renderPage();
-        renderPagination();
+        // rowsPerPage = parseInt(e.target.value);
+        // currentPage = 1;
+        // renderPage();
+        // renderPagination();
+
+        rowsPerPage = e.target.value;
+        getDataReport(1);
     });
 
     document.querySelector('#prevPage').addEventListener('click', () => {
+        // if (currentPage > 1) {
+        //     currentPage--;
+        //     renderPage();
+        //     renderPagination();
+        // }
+
         if (currentPage > 1) {
-            currentPage--;
-            renderPage();
-            renderPagination();
+            getDataReport(currentPage - 1);
         }
     });
 
     document.querySelector('#nextPage').addEventListener('click', () => {
-        if (currentPage * rowsPerPage < filteredData.length) {
-            currentPage++;
-            renderPage();
-            renderPagination();
+        // if (currentPage * rowsPerPage < filteredData.length) {
+        //     currentPage++;
+        //     renderPage();
+        //     renderPagination();
+        // }
+
+        if (currentPage < totalPages) {
+            getDataReport(currentPage + 1);
         }
     });
 
@@ -706,7 +715,7 @@
             $(`#debitor_name`).css({ 'background-color': '#e9ecef', 'border': '1px solid #ced4da' });
             $("#debitor_message").hide();
 
-            ErrorHandler.showErrorInputMessage("#debitor_name", "#debitorMessage");
+            ErrorHandler.hideErrorInputMessage("#debitor_name", "#debitorMessage");
         }
 
         $("#mySuppliers").modal('toggle');
@@ -735,7 +744,7 @@
         $('#myProjects').modal('toggle');
     });
 
-    $('#tableLoans').on('click', 'tbody tr', function () {
+    $('#loanListTable').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_loans"]').val();
         const name = $(this).find('td:nth-child(2)').text();
 
@@ -743,7 +752,7 @@
         $("#loan_number").val(name);
         $("#loan_number").css('background-color', '#e9ecef');
 
-        $("#myLoans").modal('toggle');
+        $("#loanListModal").modal('toggle');
     });
 
     $('#loanSettlementListTable').on('click', 'tbody tr', function () {
@@ -768,6 +777,12 @@
     });
 
     $(document).ready(function () {
+        renderPage();
+        getLoanList();
+        getSuppliers();
+        renderPagination();
+        getLoanSettlementList();
+
         $('#loan_to_settlement_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
@@ -790,9 +805,5 @@
         $('#loan_to_settlement_date_range_container_icon').on('click', function () {
             $('#loan_to_settlement_date_range').trigger('click');
         });
-
-        renderPage();
-        renderPagination();
-        getSuppliers();
     });
 </script>

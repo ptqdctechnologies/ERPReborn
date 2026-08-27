@@ -178,7 +178,7 @@ class LoanService
         );
     }
 
-    public function getLoanToLoanSettlementSummary($budget, $creditor, $debitor, $date)
+    public function getLoanToLoanSettlementSummary($budget, $creditor, $debitor, $loan, $loanSettlement, $date, $limit, $offset)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -196,9 +196,18 @@ class LoanService
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
                     'Creditor_RefID' => $creditor ? $creditor : NULL,
-                    'Debitor_RefID' => $debitor ? $debitor : NULL
+                    'Debitor_RefID' => $debitor ? $debitor : NULL,
+                    'Loan_RefID' => $loan ? $loan : NULL,
+                    'LoanSettlement_RefID' => $loanSettlement ? $loanSettlement : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => $offset
+                    ]
                 ]
             ]
         );
