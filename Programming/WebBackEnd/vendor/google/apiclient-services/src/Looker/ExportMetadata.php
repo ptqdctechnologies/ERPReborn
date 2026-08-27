@@ -32,6 +32,13 @@ class ExportMetadata extends \Google\Collection
    */
   public const SOURCE_LOOKER_ORIGINAL = 'LOOKER_ORIGINAL';
   protected $collection_key = 'filePaths';
+  /**
+   * Source BigQuery dataset (formatted as `project_id:dataset_id`) for O2C
+   * Elite System Activity (ESA) direct dataset migration.
+   *
+   * @var string
+   */
+  public $esaSourceDatasetId;
   protected $exportEncryptionKeyType = ExportMetadataEncryptionKey::class;
   protected $exportEncryptionKeyDataType = '';
   /**
@@ -75,6 +82,23 @@ class ExportMetadata extends \Google\Collection
    */
   public $source;
 
+  /**
+   * Source BigQuery dataset (formatted as `project_id:dataset_id`) for O2C
+   * Elite System Activity (ESA) direct dataset migration.
+   *
+   * @param string $esaSourceDatasetId
+   */
+  public function setEsaSourceDatasetId($esaSourceDatasetId)
+  {
+    $this->esaSourceDatasetId = $esaSourceDatasetId;
+  }
+  /**
+   * @return string
+   */
+  public function getEsaSourceDatasetId()
+  {
+    return $this->esaSourceDatasetId;
+  }
   /**
    * Encryption key that was used to encrypt the export artifacts.
    *

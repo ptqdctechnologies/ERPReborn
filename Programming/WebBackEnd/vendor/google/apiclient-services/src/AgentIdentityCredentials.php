@@ -23,7 +23,8 @@ use Google\Client;
  * Service definition for AgentIdentityCredentials (v1).
  *
  * <p>
- * agentidentitycredentials.googleapis.com API.</p>
+ * The Agent Identity Credentials API retrieves and finalizes authorization
+ * credentials for auth providers.</p>
  *
  * <p>
  * For more information about this service, see the API

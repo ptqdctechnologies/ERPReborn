@@ -36,6 +36,12 @@ class AdaptiveMtTranslateRequest extends \Google\Collection
   public $dataset;
   protected $glossaryConfigType = GlossaryConfig::class;
   protected $glossaryConfigDataType = '';
+  /**
+   * The format of the source text. Currently only text/plain is supported.
+   *
+   * @var string
+   */
+  public $mimeType;
   protected $referenceSentenceConfigType = ReferenceSentenceConfig::class;
   protected $referenceSentenceConfigDataType = '';
 
@@ -90,6 +96,22 @@ class AdaptiveMtTranslateRequest extends \Google\Collection
   public function getGlossaryConfig()
   {
     return $this->glossaryConfig;
+  }
+  /**
+   * The format of the source text. Currently only text/plain is supported.
+   *
+   * @param string $mimeType
+   */
+  public function setMimeType($mimeType)
+  {
+    $this->mimeType = $mimeType;
+  }
+  /**
+   * @return string
+   */
+  public function getMimeType()
+  {
+    return $this->mimeType;
   }
   /**
    * Configuration for caller provided reference sentences.

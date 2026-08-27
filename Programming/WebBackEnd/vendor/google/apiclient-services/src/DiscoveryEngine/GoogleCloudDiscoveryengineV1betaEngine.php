@@ -182,16 +182,16 @@ class GoogleCloudDiscoveryengineV1betaEngine extends \Google\Collection
    * Supported keys: * `*`: all features, if it's present, all other feature
    * state settings are ignored. * `agent-gallery` * `no-code-agent-builder` *
    * `prompt-gallery` * `model-selector` * `notebook-lm` * `people-search` *
-   * `people-search-org-chart` * `bi-directional-audio` * `feedback` * `session-
-   * sharing` * `personalization-memory` * `personalization-suggested-
-   * highlights` * `mobile-app-access` * `disable-agent-sharing` * `disable-
-   * image-generation` * `disable-video-generation` * `disable-onedrive-upload`
-   * * `disable-talk-to-content` * `disable-google-drive-upload` * `disable-
-   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `skills` *
-   * `skill-sharing` * `skill-sharing-without-admin-approval` * `disable-
-   * projects` * `sobi` * `enable-end-user-sharing-with-groups` * `single-agent-
-   * orchestration` * `multi-agent-orchestration` * `cross-product-intelligence`
-   * * `workflow-agents` * `in-app-notifications`
+   * `people-search-org-chart` * `bi-directional-audio` * `speech-to-text` *
+   * `feedback` * `session-sharing` * `personalization-memory` *
+   * `personalization-suggested-highlights` * `mobile-app-access` * `disable-
+   * agent-sharing` * `disable-image-generation` * `disable-video-generation` *
+   * `disable-onedrive-upload` * `disable-talk-to-content` * `disable-google-
+   * drive-upload` * `disable-welcome-emails` * `disable-canvas` * `canvas-
+   * workspace` * `skills` * `skill-sharing` * `skill-sharing-without-admin-
+   * approval` * `disable-projects` * `sobi` * `enable-end-user-sharing-with-
+   * groups` * `single-agent-orchestration` * `multi-agent-orchestration` *
+   * `cross-product-intelligence` * `workflow-agents` * `in-app-notifications`
    *
    * @var string[]
    */
@@ -493,16 +493,16 @@ class GoogleCloudDiscoveryengineV1betaEngine extends \Google\Collection
    * Supported keys: * `*`: all features, if it's present, all other feature
    * state settings are ignored. * `agent-gallery` * `no-code-agent-builder` *
    * `prompt-gallery` * `model-selector` * `notebook-lm` * `people-search` *
-   * `people-search-org-chart` * `bi-directional-audio` * `feedback` * `session-
-   * sharing` * `personalization-memory` * `personalization-suggested-
-   * highlights` * `mobile-app-access` * `disable-agent-sharing` * `disable-
-   * image-generation` * `disable-video-generation` * `disable-onedrive-upload`
-   * * `disable-talk-to-content` * `disable-google-drive-upload` * `disable-
-   * welcome-emails` * `disable-canvas` * `canvas-workspace` * `skills` *
-   * `skill-sharing` * `skill-sharing-without-admin-approval` * `disable-
-   * projects` * `sobi` * `enable-end-user-sharing-with-groups` * `single-agent-
-   * orchestration` * `multi-agent-orchestration` * `cross-product-intelligence`
-   * * `workflow-agents` * `in-app-notifications`
+   * `people-search-org-chart` * `bi-directional-audio` * `speech-to-text` *
+   * `feedback` * `session-sharing` * `personalization-memory` *
+   * `personalization-suggested-highlights` * `mobile-app-access` * `disable-
+   * agent-sharing` * `disable-image-generation` * `disable-video-generation` *
+   * `disable-onedrive-upload` * `disable-talk-to-content` * `disable-google-
+   * drive-upload` * `disable-welcome-emails` * `disable-canvas` * `canvas-
+   * workspace` * `skills` * `skill-sharing` * `skill-sharing-without-admin-
+   * approval` * `disable-projects` * `sobi` * `enable-end-user-sharing-with-
+   * groups` * `single-agent-orchestration` * `multi-agent-orchestration` *
+   * `cross-product-intelligence` * `workflow-agents` * `in-app-notifications`
    *
    * @param string[] $features
    */

@@ -1413,7 +1413,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2026-08-14                                                                                           |
         | ▪ Creation Date   : 2026-08-14                                                                                           |
-        | ▪ Description     : Mendapatkan Laporan Resume - Nerace Percobaan (Trial Balance)                                        |
+        | ▪ Description     : Mendapatkan Laporan Resume - Nerace Saldo (Trial Balance)                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
         |      ▪ (mixed)  varUserSession ► User Session                                                                            |

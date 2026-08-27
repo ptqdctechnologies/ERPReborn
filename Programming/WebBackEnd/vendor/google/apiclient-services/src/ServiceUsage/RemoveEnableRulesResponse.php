@@ -30,7 +30,8 @@ class RemoveEnableRulesResponse extends \Google\Collection
    */
   public $parent;
   /**
-   * The values removed from the parent consumer policy.
+   * Deprecated: This field is no longer populated. Use GetConsumerPolicy to
+   * verify the remaining enabled values.
    *
    * @deprecated
    * @var string[]
@@ -57,7 +58,8 @@ class RemoveEnableRulesResponse extends \Google\Collection
     return $this->parent;
   }
   /**
-   * The values removed from the parent consumer policy.
+   * Deprecated: This field is no longer populated. Use GetConsumerPolicy to
+   * verify the remaining enabled values.
    *
    * @deprecated
    * @param string[] $removedValues

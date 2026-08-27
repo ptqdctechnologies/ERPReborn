@@ -144,6 +144,14 @@ class GoogleCloudDatacatalogV1Entry extends \Google\Model
    * An entry type for a graph.
    */
   public const TYPE_GRAPH = 'GRAPH';
+  /**
+   * An entry type for a graph node.
+   */
+  public const TYPE_NODE = 'NODE';
+  /**
+   * An entry type for a graph edge.
+   */
+  public const TYPE_EDGE = 'EDGE';
   protected $bigqueryDateShardedSpecType = GoogleCloudDatacatalogV1BigQueryDateShardedSpec::class;
   protected $bigqueryDateShardedSpecDataType = '';
   protected $bigqueryTableSpecType = GoogleCloudDatacatalogV1BigQueryTableSpec::class;
@@ -782,7 +790,7 @@ class GoogleCloudDatacatalogV1Entry extends \Google\Model
    * Accepted values: ENTRY_TYPE_UNSPECIFIED, TABLE, MODEL, DATA_STREAM,
    * FILESET, CLUSTER, DATABASE, DATA_SOURCE_CONNECTION, ROUTINE, LAKE, ZONE,
    * SERVICE, DATABASE_SCHEMA, DASHBOARD, EXPLORE, LOOK, FEATURE_ONLINE_STORE,
-   * FEATURE_VIEW, FEATURE_GROUP, GRAPH
+   * FEATURE_VIEW, FEATURE_GROUP, GRAPH, NODE, EDGE
    *
    * @param self::TYPE_* $type
    */

@@ -23,6 +23,13 @@ class GoogleCloudRunV2Overrides extends \Google\Collection
   protected $containerOverridesType = GoogleCloudRunV2ContainerOverride::class;
   protected $containerOverridesDataType = 'array';
   /**
+   * Optional. If true, the system will start the execution within the next 12
+   * hours depending on available capacity.
+   *
+   * @var bool
+   */
+  public $delayExecution;
+  /**
    * Optional. The desired number of tasks the execution should run. Will
    * replace existing task_count value.
    *
@@ -53,6 +60,23 @@ class GoogleCloudRunV2Overrides extends \Google\Collection
   public function getContainerOverrides()
   {
     return $this->containerOverrides;
+  }
+  /**
+   * Optional. If true, the system will start the execution within the next 12
+   * hours depending on available capacity.
+   *
+   * @param bool $delayExecution
+   */
+  public function setDelayExecution($delayExecution)
+  {
+    $this->delayExecution = $delayExecution;
+  }
+  /**
+   * @return bool
+   */
+  public function getDelayExecution()
+  {
+    return $this->delayExecution;
   }
   /**
    * Optional. The desired number of tasks the execution should run. Will

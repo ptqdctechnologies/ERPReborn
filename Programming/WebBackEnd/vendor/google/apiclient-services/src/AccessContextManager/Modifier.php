@@ -23,7 +23,7 @@ class Modifier extends \Google\Model
   protected $addRequestHeaderDataType = '';
 
   /**
-   * Adds additional HTTP request headers.
+   * Adds an additional HTTP request header.
    *
    * @param AddRequestHeader $addRequestHeader
    */

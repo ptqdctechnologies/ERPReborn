@@ -20,11 +20,17 @@ namespace Google\Service\CloudAlloyDBAdmin;
 class AlloydbClhErrorsAlloyDbInternalDebugInfo extends \Google\Model
 {
   /**
+   * The original error message or details before sanitization, used internally
+   * for debugging and logging.
+   *
    * @var string
    */
   public $originalError;
 
   /**
+   * The original error message or details before sanitization, used internally
+   * for debugging and logging.
+   *
    * @param string $originalError
    */
   public function setOriginalError($originalError)

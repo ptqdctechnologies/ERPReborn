@@ -32,8 +32,10 @@ class Value extends \Google\Model
    */
   public $booleanValue;
   /**
-   * A bytes value. Must not exceed 1 MiB - 89 bytes. Only the first 1,500 bytes
-   * are considered by queries.
+   * A bytes value. In Standard edition databases: * The value must not exceed 1
+   * MiB - 89 bytes. * Only the first 1,500 bytes are considered by queries. In
+   * Enterprise edition databases, there is no limit on the size of the value.
+   * However, it is still subject to document and index entry size limits.
    *
    * @var string
    */
@@ -81,9 +83,11 @@ class Value extends \Google\Model
    */
   public $referenceValue;
   /**
-   * A string value. The string, represented as UTF-8, must not exceed 1 MiB -
-   * 89 bytes. Only the first 1,500 bytes of the UTF-8 representation are
-   * considered by queries.
+   * A string value. In Standard edition databases: * The string, represented as
+   * UTF-8, must not exceed 1 MiB - 89 bytes. * Only the first 1,500 bytes of
+   * the UTF-8 representation are considered by queries. In Enterprise edition
+   * databases, there is no limit on the size of the value. However, it is still
+   * subject to document and index entry size limits.
    *
    * @var string
    */
@@ -106,8 +110,10 @@ class Value extends \Google\Model
   public $variableReferenceValue;
 
   /**
-   * An array value. Cannot directly contain another array value, though can
-   * contain a map which contains another array.
+   * An array value. In Standard edition databases, an array value cannot
+   * directly contain another array value, though it can contain a map which
+   * contains another array. In Enterprise edition databases, an array value can
+   * contain another array value.
    *
    * @param ArrayValue $arrayValue
    */
@@ -139,8 +145,10 @@ class Value extends \Google\Model
     return $this->booleanValue;
   }
   /**
-   * A bytes value. Must not exceed 1 MiB - 89 bytes. Only the first 1,500 bytes
-   * are considered by queries.
+   * A bytes value. In Standard edition databases: * The value must not exceed 1
+   * MiB - 89 bytes. * Only the first 1,500 bytes are considered by queries. In
+   * Enterprise edition databases, there is no limit on the size of the value.
+   * However, it is still subject to document and index entry size limits.
    *
    * @param string $bytesValue
    */
@@ -300,9 +308,11 @@ class Value extends \Google\Model
     return $this->referenceValue;
   }
   /**
-   * A string value. The string, represented as UTF-8, must not exceed 1 MiB -
-   * 89 bytes. Only the first 1,500 bytes of the UTF-8 representation are
-   * considered by queries.
+   * A string value. In Standard edition databases: * The string, represented as
+   * UTF-8, must not exceed 1 MiB - 89 bytes. * Only the first 1,500 bytes of
+   * the UTF-8 representation are considered by queries. In Enterprise edition
+   * databases, there is no limit on the size of the value. However, it is still
+   * subject to document and index entry size limits.
    *
    * @param string $stringValue
    */

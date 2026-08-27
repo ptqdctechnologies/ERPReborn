@@ -20,12 +20,36 @@ namespace Google\Service\PaymentsResellerSubscription;
 class SubscriptionMigrationDetails extends \Google\Model
 {
   /**
+   * Output only. The creation time of the migrated subscription in the legacy
+   * system.
+   *
+   * @var string
+   */
+  public $legacyCreationTime;
+  /**
    * Output only. The migrated subscription id in the legacy system.
    *
    * @var string
    */
   public $migratedSubscriptionId;
 
+  /**
+   * Output only. The creation time of the migrated subscription in the legacy
+   * system.
+   *
+   * @param string $legacyCreationTime
+   */
+  public function setLegacyCreationTime($legacyCreationTime)
+  {
+    $this->legacyCreationTime = $legacyCreationTime;
+  }
+  /**
+   * @return string
+   */
+  public function getLegacyCreationTime()
+  {
+    return $this->legacyCreationTime;
+  }
   /**
    * Output only. The migrated subscription id in the legacy system.
    *

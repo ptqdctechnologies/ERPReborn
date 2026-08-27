@@ -39,7 +39,7 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
   public const DENSITY_DENSITY_UNSPECIFIED = 'DENSITY_UNSPECIFIED';
   /**
    * An index entry will only exist if ALL fields are present in the document.
-   * This is both the default and only allowed value for Standard Edition
+   * This is both the default and only allowed value for Standard edition
    * databases (for both Cloud Firestore `ANY_API` and Cloud Datastore
    * `DATASTORE_MODE_API`). Take for example the following document: ``` {
    * "__name__": "...", "a": 1, "b": 2, "c": 3 } ``` an index on `(a ASC, b ASC,
@@ -53,7 +53,7 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
   public const DENSITY_SPARSE_ALL = 'SPARSE_ALL';
   /**
    * An index entry will exist if ANY field are present in the document. This is
-   * used as the definition of a sparse index for Enterprise Edition databases.
+   * used as the definition of a sparse index for Enterprise edition databases.
    * Take for example the following document: ``` { "__name__": "...", "a": 1,
    * "b": 2, "c": 3 } ``` an index on `(a ASC, d ASC)` will generate an index
    * entry for this document since `a` is present, and will fill in an `unset`
@@ -65,7 +65,7 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
   public const DENSITY_SPARSE_ANY = 'SPARSE_ANY';
   /**
    * An index entry will exist regardless of if the fields are present or not.
-   * This is the default density for an Enterprise Edition database. The index
+   * This is the default density for an Enterprise edition database. The index
    * will store `unset` values for fields that are not present in the document.
    */
   public const DENSITY_DENSE = 'DENSE';
@@ -142,10 +142,11 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
    */
   public $multikey;
   /**
-   * Output only. A server defined name for this index. The form of this name
-   * for composite indexes will be: `projects/{project_id}/databases/{database_i
-   * d}/collectionGroups/{collection_id}/indexes/{composite_index_id}` For
-   * single field indexes, this field will be empty.
+   * A server-defined name for this index. Output only. When used in the
+   * google.firestore.admin.v1.Index resource, the value is of the form: `projec
+   * ts/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/in
+   * dexes/{index_id}` When used in the google.firestore.admin.v1.Field
+   * resource, the value is empty.
    *
    * @var string
    */
@@ -220,15 +221,13 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
     return $this->density;
   }
   /**
-   * The fields supported by this index. For composite indexes, this requires a
-   * minimum of 2 and a maximum of 100 fields. The last field entry is always
-   * for the field path `__name__`. If, on creation, `__name__` was not
-   * specified as the last field, it will be added automatically with the same
-   * direction as that of the last field defined. If the final field in a
-   * composite index is not directional, the `__name__` will be ordered
-   * ASCENDING (unless explicitly specified). For single field indexes, this
-   * will always be exactly one entry with a field path equal to the field path
-   * of the associated field.
+   * The fields supported by this index. At most 100 fields may be specified. In
+   * Standard edition databases only: - At least 2 fields must be specified. -
+   * The last field entry is always for the field path `__name__`. If, on
+   * creation, `__name__` was not specified as the last field, it will be added
+   * automatically with the same direction as that of the last field defined. If
+   * the final field in the index is not directional, the `__name__` will be
+   * ordered ASCENDING (unless explicitly specified).
    *
    * @param GoogleFirestoreAdminV1IndexField[] $fields
    */
@@ -266,10 +265,11 @@ class GoogleFirestoreAdminV1Index extends \Google\Collection
     return $this->multikey;
   }
   /**
-   * Output only. A server defined name for this index. The form of this name
-   * for composite indexes will be: `projects/{project_id}/databases/{database_i
-   * d}/collectionGroups/{collection_id}/indexes/{composite_index_id}` For
-   * single field indexes, this field will be empty.
+   * A server-defined name for this index. Output only. When used in the
+   * google.firestore.admin.v1.Index resource, the value is of the form: `projec
+   * ts/{project_id}/databases/{database_id}/collectionGroups/{collection_id}/in
+   * dexes/{index_id}` When used in the google.firestore.admin.v1.Field
+   * resource, the value is empty.
    *
    * @param string $name
    */

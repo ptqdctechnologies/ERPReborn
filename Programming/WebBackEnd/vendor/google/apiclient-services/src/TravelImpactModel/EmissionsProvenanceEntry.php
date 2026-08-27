@@ -258,7 +258,9 @@ class EmissionsProvenanceEntry extends \Google\Model
    */
   public $loadFactorsT100Strategy;
   /**
-   * Output only. The type of the provenance entry.
+   * Output only. The type of the provenance entry. Acts as the "key"
+   * identifying the contributing factor; the remaining fields in this message
+   * describe it and may or may not be populated.
    *
    * @var string
    */
@@ -432,7 +434,9 @@ class EmissionsProvenanceEntry extends \Google\Model
     return $this->loadFactorsT100Strategy;
   }
   /**
-   * Output only. The type of the provenance entry.
+   * Output only. The type of the provenance entry. Acts as the "key"
+   * identifying the contributing factor; the remaining fields in this message
+   * describe it and may or may not be populated.
    *
    * Accepted values: EMISSIONS_PROVENANCE_ENTRY_TYPE_UNSPECIFIED, FUEL_BURN,
    * LOAD_FACTORS, CARGO_MASS_FRACTION, SEATING_CONFIG, SEAT_AREA_RATIOS,

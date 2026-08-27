@@ -37,12 +37,12 @@ class ReportedErrorEvent extends \Google\Model
    * the message must contain a header (typically consisting of the exception
    * type name and an error message) and an exception stack trace in one of the
    * supported programming languages and formats. Supported languages are Java,
-   * Python, JavaScript, Ruby, C#, PHP, and Go. Supported stack trace formats
-   * are: * **Java**: Must be the return value of [`Throwable.printStackTrace()`
-   * ](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printS
-   * tackTrace%28%29). * **Python**: Must be the return value of [`traceback.for
-   * mat_exc()`](https://docs.python.org/2/library/traceback.html#traceback.form
-   * at_exc). * **JavaScript**: Must be the value of
+   * Python, JavaScript, Ruby, C#, PHP, Go, and Rust. Supported stack trace
+   * formats are: * **Java**: Must be the return value of [`Throwable.printStack
+   * Trace()`](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.htm
+   * l#printStackTrace%28%29). * **Python**: Must be the return value of [`trace
+   * back.format_exc()`](https://docs.python.org/2/library/traceback.html#traceb
+   * ack.format_exc). * **JavaScript**: Must be the value of
    * [`error.stack`](https://github.com/v8/v8/wiki/Stack-Trace-API) as returned
    * by V8. * **Ruby**: Must contain frames returned by
    * [`Exception.backtrace`](https://ruby-
@@ -53,7 +53,10 @@ class ReportedErrorEvent extends \Google\Model
    * result of
    * [`(string)$exception`](https://php.net/manual/en/exception.tostring.php). *
    * **Go**: Must be the return value of
-   * [`debug.Stack()`](https://pkg.go.dev/runtime/debug#Stack).
+   * [`debug.Stack()`](https://pkg.go.dev/runtime/debug#Stack). * **Rust**: Must
+   * contain standard [`std::backtrace`](https://doc.rust-
+   * lang.org/std/backtrace/index.html) frames. Requires `RUST_BACKTRACE=1` and
+   * debug symbols enabled.
    *
    * @var string
    */
@@ -103,12 +106,12 @@ class ReportedErrorEvent extends \Google\Model
    * the message must contain a header (typically consisting of the exception
    * type name and an error message) and an exception stack trace in one of the
    * supported programming languages and formats. Supported languages are Java,
-   * Python, JavaScript, Ruby, C#, PHP, and Go. Supported stack trace formats
-   * are: * **Java**: Must be the return value of [`Throwable.printStackTrace()`
-   * ](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printS
-   * tackTrace%28%29). * **Python**: Must be the return value of [`traceback.for
-   * mat_exc()`](https://docs.python.org/2/library/traceback.html#traceback.form
-   * at_exc). * **JavaScript**: Must be the value of
+   * Python, JavaScript, Ruby, C#, PHP, Go, and Rust. Supported stack trace
+   * formats are: * **Java**: Must be the return value of [`Throwable.printStack
+   * Trace()`](https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.htm
+   * l#printStackTrace%28%29). * **Python**: Must be the return value of [`trace
+   * back.format_exc()`](https://docs.python.org/2/library/traceback.html#traceb
+   * ack.format_exc). * **JavaScript**: Must be the value of
    * [`error.stack`](https://github.com/v8/v8/wiki/Stack-Trace-API) as returned
    * by V8. * **Ruby**: Must contain frames returned by
    * [`Exception.backtrace`](https://ruby-
@@ -119,7 +122,10 @@ class ReportedErrorEvent extends \Google\Model
    * result of
    * [`(string)$exception`](https://php.net/manual/en/exception.tostring.php). *
    * **Go**: Must be the return value of
-   * [`debug.Stack()`](https://pkg.go.dev/runtime/debug#Stack).
+   * [`debug.Stack()`](https://pkg.go.dev/runtime/debug#Stack). * **Rust**: Must
+   * contain standard [`std::backtrace`](https://doc.rust-
+   * lang.org/std/backtrace/index.html) frames. Requires `RUST_BACKTRACE=1` and
+   * debug symbols enabled.
    *
    * @param string $message
    */

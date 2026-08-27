@@ -24,7 +24,10 @@ class EmissionsProvenance extends \Google\Collection
   protected $provenanceEntriesDataType = 'array';
 
   /**
-   * Output only. All contributing factors used to calculate emissions.
+   * Output only. All contributing factors used to calculate emissions. Each
+   * entry type (`provenance_entry_type`) acts as a "key" identifying the
+   * factor, with always only one entry per entry type. The remaining fields
+   * describe that specific factor and may or may not be populated.
    *
    * @param EmissionsProvenanceEntry[] $provenanceEntries
    */

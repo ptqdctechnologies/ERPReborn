@@ -19,9 +19,22 @@ namespace Google\Service\Aiplatform;
 
 class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
 {
+  /**
+   * Unspecified transcription mode.
+   */
+  public const MODE_MODE_UNSPECIFIED = 'MODE_UNSPECIFIED';
+  /**
+   * Verbatim transcription mode.
+   */
+  public const MODE_VERBATIM = 'VERBATIM';
+  /**
+   * Smart transcription mode.
+   */
+  public const MODE_SMART = 'SMART';
   protected $collection_key = 'languageCodes';
   /**
-   * Optional. A list of phrases to bias the ASR model towards.
+   * Optional. Deprecated: Use `custom_vocabulary` instead. A list of phrases to
+   * bias the speech recognition model towards.
    *
    * @deprecated
    * @var string[]
@@ -53,6 +66,18 @@ class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
   protected $languageHintsType = GoogleCloudAiplatformV1AudioTranscriptionConfigLanguageHints::class;
   protected $languageHintsDataType = '';
   /**
+   * Optional. Configures transcription mode. Supported values: `VERBATIM`,
+   * `SMART`. If unspecified, defaults to `VERBATIM` transcription. In `SMART`
+   * mode, the model performs disfluency removal (eliminating filler words,
+   * repetitions, and false starts), light grammatical cleanup, automatic
+   * formatting (paragraphs, bullet points, numbered lists), and minor user
+   * edits (inline self-corrections). Timestamps and diarization are
+   * incompatible with mode `SMART`.
+   *
+   * @var string
+   */
+  public $mode;
+  /**
    * Optional. Configures word-level timestamp generation.
    *
    * @var bool
@@ -60,7 +85,8 @@ class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
   public $wordTimestamp;
 
   /**
-   * Optional. A list of phrases to bias the ASR model towards.
+   * Optional. Deprecated: Use `custom_vocabulary` instead. A list of phrases to
+   * bias the speech recognition model towards.
    *
    * @deprecated
    * @param string[] $adaptationPhrases
@@ -165,6 +191,30 @@ class GoogleCloudAiplatformV1AudioTranscriptionConfig extends \Google\Collection
   public function getLanguageHints()
   {
     return $this->languageHints;
+  }
+  /**
+   * Optional. Configures transcription mode. Supported values: `VERBATIM`,
+   * `SMART`. If unspecified, defaults to `VERBATIM` transcription. In `SMART`
+   * mode, the model performs disfluency removal (eliminating filler words,
+   * repetitions, and false starts), light grammatical cleanup, automatic
+   * formatting (paragraphs, bullet points, numbered lists), and minor user
+   * edits (inline self-corrections). Timestamps and diarization are
+   * incompatible with mode `SMART`.
+   *
+   * Accepted values: MODE_UNSPECIFIED, VERBATIM, SMART
+   *
+   * @param self::MODE_* $mode
+   */
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  /**
+   * @return self::MODE_*
+   */
+  public function getMode()
+  {
+    return $this->mode;
   }
   /**
    * Optional. Configures word-level timestamp generation.

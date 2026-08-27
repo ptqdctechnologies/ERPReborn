@@ -43,6 +43,14 @@ class DocumentChunk extends \Google\Model
    * @var string
    */
   public $parent;
+  /**
+   * Output only. Represents the relevance score of the chunk to the search
+   * query. Higher score indicates higher chunk relevance. The score is in range
+   * [0.0, 1.0].
+   *
+   * @var 
+   */
+  public $relevanceScore;
 
   /**
    * Output only. Contains the content of the document chunk.
@@ -117,6 +125,14 @@ class DocumentChunk extends \Google\Model
   public function getParent()
   {
     return $this->parent;
+  }
+  public function setRelevanceScore($relevanceScore)
+  {
+    $this->relevanceScore = $relevanceScore;
+  }
+  public function getRelevanceScore()
+  {
+    return $this->relevanceScore;
   }
 }
 

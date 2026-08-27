@@ -29,10 +29,20 @@ class GoogleAdsSearchads360V23ResourcesGoal extends \Google\Model
   public const GOAL_TYPE_UNKNOWN = 'UNKNOWN';
   /**
    * Retention goal, which allows advertisers to optimize campaigns to win back
-   * lapsed customers. (https://support.google.com/google-
-   * ads/answer/14792043?hl=en)
+   * lapsed customers. See https://support.google.com/google-ads/answer/14792043
+   * to learn more.
    */
   public const GOAL_TYPE_CUSTOMER_RETENTION = 'CUSTOMER_RETENTION';
+  /**
+   * New customer acquisition goal, which allows advertisers to optimize
+   * campaigns to acquire new customers.
+   */
+  public const GOAL_TYPE_NEW_CUSTOMER_ACQUISITION = 'NEW_CUSTOMER_ACQUISITION';
+  /**
+   * Loyalty retention goal, which allows advertisers to optimize campaigns for
+   * retaining loyalty program members.
+   */
+  public const GOAL_TYPE_LOYALTY_RETENTION = 'LOYALTY_RETENTION';
   /**
    * The goal optimization status has not been specified.
    */
@@ -102,7 +112,8 @@ class GoogleAdsSearchads360V23ResourcesGoal extends \Google\Model
   /**
    * Output only. The type of this goal.
    *
-   * Accepted values: UNSPECIFIED, UNKNOWN, CUSTOMER_RETENTION
+   * Accepted values: UNSPECIFIED, UNKNOWN, CUSTOMER_RETENTION,
+   * NEW_CUSTOMER_ACQUISITION, LOYALTY_RETENTION
    *
    * @param self::GOAL_TYPE_* $goalType
    */

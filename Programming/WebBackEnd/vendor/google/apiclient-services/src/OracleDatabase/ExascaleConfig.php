@@ -26,11 +26,23 @@ class ExascaleConfig extends \Google\Model
    */
   public $availableStorageSizeGb;
   /**
+   * Output only. Available storage size for VM storage on Exascale in GBs.
+   *
+   * @var int
+   */
+  public $availableVmStorageSizeGb;
+  /**
    * Output only. Total storage size needed for Exascale in GBs.
    *
    * @var int
    */
   public $totalStorageSizeGb;
+  /**
+   * Output only. Storage size needed for VM storage on Exascale in GBs.
+   *
+   * @var int
+   */
+  public $totalVmStorageSizeGb;
 
   /**
    * Output only. Available storage size for Exascale in GBs.
@@ -49,6 +61,22 @@ class ExascaleConfig extends \Google\Model
     return $this->availableStorageSizeGb;
   }
   /**
+   * Output only. Available storage size for VM storage on Exascale in GBs.
+   *
+   * @param int $availableVmStorageSizeGb
+   */
+  public function setAvailableVmStorageSizeGb($availableVmStorageSizeGb)
+  {
+    $this->availableVmStorageSizeGb = $availableVmStorageSizeGb;
+  }
+  /**
+   * @return int
+   */
+  public function getAvailableVmStorageSizeGb()
+  {
+    return $this->availableVmStorageSizeGb;
+  }
+  /**
    * Output only. Total storage size needed for Exascale in GBs.
    *
    * @param int $totalStorageSizeGb
@@ -63,6 +91,22 @@ class ExascaleConfig extends \Google\Model
   public function getTotalStorageSizeGb()
   {
     return $this->totalStorageSizeGb;
+  }
+  /**
+   * Output only. Storage size needed for VM storage on Exascale in GBs.
+   *
+   * @param int $totalVmStorageSizeGb
+   */
+  public function setTotalVmStorageSizeGb($totalVmStorageSizeGb)
+  {
+    $this->totalVmStorageSizeGb = $totalVmStorageSizeGb;
+  }
+  /**
+   * @return int
+   */
+  public function getTotalVmStorageSizeGb()
+  {
+    return $this->totalVmStorageSizeGb;
   }
 }
 

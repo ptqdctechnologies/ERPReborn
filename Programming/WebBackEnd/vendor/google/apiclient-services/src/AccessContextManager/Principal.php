@@ -20,12 +20,29 @@ namespace Google\Service\AccessContextManager;
 class Principal extends \Google\Model
 {
   /**
+   * Immutable. The IAM principal identifier of the federated workforce or
+   * workload to assign the policy to. Examples include the following: * Single
+   * principal: `principal://iam.googleapis.com/projects/{project_number}/locati
+   * ons/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value
+   * }` * All workloads in a workload identity pool: `principalSet://iam.googlea
+   * pis.com/projects/{project_number}/locations/global/workloadIdentityPools/{p
+   * ool_id}` * All Workforce Pools in a Google Cloud organization: `principalSe
+   * t://cloudresourcemanager.googleapis.com/organizations/{organization_id}/typ
+   * e/WorkforcePool` Bindings created for all Workforce Pools in a Google Cloud
+   * organization support only `scoped_access_settings` with the
+   * `restricted_project` client scope and active `session_settings`. No other
+   * configurations are allowed.
+   *
+   * @var string
+   */
+  public $federatedPrincipal;
+  /**
    * Immutable. Service account email used to assign policies to a specific
    * service account. If a service account is subject to multiple policies
    * (e.g., if there is a policy for all service accounts in a project and a
    * policy for the service account), the closest (i.e. the most specific) dry-
    * run policy will be used for the dry-run functionality and the closest
-   * policy will be used for the enforcement.
+   * enforcement policy will be used for the enforcement.
    *
    * @var string
    */
@@ -39,12 +56,39 @@ class Principal extends \Google\Model
   public $serviceAccountProjectNumber;
 
   /**
+   * Immutable. The IAM principal identifier of the federated workforce or
+   * workload to assign the policy to. Examples include the following: * Single
+   * principal: `principal://iam.googleapis.com/projects/{project_number}/locati
+   * ons/global/workloadIdentityPools/{pool_id}/subject/{subject_attribute_value
+   * }` * All workloads in a workload identity pool: `principalSet://iam.googlea
+   * pis.com/projects/{project_number}/locations/global/workloadIdentityPools/{p
+   * ool_id}` * All Workforce Pools in a Google Cloud organization: `principalSe
+   * t://cloudresourcemanager.googleapis.com/organizations/{organization_id}/typ
+   * e/WorkforcePool` Bindings created for all Workforce Pools in a Google Cloud
+   * organization support only `scoped_access_settings` with the
+   * `restricted_project` client scope and active `session_settings`. No other
+   * configurations are allowed.
+   *
+   * @param string $federatedPrincipal
+   */
+  public function setFederatedPrincipal($federatedPrincipal)
+  {
+    $this->federatedPrincipal = $federatedPrincipal;
+  }
+  /**
+   * @return string
+   */
+  public function getFederatedPrincipal()
+  {
+    return $this->federatedPrincipal;
+  }
+  /**
    * Immutable. Service account email used to assign policies to a specific
    * service account. If a service account is subject to multiple policies
    * (e.g., if there is a policy for all service accounts in a project and a
    * policy for the service account), the closest (i.e. the most specific) dry-
    * run policy will be used for the dry-run functionality and the closest
-   * policy will be used for the enforcement.
+   * enforcement policy will be used for the enforcement.
    *
    * @param string $serviceAccount
    */

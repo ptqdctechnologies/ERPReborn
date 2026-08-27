@@ -33,6 +33,12 @@ class GoogleCloudDiscoveryengineV1SearchResponse extends \Google\Collection
   public const SEMANTIC_STATE_ENABLED = 'ENABLED';
   protected $collection_key = 'searchLinkPromotions';
   /**
+   * Optional. Controls applied as part of the Control service.
+   *
+   * @var string[]
+   */
+  public $appliedControls;
+  /**
    * A unique search token. This should be included in the UserEvent logs
    * resulting from this search, which enables accurate attribution of search
    * model performance. This also helps to identify a request during the
@@ -93,6 +99,22 @@ class GoogleCloudDiscoveryengineV1SearchResponse extends \Google\Collection
    */
   public $totalSize;
 
+  /**
+   * Optional. Controls applied as part of the Control service.
+   *
+   * @param string[] $appliedControls
+   */
+  public function setAppliedControls($appliedControls)
+  {
+    $this->appliedControls = $appliedControls;
+  }
+  /**
+   * @return string[]
+   */
+  public function getAppliedControls()
+  {
+    return $this->appliedControls;
+  }
   /**
    * A unique search token. This should be included in the UserEvent logs
    * resulting from this search, which enables accurate attribution of search

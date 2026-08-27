@@ -50,6 +50,7 @@ class Games extends \Google\Service
   public $achievements;
   public $applications;
   public $events;
+  public $gameStats;
   public $leaderboards;
   public $metagame;
   public $players;
@@ -340,6 +341,26 @@ class Games extends \Google\Service
                 'language' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->gameStats = new Games\Resource\GameStats(
+        $this,
+        $this->serviceName,
+        'gameStats',
+        [
+          'methods' => [
+            'batchRecordEvents' => [
+              'path' => 'games/v1/players/{playerId}/gameStats:batchRecordEvents',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'playerId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

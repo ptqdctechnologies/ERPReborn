@@ -35,7 +35,8 @@ class ProjectsLocationsAclPoliciesRevisions extends \Google\Service\Resource
    *
    * @param string $name Required. Redis ACL policy revision resource name using
    * the form: `projects/{project_id}/locations/{location_id}/aclPolicies/{acl_pol
-   * icy_id}/revisions/{revision_id}` where `location_id` refers to a GCP region.
+   * icy_id}/revisions/{revision_id}` where `location_id` refers to a Google Cloud
+   * region.
    * @param array $optParams Optional parameters.
    * @return AclPolicyRevision
    * @throws \Google\Service\Exception

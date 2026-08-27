@@ -20,13 +20,37 @@ namespace Google\Service\ThreatIntelligenceService;
 class CustomThreatScenarioConfig extends \Google\Model
 {
   /**
+   * Output only. The compiled Lucene query string.
+   *
+   * @var string
+   */
+  public $compiledLuceneQuery;
+  /**
    * Required. The condition driving the scenario, stored as a stringified JSON.
    * This is used to query/filter documents.
    *
    * @var string
    */
   public $documentCondition;
+  protected $legacyMonitorMetadataType = LegacyMetadata::class;
+  protected $legacyMonitorMetadataDataType = '';
 
+  /**
+   * Output only. The compiled Lucene query string.
+   *
+   * @param string $compiledLuceneQuery
+   */
+  public function setCompiledLuceneQuery($compiledLuceneQuery)
+  {
+    $this->compiledLuceneQuery = $compiledLuceneQuery;
+  }
+  /**
+   * @return string
+   */
+  public function getCompiledLuceneQuery()
+  {
+    return $this->compiledLuceneQuery;
+  }
   /**
    * Required. The condition driving the scenario, stored as a stringified JSON.
    * This is used to query/filter documents.
@@ -43,6 +67,22 @@ class CustomThreatScenarioConfig extends \Google\Model
   public function getDocumentCondition()
   {
     return $this->documentCondition;
+  }
+  /**
+   * Optional. Legacy metadata associated with this scenario/monitor.
+   *
+   * @param LegacyMetadata $legacyMonitorMetadata
+   */
+  public function setLegacyMonitorMetadata(LegacyMetadata $legacyMonitorMetadata)
+  {
+    $this->legacyMonitorMetadata = $legacyMonitorMetadata;
+  }
+  /**
+   * @return LegacyMetadata
+   */
+  public function getLegacyMonitorMetadata()
+  {
+    return $this->legacyMonitorMetadata;
   }
 }
 

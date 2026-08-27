@@ -51,6 +51,38 @@ class ProjectsLocationsPublishersV1Responses extends \Google\Service\Resource
     $params = array_merge($params, $optParams);
     return $this->call('compact', [$params], GoogleApiHttpBody::class);
   }
+  /**
+   * Deletes the response from the endpoint. (responses.delete)
+   *
+   * @param string $name Required. The name of the Response resource to be
+   * deleted. Format: `projects/{project}/locations/{location}/endpoints/{endpoint
+   * }/responses/{response}`
+   * @param array $optParams Optional parameters.
+   * @return GoogleApiHttpBody
+   * @throws \Google\Service\Exception
+   */
+  public function delete($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('delete', [$params], GoogleApiHttpBody::class);
+  }
+  /**
+   * Gets the response from the endpoint. (responses.get)
+   *
+   * @param string $name Required. The name of the Response resource. Format: `pro
+   * jects/{project}/locations/{location}/endpoints/{endpoint}/responses/{response
+   * }`
+   * @param array $optParams Optional parameters.
+   * @return GoogleApiHttpBody
+   * @throws \Google\Service\Exception
+   */
+  public function get($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('get', [$params], GoogleApiHttpBody::class);
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

@@ -63,7 +63,7 @@ class GoogleCloudAiplatformV1Part extends \Google\Model
 
   /**
    * Optional. Audio (input or output) transcription. This is only set when this
-   * Part contains audio data.
+   * `Part` contains audio data.
    *
    * @param GoogleCloudAiplatformV1AudioTranscription $audioTranscription
    */

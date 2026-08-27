@@ -51,9 +51,10 @@ class ProjectsLocationsServers extends \Google\Service\Resource
    * clients from accidentally creating duplicate commitments. The request ID must
    * be a valid UUID with the exception that zero UUID is not supported
    * (00000000-0000-0000-0000-000000000000).
-   * @opt_param string serverId Required. Id of the requesting object If auto-
-   * generating Id server-side, remove this field and server_id from the
-   * method_signature of Create RPC
+   * @opt_param string serverId Required. A unique ID for the server. Must start
+   * with a lowercase letter, and end with a lowercase letter or number. Can
+   * contain lowercase letters, numbers, and hyphens. Maximum length is 30
+   * characters.
    * @return Operation
    * @throws \Google\Service\Exception
    */

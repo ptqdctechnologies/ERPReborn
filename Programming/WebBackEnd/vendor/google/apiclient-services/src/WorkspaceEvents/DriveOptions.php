@@ -22,11 +22,11 @@ class DriveOptions extends \Google\Model
   /**
    * Optional. Immutable. For subscriptions to Google Drive events, whether to
    * receive events about Drive files that are children of the target folder or
-   * shared drive. * If `false`, the subscription only receives events about
-   * changes to the folder or shared drive that's specified as the
-   * `targetResource`. * If `true`, the `mimeType` field of the `file` resource
-   * must be set to `application/vnd.google-apps.folder`. For details, see
-   * [Google Drive event
+   * shared drive. This field must be `true` for subscriptions on shared drives.
+   * * If `false`, the subscription only receives events about changes to the
+   * folder or shared drive that's specified as the `targetResource`. * If
+   * `true`, the `mimeType` field of the `file` resource must be set to
+   * `application/vnd.google-apps.folder`. For details, see [Google Drive event
    * types](https://developers.google.com/workspace/events/guides/events-
    * drive#event-types).
    *
@@ -37,11 +37,11 @@ class DriveOptions extends \Google\Model
   /**
    * Optional. Immutable. For subscriptions to Google Drive events, whether to
    * receive events about Drive files that are children of the target folder or
-   * shared drive. * If `false`, the subscription only receives events about
-   * changes to the folder or shared drive that's specified as the
-   * `targetResource`. * If `true`, the `mimeType` field of the `file` resource
-   * must be set to `application/vnd.google-apps.folder`. For details, see
-   * [Google Drive event
+   * shared drive. This field must be `true` for subscriptions on shared drives.
+   * * If `false`, the subscription only receives events about changes to the
+   * folder or shared drive that's specified as the `targetResource`. * If
+   * `true`, the `mimeType` field of the `file` resource must be set to
+   * `application/vnd.google-apps.folder`. For details, see [Google Drive event
    * types](https://developers.google.com/workspace/events/guides/events-
    * drive#event-types).
    *

@@ -231,7 +231,7 @@ class GoogleCloudAiplatformV1GenerationConfig extends \Google\Collection
     return $this->audioTimestamp;
   }
   /**
-   * Optional. Config for audio transcription (speech recognition).
+   * Optional. Configuration for audio transcription (speech recognition).
    *
    * @param GoogleCloudAiplatformV1AudioTranscriptionConfig $audioTranscriptionConfig
    */

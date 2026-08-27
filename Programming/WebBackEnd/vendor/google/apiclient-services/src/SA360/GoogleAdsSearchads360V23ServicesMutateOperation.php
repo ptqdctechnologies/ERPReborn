@@ -81,6 +81,8 @@ class GoogleAdsSearchads360V23ServicesMutateOperation extends \Google\Model
   protected $campaignCustomizerOperationDataType = '';
   protected $campaignDraftOperationType = GoogleAdsSearchads360V23ServicesCampaignDraftOperation::class;
   protected $campaignDraftOperationDataType = '';
+  protected $campaignGoalConfigOperationType = GoogleAdsSearchads360V23ServicesCampaignGoalConfigOperation::class;
+  protected $campaignGoalConfigOperationDataType = '';
   protected $campaignGroupOperationType = GoogleAdsSearchads360V23ServicesCampaignGroupOperation::class;
   protected $campaignGroupOperationDataType = '';
   protected $campaignLabelOperationType = GoogleAdsSearchads360V23ServicesCampaignLabelOperation::class;
@@ -641,6 +643,22 @@ class GoogleAdsSearchads360V23ServicesMutateOperation extends \Google\Model
   public function getCampaignDraftOperation()
   {
     return $this->campaignDraftOperation;
+  }
+  /**
+   * A campaign goal config mutate operation.
+   *
+   * @param GoogleAdsSearchads360V23ServicesCampaignGoalConfigOperation $campaignGoalConfigOperation
+   */
+  public function setCampaignGoalConfigOperation(GoogleAdsSearchads360V23ServicesCampaignGoalConfigOperation $campaignGoalConfigOperation)
+  {
+    $this->campaignGoalConfigOperation = $campaignGoalConfigOperation;
+  }
+  /**
+   * @return GoogleAdsSearchads360V23ServicesCampaignGoalConfigOperation
+   */
+  public function getCampaignGoalConfigOperation()
+  {
+    return $this->campaignGoalConfigOperation;
   }
   /**
    * A campaign group mutate operation.

@@ -34,7 +34,8 @@ class ProjectsJobsMessages extends \Google\Service\Resource
    * `projects.locations.jobs.messages.list` with a [regional endpoint]
    * (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints). Using
    * `projects.jobs.messages.list` is not recommended, as you can only request the
-   * status of jobs that are running in `us-central1`.
+   * status of jobs that are running in `us-central1`. # IAM Permissions Requires
+   * the `dataflow.messages.list` permission on the job.
    * (messages.listProjectsJobsMessages)
    *
    * @param string $projectId A project id.

@@ -35,6 +35,10 @@ class GoogleCloudKmsV1KeyOperationAttestation extends \Google\Model
    * introduced in Cavium's version 3.2-08.
    */
   public const FORMAT_CAVIUM_V2_COMPRESSED = 'CAVIUM_V2_COMPRESSED';
+  /**
+   * Cavium HSM attestation V209, introduced in Cavium's version 2.09-0702.
+   */
+  public const FORMAT_CAVIUM_V209 = 'CAVIUM_V209';
   protected $certChainsType = GoogleCloudKmsV1KeyOperationAttestationCertificateChains::class;
   protected $certChainsDataType = '';
   /**
@@ -88,7 +92,7 @@ class GoogleCloudKmsV1KeyOperationAttestation extends \Google\Model
    * Output only. The format of the attestation data.
    *
    * Accepted values: ATTESTATION_FORMAT_UNSPECIFIED, CAVIUM_V1_COMPRESSED,
-   * CAVIUM_V2_COMPRESSED
+   * CAVIUM_V2_COMPRESSED, CAVIUM_V209
    *
    * @param self::FORMAT_* $format
    */

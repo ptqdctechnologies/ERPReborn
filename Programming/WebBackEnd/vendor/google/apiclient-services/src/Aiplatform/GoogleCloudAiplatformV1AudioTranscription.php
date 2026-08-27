@@ -22,7 +22,7 @@ class GoogleCloudAiplatformV1AudioTranscription extends \Google\Collection
   protected $collection_key = 'words';
   /**
    * Optional. A label identifying the speaker of this audio segment (e.g.
-   * "spk_1", "spk_2"). Present when diarization is set.
+   * `spk_1`, `spk_2`). Present when `diarization` is set.
    *
    * @var string
    */
@@ -38,7 +38,7 @@ class GoogleCloudAiplatformV1AudioTranscription extends \Google\Collection
 
   /**
    * Optional. A label identifying the speaker of this audio segment (e.g.
-   * "spk_1", "spk_2"). Present when diarization is set.
+   * `spk_1`, `spk_2`). Present when `diarization` is set.
    *
    * @param string $speakerLabel
    */
@@ -71,7 +71,7 @@ class GoogleCloudAiplatformV1AudioTranscription extends \Google\Collection
   }
   /**
    * Optional. Detailed word-level transcriptions and timing details. Present
-   * when word_timestamp is set.
+   * when `word_timestamp` is set.
    *
    * @param GoogleCloudAiplatformV1AudioTranscriptionWordInfo[] $words
    */

@@ -136,11 +136,24 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
    */
   public $name;
   /**
+   * Output only. Number of active organization policy findings for this
+   * category.
+   *
+   * @var string
+   */
+  public $organizationPolicyFindingCount;
+  /**
    * Optional. The list of compliance frameworks that the finding belongs to.
    *
    * @var string[]
    */
   public $relatedFrameworks;
+  /**
+   * Output only. Number of active resource findings for this category.
+   *
+   * @var string
+   */
+  public $resourceFindingCount;
   /**
    * Output only. The severity of the finding.
    *
@@ -223,6 +236,23 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->name;
   }
   /**
+   * Output only. Number of active organization policy findings for this
+   * category.
+   *
+   * @param string $organizationPolicyFindingCount
+   */
+  public function setOrganizationPolicyFindingCount($organizationPolicyFindingCount)
+  {
+    $this->organizationPolicyFindingCount = $organizationPolicyFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getOrganizationPolicyFindingCount()
+  {
+    return $this->organizationPolicyFindingCount;
+  }
+  /**
    * Optional. The list of compliance frameworks that the finding belongs to.
    *
    * @param string[] $relatedFrameworks
@@ -237,6 +267,22 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
   public function getRelatedFrameworks()
   {
     return $this->relatedFrameworks;
+  }
+  /**
+   * Output only. Number of active resource findings for this category.
+   *
+   * @param string $resourceFindingCount
+   */
+  public function setResourceFindingCount($resourceFindingCount)
+  {
+    $this->resourceFindingCount = $resourceFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getResourceFindingCount()
+  {
+    return $this->resourceFindingCount;
   }
   /**
    * Output only. The severity of the finding.

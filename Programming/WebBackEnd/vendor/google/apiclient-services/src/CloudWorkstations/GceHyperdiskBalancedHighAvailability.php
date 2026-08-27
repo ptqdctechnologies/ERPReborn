@@ -45,7 +45,9 @@ class GceHyperdiskBalancedHighAvailability extends \Google\Model
   public $archiveTimeout;
   /**
    * Optional. Maximum size in GB to which this persistent directory can be
-   * resized. Defaults to unlimited if not set.
+   * resized. Defaults to `0`, which indicates no maximum limit is enforced by
+   * this configuration. Resizing is still subject to the quotas and limits of
+   * the underlying disk type.
    *
    * @var int
    */
@@ -99,7 +101,9 @@ class GceHyperdiskBalancedHighAvailability extends \Google\Model
   }
   /**
    * Optional. Maximum size in GB to which this persistent directory can be
-   * resized. Defaults to unlimited if not set.
+   * resized. Defaults to `0`, which indicates no maximum limit is enforced by
+   * this configuration. Resizing is still subject to the quotas and limits of
+   * the underlying disk type.
    *
    * @param int $maxSizeGb
    */

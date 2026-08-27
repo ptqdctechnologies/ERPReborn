@@ -44,6 +44,7 @@ class AndroidPublisher extends \Google\Service
   public $applications_deviceTierConfigs;
   public $applications_tracks_releases;
   public $apprecovery;
+  public $appsigning;
   public $appstoreappsreview;
   public $appstorecatalog_recentappviews;
   public $appstorecatalog_recentupdateevents;
@@ -268,6 +269,36 @@ class AndroidPublisher extends \Google\Service
                 'versionCode' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->appsigning = new AndroidPublisher\Resource\Appsigning(
+        $this,
+        $this->serviceName,
+        'appsigning',
+        [
+          'methods' => [
+            'enrollApp' => [
+              'path' => 'androidpublisher/v3/applications/{name}/appSigning:enrollApp',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'rotateAppSigningKey' => [
+              'path' => 'androidpublisher/v3/applications/{name}/appSigning:rotateAppSigningKey',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

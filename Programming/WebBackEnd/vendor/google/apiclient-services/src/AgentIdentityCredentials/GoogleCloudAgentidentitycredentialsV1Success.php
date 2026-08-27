@@ -47,12 +47,12 @@ class GoogleCloudAgentidentitycredentialsV1Success extends \Google\Collection
    */
   public $scopes;
   /**
-   * The retrieved access token or credential for the end user. On MCPTool call,
-   * for an invalid token OAuth spec says this should return 401 or 403, but
-   * MCPServers may implement this differently. If you get any flavor of
-   * `PERMISSION_DENIED`, retry your original request to RetrieveCredentials
-   * with force_refresh_token set to the expired/invalid token string, which
-   * will fetch a new token or initiate a new consent flow.
+   * The retrieved access token or credential for the end user. On an MCP tool
+   * call, for an invalid token the OAuth spec states that this should return
+   * `401` or `403`, but MCP servers may implement this differently. If you get
+   * any flavor of `PERMISSION_DENIED`, retry your original request to
+   * `RetrieveCredentials` with force_refresh_token set to the expired/invalid
+   * token string, which will fetch a new token or initiate a new consent flow.
    *
    * @var string
    */
@@ -115,12 +115,12 @@ class GoogleCloudAgentidentitycredentialsV1Success extends \Google\Collection
     return $this->scopes;
   }
   /**
-   * The retrieved access token or credential for the end user. On MCPTool call,
-   * for an invalid token OAuth spec says this should return 401 or 403, but
-   * MCPServers may implement this differently. If you get any flavor of
-   * `PERMISSION_DENIED`, retry your original request to RetrieveCredentials
-   * with force_refresh_token set to the expired/invalid token string, which
-   * will fetch a new token or initiate a new consent flow.
+   * The retrieved access token or credential for the end user. On an MCP tool
+   * call, for an invalid token the OAuth spec states that this should return
+   * `401` or `403`, but MCP servers may implement this differently. If you get
+   * any flavor of `PERMISSION_DENIED`, retry your original request to
+   * `RetrieveCredentials` with force_refresh_token set to the expired/invalid
+   * token string, which will fetch a new token or initiate a new consent flow.
    *
    * @param string $token
    */

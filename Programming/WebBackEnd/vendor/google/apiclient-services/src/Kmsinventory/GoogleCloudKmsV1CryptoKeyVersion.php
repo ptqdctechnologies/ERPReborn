@@ -237,11 +237,6 @@ class GoogleCloudKmsV1CryptoKeyVersion extends \Google\Model
    */
   public const ALGORITHM_KEM_ECDH_P384 = 'KEM_ECDH_P384';
   /**
-   * Key encapsulation: Elliptic Curve Diffie-Hellman with NIST P-521 key that
-   * returns shared secret.
-   */
-  public const ALGORITHM_KEM_ECDH_P521 = 'KEM_ECDH_P521';
-  /**
    * AES key wrap with zero padding algorithm (RFC 5649). Can only be used by
    * keys with purpose AES_WRAPPING.
    */
@@ -442,11 +437,11 @@ class GoogleCloudKmsV1CryptoKeyVersion extends \Google\Model
    */
   public $state;
   /**
-   * Immutable. Field indicating that the key may be wrapped by a trusted key.
-   * This field can be set for all key purposes except ENCRYPT_DECRYPT, and is
-   * only valid for keys with protection level HSM_SINGLE_TENANT. This field can
-   * only be set at creation or import time via CreateCryptoKeyVersion, or
-   * ImportCryptoKeyVersion.
+   * Optional. Immutable. Field indicating that the key may be wrapped by a
+   * trusted key. This field can be set for all key purposes except
+   * ENCRYPT_DECRYPT, and is only valid for keys with protection level
+   * HSM_SINGLE_TENANT. This field can only be set at creation or import time
+   * via CreateCryptoKeyVersion, or ImportCryptoKeyVersion.
    *
    * @var bool
    */
@@ -474,7 +469,7 @@ class GoogleCloudKmsV1CryptoKeyVersion extends \Google\Model
    * PQ_SIGN_ML_DSA_87, PQ_SIGN_SLH_DSA_SHA2_128S,
    * PQ_SIGN_HASH_SLH_DSA_SHA2_128S_SHA256, PQ_SIGN_ML_DSA_44_EXTERNAL_MU,
    * PQ_SIGN_ML_DSA_65_EXTERNAL_MU, PQ_SIGN_ML_DSA_87_EXTERNAL_MU,
-   * KEM_ECDH_P256, KEM_ECDH_P384, KEM_ECDH_P521, AES_256_KWP
+   * KEM_ECDH_P256, KEM_ECDH_P384, AES_256_KWP
    *
    * @param self::ALGORITHM_* $algorithm
    */
@@ -773,11 +768,11 @@ class GoogleCloudKmsV1CryptoKeyVersion extends \Google\Model
     return $this->state;
   }
   /**
-   * Immutable. Field indicating that the key may be wrapped by a trusted key.
-   * This field can be set for all key purposes except ENCRYPT_DECRYPT, and is
-   * only valid for keys with protection level HSM_SINGLE_TENANT. This field can
-   * only be set at creation or import time via CreateCryptoKeyVersion, or
-   * ImportCryptoKeyVersion.
+   * Optional. Immutable. Field indicating that the key may be wrapped by a
+   * trusted key. This field can be set for all key purposes except
+   * ENCRYPT_DECRYPT, and is only valid for keys with protection level
+   * HSM_SINGLE_TENANT. This field can only be set at creation or import time
+   * via CreateCryptoKeyVersion, or ImportCryptoKeyVersion.
    *
    * @param bool $trustedWrappingEnabled
    */

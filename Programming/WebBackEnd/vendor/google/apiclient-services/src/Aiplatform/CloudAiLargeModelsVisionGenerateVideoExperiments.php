@@ -31,6 +31,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var bool
    */
   public $anchorLastFrame;
+  protected $audioControlType = CloudAiLargeModelsVisionGenerateVideoExperimentsAudioControlConfig::class;
+  protected $audioControlDataType = '';
   /**
    * CFG scale for video-transform, perf-generation, a2v, video-textures models.
    *
@@ -85,6 +87,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var string
    */
   public $originalRequestJson;
+  protected $outpaintConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig::class;
+  protected $outpaintConfigDataType = '';
   protected $promptInputsType = CloudAiLargeModelsVisionPromptInputs::class;
   protected $promptInputsDataType = '';
   /**
@@ -111,16 +115,20 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    * @var bool
    */
   public $truncateInputVideo;
+  protected $videoTransformType = CloudAiLargeModelsVisionGenerateVideoExperimentsVideoTransform::class;
+  protected $videoTransformDataType = '';
   /**
    * GCS URI of the grayscale video mask for Differential Diffusion. Maps to
    * sdedit_video_tmax_scale_map
    *
+   * @deprecated
    * @var string
    */
   public $videoTransformMaskGcsUri;
   /**
    * SDEdit: Scalar noise level (0.0 to 1.0) Maps to sdedit_tmax
    *
+   * @deprecated
    * @var float
    */
   public $videoTransformStrength;
@@ -141,6 +149,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getAnchorLastFrame()
   {
     return $this->anchorLastFrame;
+  }
+  /**
+   * Optional. Audio control configuration.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsAudioControlConfig $audioControl
+   */
+  public function setAudioControl(CloudAiLargeModelsVisionGenerateVideoExperimentsAudioControlConfig $audioControl)
+  {
+    $this->audioControl = $audioControl;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsAudioControlConfig
+   */
+  public function getAudioControl()
+  {
+    return $this->audioControl;
   }
   /**
    * CFG scale for video-transform, perf-generation, a2v, video-textures models.
@@ -327,6 +351,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
     return $this->originalRequestJson;
   }
   /**
+   * Config for Outpainting task.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig $outpaintConfig
+   */
+  public function setOutpaintConfig(CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig $outpaintConfig)
+  {
+    $this->outpaintConfig = $outpaintConfig;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig
+   */
+  public function getOutpaintConfig()
+  {
+    return $this->outpaintConfig;
+  }
+  /**
    * Prompt chunks for "ProModel" prompting. If set, the prompt will not be
    * rewritten, and top-level prompt ignored.
    *
@@ -431,9 +471,26 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
     return $this->truncateInputVideo;
   }
   /**
+   * Video transform configuration for omni editing models.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsVideoTransform $videoTransform
+   */
+  public function setVideoTransform(CloudAiLargeModelsVisionGenerateVideoExperimentsVideoTransform $videoTransform)
+  {
+    $this->videoTransform = $videoTransform;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsVideoTransform
+   */
+  public function getVideoTransform()
+  {
+    return $this->videoTransform;
+  }
+  /**
    * GCS URI of the grayscale video mask for Differential Diffusion. Maps to
    * sdedit_video_tmax_scale_map
    *
+   * @deprecated
    * @param string $videoTransformMaskGcsUri
    */
   public function setVideoTransformMaskGcsUri($videoTransformMaskGcsUri)
@@ -441,6 +498,7 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
     $this->videoTransformMaskGcsUri = $videoTransformMaskGcsUri;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getVideoTransformMaskGcsUri()
@@ -450,6 +508,7 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   /**
    * SDEdit: Scalar noise level (0.0 to 1.0) Maps to sdedit_tmax
    *
+   * @deprecated
    * @param float $videoTransformStrength
    */
   public function setVideoTransformStrength($videoTransformStrength)
@@ -457,6 +516,7 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
     $this->videoTransformStrength = $videoTransformStrength;
   }
   /**
+   * @deprecated
    * @return float
    */
   public function getVideoTransformStrength()

@@ -345,6 +345,8 @@ class Step extends \Google\Model
   public $state;
   protected $storageBucketType = StorageBucketInfo::class;
   protected $storageBucketDataType = '';
+  protected $viewerPermissionMissingInfoType = ViewerPermissionMissingInfo::class;
+  protected $viewerPermissionMissingInfoDataType = '';
   protected $vpcConnectorType = VpcConnectorInfo::class;
   protected $vpcConnectorDataType = '';
   protected $vpnGatewayType = VpnGatewayInfo::class;
@@ -1019,6 +1021,22 @@ class Step extends \Google\Model
   public function getStorageBucket()
   {
     return $this->storageBucket;
+  }
+  /**
+   * Display information of a step that is redacted due to missing permissions.
+   *
+   * @param ViewerPermissionMissingInfo $viewerPermissionMissingInfo
+   */
+  public function setViewerPermissionMissingInfo(ViewerPermissionMissingInfo $viewerPermissionMissingInfo)
+  {
+    $this->viewerPermissionMissingInfo = $viewerPermissionMissingInfo;
+  }
+  /**
+   * @return ViewerPermissionMissingInfo
+   */
+  public function getViewerPermissionMissingInfo()
+  {
+    return $this->viewerPermissionMissingInfo;
   }
   /**
    * Display information of a VPC connector.

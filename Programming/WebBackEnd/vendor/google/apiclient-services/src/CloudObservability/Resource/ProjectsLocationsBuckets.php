@@ -19,6 +19,7 @@ namespace Google\Service\CloudObservability\Resource;
 
 use Google\Service\CloudObservability\Bucket;
 use Google\Service\CloudObservability\ListBucketsResponse;
+use Google\Service\CloudObservability\Operation;
 
 /**
  * The "buckets" collection of methods.
@@ -30,6 +31,24 @@ use Google\Service\CloudObservability\ListBucketsResponse;
  */
 class ProjectsLocationsBuckets extends \Google\Service\Resource
 {
+  /**
+   * Create a new bucket. (buckets.create)
+   *
+   * @param string $parent Required. Name of the project and location for the
+   * bucket. The format is: projects/[PROJECT_ID]/locations/[LOCATION]
+   * @param Bucket $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string bucketId Required. Id of the bucket to create.
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function create($parent, Bucket $postBody, $optParams = [])
+  {
+    $params = ['parent' => $parent, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('create', [$params], Operation::class);
+  }
   /**
    * Get bucket resource. (buckets.get)
    *
@@ -68,6 +87,24 @@ class ProjectsLocationsBuckets extends \Google\Service\Resource
     $params = ['parent' => $parent];
     $params = array_merge($params, $optParams);
     return $this->call('list', [$params], ListBucketsResponse::class);
+  }
+  /**
+   * Update a bucket. (buckets.patch)
+   *
+   * @param string $name Identifier. Name of the bucket. The format is:
+   * projects/[PROJECT_ID]/locations/[LOCATION]/buckets/[BUCKET_ID]
+   * @param Bucket $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string updateMask Optional. The list of fields to update.
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function patch($name, Bucket $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('patch', [$params], Operation::class);
   }
 }
 

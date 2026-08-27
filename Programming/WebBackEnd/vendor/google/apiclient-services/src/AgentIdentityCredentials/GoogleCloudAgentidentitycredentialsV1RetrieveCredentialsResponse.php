@@ -77,7 +77,7 @@ class GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsResponse extends \
     return $this->success;
   }
   /**
-   * Message indicating uri based consent is required.
+   * Message indicating URI-based consent is required.
    *
    * @param GoogleCloudAgentidentitycredentialsV1UriConsentRequired $uriConsentRequired
    */

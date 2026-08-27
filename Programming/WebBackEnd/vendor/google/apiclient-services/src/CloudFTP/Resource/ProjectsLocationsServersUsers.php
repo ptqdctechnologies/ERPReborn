@@ -49,9 +49,9 @@ class ProjectsLocationsServersUsers extends \Google\Service\Resource
    * clients from accidentally creating duplicate commitments. The request ID must
    * be a valid UUID with the exception that zero UUID is not supported
    * (00000000-0000-0000-0000-000000000000).
-   * @opt_param string userId Required. Id of the requesting object If auto-
-   * generating Id server-side, remove this field and server_id from the
-   * method_signature of Create RPC
+   * @opt_param string userId Required. A unique user ID for the SFTP user. The
+   * user ID must start with a lowercase letter and can include lowercase letters,
+   * numbers, or hyphens.
    * @return Operation
    * @throws \Google\Service\Exception
    */

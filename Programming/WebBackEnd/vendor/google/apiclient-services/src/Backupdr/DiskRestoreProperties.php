@@ -78,6 +78,8 @@ class DiskRestoreProperties extends \Google\Collection
   public $enableConfidentialCompute;
   protected $guestOsFeatureType = GuestOsFeature::class;
   protected $guestOsFeatureDataType = 'array';
+  protected $instanceBackupSourceType = RestoreDiskFromInstanceOptions::class;
+  protected $instanceBackupSourceDataType = '';
   /**
    * Optional. Labels to apply to this disk. These can be modified later using
    * setLabels method. Label values can be empty.
@@ -258,6 +260,22 @@ class DiskRestoreProperties extends \Google\Collection
   public function getGuestOsFeature()
   {
     return $this->guestOsFeature;
+  }
+  /**
+   * Provides options for creating a disk from a source Compute Instance backup.
+   *
+   * @param RestoreDiskFromInstanceOptions $instanceBackupSource
+   */
+  public function setInstanceBackupSource(RestoreDiskFromInstanceOptions $instanceBackupSource)
+  {
+    $this->instanceBackupSource = $instanceBackupSource;
+  }
+  /**
+   * @return RestoreDiskFromInstanceOptions
+   */
+  public function getInstanceBackupSource()
+  {
+    return $this->instanceBackupSource;
   }
   /**
    * Optional. Labels to apply to this disk. These can be modified later using

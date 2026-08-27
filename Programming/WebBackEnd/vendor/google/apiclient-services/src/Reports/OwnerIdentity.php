@@ -23,6 +23,8 @@ class OwnerIdentity extends \Google\Model
   protected $customerIdentityDataType = '';
   protected $groupIdentityType = GroupIdentity::class;
   protected $groupIdentityDataType = '';
+  protected $sharedDriveIdentityType = SharedDriveIdentity::class;
+  protected $sharedDriveIdentityDataType = '';
   protected $userIdentityType = UserIdentity::class;
   protected $userIdentityDataType = '';
 
@@ -57,6 +59,22 @@ class OwnerIdentity extends \Google\Model
   public function getGroupIdentity()
   {
     return $this->groupIdentity;
+  }
+  /**
+   * Identity of the shared drive who owns the resource.
+   *
+   * @param SharedDriveIdentity $sharedDriveIdentity
+   */
+  public function setSharedDriveIdentity(SharedDriveIdentity $sharedDriveIdentity)
+  {
+    $this->sharedDriveIdentity = $sharedDriveIdentity;
+  }
+  /**
+   * @return SharedDriveIdentity
+   */
+  public function getSharedDriveIdentity()
+  {
+    return $this->sharedDriveIdentity;
   }
   /**
    * Identity of the user who owns the resource.

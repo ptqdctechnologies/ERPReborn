@@ -36,7 +36,7 @@ class ProjectsLocationsAuthProvidersCredentials extends \Google\Service\Resource
    * Finalizes the credentials after a successful consent flow.
    * (credentials.finalize)
    *
-   * @param string $authProvider Required. The resource name of the AuthProvider.
+   * @param string $authProvider Required. The resource name of the auth provider.
    * Format:
    * `projects/{project}/locations/{location}/authProviders/{auth_provider}`
    * @param GoogleCloudAgentidentitycredentialsV1FinalizeCredentialsRequest $postBody
@@ -51,15 +51,15 @@ class ProjectsLocationsAuthProvidersCredentials extends \Google\Service\Resource
     return $this->call('finalize', [$params], GoogleCloudAgentidentitycredentialsV1FinalizeCredentialsResponse::class);
   }
   /**
-   * Retrieves authorization credentials for an authprovider, or indicates what
+   * Retrieves authorization credentials for an auth provider, or indicates what
    * action needs to be taken to obtain credentials. If the `token` field in the
    * response is populated, credential retrieval was successful. If one of the
-   * fields in the `status` oneof is populated, further action is required to
+   * fields in the `result` oneof is populated, further action is required to
    * obtain credentials, such as redirecting the user for consent. View comments
    * on `RetrieveCredentialsResponse` for more information. (credentials.retrieve)
    *
-   * @param string $authProvider Required. The parent resource name of the
-   * AuthProvider. Format:
+   * @param string $authProvider Required. The resource name of the auth provider.
+   * Format:
    * `projects/{project}/locations/{location}/authProviders/{auth_provider}`
    * @param GoogleCloudAgentidentitycredentialsV1RetrieveCredentialsRequest $postBody
    * @param array $optParams Optional parameters.

@@ -36,7 +36,7 @@ class TableReplicationInfo extends \Google\Model
    */
   public const REPLICATION_STATUS_PERMISSION_DENIED = 'PERMISSION_DENIED';
   /**
-   * Source configuration doesn’t allow replication.
+   * Source configuration doesn't allow replication.
    */
   public const REPLICATION_STATUS_UNSUPPORTED_CONFIGURATION = 'UNSUPPORTED_CONFIGURATION';
   /**

@@ -142,6 +142,11 @@ class Policy extends \Google\Collection
    */
   public const CREDENTIAL_PROVIDER_POLICY_DEFAULT_CREDENTIAL_PROVIDER_DEFAULT_DISALLOWED_EXCEPT_SYSTEM = 'CREDENTIAL_PROVIDER_DEFAULT_DISALLOWED_EXCEPT_SYSTEM';
   /**
+   * Apps with credentialProviderPolicy unspecified are allowed to act as a
+   * credential provider.
+   */
+  public const CREDENTIAL_PROVIDER_POLICY_DEFAULT_CREDENTIAL_PROVIDER_DEFAULT_ALLOWED = 'CREDENTIAL_PROVIDER_DEFAULT_ALLOWED';
+  /**
    * Policy not specified. If no policy is specified for a permission at any
    * level, then the PROMPT behavior is used by default.
    */
@@ -1360,7 +1365,8 @@ class Policy extends \Google\Collection
    *
    * Accepted values: CREDENTIAL_PROVIDER_POLICY_DEFAULT_UNSPECIFIED,
    * CREDENTIAL_PROVIDER_DEFAULT_DISALLOWED,
-   * CREDENTIAL_PROVIDER_DEFAULT_DISALLOWED_EXCEPT_SYSTEM
+   * CREDENTIAL_PROVIDER_DEFAULT_DISALLOWED_EXCEPT_SYSTEM,
+   * CREDENTIAL_PROVIDER_DEFAULT_ALLOWED
    *
    * @param self::CREDENTIAL_PROVIDER_POLICY_DEFAULT_* $credentialProviderPolicyDefault
    */

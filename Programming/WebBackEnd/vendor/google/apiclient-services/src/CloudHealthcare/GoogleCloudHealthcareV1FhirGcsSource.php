@@ -20,9 +20,9 @@ namespace Google\Service\CloudHealthcare;
 class GoogleCloudHealthcareV1FhirGcsSource extends \Google\Model
 {
   /**
-   * Points to a Cloud Storage URI containing file(s) to import. The URI must be
-   * in the following format: `gs://{bucket_id}/{object_id}`. The URI can
-   * include wildcards in `object_id` and thus identify multiple files.
+   * Required. Points to a Cloud Storage URI containing file(s) to import. The
+   * URI must be in the following format: `gs://{bucket_id}/{object_id}`. The
+   * URI can include wildcards in `object_id` and thus identify multiple files.
    * Supported wildcards: * `*` to match 0 or more non-separator characters *
    * `**` to match 0 or more characters (including separators). Must be used at
    * the end of a path and with no other wildcards in the path. Can also be used
@@ -38,9 +38,9 @@ class GoogleCloudHealthcareV1FhirGcsSource extends \Google\Model
   public $uri;
 
   /**
-   * Points to a Cloud Storage URI containing file(s) to import. The URI must be
-   * in the following format: `gs://{bucket_id}/{object_id}`. The URI can
-   * include wildcards in `object_id` and thus identify multiple files.
+   * Required. Points to a Cloud Storage URI containing file(s) to import. The
+   * URI must be in the following format: `gs://{bucket_id}/{object_id}`. The
+   * URI can include wildcards in `object_id` and thus identify multiple files.
    * Supported wildcards: * `*` to match 0 or more non-separator characters *
    * `**` to match 0 or more characters (including separators). Must be used at
    * the end of a path and with no other wildcards in the path. Can also be used

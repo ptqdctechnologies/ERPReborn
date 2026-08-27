@@ -368,6 +368,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionHealth(array $args = [])
  * @method \Aws\HealthLake\HealthLakeClient createHealthLake(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionHealthLake(array $args = [])
+ * @method \Aws\IAMToolbox\IAMToolboxClient createIAMToolbox(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionIAMToolbox(array $args = [])
  * @method \Aws\IVS\IVSClient createIVS(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionIVS(array $args = [])
  * @method \Aws\IVSRealTime\IVSRealTimeClient createIVSRealTime(array $args = [])
@@ -865,7 +867,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.392.1';
+    const VERSION = '3.394.0';
 
     /** @var array Arguments for creating clients */
     private $args;
@@ -884,7 +886,10 @@ class Sdk
         $this->args = $args;
 
         if (!isset($args['handler']) && !isset($args['http_handler'])) {
-            $this->args['http_handler'] = default_http_handler();
+            $this->args['http_handler'] = default_http_handler(
+                $args['transport_sharing'] ?? null
+            );
+            unset($this->args['transport_sharing']);
         }
     }
 
