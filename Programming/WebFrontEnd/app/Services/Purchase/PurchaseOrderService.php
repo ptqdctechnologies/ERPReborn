@@ -68,9 +68,9 @@ class PurchaseOrderService
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                    'Supplier_RefID' => $supplier ? $supplier : NULL
-                    // 'StartDate'              => $date ? $startDate : NULL,
-                    // 'EndDate'                => $date ? $endDate : NULL
+                    'Supplier_RefID' => $supplier ? $supplier : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
                 ],
                 'SQLStatement' => [
                     'paging' => [
