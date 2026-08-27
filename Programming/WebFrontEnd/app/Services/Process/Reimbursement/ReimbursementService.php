@@ -48,9 +48,10 @@ class ReimbursementService
         );
     }
 
-    public function getReimbursementSummary($budget, $vendor, $date)
+    public function getReimbursementSummary($budget, $vendor, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -67,8 +68,14 @@ class ReimbursementService
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
                     'Vendor_RefID' => $vendor ? $vendor : NULL,
-                    // 'StartDate'              => $date ? $startDate : NULL,
-                    // 'EndDate'                => $date ? $endDate : NULL
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
