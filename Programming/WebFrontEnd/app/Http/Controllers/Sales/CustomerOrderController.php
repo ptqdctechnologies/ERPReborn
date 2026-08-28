@@ -235,12 +235,10 @@ class CustomerOrderController extends Controller
             $search = $request->input('search.value');
 
             $budgetCode = $request->input('budget_code');
-            $subBudgetCode = $request->input('sub_budget_code');
             $date = $request->input('customer_order_date');
 
             $response = $this->customerOrderService->summary(
                 $budgetCode,
-                $subBudgetCode,
                 $date,
                 $limit,
                 $offset

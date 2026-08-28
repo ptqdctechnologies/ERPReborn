@@ -174,7 +174,6 @@ class CustomerOrderService
 
     public function summary(
         $combinedBudgetCode,
-        $combinedBudgetSectionCode,
         $date,
         $limit = 10,
         $offset = 0
@@ -196,7 +195,6 @@ class CustomerOrderService
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $combinedBudgetCode,
-                    // 'CombinedBudgetSectionCode' => $combinedBudgetSectionCode ? $combinedBudgetSectionCode : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
                 ],
