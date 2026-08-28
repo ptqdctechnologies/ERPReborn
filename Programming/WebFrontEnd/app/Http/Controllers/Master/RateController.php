@@ -4,9 +4,18 @@ namespace App\Http\Controllers\Master;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\Finance\RateService;
+use Illuminate\Support\Facades\Log;
 
 class RateController extends Controller
 {
+    protected $rateService;
+
+    public function __construct(RateService $rateService)
+    {
+        $this->rateService = $rateService;
+    }
+
     public function index()
     {
         return view('Master.Rate.Transactions.index');
@@ -19,6 +28,24 @@ class RateController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $response = $this->rateService->create($request->all());
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Rate');
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Rate Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function show($id)
