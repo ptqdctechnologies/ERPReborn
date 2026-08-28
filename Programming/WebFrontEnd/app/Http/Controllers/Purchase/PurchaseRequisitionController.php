@@ -334,10 +334,11 @@ class PurchaseRequisitionController extends Controller
     public function ReportPRtoPOStore(Request $request)
     {
         try {
-            $token = Session::get('SessionLogin');
-            $projectCode = $request->input('project_code');
+            $budgetCode = $request->input('project_code');
             $siteCode = $request->input('site_code');
             $supplierID = $request->input('supplier_id');
+            $purchaseRequestID = $request->input('pr_id');
+            $purchaseOrderID = $request->input('po_id');
             $date = $request->input('date');
 
             $page = (int) ($request->page ?? 1);
@@ -350,36 +351,19 @@ class PurchaseRequisitionController extends Controller
                 $offset = ($page - 1) * $limit;
             }
 
-            if ($date) {
-                $dates = explode(' - ', $date);
-                $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-                $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
-            }
-
-            $response = Helper_APICall::setCallAPIGateway(
-                Helper_Environment::getUserSessionID_System(),
-                $token,
-                'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary',
-                'latest',
-                [
-                    'parameter' => [
-                        'CombinedBudgetCode' => $projectCode ?? null,
-                        'CombinedBudgetSectionCode' => $siteCode ?? null,
-                        'Supplier_RefID' => $supplierID ?? null,
-                        // 'StartDate'                 => $date ? $startDate : NULL,
-                        // 'EndDate'                   => $date ? $endDate : NULL,
-                    ],
-                    'SQLStatement' => [
-                        'paging' => [
-                            'limit' => $limit,
-                            'offset' => $offset
-                        ]
-                    ]
-                ]
-            );
+            $response = $this->purchaseRequisitionService->getPRToPOSummary([
+                'budgetCode' => $budgetCode,
+                'siteCode' => $siteCode,
+                'supplierID' => $supplierID,
+                'purchaseRequestID' => $purchaseRequestID,
+                'purchaseOrderID' => $purchaseOrderID,
+                'date' => $date,
+                'limit' => $limit,
+                'offset' => $offset
+            ]);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Report Purchase Request To Purchase Order Store');
+                throw new \Exception('Failed to fetch Purchase Request To Purchase Order Report');
             }
 
             $compact = [

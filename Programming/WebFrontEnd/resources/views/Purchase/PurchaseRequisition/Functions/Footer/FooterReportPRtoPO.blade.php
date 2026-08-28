@@ -16,6 +16,8 @@
     const projectCode = document.getElementById("budget_code");
     const siteCode = document.getElementById("sub_budget_code");
     const supplierID = document.getElementById("supplier_id");
+    const purchaseRequestID = document.getElementById("pr_id");
+    const purchaseOrderID = document.getElementById("po_id");
     const date = document.getElementById("purchase_request_date_range");
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
@@ -64,6 +66,14 @@
         $(`#supplier_code`).val("");
         $(`#supplier_id`).val("");
 
+        $("#pr_number").css('background-color', '#fff');
+        $(`#pr_number`).val("");
+        $(`#pr_id`).val("");
+
+        $("#po_number").css('background-color', '#fff');
+        $(`#po_number`).val("");
+        $(`#po_id`).val("");
+
         $("#purchase_request_date_range").css('background-color', '#fff');
         $(`#purchase_request_date_range`).val("");
     }
@@ -78,6 +88,8 @@
                 project_code: projectCode.value,
                 site_code: siteCode.value,
                 supplier_id: supplierID.value,
+                pr_id: purchaseRequestID.value,
+                po_id: purchaseOrderID.value,
                 date: date.value,
                 page: page,
                 limit: rowsPerPage

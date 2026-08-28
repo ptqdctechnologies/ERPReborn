@@ -10,28 +10,6 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class PurchaseRequisitionService
 {
-    // public function getPickList()
-    // {
-    //     $sessionToken = Session::get('SessionLogin');
-
-    //     return Helper_APICall::setCallAPIGateway(
-    //         Helper_Environment::getUserSessionID_System(),
-    //         $sessionToken,
-    //         'dataPickList.supplyChain.getPurchaseRequisition',
-    //         'latest',
-    //         [
-    //             'parameter' => null,
-    //             'SQLStatement' => [
-    //                 'pick' => null,
-    //                 'sort' => null,
-    //                 'filter' => null,
-    //                 'paging' => null
-    //             ]
-    //         ],
-    //         false
-    //     );
-    // }
-
     public function getPickList($formatted)
     {
         $sessionToken = Session::get('SessionLogin');
@@ -97,6 +75,41 @@ class PurchaseRequisitionService
                     'paging' => [
                         'limit' => $formatLimit,
                         'offset' => (int) $offset
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function getPRToPOSummary($request)
+    {
+        $token = Session::get('SessionLogin');
+
+        if ($request['date']) {
+            $dates = explode(' - ', $request['date']);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.documentForm.supplyChain.getPurchaseRequisitionToPurchaseOrderSummary',
+            'latest',
+            [
+                'parameter' => [
+                    'CombinedBudgetCode' => $request['budgetCode'],
+                    'CombinedBudgetSectionCode' => $request['siteCode'] ? $request['siteCode'] : NULL,
+                    'Supplier_RefID' => $request['supplierID'] ? (int) $request['supplierID'] : NULL,
+                    'PurchaseRequisition_RefID' => $request['purchaseRequestID'] ? (int) $request['purchaseRequestID'] : NULL,
+                    'PurchaseOrder_RefID' => $request['purchaseOrderID'] ? (int) $request['purchaseOrderID'] : NULL,
+                    'StartDate' => $request['date'] ? $startDate : NULL,
+                    'EndDate' => $request['date'] ? $endDate : NULL,
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $request['limit'],
+                        'offset' => $request['offset']
                     ]
                 ]
             ]
