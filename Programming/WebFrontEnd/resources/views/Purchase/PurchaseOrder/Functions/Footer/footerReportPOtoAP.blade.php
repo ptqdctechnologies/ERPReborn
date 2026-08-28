@@ -619,7 +619,7 @@
     });
 
     $('#tableAccountPayables').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_modal_account_payable"]').val();
+        const sysId = $(this).find('input[data-trigger="sys_id_account_payable"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
         $("#account_payable_id").val(sysId);
@@ -627,7 +627,7 @@
         $("#account_payable_number").css('background-color', '#e9ecef');
         ErrorHandler.hideErrorInputMessage("#account_payable_number", "#accountPayableMessage");
 
-        $('#myAccountPayables').modal('hide');
+        $('#myAccountPayables').modal('toggle');
     });
 
     $(document).ready(function () {
