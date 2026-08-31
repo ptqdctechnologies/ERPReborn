@@ -4,13 +4,15 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">PO Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="" class="input-group-text form-control" style="border-radius:0;cursor:pointer;">
-                    <i id="" class="fas fa-gift"></i>
+                <span id="mySearchPOTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#mySearchPO" style="border-radius:0;cursor:pointer;">
+                    <i id="iconPO" class="fas fa-gift"></i>
                 </span>
             </div>
             <div>
                 <input type="text" id="po_number" class="form-control" style="border-radius:0;background-color:white;"
                     readonly />
+                <input type="hidden" id="po_id" />
             </div>
         </div>
     </div>
@@ -20,13 +22,15 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">DO Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="" class="input-group-text form-control" style="border-radius:0;cursor:not-allowed;">
-                    <i class="fas fa-gift"></i>
+                <span id="deliveryOrderModalTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#deliveryOrderModal" style="border-radius:0;cursor:pointer;">
+                    <i id="iconDO" class="fas fa-gift"></i>
                 </span>
             </div>
             <div>
                 <input type="text" id="do_number" class="form-control" style="border-radius:0;background-color:white;"
                     readonly />
+                <input type="hidden" id="do_id" />
             </div>
         </div>
     </div>

@@ -7,6 +7,8 @@
     let filteredData = [...data];
     let sortColumn = null;
     let sortOrder = 'asc';
+    let totalRecords = 0;
+    let totalPages = 0;
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -15,6 +17,7 @@
     const subBudgetID = document.getElementById("sub_budget_id");
     const subBudgetCode = document.getElementById("sub_budget_code");
     const poToDoDate = document.getElementById("purchase_order_date_range");
+    const purchaseOrderID = document.getElementById("po_id");
     const startLimit = document.getElementById("start_limit");
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
@@ -44,6 +47,8 @@
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
 
         $('#table_container').hide();
 
@@ -56,6 +61,14 @@
         $(`#sub_budget_name`).val("");
         $(`#sub_budget_id`).val("");
         $(`#sub_budget_code`).val("");
+
+        $("#po_number").css('background-color', '#fff');
+        $("#po_number").val("");
+        $("#po_id").val("");
+
+        $("#do_number").css('background-color', '#fff');
+        $("#do_number").val("");
+        $("#do_id").val("");
 
         $("#purchase_order_date_range").css('background-color', '#fff');
         $(`#purchase_order_date_range`).val("");
@@ -70,6 +83,7 @@
             data: {
                 budget_code: budgetCode.value,
                 site_code: subBudgetCode.value,
+                po_id: purchaseOrderID.value,
                 poToDoDate: poToDoDate.value,
                 page: page,
                 limit: rowsPerPage
@@ -92,21 +106,6 @@
                 $('#table_container').show();
 
                 Utils.hideLoading();
-
-                // data = (response.status === 200 && response.data[0]) ? response.data : [];
-                // dataReport = data;
-
-                // filteredData = [...data];
-                // currentPage = (response.status === 200 && response.data[0]) ? 1 : '-';
-                // sortColumn = null;
-                // sortOrder = 'asc';
-
-                // renderPage();
-                // renderPagination();
-
-                // $('#table_container').css("display", "block");
-
-                // Utils.hideLoading();
             },
             error: function (xhr, status, error) {
                 console.log('xhr, status, error', xhr, status, error);
@@ -283,34 +282,6 @@
 
     function renderPage() {
         renderTable(data);
-
-        // const sortedData = sortData(filteredData);
-
-        // const searchQuery = document.querySelector('#searchInput').value;
-        // const filteredAndSortedData = filterData(searchQuery, sortedData);
-
-        // const start = (currentPage - 1) * rowsPerPage;
-        // const end = start + rowsPerPage;
-        // const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
-        //     "no": "",
-        //     "po_number": "",
-        //     "po_date": "",
-        //     "product": "",
-        //     "po_qty": "",
-        //     "do_number": "",
-        //     "do_date": "",
-        //     "do_delivery_from": "",
-        //     "do_delivery_to": "",
-        //     "transporter": "",
-        //     "do_qty": ""
-        // }];
-
-        // startLimit.textContent = start + 1;
-        // endLimit.textContent = Math.min(end, filteredAndSortedData.length);
-        // totalData.textContent = filteredAndSortedData.length;
-
-        // renderTable(pageData);
-        // updatePaginationInfo(filteredAndSortedData.length); // Update the page info based on filtered data
     }
 
     function renderPagination() {
@@ -506,17 +477,17 @@
             // currentPage--;
             // renderPage();
             // renderPagination();
-
             getDataReport(currentPage - 1);
         }
     });
 
     document.querySelector('#nextPage').addEventListener('click', () => {
-        if (currentPage * rowsPerPage < filteredData.length) {
-            // currentPage++;
-            // renderPage();
-            // renderPagination();
-
+        // if (currentPage * rowsPerPage < filteredData.length) {
+        //     currentPage++;
+        //     renderPage();
+        //     renderPagination();
+        // }
+        if (currentPage < totalPages) {
             getDataReport(currentPage + 1);
         }
     });
@@ -557,7 +528,40 @@
         $('#mySites').modal('toggle');
     });
 
+    $('#TableSearchPORevision tbody').on('click', 'tr', function () {
+        const table = $('#TableSearchPORevision').DataTable();
+        const data = table.row(this).data();
+
+        if (data) {
+            const purchaseOrder_RefID = data.sys_ID;
+            const code = data.sys_Text;
+            const combinedBudget_RefID = data.combinedBudget_RefID;
+            const status = data.additionalData.latestWorkFlowStatus;
+
+            $("#mySearchPO").modal('toggle');
+
+            $("#po_id").val(purchaseOrder_RefID);
+            $("#po_number").val(code);
+            $("#po_number").css('background-color', '#e9ecef');
+        }
+    });
+
+    $('#deliveryOrderListTable').on('click', 'tbody tr', function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const status = $(this).find('input[data-trigger="workflow_status_delivery_order"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+
+        $("#do_id").val(sysId);
+        $("#do_number").val(trano);
+        $("#do_number").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+
+        $("#deliveryOrderModal").modal('toggle');
+    });
+
     $(document).ready(function () {
+        getDeliveryOrderList();
+        getModalPurchaseOrder();
+
         $('#purchase_order_date_range').daterangepicker({
             autoUpdateInput: false,
             maxDate: moment(),
