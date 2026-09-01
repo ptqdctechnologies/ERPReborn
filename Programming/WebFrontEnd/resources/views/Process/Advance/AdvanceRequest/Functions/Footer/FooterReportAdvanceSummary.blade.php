@@ -77,7 +77,7 @@
             pageLength: 20,
             ajax: {
                 type: 'POST',
-                url: '{!! route("DeliveryOrder.ReportDeliveryOrderSummaryStore") !!}',
+                url: '{!! route("AdvanceRequest.ReportAdvanceSummaryStore") !!}',
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
