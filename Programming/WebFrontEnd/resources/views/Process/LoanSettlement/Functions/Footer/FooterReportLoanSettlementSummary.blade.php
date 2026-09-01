@@ -42,171 +42,182 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalSettlementIDR = 0;
+        let totalSettlementOther = 0;
+        let totalSettlementEquivalent = 0;
+        let totalPenaltyIDR = 0;
+        let totalPenaltyOther = 0;
+        let totalPenaltyEquivalent = 0;
+        let totalInterestIDR = 0;
+        let totalInterestOther = 0;
+        let totalInterestEquivalent = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("LoanSettlement.ReportLoanSettlementSummaryStore") !!}',
-            data: {
-                creditor_id: creditorID.value,
-                debitor_id: debitorID.value,
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                loanSettlementDate: loanSettlementDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("LoanSettlement.ReportLoanSettlementSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.creditor_id = creditorID.value;
+                    d.debitor_id = debitorID.value;
+                    d.loanSettlementDate = loanSettlementDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalSettlementIDR += parseFloat(row.total_Settlement_IDR) || 0;
+                        totalSettlementOther += parseFloat(row.total_Settlement_Other_Currency) || 0;
+                        totalSettlementEquivalent += parseFloat(row.total_Settlement_Equivalent_IDR) || 0;
+                        totalPenaltyIDR += parseFloat(row.total_Penalty_IDR) || 0;
+                        totalPenaltyOther += parseFloat(row.total_Penalty_Other_Currency) || 0;
+                        totalPenaltyEquivalent += parseFloat(row.total_Penalty_Equivalent_IDR) || 0;
+                        totalInterestIDR += parseFloat(row.total_Interest_IDR) || 0;
+                        totalInterestOther += parseFloat(row.total_Interest_Other_Currency) || 0;
+                        totalInterestEquivalent += parseFloat(row.total_Interest_Equivalent_IDR) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalSettlementIDR = 0;
-                let totalSettlementOther = 0;
-                let totalSettlementEquivalent = 0;
-                let totalPenaltyIDR = 0;
-                let totalPenaltyOther = 0;
-                let totalPenaltyEquivalent = 0;
-                let totalInterestIDR = 0;
-                let totalInterestOther = 0;
-                let totalInterestEquivalent = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalSettlementIDR += parseFloat(row.total_Settlement_IDR) || 0;
-                    totalSettlementOther += parseFloat(row.total_Settlement_Other_Currency) || 0;
-                    totalSettlementEquivalent += parseFloat(row.total_Settlement_Equivalent_IDR) || 0;
-                    totalPenaltyIDR += parseFloat(row.total_Penalty_IDR) || 0;
-                    totalPenaltyOther += parseFloat(row.total_Penalty_Other_Currency) || 0;
-                    totalPenaltyEquivalent += parseFloat(row.total_Penalty_Equivalent_IDR) || 0;
-                    totalInterestIDR += parseFloat(row.total_Interest_IDR) || 0;
-                    totalInterestOther += parseFloat(row.total_Interest_Other_Currency) || 0;
-                    totalInterestEquivalent += parseFloat(row.total_Interest_Equivalent_IDR) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'loanSettlementNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'loanNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.creditorName ? data.creditorName : '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.debitorName ? data.debitorName : '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Settlement_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Settlement_Other_Currency || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Settlement_Equivalent_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Penalty_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Penalty_Other_Currency || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Penalty_Equivalent_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Interest_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Interest_Other_Currency || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.total_Interest_Equivalent_IDR || 0);
-                            }
-                        },
-                        {
-                            data: 'notes',
-                            defaultContent: '-'
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalSettlementIDR));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalSettlementOther));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalSettlementEquivalent));
-                        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalPenaltyIDR));
-                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalPenaltyOther));
-                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalPenaltyEquivalent));
-                        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalInterestIDR));
-                        $('#table_summary tfoot th:nth-child(9)').text(currencyTotal(totalInterestOther));
-                        $('#table_summary tfoot th:nth-child(10)').text(currencyTotal(totalInterestEquivalent));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (textStatus, errorThrown) {
-                $('#table_summary').DataTable().clear().draw();
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                },
+                {
+                    data: 'loanSettlementNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'loanNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.creditorName ? data.creditorName : '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.debitorName ? data.debitorName : '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Settlement_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Settlement_Other_Currency || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Settlement_Equivalent_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Penalty_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Penalty_Other_Currency || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Penalty_Equivalent_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Interest_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Interest_Other_Currency || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.total_Interest_Equivalent_IDR || 0);
+                    }
+                },
+                {
+                    data: 'notes',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalSettlementIDR));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalSettlementOther));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalSettlementEquivalent));
+                $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalPenaltyIDR));
+                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalPenaltyOther));
+                $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalPenaltyEquivalent));
+                $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalInterestIDR));
+                $('#table_summary tfoot th:nth-child(9)').text(currencyTotal(totalInterestOther));
+                $('#table_summary tfoot th:nth-child(10)').text(currencyTotal(totalInterestEquivalent));
             }
         });
     }
