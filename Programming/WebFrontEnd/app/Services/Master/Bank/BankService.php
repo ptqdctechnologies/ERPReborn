@@ -10,11 +10,11 @@ class BankService
 {
     public function picklist($formatted)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.dataList.master.getBank',
             'latest',
             [

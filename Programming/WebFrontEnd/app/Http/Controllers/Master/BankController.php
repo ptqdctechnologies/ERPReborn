@@ -25,6 +25,10 @@ class BankController extends Controller
     {
     }
 
+    public function show($id)
+    {
+    }
+
     public function store(Request $request)
     {
     }
@@ -63,8 +67,8 @@ class BankController extends Controller
             ],
             'dataFilter' => [
                 'name' => NULL,
-                'acronym' => $searchValue
-            ],
+                'acronym' => $searchValue ? $searchValue : NULL
+            ]
         ];
 
         $response = $this->bankService->picklist($formatted);
@@ -78,13 +82,13 @@ class BankController extends Controller
             ]);
         }
 
-        $bankData = $response['data']['data'];
+        $bankData = $response['data']['data']['document'];
 
         return response()->json([
             'draw' => intval($request->input('draw')),
             'recordsTotal' => $bankData['header']['dataCount'],
             'recordsFiltered' => $bankData['header']['dataCount'],
-            'data' => $bankData['content']['itemList']
+            'data' => $bankData['content']['itemList']['ungrouped']
         ]);
     }
 

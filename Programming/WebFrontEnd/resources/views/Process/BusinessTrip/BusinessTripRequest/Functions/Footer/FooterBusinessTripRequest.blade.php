@@ -13,6 +13,16 @@
   const byCorpCardComp = document.getElementById('by_corp_card');
   const toOtherComp = document.getElementById('to_other');
 
+  function changeLabelPayment(val) {
+    labelPayment = val;
+
+    // if (val == 'bank_account_vendor') {
+    //   getBanksAccount(bankNameVendorID.value);
+    // } else if (val == 'bank_account_corp_card') {
+    //   getBanksAccount(bankNameCorpCardID.value);
+    // }
+  }
+
   function parseCurrency(value) {
     const clean = value.replace(/,/g, '').trim();
     return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
@@ -401,9 +411,28 @@
     $('#myRequesters').modal('toggle');
   });
 
+  $('#bankListTable').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
+    const acronym = $(this).find('td:nth-child(2)').text();
+    const name = $(this).find('td:nth-child(3)').text();
+
+    if (labelPayment == "bank_name_vendor") {
+      $("#bank_id_vendor").val(sysId);
+      $("#bank_name_vendor").val(`${acronym} - ${name}`);
+      $("#bank_name_vendor").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    } else if (labelPayment == "bank_name_corp_card") {
+      $("#bank_id_corp_card").val(sysId);
+      $("#bank_name_corp_card").val(`${acronym} - ${name}`);
+      $("#bank_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    }
+
+    $('#bankListModal').modal('toggle');
+  });
+
   $(document).ready(function () {
     getRequesters();
     getBeneficiaries();
+    getBankList();
 
     if (dateCommanceComp) {
       dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);

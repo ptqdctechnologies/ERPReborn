@@ -6,6 +6,7 @@
   @include('getFunction.getSites')
   @include('getFunction.getRequesters')
   @include('getFunction.getBeneficiaries')
+  @include('getFunction.getBank')
   @include('getFunction.getBanks')
   @include('getFunction.getBankLists')
   @include('getFunction.getBanksAccount')

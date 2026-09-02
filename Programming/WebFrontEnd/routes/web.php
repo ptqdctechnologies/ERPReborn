@@ -86,6 +86,10 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('Warehouse/revision', 'Master\WarehouseController@revision')->name('Warehouse.revision');
     Route::resource('Warehouse', 'Master\WarehouseController');
 
+    // BANK
+    Route::get('Bank/picklist', 'Master\BankController@picklist')->name('Bank.picklist');
+    Route::resource('Bank', 'Master\BankController');
+
     // SUPPLIER
     Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
     Route::post('Supplier/picklist', 'Master\SupplierController@picklist')->name('Supplier.picklist');
