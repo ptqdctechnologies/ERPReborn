@@ -13,6 +13,11 @@
   const byCorpCardComp = document.getElementById('by_corp_card');
   const toOtherComp = document.getElementById('to_other');
 
+  function parseCurrency(value) {
+    const clean = value.replace(/,/g, '').trim();
+    return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
+  }
+
   function parseFormattedNumber(value) {
     if (!value) return 0;
     return parseFloat(value.replace(/,/g, ''));
@@ -246,62 +251,47 @@
   }
 
   function getBudgetDetails(site_id) {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
+    const tdStyle = 'padding: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important;';
 
     $.ajax({
       type: 'GET',
       url: '{!! route("getBudget") !!}?site_code=' + site_id,
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
       success: function (data) {
-        $(".loading").hide();
+        $("#loadingBudgetDetails").hide();
         searchBudgetBtn.style.display = 'block';
 
-        $.each(data, function (key, val2) {
-          let productColumn = `
-            <td style="text-align: center;">-</td>
-            <td style="text-align: left;">${val2.product_RefID} - ${val2.productName}</td>
-          `;
+        $.each(data, function (key, value) {
+          const productColumn = value.product_RefID
+            ? `<td style="text-align: center;">-</td>
+               <td style="text-align: left;">${value.product_RefID} - ${value.productName}</td>`
+            : `<td style="text-align: center;">-</td>
+               <td style="padding: 8px;">
+                 <div class="input-group">
+                   <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
+                   <div class="input-group-append">
+                     <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                       <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                       </a>
+                     </span>
+                   </div>
+                 </div>
+               </td>`;
 
-          if (!val2.product_RefID) {
-            productColumn = `
-              <td style="text-align: center;">-</td>
-              <td style="padding: 8px;">
-                <div class="input-group">
-                  <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
-                  <div class="input-group-append">
-                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
-                      <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                      </a>
-                    </span>
-                  </div>
-                </div>
+          const html = `
+            <tr>
+              <td style="${tdStyle}">
+                <input hidden data-budget-id="sys_ID" value="${value.sys_ID}">
+                <input hidden id="workStructure_RefID" value="302000000000002">
+                <input hidden id="product_RefID" value="${value.product_RefID}">
+                <input type="checkbox" aria-label="Checkbox for following text input">
               </td>
-            `;
-          }
-
-          var html =
-            '<tr>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
-            '<input hidden id="workStructure_RefID" value="302000000000002">' +
-            '<input hidden id="product_RefID" value="' + val2.product_RefID + '">' +
-            '<input type="checkbox" aria-label="Checkbox for following text input">' +
-            '</td>' +
-            productColumn +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
-            '</td>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            val2.priceBaseCurrencyISOCode +
-            '</td>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
-            '</td>' +
-            '</tr>';
+              ${productColumn}
+              <td style="${tdStyle}">${numberFormatPHPCustom(value.quantity * value.priceBaseCurrencyValue, 2)}</td>
+              <td style="${tdStyle}">${value.priceBaseCurrencyISOCode}</td>
+              <td style="${tdStyle}">${numberFormatPHPCustom(value.priceBaseCurrencyValue, 2)}</td>
+            </tr>`;
 
           $('table#budgetTable tbody').append(html);
         });
