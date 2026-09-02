@@ -15,7 +15,7 @@ class BankService
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
-            'report.form.dataList.master.getBank',
+            'report.form.dataPickList.master.getBank',
             'latest',
             [
                 'parameter' => $formatted

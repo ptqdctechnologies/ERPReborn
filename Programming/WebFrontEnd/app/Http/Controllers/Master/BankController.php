@@ -82,13 +82,13 @@ class BankController extends Controller
             ]);
         }
 
-        $bankData = $response['data']['data']['document'];
+        $bankData = $response['data']['data'];
 
         return response()->json([
             'draw' => intval($request->input('draw')),
             'recordsTotal' => $bankData['header']['dataCount'],
             'recordsFiltered' => $bankData['header']['dataCount'],
-            'data' => $bankData['content']['itemList']['ungrouped']
+            'data' => $bankData['content']['itemList']
         ]);
     }
 

@@ -67,8 +67,6 @@
                     // d.combinedBudgetCode = combinedBudgetCode;
                     // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
 
-                    console.log('d', d);
-
                     return d;
                 },
                 beforeSend: function () {
@@ -91,19 +89,16 @@
                     }
                 },
                 {
-                    data: null,
+                    data: "sys_Text",
                     defaultContent: '-',
-                    className: "align-middle text-nowrap",
-                    render: function (data, type, row, meta) {
-                        return data.entities.acronym;
-                    }
+                    className: "align-middle text-nowrap"
                 },
                 {
                     data: null,
                     defaultContent: '-',
                     className: "align-middle text-nowrap",
                     render: function (data, type, row, meta) {
-                        return data.entities.name;
+                        return data.additionalData.acronym;
                     }
                 }
             ],
