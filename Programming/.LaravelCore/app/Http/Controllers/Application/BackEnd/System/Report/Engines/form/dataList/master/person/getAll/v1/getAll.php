@@ -3,21 +3,21 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\getPerson                    |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\person\getAll                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\getPerson\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\person\getAll\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getPerson                                                                                                    |
-    | ▪ Description : Menangani API report.form.dataList.master.getPerson Version 1                                                |
+    | ▪ Class Name  : getAll                                                                                                       |
+    | ▪ Description : Menangani API report.form.dataList.master.person.getAll Version 1                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getPerson extends \App\Http\Controllers\Controller
+    class getAll extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -123,8 +123,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                     : null
                                             ),
                                         //---► citizenIdentityNumber
-                                            (
-                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'citizenIdentityNumber',
                                                 $varData['parameter']['dataFilter']
@@ -136,6 +135,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                     : null
                                             )
                                     //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
+
+                                    //-----[ Order Parameter ]------------------------------------------------------( START POINT )-----
+                                    //-----[ Order Parameter ]------------------------------------------------------(  END POINT  )-----
                                     ),
                                 FALSE
                                 )
