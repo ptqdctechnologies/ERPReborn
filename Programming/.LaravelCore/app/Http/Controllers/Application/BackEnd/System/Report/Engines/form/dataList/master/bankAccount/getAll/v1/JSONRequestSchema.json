@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.dataList.master.getBank (version 1)",
+"description": "JSON Request Schema of report.form.dataList.master.bankAccount.getAll (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.dataList.master.getBank" ]
+                        "enum": [ "report.form.dataList.master.bankAccount.getAll" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -57,15 +57,15 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "name": {
+                            "fullBankAccountNumber": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
                                 "maxLength": 256
                                 },
-                            "acronym": {
+                            "bankName": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 16
+                                "maxLength": 64
                                 }
                             },
                         "required": [

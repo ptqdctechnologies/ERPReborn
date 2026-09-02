@@ -5043,6 +5043,192 @@ namespace App\Models\Database\SchData_OLTP_Master {
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_BusinessDocumentType                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
+        | ▪ Creation Date   : 2026-09-01                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Jenis Dokumen Bisnis                                               |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_BusinessDocumentType(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BusDocType',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_BusDocType']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_BusinessDocumentType_MasterData                                              |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
+        | ▪ Creation Date   : 2026-09-01                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Jenis Dokumen Bisnis - Data Master                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_BusinessDocumentType_MasterData(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BusDocType_MasterData',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_BusDocType_MasterData']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_BusinessDocumentType_Transaction                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
+        | ▪ Creation Date   : 2026-09-01                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Jenis Dokumen Bisnis - Dokumen Transaksi                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_BusinessDocumentType_Transaction(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varName = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_BusDocType_Transaction',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_BusDocType_Transaction']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_DataList_InstitutionType                                                              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

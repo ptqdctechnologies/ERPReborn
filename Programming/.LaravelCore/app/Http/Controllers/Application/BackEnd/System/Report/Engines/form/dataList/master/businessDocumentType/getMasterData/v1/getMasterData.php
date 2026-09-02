@@ -3,29 +3,30 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\getBank                      |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\businessDocumentType         |
+|                \getMasterData                                                                                                    |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\getBank\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\master\businessDocumentType\getMasterData\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getBank                                                                                                      |
-    | ▪ Description : Menangani API report.form.dataList.master.getBank Version 1                                                  |
+    | ▪ Class Name  : getMasterData                                                                                                |
+    | ▪ Description : Menangani API report.form.dataList.master.businessDocumentType.getMasterData Version 1                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getBank extends \App\Http\Controllers\Controller
+    class getMasterData extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-02                                                                                           |
-        | ▪ Create date     : 2026-07-02                                                                                           |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
+        | ▪ Create date     : 2026-09-01                                                                                           |
         | ▪ Description     : System's Default Constructor                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -44,8 +45,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-07-02                                                                                           |
-        | ▪ Create date     : 2026-07-02                                                                                           |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
+        | ▪ Create date     : 2026-09-01                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Input Variable  :                                                                                                      |
@@ -62,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataList - Bank (version 1)'
+                        'Get Report Form - DataList - Business Document Type - Master Data (version 1)'
                         );
 
                 try {
@@ -71,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataList_Bank(
+                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataList_BusinessDocumentType_MasterData(
                                     //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
                                         //---► userSession
                                             $varUserSession,
@@ -116,26 +117,16 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                 'name',
                                                 $varData['parameter']['dataFilter']
                                                 ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['name'])) 
-                                                        ? $varData['parameter']['dataFilter']['name'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
-                                        //---► acronym
-                                            (
-                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'acronym',
-                                                $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['acronym']))
-                                                        ? $varData['parameter']['dataFilter']['acronym']
+                                                    (!is_null($varData['parameter']['dataFilter']['name']))
+                                                        ? $varData['parameter']['dataFilter']['name']
                                                         : null
                                                         )
                                                     : null
                                             )
                                     //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
+
+                                    //-----[ Order Parameter ]------------------------------------------------------( START POINT )-----
+                                    //-----[ Order Parameter ]------------------------------------------------------(  END POINT  )-----
                                     ),
                                 FALSE
                                 )
