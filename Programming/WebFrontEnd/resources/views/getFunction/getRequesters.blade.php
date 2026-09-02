@@ -49,7 +49,7 @@
 <script>
     function getRequesters() {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("getRequester") !!}'
         })
             .done(function (response) {

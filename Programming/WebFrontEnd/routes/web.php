@@ -214,7 +214,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('getQuantityUnit', 'Function\FunctionController@getQuantityUnit')->name('getQuantityUnit');
     Route::get('getInstitutionType', 'Function\FunctionController@getInstitutionType')->name('getInstitutionType');
     Route::get('getProject', 'Function\FunctionController@getProject')->name('getProject');
-    Route::post('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
+    Route::get('getRequester', 'Function\FunctionController@getRequester')->name('getRequester');
     Route::post('getBeneficiary', 'Function\FunctionController@getBeneficiary')->name('getBeneficiary');
     Route::get('getPurchaseRequisitionByBudgetID', 'Function\FunctionController@getPurchaseRequisitionByBudgetID')->name('getPurchaseRequisitionByBudgetID');
     Route::get('getSite', 'Function\FunctionController@getSite')->name('getSite');
