@@ -9,8 +9,7 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\master\getBankAccount\v1
-    {
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\master\getBankAccount\v1 {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : getBankAccount                                                                                               |
@@ -18,7 +17,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class getBankAccount extends \App\Http\Controllers\Controller
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -35,8 +34,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
-            }
+        {
+        }
 
 
         /*
@@ -56,133 +55,144 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function main($varUserSession, $varData)
-            {
+        {
             $varReturn = \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodHeader($varUserSession, null, __CLASS__, __FUNCTION__);
 
             try {
                 $varSysDataProcess =
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader(
+                        $varUserSession,
+                        __CLASS__,
+                        __FUNCTION__,
                         'Get Report Form - DataPickList - Bank Account (version 1)'
-                        );
+                    );
 
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (!($varDataSend = 
-                            \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
-                                $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataPickList_BankAccount(
-                                    //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
+                        if (
+                            !($varDataSend =
+                                \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
+                                    $varUserSession,
+                                    (new \App\Models\Database\SchData_OLTP_Master\General())->getReport_Form_DataPickList_BankAccount(
+                                        //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
                                         //---► userSession
-                                            $varUserSession,
+                                        $varUserSession,
                                         //---► branchID
-                                            (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
-                                                $varUserSession
-                                                )
-                                            )['branchID'],
-                                    //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
+                                        (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken(
+                                            $varUserSession
+                                        )
+                                        )['branchID'],
+                                            //-----[ System Parameter ]-----------------------------------------------------(  END POINT  )-----
 
-                                    //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
-                                        //---► pageSize
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'pageSize',
-                                                $varData['parameter']['pagination']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['pagination']['pageSize'])) 
-                                                        ? $varData['parameter']['pagination']['pageSize'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
-                                        //---► pageShow
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'pageShow',
-                                                $varData['parameter']['pagination']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['pagination']['pageShow'])) 
-                                                        ? $varData['parameter']['pagination']['pageShow'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
-                                    //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
+                                            //-----[ Pagination Parameter ]-------------------------------------------------( START POINT )-----
+                                            //---► pageSize
+                                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            $varUserSession,
+                                            'pageSize',
+                                            $varData['parameter']['pagination']
+                                        ) ? (
+                                            (!is_null($varData['parameter']['pagination']['pageSize']))
+                                            ? $varData['parameter']['pagination']['pageSize']
+                                            : null
+                                        )
+                                            : null
+                                        ),
+                                            //---► pageShow
+                                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            $varUserSession,
+                                            'pageShow',
+                                            $varData['parameter']['pagination']
+                                        ) ? (
+                                            (!is_null($varData['parameter']['pagination']['pageShow']))
+                                            ? $varData['parameter']['pagination']['pageShow']
+                                            : null
+                                        )
+                                            : null
+                                        ),
+                                            //-----[ Pagination Parameter ]-------------------------------------------------(  END POINT  )-----
 
-                                    //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
-                                        //---► fullBankAccountNumber
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                                                $varUserSession,
-                                                'fullBankAccountNumber',
-                                                $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['fullBankAccountNumber'])) 
-                                                        ? $varData['parameter']['dataFilter']['fullBankAccountNumber'] 
-                                                        : null
-                                                        ) 
-                                                    : null
-                                            ),
-                                        //---► bankName
-                                            (
+                                            //-----[ Filter Parameter ]-----------------------------------------------------( START POINT )-----
+                                            //---► fullBankAccountNumber
+                                        (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            $varUserSession,
+                                            'fullBankAccountNumber',
+                                            $varData['parameter']['dataFilter']
+                                        ) ? (
+                                            (!is_null($varData['parameter']['dataFilter']['fullBankAccountNumber']))
+                                            ? $varData['parameter']['dataFilter']['fullBankAccountNumber']
+                                            : null
+                                        )
+                                            : null
+                                        ),
+                                            //---► bankName
+                                        (
                                             \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'bankName',
                                                 $varData['parameter']['dataFilter']
-                                                ) ? (
-                                                    (!is_null($varData['parameter']['dataFilter']['bankName']))
-                                                        ? $varData['parameter']['dataFilter']['bankName']
-                                                        : null
-                                                        )
-                                                    : null
+                                            ) ? (
+                                                (!is_null($varData['parameter']['dataFilter']['bankName']))
+                                                ? $varData['parameter']['dataFilter']['bankName']
+                                                : null
                                             )
-                                    //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
+                                            : null
+                                        ),
+                                            //---► defaultEntity_RefID
+                                        (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                                $varUserSession,
+                                                'defaultEntity_RefID',
+                                                $varData['parameter']['dataFilter']
+                                            ) ? (
+                                                (!is_null($varData['parameter']['dataFilter']['defaultEntity_RefID']))
+                                                ? $varData['parameter']['dataFilter']['defaultEntity_RefID']
+                                                : null
+                                            )
+                                            : null
+                                        ),
+                                        //-----[ Filter Parameter ]-----------------------------------------------------(  END POINT  )-----
                                     ),
-                                FALSE
+                                    FALSE
                                 )
-                            ))
-                            {
+                            )
+                        ) {
                             throw
                                 new \Exception();
-                            }
+                        }
 
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success(
                                 $varUserSession,
                                 $varDataSend
-                                );
-                        }
-
-                    catch (\Exception $ex) {
+                            );
+                    } catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
                         $varReturn =
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                                 $varUserSession,
                                 500,
-                                'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : '')
+                                'Invalid SQL Syntax' . ($varErrorMessage ? ' (' . $varErrorMessage . ')' : '')
                             );
-                        }
-                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
                     }
-
-                catch (\Exception $ex) {
+                    //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');
+                } catch (\Exception $ex) {
                     $varReturn =
                         \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
                             $varUserSession,
                             401,
                             $ex->getMessage()
-                            );
+                        );
 
-                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, '. $ex->getMessage());
-                    }
+                    \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Failed, ' . $ex->getMessage());
+                }
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessFooter($varUserSession, $varSysDataProcess);
-                }
+            } catch (\Exception $ex) {
+            }
 
-            catch (\Exception $ex) {
-                }
-                
             return
                 \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
-            }
         }
     }
+}
