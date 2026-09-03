@@ -127,9 +127,9 @@
                         }
                     });
 
-                if ($('#searchHintBank').length === 0) {
+                if ($('#searchHintBankAccount').length === 0) {
                     $filter.append(
-                        '<small id="searchHintBank" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        '<small id="searchHintBankAccount" class="form-text text-muted" style="margin-bottom: .5rem;">' +
                         'Press <strong>Enter</strong> to start searching.' +
                         '</small>'
                     );

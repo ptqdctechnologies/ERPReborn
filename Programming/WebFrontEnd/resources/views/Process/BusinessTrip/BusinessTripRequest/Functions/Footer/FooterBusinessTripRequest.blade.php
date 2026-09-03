@@ -351,6 +351,93 @@
     });
   }
 
+  function getBankAccountListCustom(bankName, accountNumber) {
+    let table = $('#bankAccountListTable').DataTable({
+      processing: true,
+      serverSide: true,
+      destroy: true,
+      info: true,
+      paging: true,
+      searching: true,
+      lengthChange: true,
+      pageLength: 10,
+      ajax: {
+        url: '{!! route("Bank.Account.picklist") !!}',
+        type: 'GET',
+        data: function (d) {
+          d.bank_name = bankName;
+          d.account_number = accountNumber;
+
+          return d;
+        },
+        beforeSend: function () {
+          $('#bankAccountListTable tbody').empty();
+          $("#bankAccountListLoadingTable").show();
+        },
+        complete: function () {
+          $("#bankAccountListLoadingTable").hide();
+        },
+        error: function (xhr, error, thrown) {
+          $("#bankAccountListLoadingTable").hide();
+        }
+      },
+      columns: [
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return '<input id="sys_id_bank' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank" type="hidden">' +
+              (meta.row + meta.settings._iDisplayStart + 1)
+          }
+        },
+        {
+          data: null,
+          defaultContent: '-',
+          className: "align-middle text-wrap",
+          render: function (data, type, row, meta) {
+            return '<span style="line-height: normal;">' +
+              data.additionalData.bankName +
+              '</span>';
+          }
+        },
+        {
+          data: "sys_Text",
+          defaultContent: '-',
+          className: "align-middle text-wrap",
+          render: function (data, type, row, meta) {
+            return '<span style="line-height: normal;">' +
+              data +
+              '</span>';
+          }
+        }
+      ],
+      initComplete: function () {
+        let api = this.api();
+
+        let $filter = $('#bankAccountListTable_filter');
+        let $searchLabel = $filter.find('label');
+        let $searchInput = $filter.find('input');
+
+        $searchLabel.css('margin-bottom', '0');
+        $searchInput
+          .attr('placeholder', 'Search...')
+          .off('.DT')
+          .on('keypress', function (e) {
+            if (e.which === 13) {
+              api.search(this.value).draw();
+            }
+          });
+
+        if ($('#searchHintBank').length === 0) {
+          $filter.append(
+            '<small id="searchHintBank" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+            'Press <strong>Enter</strong> to start searching.' +
+            '</small>'
+          );
+        }
+      }
+    });
+  }
+
   $('#tableProjects').on('click', 'tbody tr', async function () {
     const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
     const projectCode = $(this).find('td:nth-child(2)').text();
@@ -426,6 +513,7 @@
       $("#bank_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
     }
 
+    getBankAccountListCustom(name);
     $('#bankListModal').modal('toggle');
   });
 
@@ -433,7 +521,6 @@
     getRequesters();
     getBeneficiaries();
     getBankList();
-    getBankAccountList();
 
     if (dateCommanceComp) {
       dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);

@@ -103,8 +103,8 @@ class BankController extends Controller
             ? (int) floor($start / $formatLimit) + 1
             : 1;
 
-        $fullBankAccountNumber = $request->input('bank_name');
-        $bankName = $request->input('account_number');
+        $bankName = $request->input('bank_name');
+        $fullBankAccountNumber = $request->input('account_number');
         $searchValue = $request->input('search.value');
 
         $formatted = [
@@ -113,8 +113,8 @@ class BankController extends Controller
                 'pageShow' => (int) $offset
             ],
             'dataFilter' => [
-                'fullBankAccountNumber' => $fullBankAccountNumber,
-                'bankName' => $searchValue ? $searchValue : $bankName
+                'fullBankAccountNumber' => $searchValue ? $searchValue : $fullBankAccountNumber,
+                'bankName' => $bankName
             ],
         ];
 
