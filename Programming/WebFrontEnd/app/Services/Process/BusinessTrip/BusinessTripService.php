@@ -173,8 +173,82 @@ class BusinessTripService
         );
     }
 
-    public function create(Request $request): array
+    public function create($data)
     {
+        return $data;
+
+        $token = Session::get('SessionLogin');
+        $businessTripBudgets = $data['components'];
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+
+        $result = [];
+        foreach ($businessTripBudgets as $businessTripBudget) {
+            if (!empty($businessTripBudget['value'])) {
+                $result[] = [
+                    'entities' => [
+                        'businessTripCostComponentEntity_RefID' => (int) $businessTripBudget['id'],
+                        'amountCurrency_RefID' => 62000000000001,
+                        'amountCurrencyValue' => (float) str_replace(',', '', $businessTripBudget['value']),
+                        'amountCurrencyExchangeRate' => 1,
+                        'remarks' => null
+                    ]
+                ];
+            }
+        }
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.create.humanResource.setPersonBusinessTrip',
+            'latest',
+            [
+                'entities' => [
+                    'documentDateTimeTZ' => date('Y-m-d'),
+                    'combinedBudgetSectionDetail_RefID' => (int) $data['combinedBudgetSectionDetail_RefID'],
+                    'additionalData' => [
+                        'itemList' => [
+                            'items' => [
+                                [
+                                    'entities' => [
+                                        'sequence' => 1,
+                                        'log_FileUpload_Pointer_RefID' => $fileID,
+                                        'requesterWorkerJobsPosition_RefID' => (int) $data['requester_id'],
+                                        'workStructure_RefID' => $data['workStructure_RefID'],
+                                        'product_RefID' => $data['product_RefID'],
+                                        'startDateTimeTZ' => $data['dateCommance'],
+                                        'finishDateTimeTZ' => $data['dateEnd'],
+                                        'departurePoint' => $data['departingFrom'],
+                                        'destinationPoint' => $data['destinationTo'],
+                                        'reasonToTravel' => $data['reasonTravel'],
+                                        'businessTripAccommodationArrangementsType_RefID' => null, // 219000000000002
+                                        'currency_RefID' => 62000000000001, // NEW
+                                        'currencyExchangeRate' => 1, // NEW
+                                        'paymentToVendor_amountCurrencyValue' => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null, // NEW
+                                        'paymentToVendor_paymentFundingDestination_RefID' => $data['vendor_bank_account'] ? (int) $data['vendor_bank_account'] : null, // NEW
+                                        'paymentToVendor_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
+                                        'paymentToCreditCard_amountCurrencyValue' => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null, // NEW
+                                        'paymentToCreditCard_paymentFundingDestination_RefID' => $data['corp_bank_account'] ? (int) $data['corp_bank_account'] : null, // NEW
+                                        'paymentToCreditCard_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
+                                        'paymentToOther_amountCurrencyValue' => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null, // NEW
+                                        'paymentToOther_paymentFundingDestination_RefID' => $data['other_bank_account'] ? (int) $data['other_bank_account'] : null, // NEW
+                                        'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => $data['other_beneficiary'] ? (int) $data['other_beneficiary'] : null, // NEW
+                                        'remarks' => null,
+                                        'additionalData' => [
+                                            'itemList' => [
+                                                'items' => $result
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        );
+
+        return $data;
+
         $sessionToken = Session::get('SessionLogin');
 
         $data = $request->storeData;

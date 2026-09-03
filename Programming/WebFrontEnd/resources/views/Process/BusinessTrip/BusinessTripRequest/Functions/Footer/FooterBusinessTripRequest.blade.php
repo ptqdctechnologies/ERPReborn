@@ -1,6 +1,13 @@
 <script>
   let labelPayment = '';
+  let totalNextApprover = 0;
+  let triggerButtonModal = null;
   let currenctBudgetSelection = 0;
+  let dataWorkflow = {
+    workFlowPathRefID: null,
+    approverEntityRefID: null,
+    comment: null
+  };
   const initialValue = 0;
   const totalBusinessTrip = [];
   const date = new Date();
@@ -802,6 +809,108 @@
         }
       }
     }
+  }
+
+  function BusinessTripRequestStore() {
+    const form_data = new FormData($('#businessTripRequestForm')[0]);
+
+    form_data.append('workFlowPath_RefID', dataWorkflow.workFlowPathRefID);
+    form_data.append('approverEntity', dataWorkflow.approverEntityRefID);
+    form_data.append('comment', dataWorkflow.comment);
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      data: form_data,
+      url: '{!! route("BusinessTripRequest.store") !!}',
+      processData: false,
+      contentType: false,
+      success: function (res) {
+        HideLoading();
+
+        console.log('res', res);
+
+        // if (res.status == 200) {
+        //   const swalWithBootstrapButtons = Swal.mixin({
+        //     confirmButtonClass: 'btn btn-success btn-sm',
+        //     cancelButtonClass: 'btn btn-danger btn-sm',
+        //     buttonsStyling: true,
+        //   });
+
+        //   swalWithBootstrapButtons.fire({
+        //     title: 'Successful !',
+        //     type: 'success',
+        //     html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+        //     showCloseButton: false,
+        //     showCancelButton: false,
+        //     focusConfirm: false,
+        //     confirmButtonText: '<span style="color:black;"> OK </span>',
+        //     confirmButtonColor: '#4B586A',
+        //     confirmButtonColor: '#e9ecef',
+        //     reverseButtons: true
+        //   }).then((result) => {
+        //     cancelForm("{{ route('BusinessTripRequest.index', ['var' => 1]) }}");
+        //   });
+        // } else {
+        //   ErrorNotif("Create Business Trip Request Failed");
+        // }
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        HideLoading();
+        ErrorNotif("Internal Server Error");
+      }
+    });
+  }
+
+  function commentWorkflow() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-sm',
+      cancelButtonClass: 'btn btn-danger btn-sm',
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: 'Comment',
+      text: "Please write your comment here",
+      type: 'question',
+      input: 'textarea',
+      showCloseButton: false,
+      showCancelButton: true,
+      focusConfirm: false,
+      cancelButtonText: '<span style="color:black;"> Cancel </span>',
+      confirmButtonText: '<span style="color:black;"> OK </span>',
+      cancelButtonColor: '#DDDAD0',
+      confirmButtonColor: '#DDDAD0',
+      reverseButtons: true
+    }).then((result) => {
+      if ('value' in result) {
+        dataWorkflow.comment = result.value;
+        ShowLoading();
+        BusinessTripRequestStore();
+      }
+    });
+  }
+
+  function SubmitForm(value) {
+    triggerButtonModal = value;
+    $('#businessTripRequestFormModal').modal('hide');
+
+    $('#businessTripRequestFormModal').on('hidden.bs.modal', function () {
+      if (triggerButtonModal === "SUBMIT") {
+        if (totalNextApprover > 1) {
+          $('#myWorkflows').modal('show');
+        } else {
+          commentWorkflow();
+        }
+
+        triggerButtonModal = null;
+      }
+    });
   }
 
   $('#tableProjects').on('click', 'tbody tr', async function () {

@@ -51,7 +51,9 @@ class BusinessTripRequestController extends Controller
     public function store(Request $request)
     {
         try {
-            $response = $this->businessTripService->create($request);
+            $response = $this->businessTripService->create($request->all());
+
+            return response()->json($response);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Create Business Trip Request');
