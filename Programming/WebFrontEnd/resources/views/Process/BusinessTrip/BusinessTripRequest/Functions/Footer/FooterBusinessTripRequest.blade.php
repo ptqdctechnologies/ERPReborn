@@ -1,5 +1,6 @@
 <script>
   let labelPayment = '';
+  let acronymBankNameOther = null;
   let totalNextApprover = 0;
   let triggerButtonModal = null;
   let currenctBudgetSelection = 0;
@@ -977,6 +978,10 @@
     const personName = $(this).find('td:nth-child(2)').text();
     const personPosition = $(this).find('td:nth-child(3)').text();
 
+    if (acronymBankNameOther) {
+      getBankAccountListCustom(acronymBankNameOther, "", personRefId);
+    }
+
     $("#person_id").val(personRefId);
     $("#beneficiary_id").val(sysId);
     $("#beneficiary_name").val(`${personPosition} - ${personName}`);
@@ -1018,6 +1023,8 @@
 
       getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_other") {
+      acronymBankNameOther = acronym;
+
       $("#bank_id_other").val(sysId);
       $("#bank_name_other").val(`${acronym} - ${name}`);
       $("#bank_name_other").css({ "background-color": "#e9ecef" });
