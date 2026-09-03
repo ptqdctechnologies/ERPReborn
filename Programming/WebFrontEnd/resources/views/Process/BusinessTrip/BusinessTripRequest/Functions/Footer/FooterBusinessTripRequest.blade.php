@@ -535,6 +535,27 @@
 
           return d;
         },
+        dataSrc: function (json) {
+          const response = Array.isArray(json.data) && json.data[0].sys_ID ? json.data : [];
+
+          if (response.length === 1) {
+            if (labelPayment == 'beneficiary_other' || labelPayment == 'bank_name_other') {
+              $("#bank_account_id_other").val(response[0].sys_ID);
+              $("#bank_account_name_other").val(response[0].sys_Text);
+              $("#bank_account_name_other").css({ "background-color": "#e9ecef" });
+
+              ErrorHandler.hideErrorInputMessage("#bank_account_name_other", "#bankAccountToOtherMessage");
+            }
+          } else {
+            if (labelPayment == 'beneficiary_other' || labelPayment == 'bank_name_other') {
+              $("#bank_account_id_other").val("");
+              $("#bank_account_name_other").val("");
+              $("#bank_account_name_other").css({ "background-color": "#fff" });
+            }
+          }
+
+          return response;
+        },
         beforeSend: function () {
           $('#bankAccountListTable tbody').empty();
           $("#bankAccountListLoadingTable").show();

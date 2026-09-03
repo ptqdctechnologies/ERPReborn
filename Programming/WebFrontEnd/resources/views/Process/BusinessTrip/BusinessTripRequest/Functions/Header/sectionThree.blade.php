@@ -318,7 +318,7 @@
                     <div class="row mt-0 mx-0">
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                         <div class="col-5 d-flex">
-                            <div>
+                            <div onclick="changeLabelPayment('beneficiary_other')">
                                 <span id="myBeneficiariesTrigger" class="input-group-text form-control"
                                     data-toggle="modal" data-target="#myBeneficiaries"
                                     style="border-radius: 0; cursor: pointer;">
