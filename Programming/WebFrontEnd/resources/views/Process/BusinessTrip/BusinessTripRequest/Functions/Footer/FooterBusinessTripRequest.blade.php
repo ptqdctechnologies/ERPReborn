@@ -487,7 +487,8 @@
           $("#mySitesTrigger").prop("disabled", false);
           $("#mySitesTrigger").css("cursor", "pointer");
 
-          $("#project_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+          ErrorHandler.hideErrorInputMessage("#project_name", "#budgetMessage");
+          $("#project_name").css({ "background-color": "#e9ecef" });
         } else {
           Swal.fire("Error", "You are not included in this budget", "error");
         }
@@ -872,10 +873,12 @@
     $("#person_id").val(personRefId);
     $("#beneficiary_id").val(sysId);
     $("#beneficiary_name").val(`${personPosition} - ${personName}`);
-    $("#beneficiary_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    $("#beneficiary_name").css({ "background-color": "#e9ecef" });
 
     $("#bankOtherListModalTrigger").prop("disabled", false);
     $("#bankOtherListModalTrigger").css({ "cursor": "pointer" });
+
+    ErrorHandler.hideErrorInputMessage("#beneficiary_name", "#beneficiaryToOtherMessage");
 
     $('#myBeneficiaries').modal('toggle');
   });
@@ -888,28 +891,34 @@
     if (labelPayment == "bank_name_vendor") {
       $("#bank_id_vendor").val(sysId);
       $("#bank_name_vendor").val(`${acronym} - ${name}`);
-      $("#bank_name_vendor").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+      $("#bank_name_vendor").css({ "background-color": "#e9ecef" });
 
       $("#bankAccountVendorListModalTrigger").prop("disabled", false);
       $("#bankAccountVendorListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_vendor", "#bankNameVendorMessage");
 
       getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_corp_card") {
       $("#bank_id_corp_card").val(sysId);
       $("#bank_name_corp_card").val(`${acronym} - ${name}`);
-      $("#bank_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+      $("#bank_name_corp_card").css({ "background-color": "#e9ecef" });
 
       $("#bankAccountCorpCardListModalTrigger").prop("disabled", false);
       $("#bankAccountCorpCardListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_corp_card", "#bankNameCorpCardMessage");
 
       getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_other") {
       $("#bank_id_other").val(sysId);
       $("#bank_name_other").val(`${acronym} - ${name}`);
-      $("#bank_name_other").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+      $("#bank_name_other").css({ "background-color": "#e9ecef" });
 
       $("#bankAccountOtherListModalTrigger").prop("disabled", false);
       $("#bankAccountOtherListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_other", "#bankNameToOtherMessage");
 
       getBankAccountListCustom(acronym, "", beneficiaryPersonRefID.value);
     }
@@ -925,14 +934,68 @@
     if (labelPayment == "bank_account_vendor") {
       $("#bank_account_id_vendor").val(sysId);
       $("#bank_account_name_vendor").val(accountNumber);
-      $("#bank_account_name_vendor").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+      $("#bank_account_name_vendor").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_vendor", "#bankAccountVendorMessage");
     } else if (labelPayment == "bank_account_corp_card") {
       $("#bank_account_id_corp_card").val(sysId);
       $("#bank_account_name_corp_card").val(accountNumber);
-      $("#bank_account_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+      $("#bank_account_name_corp_card").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_corp_card", "#bankAccountCorpCardMessage");
+    } else if (labelPayment == "bank_account_other") {
+      $("#bank_account_id_other").val(sysId);
+      $("#bank_account_name_other").val(accountNumber);
+      $("#bank_account_name_other").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_other", "#bankAccountToOtherMessage");
     }
 
     $('#bankAccountListModal').modal('toggle');
+  });
+
+  $('#dateCommance').change(function () {
+    $("#dateEnd").prop("disabled", false);
+    var dateCommance = new Date($("#dateCommance").val());
+    document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
+
+    $("#dateCommance").css("border", "1px solid #ced4da");
+    $("#dateCommenceTravelMessage").hide();
+  });
+
+  $('#dateEnd').change(function () {
+    $("#dateEnd").css("border", "1px solid #ced4da");
+    $("#dateEndTravelMessage").hide();
+  });
+
+  $('#departingFrom').on('input', function (e) {
+    if (e.target.value) {
+      $("#departingFrom").css("border", "1px solid #ced4da");
+      $("#departingFromMessage").hide();
+    } else {
+      $("#departingFrom").css("border", "1px solid red");
+      $("#departingFromMessage").show();
+    }
+  });
+
+  $('#destinationTo').on('input', function (e) {
+    if (e.target.value) {
+      $("#destinationTo").css("border", "1px solid #ced4da");
+      $("#destinationToMessage").hide();
+    } else {
+      $("#destinationTo").css("border", "1px solid red");
+      $("#destinationToMessage").show();
+    }
+  });
+
+  $('#reasonTravel').on('input', function (e) {
+    if (e.target.value) {
+      $("#reasonTravel").css("border", "1px solid #ced4da");
+      $("#reasonToTravelMessage").hide();
+    } else {
+      $("#reasonTravel").css("border", "1px solid red");
+      $("#reasonToTravelMessage").show();
+    }
   });
 
   $(document).ready(function () {
