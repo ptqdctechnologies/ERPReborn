@@ -101,6 +101,7 @@
                                 </div>
                             </div>
                             <div class="row" id="totalBRFMessage" style="margin-top: .3rem; display: none;">
+                                <label class="p-0 col-5 text-bold"></label>
                                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                                     <div class="text-red">
                                         Total BRF cannot be empty.

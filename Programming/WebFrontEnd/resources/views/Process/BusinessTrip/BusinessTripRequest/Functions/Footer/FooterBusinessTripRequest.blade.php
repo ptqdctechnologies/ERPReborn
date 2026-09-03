@@ -13,6 +13,156 @@
   const byCorpCardComp = document.getElementById('by_corp_card');
   const toOtherComp = document.getElementById('to_other');
   const beneficiaryPersonRefID = document.getElementById('person_id');
+  const validation = {
+    sectionOne: {
+      budgetID: getElement("project_name"),
+      subBudgetID: getElement("site_name")
+    },
+    sectionTwo: {
+      requesterID: getElement("requester_name"),
+      dateCommance: getElement("dateCommance"),
+      dateEnd: getElement("dateEnd"),
+      departingFrom: getElement("departingFrom"),
+      destinationTo: getElement("destinationTo"),
+      reasonTravel: getElement("reasonTravel"),
+    },
+    sectionThree: {
+      budgetDetailsData: getElement("budgetDetailsData")
+    },
+    sectionFour: {
+      totalBusinessTrips: getElement("total_business_trip"),
+      totalPayment: getElement("total_payment"),
+      directToVendor: getElement("direct_to_vendor"),
+      bankListCode: getElement("bank_id_vendor"),
+      bankAccountsID: getElement("bank_account_id_vendor"),
+      byCorpCard: getElement("by_corp_card"),
+      bankListSecondCode: getElement("bank_id_corp_card"),
+      bankAccountsIDSecond: getElement("bank_account_id_corp_card"),
+      toOther: getElement("to_other"),
+      beneficiarySecondID: getElement("beneficiary_id"),
+      bankListThirdCode: getElement("bank_id_other"),
+      bankAccountsThirdID: getElement("bank_account_id_other")
+    }
+  };
+
+  function sumTravelFares() {
+    let total = 0;
+    const container = document.getElementById('travel-fares-container');
+
+    const inputs = container.querySelectorAll('input:not([type="hidden"])');
+
+    inputs.forEach(input => {
+      const value = parseCurrency(input.value);
+
+      if (!isNaN(value)) {
+        total += value;
+      }
+    });
+
+    return total;
+  }
+
+  function getElement(id) {
+    return document.getElementById(id);
+  }
+
+  function isNotEmpty(value) {
+    return value && value.trim() !== '';
+  }
+
+  function isSectionValid() {
+    let result = true;
+
+    if (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00") {
+      if (
+        !isNotEmpty(validation.sectionFour.directToVendor.value) &&
+        !isNotEmpty(validation.sectionFour.byCorpCard.value) &&
+        !isNotEmpty(validation.sectionFour.toOther.value)) {
+        result = false;
+      }
+    }
+
+    if (isNotEmpty(validation.sectionFour.directToVendor.value)) {
+      if (!isNotEmpty(validation.sectionFour.bankListCode.value)) {
+        result = false;
+      }
+      if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
+        result = false;
+      }
+    }
+
+    if (
+      (
+        isNotEmpty(validation.sectionFour.bankListCode.value) ||
+        isNotEmpty(validation.sectionFour.bankAccountsID.value)
+      ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
+      result = false;
+    }
+
+    if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+      if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
+        result = false;
+      }
+      if (!isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)) {
+        result = false;
+      }
+    }
+
+    if (
+      (
+        isNotEmpty(validation.sectionFour.bankListSecondCode.value) ||
+        isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
+      ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+      result = false;
+    }
+
+    if (isNotEmpty(validation.sectionFour.toOther.value)) {
+      if (!isNotEmpty(validation.sectionFour.beneficiarySecondID.value)) {
+        result = false;
+      }
+      if (!isNotEmpty(validation.sectionFour.bankListThirdCode.value)) {
+        result = false;
+      }
+      if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
+        result = false;
+      }
+    }
+
+    if (
+      (
+        isNotEmpty(validation.sectionFour.beneficiarySecondID.value) ||
+        isNotEmpty(validation.sectionFour.bankListThirdCode.value) ||
+        isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
+      ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
+      result = false;
+    }
+
+    return isNotEmpty(validation.sectionOne.budgetID.value) &&
+      isNotEmpty(validation.sectionOne.subBudgetID.value) &&
+      isNotEmpty(validation.sectionTwo.requesterID.value) &&
+      isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+      isNotEmpty(validation.sectionTwo.dateEnd.value) &&
+      isNotEmpty(validation.sectionTwo.departingFrom.value) &&
+      isNotEmpty(validation.sectionTwo.destinationTo.value) &&
+      isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+      isNotEmpty(validation.sectionThree.budgetDetailsData.value) &&
+      isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
+      result
+  }
+
+  function isSectionNotValid() {
+    return !isNotEmpty(validation.sectionOne.budgetID.value) &&
+      !isNotEmpty(validation.sectionOne.subBudgetID.value) &&
+      !isNotEmpty(validation.sectionTwo.requesterID.value) &&
+      !isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+      !isNotEmpty(validation.sectionTwo.dateEnd.value) &&
+      !isNotEmpty(validation.sectionTwo.departingFrom.value) &&
+      !isNotEmpty(validation.sectionTwo.destinationTo.value) &&
+      !isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+      !isNotEmpty(validation.sectionThree.budgetDetailsData.value) &&
+      !isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
+      !isNotEmpty(validation.sectionFour.totalPayment.value)
+  }
 
   function changeLabelPayment(val) {
     labelPayment = val;
@@ -438,6 +588,219 @@
         }
       }
     });
+  }
+
+  function validationForm() {
+    const testing = sumTravelFares();
+    const accommodation = document.getElementById("accommodation");
+    const entertainment = document.getElementById("entertainment");
+    const other = document.getElementById("other");
+    const totalBRF = document.getElementById("total_business_trip");
+
+    if (isSectionValid()) {
+      $("#travel_fares_modal_summary").text(decimalFormat(testing));
+      $("#allowance_modal_summary").text(accommodation.value || 0.00);
+      $("#entertainment_modal_summary").text(entertainment.value || 0.00);
+      $("#other_modal_summary").text(other.value || 0.00);
+      $("#total_brf_modal_summary").text(totalBRF.value || 0.00);
+
+      $('#businessTripRequestFormModal').modal('show');
+    } else {
+      if (isSectionNotValid()) {
+        $("#project_name").css("border", "1px solid red");
+        $("#budgetMessage").show();
+
+        $("#site_name").css("border", "1px solid red");
+        $("#subBudgetMessage").show();
+
+        $("#requester_name").css("border", "1px solid red");
+        $("#requesterMessage").show();
+
+        $("#dateCommance").css("border", "1px solid red");
+        $("#dateCommenceTravelMessage").show();
+
+        $("#dateEnd").css("border", "1px solid red");
+        $("#dateEndTravelMessage").show();
+
+        $("#departingFrom").css("border", "1px solid red");
+        $("#departingFromMessage").show();
+
+        $("#destinationTo").css("border", "1px solid red");
+        $("#destinationToMessage").show();
+
+        $("#reasonTravel").css("border", "1px solid red");
+        $("#reasonToTravelMessage").show();
+
+        $("#total_business_trip").css("border", "1px solid red");
+        $("#totalBRFMessage").show();
+
+        $("#total_payment").css("border", "1px solid red");
+        $("#totalPaymentMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionOne.budgetID.value)) {
+        $("#project_name").css("border", "1px solid red");
+        $("#budgetMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionOne.subBudgetID.value)) {
+        $("#site_name").css("border", "1px solid red");
+        $("#subBudgetMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.requesterID.value)) {
+        $("#requester_name").css("border", "1px solid red");
+        $("#requesterMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.dateCommance.value)) {
+        $("#dateCommance").css("border", "1px solid red");
+        $("#dateCommenceTravelMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.dateEnd.value)) {
+        $("#dateEnd").css("border", "1px solid red");
+        $("#dateEndTravelMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.departingFrom.value)) {
+        $("#departingFrom").css("border", "1px solid red");
+        $("#departingFromMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.destinationTo.value)) {
+        $("#destinationTo").css("border", "1px solid red");
+        $("#destinationToMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.reasonTravel.value)) {
+        $("#reasonTravel").css("border", "1px solid red");
+        $("#reasonToTravelMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionThree.budgetDetailsData.value)) {
+        $("#budgetDetailsMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00") {
+        $("#total_business_trip").css("border", "1px solid red");
+        $("#totalBRFMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00") {
+        $("#total_payment").css("border", "1px solid red");
+        $("#totalPaymentMessage").show();
+
+        return;
+      } else {
+        if (isNotEmpty(validation.sectionFour.directToVendor.value)) {
+          if (!isNotEmpty(validation.sectionFour.bankListCode.value)) {
+            $("#bank_name_vendor").css("border", "1px solid red");
+            // $("#bank_list_detail").css("border", "1px solid red");
+            $("#bankNameVendorMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
+            $("#bank_account_name_vendor").css("border", "1px solid red");
+            // $("#bank_accountss_detail").css("border", "1px solid red");
+            $("#bankAccountVendorMessage").show();
+
+            return;
+          }
+        }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.bankListCode.value) ||
+            isNotEmpty(validation.sectionFour.bankAccountsID.value)
+          ) && !isNotEmpty(validation.sectionFour.directToVendor.value)) {
+          $("#direct_to_vendor").css("border", "1px solid red");
+          $("#directToVendorMessage").show();
+
+          return;
+        }
+
+        if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+          if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
+            $("#bank_name_corp_card").css("border", "1px solid red");
+            // $("#bank_list_second_detail").css("border", "1px solid red");
+            $("#bankNameCorpCardMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)) {
+            $("#bank_account_name_corp_card").css("border", "1px solid red");
+            // $("#bank_accounts_detail_second").css("border", "1px solid red");
+            $("#bankAccountCorpCardMessage").show();
+
+            return;
+          }
+        }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.bankListSecondCode.value) ||
+            isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)
+          ) && !isNotEmpty(validation.sectionFour.byCorpCard.value)) {
+          $("#by_corp_card").css("border", "1px solid red");
+          $("#byCorpCardMessage").show();
+
+          return;
+        }
+
+        if (isNotEmpty(validation.sectionFour.toOther.value)) {
+          if (!isNotEmpty(validation.sectionFour.beneficiarySecondID.value)) {
+            $("#beneficiary_name").css("border", "1px solid red");
+            // $("#beneficiary_second_person_name").css("border", "1px solid red");
+            $("#beneficiaryToOtherMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankListThirdCode.value)) {
+            $("#bank_name_other").css("border", "1px solid red");
+            // $("#bank_name_second_detail").css("border", "1px solid red");
+            $("#bankNameToOtherMessage").show();
+
+            return;
+          }
+
+          if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
+            $("#bank_account_name_other").css("border", "1px solid red");
+            // $("#bank_accounts_detail").css("border", "1px solid red");
+            $("#bankAccountToOtherMessage").show();
+
+            return;
+          }
+        }
+
+        if (
+          (
+            isNotEmpty(validation.sectionFour.beneficiarySecondID.value) ||
+            isNotEmpty(validation.sectionFour.bankListThirdCode.value) ||
+            isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)
+          ) && !isNotEmpty(validation.sectionFour.toOther.value)) {
+          $("#to_other").css("border", "1px solid red");
+          $("#toOtherMessage").show();
+
+          return;
+        }
+      }
+    }
   }
 
   $('#tableProjects').on('click', 'tbody tr', async function () {

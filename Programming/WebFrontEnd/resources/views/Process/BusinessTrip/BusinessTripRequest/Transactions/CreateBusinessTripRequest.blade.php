@@ -11,6 +11,8 @@
   @include('getFunction.getBankLists')
   @include('getFunction.getBankAccount')
   @include('getFunction.getBusinessTripRequests')
+  @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
+  @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
 
   <div class="content-wrapper">
     <section class="content">
@@ -172,7 +174,7 @@
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                   <div class="row">
                     <div class="col">
-                      <button type="button" class="btn btn-default btn-sm float-right button-submit"
+                      <button type="button" class="btn btn-default btn-sm float-right button-submit" onclick="validationForm()"
                         style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                         <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
                         <div>Submit</div>
