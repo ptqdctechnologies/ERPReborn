@@ -48,7 +48,7 @@
 <script>
     function getBeneficiaries() {
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("getBeneficiary") !!}'
         })
             .done(function (response) {

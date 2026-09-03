@@ -316,23 +316,16 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Beneficiary</label>
                         <div class="col-5 d-flex">
                             <div>
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="javascript:;" id="beneficiary_second_popup" data-toggle="modal"
-                                        data-target="#myBeneficiaries">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                    </a>
+                                <span id="myBeneficiariesTrigger" class="input-group-text form-control"
+                                    data-toggle="modal" data-target="#myBeneficiaries"
+                                    style="border-radius: 0; cursor: pointer;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <div style="flex: 100%;">
-                                <input id="beneficiary_second_person_position" class="form-control"
-                                    style="border-radius:0;" hidden>
-                                <input id="beneficiary_second_id" class="form-control" style="border-radius:0;"
-                                    name="other_beneficiary" hidden>
-
-                                <input id="beneficiary_second_person_ref_id" class="form-control"
-                                    style="border-radius:0;" hidden>
-                                <input id="beneficiary_second_person_name" class="form-control"
-                                    style="border-radius:0; background: #fff;" readonly>
+                                <input type="text" id="beneficiary_name" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly />
+                                <input type="hidden" id="beneficiary_id" />
                             </div>
                         </div>
                     </div>
@@ -350,19 +343,16 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_name_other')">
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="javascript:;" id="bank_list_popup_second" data-toggle="modal"
-                                        data-target="#myBanks">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                    </a>
+                                <span id="bankOtherListModalTrigger" class="input-group-text form-control"
+                                    data-toggle="modal" data-target="#bankListModal"
+                                    style="border-radius: 0; cursor: not-allowed;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <div style="flex: 100%;">
-                                <input id="bank_name_second_detail" class="form-control"
-                                    style="border-radius:0; background: #fff;" readonly>
-                                <input id="bank_name_second_id" class="form-control" style="border-radius:0;"
-                                    name="other_bank_name" hidden>
-                                <input id="bank_name_second_name" class="form-control" style="border-radius:0;" hidden>
+                                <input type="text" id="bank_name_other" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly />
+                                <input type="hidden" id="bank_id_other" />
                             </div>
                         </div>
                     </div>
@@ -380,28 +370,16 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_other')">
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="javascript:;" id="bank_accounts_third_popup" data-toggle="modal"
-                                        data-target="#myBanksAccount">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                    </a>
+                                <span id="bankAccountOtherListModalTrigger" class="input-group-text form-control"
+                                    data-toggle="modal" data-target="#bankAccountListModal"
+                                    style="border-radius: 0; cursor: not-allowed;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <div style="flex: 100%;">
-                                <input id="bank_accounts" style="border-radius:0;"
-                                    class="form-control number-without-characters" autocomplete="off" hidden>
-                                <input id="bank_accounts_duplicate_third" style="border-radius:0;"
-                                    class="form-control number-without-characters" hidden>
-
-                                <input id="bank_accounts_id" name="other_bank_account" style="border-radius:0;"
-                                    class="form-control" hidden>
-                                <input id="bank_accounts_duplicate_third_id" style="border-radius:0;"
-                                    class="form-control" hidden>
-
-                                <input id="bank_accounts_detail" style="border-radius:0; background: #fff;"
-                                    class="form-control" autocomplete="off" readonly>
-                                <input id="bank_accounts_duplicate_third_detail" style="border-radius:0;"
-                                    class="form-control" hidden>
+                                <input type="text" id="bank_account_name_other" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly />
+                                <input type="hidden" id="bank_account_id_other" />
                             </div>
                         </div>
                     </div>

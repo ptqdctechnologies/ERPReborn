@@ -498,10 +498,28 @@
     $('#myRequesters').modal('toggle');
   });
 
+  $('#tableBeneficiaries').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+    const personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+    const personName = $(this).find('td:nth-child(2)').text();
+    const personPosition = $(this).find('td:nth-child(3)').text();
+
+    $("#beneficiary_id").val(sysId);
+    $("#beneficiary_name").val(`${personPosition} - ${personName}`);
+    $("#beneficiary_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+    $("#bankOtherListModalTrigger").prop("disabled", false);
+    $("#bankOtherListModalTrigger").css({ "cursor": "pointer" });
+
+    $('#myBeneficiaries').modal('toggle');
+  });
+
   $('#bankListTable').on('click', 'tbody tr', function () {
     const sysId = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
     const acronym = $(this).find('td:nth-child(2)').text();
     const name = $(this).find('td:nth-child(3)').text();
+
+    getBankAccountListCustom(acronym);
 
     if (labelPayment == "bank_name_vendor") {
       $("#bank_id_vendor").val(sysId);
@@ -517,9 +535,15 @@
 
       $("#bankAccountCorpCardListModalTrigger").prop("disabled", false);
       $("#bankAccountCorpCardListModalTrigger").css({ "cursor": "pointer" });
+    } else if (labelPayment == "bank_name_other") {
+      $("#bank_id_other").val(sysId);
+      $("#bank_name_other").val(`${acronym} - ${name}`);
+      $("#bank_name_other").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+      $("#bankAccountOtherListModalTrigger").prop("disabled", false);
+      $("#bankAccountOtherListModalTrigger").css({ "cursor": "pointer" });
     }
 
-    getBankAccountListCustom(acronym);
     $('#bankListModal').modal('toggle');
   });
 
@@ -567,6 +591,8 @@
     $("#mySitesTrigger").prop("disabled", true);
     $("#bankAccountVendorListModalTrigger").prop("disabled", true);
     $("#bankAccountCorpCardListModalTrigger").prop("disabled", true);
+    $("#bankAccountOtherListModalTrigger").prop("disabled", true);
+    $("#bankOtherListModalTrigger").prop("disabled", true);
     $("#loadingBudgetDetails").hide();
 
     // DIRECT TO VENDOR
