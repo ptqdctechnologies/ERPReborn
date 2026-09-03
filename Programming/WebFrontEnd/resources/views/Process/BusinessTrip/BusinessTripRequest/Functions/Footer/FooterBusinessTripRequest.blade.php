@@ -12,6 +12,7 @@
   const directToVendorComp = document.getElementById('direct_to_vendor');
   const byCorpCardComp = document.getElementById('by_corp_card');
   const toOtherComp = document.getElementById('to_other');
+  const beneficiaryPersonRefID = document.getElementById('person_id');
 
   function changeLabelPayment(val) {
     labelPayment = val;
@@ -351,7 +352,7 @@
     });
   }
 
-  function getBankAccountListCustom(bankName, accountNumber) {
+  function getBankAccountListCustom(bankName, accountNumber, entityRefID) {
     let table = $('#bankAccountListTable').DataTable({
       processing: true,
       serverSide: true,
@@ -367,6 +368,7 @@
         data: function (d) {
           d.bank_name = bankName;
           d.account_number = accountNumber;
+          d.entity_refID = entityRefID;
 
           return d;
         },
@@ -504,6 +506,7 @@
     const personName = $(this).find('td:nth-child(2)').text();
     const personPosition = $(this).find('td:nth-child(3)').text();
 
+    $("#person_id").val(personRefId);
     $("#beneficiary_id").val(sysId);
     $("#beneficiary_name").val(`${personPosition} - ${personName}`);
     $("#beneficiary_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
@@ -519,8 +522,6 @@
     const acronym = $(this).find('td:nth-child(2)').text();
     const name = $(this).find('td:nth-child(3)').text();
 
-    getBankAccountListCustom(acronym);
-
     if (labelPayment == "bank_name_vendor") {
       $("#bank_id_vendor").val(sysId);
       $("#bank_name_vendor").val(`${acronym} - ${name}`);
@@ -528,6 +529,8 @@
 
       $("#bankAccountVendorListModalTrigger").prop("disabled", false);
       $("#bankAccountVendorListModalTrigger").css({ "cursor": "pointer" });
+
+      getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_corp_card") {
       $("#bank_id_corp_card").val(sysId);
       $("#bank_name_corp_card").val(`${acronym} - ${name}`);
@@ -535,6 +538,8 @@
 
       $("#bankAccountCorpCardListModalTrigger").prop("disabled", false);
       $("#bankAccountCorpCardListModalTrigger").css({ "cursor": "pointer" });
+
+      getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_other") {
       $("#bank_id_other").val(sysId);
       $("#bank_name_other").val(`${acronym} - ${name}`);
@@ -542,6 +547,8 @@
 
       $("#bankAccountOtherListModalTrigger").prop("disabled", false);
       $("#bankAccountOtherListModalTrigger").css({ "cursor": "pointer" });
+
+      getBankAccountListCustom(acronym, "", beneficiaryPersonRefID.value);
     }
 
     $('#bankListModal').modal('toggle');

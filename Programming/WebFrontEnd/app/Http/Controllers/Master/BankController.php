@@ -105,6 +105,7 @@ class BankController extends Controller
 
         $bankName = $request->input('bank_name');
         $fullBankAccountNumber = $request->input('account_number');
+        $defaultEntityRefID = $request->input('entity_refID');
         $searchValue = $request->input('search.value');
 
         $formatted = [
@@ -114,7 +115,8 @@ class BankController extends Controller
             ],
             'dataFilter' => [
                 'fullBankAccountNumber' => $searchValue ? $searchValue : $fullBankAccountNumber,
-                'bankName' => $bankName
+                'bankName' => $bankName,
+                'defaultEntity_RefID' => $defaultEntityRefID ? (int) $defaultEntityRefID : NULL
             ],
         ];
 

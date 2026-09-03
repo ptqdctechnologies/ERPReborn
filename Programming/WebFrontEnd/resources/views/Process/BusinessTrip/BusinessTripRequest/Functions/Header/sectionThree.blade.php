@@ -326,6 +326,7 @@
                                 <input type="text" id="beneficiary_name" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
                                 <input type="hidden" id="beneficiary_id" />
+                                <input type="hidden" id="person_id" />
                             </div>
                         </div>
                     </div>
