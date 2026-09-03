@@ -163,6 +163,7 @@
                                 <input type="text" id="bank_name_vendor" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
                                 <input type="hidden" id="bank_id_vendor" />
+                                <input type="hidden" id="bank_acronym_vendor" />
                             </div>
                         </div>
                     </div>
@@ -245,6 +246,7 @@
                                 <input type="text" id="bank_name_corp_card" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
                                 <input type="hidden" id="bank_id_corp_card" />
+                                <input type="hidden" id="bank_acronym_corp_card" />
                             </div>
                         </div>
                     </div>
@@ -355,6 +357,7 @@
                                 <input type="text" id="bank_name_other" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
                                 <input type="hidden" id="bank_id_other" />
+                                <input type="hidden" id="bank_acronym_other" />
                             </div>
                         </div>
                     </div>

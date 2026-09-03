@@ -1,6 +1,5 @@
 <script>
   let labelPayment = '';
-  let acronymBankNameOther = null;
   let totalNextApprover = 0;
   let triggerButtonModal = null;
   let currenctBudgetSelection = 0;
@@ -21,6 +20,9 @@
   const byCorpCardComp = document.getElementById('by_corp_card');
   const toOtherComp = document.getElementById('to_other');
   const beneficiaryPersonRefID = document.getElementById('person_id');
+  const bankAcronymVendor = document.getElementById('bank_acronym_vendor');
+  const bankAcronymCorpCard = document.getElementById('bank_acronym_corp_card');
+  const bankAcronymOther = document.getElementById('bank_acronym_other');
   const validation = {
     sectionOne: {
       budgetID: getElement("project_name"),
@@ -175,11 +177,13 @@
   function changeLabelPayment(val) {
     labelPayment = val;
 
-    // if (val == 'bank_account_vendor') {
-    //   getBanksAccount(bankNameVendorID.value);
-    // } else if (val == 'bank_account_corp_card') {
-    //   getBanksAccount(bankNameCorpCardID.value);
-    // }
+    if (val == 'bank_account_vendor') {
+      getBankAccountListCustom(bankAcronymVendor.value);
+    } else if (val == 'bank_account_corp_card') {
+      getBankAccountListCustom(bankAcronymCorpCard.value);
+    } else if (val == 'bank_account_other') {
+      getBankAccountListCustom(bankAcronymOther.value, "", beneficiaryPersonRefID.value);
+    }
   }
 
   function parseCurrency(value) {
@@ -978,8 +982,8 @@
     const personName = $(this).find('td:nth-child(2)').text();
     const personPosition = $(this).find('td:nth-child(3)').text();
 
-    if (acronymBankNameOther) {
-      getBankAccountListCustom(acronymBankNameOther, "", personRefId);
+    if (bankAcronymOther.value) {
+      getBankAccountListCustom(bankAcronymOther.value, "", personRefId);
     }
 
     $("#person_id").val(personRefId);
@@ -1002,6 +1006,7 @@
 
     if (labelPayment == "bank_name_vendor") {
       $("#bank_id_vendor").val(sysId);
+      $("#bank_acronym_vendor").val(acronym);
       $("#bank_name_vendor").val(`${acronym} - ${name}`);
       $("#bank_name_vendor").css({ "background-color": "#e9ecef" });
 
@@ -1013,6 +1018,7 @@
       getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_corp_card") {
       $("#bank_id_corp_card").val(sysId);
+      $("#bank_acronym_corp_card").val(acronym);
       $("#bank_name_corp_card").val(`${acronym} - ${name}`);
       $("#bank_name_corp_card").css({ "background-color": "#e9ecef" });
 
@@ -1023,9 +1029,8 @@
 
       getBankAccountListCustom(acronym);
     } else if (labelPayment == "bank_name_other") {
-      acronymBankNameOther = acronym;
-
       $("#bank_id_other").val(sysId);
+      $("#bank_acronym_other").val(acronym);
       $("#bank_name_other").val(`${acronym} - ${name}`);
       $("#bank_name_other").css({ "background-color": "#e9ecef" });
 
