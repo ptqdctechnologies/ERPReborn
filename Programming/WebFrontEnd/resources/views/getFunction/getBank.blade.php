@@ -84,14 +84,9 @@
                 {
                     data: null,
                     render: function (data, type, row, meta) {
-                        return '<input id="sys_id_bank' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank" type="hidden">' +
+                        return '<input id="sys_id_bank_list' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_list" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                     }
-                },
-                {
-                    data: "sys_Text",
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap"
                 },
                 {
                     data: null,
@@ -100,6 +95,11 @@
                     render: function (data, type, row, meta) {
                         return data.additionalData.acronym;
                     }
+                },
+                {
+                    data: "sys_Text",
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap"
                 }
             ],
             initComplete: function () {

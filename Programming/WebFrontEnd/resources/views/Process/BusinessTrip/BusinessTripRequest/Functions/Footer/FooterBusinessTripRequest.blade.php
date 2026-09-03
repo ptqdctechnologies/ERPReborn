@@ -385,7 +385,7 @@
         {
           data: null,
           render: function (data, type, row, meta) {
-            return '<input id="sys_id_bank' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank" type="hidden">' +
+            return '<input id="sys_id_bank_account' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account" type="hidden">' +
               (meta.row + meta.settings._iDisplayStart + 1)
           }
         },
@@ -507,14 +507,38 @@
       $("#bank_id_vendor").val(sysId);
       $("#bank_name_vendor").val(`${acronym} - ${name}`);
       $("#bank_name_vendor").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+      $("#bankAccountVendorListModalTrigger").prop("disabled", false);
+      $("#bankAccountVendorListModalTrigger").css({ "cursor": "pointer" });
     } else if (labelPayment == "bank_name_corp_card") {
       $("#bank_id_corp_card").val(sysId);
       $("#bank_name_corp_card").val(`${acronym} - ${name}`);
       $("#bank_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+
+      $("#bankAccountCorpCardListModalTrigger").prop("disabled", false);
+      $("#bankAccountCorpCardListModalTrigger").css({ "cursor": "pointer" });
     }
 
-    getBankAccountListCustom(name);
+    getBankAccountListCustom(acronym);
     $('#bankListModal').modal('toggle');
+  });
+
+  $('#bankAccountListTable').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
+    const bankName = $(this).find('td:nth-child(2)').text();
+    const accountNumber = $(this).find('td:nth-child(3)').text();
+
+    if (labelPayment == "bank_account_vendor") {
+      $("#bank_account_id_vendor").val(sysId);
+      $("#bank_account_name_vendor").val(accountNumber);
+      $("#bank_account_name_vendor").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    } else if (labelPayment == "bank_account_corp_card") {
+      $("#bank_account_id_corp_card").val(sysId);
+      $("#bank_account_name_corp_card").val(accountNumber);
+      $("#bank_account_name_corp_card").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    }
+
+    $('#bankAccountListModal').modal('toggle');
   });
 
   $(document).ready(function () {
@@ -540,11 +564,9 @@
       getBusinessTripCostComponentEntityNew();
     }
 
-    // $("#myWorker").prop("disabled", true);
-    // $("#requester_popup").prop("disabled", true);
     $("#mySitesTrigger").prop("disabled", true);
-    // $("#dateEnd").prop("disabled", true);
-    // $("#dateEnd").css("background-color", "white");
+    $("#bankAccountVendorListModalTrigger").prop("disabled", true);
+    $("#bankAccountCorpCardListModalTrigger").prop("disabled", true);
     $("#loadingBudgetDetails").hide();
 
     // DIRECT TO VENDOR

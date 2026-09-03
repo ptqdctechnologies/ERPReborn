@@ -85,7 +85,7 @@
                 {
                     data: null,
                     render: function (data, type, row, meta) {
-                        return '<input id="sys_id_bank' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank" type="hidden">' +
+                        return '<input id="sys_id_bank_account' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                     }
                 },

@@ -152,7 +152,7 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_name_vendor')">
-                                <span id="bankListModalTrigger" class="input-group-text form-control"
+                                <span id="bankVendorListModalTrigger" class="input-group-text form-control"
                                     data-toggle="modal" data-target="#bankListModal"
                                     style="border-radius: 0; cursor: pointer;">
                                     <i class="fas fa-gift"></i>
@@ -179,9 +179,9 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_vendor')">
-                                <span id="bankAccountListModalTrigger" class="input-group-text form-control"
+                                <span id="bankAccountVendorListModalTrigger" class="input-group-text form-control"
                                     data-toggle="modal" data-target="#bankAccountListModal"
-                                    style="border-radius: 0; cursor: pointer;">
+                                    style="border-radius: 0; cursor: not-allowed;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
@@ -234,7 +234,7 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Bank Name</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_name_corp_card')">
-                                <span id="bankListModalTrigger" class="input-group-text form-control"
+                                <span id="bankCorpCardListModalTrigger" class="input-group-text form-control"
                                     data-toggle="modal" data-target="#bankListModal"
                                     style="border-radius: 0; cursor: pointer;">
                                     <i class="fas fa-gift"></i>
@@ -261,9 +261,9 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_corp_card')">
-                                <span id="bankAccountListModalTrigger" class="input-group-text form-control"
+                                <span id="bankAccountCorpCardListModalTrigger" class="input-group-text form-control"
                                     data-toggle="modal" data-target="#bankAccountListModal"
-                                    style="border-radius: 0; cursor: pointer;">
+                                    style="border-radius: 0; cursor: not-allowed;">
                                     <i class="fas fa-gift"></i>
                                 </span>
                             </div>
