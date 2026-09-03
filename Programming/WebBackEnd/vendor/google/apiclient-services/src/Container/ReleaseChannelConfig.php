@@ -69,6 +69,12 @@ class ReleaseChannelConfig extends \Google\Collection
    */
   public $defaultVersion;
   /**
+   * Output only. List of preview versions for the channel.
+   *
+   * @var string[]
+   */
+  public $previewVersions;
+  /**
    * The auto upgrade target version for clusters on the channel.
    *
    * @var string
@@ -130,6 +136,22 @@ class ReleaseChannelConfig extends \Google\Collection
   public function getDefaultVersion()
   {
     return $this->defaultVersion;
+  }
+  /**
+   * Output only. List of preview versions for the channel.
+   *
+   * @param string[] $previewVersions
+   */
+  public function setPreviewVersions($previewVersions)
+  {
+    $this->previewVersions = $previewVersions;
+  }
+  /**
+   * @return string[]
+   */
+  public function getPreviewVersions()
+  {
+    return $this->previewVersions;
   }
   /**
    * The auto upgrade target version for clusters on the channel.

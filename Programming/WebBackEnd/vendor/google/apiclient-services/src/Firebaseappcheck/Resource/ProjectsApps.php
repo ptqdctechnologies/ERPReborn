@@ -31,6 +31,8 @@ use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1GenerateAppAttestCha
 use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1GenerateAppAttestChallengeResponse;
 use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeRequest;
 use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeResponse;
+use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1MintAppCheckTokenRequest;
+use Google\Service\Firebaseappcheck\GoogleFirebaseAppcheckV1MintAppCheckTokenResponse;
 
 /**
  * The "apps" collection of methods.
@@ -259,6 +261,30 @@ class ProjectsApps extends \Google\Service\Resource
     $params = ['app' => $app, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('generatePlayIntegrityChallenge', [$params], GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeResponse::class);
+  }
+  /**
+   * Mints a new App Check token for the specified Firebase App. This method is
+   * intended to be called from a privileged environment where the caller can be
+   * authorized via Cloud IAM; for example, using a service account. To call this
+   * method, the caller must have the [`firebaseappcheck.googleapis.com/tokens.min
+   * t`](https://firebase.google.com/docs/projects/iam/permissions#app-check)
+   * permission. Returns a MintAppCheckTokenResponse. (apps.mintAppCheckToken)
+   *
+   * @param string $app Required. The relative resource name of the app, in the
+   * format: ``` projects/{project_number}/apps/{app_id} ``` If necessary, the
+   * `project_number` element can be replaced with the project ID of the Firebase
+   * project. Learn more about using project identifiers in Google's [AIP
+   * 2510](https://google.aip.dev/cloud/2510) standard.
+   * @param GoogleFirebaseAppcheckV1MintAppCheckTokenRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleFirebaseAppcheckV1MintAppCheckTokenResponse
+   * @throws \Google\Service\Exception
+   */
+  public function mintAppCheckToken($app, GoogleFirebaseAppcheckV1MintAppCheckTokenRequest $postBody, $optParams = [])
+  {
+    $params = ['app' => $app, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('mintAppCheckToken', [$params], GoogleFirebaseAppcheckV1MintAppCheckTokenResponse::class);
   }
 }
 

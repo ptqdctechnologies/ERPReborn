@@ -273,6 +273,16 @@ class SqlExternalSyncSettingError extends \Google\Model
    */
   public const TYPE_PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE = 'PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE';
   /**
+   * Read replicas of the Writable Destination instance will be recreated after
+   * external synchronization is complete, causing downtime on read replicas.
+   */
+  public const TYPE_WRITABLE_DESTINATION_REPLICA_RECREATION_DOWNTIME = 'WRITABLE_DESTINATION_REPLICA_RECREATION_DOWNTIME';
+  /**
+   * A warning that disk storage auto increase is disabled on the destination
+   * instance for a Writable Destination migration.
+   */
+  public const TYPE_WRITABLE_DESTINATION_STORAGE_AUTO_INCREASE_DISABLED = 'WRITABLE_DESTINATION_STORAGE_AUTO_INCREASE_DISABLED';
+  /**
    * Additional information about the error encountered.
    *
    * @var string
@@ -353,7 +363,9 @@ class SqlExternalSyncSettingError extends \Google\Model
    * SELECTED_OBJECTS_NOT_EXIST_ON_SOURCE,
    * PSC_ONLY_INSTANCE_WITH_NO_NETWORK_ATTACHMENT_URI,
    * SELECTED_OBJECTS_REFERENCE_UNSELECTED_OBJECTS, PROMPT_DELETE_EXISTING,
-   * WILL_DELETE_EXISTING, PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE
+   * WILL_DELETE_EXISTING, PG_DDL_REPLICATION_INSUFFICIENT_PRIVILEGE,
+   * WRITABLE_DESTINATION_REPLICA_RECREATION_DOWNTIME,
+   * WRITABLE_DESTINATION_STORAGE_AUTO_INCREASE_DISABLED
    *
    * @param self::TYPE_* $type
    */

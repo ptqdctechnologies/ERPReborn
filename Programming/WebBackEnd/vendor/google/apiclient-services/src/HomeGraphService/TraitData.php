@@ -27,15 +27,13 @@ class TraitData extends \Google\Model
    */
   public $commitTime;
   /**
-   * Optional in write requests (e.g. ReportStateAndNotification). If set,
-   * represents the provider version timestamp of the existing trait in the
-   * database. The server will perform optimistic locking validation if this
-   * field is present and the experiment is enabled. It will not be persisted to
-   * the database.
+   * The custom timestamp supplied by the provider during a
+   * ReportStateAndNotification update (if provided). This field is returned as
+   * part of the `QueryResponse`.
    *
    * @var string
    */
-  public $providerVersionTime;
+  public $providerUpdateTime;
   /**
    * The Provider Home API trait payload.
    *
@@ -61,24 +59,22 @@ class TraitData extends \Google\Model
     return $this->commitTime;
   }
   /**
-   * Optional in write requests (e.g. ReportStateAndNotification). If set,
-   * represents the provider version timestamp of the existing trait in the
-   * database. The server will perform optimistic locking validation if this
-   * field is present and the experiment is enabled. It will not be persisted to
-   * the database.
+   * The custom timestamp supplied by the provider during a
+   * ReportStateAndNotification update (if provided). This field is returned as
+   * part of the `QueryResponse`.
    *
-   * @param string $providerVersionTime
+   * @param string $providerUpdateTime
    */
-  public function setProviderVersionTime($providerVersionTime)
+  public function setProviderUpdateTime($providerUpdateTime)
   {
-    $this->providerVersionTime = $providerVersionTime;
+    $this->providerUpdateTime = $providerUpdateTime;
   }
   /**
    * @return string
    */
-  public function getProviderVersionTime()
+  public function getProviderUpdateTime()
   {
-    return $this->providerVersionTime;
+    return $this->providerUpdateTime;
   }
   /**
    * The Provider Home API trait payload.

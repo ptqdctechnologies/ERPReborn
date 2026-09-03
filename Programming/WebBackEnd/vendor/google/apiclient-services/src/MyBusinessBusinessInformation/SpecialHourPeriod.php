@@ -22,7 +22,7 @@ class SpecialHourPeriod extends \Google\Model
   protected $closeTimeType = TimeOfDay::class;
   protected $closeTimeDataType = '';
   /**
-   * Optional. If `true`, `end_date`, `open_time`, and `close_time` are ignored,
+   * Optional. If true, `end_date`, `open_time`, and `close_time` are ignored,
    * and the date specified in `start_date` is treated as the location being
    * closed for the entire day.
    *
@@ -37,10 +37,8 @@ class SpecialHourPeriod extends \Google\Model
   protected $startDateDataType = '';
 
   /**
-   * Optional. Valid values are `00:00-24:00`, where `24:00` represents midnight
-   * at the end of the specified day field. It must be specified if `closed` is
-   * `false`. Note: In Proto3 JSON mapping, default zero values (`00:00`) are
-   * omitted, producing `{}` for `close_time`.
+   * Optional. Valid values are 00:00-24:00, where 24:00 represents midnight at
+   * the end of the specified day field. Must be specified if `closed` is false.
    *
    * @param TimeOfDay $closeTime
    */
@@ -56,7 +54,7 @@ class SpecialHourPeriod extends \Google\Model
     return $this->closeTime;
   }
   /**
-   * Optional. If `true`, `end_date`, `open_time`, and `close_time` are ignored,
+   * Optional. If true, `end_date`, `open_time`, and `close_time` are ignored,
    * and the date specified in `start_date` is treated as the location being
    * closed for the entire day.
    *
@@ -92,10 +90,8 @@ class SpecialHourPeriod extends \Google\Model
     return $this->endDate;
   }
   /**
-   * Optional. Valid values are `00:00-24:00`, where `24:00` represents midnight
-   * at the end of the specified day field. It must be specified if `closed` is
-   * `false`. Note: In Proto3 JSON mapping, default zero values (`00:00`) are
-   * omitted, producing `{}` for `open_time`.
+   * Optional. Valid values are 00:00-24:00 where 24:00 represents midnight at
+   * the end of the specified day field. Must be specified if `closed` is false.
    *
    * @param TimeOfDay $openTime
    */

@@ -127,27 +127,28 @@ class DeviceRadioState extends \Google\Model
    */
   public const WIFI_STATE_WIFI_DISABLED = 'WIFI_DISABLED';
   /**
-   * Controls whether airplane mode can be toggled by the user or not.
+   * Optional. Controls whether airplane mode can be toggled by the user or not.
    *
    * @var string
    */
   public $airplaneModeState;
   /**
-   * Controls whether cellular 2G setting can be toggled by the user or not.
+   * Optional. Controls whether cellular 2G setting can be toggled by the user
+   * or not.
    *
    * @var string
    */
   public $cellularTwoGState;
   /**
-   * The minimum required security level of Wi-Fi networks that the device can
-   * connect to.
+   * Optional. The minimum required security level of Wi-Fi networks that the
+   * device can connect to.
    *
    * @var string
    */
   public $minimumWifiSecurityLevel;
   /**
-   * Controls the state of the ultra wideband setting and whether the user can
-   * toggle it on or off.
+   * Optional. Controls the state of the ultra wideband setting and whether the
+   * user can toggle it on or off.
    *
    * @var string
    */
@@ -159,14 +160,14 @@ class DeviceRadioState extends \Google\Model
    */
   public $userInitiatedAddEsimSettings;
   /**
-   * Controls current state of Wi-Fi and if user can change its state.
+   * Optional. Controls current state of Wi-Fi and if user can change its state.
    *
    * @var string
    */
   public $wifiState;
 
   /**
-   * Controls whether airplane mode can be toggled by the user or not.
+   * Optional. Controls whether airplane mode can be toggled by the user or not.
    *
    * Accepted values: AIRPLANE_MODE_STATE_UNSPECIFIED,
    * AIRPLANE_MODE_USER_CHOICE, AIRPLANE_MODE_DISABLED
@@ -185,7 +186,8 @@ class DeviceRadioState extends \Google\Model
     return $this->airplaneModeState;
   }
   /**
-   * Controls whether cellular 2G setting can be toggled by the user or not.
+   * Optional. Controls whether cellular 2G setting can be toggled by the user
+   * or not.
    *
    * Accepted values: CELLULAR_TWO_G_STATE_UNSPECIFIED,
    * CELLULAR_TWO_G_USER_CHOICE, CELLULAR_TWO_G_DISABLED
@@ -204,8 +206,8 @@ class DeviceRadioState extends \Google\Model
     return $this->cellularTwoGState;
   }
   /**
-   * The minimum required security level of Wi-Fi networks that the device can
-   * connect to.
+   * Optional. The minimum required security level of Wi-Fi networks that the
+   * device can connect to.
    *
    * Accepted values: MINIMUM_WIFI_SECURITY_LEVEL_UNSPECIFIED,
    * OPEN_NETWORK_SECURITY, PERSONAL_NETWORK_SECURITY,
@@ -225,8 +227,8 @@ class DeviceRadioState extends \Google\Model
     return $this->minimumWifiSecurityLevel;
   }
   /**
-   * Controls the state of the ultra wideband setting and whether the user can
-   * toggle it on or off.
+   * Optional. Controls the state of the ultra wideband setting and whether the
+   * user can toggle it on or off.
    *
    * Accepted values: ULTRA_WIDEBAND_STATE_UNSPECIFIED,
    * ULTRA_WIDEBAND_USER_CHOICE, ULTRA_WIDEBAND_DISABLED
@@ -264,7 +266,7 @@ class DeviceRadioState extends \Google\Model
     return $this->userInitiatedAddEsimSettings;
   }
   /**
-   * Controls current state of Wi-Fi and if user can change its state.
+   * Optional. Controls current state of Wi-Fi and if user can change its state.
    *
    * Accepted values: WIFI_STATE_UNSPECIFIED, WIFI_STATE_USER_CHOICE,
    * WIFI_ENABLED, WIFI_DISABLED

@@ -57,6 +57,14 @@ class OperationMetadata extends \Google\Model
    */
   public const OPERATION_TYPE_MIGRATE = 'MIGRATE';
   /**
+   * Hibernates a resource.
+   */
+  public const OPERATION_TYPE_HIBERNATE = 'HIBERNATE';
+  /**
+   * Resumes a resource.
+   */
+  public const OPERATION_TYPE_RESUME = 'RESUME';
+  /**
    * Unused.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -153,7 +161,7 @@ class OperationMetadata extends \Google\Model
    * Output only. The type of operation being performed.
    *
    * Accepted values: TYPE_UNSPECIFIED, CREATE, DELETE, UPDATE, CHECK,
-   * SAVE_SNAPSHOT, LOAD_SNAPSHOT, DATABASE_FAILOVER, MIGRATE
+   * SAVE_SNAPSHOT, LOAD_SNAPSHOT, DATABASE_FAILOVER, MIGRATE, HIBERNATE, RESUME
    *
    * @param self::OPERATION_TYPE_* $operationType
    */

@@ -90,7 +90,8 @@ class GoogleCloudRecaptchaenterpriseV1WebKeySettings extends \Google\Collection
   /**
    * Optional. Settings for the frequency and difficulty at which this key
    * triggers captcha challenges. This should only be specified for
-   * `IntegrationType` CHECKBOX, INVISIBLE or POLICY_BASED_CHALLENGE.
+   * `IntegrationType` CHECKBOX (defaults to BALANCE), INVISIBLE (defaults to
+   * USABILITY), or POLICY_BASED_CHALLENGE (defaults to USABILITY).
    *
    * @var string
    */
@@ -163,7 +164,8 @@ class GoogleCloudRecaptchaenterpriseV1WebKeySettings extends \Google\Collection
   /**
    * Optional. Settings for the frequency and difficulty at which this key
    * triggers captcha challenges. This should only be specified for
-   * `IntegrationType` CHECKBOX, INVISIBLE or POLICY_BASED_CHALLENGE.
+   * `IntegrationType` CHECKBOX (defaults to BALANCE), INVISIBLE (defaults to
+   * USABILITY), or POLICY_BASED_CHALLENGE (defaults to USABILITY).
    *
    * Accepted values: CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED, USABILITY,
    * BALANCE, SECURITY

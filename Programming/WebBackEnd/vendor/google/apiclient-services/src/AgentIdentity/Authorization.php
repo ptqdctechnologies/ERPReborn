@@ -33,20 +33,20 @@ class Authorization extends \Google\Collection
   public const STATE_SUSPENDED = 'SUSPENDED';
   protected $collection_key = 'scopes';
   /**
-   * Output only. The client_user_id provided by the client application for
+   * Output only. The client user ID provided by the client application for
    * their end user. Not verified by Google.
    *
    * @var string
    */
   public $clientUserId;
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. The creation timestamp.
    *
    * @var string
    */
   public $createTime;
   /**
-   * Identifier. name of resource
+   * Identifier. The resource name of the authorization.
    *
    * @var string
    */
@@ -65,14 +65,14 @@ class Authorization extends \Google\Collection
    */
   public $state;
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. The update timestamp.
    *
    * @var string
    */
   public $updateTime;
 
   /**
-   * Output only. The client_user_id provided by the client application for
+   * Output only. The client user ID provided by the client application for
    * their end user. Not verified by Google.
    *
    * @param string $clientUserId
@@ -89,7 +89,7 @@ class Authorization extends \Google\Collection
     return $this->clientUserId;
   }
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. The creation timestamp.
    *
    * @param string $createTime
    */
@@ -105,7 +105,7 @@ class Authorization extends \Google\Collection
     return $this->createTime;
   }
   /**
-   * Identifier. name of resource
+   * Identifier. The resource name of the authorization.
    *
    * @param string $name
    */
@@ -156,7 +156,7 @@ class Authorization extends \Google\Collection
     return $this->state;
   }
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. The update timestamp.
    *
    * @param string $updateTime
    */

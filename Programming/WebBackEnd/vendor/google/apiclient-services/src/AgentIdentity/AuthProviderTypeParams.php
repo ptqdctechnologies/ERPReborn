@@ -29,7 +29,7 @@ class AuthProviderTypeParams extends \Google\Model
   protected $twoLeggedOauthDataType = '';
 
   /**
-   * ApiKey AuthProvider type parameters.
+   * Parameters for API key authentication.
    *
    * @param ApiKeyParams $apiKey
    */
@@ -45,7 +45,7 @@ class AuthProviderTypeParams extends \Google\Model
     return $this->apiKey;
   }
   /**
-   * GeminiEnterprise auth_provider type parameters.
+   * Parameters for Gemini Enterprise authentication.
    *
    * @param GeminiEnterpriseAuthProviderParams $geAuthProvider
    */
@@ -61,7 +61,7 @@ class AuthProviderTypeParams extends \Google\Model
     return $this->geAuthProvider;
   }
   /**
-   * ThreeLeggedOAuth AuthProvider type parameters.
+   * Parameters for 3-legged OAuth (3LO) authentication.
    *
    * @param ThreeLeggedOAuth $threeLeggedOauth
    */
@@ -77,7 +77,7 @@ class AuthProviderTypeParams extends \Google\Model
     return $this->threeLeggedOauth;
   }
   /**
-   * TwoLeggedOAuth AuthProvider type parameters.
+   * Parameters for 2-legged OAuth (2LO) authentication.
    *
    * @param TwoLeggedOAuth $twoLeggedOauth
    */

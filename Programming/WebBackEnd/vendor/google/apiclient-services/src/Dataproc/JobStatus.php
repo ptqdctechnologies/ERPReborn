@@ -83,8 +83,8 @@ class JobStatus extends \Google\Model
    */
   public const SUBSTATE_STALE_STATUS = 'STALE_STATUS';
   /**
-   * Optional. Output only. Job state details, such as an error description if
-   * the state is ERROR.
+   * Optional. Job state details, such as an error description if the state is
+   * ERROR.
    *
    * @var string
    */
@@ -110,8 +110,8 @@ class JobStatus extends \Google\Model
   public $substate;
 
   /**
-   * Optional. Output only. Job state details, such as an error description if
-   * the state is ERROR.
+   * Optional. Job state details, such as an error description if the state is
+   * ERROR.
    *
    * @param string $details
    */

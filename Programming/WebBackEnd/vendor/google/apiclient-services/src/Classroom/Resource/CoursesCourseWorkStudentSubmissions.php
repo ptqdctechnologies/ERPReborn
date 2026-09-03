@@ -106,13 +106,14 @@ class CoursesCourseWorkStudentSubmissions extends \Google\Service\Resource
    * student submissions belonging to course work objects with a `workType` of
    * `ASSIGNMENT`. This request must be made by the Developer Console project of
    * the [OAuth client ID](https://support.google.com/cloud/answer/6158849) used
-   * to create the corresponding course work item. This method returns the
-   * following error codes: * `PERMISSION_DENIED` if the requesting user is not
-   * permitted to access the requested course or course work, if the user is not
-   * permitted to modify attachments on the requested student submission, or for
-   * access errors. * `INVALID_ARGUMENT` if the request is malformed. *
-   * `NOT_FOUND` if the requested course, course work, or student submission does
-   * not exist. (studentSubmissions.modifyAttachments)
+   * to create the corresponding course work item or an add-on attachment on the
+   * corresponding course work item. This method returns the following error
+   * codes: * `PERMISSION_DENIED` if the requesting user is not permitted to
+   * access the requested course or course work, if the user is not permitted to
+   * modify attachments on the requested student submission, or for access errors.
+   * * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the
+   * requested course, course work, or student submission does not exist.
+   * (studentSubmissions.modifyAttachments)
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
@@ -135,13 +136,15 @@ class CoursesCourseWorkStudentSubmissions extends \Google\Service\Resource
    * updated and who may change them. This request must be made by the Developer
    * Console project of the [OAuth client
    * ID](https://support.google.com/cloud/answer/6158849) used to create the
-   * corresponding course work item. This method returns the following error
-   * codes: * `PERMISSION_DENIED` if the requesting developer project did not
-   * create the corresponding course work, if the user is not permitted to make
-   * the requested modification to the student submission, or for access errors. *
-   * `INVALID_ARGUMENT` if the request is malformed. * `NOT_FOUND` if the
-   * requested course, course work, or student submission does not exist.
-   * (studentSubmissions.patch)
+   * corresponding course work item or an add-on attachment with Grade Sync
+   * enabled on the corresponding course work item. This method returns the
+   * following error codes: * `PERMISSION_DENIED` if the requesting developer
+   * project did not create the corresponding course work or an add-on attachment
+   * on the corresponding course work with Grade Sync enabled, if the user is not
+   * permitted to make the requested modification to the student submission, or
+   * for access errors. * `INVALID_ARGUMENT` if the request is malformed. *
+   * `NOT_FOUND` if the requested course, course work, or student submission does
+   * not exist. (studentSubmissions.patch)
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
@@ -171,13 +174,14 @@ class CoursesCourseWorkStudentSubmissions extends \Google\Service\Resource
    * submission that has been turned in. This request must be made by the
    * Developer Console project of the [OAuth client
    * ID](https://support.google.com/cloud/answer/6158849) used to create the
-   * corresponding course work item. This method returns the following error
-   * codes: * `PERMISSION_DENIED` if the requesting user is not permitted to
-   * access the requested course or course work, unsubmit the requested student
-   * submission, or for access errors. * `FAILED_PRECONDITION` if the student
-   * submission has not been turned in. * `INVALID_ARGUMENT` if the request is
-   * malformed. * `NOT_FOUND` if the requested course, course work, or student
-   * submission does not exist. (studentSubmissions.reclaim)
+   * corresponding course work item or an add-on attachment on the corresponding
+   * course work item. This method returns the following error codes: *
+   * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+   * requested course or course work, unsubmit the requested student submission,
+   * or for access errors. * `FAILED_PRECONDITION` if the student submission has
+   * not been turned in. * `INVALID_ARGUMENT` if the request is malformed. *
+   * `NOT_FOUND` if the requested course, course work, or student submission does
+   * not exist. (studentSubmissions.reclaim)
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.
@@ -202,8 +206,9 @@ class CoursesCourseWorkStudentSubmissions extends \Google\Service\Resource
    * of the course that contains the requested student submission may call this
    * method. This request must be made by the Developer Console project of the
    * [OAuth client ID](https://support.google.com/cloud/answer/6158849) used to
-   * create the corresponding course work item. This method returns the following
-   * error codes: * `PERMISSION_DENIED` if the requesting user is not permitted to
+   * create the corresponding course work item or an add-on attachment on the
+   * corresponding course work item. This method returns the following error
+   * codes: * `PERMISSION_DENIED` if the requesting user is not permitted to
    * access the requested course or course work, return the requested student
    * submission, or for access errors. * `INVALID_ARGUMENT` if the request is
    * malformed. * `NOT_FOUND` if the requested course, course work, or student
@@ -232,12 +237,13 @@ class CoursesCourseWorkStudentSubmissions extends \Google\Service\Resource
    * specified student submission. This request must be made by the Developer
    * Console project of the [OAuth client
    * ID](https://support.google.com/cloud/answer/6158849) used to create the
-   * corresponding course work item. This method returns the following error
-   * codes: * `PERMISSION_DENIED` if the requesting user is not permitted to
-   * access the requested course or course work, turn in the requested student
-   * submission, or for access errors. * `INVALID_ARGUMENT` if the request is
-   * malformed. * `NOT_FOUND` if the requested course, course work, or student
-   * submission does not exist. (studentSubmissions.turnIn)
+   * corresponding course work item or an add-on attachment on the corresponding
+   * course work item. This method returns the following error codes: *
+   * `PERMISSION_DENIED` if the requesting user is not permitted to access the
+   * requested course or course work, turn in the requested student submission, or
+   * for access errors. * `INVALID_ARGUMENT` if the request is malformed. *
+   * `NOT_FOUND` if the requested course, course work, or student submission does
+   * not exist. (studentSubmissions.turnIn)
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.

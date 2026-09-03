@@ -31,9 +31,9 @@ use Google\Service\AgentIdentity\ListAccessSummariesResponse;
 class ProjectsLocationsAccessSummaries extends \Google\Service\Resource
 {
   /**
-   * Gets details of a single AccessSummary. (accessSummaries.get)
+   * Gets details of a single access summary. (accessSummaries.get)
    *
-   * @param string $name Required. Name of the resource
+   * @param string $name Required. The resource name of the access summary.
    * @param array $optParams Optional parameters.
    * @return AccessSummary
    * @throws \Google\Service\Exception
@@ -45,7 +45,7 @@ class ProjectsLocationsAccessSummaries extends \Google\Service\Resource
     return $this->call('get', [$params], AccessSummary::class);
   }
   /**
-   * Lists AccessSummaries in a given project and location. Supported Filters: -
+   * Lists access summaries in a given project and location. Supported filters: -
    * `workload_id`: Filter by the SPIFFE ID of the agent. Example:
    * `workload_id="spiffe://example.com/ns/default/sa/my-agent"`
    * (accessSummaries.listProjectsLocationsAccessSummaries)
@@ -62,7 +62,7 @@ class ProjectsLocationsAccessSummaries extends \Google\Service\Resource
    * to ordering by (auth_provider_id, user_id) in ascending order.
    * @opt_param int pageSize Optional. Requested page size. Server may return
    * fewer items than requested. If unspecified, server will pick an appropriate
-   * default.
+   * default. The maximum page size is 1000.
    * @opt_param string pageToken Optional. A token identifying a page of results
    * the server should return.
    * @return ListAccessSummariesResponse

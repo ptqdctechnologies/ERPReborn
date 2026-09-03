@@ -469,6 +469,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         $extraAttributesException = null;
         $missingConstructorArgumentsException = null;
         $filterBoolFailed = false;
+        $enforceTypes = !($context[self::DISABLE_TYPE_ENFORCEMENT] ?? $this->defaultContext[self::DISABLE_TYPE_ENFORCEMENT] ?? false);
 
         $types = match (true) {
             $type instanceof IntersectionType => throw new LogicException('Unable to handle intersection type.'),
@@ -528,14 +529,14 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                             } elseif ($context[self::FILTER_BOOL] ?? false) {
                                 // defer to the FILTER_BOOL handling below, which accepts more representations (e.g. "on"/"off")
                                 break;
-                            } else {
+                            } elseif ($enforceTypes) {
                                 throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be bool ("%s" given).', $attribute, $currentClass, $data), $data, [Type::bool()], $context['deserialization_path'] ?? null);
                             }
                             break;
                         case TypeIdentifier::INT:
                             if (ctype_digit(isset($data[0]) && '-' === $data[0] ? substr($data, 1) : $data)) {
                                 $data = (int) $data;
-                            } else {
+                            } elseif ($enforceTypes) {
                                 throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be int ("%s" given).', $attribute, $currentClass, $data), $data, [Type::int()], $context['deserialization_path'] ?? null);
                             }
                             break;
@@ -544,12 +545,13 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                                 return (float) $data;
                             }
 
-                            return match ($data) {
+                            $data = match ($data) {
                                 'NaN' => \NAN,
                                 'INF' => \INF,
                                 '-INF' => -\INF,
-                                default => throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be float ("%s" given).', $attribute, $currentClass, $data), $data, [Type::float()], $context['deserialization_path'] ?? null),
+                                default => $enforceTypes ? throw NotNormalizableValueException::createForUnexpectedDataType(\sprintf('The type of the "%s" attribute for class "%s" must be float ("%s" given).', $attribute, $currentClass, $data), $data, [Type::float()], $context['deserialization_path'] ?? null) : $data,
                             };
+                            break;
                     }
                 }
 
@@ -579,7 +581,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                         $class = $collectionValueBaseType->getClassName().'[]';
                         $context['key_type'] = $collectionKeyType;
                         $context['value_type'] = $collectionValueType;
-                    } elseif (\is_array($data) && $collectionValueBaseType instanceof BuiltinType && \in_array($collectionValueBaseType->getTypeIdentifier(), [TypeIdentifier::BOOL, TypeIdentifier::FLOAT, TypeIdentifier::INT, TypeIdentifier::STRING], true)) {
+                    } elseif (\is_array($data) && self::hasScalarElements($collectionValueBaseType, $collectionValueType)) {
                         // elements of a scalar collection are converted and enforced with the very same rules as any other value
                         $result = [];
                         $childContext = null;
@@ -594,6 +596,8 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
                                 TypeIdentifier::BOOL => \is_bool($value),
                                 TypeIdentifier::FLOAT => \is_float($value),
                                 TypeIdentifier::INT => \is_int($value),
+                                // a nested collection is an array already, its own elements still have to be checked
+                                TypeIdentifier::ARRAY => false,
                                 default => \is_string($value),
                             }) {
                                 $result[$key] = $value;
@@ -763,7 +767,7 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             throw $e;
         }
 
-        if ($context[self::DISABLE_TYPE_ENFORCEMENT] ?? $this->defaultContext[self::DISABLE_TYPE_ENFORCEMENT] ?? false) {
+        if (!$enforceTypes) {
             return $data;
         }
 
@@ -816,6 +820,22 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
         $parameterData = $this->applyCallbacks($parameterData, $class->getName(), $parameterName, $format, $context);
 
         return $this->applyFilterBool($parameter, $parameterData, $context);
+    }
+
+    /**
+     * Tells whether the elements of a collection are scalars, or nested collections of scalars.
+     */
+    private static function hasScalarElements(Type $collectionValueBaseType, Type $collectionValueType): bool
+    {
+        if ($collectionValueBaseType instanceof BuiltinType && TypeIdentifier::ARRAY === $collectionValueBaseType->getTypeIdentifier()) {
+            while ($collectionValueType instanceof NullableType || $collectionValueType instanceof CollectionType) {
+                $collectionValueType = $collectionValueType instanceof NullableType ? $collectionValueType->getWrappedType() : $collectionValueType->getCollectionValueType();
+            }
+
+            $collectionValueBaseType = $collectionValueType;
+        }
+
+        return $collectionValueBaseType instanceof BuiltinType && \in_array($collectionValueBaseType->getTypeIdentifier(), [TypeIdentifier::BOOL, TypeIdentifier::FLOAT, TypeIdentifier::INT, TypeIdentifier::STRING], true);
     }
 
     private function getType(string $currentClass, string $attribute): ?Type
@@ -891,7 +911,18 @@ abstract class AbstractObjectNormalizer extends AbstractNormalizer
             return false;
         }
 
-        $key = \sprintf(self::DEPTH_KEY_PATTERN, $class, $attribute);
+        $keyClass = $class;
+        if ($this->classMetadataFactory) {
+            while (false !== $parent = get_parent_class($keyClass)) {
+                $parentAttributes = $this->classMetadataFactory->getMetadataFor($parent)->getAttributesMetadata();
+                if (($parentAttributes[$attribute] ?? null)?->getMaxDepth() !== $maxDepth) {
+                    break;
+                }
+                $keyClass = $parent;
+            }
+        }
+
+        $key = \sprintf(self::DEPTH_KEY_PATTERN, $keyClass, $attribute);
         if (!isset($context[$key])) {
             $context[$key] = 1;
 

@@ -82,7 +82,9 @@ class NodeConfig extends \Google\Collection
   protected $containerdConfigDataType = '';
   /**
    * Size of the disk attached to each node, specified in GB. The smallest
-   * allowed disk size is 10GB. If unspecified, the default disk size is 100GB.
+   * allowed disk size is 15 GB for node pools running GKE versions
+   * 1.36.3-gke.1480000 or later. Or, for earlier versions, the smallest allowed
+   * disk size is 12 GB. If unspecified, the default disk size is 100GB.
    *
    * @var int
    */
@@ -439,7 +441,9 @@ class NodeConfig extends \Google\Collection
   }
   /**
    * Size of the disk attached to each node, specified in GB. The smallest
-   * allowed disk size is 10GB. If unspecified, the default disk size is 100GB.
+   * allowed disk size is 15 GB for node pools running GKE versions
+   * 1.36.3-gke.1480000 or later. Or, for earlier versions, the smallest allowed
+   * disk size is 12 GB. If unspecified, the default disk size is 100GB.
    *
    * @param int $diskSizeGb
    */

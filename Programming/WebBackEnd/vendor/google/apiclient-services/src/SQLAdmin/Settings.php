@@ -977,7 +977,8 @@ class Settings extends \Google\Collection
     return $this->maintenanceWindow;
   }
   /**
-   * The local user password validation policy of the instance.
+   * The local user password validation policy of the instance for PostgreSQL
+   * and MySQL.
    *
    * @param PasswordValidationPolicy $passwordValidationPolicy
    */

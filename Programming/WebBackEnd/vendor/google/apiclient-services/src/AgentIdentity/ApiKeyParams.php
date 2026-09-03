@@ -20,14 +20,14 @@ namespace Google\Service\AgentIdentity;
 class ApiKeyParams extends \Google\Model
 {
   /**
-   * Optional. Input only. The API key for this auth_provider.
+   * Optional. Input only. The API key for this auth provider.
    *
    * @var string
    */
   public $apiKey;
 
   /**
-   * Optional. Input only. The API key for this auth_provider.
+   * Optional. Input only. The API key for this auth provider.
    *
    * @param string $apiKey
    */

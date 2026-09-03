@@ -21,7 +21,7 @@ class QueryAuthProvidersResponse extends \Google\Collection
 {
   protected $collection_key = 'authProviderNames';
   /**
-   * The unique list of auth_provider resource names used by the workload.
+   * The unique list of auth provider resource names used by the workload.
    *
    * @var string[]
    */
@@ -35,7 +35,7 @@ class QueryAuthProvidersResponse extends \Google\Collection
   public $nextPageToken;
 
   /**
-   * The unique list of auth_provider resource names used by the workload.
+   * The unique list of auth provider resource names used by the workload.
    *
    * @param string[] $authProviderNames
    */

@@ -34,12 +34,7 @@ use Google\Client;
  */
 class WebContentPublisher extends \Google\Service
 {
-  /** Private Service: https://www.googleapis.com/auth/subscribewithgoogle.publications.entitlements.manage. */
-  const SUBSCRIBEWITHGOOGLE_PUBLICATIONS_ENTITLEMENTS_MANAGE =
-      "https://www.googleapis.com/auth/subscribewithgoogle.publications.entitlements.manage";
-  /** See and review your subscription information. */
-  const SUBSCRIBEWITHGOOGLE_PUBLICATIONS_ENTITLEMENTS_READONLY =
-      "https://www.googleapis.com/auth/subscribewithgoogle.publications.entitlements.readonly";
+
 
   public $organizations_publications;
   public $organizations_publications_ctas;

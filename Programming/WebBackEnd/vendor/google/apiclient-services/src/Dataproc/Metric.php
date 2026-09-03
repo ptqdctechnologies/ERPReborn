@@ -64,8 +64,8 @@ class Metric extends \Google\Collection
    * metrics#custom_metrics) to collect for the metric course (for the SPARK
    * metric source (any Spark metric
    * (https://spark.apache.org/docs/latest/monitoring.html#metrics) can be
-   * specified).Provide metrics in the following format: METRIC_SOURCE:
-   * INSTANCE:GROUP:METRIC Use camelcase as appropriate.Examples:
+   * specified).Provide metrics in the following format:METRIC_SOURCE:INSTANCE
+   * :GROUP:METRIC Use camelcase as appropriate.Examples:
    * yarn:ResourceManager:QueueMetrics:AppsCompleted
    * spark:driver:DAGScheduler:job.allJobs
    * sparkHistoryServer:JVM:Memory:NonHeapMemoryUsage.committed
@@ -96,8 +96,8 @@ class Metric extends \Google\Collection
    * metrics#custom_metrics) to collect for the metric course (for the SPARK
    * metric source (any Spark metric
    * (https://spark.apache.org/docs/latest/monitoring.html#metrics) can be
-   * specified).Provide metrics in the following format: METRIC_SOURCE:
-   * INSTANCE:GROUP:METRIC Use camelcase as appropriate.Examples:
+   * specified).Provide metrics in the following format:METRIC_SOURCE:INSTANCE
+   * :GROUP:METRIC Use camelcase as appropriate.Examples:
    * yarn:ResourceManager:QueueMetrics:AppsCompleted
    * spark:driver:DAGScheduler:job.allJobs
    * sparkHistoryServer:JVM:Memory:NonHeapMemoryUsage.committed

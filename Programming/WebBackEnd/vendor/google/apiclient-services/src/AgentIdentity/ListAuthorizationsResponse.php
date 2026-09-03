@@ -36,7 +36,7 @@ class ListAuthorizationsResponse extends \Google\Collection
   public $unreachable;
 
   /**
-   * The list of Authorization
+   * The list of authorizations.
    *
    * @param Authorization[] $authorizations
    */

@@ -421,6 +421,11 @@ class CloudDataplex extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'contexts' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
                 'orderBy' => [
                   'location' => 'query',
                   'type' => 'string',

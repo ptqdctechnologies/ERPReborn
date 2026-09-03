@@ -21,7 +21,7 @@ class ThreeLeggedOAuth extends \Google\Model
 {
   /**
    * Optional. The authorization endpoint to send users to for consenting to
-   * delegate to the agent. eg. "https://auth.atlassian.com/authorize"
+   * delegate to the agent. For example, "https://auth.atlassian.com/authorize".
    *
    * @var string
    */
@@ -39,8 +39,8 @@ class ThreeLeggedOAuth extends \Google\Model
    */
   public $clientSecret;
   /**
-   * Optional. The default continue URI for 3LO flow and it will be used when no
-   * continue URI is provided in the RetrieveCredentials request.
+   * Optional. The default continue URI for the 3LO flow, used when no continue
+   * URI is provided in the RetrieveCredentials request.
    *
    * @var string
    */
@@ -53,15 +53,15 @@ class ThreeLeggedOAuth extends \Google\Model
    */
   public $enablePkce;
   /**
-   * Output only. The redirect URL this auth_provider uses for the OAuth
-   * exchange. This is deterministic based on the name of the auth_provider.
+   * Output only. The redirect URL this auth provider uses for the OAuth
+   * exchange. This is deterministic based on the name of the auth provider.
    *
    * @var string
    */
   public $redirectUrl;
   /**
    * Optional. The token endpoint for requesting tokens on behalf of an end
-   * user. eg. "https://auth.atlassian.com/oauth/token"
+   * user. For example, "https://auth.atlassian.com/oauth/token".
    *
    * @var string
    */
@@ -69,7 +69,7 @@ class ThreeLeggedOAuth extends \Google\Model
 
   /**
    * Optional. The authorization endpoint to send users to for consenting to
-   * delegate to the agent. eg. "https://auth.atlassian.com/authorize"
+   * delegate to the agent. For example, "https://auth.atlassian.com/authorize".
    *
    * @param string $authorizationUrl
    */
@@ -117,8 +117,8 @@ class ThreeLeggedOAuth extends \Google\Model
     return $this->clientSecret;
   }
   /**
-   * Optional. The default continue URI for 3LO flow and it will be used when no
-   * continue URI is provided in the RetrieveCredentials request.
+   * Optional. The default continue URI for the 3LO flow, used when no continue
+   * URI is provided in the RetrieveCredentials request.
    *
    * @param string $defaultContinueUri
    */
@@ -151,8 +151,8 @@ class ThreeLeggedOAuth extends \Google\Model
     return $this->enablePkce;
   }
   /**
-   * Output only. The redirect URL this auth_provider uses for the OAuth
-   * exchange. This is deterministic based on the name of the auth_provider.
+   * Output only. The redirect URL this auth provider uses for the OAuth
+   * exchange. This is deterministic based on the name of the auth provider.
    *
    * @param string $redirectUrl
    */
@@ -169,7 +169,7 @@ class ThreeLeggedOAuth extends \Google\Model
   }
   /**
    * Optional. The token endpoint for requesting tokens on behalf of an end
-   * user. eg. "https://auth.atlassian.com/oauth/token"
+   * user. For example, "https://auth.atlassian.com/oauth/token".
    *
    * @param string $tokenUrl
    */

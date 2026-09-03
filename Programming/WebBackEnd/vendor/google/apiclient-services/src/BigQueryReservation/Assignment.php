@@ -91,6 +91,8 @@ class Assignment extends \Google\Model
    * @var string
    */
   public $assignee;
+  protected $conditionType = Expr::class;
+  protected $conditionDataType = '';
   /**
    * Optional. Deprecated: "Gemini in BigQuery" is now available by default for
    * all BigQuery editions and should not be explicitly set. Controls if "Gemini
@@ -116,6 +118,17 @@ class Assignment extends \Google\Model
    * @var string
    */
   public $name;
+  /**
+   * Optional. Specifies the priority precedence for this assignment. Used to
+   * resolve ambiguity when multiple assignments match a single job. Higher
+   * numerical values represent higher priority (e.g., 20 is higher than 10). If
+   * unspecified, it defaults to 0. Multiple assignments can share the same
+   * precedence, but it is recommended to use unique precedence values for
+   * assignments within the same assignee scope.
+   *
+   * @var string
+   */
+  public $precedence;
   /**
    * Optional. Represents the principal for this assignment. If not empty, jobs
    * run by this principal will utilize the associated reservation. Otherwise,
@@ -158,6 +171,24 @@ class Assignment extends \Google\Model
   public function getAssignee()
   {
     return $this->assignee;
+  }
+  /**
+   * Optional. Common Expression Language (CEL) condition that defines the
+   * matching criteria for this assignment. The condition must resolve to a
+   * boolean value. Supported variables will be added later.
+   *
+   * @param Expr $condition
+   */
+  public function setCondition(Expr $condition)
+  {
+    $this->condition = $condition;
+  }
+  /**
+   * @return Expr
+   */
+  public function getCondition()
+  {
+    return $this->condition;
   }
   /**
    * Optional. Deprecated: "Gemini in BigQuery" is now available by default for
@@ -219,6 +250,27 @@ class Assignment extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Specifies the priority precedence for this assignment. Used to
+   * resolve ambiguity when multiple assignments match a single job. Higher
+   * numerical values represent higher priority (e.g., 20 is higher than 10). If
+   * unspecified, it defaults to 0. Multiple assignments can share the same
+   * precedence, but it is recommended to use unique precedence values for
+   * assignments within the same assignee scope.
+   *
+   * @param string $precedence
+   */
+  public function setPrecedence($precedence)
+  {
+    $this->precedence = $precedence;
+  }
+  /**
+   * @return string
+   */
+  public function getPrecedence()
+  {
+    return $this->precedence;
   }
   /**
    * Optional. Represents the principal for this assignment. If not empty, jobs
