@@ -179,28 +179,16 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_vendor')">
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="javascript:;" id="bank_accounts_popup_vendor" data-toggle="modal"
-                                        data-target="#myBanksAccount">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                    </a>
+                                <span id="bankAccountListModalTrigger" class="input-group-text form-control"
+                                    data-toggle="modal" data-target="#bankAccountListModal"
+                                    style="border-radius: 0; cursor: pointer;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <div style="flex: 100%;">
-                                <input class="form-control number-without-characters" id="bank_accountss"
-                                    style="border-radius:0; background: #fff;" readonly />
-                                <input class="form-control" id="bank_accounts_duplicate" style="border-radius:0;"
-                                    hidden />
-
-                                <input class="form-control" id="bank_accountss_id" name="vendor_bank_account"
-                                    style="border-radius:0;" hidden />
-                                <input class="form-control" id="bank_accounts_duplicate_id" style="border-radius:0;"
-                                    hidden />
-
-                                <input class="form-control" id="bank_accountss_detail" style="border-radius:0;"
-                                    hidden />
-                                <input class="form-control" id="bank_accounts_duplicate_detail" style="border-radius:0;"
-                                    hidden />
+                                <input type="text" id="bank_account_name_vendor" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly />
+                                <input type="hidden" id="bank_account_id_vendor" />
                             </div>
                         </div>
                     </div>
@@ -273,29 +261,16 @@
                         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
                         <div class="col-5 d-flex">
                             <div onclick="changeLabelPayment('bank_account_corp_card')">
-                                <span style="border-radius:0;" class="input-group-text form-control">
-                                    <a href="javascript:;" id="bank_accounts_popup_corp_card" data-toggle="modal"
-                                        data-target="#myBanksAccount">
-                                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                                    </a>
+                                <span id="bankAccountListModalTrigger" class="input-group-text form-control"
+                                    data-toggle="modal" data-target="#bankAccountListModal"
+                                    style="border-radius: 0; cursor: pointer;">
+                                    <i class="fas fa-gift"></i>
                                 </span>
                             </div>
                             <div style="flex: 100%;">
-                                <input id="bank_accounts_second" class="form-control number-without-characters"
-                                    style="border-radius:0;" autocomplete="off" hidden>
-                                <input id="bank_accounts_duplicate_second"
-                                    class="form-control number-without-characters" style="border-radius:0;"
-                                    autocomplete="off" hidden>
-
-                                <input id="bank_accounts_id_second" class="form-control" name="corp_bank_account"
-                                    style="border-radius:0;" hidden>
-                                <input id="bank_accounts_duplicate_id_second" class="form-control"
-                                    style="border-radius:0;" hidden>
-
-                                <input id="bank_accounts_detail_second" class="form-control"
-                                    style="border-radius:0; background: #fff;" autocomplete="off" readonly>
-                                <input id="bank_accounts_detail_duplicate_second" style="border-radius:0;"
-                                    class="form-control" autocomplete="off" hidden>
+                                <input type="text" id="bank_account_name_corp_card" class="form-control"
+                                    style="border-radius:0; background-color: white;" readonly />
+                                <input type="hidden" id="bank_account_id_corp_card" />
                             </div>
                         </div>
                     </div>

@@ -433,6 +433,7 @@
     getRequesters();
     getBeneficiaries();
     getBankList();
+    getBankAccountList();
 
     if (dateCommanceComp) {
       dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);

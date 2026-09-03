@@ -9,7 +9,7 @@
   @include('getFunction.getBank')
   @include('getFunction.getBanks')
   @include('getFunction.getBankLists')
-  @include('getFunction.getBanksAccount')
+  @include('getFunction.getBankAccount')
   @include('getFunction.getBusinessTripRequests')
 
   <div class="content-wrapper">

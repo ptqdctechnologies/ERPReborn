@@ -92,6 +92,53 @@ class BankController extends Controller
         ]);
     }
 
+    public function accountPicklist(Request $request)
+    {
+        $start = (int) $request->input('start', 0);
+        $length = (int) $request->input('length', 10);
+
+        $formatLimit = $length > 0 ? $length : null;
+
+        $offset = $formatLimit
+            ? (int) floor($start / $formatLimit) + 1
+            : 1;
+
+        $fullBankAccountNumber = $request->input('bank_name');
+        $bankName = $request->input('account_number');
+        $searchValue = $request->input('search.value');
+
+        $formatted = [
+            'pagination' => [
+                'pageSize' => $formatLimit,
+                'pageShow' => (int) $offset
+            ],
+            'dataFilter' => [
+                'fullBankAccountNumber' => $fullBankAccountNumber,
+                'bankName' => $searchValue ? $searchValue : $bankName
+            ],
+        ];
+
+        $response = $this->bankService->accountPicklist($formatted);
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
+
+        $bankData = $response['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $bankData['header']['dataCount'],
+            'recordsFiltered' => $bankData['header']['dataCount'],
+            'data' => $bankData['content']['itemList']
+        ]);
+    }
+
     public function summary(Request $request)
     {
     }

@@ -88,6 +88,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // BANK
     Route::get('Bank/picklist', 'Master\BankController@picklist')->name('Bank.picklist');
+    Route::get('Bank/Account/picklist', 'Master\BankController@accountPicklist')->name('Bank.Account.picklist');
     Route::resource('Bank', 'Master\BankController');
 
     // SUPPLIER

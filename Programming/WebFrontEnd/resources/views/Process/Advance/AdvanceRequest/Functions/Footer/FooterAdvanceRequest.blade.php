@@ -799,14 +799,14 @@
         const status = $(this).find('input[data-trigger="workflow_status_advance"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
 
-        if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
-            Swal.fire(
-                CONFIG.MESSAGE.revision.title,
-                CONFIG.MESSAGE.revision.description,
-                "error"
-            );
-            return;
-        }
+        // if (status !== "Rejection To Resubmit" && status !== "Final Approval") {
+        //     Swal.fire(
+        //         CONFIG.MESSAGE.revision.title,
+        //         CONFIG.MESSAGE.revision.description,
+        //         "error"
+        //     );
+        //     return;
+        // }
 
         $("#modal_advance_id").val(sysId);
         $("#modal_advance_document_number").val(trano);
