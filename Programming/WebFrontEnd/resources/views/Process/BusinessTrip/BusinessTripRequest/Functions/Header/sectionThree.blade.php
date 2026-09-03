@@ -189,7 +189,7 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_vendor" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_vendor" />
+                                <input type="hidden" id="bank_account_id_vendor" name="bank_account_id_vendor" />
                             </div>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_corp_card" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_corp_card" />
+                                <input type="hidden" id="bank_account_id_corp_card" name="bank_account_id_corp_card" />
                             </div>
                         </div>
                     </div>
@@ -326,7 +326,7 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="beneficiary_name" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="beneficiary_id" />
+                                <input type="hidden" id="beneficiary_id" name="beneficiary_id" />
                                 <input type="hidden" id="person_id" />
                             </div>
                         </div>
@@ -381,7 +381,7 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_other" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_other" />
+                                <input type="hidden" id="bank_account_id_other" name="bank_account_id_other" />
                             </div>
                         </div>
                     </div>

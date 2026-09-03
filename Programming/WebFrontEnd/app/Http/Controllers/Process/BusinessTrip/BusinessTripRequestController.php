@@ -53,26 +53,25 @@ class BusinessTripRequestController extends Controller
         try {
             $response = $this->businessTripService->create($request->all());
 
-            return response()->json($response);
-
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Create Business Trip Request');
             }
 
-            $responseWorkflow = $this->workflowService->submit(
-                $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
-            );
+            // $responseWorkflow = $this->workflowService->submit(
+            //     $response['data']['businessDocument']['businessDocument_RefID'],
+            //     $request->workFlowPath_RefID,
+            //     $request->comment,
+            //     $request->approverEntity,
+            // );
 
-            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Business Trip Request');
-            }
+            // if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+            //     throw new \Exception('Failed to fetch Submit Workflow Business Trip Request');
+            // }
 
             $compact = [
                 "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+                "status" => $response['metadata']['HTTPStatusCode'],
+                // "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

@@ -14,7 +14,7 @@
                     <div style="flex: 100%;">
                         <input type="text" id="requester_name" class="form-control"
                             style="border-radius:0; background-color: white;" readonly />
-                        <input type="hidden" id="requester_id" />
+                        <input type="hidden" id="requester_id" name="requester_id" />
                     </div>
                 </div>
             </div>
