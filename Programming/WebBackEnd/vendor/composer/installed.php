@@ -20,9 +20,9 @@
             'dev_requirement' => false,
         ),
         'aws/aws-sdk-php' => array(
-            'pretty_version' => '3.394.7',
-            'version' => '3.394.7.0',
-            'reference' => '40a8717706fd789cd3e8c72a2e8e93ee4455b391',
+            'pretty_version' => '3.394.8',
+            'version' => '3.394.8.0',
+            'reference' => '9afa5f6652e7035a029369c98db68bc21279a3cf',
             'type' => 'library',
             'install_path' => __DIR__ . '/../aws/aws-sdk-php',
             'aliases' => array(),
