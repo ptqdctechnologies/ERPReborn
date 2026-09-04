@@ -43,153 +43,164 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalPrincipalIDR = 0;
+        let totalPrincipalOther = 0;
+        let totalPrincipalEquivalent = 0;
+        let totalIDR = 0;
+        let totalOtherCurrency = 0;
+        let totalEquivalent = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("Loan.ReportLoanSummaryStore") !!}',
-            data: {
-                creditor_id: creditorID.value,
-                debitor_id: debitorID.value,
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                loanDate: loanDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("Loan.ReportLoanSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.creditor_id = creditorID.value;
+                    d.debitor_id = debitorID.value;
+                    d.loanDate = loanDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalPrincipalIDR += parseFloat(row.principleLoan_IDR) || 0;
+                        totalPrincipalOther += parseFloat(row.principleLoan_Other_Currency) || 0;
+                        totalPrincipalEquivalent += parseFloat(row.principleLoan_Equivalent_IDR) || 0;
+                        totalIDR += parseFloat(row.totalLoan_IDR) || 0;
+                        totalOtherCurrency += parseFloat(row.totalLoan_Other_Currency) || 0;
+                        totalEquivalent += parseFloat(row.totalLoan_Equivalent_IDR) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalPrincipalIDR = 0;
-                let totalPrincipalOther = 0;
-                let totalPrincipalEquivalent = 0;
-                let totalIDR = 0;
-                let totalOtherCurrency = 0;
-                let totalEquivalent = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalPrincipalIDR += parseFloat(row.principleLoan_IDR) || 0;
-                    totalPrincipalOther += parseFloat(row.principleLoan_Other_Currency) || 0;
-                    totalPrincipalEquivalent += parseFloat(row.principleLoan_Equivalent_IDR) || 0;
-                    totalIDR += parseFloat(row.totalLoan_IDR) || 0;
-                    totalOtherCurrency += parseFloat(row.totalLoan_Other_Currency) || 0;
-                    totalEquivalent += parseFloat(row.totalLoan_Equivalent_IDR) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'loanNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'date',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'type',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.creditorName ? data.creditorName : '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return data.debitorName ? data.debitorName : '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.principleLoan_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.principleLoan_Other_Currency || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.principleLoan_Equivalent_IDR || 0);
-                            }
-                        },
-                        {
-                            data: 'rate',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'term',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.totalLoan_IDR || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.totalLoan_Other_Currency || 0);
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.totalLoan_Equivalent_IDR || 0);
-                            }
-                        },
-                        {
-                            data: 'notes',
-                            defaultContent: '-'
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalPrincipalIDR));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPrincipalOther));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPrincipalEquivalent));
-                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIDR));
-                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalEquivalent));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + 1);
                     }
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (textStatus, errorThrown) {
-                $('#table_summary').DataTable().clear().draw();
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                },
+                {
+                    data: 'loanNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'date',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'type',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.creditorName ? data.creditorName : '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return data.debitorName ? data.debitorName : '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.principleLoan_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.principleLoan_Other_Currency || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.principleLoan_Equivalent_IDR || 0);
+                    }
+                },
+                {
+                    data: 'rate',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'term',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.totalLoan_IDR || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.totalLoan_Other_Currency || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.totalLoan_Equivalent_IDR || 0);
+                    }
+                },
+                {
+                    data: 'notes',
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalPrincipalIDR));
+                // $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPrincipalOther));
+                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPrincipalEquivalent));
+                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIDR));
+                // $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalOtherCurrency));
+                $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalEquivalent));
             }
         });
     }

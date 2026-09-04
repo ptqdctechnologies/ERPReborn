@@ -151,9 +151,10 @@ class LoanService
         );
     }
 
-    public function getLoanSummary($budget, $creditor, $debitor, $date)
+    public function getLoanSummary($budget, $creditor, $debitor, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -173,12 +174,18 @@ class LoanService
                     'Debitor_RefID' => $debitor ? $debitor : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
     }
 
-    public function getLoanToLoanSettlementSummary($budget, $creditor, $debitor, $date)
+    public function getLoanToLoanSettlementSummary($budget, $creditor, $debitor, $loan, $loanSettlement, $date, $limit, $offset)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -196,9 +203,18 @@ class LoanService
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
                     'Creditor_RefID' => $creditor ? $creditor : NULL,
-                    'Debitor_RefID' => $debitor ? $debitor : NULL
+                    'Debitor_RefID' => $debitor ? $debitor : NULL,
+                    'Loan_RefID' => $loan ? $loan : NULL,
+                    'LoanSettlement_RefID' => $loanSettlement ? $loanSettlement : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => $offset
+                    ]
                 ]
             ]
         );

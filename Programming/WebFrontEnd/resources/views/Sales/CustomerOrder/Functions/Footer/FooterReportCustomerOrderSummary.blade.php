@@ -97,7 +97,7 @@
                     }
                 },
                 {
-                    data: 'trano',
+                    data: 'customerOrderNumber',
                     defaultContent: '-',
                     className: "text-nowrap",
                 },

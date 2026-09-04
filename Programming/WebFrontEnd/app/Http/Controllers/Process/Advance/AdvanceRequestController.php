@@ -550,6 +550,8 @@ class AdvanceRequestController extends Controller
             $varAPIWebToken = Session::get('SessionLogin');
             $projectCode = $request->project_code;
             $siteCode = $request->site_code;
+            $arfID = $request->arf_id;
+            $asfID = $request->asf_id;
             $requesterID = $request->requester_id;
             $date = $request->date;
 
@@ -581,6 +583,8 @@ class AdvanceRequestController extends Controller
                         'RequesterWorkerJobsPosition_RefID' => $requesterID ?? null,
                         'StartDate' => $date ? $startDate : NULL,
                         'EndDate' => $date ? $endDate : NULL,
+                        'Advance_RefID' => $arfID ? $arfID : NULL,
+                        'AdvanceSettlement_RefID' => $asfID ? $asfID : NULL
                     ],
                     'SQLStatement' => [
                         'paging' => [

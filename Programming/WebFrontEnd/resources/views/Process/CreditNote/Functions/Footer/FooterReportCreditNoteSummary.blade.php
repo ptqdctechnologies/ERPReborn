@@ -53,141 +53,153 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalIdrCN = 0;
+        let vatIdrCN = 0;
+        let totalIdrCNOtherCurrency = 0;
+        let vatIdrCNOtherCurrency = 0;
+        let totalIdrCNEquivalentIDR = 0;
+        let vatIdrCNEquivalentIDR = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("CreditNote.ReportCreditNoteSummaryStore") !!}',
-            data: {
-                budget_id: budgetID.value,
-                budget_code: budgetCode.value,
-                site_id: subBudgetID.value,
-                site_code: subBudgetCode.value,
-                customer_id: customerID.value,
-                cnDate: cnDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("CreditNote.ReportCreditNoteSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_id = budgetID.value;
+                    d.budget_code = budgetCode.value;
+                    d.site_id = subBudgetID.value;
+                    d.site_code = subBudgetCode.value;
+                    d.customer_id = customerID.value;
+                    d.cnDate = cnDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+
+                    // simpan seluruh response
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalIdrCN += parseFloat(row.CN_Total_IDR) || 0;
+                        vatIdrCN += parseFloat(row.CN_Tax_IDR) || 0;
+                        totalIdrCNOtherCurrency += parseFloat(row.CN_Total_Other_Currency) || 0;
+                        vatIdrCNOtherCurrency += parseFloat(row.CN_Tax_OtherCurrency) || 0;
+                        totalIdrCNEquivalentIDR += parseFloat(row.CN_Total_Equivalent_IDR) || 0;
+                        vatIdrCNEquivalentIDR += parseFloat(row.CN_Tax_Equivalent) || 0;
+                    });
+
+                    // wajib return data untuk DataTable
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                let totalIdrCN = 0;
-                let vatIdrCN = 0;
-                let totalIdrCNOtherCurrency = 0;
-                let vatIdrCNOtherCurrency = 0;
-                let totalIdrCNEquivalentIDR = 0;
-                let vatIdrCNEquivalentIDR = 0;
-
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                data.forEach(function (row) {
-                    totalIdrCN += parseFloat(row.CN_Total_IDR) || 0;
-                    vatIdrCN += parseFloat(row.CN_Tax_IDR) || 0;
-                    totalIdrCNOtherCurrency += parseFloat(row.CN_Total_Other_Currency) || 0;
-                    vatIdrCNOtherCurrency += parseFloat(row.CN_Tax_OtherCurrency) || 0;
-                    totalIdrCNEquivalentIDR += parseFloat(row.CN_Total_Equivalent_IDR) || 0;
-                    vatIdrCNEquivalentIDR += parseFloat(row.CN_Tax_Equivalent) || 0;
-                });
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'CN_Number',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
-                            }
-                        },
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
-                            }
-                        },
-                        {
-                            data: 'date',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return `${data.customerCode} - ${data.customerName}`;
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Total_IDR) || '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Tax_IDR) || '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Total_Other_Currency) || '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Tax_OtherCurrency) || '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Total_Equivalent_IDR) || '-';
-                            }
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return currencyTotal(data.CN_Tax_Equivalent) || '-';
-                            }
-                        }
-                    ],
-                    drawCallback: function (settings) {
-                        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIdrCN));
-                        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(vatIdrCN));
-                        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalIdrCNOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(vatIdrCNOtherCurrency));
-                        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIdrCNEquivalentIDR));
-                        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(vatIdrCNEquivalentIDR));
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log('xhr, status, error', xhr, status, error);
+                },
+                {
+                    data: 'CN_Number',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetCode} - ${data.combinedBudgetName}`;
+                    }
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode} - ${data.combinedBudgetSectionName}`;
+                    }
+                },
+                {
+                    data: 'date',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return `${data.customerCode} - ${data.customerName}`;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Total_IDR) || '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Tax_IDR) || '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Total_Other_Currency) || '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Tax_OtherCurrency) || '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Total_Equivalent_IDR) || '-';
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return currencyTotal(data.CN_Tax_Equivalent) || '-';
+                    }
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIdrCN));
+                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(vatIdrCN));
+                // $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalIdrCNOtherCurrency));
+                // $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(vatIdrCNOtherCurrency));
+                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIdrCNEquivalentIDR));
+                $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(vatIdrCNEquivalentIDR));
             }
         });
     }

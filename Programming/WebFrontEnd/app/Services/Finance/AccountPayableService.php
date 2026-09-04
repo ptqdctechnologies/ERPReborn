@@ -137,7 +137,7 @@ class AccountPayableService
                     "log_FileUpload_Pointer_RefID" => $fileID,
                     "currency_RefID" => 62000000000001,
                     "currencySymbol" => 'Rp',
-                    "currencyValue" => 0,
+                    "currencyValue" => 0, // UNUSED
                     "currencyExchangeRate" => 0,
                     "supplierInvoiceNumber" => $data['supplier_invoice_number'],
                     "supplier_RefID" => $supplierID,

@@ -138,9 +138,10 @@ class LoanSettlementService
         );
     }
 
-    public function getLoanSettlementSummary($budget, $creditor, $debitor, $date)
+    public function getLoanSettlementSummary($budget, $creditor, $debitor, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -160,6 +161,12 @@ class LoanSettlementService
                     'Debitor_RefID' => $debitor ? $debitor : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );

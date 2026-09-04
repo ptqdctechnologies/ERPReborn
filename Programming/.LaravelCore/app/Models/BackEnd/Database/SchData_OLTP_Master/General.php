@@ -6097,7 +6097,8 @@ namespace App\Models\Database\SchData_OLTP_Master {
             int $varPagination_PageSize = null,
             int $varPagination_PageShow = null,
             string $varFullBankAccountNumber = null,
-            string $varBankName = null
+            string $varBankName = null,
+            int $defaultEntity_RefID = null
         ) {
             try {
                 $varReturn =
@@ -6114,7 +6115,8 @@ namespace App\Models\Database\SchData_OLTP_Master {
                                 [$varPagination_PageShow, 'bigint'],
 
                                 [$varFullBankAccountNumber, 'varchar'],
-                                [$varBankName, 'varchar']
+                                [$varBankName, 'varchar'],
+                                [$defaultEntity_RefID, 'bigint']
                             ]
                         )
                     );
