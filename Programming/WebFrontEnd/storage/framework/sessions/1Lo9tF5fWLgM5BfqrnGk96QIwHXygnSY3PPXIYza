@@ -1,1 +1,1 @@
-a:3:{s:6:"_token";s:40:"pRlq6HBV6OI3GaH189a3cb5t0eRSD1p3rQ8P0ZAJ";s:9:"_previous";a:2:{s:3:"url";s:85:"http://172.28.0.4/report.form.dataList.master.bankAccount.getAll.v1_throughAPIGateway";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+a:3:{s:6:"_token";s:40:"PJKMZbn9WwaYmiW3bvCfxxglfyNlvy0C9XjVMJNi";s:9:"_previous";a:2:{s:3:"url";s:99:"http://172.28.0.4/transaction.read.dataList.supplyChain.getPurchaseOrderDetail.v1_throughAPIGateway";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
