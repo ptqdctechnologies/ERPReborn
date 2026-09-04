@@ -87,7 +87,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     ),
                                     
                                     $varData['entities']['currency_RefID'],
-                                    $varData['entities']['rate']
+                                    $varData['entities']['rate'],
+                                    $varData['entities']['startDate'],
+                                    $varData['entities']['endDate']
                                     )
                                 )
                             ))

@@ -66,7 +66,7 @@ namespace App\Models\Database\SchData_OLTP_Master
         public function setDataInsert(
             $varUserSession, 
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varCurrency_RefID = null, float $varRate = null)
+            int $varCurrency_RefID = null, float $varRate = null, string $varStartDate = null, string $varEndDate = null)
             {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -84,9 +84,10 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
-                            
                             [$varCurrency_RefID, 'bigint'],
-                            [$varRate, 'numeric']
+                            [$varRate, 'numeric'],
+                            [$varStartDate, 'timestamptz'],
+                            [$varEndDate, 'timestamptz']
                         ]
                         )
                     );
@@ -159,7 +160,7 @@ namespace App\Models\Database\SchData_OLTP_Master
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varCurrency_RefID = null, float $varRate = null
+            int $varCurrency_RefID = null, float $varRate = null, string $varStartDate = null, string $varEndDate = null
             )
             {
             $varReturn =
@@ -180,7 +181,9 @@ namespace App\Models\Database\SchData_OLTP_Master
                             [$varSysBaseCurrency_RefID, 'bigint'],
                             
                             [$varCurrency_RefID, 'bigint'],
-                            [$varRate, 'numeric']
+                            [$varRate, 'numeric'],
+                            [$varStartDate, 'timestamptz'],
+                            [$varEndDate, 'timestamptz']
                         ]
                         )
                     );

@@ -82,7 +82,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                             ),
 
                             $varData['entities']['currency_RefID'],
-                            $varData['entities']['rate']
+                            $varData['entities']['rate'],
+                            $varData['entities']['startDate'],
+                            $varData['entities']['endDate']
                             ))))
                             {
                             throw new \Exception();
@@ -91,7 +93,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                         } 
                     catch (\Exception $ex) {
                         $varErrorMessage = $ex->getMessage();
-                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, 'Invalid SQL Syntax'.($varErrorMessage ? ' ('.$varErrorMessage.')' : ''));
+                        $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail($varUserSession, 500, ($varErrorMessage ? $varErrorMessage : ''));
                         }
                     //-----[ MAIN CODE ]------------------------------------------------------------------------------( END POINT )-----
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessStatus($varUserSession, $varSysDataProcess, 'Success');

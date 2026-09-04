@@ -48,9 +48,10 @@ class ReimbursementService
         );
     }
 
-    public function getReimbursementSummary($budget, $vendor, $date)
+    public function getReimbursementSummary($budget, $vendor, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
+        $formatLimit = $limit == -1 ? 'ALL' : $limit;
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -67,16 +68,22 @@ class ReimbursementService
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
                     'Vendor_RefID' => $vendor ? $vendor : NULL,
-                    // 'StartDate'              => $date ? $startDate : NULL,
-                    // 'EndDate'                => $date ? $endDate : NULL
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $formatLimit,
+                        'offset' => (int) $offset
+                    ]
                 ]
             ]
         );
     }
 
-    public function getReimbursementToDebitNote($budget, $customer, $date)
+    public function getReimbursementToDebitNote($budget, $customer, $reimbursement, $debitNote, $date, $limit, $offset)
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         if ($date) {
             $dates = explode(' - ', $date);
@@ -86,16 +93,23 @@ class ReimbursementService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'report.form.documentForm.finance.getReimbursementToDebitNoteSummary',
             'latest',
             [
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
-                    'CombinedBudgetSectionCode' => NULL,
-                    // 'Customer_RefID' => $customer ? $customer : NULL,
-                    // 'StartDate' => $date ? $startDate : NULL,
-                    // 'EndDate' => $date ? $endDate : NULL
+                    'Customer_RefID' => $customer ? $customer : NULL,
+                    'Reimbursement_RefID' => $reimbursement ? $reimbursement : NULL,
+                    'DebitNote_RefID' => $debitNote ? $debitNote : NULL,
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => $limit,
+                        'offset' => $offset
+                    ]
                 ]
             ]
         );

@@ -54,12 +54,12 @@
                                                 </select>
                                                 entries
                                             </label>
-                                            <label>
+                                            <!-- <label>
                                                 Search:
                                                 <input type="text" id="searchInput" autocomplete="off"
                                                     placeholder="Search..."
                                                     style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                            </label>
+                                            </label> -->
                                         </div>
 
                                         <div class="table-responsive">

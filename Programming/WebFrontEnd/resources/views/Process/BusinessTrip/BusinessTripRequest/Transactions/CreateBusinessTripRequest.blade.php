@@ -6,11 +6,12 @@
   @include('getFunction.getSites')
   @include('getFunction.getRequesters')
   @include('getFunction.getBeneficiaries')
+  @include('getFunction.getBank')
   @include('getFunction.getBanks')
   @include('getFunction.getBankLists')
-  @include('getFunction.getBanksAccount')
-  @include('getFunction.getWorkFlow')
+  @include('getFunction.getBankAccount')
   @include('getFunction.getBusinessTripRequests')
+  @include('getFunction.getWorkFlows')
   @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestRevision')
   @include('Process.BusinessTrip.BusinessTripRequest.Functions.PopUp.PopUpBusinessTripRequestSummaryData')
 
@@ -29,14 +30,14 @@
         @include('Process.BusinessTrip.BusinessTripRequest.Functions.Menu.MenuBusinessTripRequest')
         @if($var == 0)
               <div class="card">
-                <form method="post" action="{{ route('SelectWorkFlow') }}" id="FormSubmitBusinessTrip">
+                <form id="businessTripRequestForm">
                   @csrf
-                  <input hidden id="DocumentTypeID" name="DocumentTypeID" value="<?= $documentType_RefID; ?>">
-                  <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
-                  <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" />
-                  <input hidden id="workStructure_RefID" name="workStructure_RefID" />
-                  <input hidden id="product_RefID" name="product_RefID" />
                   <input hidden id="budgetDetailsData" />
+                  <input hidden id="product_RefID" name="product_RefID" />
+                  <input hidden id="workStructure_RefID" name="workStructure_RefID" />
+                  <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
+                  <input hidden id="DocumentTypeID" name="DocumentTypeID" value="<?= $documentType_RefID; ?>">
+                  <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" />
 
                   <!-- ADD NEW BUSINESS REQUEST TRIP FORM -->
                   <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -55,7 +56,7 @@
                             </div>
                           </div>
 
-                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.HeaderBusinessTripRequest')
+                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.sectionOne')
                         </div>
                       </div>
                     </div>
@@ -120,7 +121,7 @@
                             </div>
                           </div>
 
-                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.HeaderBusinessTripRequest2')
+                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.sectionTwo')
                         </div>
                       </div>
                     </div>
@@ -170,25 +171,30 @@
                             </div>
                           </div>
 
-                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.HeaderBusinessTripRequest3')
+                          @include('Process.BusinessTrip.BusinessTripRequest.Functions.Header.sectionThree')
                         </div>
                       </div>
                     </div>
                   </div>
 
                   <!-- BUTTON -->
-                  <div class="px-3 pb-3">
-                    <div style="display: flex; justify-content: flex-end; gap: 8px;">
-                      <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="button"
-                        onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')">
-                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
-                        <div>Cancel</div>
-                      </button>
+                  <div class="tab-content px-3 pb-2" id="nav-tabContent">
+                    <div class="row">
+                      <div class="col">
+                        <button type="button" class="btn btn-default btn-sm float-right button-submit"
+                          onclick="validationForm()"
+                          style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                          <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                          <div>Submit</div>
+                        </button>
 
-                      <button type="button" class="btn btn-default btn-sm button-submit" onclick="validationForm()">
-                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
-                        <div>Submit</div>
-                      </button>
+                        <button type="button" class="btn btn-default btn-sm float-right button-submit"
+                          onclick="cancelForm('{{ route('BusinessTripRequest.index') }}')"
+                          style="background-color:#e9ecef;border:1px solid #ced4da;">
+                          <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                          <div>Cancel</div>
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </form>

@@ -12,6 +12,8 @@
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
+    const arfID = document.getElementById("arf_id");
+    const asfID = document.getElementById("asf_id");
     const projectID = document.getElementById("budget_id");
     const projectName = document.getElementById("budget_name");
     const projectCode = document.getElementById("budget_code");
@@ -166,25 +168,35 @@
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
 
         $('#table_container').hide();
 
         $("#budget_name").css('background-color', '#fff');
-        $(`#budget_name`).val("");
-        $(`#budget_id`).val("");
-        $(`#budget_code`).val("");
+        $("#budget_name").val("");
+        $("#budget_id").val("");
+        $("#budget_code").val("");
 
         $("#sub_budget_name").css('background-color', '#fff');
-        $(`#sub_budget_name`).val("");
-        $(`#sub_budget_id`).val("");
-        $(`#sub_budget_code`).val("");
+        $("#sub_budget_name").val("");
+        $("#sub_budget_id").val("");
+        $("#sub_budget_code").val("");
 
         $("#requester_name").css('background-color', '#fff');
-        $(`#requester_name`).val("");
-        $(`#requester_id`).val("");
+        $("#requester_name").val("");
+        $("#requester_id").val("");
+
+        $("#arf_number").css('background-color', '#fff');
+        $("#arf_number").val("");
+        $("#arf_id").val("");
+
+        $("#asf_number").css('background-color', '#fff');
+        $("#asf_number").val("");
+        $("#asf_id").val("");
 
         $("#advance_date_range").css('background-color', '#fff');
-        $(`#advance_date_range`).val("");
+        $("#advance_date_range").val("");
     }
 
     function getDataReport(page = currentPage) {
@@ -196,6 +208,8 @@
             data: {
                 project_code: projectCode.value,
                 site_code: siteCode.value,
+                arf_id: arfID.value,
+                asf_id: asfID.value,
                 requester_id: requesterID.value,
                 date: date.value,
                 page: page,

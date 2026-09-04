@@ -830,9 +830,14 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                         $varReturn;
                     }
                 else
-                    {
+		{
+                    if ($varDataSend['SignMessage'] == 'Date already exist.') {
+                    throw
+                        new \Exception('Date already exist.');
+                    } else {
                     throw
                         new \Exception('Data Update Failed');
+                    }
                     }
                 }
             else
@@ -872,6 +877,17 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                             $varUserSession,
                             500,
                             'Update Failed'
+                            );
+
+                    break;
+                    }
+                case 'Date already exist.':
+                    {
+                    $varReturn =
+                        \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Fail(
+                            $varUserSession,
+                            500,
+                            'Date already exist.'
                             );
 
                     break;

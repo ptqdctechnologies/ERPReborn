@@ -173,11 +173,9 @@ class BusinessTripService
         );
     }
 
-    public function create(Request $request): array
+    public function create($data)
     {
-        $sessionToken = Session::get('SessionLogin');
-
-        $data = $request->storeData;
+        $token = Session::get('SessionLogin');
         $businessTripBudgets = $data['components'];
         $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
@@ -198,14 +196,13 @@ class BusinessTripService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.create.humanResource.setPersonBusinessTrip',
             'latest',
             [
                 'entities' => [
                     'documentDateTimeTZ' => date('Y-m-d'),
                     'combinedBudgetSectionDetail_RefID' => (int) $data['combinedBudgetSectionDetail_RefID'],
-                    // 'paymentDisbursementMethod_RefID'   => null, // 218000000000002
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
@@ -225,14 +222,14 @@ class BusinessTripService
                                         'currency_RefID' => 62000000000001, // NEW
                                         'currencyExchangeRate' => 1, // NEW
                                         'paymentToVendor_amountCurrencyValue' => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null, // NEW
-                                        'paymentToVendor_paymentFundingDestination_RefID' => $data['vendor_bank_account'] ? (int) $data['vendor_bank_account'] : null, // NEW
+                                        'paymentToVendor_paymentFundingDestination_RefID' => $data['bank_account_id_vendor'] ? (int) $data['bank_account_id_vendor'] : null, // NEW
                                         'paymentToVendor_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
                                         'paymentToCreditCard_amountCurrencyValue' => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null, // NEW
-                                        'paymentToCreditCard_paymentFundingDestination_RefID' => $data['corp_bank_account'] ? (int) $data['corp_bank_account'] : null, // NEW
+                                        'paymentToCreditCard_paymentFundingDestination_RefID' => $data['bank_account_id_corp_card'] ? (int) $data['bank_account_id_corp_card'] : null, // NEW
                                         'paymentToCreditCard_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
                                         'paymentToOther_amountCurrencyValue' => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null, // NEW
-                                        'paymentToOther_paymentFundingDestination_RefID' => $data['other_bank_account'] ? (int) $data['other_bank_account'] : null, // NEW
-                                        'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => $data['other_beneficiary'] ? (int) $data['other_beneficiary'] : null, // NEW
+                                        'paymentToOther_paymentFundingDestination_RefID' => $data['bank_account_id_other'] ? (int) $data['bank_account_id_other'] : null, // NEW
+                                        'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => $data['beneficiary_id'] ? (int) $data['beneficiary_id'] : null, // NEW
                                         'remarks' => null,
                                         'additionalData' => [
                                             'itemList' => [

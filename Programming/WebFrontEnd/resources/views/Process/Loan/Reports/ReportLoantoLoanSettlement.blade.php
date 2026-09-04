@@ -48,9 +48,9 @@
                     </div>
                 </div>
                 <!-- <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save changes</button>
-                    </div> -->
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div> -->
             </div>
         </div>
     </div>
@@ -98,15 +98,16 @@
                                                     <option value="25">25</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>
+                                                    <option value="ALL">All</option>
                                                 </select>
                                                 entries
                                             </label>
-                                            <label>
+                                            <!-- <label>
                                                 Search:
                                                 <input type="text" id="searchInput" autocomplete="off"
                                                     placeholder="Search..."
                                                     style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                            </label>
+                                            </label> -->
                                         </div>
 
                                         <div class="table-responsive">
@@ -123,8 +124,8 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Loan Settlement</th>
                                                         <!-- <th colspan="3"
-                                                                                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                                                            Balance</th> -->
+                                                                                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                                                                                Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th rowspan="2"
@@ -191,14 +192,14 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
                                                             Remark</th>
                                                         <!-- <th rowspan="2"
-                                                                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                                                                Principal Loan to Payment</th>
-                                                                                                                            <th rowspan="2"
-                                                                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                                                                Principal Loan to Settlement</th>
-                                                                                                                            <th rowspan="2"
-                                                                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                                                                Settlement to Payment</th> -->
+                                                                                                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                                                                                    Principal Loan to Payment</th>
+                                                                                                                                                <th rowspan="2"
+                                                                                                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                                                                                    Principal Loan to Settlement</th>
+                                                                                                                                                <th rowspan="2"
+                                                                                                                                                    style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                                                                                    Settlement to Payment</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th

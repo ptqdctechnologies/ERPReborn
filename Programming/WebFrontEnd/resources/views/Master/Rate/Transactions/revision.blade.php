@@ -21,6 +21,7 @@
 
                 <form id="rateForm">
                     @csrf
+                    @method('PUT')
                     <div class="card">
                         <!-- MASTER RATE -->
                         <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
