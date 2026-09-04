@@ -275,7 +275,13 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
                     }
                 else
                     {
-                    throw new \Exception('Data Insertion Failed');
+                        if ($varDataSend['SignMessage'] == 'Date already exist.') {
+                        throw
+                            new \Exception('Date already exist.');
+                        } else {
+                        throw
+                            new \Exception('Data Insertion Failed');
+                        }                    
                     }
                 }
             else
