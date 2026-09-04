@@ -16,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_Master
     | ▪ Description : Menangani Models Database ► SchData-OLTP-Master ► TblCurrencyExchangeRate                                    |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class TblCurrencyExchangeRate extends \App\Models\Database\DefaultClassPrototype
+    class TblCurrencyExchangeRate_OLD extends \App\Models\Database\DefaultClassPrototype
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+

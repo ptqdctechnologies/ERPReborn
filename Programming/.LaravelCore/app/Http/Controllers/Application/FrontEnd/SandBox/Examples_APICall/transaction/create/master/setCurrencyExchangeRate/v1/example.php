@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.master.setCurrencyExchangeRate.v1_throughAPIGateway           |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-08-21                                                                                           |
+        | ▪ Last Update     : 2026-09-01                                                                                           |
         | ▪ Creation Date   : 2026-08-21                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,6 +41,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'entities' => [
                     "currency_RefID" => 62000000000002,     // 62000000000002 = USD
                     "rate" => 17800.00,
+                    "startDate" => '2026-09-01',
+                    "endDate" => '2026-09-30'
                     ]
                 ]
                 );

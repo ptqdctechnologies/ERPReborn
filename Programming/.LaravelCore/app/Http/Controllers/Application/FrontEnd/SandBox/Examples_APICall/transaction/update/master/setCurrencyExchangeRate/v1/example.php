@@ -41,7 +41,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'recordID' => 63000000000002,
                 'entities' => [
                     "currency_RefID" => 62000000000011,     // 62000000000011 = SGD
-                    "rate" => 14000.00
+                    "rate" => 14000.00,
+                    "startDate" => '2026-09-01',
+                    "endDate" => '2026-10-15'
                     ]
                 ]
                 );
