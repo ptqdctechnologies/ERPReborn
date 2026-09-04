@@ -44,6 +44,8 @@ class ProjectsInstances extends \Google\Service\Resource
    * @param string $instance Cloud SQL instance ID. This does not include the
    * project ID.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return SqlInstancesGetDiskShrinkConfigResponse
    * @throws \Google\Service\Exception
    */
@@ -62,6 +64,7 @@ class ProjectsInstances extends \Google\Service\Resource
    * project ID.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @opt_param string sourceInstanceDeletionTime The timestamp used to identify
    * the time when the source instance is deleted. If this instance is deleted,
    * then you must set the timestamp.
@@ -82,6 +85,8 @@ class ProjectsInstances extends \Google\Service\Resource
    * project ID.
    * @param PerformDiskShrinkContext $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */
@@ -100,6 +105,8 @@ class ProjectsInstances extends \Google\Service\Resource
    * project ID.
    * @param SqlInstancesRescheduleMaintenanceRequestBody $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */

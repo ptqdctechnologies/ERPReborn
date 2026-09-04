@@ -289,6 +289,11 @@ class DatabaseInstance extends \Google\Collection
    * A Cloud SQL read pool.
    */
   public const INSTANCE_TYPE_READ_POOL_INSTANCE = 'READ_POOL_INSTANCE';
+  /**
+   * A Cloud SQL instance acting as a Blue-Green deployment target primary.
+   * (MySQL only)
+   */
+  public const INSTANCE_TYPE_GREEN_INSTANCE = 'GREEN_INSTANCE';
   public const SQL_NETWORK_ARCHITECTURE_SQL_NETWORK_ARCHITECTURE_UNSPECIFIED = 'SQL_NETWORK_ARCHITECTURE_UNSPECIFIED';
   /**
    * The instance uses the new network architecture.
@@ -400,6 +405,8 @@ class DatabaseInstance extends \Google\Collection
    * @var string
    */
   public $databaseVersion;
+  protected $deploymentInfoType = BlueGreenDeploymentInfo::class;
+  protected $deploymentInfoDataType = '';
   protected $diskEncryptionConfigurationType = DiskEncryptionConfiguration::class;
   protected $diskEncryptionConfigurationDataType = '';
   protected $diskEncryptionStatusType = DiskEncryptionStatus::class;
@@ -792,6 +799,23 @@ class DatabaseInstance extends \Google\Collection
     return $this->databaseVersion;
   }
   /**
+   * Output only. Deployment info for the instance. This is set if the instance
+   * is currently part of any blue-green setup.
+   *
+   * @param BlueGreenDeploymentInfo $deploymentInfo
+   */
+  public function setDeploymentInfo(BlueGreenDeploymentInfo $deploymentInfo)
+  {
+    $this->deploymentInfo = $deploymentInfo;
+  }
+  /**
+   * @return BlueGreenDeploymentInfo
+   */
+  public function getDeploymentInfo()
+  {
+    return $this->deploymentInfo;
+  }
+  /**
    * Disk encryption configuration specific to an instance.
    *
    * @param DiskEncryptionConfiguration $diskEncryptionConfiguration
@@ -945,7 +969,8 @@ class DatabaseInstance extends \Google\Collection
    * The instance type.
    *
    * Accepted values: SQL_INSTANCE_TYPE_UNSPECIFIED, CLOUD_SQL_INSTANCE,
-   * ON_PREMISES_INSTANCE, READ_REPLICA_INSTANCE, READ_POOL_INSTANCE
+   * ON_PREMISES_INSTANCE, READ_REPLICA_INSTANCE, READ_POOL_INSTANCE,
+   * GREEN_INSTANCE
    *
    * @param self::INSTANCE_TYPE_* $instanceType
    */

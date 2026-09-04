@@ -16,7 +16,7 @@
 clear;
 
 #sudo docker pull php:8.4.7-apache;
-sudo docker pull php:8.5.7-apache;
+sudo docker pull php:8.5.10-apache;
 sudo docker pull composer:latest;
 #vim ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile
 sudo docker build --file ./.ProjectCore/Configuration/Docker/PHPApacheFrontEnd/Dockerfile -t erp-reborn-phpapache-frontend .;

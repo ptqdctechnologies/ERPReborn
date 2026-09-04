@@ -120,9 +120,9 @@ class TimePeriod extends \Google\Model
     return $this->closeDay;
   }
   /**
-   * Required. Valid values are `00:00-24:00`, where `24:00` represents midnight
-   * at the end of the specified day field. Note: In Proto3 JSON mapping,
-   * default zero values (`00:00`) are omitted, producing `{}` for `close_time`.
+   * Required. Valid values are 00:00-24:00, where 24:00 represents midnight at
+   * the end of the specified day field. Note: In Proto3 JSON mapping, default
+   * zero values (00:00) are omitted, producing `{}` for close_time.
    *
    * @param TimeOfDay $closeTime
    */
@@ -157,9 +157,9 @@ class TimePeriod extends \Google\Model
     return $this->openDay;
   }
   /**
-   * Required. Valid values are `00:00-24:00`, where `24:00` represents midnight
-   * at the end of the specified day field. Note: In Proto3 JSON mapping,
-   * default zero values (`00:00`) are omitted, producing `{}` for `open_time`.
+   * Required. Valid values are 00:00-24:00, where 24:00 represents midnight at
+   * the end of the specified day field. Note: In Proto3 JSON mapping, default
+   * zero values (00:00) are omitted, producing `{}` for open_time.
    *
    * @param TimeOfDay $openTime
    */

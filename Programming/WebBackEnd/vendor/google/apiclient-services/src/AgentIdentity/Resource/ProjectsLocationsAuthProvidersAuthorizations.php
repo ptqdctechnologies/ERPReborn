@@ -32,11 +32,11 @@ use Google\Service\AgentIdentity\ListAuthorizationsResponse;
 class ProjectsLocationsAuthProvidersAuthorizations extends \Google\Service\Resource
 {
   /**
-   * Deletes a single Authorization. (authorizations.delete)
+   * Deletes a single authorization. (authorizations.delete)
    *
-   * @param string $name Required. The name of the Authorization to delete.
-   * Format: projects/{project}/locations/{location}/authProviders/{auth_provider}
-   * /authorizations/{authorization}
+   * @param string $name Required. The resource name of the authorization to
+   * delete. Format: projects/{project}/locations/{location}/authProviders/{auth_p
+   * rovider}/authorizations/{authorization}
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId Optional. An optional request ID to identify
@@ -60,9 +60,9 @@ class ProjectsLocationsAuthProvidersAuthorizations extends \Google\Service\Resou
     return $this->call('delete', [$params], AgentidentityEmpty::class);
   }
   /**
-   * Gets details of a single Authorization. (authorizations.get)
+   * Gets details of a single authorization. (authorizations.get)
    *
-   * @param string $name Required. Name of the resource
+   * @param string $name Required. The resource name of the authorization.
    * @param array $optParams Optional parameters.
    * @return Authorization
    * @throws \Google\Service\Exception
@@ -74,7 +74,7 @@ class ProjectsLocationsAuthProvidersAuthorizations extends \Google\Service\Resou
     return $this->call('get', [$params], Authorization::class);
   }
   /**
-   * Lists Authorizations in a given project and location.
+   * Lists authorizations in a given project and location.
    * (authorizations.listProjectsLocationsAuthProvidersAuthorizations)
    *
    * @param string $parent Required. The parent resource where the search is
@@ -89,7 +89,7 @@ class ProjectsLocationsAuthProvidersAuthorizations extends \Google\Service\Resou
    * to ordering by authorization_id in ascending order.
    * @opt_param int pageSize Optional. Requested page size. Server may return
    * fewer items than requested. If unspecified, server will pick an appropriate
-   * default.
+   * default. The maximum page size is 1000.
    * @opt_param string pageToken Optional. A page token, received from a previous
    * `ListAuthorizations` call. Provide this to retrieve the subsequent page. When
    * paginating, all other parameters provided to `ListAuthorizations` must match

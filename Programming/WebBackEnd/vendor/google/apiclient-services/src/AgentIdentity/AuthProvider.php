@@ -33,9 +33,9 @@ class AuthProvider extends \Google\Collection
   public const STATE_DISABLED = 'DISABLED';
   protected $collection_key = 'workloadIds';
   /**
-   * Optional. List of scopes that are allowed to be requested for this
-   * auth_provider. If this list is non-empty, only scopes within this list may
-   * be requested. If this list is empty, all scopes may be requested. Scopes
+   * Optional. List of scopes that are allowed to be requested for this auth
+   * provider. If this list is non-empty, only scopes within this list may be
+   * requested. If this list is empty, all scopes may be requested. Scopes
    * appearing in `blocked_scopes` are disallowed even if they appear in
    * `allowed_scopes`. The number of allowed scopes is limited to 200.
    *
@@ -46,7 +46,7 @@ class AuthProvider extends \Google\Collection
   protected $authProviderTypeParamsDataType = '';
   /**
    * Optional. List of scopes that are blocked from being requested for this
-   * auth_provider. If a scope appears in this list, it will not be requested,
+   * auth provider. If a scope appears in this list, it will not be requested,
    * even if it also appears in `allowed_scopes`. `blocked_scopes` takes
    * precedence over `allowed_scopes`. The number of blocked scopes is limited
    * to 200.
@@ -55,13 +55,13 @@ class AuthProvider extends \Google\Collection
    */
   public $blockedScopes;
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. The creation timestamp.
    *
    * @var string
    */
   public $createTime;
   /**
-   * Output only. This is set to true if the auth_provider is deleted.
+   * Output only. Set to `true` if the auth provider is deleted.
    *
    * @var bool
    */
@@ -73,40 +73,40 @@ class AuthProvider extends \Google\Collection
    */
   public $description;
   /**
-   * Output only. The time when the auth_provider will expire.
+   * Output only. The time when the auth provider will expire.
    *
    * @var string
    */
   public $expireTime;
   /**
-   * Optional. Labels as key value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @var string[]
    */
   public $labels;
   /**
-   * Identifier. The full resource name of the auth_provider. Format:
+   * Identifier. The full resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    *
    * @var string
    */
   public $name;
   /**
-   * Output only. The state of the auth_provider.
+   * Output only. The state of the auth provider.
    *
    * @var string
    */
   public $state;
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. The update timestamp.
    *
    * @var string
    */
   public $updateTime;
   /**
-   * Optional. Input only. Represents the workload identity in IAM
-   * `principal://` format of the agent(s) that will use this AuthProvider.
-   * Example: `principal://agents.global.org-
+   * Optional. Input only. Identifiers for the agents that will use this auth
+   * provider, starting with `principal://`. For example: `principal://agents.gl
+   * obal.org-
    * ${ORG_ID}.system.id.goog/resources/aiplatform/projects/{PROJECT_ID}/locatio
    * ns/{LOCATIONS}/reasoningEngines/{ID}`
    *
@@ -115,9 +115,9 @@ class AuthProvider extends \Google\Collection
   public $workloadIds;
 
   /**
-   * Optional. List of scopes that are allowed to be requested for this
-   * auth_provider. If this list is non-empty, only scopes within this list may
-   * be requested. If this list is empty, all scopes may be requested. Scopes
+   * Optional. List of scopes that are allowed to be requested for this auth
+   * provider. If this list is non-empty, only scopes within this list may be
+   * requested. If this list is empty, all scopes may be requested. Scopes
    * appearing in `blocked_scopes` are disallowed even if they appear in
    * `allowed_scopes`. The number of allowed scopes is limited to 200.
    *
@@ -135,7 +135,7 @@ class AuthProvider extends \Google\Collection
     return $this->allowedScopes;
   }
   /**
-   * Required. AuthProvider type specific parameters.
+   * Required. Parameters specific to the auth provider type.
    *
    * @param AuthProviderTypeParams $authProviderTypeParams
    */
@@ -152,7 +152,7 @@ class AuthProvider extends \Google\Collection
   }
   /**
    * Optional. List of scopes that are blocked from being requested for this
-   * auth_provider. If a scope appears in this list, it will not be requested,
+   * auth provider. If a scope appears in this list, it will not be requested,
    * even if it also appears in `allowed_scopes`. `blocked_scopes` takes
    * precedence over `allowed_scopes`. The number of blocked scopes is limited
    * to 200.
@@ -171,7 +171,7 @@ class AuthProvider extends \Google\Collection
     return $this->blockedScopes;
   }
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. The creation timestamp.
    *
    * @param string $createTime
    */
@@ -187,7 +187,7 @@ class AuthProvider extends \Google\Collection
     return $this->createTime;
   }
   /**
-   * Output only. This is set to true if the auth_provider is deleted.
+   * Output only. Set to `true` if the auth provider is deleted.
    *
    * @param bool $deleted
    */
@@ -219,7 +219,7 @@ class AuthProvider extends \Google\Collection
     return $this->description;
   }
   /**
-   * Output only. The time when the auth_provider will expire.
+   * Output only. The time when the auth provider will expire.
    *
    * @param string $expireTime
    */
@@ -235,7 +235,7 @@ class AuthProvider extends \Google\Collection
     return $this->expireTime;
   }
   /**
-   * Optional. Labels as key value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @param string[] $labels
    */
@@ -251,7 +251,7 @@ class AuthProvider extends \Google\Collection
     return $this->labels;
   }
   /**
-   * Identifier. The full resource name of the auth_provider. Format:
+   * Identifier. The full resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    *
    * @param string $name
@@ -268,7 +268,7 @@ class AuthProvider extends \Google\Collection
     return $this->name;
   }
   /**
-   * Output only. The state of the auth_provider.
+   * Output only. The state of the auth provider.
    *
    * Accepted values: STATE_UNSPECIFIED, ENABLED, DISABLED
    *
@@ -286,7 +286,7 @@ class AuthProvider extends \Google\Collection
     return $this->state;
   }
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. The update timestamp.
    *
    * @param string $updateTime
    */
@@ -302,9 +302,9 @@ class AuthProvider extends \Google\Collection
     return $this->updateTime;
   }
   /**
-   * Optional. Input only. Represents the workload identity in IAM
-   * `principal://` format of the agent(s) that will use this AuthProvider.
-   * Example: `principal://agents.global.org-
+   * Optional. Input only. Identifiers for the agents that will use this auth
+   * provider, starting with `principal://`. For example: `principal://agents.gl
+   * obal.org-
    * ${ORG_ID}.system.id.goog/resources/aiplatform/projects/{PROJECT_ID}/locatio
    * ns/{LOCATIONS}/reasoningEngines/{ID}`
    *

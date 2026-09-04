@@ -20,61 +20,60 @@ namespace Google\Service\AgentIdentity;
 class AccessSummary extends \Google\Collection
 {
   /**
-   * Unspecified auth-provider type.
+   * Unspecified auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_UNSPECIFIED = 'AUTH_PROVIDER_TYPE_UNSPECIFIED';
   /**
-   * Three Legged OAuth auth-provider type.
+   * 3-legged OAuth (3LO) auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_THREE_LEGGED_OAUTH = 'AUTH_PROVIDER_TYPE_THREE_LEGGED_OAUTH';
   /**
-   * Two Legged OAuth auth-provider type.
+   * 2-legged OAuth (2LO) auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_TWO_LEGGED_OAUTH = 'AUTH_PROVIDER_TYPE_TWO_LEGGED_OAUTH';
   /**
-   * API Key auth-provider type.
+   * API key auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_API_KEY = 'AUTH_PROVIDER_TYPE_API_KEY';
   /**
-   * Gemini Enterprise auth-provider type.
+   * Gemini Enterprise auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE = 'AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE';
   protected $collection_key = 'scopes';
   /**
-   * Output only. The auth_provider that this access summary is associated with.
+   * Output only. The auth provider that this access summary is associated with.
    *
    * @var string
    */
   public $authProvider;
   /**
-   * Output only. The type of the connector that was used to create this access
-   * summary.
+   * Output only. The auth provider type used to create this access summary.
    *
    * @var string
    */
   public $authProviderType;
   /**
-   * Output only. The first time this user has interacted with this workload.
-   * Rounded to the previous hour.
+   * Output only. The first time this user interacted with this workload,
+   * rounded to the previous hour.
    *
    * @var string
    */
   public $firstAccessTime;
   /**
-   * Optional. Labels as key value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @var string[]
    */
   public $labels;
   /**
-   * Output only. The most recent time this user has interacted with this
-   * workload. Rounded to the previous hour.
+   * Output only. The most recent time this user interacted with this workload,
+   * rounded to the previous hour.
    *
    * @var string
    */
   public $lastAccessTime;
   /**
-   * Output only. Identifier. Name of the AccessSummary
+   * Output only. Identifier. The resource name of the access summary.
    *
    * @var string
    */
@@ -93,13 +92,13 @@ class AccessSummary extends \Google\Collection
    */
   public $scopes;
   /**
-   * Output only. The url of the authentication server that was accessed.
+   * Output only. The URL of the authentication server that was accessed.
    *
    * @var string
    */
   public $tokenUrl;
   /**
-   * Output only. The user_id provided by the workload application for this
+   * Output only. The user ID provided by the workload application for this
    * user. Not verified by Google.
    *
    * @var string
@@ -107,14 +106,14 @@ class AccessSummary extends \Google\Collection
   public $userId;
   /**
    * Output only. The identity bound to the workload that this user interacted
-   * with to produce this AccessSummary. Will typically be an agentic spiffe id
+   * with to produce this access summary. Typically an agentic SPIFFE ID.
    *
    * @var string
    */
   public $workloadId;
 
   /**
-   * Output only. The auth_provider that this access summary is associated with.
+   * Output only. The auth provider that this access summary is associated with.
    *
    * @param string $authProvider
    */
@@ -130,8 +129,7 @@ class AccessSummary extends \Google\Collection
     return $this->authProvider;
   }
   /**
-   * Output only. The type of the connector that was used to create this access
-   * summary.
+   * Output only. The auth provider type used to create this access summary.
    *
    * Accepted values: AUTH_PROVIDER_TYPE_UNSPECIFIED,
    * AUTH_PROVIDER_TYPE_THREE_LEGGED_OAUTH, AUTH_PROVIDER_TYPE_TWO_LEGGED_OAUTH,
@@ -151,8 +149,8 @@ class AccessSummary extends \Google\Collection
     return $this->authProviderType;
   }
   /**
-   * Output only. The first time this user has interacted with this workload.
-   * Rounded to the previous hour.
+   * Output only. The first time this user interacted with this workload,
+   * rounded to the previous hour.
    *
    * @param string $firstAccessTime
    */
@@ -168,7 +166,7 @@ class AccessSummary extends \Google\Collection
     return $this->firstAccessTime;
   }
   /**
-   * Optional. Labels as key value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @param string[] $labels
    */
@@ -184,8 +182,8 @@ class AccessSummary extends \Google\Collection
     return $this->labels;
   }
   /**
-   * Output only. The most recent time this user has interacted with this
-   * workload. Rounded to the previous hour.
+   * Output only. The most recent time this user interacted with this workload,
+   * rounded to the previous hour.
    *
    * @param string $lastAccessTime
    */
@@ -201,7 +199,7 @@ class AccessSummary extends \Google\Collection
     return $this->lastAccessTime;
   }
   /**
-   * Output only. Identifier. Name of the AccessSummary
+   * Output only. Identifier. The resource name of the access summary.
    *
    * @param string $name
    */
@@ -250,7 +248,7 @@ class AccessSummary extends \Google\Collection
     return $this->scopes;
   }
   /**
-   * Output only. The url of the authentication server that was accessed.
+   * Output only. The URL of the authentication server that was accessed.
    *
    * @param string $tokenUrl
    */
@@ -266,7 +264,7 @@ class AccessSummary extends \Google\Collection
     return $this->tokenUrl;
   }
   /**
-   * Output only. The user_id provided by the workload application for this
+   * Output only. The user ID provided by the workload application for this
    * user. Not verified by Google.
    *
    * @param string $userId
@@ -284,7 +282,7 @@ class AccessSummary extends \Google\Collection
   }
   /**
    * Output only. The identity bound to the workload that this user interacted
-   * with to produce this AccessSummary. Will typically be an agentic spiffe id
+   * with to produce this access summary. Typically an agentic SPIFFE ID.
    *
    * @param string $workloadId
    */

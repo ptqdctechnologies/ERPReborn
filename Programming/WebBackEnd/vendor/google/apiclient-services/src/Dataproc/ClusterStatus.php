@@ -89,7 +89,7 @@ class ClusterStatus extends \Google\Model
    */
   public const SUBSTATE_STALE_STATUS = 'STALE_STATUS';
   /**
-   * Optional. Output only. Details of cluster's state.
+   * Optional. Details of cluster's state.
    *
    * @var string
    */
@@ -117,7 +117,7 @@ class ClusterStatus extends \Google\Model
   public $substate;
 
   /**
-   * Optional. Output only. Details of cluster's state.
+   * Optional. Details of cluster's state.
    *
    * @param string $detail
    */

@@ -210,13 +210,15 @@ class CoursesCourseWork extends \Google\Service\Resource
    * who may change them. This request must be made by the Developer Console
    * project of the [OAuth client
    * ID](https://support.google.com/cloud/answer/6158849) used to create the
-   * corresponding course work item. This method returns the following error
-   * codes: * `PERMISSION_DENIED` if the requesting developer project did not
-   * create the corresponding course work, if the user is not permitted to make
-   * the requested modification to the student submission, or for access errors. *
-   * `INVALID_ARGUMENT` if the request is malformed. * `FAILED_PRECONDITION` if
-   * the requested course work has already been deleted. * `NOT_FOUND` if the
-   * requested course or course work does not exist. (courseWork.patch)
+   * corresponding course work item or an add-on attachment on the corresponding
+   * course work item. This method returns the following error codes: *
+   * `PERMISSION_DENIED` if the requesting developer project did not create the
+   * corresponding course work or an add-on attachment on the corresponding course
+   * work, if the user is not permitted to make the requested modification to the
+   * student submission, or for access errors. * `INVALID_ARGUMENT` if the request
+   * is malformed. * `FAILED_PRECONDITION` if the requested course work has
+   * already been deleted. * `NOT_FOUND` if the requested course or course work
+   * does not exist. (courseWork.patch)
    *
    * @param string $courseId Identifier of the course. This identifier can be
    * either the Classroom-assigned identifier or an alias.

@@ -52,30 +52,30 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
     );
 
     public static $prefixLengthsPsr4 = array (
-        'v' => 
+        'v' =>
         array (
             'voku\\' => 5,
         ),
-        'p' => 
+        'p' =>
         array (
             'phpDocumentor\\Reflection\\' => 25,
         ),
-        'Z' => 
+        'Z' =>
         array (
             'ZipStream\\' => 10,
         ),
-        'W' => 
+        'W' =>
         array (
             'Whoops\\' => 7,
             'Webmozart\\Assert\\' => 17,
         ),
-        'T' => 
+        'T' =>
         array (
             'TijsVerkoyen\\CssToInlineStyles\\' => 31,
             'Tests\\' => 6,
             'Termwind\\' => 9,
         ),
-        'S' => 
+        'S' =>
         array (
             'Symfony\\Polyfill\\Uuid\\' => 22,
             'Symfony\\Polyfill\\Php85\\' => 23,
@@ -120,14 +120,14 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Spatie\\ErrorSolutions\\' => 22,
             'Spatie\\Backtrace\\' => 17,
         ),
-        'R' => 
+        'R' =>
         array (
             'Revolution\\Google\\Sheets\\' => 25,
             'Revolution\\Google\\Client\\' => 25,
             'Ramsey\\Uuid\\' => 12,
             'Ramsey\\Collection\\' => 18,
         ),
-        'P' => 
+        'P' =>
         array (
             'Psy\\' => 4,
             'Psr\\SimpleCache\\' => 16,
@@ -145,20 +145,20 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'PhpLang\\' => 8,
             'PHPStan\\PhpDocParser\\' => 21,
         ),
-        'N' => 
+        'N' =>
         array (
             'NunoMaduro\\Collision\\' => 21,
             'Nette\\' => 6,
             'NcJoes\\OfficeConverter\\' => 23,
         ),
-        'M' => 
+        'M' =>
         array (
             'Monolog\\' => 8,
             'Mockery\\' => 8,
             'Matrix\\' => 7,
             'Maatwebsite\\Excel\\' => 18,
         ),
-        'L' => 
+        'L' =>
         array (
             'League\\Uri\\' => 11,
             'League\\MimeTypeDetection\\' => 25,
@@ -172,18 +172,18 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Laravel\\SerializableClosure\\' => 28,
             'Laravel\\Prompts\\' => 16,
         ),
-        'J' => 
+        'J' =>
         array (
             'JmesPath\\' => 9,
         ),
-        'I' => 
+        'I' =>
         array (
             'Intervention\\HttpAuth\\' => 22,
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Foundation\\Auth\\' => 27,
             'Illuminate\\' => 11,
         ),
-        'G' => 
+        'G' =>
         array (
             'GuzzleHttp\\UriTemplate\\' => 23,
             'GuzzleHttp\\Psr7\\' => 16,
@@ -194,18 +194,18 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Google\\Auth\\' => 12,
             'Google\\' => 7,
         ),
-        'F' => 
+        'F' =>
         array (
             'Fruitcake\\Cors\\' => 15,
             'Firebase\\JWT\\' => 13,
             'Faker\\' => 6,
         ),
-        'E' => 
+        'E' =>
         array (
             'Elibyy\\TCPDF\\' => 13,
             'Egulias\\EmailValidator\\' => 23,
         ),
-        'D' => 
+        'D' =>
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Inflector\\' => 19,
@@ -214,7 +214,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Dflydev\\DotAccessData\\' => 22,
             'DeepCopy\\' => 9,
         ),
-        'C' => 
+        'C' =>
         array (
             'Cron\\' => 5,
             'Composer\\Semver\\' => 16,
@@ -223,11 +223,11 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
             'Carbon\\Doctrine\\' => 16,
             'Carbon\\' => 7,
         ),
-        'B' => 
+        'B' =>
         array (
             'Brick\\Math\\' => 11,
         ),
-        'A' => 
+        'A' =>
         array (
             'Aws\\' => 4,
             'App\\' => 4,
@@ -235,502 +235,502 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
     );
 
     public static $prefixDirsPsr4 = array (
-        'voku\\' => 
+        'voku\\' =>
         array (
             0 => __DIR__ . '/..' . '/voku/portable-ascii/src/voku',
         ),
-        'phpDocumentor\\Reflection\\' => 
+        'phpDocumentor\\Reflection\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
             1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
             2 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
         ),
-        'ZipStream\\' => 
+        'ZipStream\\' =>
         array (
             0 => __DIR__ . '/..' . '/maennchen/zipstream-php/src',
         ),
-        'Whoops\\' => 
+        'Whoops\\' =>
         array (
             0 => __DIR__ . '/..' . '/filp/whoops/src/Whoops',
         ),
-        'Webmozart\\Assert\\' => 
+        'Webmozart\\Assert\\' =>
         array (
             0 => __DIR__ . '/..' . '/webmozart/assert/src',
         ),
-        'TijsVerkoyen\\CssToInlineStyles\\' => 
+        'TijsVerkoyen\\CssToInlineStyles\\' =>
         array (
             0 => __DIR__ . '/..' . '/tijsverkoyen/css-to-inline-styles/src',
         ),
-        'Tests\\' => 
+        'Tests\\' =>
         array (
             0 => __DIR__ . '/../..' . '/tests',
         ),
-        'Termwind\\' => 
+        'Termwind\\' =>
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/termwind/src',
         ),
-        'Symfony\\Polyfill\\Uuid\\' => 
+        'Symfony\\Polyfill\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-uuid',
         ),
-        'Symfony\\Polyfill\\Php85\\' => 
+        'Symfony\\Polyfill\\Php85\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php85',
         ),
-        'Symfony\\Polyfill\\Php84\\' => 
+        'Symfony\\Polyfill\\Php84\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php84',
         ),
-        'Symfony\\Polyfill\\Php83\\' => 
+        'Symfony\\Polyfill\\Php83\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php83',
         ),
-        'Symfony\\Polyfill\\Php80\\' => 
+        'Symfony\\Polyfill\\Php80\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
         ),
-        'Symfony\\Polyfill\\Mbstring\\' => 
+        'Symfony\\Polyfill\\Mbstring\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
-        'Symfony\\Polyfill\\Intl\\Normalizer\\' => 
+        'Symfony\\Polyfill\\Intl\\Normalizer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer',
         ),
-        'Symfony\\Polyfill\\Intl\\Idn\\' => 
+        'Symfony\\Polyfill\\Intl\\Idn\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-idn',
         ),
-        'Symfony\\Polyfill\\Intl\\Grapheme\\' => 
+        'Symfony\\Polyfill\\Intl\\Grapheme\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme',
         ),
-        'Symfony\\Polyfill\\Ctype\\' => 
+        'Symfony\\Polyfill\\Ctype\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
         ),
-        'Symfony\\Contracts\\Translation\\' => 
+        'Symfony\\Contracts\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
-        'Symfony\\Contracts\\Service\\' => 
+        'Symfony\\Contracts\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/service-contracts',
         ),
-        'Symfony\\Contracts\\EventDispatcher\\' => 
+        'Symfony\\Contracts\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher-contracts',
         ),
-        'Symfony\\Component\\VarDumper\\' => 
+        'Symfony\\Component\\VarDumper\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
         ),
-        'Symfony\\Component\\Uid\\' => 
+        'Symfony\\Component\\Uid\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/uid',
         ),
-        'Symfony\\Component\\TypeInfo\\' => 
+        'Symfony\\Component\\TypeInfo\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/type-info',
         ),
-        'Symfony\\Component\\Translation\\' => 
+        'Symfony\\Component\\Translation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/translation',
         ),
-        'Symfony\\Component\\String\\' => 
+        'Symfony\\Component\\String\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/string',
         ),
-        'Symfony\\Component\\Serializer\\' => 
+        'Symfony\\Component\\Serializer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/serializer',
         ),
-        'Symfony\\Component\\Routing\\' => 
+        'Symfony\\Component\\Routing\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/routing',
         ),
-        'Symfony\\Component\\PropertyInfo\\' => 
+        'Symfony\\Component\\PropertyInfo\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/property-info',
         ),
-        'Symfony\\Component\\PropertyAccess\\' => 
+        'Symfony\\Component\\PropertyAccess\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/property-access',
         ),
-        'Symfony\\Component\\Process\\' => 
+        'Symfony\\Component\\Process\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/process',
         ),
-        'Symfony\\Component\\Mime\\' => 
+        'Symfony\\Component\\Mime\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mime',
         ),
-        'Symfony\\Component\\Mailer\\Bridge\\Google\\' => 
+        'Symfony\\Component\\Mailer\\Bridge\\Google\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/google-mailer',
         ),
-        'Symfony\\Component\\Mailer\\' => 
+        'Symfony\\Component\\Mailer\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/mailer',
         ),
-        'Symfony\\Component\\HttpKernel\\' => 
+        'Symfony\\Component\\HttpKernel\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-kernel',
         ),
-        'Symfony\\Component\\HttpFoundation\\' => 
+        'Symfony\\Component\\HttpFoundation\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/http-foundation',
         ),
-        'Symfony\\Component\\Finder\\' => 
+        'Symfony\\Component\\Finder\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/finder',
         ),
-        'Symfony\\Component\\Filesystem\\' => 
+        'Symfony\\Component\\Filesystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/filesystem',
         ),
-        'Symfony\\Component\\EventDispatcher\\' => 
+        'Symfony\\Component\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
         ),
-        'Symfony\\Component\\ErrorHandler\\' => 
+        'Symfony\\Component\\ErrorHandler\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/error-handler',
         ),
-        'Symfony\\Component\\CssSelector\\' => 
+        'Symfony\\Component\\CssSelector\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/css-selector',
         ),
-        'Symfony\\Component\\Console\\' => 
+        'Symfony\\Component\\Console\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/console',
         ),
-        'Symfony\\Component\\Clock\\' => 
+        'Symfony\\Component\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/symfony/clock',
         ),
-        'Swaggest\\JsonSchema\\' => 
+        'Swaggest\\JsonSchema\\' =>
         array (
             0 => __DIR__ . '/..' . '/swaggest/json-schema/src',
         ),
-        'Swaggest\\JsonDiff\\' => 
+        'Swaggest\\JsonDiff\\' =>
         array (
             0 => __DIR__ . '/..' . '/swaggest/json-diff/src',
         ),
-        'Spatie\\LaravelIgnition\\' => 
+        'Spatie\\LaravelIgnition\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/laravel-ignition/src',
             1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/laravel-ignition',
         ),
-        'Spatie\\Ignition\\' => 
+        'Spatie\\Ignition\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/ignition/src',
             1 => __DIR__ . '/..' . '/spatie/error-solutions/legacy/ignition',
         ),
-        'Spatie\\FlareClient\\' => 
+        'Spatie\\FlareClient\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/flare-client-php/src',
         ),
-        'Spatie\\ErrorSolutions\\' => 
+        'Spatie\\ErrorSolutions\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/error-solutions/src',
         ),
-        'Spatie\\Backtrace\\' => 
+        'Spatie\\Backtrace\\' =>
         array (
             0 => __DIR__ . '/..' . '/spatie/backtrace/src',
         ),
-        'Revolution\\Google\\Sheets\\' => 
+        'Revolution\\Google\\Sheets\\' =>
         array (
             0 => __DIR__ . '/..' . '/revolution/laravel-google-sheets/src',
         ),
-        'Revolution\\Google\\Client\\' => 
+        'Revolution\\Google\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/revolution/laravel-google-sheets/lib/google',
         ),
-        'Ramsey\\Uuid\\' => 
+        'Ramsey\\Uuid\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/uuid/src',
         ),
-        'Ramsey\\Collection\\' => 
+        'Ramsey\\Collection\\' =>
         array (
             0 => __DIR__ . '/..' . '/ramsey/collection/src',
         ),
-        'Psy\\' => 
+        'Psy\\' =>
         array (
             0 => __DIR__ . '/..' . '/psy/psysh/src',
         ),
-        'Psr\\SimpleCache\\' => 
+        'Psr\\SimpleCache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/simple-cache/src',
         ),
-        'Psr\\Log\\' => 
+        'Psr\\Log\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' => 
+        'Psr\\Http\\Message\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-factory/src',
             1 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Http\\Client\\' => 
+        'Psr\\Http\\Client\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/http-client/src',
         ),
-        'Psr\\EventDispatcher\\' => 
+        'Psr\\EventDispatcher\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/event-dispatcher/src',
         ),
-        'Psr\\Container\\' => 
+        'Psr\\Container\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Psr\\Clock\\' => 
+        'Psr\\Clock\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/clock/src',
         ),
-        'Psr\\Cache\\' => 
+        'Psr\\Cache\\' =>
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
-        'Predis\\' => 
+        'Predis\\' =>
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
-        'PhpParser\\' => 
+        'PhpParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'PhpOption\\' => 
+        'PhpOption\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
         ),
-        'PhpOffice\\PhpSpreadsheet\\' => 
+        'PhpOffice\\PhpSpreadsheet\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpoffice/phpspreadsheet/src/PhpSpreadsheet',
         ),
-        'PhpLang\\' => 
+        'PhpLang\\' =>
         array (
             0 => __DIR__ . '/..' . '/phplang/scope-exit/src',
         ),
-        'PHPStan\\PhpDocParser\\' => 
+        'PHPStan\\PhpDocParser\\' =>
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpdoc-parser/src',
         ),
-        'NunoMaduro\\Collision\\' => 
+        'NunoMaduro\\Collision\\' =>
         array (
             0 => __DIR__ . '/..' . '/nunomaduro/collision/src',
         ),
-        'Nette\\' => 
+        'Nette\\' =>
         array (
             0 => __DIR__ . '/..' . '/nette/schema/src',
             1 => __DIR__ . '/..' . '/nette/utils/src',
         ),
-        'NcJoes\\OfficeConverter\\' => 
+        'NcJoes\\OfficeConverter\\' =>
         array (
             0 => __DIR__ . '/..' . '/ncjoes/office-converter/src/OfficeConverter',
         ),
-        'Monolog\\' => 
+        'Monolog\\' =>
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
-        'Mockery\\' => 
+        'Mockery\\' =>
         array (
             0 => __DIR__ . '/..' . '/mockery/mockery/library/Mockery',
         ),
-        'Matrix\\' => 
+        'Matrix\\' =>
         array (
             0 => __DIR__ . '/..' . '/markbaker/matrix/classes/src',
         ),
-        'Maatwebsite\\Excel\\' => 
+        'Maatwebsite\\Excel\\' =>
         array (
             0 => __DIR__ . '/..' . '/maatwebsite/excel/src',
         ),
-        'League\\Uri\\' => 
+        'League\\Uri\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/uri',
             1 => __DIR__ . '/..' . '/league/uri-interfaces',
         ),
-        'League\\MimeTypeDetection\\' => 
+        'League\\MimeTypeDetection\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/mime-type-detection/src',
         ),
-        'League\\Flysystem\\Local\\' => 
+        'League\\Flysystem\\Local\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-local',
         ),
-        'League\\Flysystem\\AwsS3V3\\' => 
+        'League\\Flysystem\\AwsS3V3\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem-aws-s3-v3',
         ),
-        'League\\Flysystem\\' => 
+        'League\\Flysystem\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
         ),
-        'League\\Config\\' => 
+        'League\\Config\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/config/src',
         ),
-        'League\\CommonMark\\' => 
+        'League\\CommonMark\\' =>
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
         ),
-        'Laravel\\Ui\\' => 
+        'Laravel\\Ui\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/ui/src',
         ),
-        'Laravel\\Tinker\\' => 
+        'Laravel\\Tinker\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/tinker/src',
         ),
-        'Laravel\\SerializableClosure\\' => 
+        'Laravel\\SerializableClosure\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/serializable-closure/src',
         ),
-        'Laravel\\Prompts\\' => 
+        'Laravel\\Prompts\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/prompts/src',
         ),
-        'JmesPath\\' => 
+        'JmesPath\\' =>
         array (
             0 => __DIR__ . '/..' . '/mtdowling/jmespath.php/src',
         ),
-        'Intervention\\HttpAuth\\' => 
+        'Intervention\\HttpAuth\\' =>
         array (
             0 => __DIR__ . '/..' . '/intervention/httpauth/src',
         ),
-        'Illuminate\\Support\\' => 
+        'Illuminate\\Support\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
             1 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Collections',
             2 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Conditionable',
             3 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Reflection',
         ),
-        'Illuminate\\Foundation\\Auth\\' => 
+        'Illuminate\\Foundation\\Auth\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/ui/auth-backend',
         ),
-        'Illuminate\\' => 
+        'Illuminate\\' =>
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
-        'GuzzleHttp\\UriTemplate\\' => 
+        'GuzzleHttp\\UriTemplate\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
         ),
-        'GuzzleHttp\\Psr7\\' => 
+        'GuzzleHttp\\Psr7\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
         ),
-        'GuzzleHttp\\Promise\\' => 
+        'GuzzleHttp\\Promise\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/promises/src',
         ),
-        'GuzzleHttp\\' => 
+        'GuzzleHttp\\' =>
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/guzzle/src',
         ),
-        'GrahamCampbell\\ResultType\\' => 
+        'GrahamCampbell\\ResultType\\' =>
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
-        'Google\\Service\\' => 
+        'Google\\Service\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/apiclient-services/src',
         ),
-        'Google\\Auth\\' => 
+        'Google\\Auth\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/auth/src',
         ),
-        'Google\\' => 
+        'Google\\' =>
         array (
             0 => __DIR__ . '/..' . '/google/apiclient/src',
         ),
-        'Fruitcake\\Cors\\' => 
+        'Fruitcake\\Cors\\' =>
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
         ),
-        'Firebase\\JWT\\' => 
+        'Firebase\\JWT\\' =>
         array (
             0 => __DIR__ . '/..' . '/firebase/php-jwt/src',
         ),
-        'Faker\\' => 
+        'Faker\\' =>
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'Elibyy\\TCPDF\\' => 
+        'Elibyy\\TCPDF\\' =>
         array (
             0 => __DIR__ . '/..' . '/elibyy/tcpdf-laravel/src',
         ),
-        'Egulias\\EmailValidator\\' => 
+        'Egulias\\EmailValidator\\' =>
         array (
             0 => __DIR__ . '/..' . '/egulias/email-validator/src',
         ),
-        'Dotenv\\' => 
+        'Dotenv\\' =>
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
         ),
-        'Doctrine\\Inflector\\' => 
+        'Doctrine\\Inflector\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/inflector/src',
         ),
-        'Doctrine\\Deprecations\\' => 
+        'Doctrine\\Deprecations\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/deprecations/src',
         ),
-        'Doctrine\\Common\\Lexer\\' => 
+        'Doctrine\\Common\\Lexer\\' =>
         array (
             0 => __DIR__ . '/..' . '/doctrine/lexer/src',
         ),
-        'Dflydev\\DotAccessData\\' => 
+        'Dflydev\\DotAccessData\\' =>
         array (
             0 => __DIR__ . '/..' . '/dflydev/dot-access-data/src',
         ),
-        'DeepCopy\\' => 
+        'DeepCopy\\' =>
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'Cron\\' => 
+        'Cron\\' =>
         array (
             0 => __DIR__ . '/..' . '/dragonmantank/cron-expression/src/Cron',
         ),
-        'Composer\\Semver\\' => 
+        'Composer\\Semver\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/semver/src',
         ),
-        'Composer\\Pcre\\' => 
+        'Composer\\Pcre\\' =>
         array (
             0 => __DIR__ . '/..' . '/composer/pcre/src',
         ),
-        'Complex\\' => 
+        'Complex\\' =>
         array (
             0 => __DIR__ . '/..' . '/markbaker/complex/classes/src',
         ),
-        'Carbon\\Doctrine\\' => 
+        'Carbon\\Doctrine\\' =>
         array (
             0 => __DIR__ . '/..' . '/carbonphp/carbon-doctrine-types/src/Carbon/Doctrine',
         ),
-        'Carbon\\' => 
+        'Carbon\\' =>
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'Brick\\Math\\' => 
+        'Brick\\Math\\' =>
         array (
             0 => __DIR__ . '/..' . '/brick/math/src',
         ),
-        'Aws\\' => 
+        'Aws\\' =>
         array (
             0 => __DIR__ . '/..' . '/aws/aws-sdk-php/src',
         ),
-        'App\\' => 
+        'App\\' =>
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'H' => 
+        'H' =>
         array (
-            'HTMLPurifier' => 
+            'HTMLPurifier' =>
             array (
                 0 => __DIR__ . '/..' . '/ezyang/htmlpurifier/library',
             ),
@@ -1074,11 +1074,14 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\finance\\getReimbursement\\v1\\getReimbursement' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/finance/getReimbursement/v1/getReimbursement.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\humanResource\\getPersonBusinessTripSettlement\\v1\\getPersonBusinessTripSettlement' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/humanResource/getPersonBusinessTripSettlement/v1/getPersonBusinessTripSettlement.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\humanResource\\getPersonBusinessTrip\\v1\\getPersonBusinessTrip' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/humanResource/getPersonBusinessTrip/v1/getPersonBusinessTrip.php',
-        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\getBankAccount\\v1\\getBankAccount' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/getBankAccount/v1/getBankAccount.php',
-        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\getBank\\v1\\getBank' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/getBank/v1/getBank.php',
-        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\getInstitutionType\\v1\\getInstitutionType' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/getInstitutionType/v1/getInstitutionType.php',
-        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\getPerson\\v1\\getPerson' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/getPerson/v1/getPerson.php',
-        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\getWorkStructure\\v1\\getWorkStructure' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/getWorkStructure/v1/getWorkStructure.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\bankAccount\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/bankAccount/getAll/v1/getAll.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\bank\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/bank/getAll/v1/getAll.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\businessDocumentType\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/businessDocumentType/getAll/v1/getAll.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\businessDocumentType\\getMasterData\\v1\\getMasterData' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/businessDocumentType/getMasterData/v1/getMasterData.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\businessDocumentType\\getTransactionDocument\\v1\\getTransactionDocument' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/businessDocumentType/getTransactionDocument/v1/getTransactionDocument.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\institutionType\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/institutionType/getAll/v1/getAll.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\person\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/person/getAll/v1/getAll.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\master\\workStructure\\getAll\\v1\\getAll' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/master/workStructure/getAll/v1/getAll.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\supplyChain\\getDeliveryOrder\\v1\\getDeliveryOrder' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/supplyChain/getDeliveryOrder/v1/getDeliveryOrder.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\supplyChain\\getPurchaseOrder\\v1\\getPurchaseOrder' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/supplyChain/getPurchaseOrder/v1/getPurchaseOrder.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Report\\Engines\\form\\dataList\\supplyChain\\getPurchaseRequisition\\v1\\getPurchaseRequisition' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Report/Engines/form/dataList/supplyChain/getPurchaseRequisition/v1/getPurchaseRequisition.php',
@@ -1287,6 +1290,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setCountryAdministrativeAreaLevel3\\v1\\setCountryAdministrativeAreaLevel3' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setCountryAdministrativeAreaLevel3/v1/setCountryAdministrativeAreaLevel3.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setCountryAdministrativeAreaLevel4\\v1\\setCountryAdministrativeAreaLevel4' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setCountryAdministrativeAreaLevel4/v1/setCountryAdministrativeAreaLevel4.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setCountry\\v1\\setCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setCountry/v1/setCountry.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setCurrencyExchangeRate\\v1\\setCurrencyExchangeRate' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setCurrencyExchangeRate/v1/setCurrencyExchangeRate.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setCurrency\\v1\\setCurrency' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setCurrency/v1/setCurrency.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setDataCompression\\v1\\setDataCompression' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setDataCompression/v1/setDataCompression.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\create\\master\\setDayOffGovernmentPolicy\\v1\\setDayOffGovernmentPolicy' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/create/master/setDayOffGovernmentPolicy/v1/setDayOffGovernmentPolicy.php',
@@ -1863,6 +1867,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCountryAdministrativeAreaLevel4\\v1\\getCountryAdministrativeAreaLevel4' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCountryAdministrativeAreaLevel4/v1/getCountryAdministrativeAreaLevel4.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCountryAdministrativeArea\\v1\\getCountryAdministrativeArea' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCountryAdministrativeArea/v1/getCountryAdministrativeArea.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCountry\\v1\\getCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCountry/v1/getCountry.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCurrencyExchangeRateDetail\\v1\\getCurrencyExchangeRateDetail' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCurrencyExchangeRateDetail/v1/getCurrencyExchangeRateDetail.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getCurrency\\v1\\getCurrency' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getCurrency/v1/getCurrency.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getEntityBankAccount\\v1\\getEntityBankAccount' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getEntityBankAccount/v1/getEntityBankAccount.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\read\\dataList\\master\\getEntityContactNumber\\v1\\getEntityContactNumber' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/read/dataList/master/getEntityContactNumber/v1/getEntityContactNumber.php',
@@ -2333,6 +2338,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setCountryAdministrativeAreaLevel3\\v1\\setCountryAdministrativeAreaLevel3' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setCountryAdministrativeAreaLevel3/v1/setCountryAdministrativeAreaLevel3.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setCountryAdministrativeAreaLevel4\\v1\\setCountryAdministrativeAreaLevel4' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setCountryAdministrativeAreaLevel4/v1/setCountryAdministrativeAreaLevel4.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setCountry\\v1\\setCountry' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setCountry/v1/setCountry.php',
+        'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setCurrencyExchangeRate\\v1\\setCurrencyExchangeRate' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setCurrencyExchangeRate/v1/setCurrencyExchangeRate.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setCurrency\\v1\\setCurrency' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setCurrency/v1/setCurrency.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setDataCompression\\v1\\setDataCompression' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setDataCompression/v1/setDataCompression.php',
         'App\\Http\\Controllers\\Application\\BackEnd\\System\\Transaction\\Engines\\update\\master\\setDayOffGovernmentPolicy\\v1\\setDayOffGovernmentPolicy' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/BackEnd/System/Transaction/Engines/update/master/setDayOffGovernmentPolicy/v1/setDayOffGovernmentPolicy.php',
@@ -2622,11 +2628,14 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\finance\\getReimbursement\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/finance/getReimbursement/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\humanResource\\getPersonBusinessTripSettlement\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/humanResource/getPersonBusinessTripSettlement/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\humanResource\\getPersonBusinessTrip\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/humanResource/getPersonBusinessTrip/v1/example.php',
-        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\getBankAccount\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/getBankAccount/v1/example.php',
-        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\getBank\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/getBank/v1/example.php',
-        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\getInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/getInstitutionType/v1/example.php',
-        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\getPerson\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/getPerson/v1/example.php',
-        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\getWorkStructure\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/getWorkStructure/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\bankAccount\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/bankAccount/getAll/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\bank\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/bank/getAll/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\businessDocumentType\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/businessDocumentType/getAll/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\businessDocumentType\\getMasterData\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/businessDocumentType/getMasterData/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\businessDocumentType\\getTransactionDocument\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/businessDocumentType/getTransactionDocument/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\institutionType\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/institutionType/getAll/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\person\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/person/getAll/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\master\\workStructure\\getAll\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/master/workStructure/getAll/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\supplyChain\\getDeliveryOrder\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/supplyChain/getDeliveryOrder/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\supplyChain\\getPurchaseOrder\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/supplyChain/getPurchaseOrder/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\report\\form\\dataList\\supplyChain\\getPurchaseRequisition\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/report/form/dataList/supplyChain/getPurchaseRequisition/v1/example.php',
@@ -2790,6 +2799,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\humanResource\\setPersonWorkTimeSheet\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/humanResource/setPersonWorkTimeSheet/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setCitizenFamilyCard\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setCitizenFamilyCard/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setContactNumberType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setContactNumberType/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setCurrencyExchangeRate\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setCurrencyExchangeRate/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setEducationalInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setEducationalInstitutionType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setEducationalInstitution\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setEducationalInstitution/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\create\\master\\setEducationalLevel\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/create/master/setEducationalLevel/v1/example.php',
@@ -3163,6 +3173,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCountryAdministrativeAreaLevel4\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCountryAdministrativeAreaLevel4/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCountryAdministrativeArea\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCountryAdministrativeArea/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCountry\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCountry/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCurrencyExchangeRateDetail\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCurrencyExchangeRateDetail/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getCurrency\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getCurrency/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getEntityBankAccount\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getEntityBankAccount/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\read\\dataList\\master\\getEntityContactNumber\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/read/dataList/master/getEntityContactNumber/v1/example.php',
@@ -3426,6 +3437,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\humanResource\\setPersonWorkTimeSheet\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/humanResource/setPersonWorkTimeSheet/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setCitizenFamilyCard\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setCitizenFamilyCard/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setContactNumberType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setContactNumberType/v1/example.php',
+        'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setCurrencyExchangeRate\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setCurrencyExchangeRate/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setEducationalInstitutionType\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setEducationalInstitutionType/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setEducationalInstitution\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setEducationalInstitution/v1/example.php',
         'App\\Http\\Controllers\\Application\\FrontEnd\\SandBox\\Examples_APICall\\transaction\\update\\master\\setEducationalLevel\\v1\\example' => __DIR__ . '/../..' . '/app/Http/Controllers/Application/FrontEnd/SandBox/Examples_APICall/transaction/update/master/setEducationalLevel/v1/example.php',
@@ -6923,6 +6935,35 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Advisorynotifications\\Resource\\Projects' => __DIR__ . '/..' . '/google/apiclient-services/src/Advisorynotifications/Resource/Projects.php',
         'Google\\Service\\Advisorynotifications\\Resource\\ProjectsLocations' => __DIR__ . '/..' . '/google/apiclient-services/src/Advisorynotifications/Resource/ProjectsLocations.php',
         'Google\\Service\\Advisorynotifications\\Resource\\ProjectsLocationsNotifications' => __DIR__ . '/..' . '/google/apiclient-services/src/Advisorynotifications/Resource/ProjectsLocationsNotifications.php',
+        'Google\\Service\\AgenciesAndBrands' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands.php',
+        'Google\\Service\\AgenciesAndBrands\\AgenciesandbrandsEmpty' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/AgenciesandbrandsEmpty.php',
+        'Google\\Service\\AgenciesAndBrands\\Date' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Date.php',
+        'Google\\Service\\AgenciesAndBrands\\DateRange' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/DateRange.php',
+        'Google\\Service\\AgenciesAndBrands\\DoubleList' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/DoubleList.php',
+        'Google\\Service\\AgenciesAndBrands\\FetchReportResultRowsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/FetchReportResultRowsResponse.php',
+        'Google\\Service\\AgenciesAndBrands\\Field' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Field.php',
+        'Google\\Service\\AgenciesAndBrands\\FieldFilter' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/FieldFilter.php',
+        'Google\\Service\\AgenciesAndBrands\\Filter' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Filter.php',
+        'Google\\Service\\AgenciesAndBrands\\FilterList' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/FilterList.php',
+        'Google\\Service\\AgenciesAndBrands\\FixedDateRange' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/FixedDateRange.php',
+        'Google\\Service\\AgenciesAndBrands\\IntList' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/IntList.php',
+        'Google\\Service\\AgenciesAndBrands\\ListReportsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/ListReportsResponse.php',
+        'Google\\Service\\AgenciesAndBrands\\MetricValueGroup' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/MetricValueGroup.php',
+        'Google\\Service\\AgenciesAndBrands\\Operation' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Operation.php',
+        'Google\\Service\\AgenciesAndBrands\\Report' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Report.php',
+        'Google\\Service\\AgenciesAndBrands\\ReportDefinition' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/ReportDefinition.php',
+        'Google\\Service\\AgenciesAndBrands\\ReportValue' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/ReportValue.php',
+        'Google\\Service\\AgenciesAndBrands\\Resource\\Agencies' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Resource/Agencies.php',
+        'Google\\Service\\AgenciesAndBrands\\Resource\\AgenciesReports' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Resource/AgenciesReports.php',
+        'Google\\Service\\AgenciesAndBrands\\Resource\\AgenciesReportsOperations' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Resource/AgenciesReportsOperations.php',
+        'Google\\Service\\AgenciesAndBrands\\Resource\\AgenciesReportsResults' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Resource/AgenciesReportsResults.php',
+        'Google\\Service\\AgenciesAndBrands\\Row' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Row.php',
+        'Google\\Service\\AgenciesAndBrands\\RunReportMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/RunReportMetadata.php',
+        'Google\\Service\\AgenciesAndBrands\\RunReportRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/RunReportRequest.php',
+        'Google\\Service\\AgenciesAndBrands\\RunReportResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/RunReportResponse.php',
+        'Google\\Service\\AgenciesAndBrands\\Sort' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Sort.php',
+        'Google\\Service\\AgenciesAndBrands\\Status' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/Status.php',
+        'Google\\Service\\AgenciesAndBrands\\StringList' => __DIR__ . '/..' . '/google/apiclient-services/src/AgenciesAndBrands/StringList.php',
         'Google\\Service\\AgentIdentity' => __DIR__ . '/..' . '/google/apiclient-services/src/AgentIdentity.php',
         'Google\\Service\\AgentIdentityCredentials' => __DIR__ . '/..' . '/google/apiclient-services/src/AgentIdentityCredentials.php',
         'Google\\Service\\AgentIdentityCredentials\\GoogleCloudAgentidentitycredentialsV1ConsentRejected' => __DIR__ . '/..' . '/google/apiclient-services/src/AgentIdentityCredentials/GoogleCloudAgentidentitycredentialsV1ConsentRejected.php',
@@ -7097,6 +7138,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AuthConfigHttpBasicAuthConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AuthConfigHttpBasicAuthConfig.php',
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AuthConfigOauthConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AuthConfigOauthConfig.php',
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AuthConfigOidcConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AuthConfigOidcConfig.php',
+        'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AuthorizeSandboxEnvironmentAccessRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AuthorizeSandboxEnvironmentAccessRequest.php',
+        'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AuthorizeSandboxEnvironmentAccessResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AuthorizeSandboxEnvironmentAccessResponse.php',
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AutomaticResources' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AutomaticResources.php',
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AutoraterConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AutoraterConfig.php',
         'Google\\Service\\Aiplatform\\GoogleCloudAiplatformV1AutoscalingMetricSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/Aiplatform/GoogleCloudAiplatformV1AutoscalingMetricSpec.php',
@@ -18679,6 +18722,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Compute\\FutureResourcesSpecTargetResources' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/FutureResourcesSpecTargetResources.php',
         'Google\\Service\\Compute\\GRPCHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GRPCHealthCheck.php',
         'Google\\Service\\Compute\\GRPCTLSHealthCheck' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GRPCTLSHealthCheck.php',
+        'Google\\Service\\Compute\\GetHealthOperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GetHealthOperationMetadata.php',
+        'Google\\Service\\Compute\\GetHealthOperationMetadataHealthInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GetHealthOperationMetadataHealthInfo.php',
         'Google\\Service\\Compute\\GetVersionOperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GetVersionOperationMetadata.php',
         'Google\\Service\\Compute\\GetVersionOperationMetadataSbomInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GetVersionOperationMetadataSbomInfo.php',
         'Google\\Service\\Compute\\GlobalAddressesMoveRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Compute/GlobalAddressesMoveRequest.php',
@@ -20329,6 +20374,21 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscript' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscript.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegment' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegment.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartChip' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartChip.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartCitationPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartCitationPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartLinkPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartLinkPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartListItem' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartListItem.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartListPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartListPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartMediaPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartMediaPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartProduct' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartProduct.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTablePart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTablePart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTableRow' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTableRow.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTextPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartTextPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentWordInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1ConversationTranscriptTranscriptSegmentWordInfo.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1CorrelationConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1CorrelationConfig.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1CorrelationRule' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1CorrelationRule.php',
@@ -20615,6 +20675,21 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscript' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscript.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegment' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegment.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartChip' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartChip.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartCitationPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartCitationPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartLinkPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartLinkPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartListItem' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartListItem.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartListPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartListPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartMediaPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartMediaPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartProduct' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartProduct.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTablePart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTablePart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTableRow' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTableRow.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTextPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartTextPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentWordInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1ConversationTranscriptTranscriptSegmentWordInfo.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1CreateAnalysisOperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1CreateAnalysisOperationMetadata.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1alpha1CreateIssueMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1alpha1CreateIssueMetadata.php',
@@ -20818,6 +20893,21 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscript' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscript.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegment' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegment.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentDialogflowSegmentMetadata.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartChip' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartChip.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartCitationPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartCitationPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartCustomPayloadPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartLinkPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartLinkPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartListItem' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartListItem.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartListPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartListPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartMediaPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartMediaPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartProduct' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartProduct.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartProductCollectionPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartSuggestionChipsPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTablePart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTablePart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTableRow' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTableRow.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTextPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartTextPart.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentTranscriptPartThoughtPart.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentWordInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainConversationTranscriptTranscriptSegmentWordInfo.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainCreateAnalysisOperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainCreateAnalysisOperationMetadata.php',
         'Google\\Service\\Contactcenterinsights\\GoogleCloudContactcenterinsightsV1mainCreateIssueMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleCloudContactcenterinsightsV1mainCreateIssueMetadata.php',
@@ -20973,6 +21063,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Contactcenterinsights\\GoogleRpcStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleRpcStatus.php',
         'Google\\Service\\Contactcenterinsights\\GoogleTypeExpr' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleTypeExpr.php',
         'Google\\Service\\Contactcenterinsights\\GoogleTypeInterval' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleTypeInterval.php',
+        'Google\\Service\\Contactcenterinsights\\GoogleTypeMoney' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/GoogleTypeMoney.php',
         'Google\\Service\\Contactcenterinsights\\Resource\\Projects' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/Resource/Projects.php',
         'Google\\Service\\Contactcenterinsights\\Resource\\ProjectsLocations' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/Resource/ProjectsLocations.php',
         'Google\\Service\\Contactcenterinsights\\Resource\\ProjectsLocationsAnalysisRules' => __DIR__ . '/..' . '/google/apiclient-services/src/Contactcenterinsights/Resource/ProjectsLocationsAnalysisRules.php',
@@ -21781,6 +21872,60 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Css\\Resource\\AccountsLabels' => __DIR__ . '/..' . '/google/apiclient-services/src/Css/Resource/AccountsLabels.php',
         'Google\\Service\\Css\\Resource\\AccountsQuotas' => __DIR__ . '/..' . '/google/apiclient-services/src/Css/Resource/AccountsQuotas.php',
         'Google\\Service\\Css\\UpdateAccountLabelsRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Css/UpdateAccountLabelsRequest.php',
+        'Google\\Service\\CurationPartners' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners.php',
+        'Google\\Service\\CurationPartners\\AccessControlSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/AccessControlSettings.php',
+        'Google\\Service\\CurationPartners\\ActivateCuratedPackageRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ActivateCuratedPackageRequest.php',
+        'Google\\Service\\CurationPartners\\ActivateDataSegmentRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ActivateDataSegmentRequest.php',
+        'Google\\Service\\CurationPartners\\AdSize' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/AdSize.php',
+        'Google\\Service\\CurationPartners\\CriteriaTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/CriteriaTargeting.php',
+        'Google\\Service\\CurationPartners\\CuratedPackage' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/CuratedPackage.php',
+        'Google\\Service\\CurationPartners\\CurationpartnersEmpty' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/CurationpartnersEmpty.php',
+        'Google\\Service\\CurationPartners\\DataSegment' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/DataSegment.php',
+        'Google\\Service\\CurationPartners\\Date' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Date.php',
+        'Google\\Service\\CurationPartners\\DateRange' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/DateRange.php',
+        'Google\\Service\\CurationPartners\\DeactivateCuratedPackageRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/DeactivateCuratedPackageRequest.php',
+        'Google\\Service\\CurationPartners\\DeactivateDataSegmentRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/DeactivateDataSegmentRequest.php',
+        'Google\\Service\\CurationPartners\\DoubleList' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/DoubleList.php',
+        'Google\\Service\\CurationPartners\\FetchReportResultRowsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/FetchReportResultRowsResponse.php',
+        'Google\\Service\\CurationPartners\\Field' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Field.php',
+        'Google\\Service\\CurationPartners\\FieldFilter' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/FieldFilter.php',
+        'Google\\Service\\CurationPartners\\Filter' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Filter.php',
+        'Google\\Service\\CurationPartners\\FilterList' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/FilterList.php',
+        'Google\\Service\\CurationPartners\\FixedDateRange' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/FixedDateRange.php',
+        'Google\\Service\\CurationPartners\\IntList' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/IntList.php',
+        'Google\\Service\\CurationPartners\\ListCuratedPackagesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ListCuratedPackagesResponse.php',
+        'Google\\Service\\CurationPartners\\ListDataSegmentsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ListDataSegmentsResponse.php',
+        'Google\\Service\\CurationPartners\\ListMediaPlannersResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ListMediaPlannersResponse.php',
+        'Google\\Service\\CurationPartners\\ListReportsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ListReportsResponse.php',
+        'Google\\Service\\CurationPartners\\MediaPlanner' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/MediaPlanner.php',
+        'Google\\Service\\CurationPartners\\MetricValueGroup' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/MetricValueGroup.php',
+        'Google\\Service\\CurationPartners\\Money' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Money.php',
+        'Google\\Service\\CurationPartners\\Operation' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Operation.php',
+        'Google\\Service\\CurationPartners\\PackagePlacementTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/PackagePlacementTargeting.php',
+        'Google\\Service\\CurationPartners\\PackagePublisherProvidedSignalsTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/PackagePublisherProvidedSignalsTargeting.php',
+        'Google\\Service\\CurationPartners\\PackageTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/PackageTargeting.php',
+        'Google\\Service\\CurationPartners\\PackageVideoTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/PackageVideoTargeting.php',
+        'Google\\Service\\CurationPartners\\Report' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Report.php',
+        'Google\\Service\\CurationPartners\\ReportDefinition' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ReportDefinition.php',
+        'Google\\Service\\CurationPartners\\ReportValue' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/ReportValue.php',
+        'Google\\Service\\CurationPartners\\Resource\\Curators' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/Curators.php',
+        'Google\\Service\\CurationPartners\\Resource\\CuratorsCuratedPackages' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/CuratorsCuratedPackages.php',
+        'Google\\Service\\CurationPartners\\Resource\\CuratorsDataSegments' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/CuratorsDataSegments.php',
+        'Google\\Service\\CurationPartners\\Resource\\CuratorsReports' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/CuratorsReports.php',
+        'Google\\Service\\CurationPartners\\Resource\\CuratorsReportsOperations' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/CuratorsReportsOperations.php',
+        'Google\\Service\\CurationPartners\\Resource\\CuratorsReportsResults' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/CuratorsReportsResults.php',
+        'Google\\Service\\CurationPartners\\Resource\\MediaPlanners' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Resource/MediaPlanners.php',
+        'Google\\Service\\CurationPartners\\Row' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Row.php',
+        'Google\\Service\\CurationPartners\\RunReportMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/RunReportMetadata.php',
+        'Google\\Service\\CurationPartners\\RunReportRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/RunReportRequest.php',
+        'Google\\Service\\CurationPartners\\RunReportResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/RunReportResponse.php',
+        'Google\\Service\\CurationPartners\\Sort' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Sort.php',
+        'Google\\Service\\CurationPartners\\Status' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/Status.php',
+        'Google\\Service\\CurationPartners\\StringList' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/StringList.php',
+        'Google\\Service\\CurationPartners\\StringTargetingDimension' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/StringTargetingDimension.php',
+        'Google\\Service\\CurationPartners\\TaxonomyTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/TaxonomyTargeting.php',
+        'Google\\Service\\CurationPartners\\VideoPlayerSizeTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/VideoPlayerSizeTargeting.php',
+        'Google\\Service\\CurationPartners\\VideoPlcmtTargeting' => __DIR__ . '/..' . '/google/apiclient-services/src/CurationPartners/VideoPlcmtTargeting.php',
         'Google\\Service\\CustomSearchAPI' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomSearchAPI.php',
         'Google\\Service\\CustomSearchAPI\\Promotion' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomSearchAPI/Promotion.php',
         'Google\\Service\\CustomSearchAPI\\PromotionBodyLines' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomSearchAPI/PromotionBodyLines.php',
@@ -21846,6 +21991,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\CustomerEngagementSuite\\Conversation' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/Conversation.php',
         'Google\\Service\\CustomerEngagementSuite\\ConversationLoggingSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/ConversationLoggingSettings.php',
         'Google\\Service\\CustomerEngagementSuite\\ConversationTurn' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/ConversationTurn.php',
+        'Google\\Service\\CustomerEngagementSuite\\DashboardSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DashboardSettings.php',
         'Google\\Service\\CustomerEngagementSuite\\DataStore' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStore.php',
         'Google\\Service\\CustomerEngagementSuite\\DataStoreConnectorConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStoreConnectorConfig.php',
         'Google\\Service\\CustomerEngagementSuite\\DataStoreSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStoreSettings.php',
@@ -21863,6 +22009,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\CustomerEngagementSuite\\DataStoreToolRewriterConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStoreToolRewriterConfig.php',
         'Google\\Service\\CustomerEngagementSuite\\DataStoreToolSnippetsConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStoreToolSnippetsConfig.php',
         'Google\\Service\\CustomerEngagementSuite\\DataStoreToolSummarizationConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DataStoreToolSummarizationConfig.php',
+        'Google\\Service\\CustomerEngagementSuite\\DeployChannelResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/DeployChannelResponse.php',
         'Google\\Service\\CustomerEngagementSuite\\Deployment' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/Deployment.php',
         'Google\\Service\\CustomerEngagementSuite\\EndSession' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/EndSession.php',
         'Google\\Service\\CustomerEngagementSuite\\EndUserAuthConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/EndUserAuthConfig.php',
@@ -21935,10 +22082,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1SendMessageConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1SendMessageConfiguration.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1SendMessageRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1SendMessageRequest.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1SendMessageResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1SendMessageResponse.php',
+        'Google\\Service\\CustomerEngagementSuite\\LfA2aV1StreamResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1StreamResponse.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1StringList' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1StringList.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1Task' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1Task.php',
+        'Google\\Service\\CustomerEngagementSuite\\LfA2aV1TaskArtifactUpdateEvent' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1TaskArtifactUpdateEvent.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1TaskPushNotificationConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1TaskPushNotificationConfig.php',
         'Google\\Service\\CustomerEngagementSuite\\LfA2aV1TaskStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1TaskStatus.php',
+        'Google\\Service\\CustomerEngagementSuite\\LfA2aV1TaskStatusUpdateEvent' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/LfA2aV1TaskStatusUpdateEvent.php',
         'Google\\Service\\CustomerEngagementSuite\\ListAgentsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/ListAgentsResponse.php',
         'Google\\Service\\CustomerEngagementSuite\\ListAppVersionsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/ListAppVersionsResponse.php',
         'Google\\Service\\CustomerEngagementSuite\\ListAppsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/CustomerEngagementSuite/ListAppsResponse.php',
@@ -23329,6 +23479,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Dataflow\\ComponentTransform' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ComponentTransform.php',
         'Google\\Service\\Dataflow\\ComputationTopology' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ComputationTopology.php',
         'Google\\Service\\Dataflow\\ConcatPosition' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ConcatPosition.php',
+        'Google\\Service\\Dataflow\\ConfigStoreSetting' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ConfigStoreSetting.php',
+        'Google\\Service\\Dataflow\\ConfigStoreSettingValue' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ConfigStoreSettingValue.php',
         'Google\\Service\\Dataflow\\ContainerSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ContainerSpec.php',
         'Google\\Service\\Dataflow\\CounterMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/CounterMetadata.php',
         'Google\\Service\\Dataflow\\CounterStructuredName' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/CounterStructuredName.php',
@@ -23339,6 +23491,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Dataflow\\DataDiskAssignment' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataDiskAssignment.php',
         'Google\\Service\\Dataflow\\DataSamplingConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataSamplingConfig.php',
         'Google\\Service\\Dataflow\\DataSamplingReport' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataSamplingReport.php',
+        'Google\\Service\\Dataflow\\DataflowEmpty' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataflowEmpty.php',
         'Google\\Service\\Dataflow\\DataflowGaugeValue' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataflowGaugeValue.php',
         'Google\\Service\\Dataflow\\DataflowHistogramValue' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DataflowHistogramValue.php',
         'Google\\Service\\Dataflow\\DatastoreIODetails' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/DatastoreIODetails.php',
@@ -23391,6 +23544,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Dataflow\\LeaseWorkItemRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/LeaseWorkItemRequest.php',
         'Google\\Service\\Dataflow\\LeaseWorkItemResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/LeaseWorkItemResponse.php',
         'Google\\Service\\Dataflow\\Linear' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Linear.php',
+        'Google\\Service\\Dataflow\\ListConfigStoreSettingsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ListConfigStoreSettingsResponse.php',
         'Google\\Service\\Dataflow\\ListJobMessagesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ListJobMessagesResponse.php',
         'Google\\Service\\Dataflow\\ListJobsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ListJobsResponse.php',
         'Google\\Service\\Dataflow\\ListSnapshotsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ListSnapshotsResponse.php',
@@ -23426,14 +23580,23 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Dataflow\\ReportWorkItemStatusRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ReportWorkItemStatusRequest.php',
         'Google\\Service\\Dataflow\\ReportWorkItemStatusResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ReportWorkItemStatusResponse.php',
         'Google\\Service\\Dataflow\\ReportedParallelism' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ReportedParallelism.php',
+        'Google\\Service\\Dataflow\\ResolveConfigStoreSettingRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ResolveConfigStoreSettingRequest.php',
+        'Google\\Service\\Dataflow\\ResolveConfigStoreSettingResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ResolveConfigStoreSettingResponse.php',
         'Google\\Service\\Dataflow\\ResourceUtilizationReport' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ResourceUtilizationReport.php',
         'Google\\Service\\Dataflow\\ResourceUtilizationReportResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/ResourceUtilizationReportResponse.php',
+        'Google\\Service\\Dataflow\\Resource\\Folders' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/Folders.php',
+        'Google\\Service\\Dataflow\\Resource\\FoldersLocations' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/FoldersLocations.php',
+        'Google\\Service\\Dataflow\\Resource\\FoldersLocationsConfigStoreSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/FoldersLocationsConfigStoreSettings.php',
+        'Google\\Service\\Dataflow\\Resource\\Organizations' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/Organizations.php',
+        'Google\\Service\\Dataflow\\Resource\\OrganizationsLocations' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/OrganizationsLocations.php',
+        'Google\\Service\\Dataflow\\Resource\\OrganizationsLocationsConfigStoreSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/OrganizationsLocationsConfigStoreSettings.php',
         'Google\\Service\\Dataflow\\Resource\\Projects' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/Projects.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsJobs' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsJobs.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsJobsDebug' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsJobsDebug.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsJobsMessages' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsJobsMessages.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsJobsWorkItems' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsJobsWorkItems.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsLocations' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsLocations.php',
+        'Google\\Service\\Dataflow\\Resource\\ProjectsLocationsConfigStoreSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsLocationsConfigStoreSettings.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsLocationsFlexTemplates' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsLocationsFlexTemplates.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsLocationsJobs' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsLocationsJobs.php',
         'Google\\Service\\Dataflow\\Resource\\ProjectsLocationsJobsDebug' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataflow/Resource/ProjectsLocationsJobsDebug.php',
@@ -23793,10 +23956,14 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DataprocMetastore\\AutoscalingConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/AutoscalingConfig.php',
         'Google\\Service\\DataprocMetastore\\AuxiliaryVersionConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/AuxiliaryVersionConfig.php',
         'Google\\Service\\DataprocMetastore\\BackendMetastore' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/BackendMetastore.php',
+        'Google\\Service\\DataprocMetastore\\BackfillStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/BackfillStatus.php',
         'Google\\Service\\DataprocMetastore\\Backup' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Backup.php',
+        'Google\\Service\\DataprocMetastore\\BigLakeMetastoreMigrationConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/BigLakeMetastoreMigrationConfig.php',
         'Google\\Service\\DataprocMetastore\\Binding' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Binding.php',
         'Google\\Service\\DataprocMetastore\\CancelMigrationRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CancelMigrationRequest.php',
         'Google\\Service\\DataprocMetastore\\CancelOperationRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CancelOperationRequest.php',
+        'Google\\Service\\DataprocMetastore\\CatalogReport' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CatalogReport.php',
+        'Google\\Service\\DataprocMetastore\\CatalogSummary' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CatalogSummary.php',
         'Google\\Service\\DataprocMetastore\\CdcConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CdcConfig.php',
         'Google\\Service\\DataprocMetastore\\CloudSQLConnectionConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CloudSQLConnectionConfig.php',
         'Google\\Service\\DataprocMetastore\\CloudSQLMigrationConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CloudSQLMigrationConfig.php',
@@ -23805,9 +23972,13 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DataprocMetastore\\CustomRegionMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/CustomRegionMetadata.php',
         'Google\\Service\\DataprocMetastore\\DataCatalogConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/DataCatalogConfig.php',
         'Google\\Service\\DataprocMetastore\\DatabaseDump' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/DatabaseDump.php',
+        'Google\\Service\\DataprocMetastore\\DatabaseReport' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/DatabaseReport.php',
+        'Google\\Service\\DataprocMetastore\\DatabaseSummary' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/DatabaseSummary.php',
         'Google\\Service\\DataprocMetastore\\DataplexConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/DataplexConfig.php',
         'Google\\Service\\DataprocMetastore\\EncryptionConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/EncryptionConfig.php',
         'Google\\Service\\DataprocMetastore\\ErrorDetails' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/ErrorDetails.php',
+        'Google\\Service\\DataprocMetastore\\ExecutionPlan' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/ExecutionPlan.php',
+        'Google\\Service\\DataprocMetastore\\ExecutionResult' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/ExecutionResult.php',
         'Google\\Service\\DataprocMetastore\\ExportMetadataRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/ExportMetadataRequest.php',
         'Google\\Service\\DataprocMetastore\\Expr' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Expr.php',
         'Google\\Service\\DataprocMetastore\\Federation' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Federation.php',
@@ -23865,8 +24036,10 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DataprocMetastore\\GoogleCloudMetastoreV2Service' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/GoogleCloudMetastoreV2Service.php',
         'Google\\Service\\DataprocMetastore\\GoogleLongrunningOperation' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/GoogleLongrunningOperation.php',
         'Google\\Service\\DataprocMetastore\\GoogleRpcStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/GoogleRpcStatus.php',
+        'Google\\Service\\DataprocMetastore\\HiveConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/HiveConfig.php',
         'Google\\Service\\DataprocMetastore\\HiveMetastoreConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/HiveMetastoreConfig.php',
         'Google\\Service\\DataprocMetastore\\HiveMetastoreVersion' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/HiveMetastoreVersion.php',
+        'Google\\Service\\DataprocMetastore\\IcebergConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/IcebergConfig.php',
         'Google\\Service\\DataprocMetastore\\KerberosConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/KerberosConfig.php',
         'Google\\Service\\DataprocMetastore\\Lake' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Lake.php',
         'Google\\Service\\DataprocMetastore\\LatestBackup' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/LatestBackup.php',
@@ -23888,12 +24061,15 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DataprocMetastore\\MetadataManagementActivity' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MetadataManagementActivity.php',
         'Google\\Service\\DataprocMetastore\\MetastoreEmpty' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MetastoreEmpty.php',
         'Google\\Service\\DataprocMetastore\\MigrationExecution' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MigrationExecution.php',
+        'Google\\Service\\DataprocMetastore\\MigrationReport' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MigrationReport.php',
+        'Google\\Service\\DataprocMetastore\\MigrationSummary' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MigrationSummary.php',
         'Google\\Service\\DataprocMetastore\\MoveTableToDatabaseRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MoveTableToDatabaseRequest.php',
         'Google\\Service\\DataprocMetastore\\MoveTableToDatabaseResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MoveTableToDatabaseResponse.php',
         'Google\\Service\\DataprocMetastore\\MultiRegionMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/MultiRegionMetadata.php',
         'Google\\Service\\DataprocMetastore\\NetworkConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/NetworkConfig.php',
         'Google\\Service\\DataprocMetastore\\Operation' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Operation.php',
         'Google\\Service\\DataprocMetastore\\OperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/OperationMetadata.php',
+        'Google\\Service\\DataprocMetastore\\PartitionReport' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/PartitionReport.php',
         'Google\\Service\\DataprocMetastore\\Policy' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Policy.php',
         'Google\\Service\\DataprocMetastore\\QueryMetadataRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/QueryMetadataRequest.php',
         'Google\\Service\\DataprocMetastore\\QueryMetadataResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/QueryMetadataResponse.php',
@@ -23920,9 +24096,12 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DataprocMetastore\\StartMigrationRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/StartMigrationRequest.php',
         'Google\\Service\\DataprocMetastore\\Status' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/Status.php',
         'Google\\Service\\DataprocMetastore\\StatusProto' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/StatusProto.php',
+        'Google\\Service\\DataprocMetastore\\TableReport' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/TableReport.php',
+        'Google\\Service\\DataprocMetastore\\TableSummary' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/TableSummary.php',
         'Google\\Service\\DataprocMetastore\\TelemetryConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/TelemetryConfig.php',
         'Google\\Service\\DataprocMetastore\\TestIamPermissionsRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/TestIamPermissionsRequest.php',
         'Google\\Service\\DataprocMetastore\\TestIamPermissionsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/TestIamPermissionsResponse.php',
+        'Google\\Service\\DataprocMetastore\\ValueDiff' => __DIR__ . '/..' . '/google/apiclient-services/src/DataprocMetastore/ValueDiff.php',
         'Google\\Service\\Dataproc\\AcceleratorConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataproc/AcceleratorConfig.php',
         'Google\\Service\\Dataproc\\AccessSessionSparkApplicationEnvironmentInfoResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataproc/AccessSessionSparkApplicationEnvironmentInfoResponse.php',
         'Google\\Service\\Dataproc\\AccessSessionSparkApplicationJobResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Dataproc/AccessSessionSparkApplicationJobResponse.php',
@@ -24584,6 +24763,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DeveloperConnect\\FetchReadWriteTokenRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/FetchReadWriteTokenRequest.php',
         'Google\\Service\\DeveloperConnect\\FetchReadWriteTokenResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/FetchReadWriteTokenResponse.php',
         'Google\\Service\\DeveloperConnect\\FetchUserRepositoriesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/FetchUserRepositoriesResponse.php',
+        'Google\\Service\\DeveloperConnect\\FieldVisibility' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/FieldVisibility.php',
         'Google\\Service\\DeveloperConnect\\FinishOAuthResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/FinishOAuthResponse.php',
         'Google\\Service\\DeveloperConnect\\GKEWorkload' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/GKEWorkload.php',
         'Google\\Service\\DeveloperConnect\\GenericHTTPEndpointConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/GenericHTTPEndpointConfig.php',
@@ -24610,6 +24790,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DeveloperConnect\\ListOperationsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/ListOperationsResponse.php',
         'Google\\Service\\DeveloperConnect\\ListUsersResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/ListUsersResponse.php',
         'Google\\Service\\DeveloperConnect\\Location' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/Location.php',
+        'Google\\Service\\DeveloperConnect\\McpToolVisibility' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/McpToolVisibility.php',
         'Google\\Service\\DeveloperConnect\\OAuthCredential' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/OAuthCredential.php',
         'Google\\Service\\DeveloperConnect\\Operation' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/Operation.php',
         'Google\\Service\\DeveloperConnect\\OperationMetadata' => __DIR__ . '/..' . '/google/apiclient-services/src/DeveloperConnect/OperationMetadata.php',
@@ -26402,6 +26583,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1Sitemap' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1Sitemap.php',
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1SpannerSource' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1SpannerSource.php',
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequest.php',
+        'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequestAgentsSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequestAgentsSpec.php',
+        'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequestAgentsSpecAgentSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequestAgentsSpecAgentSpec.php',
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequestGenerationSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequestGenerationSpec.php',
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequestToolsSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequestToolsSpec.php',
         'Google\\Service\\DiscoveryEngine\\GoogleCloudDiscoveryengineV1StreamAssistRequestToolsSpecImageGenerationSpec' => __DIR__ . '/..' . '/google/apiclient-services/src/DiscoveryEngine/GoogleCloudDiscoveryengineV1StreamAssistRequestToolsSpecImageGenerationSpec.php',
@@ -29233,9 +29416,12 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1GenerateAppAttestChallengeResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1GenerateAppAttestChallengeResponse.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeRequest.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1GeneratePlayIntegrityChallengeResponse.php',
+        'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1LimitedUseConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1LimitedUseConfig.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1ListDebugTokensResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1ListDebugTokensResponse.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1ListResourcePoliciesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1ListResourcePoliciesResponse.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1ListServicesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1ListServicesResponse.php',
+        'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1MintAppCheckTokenRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1MintAppCheckTokenRequest.php',
+        'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1MintAppCheckTokenResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1MintAppCheckTokenResponse.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1PlayIntegrityConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1PlayIntegrityConfig.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1PlayIntegrityConfigAccountDetails' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1PlayIntegrityConfigAccountDetails.php',
         'Google\\Service\\Firebaseappcheck\\GoogleFirebaseAppcheckV1PlayIntegrityConfigAppIntegrity' => __DIR__ . '/..' . '/google/apiclient-services/src/Firebaseappcheck/GoogleFirebaseAppcheckV1PlayIntegrityConfigAppIntegrity.php',
@@ -30803,6 +30989,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\HangoutsChat\\KeyValue' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/KeyValue.php',
         'Google\\Service\\HangoutsChat\\ListCustomEmojisResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListCustomEmojisResponse.php',
         'Google\\Service\\HangoutsChat\\ListMembershipsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListMembershipsResponse.php',
+        'Google\\Service\\HangoutsChat\\ListMessagePinsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListMessagePinsResponse.php',
         'Google\\Service\\HangoutsChat\\ListMessagesResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListMessagesResponse.php',
         'Google\\Service\\HangoutsChat\\ListReactionsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListReactionsResponse.php',
         'Google\\Service\\HangoutsChat\\ListSectionItemsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/ListSectionItemsResponse.php',
@@ -30829,6 +31016,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\HangoutsChat\\MessageBatchUpdatedEventData' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MessageBatchUpdatedEventData.php',
         'Google\\Service\\HangoutsChat\\MessageCreatedEventData' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MessageCreatedEventData.php',
         'Google\\Service\\HangoutsChat\\MessageDeletedEventData' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MessageDeletedEventData.php',
+        'Google\\Service\\HangoutsChat\\MessagePin' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MessagePin.php',
         'Google\\Service\\HangoutsChat\\MessageUpdatedEventData' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MessageUpdatedEventData.php',
         'Google\\Service\\HangoutsChat\\MoveSectionItemRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MoveSectionItemRequest.php',
         'Google\\Service\\HangoutsChat\\MoveSectionItemResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/MoveSectionItemResponse.php',
@@ -30854,6 +31042,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\HangoutsChat\\Resource\\RoomsConversations' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/RoomsConversations.php',
         'Google\\Service\\HangoutsChat\\Resource\\Spaces' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/Spaces.php',
         'Google\\Service\\HangoutsChat\\Resource\\SpacesMembers' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/SpacesMembers.php',
+        'Google\\Service\\HangoutsChat\\Resource\\SpacesMessagePins' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/SpacesMessagePins.php',
         'Google\\Service\\HangoutsChat\\Resource\\SpacesMessages' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/SpacesMessages.php',
         'Google\\Service\\HangoutsChat\\Resource\\SpacesMessagesAttachments' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/SpacesMessagesAttachments.php',
         'Google\\Service\\HangoutsChat\\Resource\\SpacesMessagesReactions' => __DIR__ . '/..' . '/google/apiclient-services/src/HangoutsChat/Resource/SpacesMessagesReactions.php',
@@ -37028,8 +37217,11 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\BackupRun' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/BackupRun.php',
         'Google\\Service\\SQLAdmin\\BackupRunsListResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/BackupRunsListResponse.php',
         'Google\\Service\\SQLAdmin\\BinLogCoordinates' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/BinLogCoordinates.php',
+        'Google\\Service\\SQLAdmin\\BlueGreenDeployment' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/BlueGreenDeployment.php',
+        'Google\\Service\\SQLAdmin\\BlueGreenDeploymentInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/BlueGreenDeploymentInfo.php',
         'Google\\Service\\SQLAdmin\\CloneContext' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/CloneContext.php',
         'Google\\Service\\SQLAdmin\\Column' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Column.php',
+        'Google\\Service\\SQLAdmin\\ConfigDiff' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ConfigDiff.php',
         'Google\\Service\\SQLAdmin\\ConnectPoolNodeConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ConnectPoolNodeConfig.php',
         'Google\\Service\\SQLAdmin\\ConnectSettings' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ConnectSettings.php',
         'Google\\Service\\SQLAdmin\\ConnectionPoolConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ConnectionPoolConfig.php',
@@ -37045,6 +37237,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\DemoteMasterContext' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DemoteMasterContext.php',
         'Google\\Service\\SQLAdmin\\DemoteMasterMySqlReplicaConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DemoteMasterMySqlReplicaConfiguration.php',
         'Google\\Service\\SQLAdmin\\DenyMaintenancePeriod' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DenyMaintenancePeriod.php',
+        'Google\\Service\\SQLAdmin\\DeploymentTask' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DeploymentTask.php',
+        'Google\\Service\\SQLAdmin\\DeploymentTasks' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DeploymentTasks.php',
         'Google\\Service\\SQLAdmin\\DiskEncryptionConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DiskEncryptionConfiguration.php',
         'Google\\Service\\SQLAdmin\\DiskEncryptionStatus' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DiskEncryptionStatus.php',
         'Google\\Service\\SQLAdmin\\DnsNameMapping' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/DnsNameMapping.php',
@@ -37095,12 +37289,14 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\IpConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/IpConfiguration.php',
         'Google\\Service\\SQLAdmin\\IpMapping' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/IpMapping.php',
         'Google\\Service\\SQLAdmin\\ListBackupsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ListBackupsResponse.php',
+        'Google\\Service\\SQLAdmin\\ListBlueGreenDeploymentsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ListBlueGreenDeploymentsResponse.php',
         'Google\\Service\\SQLAdmin\\LocationPreference' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/LocationPreference.php',
         'Google\\Service\\SQLAdmin\\MaintenanceWindow' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/MaintenanceWindow.php',
         'Google\\Service\\SQLAdmin\\Message' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Message.php',
         'Google\\Service\\SQLAdmin\\Metadata' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Metadata.php',
         'Google\\Service\\SQLAdmin\\MySqlReplicaConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/MySqlReplicaConfiguration.php',
         'Google\\Service\\SQLAdmin\\MySqlSyncConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/MySqlSyncConfig.php',
+        'Google\\Service\\SQLAdmin\\NodeInfo' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/NodeInfo.php',
         'Google\\Service\\SQLAdmin\\OnPremisesConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/OnPremisesConfiguration.php',
         'Google\\Service\\SQLAdmin\\Operation' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Operation.php',
         'Google\\Service\\SQLAdmin\\OperationError' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/OperationError.php',
@@ -37122,9 +37318,11 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\ReadPoolAutoScaleConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ReadPoolAutoScaleConfig.php',
         'Google\\Service\\SQLAdmin\\ReplicaConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ReplicaConfiguration.php',
         'Google\\Service\\SQLAdmin\\ReplicationCluster' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/ReplicationCluster.php',
+        'Google\\Service\\SQLAdmin\\RequestedConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/RequestedConfig.php',
         'Google\\Service\\SQLAdmin\\Reschedule' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Reschedule.php',
         'Google\\Service\\SQLAdmin\\Resource\\BackupRuns' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/BackupRuns.php',
         'Google\\Service\\SQLAdmin\\Resource\\Backups' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/Backups.php',
+        'Google\\Service\\SQLAdmin\\Resource\\BlueGreenDeployments' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/BlueGreenDeployments.php',
         'Google\\Service\\SQLAdmin\\Resource\\Connect' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/Connect.php',
         'Google\\Service\\SQLAdmin\\Resource\\Databases' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/Databases.php',
         'Google\\Service\\SQLAdmin\\Resource\\Flags' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Resource/Flags.php',
@@ -37143,6 +37341,8 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\Row' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Row.php',
         'Google\\Service\\SQLAdmin\\SelectedObjects' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SelectedObjects.php',
         'Google\\Service\\SQLAdmin\\Settings' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Settings.php',
+        'Google\\Service\\SQLAdmin\\SourceRole' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SourceRole.php',
+        'Google\\Service\\SQLAdmin\\SourceTargetPairedNode' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SourceTargetPairedNode.php',
         'Google\\Service\\SQLAdmin\\SqlActiveDirectoryConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SqlActiveDirectoryConfig.php',
         'Google\\Service\\SQLAdmin\\SqlExternalSyncSettingError' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SqlExternalSyncSettingError.php',
         'Google\\Service\\SQLAdmin\\SqlInstancesAcquireSsrsLeaseResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SqlInstancesAcquireSsrsLeaseResponse.php',
@@ -37171,8 +37371,10 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\SQLAdmin\\SslCertsInsertResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SslCertsInsertResponse.php',
         'Google\\Service\\SQLAdmin\\SslCertsListResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SslCertsListResponse.php',
         'Google\\Service\\SQLAdmin\\Status' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Status.php',
+        'Google\\Service\\SQLAdmin\\SwitchoverBlueGreenDeploymentRequest' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SwitchoverBlueGreenDeploymentRequest.php',
         'Google\\Service\\SQLAdmin\\SyncFlags' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/SyncFlags.php',
         'Google\\Service\\SQLAdmin\\TargetMetric' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/TargetMetric.php',
+        'Google\\Service\\SQLAdmin\\TargetRole' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/TargetRole.php',
         'Google\\Service\\SQLAdmin\\Tier' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/Tier.php',
         'Google\\Service\\SQLAdmin\\TiersListResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/TiersListResponse.php',
         'Google\\Service\\SQLAdmin\\TruncateLogContext' => __DIR__ . '/..' . '/google/apiclient-services/src/SQLAdmin/TruncateLogContext.php',
@@ -40543,8 +40745,12 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Google\\Service\\ThreatIntelligenceService\\CustomerProfileWebPresence' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/CustomerProfileWebPresence.php',
         'Google\\Service\\ThreatIntelligenceService\\DataLeakAlertDetail' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DataLeakAlertDetail.php',
         'Google\\Service\\ThreatIntelligenceService\\DataLeakFindingDetail' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DataLeakFindingDetail.php',
+        'Google\\Service\\ThreatIntelligenceService\\DocumentQuery' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DocumentQuery.php',
+        'Google\\Service\\ThreatIntelligenceService\\DomainConfiguration' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DomainConfiguration.php',
         'Google\\Service\\ThreatIntelligenceService\\DomainMonitoringConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DomainMonitoringConfig.php',
         'Google\\Service\\ThreatIntelligenceService\\DomainMonitoringDomain' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DomainMonitoringDomain.php',
+        'Google\\Service\\ThreatIntelligenceService\\DomainMonitoringFeatureConfig' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DomainMonitoringFeatureConfig.php',
+        'Google\\Service\\ThreatIntelligenceService\\DomainSetting' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/DomainSetting.php',
         'Google\\Service\\ThreatIntelligenceService\\EntityProfile' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/EntityProfile.php',
         'Google\\Service\\ThreatIntelligenceService\\EnumerateAlertFacetsResponse' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/EnumerateAlertFacetsResponse.php',
         'Google\\Service\\ThreatIntelligenceService\\Evidence' => __DIR__ . '/..' . '/google/apiclient-services/src/ThreatIntelligenceService/Evidence.php',
@@ -45209,9 +45415,11 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Monolog\\Formatter\\LogstashFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/LogstashFormatter.php',
         'Monolog\\Formatter\\MongoDBFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/MongoDBFormatter.php',
         'Monolog\\Formatter\\NormalizerFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/NormalizerFormatter.php',
+        'Monolog\\Formatter\\RedactingFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/RedactingFormatter.php',
         'Monolog\\Formatter\\ScalarFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/ScalarFormatter.php',
         'Monolog\\Formatter\\SyslogFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/SyslogFormatter.php',
         'Monolog\\Formatter\\WildfireFormatter' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/WildfireFormatter.php',
+        'Monolog\\Formatter\\WrappingFormatterInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Formatter/WrappingFormatterInterface.php',
         'Monolog\\Handler\\AbstractHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/AbstractHandler.php',
         'Monolog\\Handler\\AbstractProcessingHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/AbstractProcessingHandler.php',
         'Monolog\\Handler\\AbstractSyslogHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/AbstractSyslogHandler.php',
@@ -45239,6 +45447,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Monolog\\Handler\\FlowdockHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FlowdockHandler.php',
         'Monolog\\Handler\\FormattableHandlerInterface' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FormattableHandlerInterface.php',
         'Monolog\\Handler\\FormattableHandlerTrait' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FormattableHandlerTrait.php',
+        'Monolog\\Handler\\FrankenPhpHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/FrankenPhpHandler.php',
         'Monolog\\Handler\\GelfHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/GelfHandler.php',
         'Monolog\\Handler\\GroupHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/GroupHandler.php',
         'Monolog\\Handler\\Handler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/Handler.php',
@@ -45247,6 +45456,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'Monolog\\Handler\\IFTTTHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/IFTTTHandler.php',
         'Monolog\\Handler\\InsightOpsHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/InsightOpsHandler.php',
         'Monolog\\Handler\\LogEntriesHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/LogEntriesHandler.php',
+        'Monolog\\Handler\\LogMonsterHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/LogMonsterHandler.php',
         'Monolog\\Handler\\LogglyHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/LogglyHandler.php',
         'Monolog\\Handler\\LogmaticHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/LogmaticHandler.php',
         'Monolog\\Handler\\MailHandler' => __DIR__ . '/..' . '/monolog/monolog/src/Monolog/Handler/MailHandler.php',

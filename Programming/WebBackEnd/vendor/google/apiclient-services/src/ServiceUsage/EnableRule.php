@@ -43,8 +43,9 @@ class EnableRule extends \Google\Collection
   public const ENABLE_TYPE_V1_COMPATIBLE = 'V1_COMPATIBLE';
   protected $collection_key = 'values';
   /**
-   * Client and resource project enable type.
+   * Deprecated: EnableType is not supported.
    *
+   * @deprecated
    * @var string
    */
   public $enableType;
@@ -67,10 +68,11 @@ class EnableRule extends \Google\Collection
   public $values;
 
   /**
-   * Client and resource project enable type.
+   * Deprecated: EnableType is not supported.
    *
    * Accepted values: ENABLE_TYPE_UNSPECIFIED, CLIENT, RESOURCE, V1_COMPATIBLE
    *
+   * @deprecated
    * @param self::ENABLE_TYPE_* $enableType
    */
   public function setEnableType($enableType)
@@ -78,6 +80,7 @@ class EnableRule extends \Google\Collection
     $this->enableType = $enableType;
   }
   /**
+   * @deprecated
    * @return self::ENABLE_TYPE_*
    */
   public function getEnableType()

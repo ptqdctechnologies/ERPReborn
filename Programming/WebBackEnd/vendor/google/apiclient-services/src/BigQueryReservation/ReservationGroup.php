@@ -20,6 +20,12 @@ namespace Google\Service\BigQueryReservation;
 class ReservationGroup extends \Google\Model
 {
   /**
+   * Output only. Creation time of the reservation group.
+   *
+   * @var string
+   */
+  public $creationTime;
+  /**
    * Identifier. The resource name of the reservation group, e.g.,
    * `projects/locations/reservationGroups/team1-prod`. The reservation_group_id
    * must only contain lower case alphanumeric characters or dashes. It must
@@ -37,7 +43,32 @@ class ReservationGroup extends \Google\Model
    * @var string
    */
   public $parentGroup;
+  /**
+   * Output only. Last update time of the reservation group via a user
+   * operation. This timestamp is updated only when an update operation
+   * explicitly targets this reservation group directly. It is not updated when
+   * parent or child groups are created, updated, or deleted.
+   *
+   * @var string
+   */
+  public $updateTime;
 
+  /**
+   * Output only. Creation time of the reservation group.
+   *
+   * @param string $creationTime
+   */
+  public function setCreationTime($creationTime)
+  {
+    $this->creationTime = $creationTime;
+  }
+  /**
+   * @return string
+   */
+  public function getCreationTime()
+  {
+    return $this->creationTime;
+  }
   /**
    * Identifier. The resource name of the reservation group, e.g.,
    * `projects/locations/reservationGroups/team1-prod`. The reservation_group_id
@@ -75,6 +106,25 @@ class ReservationGroup extends \Google\Model
   public function getParentGroup()
   {
     return $this->parentGroup;
+  }
+  /**
+   * Output only. Last update time of the reservation group via a user
+   * operation. This timestamp is updated only when an update operation
+   * explicitly targets this reservation group directly. It is not updated when
+   * parent or child groups are created, updated, or deleted.
+   *
+   * @param string $updateTime
+   */
+  public function setUpdateTime($updateTime)
+  {
+    $this->updateTime = $updateTime;
+  }
+  /**
+   * @return string
+   */
+  public function getUpdateTime()
+  {
+    return $this->updateTime;
   }
 }
 

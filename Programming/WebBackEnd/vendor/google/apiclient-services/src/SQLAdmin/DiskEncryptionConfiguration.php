@@ -20,6 +20,13 @@ namespace Google\Service\SQLAdmin;
 class DiskEncryptionConfiguration extends \Google\Model
 {
   /**
+   * Optional. If true, enables Confidential Mode for the instance's Hyperdisk
+   * Balanced volumes. Only supported for zonal C4A instances currently.
+   *
+   * @var bool
+   */
+  public $confidentialMode;
+  /**
    * This is always `sql#diskEncryptionConfiguration`.
    *
    * @var string
@@ -32,6 +39,23 @@ class DiskEncryptionConfiguration extends \Google\Model
    */
   public $kmsKeyName;
 
+  /**
+   * Optional. If true, enables Confidential Mode for the instance's Hyperdisk
+   * Balanced volumes. Only supported for zonal C4A instances currently.
+   *
+   * @param bool $confidentialMode
+   */
+  public function setConfidentialMode($confidentialMode)
+  {
+    $this->confidentialMode = $confidentialMode;
+  }
+  /**
+   * @return bool
+   */
+  public function getConfidentialMode()
+  {
+    return $this->confidentialMode;
+  }
   /**
    * This is always `sql#diskEncryptionConfiguration`.
    *

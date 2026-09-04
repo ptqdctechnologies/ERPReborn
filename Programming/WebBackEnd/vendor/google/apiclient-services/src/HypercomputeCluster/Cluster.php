@@ -65,6 +65,12 @@ class Cluster extends \Google\Model
   protected $storageResourcesType = StorageResource::class;
   protected $storageResourcesDataType = 'map';
   /**
+   * Output only. The globally unique identifier for this Cluster.
+   *
+   * @var string
+   */
+  public $uid;
+  /**
    * Output only. Time that the cluster was most recently updated.
    *
    * @var string
@@ -232,6 +238,22 @@ class Cluster extends \Google\Model
   public function getStorageResources()
   {
     return $this->storageResources;
+  }
+  /**
+   * Output only. The globally unique identifier for this Cluster.
+   *
+   * @param string $uid
+   */
+  public function setUid($uid)
+  {
+    $this->uid = $uid;
+  }
+  /**
+   * @return string
+   */
+  public function getUid()
+  {
+    return $this->uid;
   }
   /**
    * Output only. Time that the cluster was most recently updated.

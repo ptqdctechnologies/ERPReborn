@@ -43,19 +43,19 @@ use Google\Service\AgentIdentity\UndeleteAuthProviderRequest;
 class ProjectsLocationsAuthProviders extends \Google\Service\Resource
 {
   /**
-   * Creates a new AuthProvider in a given project and location.
+   * Creates a new auth provider in a given project and location.
    * (authProviders.create)
    *
-   * @param string $parent Required. The parent resource where the AuthProvider is
-   * created. Format: projects/{project}/locations/{location}
+   * @param string $parent Required. The parent resource where the auth provider
+   * is created. Format: projects/{project}/locations/{location}
    * @param AuthProvider $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string authProviderId Required. The ID to use for the
-   * AuthProvider, which will become the final segment of the AuthProvider's
-   * resource name. This value should be 1-63 characters, and valid characters are
-   * /a-z-/. The first character must be a lowercase letter, and the last
-   * character must be a lowercase letter or a number.
+   * @opt_param string authProviderId Required. The ID to use for the auth
+   * provider, which will become the final segment of the auth provider's resource
+   * name. This value should be 1-63 characters, and valid characters are /a-z-/.
+   * The first character must be a lowercase letter, and the last character must
+   * be a lowercase letter or a number.
    * @opt_param string requestId Optional. An optional request ID to identify
    * requests. Specify a unique request ID so that if you must retry your request,
    * the server will know to ignore the request if it has already been completed.
@@ -77,9 +77,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('create', [$params], AuthProvider::class);
   }
   /**
-   * Deletes a single AuthProvider. (authProviders.delete)
+   * Deletes a single auth provider. (authProviders.delete)
    *
-   * @param string $name Required. Name of the resource
+   * @param string $name Required. The resource name of the auth provider.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string requestId Optional. An optional request ID to identify
@@ -103,9 +103,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('delete', [$params], AgentidentityEmpty::class);
   }
   /**
-   * Disables a single AuthProvider. (authProviders.disable)
+   * Disables a single auth provider. (authProviders.disable)
    *
-   * @param string $name Required. Name of the resource Format:
+   * @param string $name Required. The resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param DisableAuthProviderRequest $postBody
    * @param array $optParams Optional parameters.
@@ -119,9 +119,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('disable', [$params], AuthProvider::class);
   }
   /**
-   * Enables a single AuthProvider. (authProviders.enable)
+   * Enables a single auth provider. (authProviders.enable)
    *
-   * @param string $name Required. Name of the resource Format:
+   * @param string $name Required. The resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param EnableAuthProviderRequest $postBody
    * @param array $optParams Optional parameters.
@@ -135,9 +135,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('enable', [$params], AuthProvider::class);
   }
   /**
-   * Gets details of a single AuthProvider. (authProviders.get)
+   * Gets details of a single auth provider. (authProviders.get)
    *
-   * @param string $name Required. Name of the resource
+   * @param string $name Required. The resource name of the auth provider.
    * @param array $optParams Optional parameters.
    * @return AuthProvider
    * @throws \Google\Service\Exception
@@ -180,7 +180,7 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('getIamPolicy', [$params], Policy::class);
   }
   /**
-   * Lists AuthProviders in a given project and location.
+   * Lists auth providers in a given project and location.
    * (authProviders.listProjectsLocationsAuthProviders)
    *
    * @param string $parent Required. The parent resource where the search is
@@ -193,13 +193,13 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
    * by auth_provider_id in ascending order.
    * @opt_param int pageSize Optional. Requested page size. Server may return
    * fewer items than requested. If unspecified, server will pick an appropriate
-   * default.
+   * default. The maximum page size is 1000.
    * @opt_param string pageToken Optional. A token, which can be sent as
    * `page_token` to retrieve the next page. If this field is omitted, the first
    * page is returned.
-   * @opt_param bool showDeleted Optional. Deleted auth_providers will be kept
+   * @opt_param bool showDeleted Optional. Deleted auth providers will be kept
    * with a soft-delete for 30 days before being purged. If this field is set to
-   * true, deleted auth_providers will also be returned.
+   * `true`, deleted auth providers will also be returned.
    * @return ListAuthProvidersResponse
    * @throws \Google\Service\Exception
    */
@@ -210,9 +210,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('list', [$params], ListAuthProvidersResponse::class);
   }
   /**
-   * Updates the parameters of a single AuthProvider. (authProviders.patch)
+   * Updates the parameters of a single auth provider. (authProviders.patch)
    *
-   * @param string $name Identifier. The full resource name of the auth_provider.
+   * @param string $name Identifier. The full resource name of the auth provider.
    * Format: projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param AuthProvider $postBody
    * @param array $optParams Optional parameters.
@@ -229,8 +229,8 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
    * be a valid UUID with the exception that zero UUID is not supported
    * (00000000-0000-0000-0000-000000000000).
    * @opt_param string updateMask Optional. Field mask is used to specify the
-   * fields to be overwritten in the AuthProvider resource by the update. The
-   * fields specified in the update_mask are relative to the resource, not the
+   * fields to be overwritten in the auth provider resource by the update. The
+   * fields specified in the `update_mask` are relative to the resource, not the
    * full request. A field will be overwritten if it is in the mask. If the user
    * does not provide a mask then all fields present in the request will be
    * overwritten.
@@ -244,7 +244,7 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('patch', [$params], AuthProvider::class);
   }
   /**
-   * Queries what all auth_providers are used by a given workload_id.
+   * Queries which auth providers are used by a given workload ID.
    * (authProviders.query)
    *
    * @param string $parent Required. The parent resource where the search is
@@ -271,20 +271,20 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('query', [$params], QueryAuthProvidersResponse::class);
   }
   /**
-   * Queries what all workloads are using a given auth_provider.
+   * Queries which workloads are using a given auth provider.
    * (authProviders.queryWorkloads)
    *
-   * @param string $name Required. The name of the auth_provider to query. Format:
+   * @param string $name Required. The name of the auth provider to query. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param array $optParams Optional parameters.
    *
    * @opt_param int pageSize Optional. Requested page size. Server may return
    * fewer items than requested. If unspecified, server will pick an appropriate
-   * default.
+   * default. The maximum page size is 1000.
    * @opt_param string pageToken Optional. A token, which can be sent as
    * `page_token` to retrieve the next page. When paginating, all other parameters
-   * provided to QueryWorkloads must match the call that provided the page token.
-   * If this field is omitted, the first page is returned.
+   * provided to `QueryWorkloads` must match the call that provided the page
+   * token. If this field is omitted, the first page is returned.
    * @return QueryWorkloadsResponse
    * @throws \Google\Service\Exception
    */
@@ -295,12 +295,12 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('queryWorkloads', [$params], QueryWorkloadsResponse::class);
   }
   /**
-   * Revokes all authorizations for a specific user on an AuthProvider. This
-   * deletes all authorization records associated with the user and AuthProvider,
+   * Revokes all authorizations for a specific user on an auth provider. This
+   * deletes all authorization records associated with the user and auth provider,
    * effectively revoking access across all agents.
    * (authProviders.revokeAuthorization)
    *
-   * @param string $name Required. The resource name of the AuthProvider. Format:
+   * @param string $name Required. The resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param RevokeAuthorizationRequest $postBody
    * @param array $optParams Optional parameters.
@@ -357,9 +357,9 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     return $this->call('testIamPermissions', [$params], TestIamPermissionsResponse::class);
   }
   /**
-   * Undeletes a single AuthProvider. (authProviders.undelete)
+   * Undeletes a single auth provider. (authProviders.undelete)
    *
-   * @param string $name Required. Name of the resource Format:
+   * @param string $name Required. The resource name of the auth provider. Format:
    * projects/{project}/locations/{location}/authProviders/{auth_provider}
    * @param UndeleteAuthProviderRequest $postBody
    * @param array $optParams Optional parameters.

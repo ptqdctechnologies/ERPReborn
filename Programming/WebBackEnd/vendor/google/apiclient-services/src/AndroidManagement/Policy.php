@@ -1540,7 +1540,8 @@ class Policy extends \Google\Collection
     return $this->deviceOwnerLockScreenInfo;
   }
   /**
-   * Covers controls for radio state such as Wi-Fi, bluetooth, and more.
+   * Optional. Covers controls for radio state such as Wi-Fi, bluetooth, and
+   * more.
    *
    * @param DeviceRadioState $deviceRadioState
    */

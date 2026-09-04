@@ -37,6 +37,14 @@ class InstancesRestoreBackupRequest extends \Google\Collection
    * @var string
    */
   public $backupdrBackup;
+  /**
+   * Optional. If true, the restore operation proceeds even if the target
+   * instance's maintenance version is older than the source instance's
+   * maintenance version.
+   *
+   * @var bool
+   */
+  public $ignoreMaintenanceVersion;
   protected $restoreBackupContextType = RestoreBackupContext::class;
   protected $restoreBackupContextDataType = '';
   /**
@@ -86,6 +94,24 @@ class InstancesRestoreBackupRequest extends \Google\Collection
   public function getBackupdrBackup()
   {
     return $this->backupdrBackup;
+  }
+  /**
+   * Optional. If true, the restore operation proceeds even if the target
+   * instance's maintenance version is older than the source instance's
+   * maintenance version.
+   *
+   * @param bool $ignoreMaintenanceVersion
+   */
+  public function setIgnoreMaintenanceVersion($ignoreMaintenanceVersion)
+  {
+    $this->ignoreMaintenanceVersion = $ignoreMaintenanceVersion;
+  }
+  /**
+   * @return bool
+   */
+  public function getIgnoreMaintenanceVersion()
+  {
+    return $this->ignoreMaintenanceVersion;
   }
   /**
    * Parameters required to perform the restore backup operation.

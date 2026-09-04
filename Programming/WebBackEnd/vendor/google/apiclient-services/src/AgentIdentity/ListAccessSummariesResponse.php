@@ -36,7 +36,7 @@ class ListAccessSummariesResponse extends \Google\Collection
   public $unreachable;
 
   /**
-   * The list of AccessSummary
+   * The list of access summaries.
    *
    * @param AccessSummary[] $accessSummaries
    */

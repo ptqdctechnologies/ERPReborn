@@ -36,7 +36,7 @@ class ListAuthProvidersResponse extends \Google\Collection
   public $unreachable;
 
   /**
-   * The list of AuthProvider
+   * The list of auth providers.
    *
    * @param AuthProvider[] $authProviders
    */

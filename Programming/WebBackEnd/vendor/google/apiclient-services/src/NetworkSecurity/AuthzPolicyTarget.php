@@ -44,7 +44,7 @@ class AuthzPolicyTarget extends \Google\Collection
    * extensions must share the same load balancing scheme. Required only when
    * targeting forwarding rules. If targeting Secure Web Proxy, this field must
    * be `INTERNAL_MANAGED` or not specified. Must not be specified when
-   * targeting Agent Gateway. Supported values: `INTERNAL_MANAGED` and
+   * targeting Agent Gateway. Supported values include `INTERNAL_MANAGED` and
    * `EXTERNAL_MANAGED`. For more information, refer to [Backend services
    * overview](https://cloud.google.com/load-balancing/docs/backend-service).
    *
@@ -64,7 +64,7 @@ class AuthzPolicyTarget extends \Google\Collection
    * extensions must share the same load balancing scheme. Required only when
    * targeting forwarding rules. If targeting Secure Web Proxy, this field must
    * be `INTERNAL_MANAGED` or not specified. Must not be specified when
-   * targeting Agent Gateway. Supported values: `INTERNAL_MANAGED` and
+   * targeting Agent Gateway. Supported values include `INTERNAL_MANAGED` and
    * `EXTERNAL_MANAGED`. For more information, refer to [Backend services
    * overview](https://cloud.google.com/load-balancing/docs/backend-service).
    *

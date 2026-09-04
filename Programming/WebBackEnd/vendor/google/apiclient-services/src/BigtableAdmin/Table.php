@@ -28,6 +28,10 @@ class Table extends \Google\Model
    * The table keeps data versioned at a granularity of 1ms.
    */
   public const GRANULARITY_MILLIS = 'MILLIS';
+  /**
+   * The table keeps data versioned at a granularity of 1us.
+   */
+  public const GRANULARITY_MICROS = 'MICROS';
   protected $automatedBackupPolicyType = AutomatedBackupPolicy::class;
   protected $automatedBackupPolicyDataType = '';
   protected $changeStreamConfigType = ChangeStreamConfig::class;
@@ -167,7 +171,7 @@ class Table extends \Google\Model
    * creation time, the value will be set to `MILLIS`. Views: `SCHEMA_VIEW`,
    * `FULL`.
    *
-   * Accepted values: TIMESTAMP_GRANULARITY_UNSPECIFIED, MILLIS
+   * Accepted values: TIMESTAMP_GRANULARITY_UNSPECIFIED, MILLIS, MICROS
    *
    * @param self::GRANULARITY_* $granularity
    */

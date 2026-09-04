@@ -20,6 +20,18 @@ namespace Google\Service\CloudComposer;
 class Environment extends \Google\Model
 {
   /**
+   * Represents the default mode, which allows full customization of the
+   * environment. It should be used for all production and customized test
+   * environments.
+   */
+  public const MODE_MODE_UNSPECIFIED = 'MODE_UNSPECIFIED';
+  /**
+   * Represents the development mode, which has constraints on the environment
+   * configuration, but offers an additional feature (environment hibernation).
+   * It should be used only for test environments.
+   */
+  public const MODE_DEVELOPMENT = 'DEVELOPMENT';
+  /**
    * The state of the environment is unknown.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -36,6 +48,10 @@ class Environment extends \Google\Model
    * additional update requests or be deleted at this time.
    */
   public const STATE_UPDATING = 'UPDATING';
+  /**
+   * The environment is currently hibernated. It does not run any DAGs.
+   */
+  public const STATE_HIBERNATED = 'HIBERNATED';
   /**
    * The environment is undergoing deletion. It cannot be used.
    */
@@ -63,6 +79,13 @@ class Environment extends \Google\Model
    * @var string[]
    */
   public $labels;
+  /**
+   * Optional. Selects the environment mode that determines what settings are
+   * customizable and what features are available in the environment.
+   *
+   * @var string
+   */
+  public $mode;
   /**
    * Identifier. The resource name of the environment, in the form:
    * "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
@@ -160,6 +183,25 @@ class Environment extends \Google\Model
     return $this->labels;
   }
   /**
+   * Optional. Selects the environment mode that determines what settings are
+   * customizable and what features are available in the environment.
+   *
+   * Accepted values: MODE_UNSPECIFIED, DEVELOPMENT
+   *
+   * @param self::MODE_* $mode
+   */
+  public function setMode($mode)
+  {
+    $this->mode = $mode;
+  }
+  /**
+   * @return self::MODE_*
+   */
+  public function getMode()
+  {
+    return $this->mode;
+  }
+  /**
    * Identifier. The resource name of the environment, in the form:
    * "projects/{projectId}/locations/{locationId}/environments/{environmentId}"
    * EnvironmentId must start with a lowercase letter followed by up to 63
@@ -213,8 +255,8 @@ class Environment extends \Google\Model
   /**
    * The current state of the environment.
    *
-   * Accepted values: STATE_UNSPECIFIED, CREATING, RUNNING, UPDATING, DELETING,
-   * ERROR
+   * Accepted values: STATE_UNSPECIFIED, CREATING, RUNNING, UPDATING,
+   * HIBERNATED, DELETING, ERROR
    *
    * @param self::STATE_* $state
    */

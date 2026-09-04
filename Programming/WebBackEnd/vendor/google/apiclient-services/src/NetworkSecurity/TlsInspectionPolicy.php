@@ -20,6 +20,18 @@ namespace Google\Service\NetworkSecurity;
 class TlsInspectionPolicy extends \Google\Collection
 {
   /**
+   * Unspecified default mode.
+   */
+  public const CERTIFICATE_ISSUANCE_MODE_CERTIFICATE_ISSUANCE_MODE_UNSPECIFIED = 'CERTIFICATE_ISSUANCE_MODE_UNSPECIFIED';
+  /**
+   * Fallback: Direct Private CA leaf certificate provisioning.
+   */
+  public const CERTIFICATE_ISSUANCE_MODE_DIRECT_LEAF_PROVISIONING = 'DIRECT_LEAF_PROVISIONING';
+  /**
+   * High-speed Local Intermediate CA signing.
+   */
+  public const CERTIFICATE_ISSUANCE_MODE_LOCAL_INTERMEDIATE_CA_SIGNING = 'LOCAL_INTERMEDIATE_CA_SIGNING';
+  /**
    * Indicates no TLS version was specified.
    */
   public const MIN_TLS_VERSION_TLS_VERSION_UNSPECIFIED = 'TLS_VERSION_UNSPECIFIED';
@@ -73,6 +85,13 @@ class TlsInspectionPolicy extends \Google\Collection
    * @var string
    */
   public $caPool;
+  /**
+   * Optional. The mode used to issue certificates (local CA signing vs direct
+   * leaf).
+   *
+   * @var string
+   */
+  public $certificateIssuanceMode;
   /**
    * Output only. The timestamp when the resource was created.
    *
@@ -175,6 +194,26 @@ class TlsInspectionPolicy extends \Google\Collection
   public function getCaPool()
   {
     return $this->caPool;
+  }
+  /**
+   * Optional. The mode used to issue certificates (local CA signing vs direct
+   * leaf).
+   *
+   * Accepted values: CERTIFICATE_ISSUANCE_MODE_UNSPECIFIED,
+   * DIRECT_LEAF_PROVISIONING, LOCAL_INTERMEDIATE_CA_SIGNING
+   *
+   * @param self::CERTIFICATE_ISSUANCE_MODE_* $certificateIssuanceMode
+   */
+  public function setCertificateIssuanceMode($certificateIssuanceMode)
+  {
+    $this->certificateIssuanceMode = $certificateIssuanceMode;
+  }
+  /**
+   * @return self::CERTIFICATE_ISSUANCE_MODE_*
+   */
+  public function getCertificateIssuanceMode()
+  {
+    return $this->certificateIssuanceMode;
   }
   /**
    * Output only. The timestamp when the resource was created.

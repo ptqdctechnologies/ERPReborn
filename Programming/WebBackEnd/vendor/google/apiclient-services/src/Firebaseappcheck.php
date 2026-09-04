@@ -248,6 +248,16 @@ class Firebaseappcheck extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'mintAppCheckToken' => [
+              'path' => 'v1/{+app}:mintAppCheckToken',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'app' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],
           ]
         ]

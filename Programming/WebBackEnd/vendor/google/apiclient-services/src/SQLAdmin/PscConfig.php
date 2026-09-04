@@ -32,8 +32,9 @@ class PscConfig extends \Google\Collection
   public $allowedConsumerProjects;
   /**
    * Optional. The network attachment of the consumer network that the Private
-   * Service Connect enabled Cloud SQL instance is authorized to connect via PSC
-   * interface. format: projects/PROJECT/regions/REGION/networkAttachments/ID
+   * Service Connect enabled Cloud SQL instance is authorized to connect using
+   * the PSC interface. format:
+   * projects/PROJECT/regions/REGION/networkAttachments/ID
    *
    * @var string
    */
@@ -98,8 +99,9 @@ class PscConfig extends \Google\Collection
   }
   /**
    * Optional. The network attachment of the consumer network that the Private
-   * Service Connect enabled Cloud SQL instance is authorized to connect via PSC
-   * interface. format: projects/PROJECT/regions/REGION/networkAttachments/ID
+   * Service Connect enabled Cloud SQL instance is authorized to connect using
+   * the PSC interface. format:
+   * projects/PROJECT/regions/REGION/networkAttachments/ID
    *
    * @param string $networkAttachmentUri
    */

@@ -39,6 +39,8 @@ class Databases extends \Google\Service\Resource
    * project ID.
    * @param string $database Name of the database to be deleted in the instance.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */
@@ -57,6 +59,8 @@ class Databases extends \Google\Service\Resource
    * project ID.
    * @param string $database Name of the database in the instance.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Database
    * @throws \Google\Service\Exception
    */
@@ -76,6 +80,8 @@ class Databases extends \Google\Service\Resource
    * project ID.
    * @param Database $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */
@@ -93,6 +99,8 @@ class Databases extends \Google\Service\Resource
    * @param string $instance Cloud SQL instance ID. This does not include the
    * project ID.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return DatabasesListResponse
    * @throws \Google\Service\Exception
    */
@@ -112,6 +120,8 @@ class Databases extends \Google\Service\Resource
    * @param string $database Name of the database to be updated in the instance.
    * @param Database $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */
@@ -131,6 +141,8 @@ class Databases extends \Google\Service\Resource
    * @param string $database Name of the database to be updated in the instance.
    * @param Database $postBody
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string location Optional. Region of the Cloud SQL instance.
    * @return Operation
    * @throws \Google\Service\Exception
    */

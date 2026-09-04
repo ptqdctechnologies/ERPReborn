@@ -19,6 +19,18 @@ namespace Google\Service\CloudDataplex;
 
 class GoogleCloudDataplexV1DataDocumentationSpec extends \Google\Collection
 {
+  /**
+   * SQL dialect unspecified.
+   */
+  public const SQL_DIALECT_SQL_DIALECT_UNSPECIFIED = 'SQL_DIALECT_UNSPECIFIED';
+  /**
+   * Google SQL dialect.
+   */
+  public const SQL_DIALECT_GOOGLE_SQL = 'GOOGLE_SQL';
+  /**
+   * Spark SQL dialect.
+   */
+  public const SQL_DIALECT_SPARK_SQL = 'SPARK_SQL';
   protected $collection_key = 'generationScopes';
   /**
    * Optional. Whether to publish result to Dataplex Catalog.
@@ -35,6 +47,13 @@ class GoogleCloudDataplexV1DataDocumentationSpec extends \Google\Collection
    * @var string[]
    */
   public $generationScopes;
+  /**
+   * Optional. The SQL dialect to use in the generated SQL queries. If not
+   * specified, the default dialect is Google SQL.
+   *
+   * @var string
+   */
+  public $sqlDialect;
 
   /**
    * Optional. Whether to publish result to Dataplex Catalog.
@@ -70,6 +89,25 @@ class GoogleCloudDataplexV1DataDocumentationSpec extends \Google\Collection
   public function getGenerationScopes()
   {
     return $this->generationScopes;
+  }
+  /**
+   * Optional. The SQL dialect to use in the generated SQL queries. If not
+   * specified, the default dialect is Google SQL.
+   *
+   * Accepted values: SQL_DIALECT_UNSPECIFIED, GOOGLE_SQL, SPARK_SQL
+   *
+   * @param self::SQL_DIALECT_* $sqlDialect
+   */
+  public function setSqlDialect($sqlDialect)
+  {
+    $this->sqlDialect = $sqlDialect;
+  }
+  /**
+   * @return self::SQL_DIALECT_*
+   */
+  public function getSqlDialect()
+  {
+    return $this->sqlDialect;
   }
 }
 

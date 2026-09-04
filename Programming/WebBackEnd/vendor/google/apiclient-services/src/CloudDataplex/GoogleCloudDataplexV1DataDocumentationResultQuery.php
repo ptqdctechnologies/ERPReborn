@@ -20,6 +20,18 @@ namespace Google\Service\CloudDataplex;
 class GoogleCloudDataplexV1DataDocumentationResultQuery extends \Google\Model
 {
   /**
+   * SQL dialect unspecified.
+   */
+  public const SQL_DIALECT_SQL_DIALECT_UNSPECIFIED = 'SQL_DIALECT_UNSPECIFIED';
+  /**
+   * Google SQL dialect.
+   */
+  public const SQL_DIALECT_GOOGLE_SQL = 'GOOGLE_SQL';
+  /**
+   * Spark SQL dialect.
+   */
+  public const SQL_DIALECT_SPARK_SQL = 'SPARK_SQL';
+  /**
    * Output only. The description for the query.
    *
    * @var string
@@ -31,6 +43,12 @@ class GoogleCloudDataplexV1DataDocumentationResultQuery extends \Google\Model
    * @var string
    */
   public $sql;
+  /**
+   * Output only. The SQL dialect of the query.
+   *
+   * @var string
+   */
+  public $sqlDialect;
 
   /**
    * Output only. The description for the query.
@@ -63,6 +81,24 @@ class GoogleCloudDataplexV1DataDocumentationResultQuery extends \Google\Model
   public function getSql()
   {
     return $this->sql;
+  }
+  /**
+   * Output only. The SQL dialect of the query.
+   *
+   * Accepted values: SQL_DIALECT_UNSPECIFIED, GOOGLE_SQL, SPARK_SQL
+   *
+   * @param self::SQL_DIALECT_* $sqlDialect
+   */
+  public function setSqlDialect($sqlDialect)
+  {
+    $this->sqlDialect = $sqlDialect;
+  }
+  /**
+   * @return self::SQL_DIALECT_*
+   */
+  public function getSqlDialect()
+  {
+    return $this->sqlDialect;
   }
 }
 

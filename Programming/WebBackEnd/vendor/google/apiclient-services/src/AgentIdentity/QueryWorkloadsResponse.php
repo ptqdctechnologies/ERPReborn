@@ -27,8 +27,8 @@ class QueryWorkloadsResponse extends \Google\Collection
    */
   public $nextPageToken;
   /**
-   * The unique list of workload identifiers (agents) that used the
-   * auth_provider.
+   * The unique list of identifiers for the agents that used this auth provider,
+   * starting with `principal://`.
    *
    * @var string[]
    */
@@ -51,8 +51,8 @@ class QueryWorkloadsResponse extends \Google\Collection
     return $this->nextPageToken;
   }
   /**
-   * The unique list of workload identifiers (agents) that used the
-   * auth_provider.
+   * The unique list of identifiers for the agents that used this auth provider,
+   * starting with `principal://`.
    *
    * @param string[] $workloadIds
    */

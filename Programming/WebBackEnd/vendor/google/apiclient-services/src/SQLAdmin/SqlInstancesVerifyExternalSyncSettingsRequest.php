@@ -63,6 +63,12 @@ class SqlInstancesVerifyExternalSyncSettingsRequest extends \Google\Collection
   public const SYNC_PARALLEL_LEVEL_MAX = 'MAX';
   protected $collection_key = 'selectedObjects';
   /**
+   * Optional. Region of the Cloud SQL instance.
+   *
+   * @var string
+   */
+  public $location;
+  /**
    * Optional. MigrationType configures the migration to use physical files or
    * logical dump files. If not set, then the logical dump file configuration is
    * used. Valid values are `LOGICAL` or `PHYSICAL`. Only applicable to MySQL.
@@ -100,6 +106,22 @@ class SqlInstancesVerifyExternalSyncSettingsRequest extends \Google\Collection
    */
   public $verifyReplicationOnly;
 
+  /**
+   * Optional. Region of the Cloud SQL instance.
+   *
+   * @param string $location
+   */
+  public function setLocation($location)
+  {
+    $this->location = $location;
+  }
+  /**
+   * @return string
+   */
+  public function getLocation()
+  {
+    return $this->location;
+  }
   /**
    * Optional. MigrationType configures the migration to use physical files or
    * logical dump files. If not set, then the logical dump file configuration is
