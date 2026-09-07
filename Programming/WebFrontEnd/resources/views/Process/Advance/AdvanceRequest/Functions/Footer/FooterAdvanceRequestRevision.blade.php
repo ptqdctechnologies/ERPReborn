@@ -213,7 +213,7 @@
                 const uom = row.children[12].innerText.trim();
                 const uomDup = row.children[13].innerText.trim();
                 const priceAvail = row.children[13].innerText.trim();
-                const currency = row.children[15].innerText.trim();
+                const currency = row.children[16].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty = qtyInput.value.trim();
@@ -549,6 +549,7 @@
                             <td style="text-align: center;">${val2.quantityUnitName || '-'}</td>
                             <td style="text-align: center;">${currencyTotal(val2.priceBaseCurrencyValue)}</td>
                             <td style="text-align: center;">${currencyTotal(totalBudget)}</td>
+                            <td style="text-align: center;">-</td>
                             <td style="text-align: center;">${val2.priceBaseCurrencyISOCode || '-'}</td>
                             ${componentsInput}
                         </tr>

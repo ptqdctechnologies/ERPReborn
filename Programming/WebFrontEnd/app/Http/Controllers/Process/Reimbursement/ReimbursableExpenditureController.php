@@ -27,7 +27,7 @@ class ReimbursableExpenditureController extends Controller
         $dataRemToDN = Session::get("RemToDNReportSummaryDataPDF");
 
         if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+            $var = $_GET['var'];
         }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -36,7 +36,7 @@ class ReimbursableExpenditureController extends Controller
             'statusDetail' => 1,
             'dataHeader' => [],
             'dataRemToDN' => $dataRemToDN
-        
+
         ];
         // dump($dataRemToDN);
 
@@ -50,8 +50,8 @@ class ReimbursableExpenditureController extends Controller
             // default date range kalau kosong
             if (empty($start_date) && empty($end_date)) {
                 $start_date = now()->startOfMonth()->format('Y-m-d') . ' 00:00:00+07';
-                $end_date   = now()->endOfMonth()->format('Y-m-d') . ' 23:59:59+07';
-            }   
+                $end_date = now()->endOfMonth()->format('Y-m-d') . ' 23:59:59+07';
+            }
 
             $params = [
                 'parameter' => [
@@ -73,7 +73,7 @@ class ReimbursableExpenditureController extends Controller
                     'field' => 'date',
                     'value' => [
                         'from' => \Carbon\Carbon::parse($start_date)->format('Y-m-d') . ' 00:00:00+07',
-                        'to'   => \Carbon\Carbon::parse($end_date)->format('Y-m-d') . ' 23:59:59+07',
+                        'to' => \Carbon\Carbon::parse($end_date)->format('Y-m-d') . ' 23:59:59+07',
                     ],
                 ];
             }
@@ -85,8 +85,8 @@ class ReimbursableExpenditureController extends Controller
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getReimbursementToDebitNoteSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getReimbursementToDebitNoteSummary',
                 'latest',
                 $params
             );
@@ -138,7 +138,7 @@ class ReimbursableExpenditureController extends Controller
             if ($project_code == "" && $site_code == "" && $start_date == "" && $end_date == "") {
                 Session::forget("RemToDNReportSummaryDataPDF");
                 Session::forget("RemToDNReportSummaryDataExcel");
-                
+
                 return redirect()->route('Reimbursement.ReportRemToDN')->with('NotFound', 'Cannot Empty');
             }
 
@@ -155,7 +155,7 @@ class ReimbursableExpenditureController extends Controller
             $dataPDF = Session::get("RemToDNReportSummaryDataPDF");
             $dataExcel = Session::get("RemToDNReportSummaryDataExcel");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -165,7 +165,7 @@ class ReimbursableExpenditureController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -196,7 +196,7 @@ class ReimbursableExpenditureController extends Controller
                 'varAPIWebToken' => $varAPIWebToken,
                 'dataReport' => $dataReport
             ];
-    
+
             return view('Process.Reimbursement.Reports.ReportInvoiceToCN', $compact);
         } catch (\Throwable $th) {
             Log::error("ReportInvoiceToCN Function Error at " . $th->getMessage());
@@ -204,11 +204,11 @@ class ReimbursableExpenditureController extends Controller
         }
     }
 
-    public function ReportInvoiceToCNData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position) 
+    public function ReportInvoiceToCNData($project_id, $site_id, $requester_id, $beneficiary_id, $project_name, $project_code, $site_code, $requester_name, $beneficiary_name, $site_name, $requester_position, $beneficiary_position)
     {
         try {
-            $varAPIWebToken             = Session::get('SessionLogin');
-            $getReportAdvanceSummary    = null;
+            $varAPIWebToken = Session::get('SessionLogin');
+            $getReportAdvanceSummary = null;
 
             // if (!Helper_Redis::getValue($varAPIWebToken, "ReportAdvanceSummary")) {
             //     $getReportAdvanceSummary = Helper_APICall::setCallAPIGateway(
@@ -930,15 +930,15 @@ class ReimbursableExpenditureController extends Controller
             $reportData = is_string($getReportAdvanceSummary) ? json_decode($getReportAdvanceSummary, true) : $getReportAdvanceSummary;
 
             $filteredData = array_filter($reportData, function ($item) use ($project_code, $site_name, $requester_name, $beneficiary_name) {
-                return 
-                    (empty($project_code)     || $item['CombinedBudgetCode'] == $project_code) &&
-                    (empty($site_name)        || $item['CombinedBudgetSectionName'] == $site_name) &&
-                    (empty($requester_name)   || $item['RequesterWorkerName'] == $requester_name) &&
+                return
+                    (empty($project_code) || $item['CombinedBudgetCode'] == $project_code) &&
+                    (empty($site_name) || $item['CombinedBudgetSectionName'] == $site_name) &&
+                    (empty($requester_name) || $item['RequesterWorkerName'] == $requester_name) &&
                     (empty($beneficiary_name) || $item['BeneficiaryWorkerName'] == $beneficiary_name);
-                    // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
-                    // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
-                    // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
-                    // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
+                // (empty($project_id)     || $item['CombinedBudget_RefID'] == $project_id) &&
+                // (empty($site_id)        || $item['CombinedBudgetSection_RefID'] == $site_id) &&
+                // (empty($requester_id)   || $item['RequesterWorkerJobsPosition_RefID'] == $requester_id) &&
+                // (empty($beneficiary_id) || $item['BeneficiaryWorkerJobsPosition_RefID'] == $beneficiary_id);
             });
 
             // $totalAdvance = array_reduce($filteredData, function ($carry, $item) {
@@ -948,20 +948,20 @@ class ReimbursableExpenditureController extends Controller
 
             $compact = [
                 // 'dataDetail'         => $filteredData,
-                'dataDetail'            => $filteredData,
-                'budgetCode'            => $project_code,
-                'budgetName'            => $project_name,
-                'budgetId'              => $project_id,
-                'siteCode'              => $site_code,
-                'siteName'              => $site_name,
-                'siteId'                => $site_id,
-                'requesterName'         => $requester_name,
-                'requesterId'           => $requester_id,
-                'requesterPosition'     => $requester_position,
-                'beneficiaryName'       => $beneficiary_name,
-                'beneficiaryId'         => $beneficiary_id,
-                'beneficiaryPosition'   => $beneficiary_position,
-                'total'                 => $totalAdvance,
+                'dataDetail' => $filteredData,
+                'budgetCode' => $project_code,
+                'budgetName' => $project_name,
+                'budgetId' => $project_id,
+                'siteCode' => $site_code,
+                'siteName' => $site_name,
+                'siteId' => $site_id,
+                'requesterName' => $requester_name,
+                'requesterId' => $requester_id,
+                'requesterPosition' => $requester_position,
+                'beneficiaryName' => $beneficiary_name,
+                'beneficiaryId' => $beneficiary_id,
+                'beneficiaryPosition' => $beneficiary_position,
+                'total' => $totalAdvance,
             ];
 
             Session::put("isButtonReportInvoiceToCNSubmit", true);
@@ -974,24 +974,24 @@ class ReimbursableExpenditureController extends Controller
         }
     }
 
-    public function ReportInvoiceToCNStore(Request $request) 
+    public function ReportInvoiceToCNStore(Request $request)
     {
         try {
-            $project_code           = $request->project_code_second;
-            $project_name           = $request->project_name_second;
-            $project_id             = $request->project_id_second;
+            $project_code = $request->project_code_second;
+            $project_name = $request->project_name_second;
+            $project_id = $request->project_id_second;
 
-            $site_id                = $request->site_id_second;
-            $site_code              = $request->site_code_second;
-            $site_name              = $request->site_name_second;
+            $site_id = $request->site_id_second;
+            $site_code = $request->site_code_second;
+            $site_name = $request->site_name_second;
 
-            $requester_id           = $request->worker_id_second;
-            $requester_name         = $request->worker_name_second;
-            $requester_position     = $request->worker_position_second;
+            $requester_id = $request->worker_id_second;
+            $requester_name = $request->worker_name_second;
+            $requester_position = $request->worker_position_second;
 
-            $beneficiary_id         = $request->beneficiary_second_id;
-            $beneficiary_name       = $request->beneficiary_second_person_name;
-            $beneficiary_position   = $request->beneficiary_second_person_position;
+            $beneficiary_id = $request->beneficiary_second_id;
+            $beneficiary_name = $request->beneficiary_second_person_name;
+            $beneficiary_position = $request->beneficiary_second_person_position;
 
             if (!$project_id && !$site_id && !$requester_id && !$beneficiary_id) {
                 Session::forget("isButtonReportInvoiceToCNSubmit");
@@ -1005,7 +1005,7 @@ class ReimbursableExpenditureController extends Controller
             if ($compact === null || empty($compact)) {
                 return redirect()->back()->with('NotFound', 'Data Not Found');
             }
-            
+
             return redirect()->route('Reimbursement.ReportInvoiceToCN');
         } catch (\Throwable $th) {
             Log::error("ReportInvoiceToCNStore Error at " . $th->getMessage());
@@ -1013,7 +1013,7 @@ class ReimbursableExpenditureController extends Controller
         }
     }
 
-    public function PrintExportReportInvoiceToCN(Request $request) 
+    public function PrintExportReportInvoiceToCN(Request $request)
     {
         try {
             $dataReport = Session::get("dataReportInvoiceToCN");
@@ -1023,7 +1023,7 @@ class ReimbursableExpenditureController extends Controller
             // if ($project_code_second_trigger == null) {
             //     Session::forget("isButtonReportInvoiceToCNSubmit");
             //     Session::forget("dataReportInvoiceToCN");
-        
+
             //     return redirect()->route('Reimbursement.ReportInvoiceToCN')->with('NotFound', 'Budget, Sub Budget, Requester, & Beneficiary Cannot Be Empty');
             // }
 
@@ -1033,7 +1033,7 @@ class ReimbursableExpenditureController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1059,7 +1059,7 @@ class ReimbursableExpenditureController extends Controller
         $dataRem = Session::get("ReimbursementReportSummaryDataPDF");
 
         if (!empty($_GET['var'])) {
-            $var =  $_GET['var'];
+            $var = $_GET['var'];
         }
         $compact = [
             'varAPIWebToken' => $varAPIWebToken,
@@ -1068,24 +1068,24 @@ class ReimbursableExpenditureController extends Controller
             'statusDetail' => 1,
             'dataHeader' => [],
             'dataRem' => $dataRem
-        
+
         ];
         // dump($dataRem);
 
         return view('Process.Reimbursement.Reports.ReportReimbursementSummary', $compact);
     }
 
-    public function ReportReimbursementSummaryData( $project_code)
-    {        
+    public function ReportReimbursementSummaryData($project_code)
+    {
         try {
-            Log::error("Error at ",[$project_code]);
+            Log::error("Error at ", [$project_code]);
 
             $varAPIWebToken = Session::get('SessionLogin');
 
             $filteredArray = Helper_APICall::setCallAPIGateway(
                 Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'report.form.documentForm.finance.getReimbursementSummary', 
+                $varAPIWebToken,
+                'report.form.documentForm.finance.getReimbursementSummary',
                 'latest',
                 [
                     'parameter' => [
@@ -1095,16 +1095,16 @@ class ReimbursableExpenditureController extends Controller
                         // 'CombinedBudgetSectionCode' =>  $site_code,
                         // 'Warehouse_RefID' => NULL
                     ],
-                     'SQLStatement' => [
+                    'SQLStatement' => [
                         'pick' => null,
                         'sort' => null,
                         'filter' => null,
                         'paging' => null
-                        ]
+                    ]
                 ]
             );
-            
-            Log::error("Error at " ,$filteredArray);
+
+            Log::error("Error at ", $filteredArray);
             if ($filteredArray['metadata']['HTTPStatusCode'] !== 200) {
                 return redirect()->back()->with('NotFound', 'Process Error');
 
@@ -1112,8 +1112,7 @@ class ReimbursableExpenditureController extends Controller
             Session::put("ReimbursementReportSummaryDataPDF", $filteredArray['data']['data']);
             Session::put("ReimbursementReportSummaryDataExcel", $filteredArray['data']['data']);
             return $filteredArray['data']['data'];
-        }
-        catch (\Throwable $th) {
+        } catch (\Throwable $th) {
             Log::error("Error at " . $th->getMessage());
             return redirect()->back()->with('NotFound', 'Process Error');
         }
@@ -1127,11 +1126,11 @@ class ReimbursableExpenditureController extends Controller
             // $site_code = $request->site_id_second;
 
             $statusHeader = "Yes";
-            Log::error("Error at " ,[$request->all()]);
+            Log::error("Error at ", [$request->all()]);
             if ($project_code == "") {
                 Session::forget("ReimbursementReportSummaryDataPDF");
                 Session::forget("ReimbursementReportSummaryDataExcel");
-                
+
                 return redirect()->route('Reimbursement.ReportReimbursementSummary')->with('NotFound', 'Cannot Empty');
             }
 
@@ -1157,7 +1156,7 @@ class ReimbursableExpenditureController extends Controller
             $dataPDF = Session::get("ReimbursementReportSummaryDataPDF");
             $dataExcel = Session::get("ReimbursementReportSummaryDataExcel");
 
-            
+
             if ($dataPDF && $dataExcel) {
                 $print_type = $request->print_type;
                 if ($print_type == "PDF") {
@@ -1168,7 +1167,7 @@ class ReimbursableExpenditureController extends Controller
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
 
-                    $canvas = $dom_pdf ->get_canvas();
+                    $canvas = $dom_pdf->get_canvas();
                     $width = $canvas->get_width();
                     $height = $canvas->get_height();
                     $canvas->page_text($width - 88, $height - 35, "Page {PAGE_NUM} of {PAGE_COUNT}", null, 10, array(0, 0, 0));
@@ -1204,51 +1203,51 @@ class ReimbursableExpenditureController extends Controller
 
         $varDataWorker = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.humanResource.getWorker',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
+        );
 
         $varData3 = Helper_APICall::setCallAPIGateway(
-        Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken, 
-        'transaction.read.dataList.customerRelation.getCustomer', 
-        'latest', 
-        [
-        'parameter' => null,
-        'SQLStatement' => [
-            'pick' => null,
-            'sort' => null,
-            'filter' => null,
-            'paging' => null
+            Helper_Environment::getUserSessionID_System(),
+            $varAPIWebToken,
+            'transaction.read.dataList.customerRelation.getCustomer',
+            'latest',
+            [
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
             ]
-        ]
         );
 
         $varData4 = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.master.getCurrency', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.master.getCurrency',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
-            );
+        );
 
         $compact = [
             'dataProject' => $varDataProject['data']['data'],
@@ -1273,21 +1272,21 @@ class ReimbursableExpenditureController extends Controller
         $count_product = count($input['var_product_id']);
 
         $input_header = array(
-            'var_budget_code'	=> $input['var_budget_code'],
-            'var_budget_code2'	=> $input['var_budget_code2'],
-            'var_sub_budget_code'	=> $input['var_sub_budget_code'],
-            'var_sub_budget_code2'	=> $input['var_sub_budget_code2'],
-            'var_request_name'	=> $input['var_request_name'],
-            'var_beneficiary'	=> $input['var_beneficiary'],
-            'var_internal_notes'	=> $input['var_internal_notes'],
-            'var_bank_name'	=> $input['var_bank_name'],
-            'var_account_name'	=> $input['var_account_name'],
-            'var_account_number'	=> $input['var_account_number']
+            'var_budget_code' => $input['var_budget_code'],
+            'var_budget_code2' => $input['var_budget_code2'],
+            'var_sub_budget_code' => $input['var_sub_budget_code'],
+            'var_sub_budget_code2' => $input['var_sub_budget_code2'],
+            'var_request_name' => $input['var_request_name'],
+            'var_beneficiary' => $input['var_beneficiary'],
+            'var_internal_notes' => $input['var_internal_notes'],
+            'var_bank_name' => $input['var_bank_name'],
+            'var_account_name' => $input['var_account_name'],
+            'var_account_number' => $input['var_account_number']
         );
 
         print_r($input_header);
 
-        $input_product = array(); 
+        $input_product = array();
         if ($count_product > 0 && isset($count_product)) {
             for ($n = 0; $n < $count_product; $n++) {
                 $input_product['var_product_id'] = $input['var_product_id'][$n];
@@ -1298,7 +1297,7 @@ class ReimbursableExpenditureController extends Controller
                 $input_product['var_totalPrice'] = $input['var_totalPrice'][$n];
                 $input_product['var_currency'] = $input['var_currency'][$n];
                 $input_product['var_remark'] = $input['var_remark'][$n];
-                
+
                 print_r($input_product);
             }
         }
@@ -1306,23 +1305,22 @@ class ReimbursableExpenditureController extends Controller
 
     public function StoreValidateRem(Request $request)
     {
-        $tamp = 0; $status = 200;
+        $tamp = 0;
+        $status = 200;
         $val = $request->input('productIdRem');
         $data = $request->session()->get("SessionRem");
-        if($request->session()->has("SessionRem")){
-            for($i = 0; $i < count($data); $i++){
-                if($data[$i] == $val){
+        if ($request->session()->has("SessionRem")) {
+            for ($i = 0; $i < count($data); $i++) {
+                if ($data[$i] == $val) {
                     $tamp = 1;
                 }
             }
-            if($tamp == 0){
+            if ($tamp == 0) {
                 $request->session()->push("SessionRem", $val);
-            }
-            else{
+            } else {
                 $status = 500;
             }
-        }
-        else{
+        } else {
             $request->session()->push("SessionRem", $val);
         }
 
@@ -1357,16 +1355,16 @@ class ReimbursableExpenditureController extends Controller
 
         $varData2 = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken, 
-            'transaction.read.dataList.humanResource.getWorker', 
-            'latest', 
+            $varAPIWebToken,
+            'transaction.read.dataList.humanResource.getWorker',
+            'latest',
             [
-            'parameter' => null,
-            'SQLStatement' => [
-                'pick' => null,
-                'sort' => null,
-                'filter' => null,
-                'paging' => null
+                'parameter' => null,
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
@@ -1378,10 +1376,10 @@ class ReimbursableExpenditureController extends Controller
 
         return view('Advance.Advance.Transactions.revisionARF', $compact);
     }
-    
+
     public function create()
     {
-        
+
     }
     /**
      * Display the specified resource.
@@ -1428,5 +1426,5 @@ class ReimbursableExpenditureController extends Controller
         //
     }
 
-    
+
 }

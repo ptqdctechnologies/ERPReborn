@@ -17,8 +17,10 @@
                     </div>
                     <div style="flex: 100%;">
                         <input type="text" id="project_name" class="form-control"
-                            style="border-radius:0; background-color: white;" readonly />
-                        <input type="hidden" id="project_id" />
+                            value="<?= isset($budget) ? $budget['code'] . ' - ' . $budget['name'] : ''; ?>"
+                            style="border-radius: 0; background-color: <?= isset($budget) ? '' : 'white' ?>;"
+                            readonly />
+                        <input type="hidden" id="project_id" value="<?= isset($budget) ? $budget['id'] : ''; ?>" />
                     </div>
                 </div>
             </div>
@@ -45,8 +47,9 @@
                     </div>
                     <div style="flex: 100%;">
                         <input type="text" id="site_name" class="form-control"
-                            style="border-radius:0; background-color: white;" readonly />
-                        <input type="hidden" id="site_id" />
+                            value="<?= isset($site) ? $site['code'] . ' - ' . $site['name'] : ''; ?>"
+                            style="border-radius:0; background-color: <?= isset($site) ? '' : 'white' ?>;" readonly />
+                        <input type="hidden" id="site_id" value="<?= isset($site) ? $site['id'] : ''; ?>" />
                     </div>
                 </div>
             </div>
