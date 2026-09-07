@@ -41,12 +41,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
+                    'RequesterWorkerJobsPosition_RefID' => 164000000000196,
                     'StartDate' => '2025-01-01',
-                    'EndDate' => '2025-12-10',
+                    'EndDate' => '2026-09-07'
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
+                    // 'RequesterWorkerJobsPosition_RefID' => NULL,
                     // 'StartDate' => NULL,
-                    // 'EndDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
