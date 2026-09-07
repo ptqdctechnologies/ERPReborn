@@ -769,6 +769,8 @@ class CheckDocumentController extends Controller
             $transactionRefID = $request->transaction_RefID;
             $transactionType = $request->transactionType;
             $picSourcing = $request->picSourcing;
+            $picDestination = json_decode($request->picDestination, true);
+
 
             if ($transactionType === "DELIVERY ORDER") {
                 $response = $this->deliveryOrderService->getDetail($transactionRefID);
@@ -825,7 +827,8 @@ class CheckDocumentController extends Controller
                     $pdfStart = microtime(true);
                     $pdf = PDF::loadView($arrData['viewPDF'], [
                         'dataReport' => $dataDetail,
-                        'picSourcing' => $picSourcing
+                        'picSourcing' => $picSourcing,
+                        'picDestination' => $picDestination
                     ])->setPaper('a4', 'portrait');
                     $pdf->output();
                     $dom_pdf = $pdf->getDomPDF();
