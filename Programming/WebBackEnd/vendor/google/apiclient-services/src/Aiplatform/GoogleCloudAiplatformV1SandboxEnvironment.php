@@ -44,6 +44,18 @@ class GoogleCloudAiplatformV1SandboxEnvironment extends \Google\Model
    */
   public const STATE_STATE_DELETED = 'STATE_DELETED';
   /**
+   * Sandbox runtime is paused.
+   */
+  public const STATE_STATE_PAUSED = 'STATE_PAUSED';
+  /**
+   * Sandbox runtime is pausing.
+   */
+  public const STATE_STATE_PAUSING = 'STATE_PAUSING';
+  /**
+   * Sandbox runtime is resuming.
+   */
+  public const STATE_STATE_RESUMING = 'STATE_RESUMING';
+  /**
    * Sandbox runtime is stopping.
    */
   public const STATE_STATE_STOPPING = 'STATE_STOPPING';
@@ -302,7 +314,8 @@ class GoogleCloudAiplatformV1SandboxEnvironment extends \Google\Model
    * Output only. The runtime state of the SandboxEnvironment.
    *
    * Accepted values: STATE_UNSPECIFIED, STATE_PROVISIONING, STATE_RUNNING,
-   * STATE_DEPROVISIONING, STATE_TERMINATED, STATE_DELETED, STATE_STOPPING
+   * STATE_DEPROVISIONING, STATE_TERMINATED, STATE_DELETED, STATE_PAUSED,
+   * STATE_PAUSING, STATE_RESUMING, STATE_STOPPING
    *
    * @param self::STATE_* $state
    */

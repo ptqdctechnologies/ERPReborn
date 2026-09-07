@@ -19,7 +19,7 @@ namespace Google\Service\CloudNumberRegistry;
 
 class RegistryBook extends \Google\Collection
 {
-  protected $collection_key = 'claimedScopes';
+  protected $collection_key = 'claimedScopesInfo';
   protected $aggregatedDataType = AggregatedData::class;
   protected $aggregatedDataDataType = '';
   /**
@@ -30,6 +30,8 @@ class RegistryBook extends \Google\Collection
    * @var string[]
    */
   public $claimedScopes;
+  protected $claimedScopesInfoType = ScopeInfo::class;
+  protected $claimedScopesInfoDataType = 'array';
   /**
    * Output only. The time at which the RegistryBook was created.
    *
@@ -95,6 +97,23 @@ class RegistryBook extends \Google\Collection
   public function getClaimedScopes()
   {
     return $this->claimedScopes;
+  }
+  /**
+   * Output only. Detailed scope information corresponding to each entry in
+   * `claimed_scopes`.
+   *
+   * @param ScopeInfo[] $claimedScopesInfo
+   */
+  public function setClaimedScopesInfo($claimedScopesInfo)
+  {
+    $this->claimedScopesInfo = $claimedScopesInfo;
+  }
+  /**
+   * @return ScopeInfo[]
+   */
+  public function getClaimedScopesInfo()
+  {
+    return $this->claimedScopesInfo;
   }
   /**
    * Output only. The time at which the RegistryBook was created.

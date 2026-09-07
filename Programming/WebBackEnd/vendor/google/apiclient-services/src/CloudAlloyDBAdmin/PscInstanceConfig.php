@@ -19,6 +19,35 @@ namespace Google\Service\CloudAlloyDBAdmin;
 
 class PscInstanceConfig extends \Google\Collection
 {
+  /**
+   * The state is unspecified. For old instances, this means the PSC auto
+   * connection is disabled. For new instances, this means the PSC auto
+   * connection is enabled by default.
+   */
+  public const PSC_AUTO_CONNECTION_POLICY_STATE_PSC_AUTO_CONNECTION_POLICY_STATE_UNSPECIFIED = 'PSC_AUTO_CONNECTION_POLICY_STATE_UNSPECIFIED';
+  /**
+   * Enables the PSC auto connection for the instance.
+   */
+  public const PSC_AUTO_CONNECTION_POLICY_STATE_ENABLED = 'ENABLED';
+  /**
+   * Disables the PSC auto connection for the instance.
+   */
+  public const PSC_AUTO_CONNECTION_POLICY_STATE_DISABLED = 'DISABLED';
+  /**
+   * The state is unspecified. For old instances, this means the PSC auto DNS is
+   * disabled. For new instances, this means the PSC auto DNS is enabled by
+   * default. Use `effective_psc_auto_dns_enabled` to check the effective state
+   * of the PSC auto DNS.
+   */
+  public const PSC_AUTO_DNS_STATE_PSC_AUTO_DNS_STATE_UNSPECIFIED = 'PSC_AUTO_DNS_STATE_UNSPECIFIED';
+  /**
+   * Enables the PSC auto DNS for the instance.
+   */
+  public const PSC_AUTO_DNS_STATE_PSC_AUTO_DNS_STATE_ENABLED = 'PSC_AUTO_DNS_STATE_ENABLED';
+  /**
+   * Disables the PSC auto DNS for the instance.
+   */
+  public const PSC_AUTO_DNS_STATE_PSC_AUTO_DNS_STATE_DISABLED = 'PSC_AUTO_DNS_STATE_DISABLED';
   protected $collection_key = 'pscInterfaceConfigs';
   /**
    * Optional. List of consumer projects that are allowed to create PSC
@@ -27,8 +56,21 @@ class PscInstanceConfig extends \Google\Collection
    * @var string[]
    */
   public $allowedConsumerProjects;
+  /**
+   * Optional. Configuration for setting up PSC auto connection for the
+   * instance.
+   *
+   * @var string
+   */
+  public $pscAutoConnectionPolicyState;
   protected $pscAutoConnectionsType = PscAutoConnectionConfig::class;
   protected $pscAutoConnectionsDataType = 'array';
+  /**
+   * Optional. Configuration for setting up PSC auto DNS for the instance.
+   *
+   * @var string
+   */
+  public $pscAutoDnsState;
   /**
    * Output only. The DNS name of the instance for PSC connectivity. Name
    * convention: ...alloydb-psc.goog
@@ -65,6 +107,26 @@ class PscInstanceConfig extends \Google\Collection
     return $this->allowedConsumerProjects;
   }
   /**
+   * Optional. Configuration for setting up PSC auto connection for the
+   * instance.
+   *
+   * Accepted values: PSC_AUTO_CONNECTION_POLICY_STATE_UNSPECIFIED, ENABLED,
+   * DISABLED
+   *
+   * @param self::PSC_AUTO_CONNECTION_POLICY_STATE_* $pscAutoConnectionPolicyState
+   */
+  public function setPscAutoConnectionPolicyState($pscAutoConnectionPolicyState)
+  {
+    $this->pscAutoConnectionPolicyState = $pscAutoConnectionPolicyState;
+  }
+  /**
+   * @return self::PSC_AUTO_CONNECTION_POLICY_STATE_*
+   */
+  public function getPscAutoConnectionPolicyState()
+  {
+    return $this->pscAutoConnectionPolicyState;
+  }
+  /**
    * Optional. Configurations for setting up PSC service automation.
    *
    * @param PscAutoConnectionConfig[] $pscAutoConnections
@@ -79,6 +141,25 @@ class PscInstanceConfig extends \Google\Collection
   public function getPscAutoConnections()
   {
     return $this->pscAutoConnections;
+  }
+  /**
+   * Optional. Configuration for setting up PSC auto DNS for the instance.
+   *
+   * Accepted values: PSC_AUTO_DNS_STATE_UNSPECIFIED,
+   * PSC_AUTO_DNS_STATE_ENABLED, PSC_AUTO_DNS_STATE_DISABLED
+   *
+   * @param self::PSC_AUTO_DNS_STATE_* $pscAutoDnsState
+   */
+  public function setPscAutoDnsState($pscAutoDnsState)
+  {
+    $this->pscAutoDnsState = $pscAutoDnsState;
+  }
+  /**
+   * @return self::PSC_AUTO_DNS_STATE_*
+   */
+  public function getPscAutoDnsState()
+  {
+    return $this->pscAutoDnsState;
   }
   /**
    * Output only. The DNS name of the instance for PSC connectivity. Name

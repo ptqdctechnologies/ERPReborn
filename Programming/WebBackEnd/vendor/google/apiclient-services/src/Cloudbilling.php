@@ -48,10 +48,14 @@ class Cloudbilling extends \Google\Service
   public $billingAccounts;
   public $billingAccounts_projects;
   public $billingAccounts_subAccounts;
+  public $message;
   public $organizations_billingAccounts;
   public $projects;
   public $services;
   public $services_skus;
+  public $tasks;
+  public $tasks_pushNotificationConfigs;
+  public $v1;
   public $rootUrlTemplate;
 
   /**
@@ -249,6 +253,24 @@ class Cloudbilling extends \Google\Service
           ]
         ]
     );
+    $this->message = new Cloudbilling\Resource\Message(
+        $this,
+        $this->serviceName,
+        'message',
+        [
+          'methods' => [
+            'send' => [
+              'path' => 'v1/message:send',
+              'httpMethod' => 'POST',
+              'parameters' => [],
+            ],'stream' => [
+              'path' => 'v1/message:stream',
+              'httpMethod' => 'POST',
+              'parameters' => [],
+            ],
+          ]
+        ]
+    );
     $this->organizations_billingAccounts = new Cloudbilling\Resource\OrganizationsBillingAccounts(
         $this,
         $this->serviceName,
@@ -391,6 +413,155 @@ class Cloudbilling extends \Google\Service
                   'type' => 'string',
                 ],
                 'startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->tasks = new Cloudbilling\Resource\Tasks(
+        $this,
+        $this->serviceName,
+        'tasks',
+        [
+          'methods' => [
+            'cancel' => [
+              'path' => 'v1/{+name}:cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'historyLength' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'subscribe' => [
+              'path' => 'v1/{+name}:subscribe',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->tasks_pushNotificationConfigs = new Cloudbilling\Resource\TasksPushNotificationConfigs(
+        $this,
+        $this->serviceName,
+        'pushNotificationConfigs',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'configId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/pushNotificationConfigs',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'tenant' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->v1 = new Cloudbilling\Resource\V1(
+        $this,
+        $this->serviceName,
+        'v1',
+        [
+          'methods' => [
+            'getCard' => [
+              'path' => 'v1/card',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'tenant' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],

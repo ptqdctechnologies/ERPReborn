@@ -282,6 +282,8 @@ class Instance extends \Google\Collection
   public $outboundPublicIpAddresses;
   protected $pscInstanceConfigType = PscInstanceConfig::class;
   protected $pscInstanceConfigDataType = '';
+  protected $pscInstanceInfoType = PscInstanceInfo::class;
+  protected $pscInstanceInfoDataType = '';
   /**
    * Output only. The public IP addresses for the Instance. This is available
    * ONLY when enable_public_ip is set. This is the connection endpoint for an
@@ -751,6 +753,23 @@ class Instance extends \Google\Collection
   public function getPscInstanceConfig()
   {
     return $this->pscInstanceConfig;
+  }
+  /**
+   * Output only. Information about the Private Service Connect (PSC) for the
+   * instance.
+   *
+   * @param PscInstanceInfo $pscInstanceInfo
+   */
+  public function setPscInstanceInfo(PscInstanceInfo $pscInstanceInfo)
+  {
+    $this->pscInstanceInfo = $pscInstanceInfo;
+  }
+  /**
+   * @return PscInstanceInfo
+   */
+  public function getPscInstanceInfo()
+  {
+    return $this->pscInstanceInfo;
   }
   /**
    * Output only. The public IP addresses for the Instance. This is available

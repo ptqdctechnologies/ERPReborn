@@ -37,6 +37,15 @@ class UploadGenericArtifactRequest extends \Google\Model
    */
   public $packageId;
   /**
+   * Optional. Client specified annotations to attach to the version upon
+   * creation. This field is only applied if the Version is created during this
+   * upload. If the Version already exists and this field is set, the request
+   * will fail.
+   *
+   * @var string[]
+   */
+  public $versionAnnotations;
+  /**
    * The ID of the version of the generic artifact. If the version does not
    * exist, a new version will be created. The version_id must start and end
    * with a letter or number, can only contain lowercase letters, numbers, the
@@ -83,6 +92,25 @@ class UploadGenericArtifactRequest extends \Google\Model
   public function getPackageId()
   {
     return $this->packageId;
+  }
+  /**
+   * Optional. Client specified annotations to attach to the version upon
+   * creation. This field is only applied if the Version is created during this
+   * upload. If the Version already exists and this field is set, the request
+   * will fail.
+   *
+   * @param string[] $versionAnnotations
+   */
+  public function setVersionAnnotations($versionAnnotations)
+  {
+    $this->versionAnnotations = $versionAnnotations;
+  }
+  /**
+   * @return string[]
+   */
+  public function getVersionAnnotations()
+  {
+    return $this->versionAnnotations;
   }
   /**
    * The ID of the version of the generic artifact. If the version does not

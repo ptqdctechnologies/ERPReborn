@@ -90,9 +90,20 @@ class SpacesMessages extends \Google\Service\Resource
    * interactions), this field is ignored. For interactions within a thread, the
    * reply is created in the same thread. Otherwise, the reply is created as a new
    * thread.
-   * @opt_param string requestId Optional. A unique request ID for this message.
-   * Specifying an existing request ID returns the message created with that ID
-   * instead of creating a new message.
+   * @opt_param string requestId Optional. A unique ID for this request. A random
+   * UUID is recommended. Specifying a request ID makes the request idempotent,
+   * which ensures that multiple identical requests with the same request ID
+   * result in only a single message being created. Subsequent requests with the
+   * same request ID return the existing message and do not update the message,
+   * even if the requested details differ from the current state. To use this
+   * field effectively: - Ensure that subsequent requests are identical and use
+   * the same authentication credentials as the original request. - If a message
+   * was already created with the provided request ID, the request returns that
+   * message. Note that the returned message might not be fully populated; the API
+   * echoes the message in your request with the system-assigned resource names
+   * populated. To retrieve the latest metadata for the message, call
+   * `GetMessage`. - Reusing an existing request ID with a different authenticated
+   * user results in an error.
    * @opt_param string threadKey Optional. Deprecated: Use thread.thread_key
    * instead. ID for the thread. Supports up to 4000 characters. To start or add
    * to a thread, create a message and specify a `threadKey` or the thread.name.

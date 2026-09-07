@@ -51,6 +51,23 @@ class GoogleCloudApihubV1Addon extends \Google\Model
    * The addon is inactive.
    */
   public const STATE_INACTIVE = 'INACTIVE';
+  /**
+   * Output only. The Vertex AI region where the BoostSpec Gemini model calls
+   * run for this API Hub instance. Populated only for the SpecGen addon
+   * (`system-spec-generation`); other addons leave this field empty.
+   * `gemini-2.5-flash` is not available in every API Hub region, so the
+   * effective region may differ from the API Hub instance's own region. The
+   * value follows these semantics: - `""`: BoostSpec is disabled in this region
+   * (the addon is not SpecGen, or the API Hub instance region has no configured
+   * Gemini endpoint or fallback). - Equal to the API Hub instance region:
+   * BoostSpec calls run in-region. - Differs from the API Hub instance region:
+   * BoostSpec calls run in the specified fallback region. Callers rendering
+   * this field can derive the three display states from this single field
+   * combined with the API Hub instance region.
+   *
+   * @var string
+   */
+  public $boostSpecGeminiRegionId;
   protected $configType = GoogleCloudApihubV1AddonConfig::class;
   protected $configDataType = '';
   /**
@@ -98,6 +115,33 @@ class GoogleCloudApihubV1Addon extends \Google\Model
    */
   public $updateTime;
 
+  /**
+   * Output only. The Vertex AI region where the BoostSpec Gemini model calls
+   * run for this API Hub instance. Populated only for the SpecGen addon
+   * (`system-spec-generation`); other addons leave this field empty.
+   * `gemini-2.5-flash` is not available in every API Hub region, so the
+   * effective region may differ from the API Hub instance's own region. The
+   * value follows these semantics: - `""`: BoostSpec is disabled in this region
+   * (the addon is not SpecGen, or the API Hub instance region has no configured
+   * Gemini endpoint or fallback). - Equal to the API Hub instance region:
+   * BoostSpec calls run in-region. - Differs from the API Hub instance region:
+   * BoostSpec calls run in the specified fallback region. Callers rendering
+   * this field can derive the three display states from this single field
+   * combined with the API Hub instance region.
+   *
+   * @param string $boostSpecGeminiRegionId
+   */
+  public function setBoostSpecGeminiRegionId($boostSpecGeminiRegionId)
+  {
+    $this->boostSpecGeminiRegionId = $boostSpecGeminiRegionId;
+  }
+  /**
+   * @return string
+   */
+  public function getBoostSpecGeminiRegionId()
+  {
+    return $this->boostSpecGeminiRegionId;
+  }
   /**
    * Required. The configuration of the addon.
    *

@@ -68,6 +68,10 @@ class Repository extends \Google\Model
    */
   public const FORMAT_RUBY = 'RUBY';
   /**
+   * Conda package format.
+   */
+  public const FORMAT_CONDA = 'CONDA';
+  /**
    * Unspecified mode.
    */
   public const MODE_MODE_UNSPECIFIED = 'MODE_UNSPECIFIED';
@@ -309,7 +313,7 @@ class Repository extends \Google\Model
    * Optional. The format of packages that are stored in the repository.
    *
    * Accepted values: FORMAT_UNSPECIFIED, DOCKER, MAVEN, NPM, APT, YUM, GOOGET,
-   * PYTHON, KFP, GO, GENERIC, RUBY
+   * PYTHON, KFP, GO, GENERIC, RUBY, CONDA
    *
    * @param self::FORMAT_* $format
    */

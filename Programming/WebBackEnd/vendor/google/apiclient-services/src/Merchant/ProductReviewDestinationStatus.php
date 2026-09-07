@@ -109,6 +109,10 @@ class ProductReviewDestinationStatus extends \Google\Model
    */
   public const REPORTING_CONTEXT_YOUTUBE_CHECKOUT = 'YOUTUBE_CHECKOUT';
   /**
+   * Real Estate Rental Ads. .
+   */
+  public const REPORTING_CONTEXT_RENTAL_ADS = 'RENTAL_ADS';
+  /**
    * Output only. The name of the reporting context.
    *
    * @var string
@@ -124,7 +128,7 @@ class ProductReviewDestinationStatus extends \Google\Model
    * FREE_LISTINGS_UCP_CHECKOUT, FREE_LOCAL_LISTINGS,
    * FREE_LOCAL_VEHICLE_LISTINGS, YOUTUBE_AFFILIATE, YOUTUBE_SHOPPING,
    * CLOUD_RETAIL, LOCAL_CLOUD_RETAIL, PRODUCT_REVIEWS, MERCHANT_REVIEWS,
-   * YOUTUBE_CHECKOUT
+   * YOUTUBE_CHECKOUT, RENTAL_ADS
    *
    * @param self::REPORTING_CONTEXT_* $reportingContext
    */

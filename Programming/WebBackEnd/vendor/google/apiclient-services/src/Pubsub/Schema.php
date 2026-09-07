@@ -31,6 +31,8 @@ class Schema extends \Google\Model
    * An Avro schema definition.
    */
   public const TYPE_AVRO = 'AVRO';
+  protected $compiledProtoSchemaType = CompiledProtoSchema::class;
+  protected $compiledProtoSchemaDataType = '';
   /**
    * The definition of the schema. This should contain a string representing the
    * full definition of the schema that is a valid schema definition of the type
@@ -65,6 +67,24 @@ class Schema extends \Google\Model
    */
   public $type;
 
+  /**
+   * Optional. Configuration for a schema provided as a pre-compiled Protocol
+   * Buffer FileDescriptorSet. The `type` field above must be set to
+   * PROTOCOL_BUFFER.
+   *
+   * @param CompiledProtoSchema $compiledProtoSchema
+   */
+  public function setCompiledProtoSchema(CompiledProtoSchema $compiledProtoSchema)
+  {
+    $this->compiledProtoSchema = $compiledProtoSchema;
+  }
+  /**
+   * @return CompiledProtoSchema
+   */
+  public function getCompiledProtoSchema()
+  {
+    return $this->compiledProtoSchema;
+  }
   /**
    * The definition of the schema. This should contain a string representing the
    * full definition of the schema that is a valid schema definition of the type

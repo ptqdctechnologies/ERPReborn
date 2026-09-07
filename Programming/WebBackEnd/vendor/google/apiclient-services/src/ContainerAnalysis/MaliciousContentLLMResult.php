@@ -61,6 +61,8 @@ class MaliciousContentLLMResult extends \Google\Model
    * @var string
    */
   public $scanStatus;
+  protected $tokenUsageType = TokenUsage::class;
+  protected $tokenUsageDataType = '';
 
   /**
    * Tracks max severity found.
@@ -113,6 +115,22 @@ class MaliciousContentLLMResult extends \Google\Model
   public function getScanStatus()
   {
     return $this->scanStatus;
+  }
+  /**
+   * Telemetry metrics tracking token usage for the AI scan.
+   *
+   * @param TokenUsage $tokenUsage
+   */
+  public function setTokenUsage(TokenUsage $tokenUsage)
+  {
+    $this->tokenUsage = $tokenUsage;
+  }
+  /**
+   * @return TokenUsage
+   */
+  public function getTokenUsage()
+  {
+    return $this->tokenUsage;
   }
 }
 

@@ -51,9 +51,11 @@ class AccessContextManager extends \Google\Service
   public $accessPolicies_accessLevels;
   public $accessPolicies_authorizedOrgsDescs;
   public $accessPolicies_servicePerimeters;
+  public $folders;
   public $operations;
   public $organizations_gcpUserAccessBindings;
   public $permissions;
+  public $projects;
   public $services;
   public $rootUrlTemplate;
 
@@ -455,6 +457,26 @@ class AccessContextManager extends \Google\Service
           ]
         ]
     );
+    $this->folders = new AccessContextManager\Resource\Folders(
+        $this,
+        $this->serviceName,
+        'folders',
+        [
+          'methods' => [
+            'lookupConfiguredServicePerimeter' => [
+              'path' => 'v1/{+resource}:lookupConfiguredServicePerimeter',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'resource' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->operations = new AccessContextManager\Resource\Operations(
         $this,
         $this->serviceName,
@@ -618,6 +640,26 @@ class AccessContextManager extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects = new AccessContextManager\Resource\Projects(
+        $this,
+        $this->serviceName,
+        'projects',
+        [
+          'methods' => [
+            'lookupConfiguredServicePerimeter' => [
+              'path' => 'v1/{+resource}:lookupConfiguredServicePerimeter',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'resource' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],

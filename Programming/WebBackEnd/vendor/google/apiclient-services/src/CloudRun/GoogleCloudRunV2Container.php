@@ -314,7 +314,8 @@ class GoogleCloudRunV2Container extends \Google\Collection
     return $this->sandboxLauncher;
   }
   /**
-   * Optional. Location of the source.
+   * Optional. Location of the source. This field is only supported in Cloud Run
+   * Service.
    *
    * @param GoogleCloudRunV2SourceCode $sourceCode
    */

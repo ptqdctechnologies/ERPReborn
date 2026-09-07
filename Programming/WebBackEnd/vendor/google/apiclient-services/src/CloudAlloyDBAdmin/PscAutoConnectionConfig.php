@@ -17,8 +17,9 @@
 
 namespace Google\Service\CloudAlloyDBAdmin;
 
-class PscAutoConnectionConfig extends \Google\Model
+class PscAutoConnectionConfig extends \Google\Collection
 {
+  protected $collection_key = 'dnsAutomationInfos';
   /**
    * The consumer network for the PSC service automation, example:
    * "projects/vpc-host-project/global/networks/default". The consumer network
@@ -50,12 +51,31 @@ class PscAutoConnectionConfig extends \Google\Model
    * @var string
    */
   public $consumerProject;
+  protected $dnsAutomationInfosType = DnsAutomationInfo::class;
+  protected $dnsAutomationInfosDataType = 'array';
   /**
    * Output only. The IP address of the PSC service automation endpoint.
    *
    * @var string
    */
   public $ipAddress;
+  /**
+   * Output only. The PSC service connection policy name. The format is
+   * "projects//regions//serviceConnectionPolicies/"
+   *
+   * @var string
+   */
+  public $serviceConnectionPolicy;
+  /**
+   * Output only. The creation state or result of the connection policy.
+   * Possible values include: - `ACTIVE`: The policy was created successfully. -
+   * `PERMISSION_DENIED`: Sufficient permissions were not provided. Note that
+   * this field is an unstructured output and customers should not rely on the
+   * specific string value or error message directly.
+   *
+   * @var string
+   */
+  public $serviceConnectionPolicyCreationState;
   /**
    * Output only. The status of the PSC service automation connection. Possible
    * values: "STATE_UNSPECIFIED" - An invalid state as the default case.
@@ -132,6 +152,22 @@ class PscAutoConnectionConfig extends \Google\Model
     return $this->consumerProject;
   }
   /**
+   * Output only. List of DNS automation info for the PSC auto connection.
+   *
+   * @param DnsAutomationInfo[] $dnsAutomationInfos
+   */
+  public function setDnsAutomationInfos($dnsAutomationInfos)
+  {
+    $this->dnsAutomationInfos = $dnsAutomationInfos;
+  }
+  /**
+   * @return DnsAutomationInfo[]
+   */
+  public function getDnsAutomationInfos()
+  {
+    return $this->dnsAutomationInfos;
+  }
+  /**
    * Output only. The IP address of the PSC service automation endpoint.
    *
    * @param string $ipAddress
@@ -146,6 +182,43 @@ class PscAutoConnectionConfig extends \Google\Model
   public function getIpAddress()
   {
     return $this->ipAddress;
+  }
+  /**
+   * Output only. The PSC service connection policy name. The format is
+   * "projects//regions//serviceConnectionPolicies/"
+   *
+   * @param string $serviceConnectionPolicy
+   */
+  public function setServiceConnectionPolicy($serviceConnectionPolicy)
+  {
+    $this->serviceConnectionPolicy = $serviceConnectionPolicy;
+  }
+  /**
+   * @return string
+   */
+  public function getServiceConnectionPolicy()
+  {
+    return $this->serviceConnectionPolicy;
+  }
+  /**
+   * Output only. The creation state or result of the connection policy.
+   * Possible values include: - `ACTIVE`: The policy was created successfully. -
+   * `PERMISSION_DENIED`: Sufficient permissions were not provided. Note that
+   * this field is an unstructured output and customers should not rely on the
+   * specific string value or error message directly.
+   *
+   * @param string $serviceConnectionPolicyCreationState
+   */
+  public function setServiceConnectionPolicyCreationState($serviceConnectionPolicyCreationState)
+  {
+    $this->serviceConnectionPolicyCreationState = $serviceConnectionPolicyCreationState;
+  }
+  /**
+   * @return string
+   */
+  public function getServiceConnectionPolicyCreationState()
+  {
+    return $this->serviceConnectionPolicyCreationState;
   }
   /**
    * Output only. The status of the PSC service automation connection. Possible

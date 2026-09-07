@@ -120,10 +120,11 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
    * agent-sharing` * `disable-image-generation` * `disable-video-generation` *
    * `disable-onedrive-upload` * `disable-talk-to-content` * `disable-google-
    * drive-upload` * `disable-welcome-emails` * `disable-canvas` * `canvas-
-   * workspace` * `skills` * `skill-sharing` * `skill-sharing-without-admin-
-   * approval` * `disable-projects` * `sobi` * `enable-end-user-sharing-with-
-   * groups` * `single-agent-orchestration` * `multi-agent-orchestration` *
-   * `cross-product-intelligence` * `workflow-agents` * `in-app-notifications`
+   * workspace` * `canvas-app-builder` * `skills` * `skill-sharing` * `skill-
+   * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
+   * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
+   * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
+   * `in-app-notifications`
    *
    * @var string[]
    */
@@ -178,6 +179,8 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
    * @var string
    */
   public $resultDescriptionType;
+  protected $searchAddonSpecType = GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsSearchAddonSpec::class;
+  protected $searchAddonSpecDataType = '';
   /**
    * Optional. Whether to show the admin-configured display name for data
    * connectors in the widget sources UI (instead of the connector kind). Opt-
@@ -362,10 +365,11 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
    * agent-sharing` * `disable-image-generation` * `disable-video-generation` *
    * `disable-onedrive-upload` * `disable-talk-to-content` * `disable-google-
    * drive-upload` * `disable-welcome-emails` * `disable-canvas` * `canvas-
-   * workspace` * `skills` * `skill-sharing` * `skill-sharing-without-admin-
-   * approval` * `disable-projects` * `sobi` * `enable-end-user-sharing-with-
-   * groups` * `single-agent-orchestration` * `multi-agent-orchestration` *
-   * `cross-product-intelligence` * `workflow-agents` * `in-app-notifications`
+   * workspace` * `canvas-app-builder` * `skills` * `skill-sharing` * `skill-
+   * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
+   * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
+   * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
+   * `in-app-notifications`
    *
    * @param string[] $features
    */
@@ -519,6 +523,23 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
   public function getResultDescriptionType()
   {
     return $this->resultDescriptionType;
+  }
+  /**
+   * Optional. SearchAddonSpec is used to disable add-ons for search. This field
+   * is only supported for search requests.
+   *
+   * @param GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsSearchAddonSpec $searchAddonSpec
+   */
+  public function setSearchAddonSpec(GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsSearchAddonSpec $searchAddonSpec)
+  {
+    $this->searchAddonSpec = $searchAddonSpec;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsSearchAddonSpec
+   */
+  public function getSearchAddonSpec()
+  {
+    return $this->searchAddonSpec;
   }
   /**
    * Optional. Whether to show the admin-configured display name for data

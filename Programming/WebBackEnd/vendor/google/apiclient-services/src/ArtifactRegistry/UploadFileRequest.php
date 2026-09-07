@@ -20,12 +20,27 @@ namespace Google\Service\ArtifactRegistry;
 class UploadFileRequest extends \Google\Model
 {
   /**
+   * Attachment file. Default value.
+   */
+  public const FILE_TYPE_ATTACHMENT = 'ATTACHMENT';
+  /**
+   * Facade specific artifact file.
+   */
+  public const FILE_TYPE_ARTIFACT = 'ARTIFACT';
+  /**
    * Optional. The ID of the file. If left empty will default to sha256 digest
    * of the content uploaded.
    *
    * @var string
    */
   public $fileId;
+  /**
+   * Optional. The type of the file to upload. Defaulting to ATTACHMENT if not
+   * specified.
+   *
+   * @var string
+   */
+  public $fileType;
 
   /**
    * Optional. The ID of the file. If left empty will default to sha256 digest
@@ -43,6 +58,25 @@ class UploadFileRequest extends \Google\Model
   public function getFileId()
   {
     return $this->fileId;
+  }
+  /**
+   * Optional. The type of the file to upload. Defaulting to ATTACHMENT if not
+   * specified.
+   *
+   * Accepted values: ATTACHMENT, ARTIFACT
+   *
+   * @param self::FILE_TYPE_* $fileType
+   */
+  public function setFileType($fileType)
+  {
+    $this->fileType = $fileType;
+  }
+  /**
+   * @return self::FILE_TYPE_*
+   */
+  public function getFileType()
+  {
+    return $this->fileType;
   }
 }
 
