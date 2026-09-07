@@ -148,7 +148,7 @@
                 priceInput.value.trim() !== ''
             ) {
                 const product = row.children[6].innerText.trim();
-                const currency = row.children[7].innerText.trim();
+                const currency = row.children[8].innerText.trim();
 
                 const price = priceInput.value.trim();
                 const qty = qtyInput.value.trim();
@@ -377,6 +377,7 @@
 
                                 <td style="text-align: center;">-</td>
                                 <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
+                                <td style="text-align: center;">-</td>
                                 <td style="text-align: center;">${val2.priceBaseCurrencyISOCode}</td>
                                 ${componentsInput}
                             </tr>

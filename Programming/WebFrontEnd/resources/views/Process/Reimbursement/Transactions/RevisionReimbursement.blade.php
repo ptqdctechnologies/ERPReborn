@@ -167,6 +167,9 @@
                                                             Product</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                                                            DN Value</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                                                             Currency</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;background: #4B586A;color: white;width: 80px;">
