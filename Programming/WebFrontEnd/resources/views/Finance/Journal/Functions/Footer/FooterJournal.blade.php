@@ -944,6 +944,25 @@
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
                         updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
                         updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
+                    } else if (response.documentTypeName == "Loan Form") {
+                        const unpaidValue =
+                            parseFloat(dataTransaction.TotalTransactions || 0) -
+                            parseFloat(dataTransaction.TotalPayment || 0);
+
+                        $(`#budget_ref_id${currentIndexPickRefNumbers}`).val(dataTransaction.CombinedBudget_RefID);
+                        $(`#budget${currentIndexPickRefNumbers}`).val(dataTransaction.CombinedBudgetCode); // dataTransaction.combinedBudgetCode
+                        $(`#value${currentIndexPickRefNumbers}`).val(Utils.formatCurrency(dataTransaction.TotalTransactions));
+                        $(`#unpaid${currentIndexPickRefNumbers}`).val(Utils.formatCurrency(unpaidValue));
+                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.BusinessDocument_RefID);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.BusinessDocumentNumber);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
+
+                        updateField(currentIndexPickRefNumber, 'ref_number_id', parseInt(dataTransaction.BusinessDocument_RefID));
+                        updateField(currentIndexPickRefNumber, 'ref_number_name', dataTransaction.BusinessDocumentNumber);
+                        updateField(currentIndexPickRefNumber, 'budget_ref_id', dataTransaction.CombinedBudget_RefID);
+                        updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.CombinedBudgetCode);
+                        updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
+                        updateField(currentIndexPickRefNumber, 'value', dataTransaction.TotalTransactions);
                     }
                 } else {
 

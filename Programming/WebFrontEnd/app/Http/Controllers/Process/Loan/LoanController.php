@@ -206,6 +206,7 @@ class LoanController extends Controller
                     'lendingRate' => (int) $dataLoanDetail[0]['LendingRate'] ?? '',
                     'loanDate' => $loanDate,
                     'loanTotal' => (int) $dataLoanDetail[0]['TotalLoan'] ?? '',
+                    'loanPaymentTotal' => (int) $dataLoanDetail[0]['TotalPayment'] ?? '0',
                     'loanTerm' => (int) $dataLoanDetail[0]['LoanTerm'] ?? '',
                     'remark' => $dataLoanDetail[0]['Notes'] ?? '',
                     'coaRefID' => $dataLoanDetail[0]['COA_RefID'] ?? '',
