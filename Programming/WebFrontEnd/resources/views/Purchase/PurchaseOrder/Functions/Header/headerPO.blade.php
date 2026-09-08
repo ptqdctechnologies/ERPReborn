@@ -54,7 +54,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
                 <div class="col-5">
                     <div class="input-group">
-                        <input type="text" id="exchange_rate" class="form-control"
+                        <input type="text" id="exchange_rate" class="form-control number-only"
                             style="border-radius:0;background-color:white;" />
                     </div>
                 </div>
