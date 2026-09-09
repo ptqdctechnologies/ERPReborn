@@ -35,7 +35,6 @@
                   <input hidden id="budgetDetailsData" />
                   <input hidden id="product_RefID" name="product_RefID" />
                   <input hidden id="workStructure_RefID" name="workStructure_RefID" />
-                  <input hidden id="var_combinedBudget_RefID" name="var_combinedBudget_RefID" />
                   <input hidden id="DocumentTypeID" name="DocumentTypeID" value="<?= $documentType_RefID; ?>">
                   <input hidden id="combinedBudgetSectionDetail_RefID" name="combinedBudgetSectionDetail_RefID" />
 

@@ -13,8 +13,11 @@
                     </div>
                     <div style="flex: 100%;">
                         <input type="text" id="requester_name" class="form-control"
-                            style="border-radius:0; background-color: white;" readonly />
-                        <input type="hidden" id="requester_id" name="requester_id" />
+                            value="<?= isset($requester) ? $requester['position'] . ' - ' . $requester['name'] : ''; ?>"
+                            style="border-radius:0; background-color: <?= isset($requester) ? '' : 'white' ?>;"
+                            readonly />
+                        <input type="hidden" id="requester_id" name="requester_id"
+                            value="<?= isset($requester) ? $requester['id'] : ''; ?>" />
                     </div>
                 </div>
             </div>
@@ -32,7 +35,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Contact Phone</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <input type="text" class="form-control" id="contactPhone" style="border-radius:0;" disabled />
+                        <input type="text" class="form-control" id="contactPhone"
+                            value="<?= isset($requester) ? $requester['contact'] : ''; ?>" style="border-radius:0;"
+                            disabled />
                     </div>
                 </div>
             </div>
@@ -43,6 +48,7 @@
                 <div class="col-5 d-flex">
                     <div>
                         <input type="date" class="form-control" id="dateCommance" name="dateCommance"
+                            value="<?= isset($dateCommanceTravel) ? date('Y-m-d', strtotime($dateCommanceTravel)) : ''; ?>"
                             style="border-radius:0;" />
                     </div>
                 </div>
@@ -59,7 +65,9 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Date End Travel</label>
                 <div class="col-5 d-flex">
                     <div>
-                        <input type="date" class="form-control" id="dateEnd" name="dateEnd" style="border-radius:0;" />
+                        <input type="date" class="form-control" id="dateEnd" name="dateEnd"
+                            value="<?= isset($dateEndTravel) ? date('Y-m-d', strtotime($dateEndTravel)) : ''; ?>"
+                            style="border-radius:0;" />
                     </div>
                 </div>
             </div>
@@ -78,7 +86,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Departing From</label>
                 <div class="col-5 d-flex">
                     <input type="text" class="form-control" id="departingFrom" name="departingFrom"
-                        style="border-radius:0;" autocomplete="off" />
+                        value="<?= isset($departingFrom) ? $departingFrom : ''; ?>" style="border-radius:0;"
+                        autocomplete="off" />
                 </div>
             </div>
             <div class="row" id="departingFromMessage" style="margin-top: .3rem; display: none;">
@@ -93,7 +102,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Destination To</label>
                 <div class="col-5 d-flex">
                     <input type="text" class="form-control" id="destinationTo" name="destinationTo"
-                        style="border-radius:0;" autocomplete="off">
+                        value="<?= isset($destinationTo) ? $destinationTo : ''; ?>" style="border-radius:0;"
+                        autocomplete="off">
                 </div>
             </div>
             <div class="row" id="destinationToMessage" style="margin-top: .3rem; display: none;">
@@ -108,7 +118,7 @@
                 <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Reason To Travel</label>
                 <div class="col-5 d-flex">
                     <textarea cols="30" rows="3" class="form-control" id="reasonTravel" style="border-radius:0;"
-                        name="reasonTravel"></textarea>
+                        name="reasonTravel"><?= isset($reasonTravel) ? $reasonTravel : ''; ?></textarea>
                 </div>
             </div>
             <div class="row" id="reasonToTravelMessage" style="margin-top: .3rem; display: none;">

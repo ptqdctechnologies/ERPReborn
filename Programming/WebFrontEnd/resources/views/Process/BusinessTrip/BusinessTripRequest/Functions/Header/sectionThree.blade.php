@@ -133,7 +133,9 @@
                         <div class="col-5 d-flex">
                             <div class="input-group">
                                 <input class="form-control number-without-negative" id="direct_to_vendor"
-                                    name="vendor_amount" style="border-radius:0;" autocomplete="off">
+                                    name="vendor_amount"
+                                    value="<?= isset($payment) ? $payment['vendor']['value'] : ''; ?>"
+                                    style="border-radius:0;" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -190,7 +192,8 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_vendor" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_vendor" name="bank_account_id_vendor" />
+                                <input type="hidden" id="bank_account_id_vendor" name="bank_account_id_vendor"
+                                    value="<?= isset($payment) ? $payment['vendor']['account']['id'] : ''; ?>" />
                             </div>
                         </div>
                     </div>
@@ -215,7 +218,9 @@
                             Corp Card</label>
                         <div class="col-5 d-flex">
                             <div class="input-group">
-                                <input id="by_corp_card" name="corp_amount" style="border-radius:0;" autocomplete="off"
+                                <input id="by_corp_card" name="corp_amount"
+                                    value="<?= isset($payment) ? $payment['corpCard']['value'] : ''; ?>"
+                                    style="border-radius:0;" autocomplete="off"
                                     class="form-control number-without-negative">
                             </div>
                         </div>
@@ -273,7 +278,8 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_corp_card" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_corp_card" name="bank_account_id_corp_card" />
+                                <input type="hidden" id="bank_account_id_corp_card" name="bank_account_id_corp_card"
+                                    value="<?= isset($payment) ? $payment['corpCard']['account']['id'] : ''; ?>" />
                             </div>
                         </div>
                     </div>
@@ -298,7 +304,8 @@
                             Other</label>
                         <div class="col-5 d-flex">
                             <div class="input-group">
-                                <input id="to_other" name="other_amount" style="border-radius:0;" autocomplete="off"
+                                <input id="to_other" name="other_amount" style="border-radius:0;"
+                                    value="<?= isset($payment) ? $payment['other']['value'] : ''; ?>" autocomplete="off"
                                     class="form-control number-without-negative">
                             </div>
                         </div>
@@ -328,7 +335,8 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="beneficiary_name" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="beneficiary_id" name="beneficiary_id" />
+                                <input type="hidden" id="beneficiary_id" name="beneficiary_id"
+                                    value="<?= isset($payment) ? $payment['other']['beneficiary']['id'] : ''; ?>" />
                                 <input type="hidden" id="person_id" />
                             </div>
                         </div>
@@ -384,7 +392,8 @@
                             <div style="flex: 100%;">
                                 <input type="text" id="bank_account_name_other" class="form-control"
                                     style="border-radius:0; background-color: white;" readonly />
-                                <input type="hidden" id="bank_account_id_other" name="bank_account_id_other" />
+                                <input type="hidden" id="bank_account_id_other" name="bank_account_id_other"
+                                    value="<?= isset($payment) ? $payment['other']['account']['id'] : ''; ?>" />
                             </div>
                         </div>
                     </div>
@@ -410,6 +419,7 @@
                         <div class="col-5 d-flex">
                             <div class="input-group">
                                 <input id="total_payment" style="border-radius:0;" autocomplete="off"
+                                    value="<?= isset($payment) ? $payment['total'] : ''; ?>"
                                     class="form-control number-without-negative" disabled>
                             </div>
                         </div>

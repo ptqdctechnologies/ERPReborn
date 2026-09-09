@@ -1,200 +1,73 @@
 <script>
+  let labelPayment = '';
+  let totalNextApprover = 0;
+  let triggerButtonModal = null;
   let currenctBudgetSelection = 0;
-  let date = new Date();
-  let today = new Date(date.setMonth(date.getMonth() - 3));
+  let dataWorkflow = {
+    workFlowPathRefID: null,
+    approverEntityRefID: null,
+    comment: null
+  };
+  const initialValue = 0;
+  const totalBusinessTrip = [];
+  const date = new Date();
+  const today = new Date(date.setMonth(date.getMonth() - 3));
+  const subBudgetID = document.getElementById('site_id');
+  const searchBudgetBtn = document.getElementById('budget_detail_search');
+  const combinedBudgetSectionDetailID = document.getElementById('combinedBudgetSectionDetail_RefID');
+  const workStructureID = document.getElementById('workStructure_RefID');
   const documentTypeID = document.getElementById("DocumentTypeID");
-  const budgetID = document.getElementById('project_id_second');
-  const siteCode = document.getElementById('site_id_second');
+  const dateCommanceComp = document.getElementById('dateCommance');
+  const dateEndComp = document.getElementById('dateEnd');
+  const directToVendorComp = document.getElementById('direct_to_vendor');
+  const byCorpCardComp = document.getElementById('by_corp_card');
+  const toOtherComp = document.getElementById('to_other');
+  const beneficiaryPersonRefID = document.getElementById('person_id');
+  const bankAcronymVendor = document.getElementById('bank_acronym_vendor');
+  const bankAcronymCorpCard = document.getElementById('bank_acronym_corp_card');
+  const bankAcronymOther = document.getElementById('bank_acronym_other');
   const dataTripBudgetDetails = {!! json_encode($dataTripBudgetDetails ?? []) !!};
-  const combinedBudgetSectionDetailRefID = document.getElementById('combinedBudgetSectionDetail_RefID');
-  const workTemp = {!! json_encode($workTemp ?? []) !!};
-
-  // Utility function
-  function getElement(id) {
-    return document.getElementById(id);
-  }
-
   const validation = {
+    sectionOne: {
+      budgetID: getElement("project_name"),
+      subBudgetID: getElement("site_name")
+    },
     sectionTwo: {
+      requesterID: getElement("requester_name"),
       dateCommance: getElement("dateCommance"),
       dateEnd: getElement("dateEnd"),
       departingFrom: getElement("departingFrom"),
       destinationTo: getElement("destinationTo"),
       reasonTravel: getElement("reasonTravel"),
     },
+    sectionThree: {
+      budgetDetailsData: getElement("budgetDetailsData")
+    },
     sectionFour: {
       totalBusinessTrips: getElement("total_business_trip"),
       totalPayment: getElement("total_payment"),
       directToVendor: getElement("direct_to_vendor"),
-      bankListCode: getElement("bank_list_code"),
-      bankAccountsID: getElement("bank_accounts_id"),
+      bankListCode: getElement("bank_id_vendor"),
+      bankAccountsID: getElement("bank_account_id_vendor"),
       byCorpCard: getElement("by_corp_card"),
-      bankListSecondCode: getElement("bank_list_second_code"),
-      bankAccountsIDSecond: getElement("bank_accounts_id_second"),
+      bankListSecondCode: getElement("bank_id_corp_card"),
+      bankAccountsIDSecond: getElement("bank_account_id_corp_card"),
       toOther: getElement("to_other"),
-      beneficiarySecondID: getElement("beneficiary_second_id"),
-      bankListThirdCode: getElement("bank_list_third_code"),
-      bankAccountsThirdID: getElement("bank_accounts_third_id")
+      beneficiarySecondID: getElement("beneficiary_id"),
+      bankListThirdCode: getElement("bank_id_other"),
+      bankAccountsThirdID: getElement("bank_account_id_other")
     }
   };
-
-  document.getElementById('dateCommance').setAttribute('min', today.toISOString().split('T')[0]);
-  document.getElementById('dateEnd').setAttribute('min', today.toISOString().split('T')[0]);
-
-  document.getElementById("direct_to_vendor").addEventListener("input", calculateTotalPayment);
-  document.getElementById("by_corp_card").addEventListener("input", calculateTotalPayment);
-  document.getElementById("to_other").addEventListener("input", calculateTotalPayment);
-
-  function isNotEmpty(value) {
-    return value && value.trim() !== '';
-  }
-
-  function calculateTotalPayment() {
-    const totalBrf = parseFormattedNumber(document.getElementById("total_business_trip").value);
-    const directToVendorInput = document.getElementById("direct_to_vendor");
-    const corpCardInput = document.getElementById("by_corp_card");
-    const toOtherInput = document.getElementById("to_other");
-
-    let directToVendor = parseFormattedNumber(directToVendorInput.value);
-    let corpCard = parseFormattedNumber(corpCardInput.value);
-    let toOther = parseFormattedNumber(toOtherInput.value);
-
-    let total = directToVendor + corpCard + toOther;
-
-    if (totalBrf > 0 && total > totalBrf) {
-      const activeInput = document.activeElement;
-
-      // Reset input yang sedang aktif
-      if (activeInput && activeInput.tagName === "INPUT") {
-        activeInput.value = "0.00";
-
-        // Kurangi total dengan nilai yang tadi diinput agar total_payment tetap valid
-        if (activeInput === directToVendorInput) {
-          total -= directToVendor;
-          directToVendor = 0;
-        } else if (activeInput === corpCardInput) {
-          total -= corpCard;
-          corpCard = 0;
-        } else if (activeInput === toOtherInput) {
-          total -= toOther;
-          toOther = 0;
-        }
-      }
-
-      // Update total_payment dengan total valid setelah koreksi
-      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      // // Highlight error
-      // $("#total_payment").css("border", "1px solid red");
-      // $("#totalPaymentMessage").show();
-
-      Swal.fire("Error", `Total Payment is over`, "error");
-    } else {
-      // Total valid
-      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
-        minimumFractionDigits: 2,
-        maximumFractionDigits: 2
-      });
-
-      $("#total_payment").css("border", "1px solid #ced4da");
-      $("#totalPaymentMessage").hide();
-    }
-  }
-
-  function parseFormattedNumber(value) {
-    if (!value) return 0;
-    return parseFloat(value.replace(/,/g, ''));
-  }
-
-  function parseCurrency(value) {
-    const clean = value.replace(/,/g, '').trim();
-    return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
-  }
-
-  function getBudgetDetails(site_code, combinedBudgetSectionDetail_RefID) {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("getBudget") !!}?site_code=' + site_code,
-      success: function (data) {
-        $.each(data, function (key, val2) {
-          let productColumn = `
-            <td style="text-align: left;">-</td>
-            <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
-          `;
-
-          if (!val2.product_RefID) {
-            productColumn = `
-              <td style="padding: 8px;">
-                <div class="input-group">
-                  <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
-                  <div class="input-group-append">
-                    <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
-                      <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
-                        <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
-                      </a>
-                    </span>
-                  </div>
-                </div>
-              </td>
-              <td id="product_name${key}" style="text-align: left;text-wrap: auto;" name="product_name">${val2.productName}</td>
-            `;
-          }
-
-          if (val2.sys_ID == combinedBudgetSectionDetail_RefID) {
-            currenctBudgetSelection = val2.priceBaseCurrencyValue;
-            productColumn = `
-              <td style="text-align: left;">${workTemp}</td>
-              <td style="text-align: left;">${val2.productCode} - ${val2.productName}</td>
-            `;
-            $('#budgetDetailsData').val(JSON.stringify(val2));
-          }
-
-          var html =
-            '<tr>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            '<input hidden data-budget-id="sys_ID" value="' + val2.sys_ID + '">' +
-            ((val2.sys_ID == combinedBudgetSectionDetail_RefID) ? '<input type="checkbox" aria-label="Checkbox for following text input" checked disabled>' : '') +
-            '</td>' +
-            productColumn +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            numberFormatPHPCustom(val2.quantity * val2.priceBaseCurrencyValue, 2) +
-            '</td>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            val2.priceBaseCurrencyISOCode +
-            '</td>' +
-            '<td style="padding-top: 10px !important; padding-bottom: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important; padding-left: 10px !important; padding-right: 10px !important;">' +
-            numberFormatPHPCustom(val2.priceBaseCurrencyValue, 2) +
-            '</td>' +
-            '</tr>';
-
-          $(".loading").hide();
-          $('#budgetTable tbody').append(html);
-        });
-      }
-    });
-  }
 
   function sumTravelFares() {
     let total = 0;
     const container = document.getElementById('travel-fares-container');
 
-    // Ambil semua input di dalam container yang bukan type="hidden"
     const inputs = container.querySelectorAll('input:not([type="hidden"])');
 
     inputs.forEach(input => {
-      // Ambil nilai dan ubah menjadi float
       const value = parseCurrency(input.value);
 
-      // Cek apakah nilai adalah angka yang valid dan tambahkan ke total
       if (!isNaN(value)) {
         total += value;
       }
@@ -203,260 +76,12 @@
     return total;
   }
 
-  function calculateTotalBRF() {
-    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
-    let total = 0;
-
-    ids.forEach(id => {
-      const input = document.getElementById(id);
-
-      if (input && input.value) {
-        const amount = parseCurrency(input.value);
-
-        const simulatedTotal = total + amount;
-
-        if (currenctBudgetSelection < simulatedTotal && document.activeElement === input) {
-          input.value = "0";
-          Swal.fire("Error", `Value can't be greater than Business Trip Request`, "error");
-        } else if (input.value !== "0.00") {
-          total += amount;
-        }
-      }
-    });
-
-    const totalField = document.getElementById('total_business_trip');
-
-    if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection >= total) {
-      totalField.value = currencyTotal(total);
-      $("#total_business_trip").css("border", "1px solid #ced4da");
-      $("#totalBRFMessage").hide();
-    } else if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
-      totalField.value = currencyTotal(total);
-      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
-    } else if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
-      totalField.value = currencyTotal("0.00");
-      $("#total_business_trip").css("border", "1px solid red");
-      $("#totalBRFMessage").show();
-    }
+  function getElement(id) {
+    return document.getElementById(id);
   }
 
-  function initializeBRFCalculation() {
-    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
-
-    ids.forEach(id => {
-      const input = document.getElementById(id);
-
-      if (input) {
-        input.addEventListener('input', calculateTotalBRF);
-      }
-    });
-  }
-
-  function getBusinessTripCostComponentEntityNew() {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    $.ajax({
-      type: 'GET',
-      url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
-      success: function (data) {
-        const containerMap = [
-          { range: [0, 12], containerId: 'travel-fares-container', hidden: false },
-          { range: [12, 13], containerId: 'allowance-container', hidden: true },
-          { range: [13, 14], containerId: 'entertainment-container', hidden: true },
-          { range: [14, 15], containerId: 'other-container', hidden: true }
-        ];
-
-        containerMap.forEach(({ range, containerId, hidden }) => {
-          data.slice(...range).forEach(type => {
-            const inputId = type.name.toLowerCase();
-            const labelClass = hidden ? 'p-0 col-5 d-none' : 'p-0 col-5';
-
-            const findData = dataTripBudgetDetails.find(item => item.businessTripCostComponentEntity_RefID == type.value);
-
-            let inputComponent = `
-              <input type="hidden" name="components[${type.value}][sys_ID]">
-              <input type="hidden" name="components[${type.value}][amountCurrency_RefID]">
-              <input type="hidden" name="components[${type.value}][amountCurrencyExchangeRate]">
-              <input type="hidden" name="components[${type.value}][remarks]">
-              <input name="components[${type.value}][value]" id="${inputId}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-            `;
-
-            if (findData) {
-              let originValue = findData.amountCurrencyValue.toLocaleString('en-US', {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 2
-              });
-
-              currenctBudgetSelection += parseFloat(originValue.replace(/,/g, ''));
-              inputComponent = `
-                <input type="hidden" name="components[${type.value}][sys_ID]" value="${findData.sys_ID}">
-                <input type="hidden" name="components[${type.value}][amountCurrency_RefID]" value="${findData.amountCurrency_RefID}">
-                <input type="hidden" name="components[${type.value}][amountCurrencyExchangeRate]" value="${findData.amountCurrencyExchangeRate}">
-                <input type="hidden" name="components[${type.value}][remarks]" value="${findData.remarks}">
-                <input name="components[${type.value}][value]" id="${inputId}" value="${originValue}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
-              `;
-            }
-
-            const html = `
-              <div class="col-3">
-                <div class="row">
-                  <label for="${inputId}" class="${labelClass}">${type.name}</label>
-                  <div class="p-0">
-                    <div class="input-group">
-                      <input type="hidden" name="components[${type.value}][id]" value="${type.value}">
-                      ${inputComponent}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            `;
-
-            document.getElementById(containerId).insertAdjacentHTML('beforeend', html);
-          });
-        });
-
-        $(".loading-container").hide();
-
-        initializeBRFCalculation();
-      },
-      error: function (textStatus, errorThrown) {
-        console.log('error', textStatus, errorThrown);
-      }
-    });
-  }
-
-  function SelectWorkFlow(formatData) {
-    const swalWithBootstrapButtons = Swal.mixin({
-      confirmButtonClass: 'btn btn-success btn-sm',
-      cancelButtonClass: 'btn btn-danger btn-sm',
-      buttonsStyling: true,
-    });
-
-    swalWithBootstrapButtons.fire({
-      title: 'Comment',
-      text: "Please write your comment here",
-      type: 'question',
-      input: 'textarea',
-      showCloseButton: false,
-      showCancelButton: true,
-      focusConfirm: false,
-      cancelButtonText: '<span style="color:black;"> Cancel </span>',
-      confirmButtonText: '<span style="color:black;"> OK </span>',
-      cancelButtonColor: '#DDDAD0',
-      confirmButtonColor: '#DDDAD0',
-      reverseButtons: true
-    }).then((result) => {
-      if ('value' in result) {
-        ShowLoading();
-        BusinessTripRequestRevision({ ...formatData, comment: result.value });
-      }
-    });
-  }
-
-  function BusinessTripRequestRevision(formatData) {
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      }
-    });
-
-    $.ajax({
-      type: 'POST',
-      data: formatData,
-      url: '{{ route("BusinessTripRequest.UpdatesBusinessTripRequest") }}',
-      success: function (res) {
-        HideLoading();
-
-        if (res.status === 200) {
-          const swalWithBootstrapButtons = Swal.mixin({
-            confirmButtonClass: 'btn btn-success btn-sm',
-            cancelButtonClass: 'btn btn-danger btn-sm',
-            buttonsStyling: true,
-          });
-
-          swalWithBootstrapButtons.fire({
-            title: 'Successful !',
-            type: 'success',
-            html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
-            showCloseButton: false,
-            showCancelButton: false,
-            focusConfirm: false,
-            confirmButtonText: '<span style="color:black;"> OK </span>',
-            confirmButtonColor: '#4B586A',
-            confirmButtonColor: '#e9ecef',
-            reverseButtons: true
-          }).then((result) => {
-            ShowLoading();
-            window.location.href = '/BusinessTripRequest?var=1';
-          });
-        } else {
-          ErrorNotif("Data Cancel Inputed");
-        }
-      },
-      error: function (jqXHR, textStatus, errorThrown) {
-        console.log('error', jqXHR, textStatus, errorThrown);
-      }
-    });
-  }
-
-  function SubmitForm() {
-    $('#businessTripRevisionFormModal').modal('hide');
-
-    var action = $('#FormRevisionBusinessTrip').attr("action");
-    var method = $('#FormRevisionBusinessTrip').attr("method");
-    var form_data = new FormData($('#FormRevisionBusinessTrip')[0]);
-    var form = $('#FormRevisionBusinessTrip');
-
-    ShowLoading();
-
-    $.ajax({
-      url: action,
-      dataType: 'json',
-      cache: false,
-      contentType: false,
-      processData: false,
-      data: form_data,
-      type: method,
-      success: function (response) {
-        HideLoading();
-
-        if (response.message == "WorkflowError") {
-          $("#revisionBRF").prop("disabled", false);
-
-          CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-        } else if (response.message == "MoreThanOne") {
-          $('#getWorkFlow').modal('toggle');
-
-          var t = $('#tableGetWorkFlow').DataTable();
-          t.clear();
-          $.each(response.data, function (key, val) {
-            t.row.add([
-              '<td><span data-dismiss="modal" onclick="SelectWorkFlow(\'' + val.Sys_ID + '\', \'' + val.NextApprover_RefID + '\', \'' + response.approverEntity_RefID + '\', \'' + response.documentTypeID + '\');"><img src="{{ asset("AdminLTE-master/dist/img/add.png") }}" width="25" alt="" style="border: 1px solid #ced4da;padding-left:4px;padding-right:4px;padding-top:2px;padding-bottom:2px;border-radius:3px;"></span></td>',
-              '<td style="border:1px solid #e9ecef;">' + val.FullApproverPath + '</td></tr></tbody>'
-            ]).draw();
-          });
-        } else {
-          const formatData = {
-            workFlowPath_RefID: response.workFlowPath_RefID,
-            nextApprover: response.nextApprover_RefID,
-            approverEntity: response.approverEntity_RefID,
-            documentTypeID: response.documentTypeID,
-            storeData: response.storeData
-          };
-
-          SelectWorkFlow(formatData);
-        }
-      },
-      error: function (response) {
-        HideLoading();
-        CancelNotif("You don't have access", '/BusinessTripRequest?var=1');
-        console.log('error response', response);
-      }
-    });
+  function isNotEmpty(value) {
+    return value && value.trim() !== '';
   }
 
   function isSectionValid() {
@@ -526,14 +151,495 @@
       result = false;
     }
 
-    return isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+    return isNotEmpty(validation.sectionOne.budgetID.value) &&
+      isNotEmpty(validation.sectionOne.subBudgetID.value) &&
+      isNotEmpty(validation.sectionTwo.requesterID.value) &&
+      isNotEmpty(validation.sectionTwo.dateCommance.value) &&
       isNotEmpty(validation.sectionTwo.dateEnd.value) &&
       isNotEmpty(validation.sectionTwo.departingFrom.value) &&
       isNotEmpty(validation.sectionTwo.destinationTo.value) &&
       isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+      isNotEmpty(validation.sectionThree.budgetDetailsData.value) &&
       isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
-      isNotEmpty(validation.sectionFour.totalPayment.value) &&
       result
+  }
+
+  function isSectionNotValid() {
+    return !isNotEmpty(validation.sectionOne.budgetID.value) &&
+      !isNotEmpty(validation.sectionOne.subBudgetID.value) &&
+      !isNotEmpty(validation.sectionTwo.requesterID.value) &&
+      !isNotEmpty(validation.sectionTwo.dateCommance.value) &&
+      !isNotEmpty(validation.sectionTwo.dateEnd.value) &&
+      !isNotEmpty(validation.sectionTwo.departingFrom.value) &&
+      !isNotEmpty(validation.sectionTwo.destinationTo.value) &&
+      !isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
+      !isNotEmpty(validation.sectionThree.budgetDetailsData.value) &&
+      !isNotEmpty(validation.sectionFour.totalBusinessTrips.value) &&
+      !isNotEmpty(validation.sectionFour.totalPayment.value)
+  }
+
+  function changeLabelPayment(val) {
+    labelPayment = val;
+
+    if (val == 'bank_account_vendor') {
+      getBankAccountListCustom(bankAcronymVendor.value);
+    } else if (val == 'bank_account_corp_card') {
+      getBankAccountListCustom(bankAcronymCorpCard.value);
+    } else if (val == 'bank_account_other') {
+      getBankAccountListCustom(bankAcronymOther.value, "", beneficiaryPersonRefID.value);
+    }
+  }
+
+  function parseCurrency(value) {
+    const clean = value.replace(/,/g, '').trim();
+    return isNaN(parseFloat(clean)) ? 0 : parseFloat(clean);
+  }
+
+  function parseFormattedNumber(value) {
+    if (!value) return 0;
+    return parseFloat(value.replace(/,/g, ''));
+  }
+
+  function calculateTotalPayment() {
+    const totalBrf = parseFormattedNumber(document.getElementById("total_business_trip").value);
+    const directToVendorInput = document.getElementById("direct_to_vendor");
+    const corpCardInput = document.getElementById("by_corp_card");
+    const toOtherInput = document.getElementById("to_other");
+
+    let directToVendor = parseFormattedNumber(directToVendorInput.value);
+    let corpCard = parseFormattedNumber(corpCardInput.value);
+    let toOther = parseFormattedNumber(toOtherInput.value);
+
+    let total = directToVendor + corpCard + toOther;
+
+    if (totalBrf > 0 && total > totalBrf) {
+      const activeInput = document.activeElement;
+
+
+      if (activeInput && activeInput.tagName === "INPUT") {
+        activeInput.value = "0.00";
+
+        if (activeInput === directToVendorInput) {
+          total -= directToVendor;
+          directToVendor = 0;
+        } else if (activeInput === corpCardInput) {
+          total -= corpCard;
+          corpCard = 0;
+        } else if (activeInput === toOtherInput) {
+          total -= toOther;
+          toOther = 0;
+        }
+      }
+
+      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      // // Highlight error
+      // $("#total_payment").css("border", "1px solid red");
+      // $("#totalPaymentMessage").show();
+
+      Swal.fire("Error", `Total Payment is over`, "error");
+    } else {
+      document.getElementById("total_payment").value = total.toLocaleString('en-US', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      });
+
+      $("#total_payment").css("border", "1px solid #ced4da");
+      $("#totalPaymentMessage").hide();
+    }
+  }
+
+  function calculateTotalBRF() {
+    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
+    let total = 0;
+
+    ids.forEach(id => {
+      const input = document.getElementById(id);
+
+      if (input && input.value) {
+        const amount = parseCurrency(input.value);
+
+        const simulatedTotal = total + amount;
+
+        if (currenctBudgetSelection > 0 && currenctBudgetSelection < simulatedTotal && document.activeElement === input) {
+          input.value = "0";
+          Swal.fire("Error", `Value can't be greater than Business Trip Request`, "error");
+        } else if (input.value !== "0.00") {
+          total += amount;
+        }
+      }
+    });
+
+    const totalField = document.getElementById('total_business_trip');
+
+    if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection >= total) {
+      totalField.value = currencyTotal(total);
+      $("#total_business_trip").css("border", "1px solid #ced4da");
+      $("#totalBRFMessage").hide();
+    }
+    if (currenctBudgetSelection != 0 && total != 0 && currenctBudgetSelection < total) {
+      totalField.value = currencyTotal(total);
+      Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+    }
+    if (currenctBudgetSelection != 0 && total == 0 && currenctBudgetSelection > total) {
+      totalField.value = currencyTotal("0.00");
+      $("#total_business_trip").css("border", "1px solid red");
+      $("#totalBRFMessage").show();
+    }
+    if (currenctBudgetSelection == 0 && total != 0 && currenctBudgetSelection < total) {
+      totalField.value = currencyTotal(total);
+      $("#total_business_trip").css("border", "1px solid #ced4da");
+      $("#totalBRFMessage").hide();
+    }
+  }
+
+  function initializeBRFCalculation() {
+    const ids = ['taxi', 'airplane', 'train', 'bus', 'ship', 'tol/road', 'park', 'excess baggage', 'fuel', 'hotel', 'mess', 'guest house', 'accommodation', 'entertainment', 'other'];
+
+    ids.forEach(id => {
+      const input = document.getElementById(id);
+
+      if (input) {
+        input.addEventListener('input', calculateTotalBRF);
+      }
+    });
+  }
+
+  function getBusinessTripCostComponentEntityNew() {
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getBusinessTripCostComponentEntityNew") !!}',
+      success: function (data) {
+        const containerMap = [
+          { range: [0, 12], containerId: 'travel-fares-container', hidden: false },
+          { range: [12, 13], containerId: 'allowance-container', hidden: true },
+          { range: [13, 14], containerId: 'entertainment-container', hidden: true },
+          { range: [14, 15], containerId: 'other-container', hidden: true }
+        ];
+
+        containerMap.forEach(({ range, containerId, hidden }) => {
+          data.slice(...range).forEach(type => {
+            const inputId = type.name.toLowerCase();
+            const labelClass = hidden ? 'p-0 col-5 d-none' : 'p-0 col-5';
+            const findData = dataTripBudgetDetails.find(el => el.businessTripCostComponentEntity_RefID == type.value);
+
+            const html = `
+              <div class="col-3">
+                <div class="row">
+                  <label for="${inputId}" class="${labelClass}">${type.name}</label>
+                  <div class="p-0">
+                    <div class="input-group">
+                      <input type="hidden" name="components[${type.value}][id]" value="${type.value}">
+                      <input name="components[${type.value}][value]" id="${inputId}" value="${findData ? Utils.formatCurrency(findData.amountCurrencyValue) : ''}" style="border-radius:0;" autocomplete="off" class="form-control number-without-negative">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            `;
+
+            document.getElementById(containerId).insertAdjacentHTML('beforeend', html);
+          });
+        });
+
+        $(".loading-container").hide();
+
+        initializeBRFCalculation();
+        calculateTotalBRF();
+      },
+      error: function (textStatus, errorThrown) {
+        console.log('error', textStatus, errorThrown);
+      }
+    });
+  }
+
+  function getSelectedRowData() {
+    const selectedCheckbox = document.querySelector('#budgetTable tbody input[type="checkbox"]:checked');
+    const budgetDetailsInput = document.getElementById('budgetDetailsData');
+    const totalBusinessTripInput = document.getElementById('total_business_trip');
+    const totalPaymentBusinessTripInput = document.getElementById('total_payment');
+
+    if (selectedCheckbox) {
+      const row = selectedCheckbox.closest('tr');
+      const datas = {
+        totalBudget: row.cells[3].textContent.trim(),
+        balanceBudget: row.cells[5].textContent.trim(),
+        sysId: row.querySelector('input[data-budget-id="sys_ID"]').value,
+        productId: row.querySelector('input[id="product_RefID"]').value,
+        workId: row.querySelector('input[id="workStructure_RefID"]').value
+      };
+
+      $("#total_business_trip_request").val(datas.totalBudget);
+      $("#total_balanced").val(datas.balanceBudget);
+      $("#combinedBudgetSectionDetail_RefID").val(datas.sysId);
+      $("#workStructure_RefID").val(datas.workId);
+      $("#product_RefID").val(datas.productId);
+
+      budgetDetailsInput.value = JSON.stringify(datas);
+      currenctBudgetSelection = parseFormattedNumber(datas.balanceBudget);
+
+      const balanceBudget = parseFormattedNumber(datas.balanceBudget);
+      const totalBusinessTrip = parseFormattedNumber(totalBusinessTripInput.value || '0');
+      const totalPaymentBusinessTrip = parseFormattedNumber(totalPaymentBusinessTripInput.value || '0');
+
+      if (totalBusinessTrip > balanceBudget) {
+        Swal.fire("Error", `Total Business Trip must not exceed the selected Balanced Budget`, "error");
+      }
+
+      if (totalPaymentBusinessTrip > balanceBudget) {
+        Swal.fire("Error", `Total Payment must not exceed the selected Balanced Budget`, "error");
+      }
+    } else {
+      budgetDetailsInput.value = '';
+      currenctBudgetSelection = 0;
+
+      $("#total_business_trip_request").val("");
+      $("#total_balanced").val("");
+      $("#combinedBudgetSectionDetail_RefID").val("");
+    }
+  }
+
+  function handleCheckboxSelection() {
+    const checkboxes = document.querySelectorAll('#budgetTable tbody input[type="checkbox"]');
+
+    checkboxes.forEach((checkbox, index) => {
+      checkbox.addEventListener('change', function () {
+        if (this.checked) {
+          $("#budgetDetailsMessage").hide();
+
+          checkboxes.forEach((otherCheckbox, otherIndex) => {
+            if (otherIndex !== index) {
+              otherCheckbox.disabled = true;
+              otherCheckbox.checked = false;
+            }
+          });
+        } else {
+          checkboxes.forEach(otherCheckbox => {
+            otherCheckbox.disabled = false;
+          });
+          document.getElementById('budgetDetailsData').value = '';
+        }
+
+        getSelectedRowData();
+      });
+    });
+  }
+
+  function getBudgetDetails(site_id) {
+    const tdStyle = 'padding: 10px !important; text-align: center !important; border: 1px solid #e9ecef !important;';
+
+    $("#loadingBudgetDetails").show();
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("getBudget") !!}?site_code=' + site_id,
+      headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+      success: function (data) {
+        const findData = data.find(el => el.sys_ID == combinedBudgetSectionDetailID.value);
+
+        $("#loadingBudgetDetails").hide();
+        searchBudgetBtn.style.display = 'block';
+
+        if (findData) {
+          $("#budgetDetailsData").val(JSON.stringify({
+            totalBudget: numberFormatPHPCustom(findData.quantity * findData.priceBaseCurrencyValue, 2),
+            balanceBudget: numberFormatPHPCustom(findData.priceBaseCurrencyValue, 2),
+            sysId: String(findData.sys_ID),
+            productId: String(findData.product_RefID),
+            workId: String(workStructureID.value)
+          }));
+        }
+
+        $.each(data, function (key, value) {
+          const productColumn = value.product_RefID
+            ? `<td style="text-align: center;">-</td>
+               <td style="text-align: left;">${value.product_RefID} - ${value.productName}</td>`
+            : `<td style="text-align: center;">-</td>
+               <td style="padding: 8px;">
+                 <div class="input-group">
+                   <input id="product_id${key}" style="border-radius:0;width:130px;background-color:white;" name="product_id" class="form-control" readonly />
+                   <div class="input-group-append">
+                     <span style="border-radius:0;cursor:pointer;" class="input-group-text form-control" data-id="10">
+                       <a id="product_id2${key}" data-toggle="modal" data-target="#myProduct" class="myProduct" onclick="KeyFunction(${key})">
+                         <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="">
+                       </a>
+                     </span>
+                   </div>
+                 </div>
+               </td>`;
+
+          const html = `
+            <tr>
+              <td style="${tdStyle}">
+                <input hidden data-budget-id="sys_ID" value="${value.sys_ID}">
+                <input hidden id="workStructure_RefID" value="302000000000002">
+                <input hidden id="product_RefID" value="${value.product_RefID}">
+                <input type="checkbox" aria-label="Checkbox for following text input" ${findData && findData.sys_ID == value.sys_ID ? 'checked' : 'disabled'}>
+              </td>
+              ${productColumn}
+              <td style="${tdStyle}">${numberFormatPHPCustom(value.quantity * value.priceBaseCurrencyValue, 2)}</td>
+              <td style="${tdStyle}">${value.priceBaseCurrencyISOCode}</td>
+              <td style="${tdStyle}">${numberFormatPHPCustom(value.priceBaseCurrencyValue, 2)}</td>
+            </tr>`;
+
+          $('table#budgetTable tbody').append(html);
+        });
+
+        handleCheckboxSelection();
+      },
+    });
+  }
+
+  function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      data: {
+        businessDocumentType_RefID: documentTypeID.value,
+        combinedBudget_RefID: combinedBudgetRefID
+      },
+      url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+      success: function (response) {
+        if (response.status === 200 && !response.data[0].signAccess) {
+          getSites(combinedBudgetRefID);
+
+          $("#project_id").val(combinedBudgetRefID);
+          $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+          $("#myProjectsTrigger").prop("disabled", true);
+          $("#myProjectsTrigger").css("cursor", "not-allowed");
+          $("#mySitesTrigger").prop("disabled", false);
+          $("#mySitesTrigger").css("cursor", "pointer");
+
+          ErrorHandler.hideErrorInputMessage("#project_name", "#budgetMessage");
+          $("#project_name").css({ "background-color": "#e9ecef" });
+        } else {
+          Swal.fire("Error", "You are not included in this budget", "error");
+        }
+
+        $("#loadingBudget").hide();
+        $("#iconBudget").show();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
+        Swal.fire("Error", "Data Error", "error");
+      }
+    });
+  }
+
+  function getBankAccountListCustom(bankName, accountNumber, entityRefID) {
+    let table = $('#bankAccountListTable').DataTable({
+      processing: true,
+      serverSide: true,
+      destroy: true,
+      info: true,
+      paging: true,
+      searching: true,
+      lengthChange: true,
+      pageLength: 10,
+      ajax: {
+        url: '{!! route("Bank.Account.picklist") !!}',
+        type: 'GET',
+        data: function (d) {
+          d.bank_name = bankName;
+          d.account_number = accountNumber;
+          d.entity_refID = entityRefID;
+
+          return d;
+        },
+        dataSrc: function (json) {
+          const response = Array.isArray(json.data) && json.data[0].sys_ID ? json.data : [];
+
+          if (response.length === 1) {
+            if (labelPayment == 'beneficiary_other' || labelPayment == 'bank_name_other') {
+              $("#bank_account_id_other").val(response[0].sys_ID);
+              $("#bank_account_name_other").val(response[0].sys_Text);
+              $("#bank_account_name_other").css({ "background-color": "#e9ecef" });
+
+              ErrorHandler.hideErrorInputMessage("#bank_account_name_other", "#bankAccountToOtherMessage");
+            }
+          } else {
+            if (labelPayment == 'beneficiary_other' || labelPayment == 'bank_name_other') {
+              $("#bank_account_id_other").val("");
+              $("#bank_account_name_other").val("");
+              $("#bank_account_name_other").css({ "background-color": "#fff" });
+            }
+          }
+
+          return response;
+        },
+        beforeSend: function () {
+          $('#bankAccountListTable tbody').empty();
+          $("#bankAccountListLoadingTable").show();
+        },
+        complete: function () {
+          $("#bankAccountListLoadingTable").hide();
+        },
+        error: function (xhr, error, thrown) {
+          $("#bankAccountListLoadingTable").hide();
+        }
+      },
+      columns: [
+        {
+          data: null,
+          render: function (data, type, row, meta) {
+            return '<input id="sys_id_bank_account' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account" type="hidden">' +
+              (meta.row + meta.settings._iDisplayStart + 1)
+          }
+        },
+        {
+          data: null,
+          defaultContent: '-',
+          className: "align-middle text-wrap",
+          render: function (data, type, row, meta) {
+            return '<span style="line-height: normal;">' +
+              data.additionalData.bankName +
+              '</span>';
+          }
+        },
+        {
+          data: "sys_Text",
+          defaultContent: '-',
+          className: "align-middle text-wrap",
+          render: function (data, type, row, meta) {
+            return '<span style="line-height: normal;">' +
+              data +
+              '</span>';
+          }
+        }
+      ],
+      initComplete: function () {
+        let api = this.api();
+
+        let $filter = $('#bankAccountListTable_filter');
+        let $searchLabel = $filter.find('label');
+        let $searchInput = $filter.find('input');
+
+        $searchLabel.css('margin-bottom', '0');
+        $searchInput
+          .attr('placeholder', 'Search...')
+          .off('.DT')
+          .on('keypress', function (e) {
+            if (e.which === 13) {
+              api.search(this.value).draw();
+            }
+          });
+
+        if ($('#searchHintBank').length === 0) {
+          $filter.append(
+            '<small id="searchHintBank" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+            'Press <strong>Enter</strong> to start searching.' +
+            '</small>'
+          );
+        }
+      }
+    });
   }
 
   function validationForm() {
@@ -543,24 +649,27 @@
     const other = document.getElementById("other");
     const totalBRF = document.getElementById("total_business_trip");
 
-    if (isSectionValid()) {
-      $("#travelSummary").text(decimalFormat(testing));
-      $("#allowanceSummary").text(accommodation.value || 0.00);
-      $("#entertainmentSummary").text(entertainment.value || 0.00);
-      $("#otherSummary").text(other.value || 0.00);
-      $("#totalSummary").text(totalBRF.value || 0.00);
+    $('#businessTripRequestFormModal').modal('show');
 
-      $('#businessTripRevisionFormModal').modal('show');
+    if (isSectionValid()) {
+      $("#travel_fares_modal_summary").text(decimalFormat(testing));
+      $("#allowance_modal_summary").text(accommodation.value || 0.00);
+      $("#entertainment_modal_summary").text(entertainment.value || 0.00);
+      $("#other_modal_summary").text(other.value || 0.00);
+      $("#total_brf_modal_summary").text(totalBRF.value || 0.00);
+
+      $('#businessTripRequestFormModal').modal('show');
     } else {
-      if (
-        !isNotEmpty(validation.sectionTwo.dateCommance.value) &&
-        !isNotEmpty(validation.sectionTwo.dateEnd.value) &&
-        !isNotEmpty(validation.sectionTwo.departingFrom.value) &&
-        !isNotEmpty(validation.sectionTwo.destinationTo.value) &&
-        !isNotEmpty(validation.sectionTwo.reasonTravel.value) &&
-        (!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00") &&
-        (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00")
-      ) {
+      if (isSectionNotValid()) {
+        $("#project_name").css("border", "1px solid red");
+        $("#budgetMessage").show();
+
+        $("#site_name").css("border", "1px solid red");
+        $("#subBudgetMessage").show();
+
+        $("#requester_name").css("border", "1px solid red");
+        $("#requesterMessage").show();
+
         $("#dateCommance").css("border", "1px solid red");
         $("#dateCommenceTravelMessage").show();
 
@@ -581,6 +690,24 @@
 
         $("#total_payment").css("border", "1px solid red");
         $("#totalPaymentMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionOne.budgetID.value)) {
+        $("#project_name").css("border", "1px solid red");
+        $("#budgetMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionOne.subBudgetID.value)) {
+        $("#site_name").css("border", "1px solid red");
+        $("#subBudgetMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionTwo.requesterID.value)) {
+        $("#requester_name").css("border", "1px solid red");
+        $("#requesterMessage").show();
 
         return;
       }
@@ -614,13 +741,18 @@
 
         return;
       }
-      if ((!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00")) {
+      if (!isNotEmpty(validation.sectionThree.budgetDetailsData.value)) {
+        $("#budgetDetailsMessage").show();
+
+        return;
+      }
+      if (!isNotEmpty(validation.sectionFour.totalBusinessTrips.value) || validation.sectionFour.totalBusinessTrips.value == "0.00") {
         $("#total_business_trip").css("border", "1px solid red");
         $("#totalBRFMessage").show();
 
         return;
       }
-      if ((!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00")) {
+      if (!isNotEmpty(validation.sectionFour.totalPayment.value) || validation.sectionFour.totalPayment.value == "0.00") {
         $("#total_payment").css("border", "1px solid red");
         $("#totalPaymentMessage").show();
 
@@ -628,16 +760,16 @@
       } else {
         if (isNotEmpty(validation.sectionFour.directToVendor.value)) {
           if (!isNotEmpty(validation.sectionFour.bankListCode.value)) {
-            $("#bank_list_name").css("border", "1px solid red");
-            $("#bank_list_detail").css("border", "1px solid red");
+            $("#bank_name_vendor").css("border", "1px solid red");
+            // $("#bank_list_detail").css("border", "1px solid red");
             $("#bankNameVendorMessage").show();
 
             return;
           }
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsID.value)) {
-            $("#bank_accounts").css("border", "1px solid red");
-            $("#bank_accounts_detail").css("border", "1px solid red");
+            $("#bank_account_name_vendor").css("border", "1px solid red");
+            // $("#bank_accountss_detail").css("border", "1px solid red");
             $("#bankAccountVendorMessage").show();
 
             return;
@@ -657,16 +789,16 @@
 
         if (isNotEmpty(validation.sectionFour.byCorpCard.value)) {
           if (!isNotEmpty(validation.sectionFour.bankListSecondCode.value)) {
-            $("#bank_list_second_name").css("border", "1px solid red");
-            $("#bank_list_second_detail").css("border", "1px solid red");
+            $("#bank_name_corp_card").css("border", "1px solid red");
+            // $("#bank_list_second_detail").css("border", "1px solid red");
             $("#bankNameCorpCardMessage").show();
 
             return;
           }
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsIDSecond.value)) {
-            $("#bank_accounts_second").css("border", "1px solid red");
-            $("#bank_accounts_detail_second").css("border", "1px solid red");
+            $("#bank_account_name_corp_card").css("border", "1px solid red");
+            // $("#bank_accounts_detail_second").css("border", "1px solid red");
             $("#bankAccountCorpCardMessage").show();
 
             return;
@@ -686,24 +818,24 @@
 
         if (isNotEmpty(validation.sectionFour.toOther.value)) {
           if (!isNotEmpty(validation.sectionFour.beneficiarySecondID.value)) {
-            $("#beneficiary_second_person_position").css("border", "1px solid red");
-            $("#beneficiary_second_person_name").css("border", "1px solid red");
+            $("#beneficiary_name").css("border", "1px solid red");
+            // $("#beneficiary_second_person_name").css("border", "1px solid red");
             $("#beneficiaryToOtherMessage").show();
 
             return;
           }
 
           if (!isNotEmpty(validation.sectionFour.bankListThirdCode.value)) {
-            $("#bank_list_third_name").css("border", "1px solid red");
-            $("#bank_list_third_detail").css("border", "1px solid red");
+            $("#bank_name_other").css("border", "1px solid red");
+            // $("#bank_name_second_detail").css("border", "1px solid red");
             $("#bankNameToOtherMessage").show();
 
             return;
           }
 
           if (!isNotEmpty(validation.sectionFour.bankAccountsThirdID.value)) {
-            $("#bank_accounts_third").css("border", "1px solid red");
-            $("#bank_accounts_third_detail").css("border", "1px solid red");
+            $("#bank_account_name_other").css("border", "1px solid red");
+            // $("#bank_accounts_detail").css("border", "1px solid red");
             $("#bankAccountToOtherMessage").show();
 
             return;
@@ -725,33 +857,267 @@
     }
   }
 
-  function getWorkflow() {
-    $.ajax({
-      type: 'GET',
-      data: {
-        businessDocumentType_RefID: documentTypeID.value,
-        combinedBudget_RefID: budgetID.value
-      },
-      url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
-      success: function (response) {
-        if (response.status === 200 && response.data[0].signAccess) {
-          getBudgetDetails(siteCode.value, combinedBudgetSectionDetailRefID.value);
-        } else {
-          $("#button_submit").prop("disabled", true);
+  function BusinessTripRequestStore() {
+    const form_data = new FormData($('#businessTripRequestForm')[0]);
 
-          Swal.fire("Error", "You don't have access", "error").then((res) => {
-            Utils.cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}');
+    form_data.append('workFlowPath_RefID', dataWorkflow.workFlowPathRefID);
+    form_data.append('approverEntity', dataWorkflow.approverEntityRefID);
+    form_data.append('comment', dataWorkflow.comment);
+
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'POST',
+      data: form_data,
+      url: '{!! route("BusinessTripRequest.UpdatesBusinessTripRequest") !!}',
+      processData: false,
+      contentType: false,
+      success: function (res) {
+        HideLoading();
+
+        if (res.status == 200) {
+          const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
           });
+
+          swalWithBootstrapButtons.fire({
+            title: 'Successful !',
+            type: 'success',
+            html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+            showCloseButton: false,
+            showCancelButton: false,
+            focusConfirm: false,
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            confirmButtonColor: '#4B586A',
+            confirmButtonColor: '#e9ecef',
+            reverseButtons: true
+          }).then((result) => {
+            cancelForm("{{ route('BusinessTripRequest.index', ['var' => 1]) }}");
+          });
+        } else {
+          ErrorNotif("Revision Business Trip Request Failed");
         }
       },
       error: function (jqXHR, textStatus, errorThrown) {
-        console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
-        Swal.fire("Error", "Data Error", "error");
+        HideLoading();
+        ErrorNotif("Internal Server Error");
       }
     });
   }
 
+  function commentWorkflow() {
+    const swalWithBootstrapButtons = Swal.mixin({
+      confirmButtonClass: 'btn btn-success btn-sm',
+      cancelButtonClass: 'btn btn-danger btn-sm',
+      buttonsStyling: true,
+    });
+
+    swalWithBootstrapButtons.fire({
+      title: 'Comment',
+      text: "Please write your comment here",
+      type: 'question',
+      input: 'textarea',
+      showCloseButton: false,
+      showCancelButton: true,
+      focusConfirm: false,
+      cancelButtonText: '<span style="color:black;"> Cancel </span>',
+      confirmButtonText: '<span style="color:black;"> OK </span>',
+      cancelButtonColor: '#DDDAD0',
+      confirmButtonColor: '#DDDAD0',
+      reverseButtons: true
+    }).then((result) => {
+      if ('value' in result) {
+        dataWorkflow.comment = result.value;
+        ShowLoading();
+        BusinessTripRequestStore();
+      }
+    });
+  }
+
+  function SubmitForm(value) {
+    triggerButtonModal = value;
+    $('#businessTripRequestFormModal').modal('hide');
+
+    $('#businessTripRequestFormModal').on('hidden.bs.modal', function () {
+      if (triggerButtonModal === "SUBMIT") {
+        if (totalNextApprover > 1) {
+          $('#myWorkflows').modal('show');
+        } else {
+          commentWorkflow();
+        }
+
+        triggerButtonModal = null;
+      }
+    });
+  }
+
+  $('#tableProjects').on('click', 'tbody tr', async function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
+    const projectCode = $(this).find('td:nth-child(2)').text();
+    const projectName = $(this).find('td:nth-child(3)').text();
+
+    $("#project_id").val("");
+    $("#project_name").val("");
+
+    $("#loadingBudget").show();
+    $("#iconBudget").hide();
+
+    getWorkflow(sysId, projectCode, projectName);
+
+    $('#myProjects').modal('toggle');
+  });
+
+  $('#tableSites').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
+    const siteCode = $(this).find('td:nth-child(2)').text();
+    const siteName = $(this).find('td:nth-child(3)').text();
+
+    $("#myWorker").prop("disabled", false);
+    $("#requester_popup").prop("disabled", false);
+    $("#beneficiary_second_popup").prop("disabled", false);
+    $("#bank_name_popup").prop("disabled", false);
+    $("#bank_account_popup").prop("disabled", false);
+    $("#bank_list_popup_vendor").prop("disabled", false);
+    $("#bank_list_popup_corp_card").prop("disabled", false);
+
+    $("#budgetDetailsData").val("");
+
+    $('table#budgetTable tbody').empty();
+
+    getBudgetDetails(sysId);
+
+    $("#site_id").val(sysId);
+    $("#site_name").val(`${siteCode} - ${siteName}`);
+
+    $("#site_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    $("#subBudgetMessage").hide();
+
+    $('#mySites').modal('toggle');
+  });
+
+  $('#tableRequesters').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_requesters"]').val();
+    const contactPhone = $(this).find('input[data-trigger="contact_phone_requesters"]').val().split(',').map(v => v.trim().replace(/;$/, ''));
+    const name = $(this).find('td:nth-child(2)').text();
+    const position = $(this).find('td:nth-child(3)').text();
+
+    $("#requester_id").val(sysId);
+    $("#requester_name").val(`${position} - ${name}`);
+    $("#requester_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+    $("#contactPhone").val(contactPhone || '-');
+    $("#requesterMessage").hide();
+
+    $('#myRequesters').modal('toggle');
+  });
+
+  $('#tableBeneficiaries').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_beneficiaries"]').val();
+    const personRefId = $(this).find('input[data-trigger="person_ref_id_beneficiaries"]').val();
+    const personName = $(this).find('td:nth-child(2)').text();
+    const personPosition = $(this).find('td:nth-child(3)').text();
+
+    if (bankAcronymOther.value) {
+      getBankAccountListCustom(bankAcronymOther.value, "", personRefId);
+    }
+
+    $("#person_id").val(personRefId);
+    $("#beneficiary_id").val(sysId);
+    $("#beneficiary_name").val(`${personPosition} - ${personName}`);
+    $("#beneficiary_name").css({ "background-color": "#e9ecef" });
+
+    $("#bankOtherListModalTrigger").prop("disabled", false);
+    $("#bankOtherListModalTrigger").css({ "cursor": "pointer" });
+
+    ErrorHandler.hideErrorInputMessage("#beneficiary_name", "#beneficiaryToOtherMessage");
+
+    $('#myBeneficiaries').modal('toggle');
+  });
+
+  $('#bankListTable').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_bank_list"]').val();
+    const acronym = $(this).find('td:nth-child(2)').text();
+    const name = $(this).find('td:nth-child(3)').text();
+
+    if (labelPayment == "bank_name_vendor") {
+      $("#bank_id_vendor").val(sysId);
+      $("#bank_acronym_vendor").val(acronym);
+      $("#bank_name_vendor").val(`${acronym} - ${name}`);
+      $("#bank_name_vendor").css({ "background-color": "#e9ecef" });
+
+      $("#bankAccountVendorListModalTrigger").prop("disabled", false);
+      $("#bankAccountVendorListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_vendor", "#bankNameVendorMessage");
+
+      getBankAccountListCustom(acronym);
+    } else if (labelPayment == "bank_name_corp_card") {
+      $("#bank_id_corp_card").val(sysId);
+      $("#bank_acronym_corp_card").val(acronym);
+      $("#bank_name_corp_card").val(`${acronym} - ${name}`);
+      $("#bank_name_corp_card").css({ "background-color": "#e9ecef" });
+
+      $("#bankAccountCorpCardListModalTrigger").prop("disabled", false);
+      $("#bankAccountCorpCardListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_corp_card", "#bankNameCorpCardMessage");
+
+      getBankAccountListCustom(acronym);
+    } else if (labelPayment == "bank_name_other") {
+      $("#bank_id_other").val(sysId);
+      $("#bank_acronym_other").val(acronym);
+      $("#bank_name_other").val(`${acronym} - ${name}`);
+      $("#bank_name_other").css({ "background-color": "#e9ecef" });
+
+      $("#bankAccountOtherListModalTrigger").prop("disabled", false);
+      $("#bankAccountOtherListModalTrigger").css({ "cursor": "pointer" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_name_other", "#bankNameToOtherMessage");
+
+      getBankAccountListCustom(acronym, "", beneficiaryPersonRefID.value);
+    }
+
+    $('#bankListModal').modal('toggle');
+  });
+
+  $('#bankAccountListTable').on('click', 'tbody tr', function () {
+    const sysId = $(this).find('input[data-trigger="sys_id_bank_account"]').val();
+    const bankName = $(this).find('td:nth-child(2)').text();
+    const accountNumber = $(this).find('td:nth-child(3)').text();
+
+    if (labelPayment == "bank_account_vendor") {
+      $("#bank_account_id_vendor").val(sysId);
+      $("#bank_account_name_vendor").val(accountNumber);
+      $("#bank_account_name_vendor").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_vendor", "#bankAccountVendorMessage");
+    } else if (labelPayment == "bank_account_corp_card") {
+      $("#bank_account_id_corp_card").val(sysId);
+      $("#bank_account_name_corp_card").val(accountNumber);
+      $("#bank_account_name_corp_card").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_corp_card", "#bankAccountCorpCardMessage");
+    } else if (labelPayment == "bank_account_other") {
+      $("#bank_account_id_other").val(sysId);
+      $("#bank_account_name_other").val(accountNumber);
+      $("#bank_account_name_other").css({ "background-color": "#e9ecef" });
+
+      ErrorHandler.hideErrorInputMessage("#bank_account_name_other", "#bankAccountToOtherMessage");
+    }
+
+    $('#bankAccountListModal').modal('toggle');
+  });
+
   $('#dateCommance').change(function () {
+    $("#dateEnd").prop("disabled", false);
+    var dateCommance = new Date($("#dateCommance").val());
+    document.getElementById('dateEnd').setAttribute('min', dateCommance.toISOString().split('T')[0]);
+
     $("#dateCommance").css("border", "1px solid #ced4da");
     $("#dateCommenceTravelMessage").hide();
   });
@@ -791,278 +1157,6 @@
     }
   });
 
-  // ========== VENDOR ==========
-  // GET BANK ACCOUNT VENDOR KETIKA MODAL BANK NAME VENDOR KE CLOSE
-  // $('#myGetBankList').on('hidden.bs.modal', function () {
-  //   console.log('sono');
-
-  //   const bankVendorID = document.getElementById('bank_list_code');
-  //   const bankAccountsID = document.getElementById('bank_accounts_id');
-
-  //   // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
-  //   if (bankVendorID.value && !bankAccountsID.value) {
-  //     $("#bank_accounts_popup_vendor").prop("disabled", false);
-  //     $("#bank_accounts").removeAttr("readonly");
-  //     $("#bank_accounts_detail").removeAttr("readonly");
-
-  //     getBankAccountData(bankVendorID.value);
-  //   }
-  // });
-
-  $('#direct_to_vendor').on('input', function (e) {
-    if (e.target.value) {
-      $("#direct_to_vendor").css("border", "1px solid #ced4da");
-      $("#directToVendorMessage").hide();
-    }
-  });
-
-  // KETIKA MODAL BANK NAME VENDOR DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT VENDOR
-  $('#tableGetBankList').on('click', 'tbody tr', function () {
-    const bankVendorID = document.getElementById('bank_list_code');
-    const bankAccountsID = document.getElementById('bank_accounts_id');
-
-    $("#bank_accounts_popup_vendor").prop("disabled", false);
-    $("#bank_accounts").val("");
-    $("#bank_accounts_id").val("");
-    $("#bank_accounts_detail").val("");
-    getBankAccountData(bankVendorID.value);
-
-    // CEK APAKAH BANK NAME VENDOR SUDAH TERISI
-    // if (bankVendorID.value && !bankAccountsID.value) {
-    // $("#bank_accounts").removeAttr("readonly");
-    // $("#bank_accounts_detail").removeAttr("readonly");
-    // } else {
-    // }
-  });
-
-  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT VENDOR
-  $('#tableGetBankAccount').on('click', 'tbody tr', function () {
-    var sysID = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-
-    $("#bank_accounts_duplicate_id").val(sysID);
-    $("#bank_accounts_duplicate").val(bankAccount);
-    $("#bank_accounts_duplicate_detail").val(accountName);
-  });
-
-  // $('#bank_accounts').on('input', function() {
-  //   var bankAccount                 = document.getElementById('bank_accounts');
-  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
-  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
-
-  //   if (bankAccount.value !== bankAccountDuplicate.value || bankAccountDetail.value !== bankAccountDuplicateDetail.value) {
-  //     $("#bank_accounts_id").val("");
-  //   } else {
-  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_detail').on('input', function() {
-  //   var bankAccountDetail           = document.getElementById('bank_accounts_detail');
-  //   var bankAccountDuplicateDetail  = document.getElementById('bank_accounts_duplicate_detail');
-  //   var bankAccountDuplicateId      = document.getElementById('bank_accounts_duplicate_id');
-  //   var bankAccount                 = document.getElementById('bank_accounts');
-  //   var bankAccountDuplicate        = document.getElementById('bank_accounts_duplicate');
-
-  //   if (bankAccountDetail.value !== bankAccountDuplicateDetail.value || bankAccount.value !== bankAccountDuplicate.value) {
-  //     $("#bank_accounts_id").val("");
-  //   } else {
-  //     $("#bank_accounts_id").val(bankAccountDuplicateId.value);
-  //   }
-  // });
-  // ========== VENDOR ==========
-
-  // ========== CORP CARD ==========
-  // GET BANK ACCOUNT CORP CARD KETIKA MODAL BANK NAME CORP CARD KE CLOSE
-  // $('#myGetBankListSecond').on('hidden.bs.modal', function () {
-  //   const bankCorpCardID = document.getElementById('bank_list_second_code');
-  //   const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
-
-  //   // CEK APAKAH BANK NAME CORP CARD SUDAH TERISI
-  //   if (bankCorpCardID.value && !bankAccountsCorpCardID.value) {
-  //     $("#bank_accounts_popup_corp_card").prop("disabled", false);
-  //     $("#bank_accounts_second").removeAttr("readonly");
-  //     $("#bank_accounts_detail_second").removeAttr("readonly");
-
-  //     getBankAccountData(bankCorpCardID.value, "second_modal");
-  //   }
-  // });
-
-  $('#by_corp_card').on('input', function (e) {
-    if (e.target.value) {
-      $("#by_corp_card").css("border", "1px solid #ced4da");
-      $("#byCorpCardMessage").hide();
-    }
-  });
-
-  // KETIKA MODAL BANK NAME CORP CARD DIPILIH, MAKA MENGHAPUS VALUE BANK ACCOUNT CORP CARD
-  $('#tableGetBankListSecond').on('click', 'tbody tr', function () {
-    const bankCorpCardID = document.getElementById('bank_list_second_code');
-    const bankAccountsCorpCardID = document.getElementById('bank_accounts_id_second');
-
-    $("#bank_accounts_popup_corp_card").prop("disabled", false);
-    $("#bank_accounts_second").val("");
-    $("#bank_accounts_id_second").val("");
-    $("#bank_accounts_detail_second").val("");
-
-    getBankAccountData(bankCorpCardID.value, "second_modal");
-  });
-
-  // MENAMBAHKAN READ-ONLY PADA KOMPONEN BANK ACCOUNT CORP CARD
-  $('#tableGetBankAccountSecond').on('click', 'tbody tr', function () {
-    var sysID = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-
-    $("#bank_accounts_duplicate_id_second").val(sysID);
-    $("#bank_accounts_duplicate_second").val(bankAccount);
-    $("#bank_accounts_detail_duplicate_second").val(accountName);
-  });
-
-  // $('#bank_accounts_second').on('input', function() {
-  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
-  //   var bankAccountSecondDuplicateId      = document.getElementById('bank_accounts_duplicate_id_second');
-  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
-
-  //   if (bankAccountSecond.value !== bankAccountSecondDuplicate.value || bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value) {
-  //     $("#bank_accounts_id_second").val("");
-  //   } else {
-  //     $("#bank_accounts_id_second").val(bankAccountSecondDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_detail_second').on('input', function() {
-  //   var bankAccountDetailSecond           = document.getElementById('bank_accounts_detail_second');
-  //   var bankAccountDuplicateDetailSecond  = document.getElementById('bank_accounts_detail_duplicate_second');
-  //   var bankAccountDuplicateIdSecond      = document.getElementById('bank_accounts_duplicate_id_second');
-  //   var bankAccountSecond                 = document.getElementById('bank_accounts_second');
-  //   var bankAccountSecondDuplicate        = document.getElementById('bank_accounts_duplicate_second');
-
-  //   if (bankAccountDetailSecond.value !== bankAccountDuplicateDetailSecond.value || bankAccountSecond.value !== bankAccountSecondDuplicate.value) {
-  //     $("#bank_accounts_id_second").val("");
-  //   } else {
-  //     $("#bank_accounts_id_second").val(bankAccountDuplicateIdSecond.value);
-  //   }
-  // });
-  // ========== CORP CARD ==========
-
-  // ========== TO OTHER ==========
-  // $('#myBeneficiarySecond').on('hidden.bs.modal', function () {
-  //   const beneficiaryRefID = document.getElementById('beneficiary_second_id');
-  //   const beneficiaryPersonRefID = document.getElementById('beneficiary_second_person_ref_id');
-
-  //   if (beneficiaryRefID.value && beneficiaryPersonRefID.value) {
-  //     $("#bank_list_popup_second").prop("disabled", false);
-  //     // $("#bank_accounts_third_popup").prop("disabled", false);
-  //   }
-  // });
-
-  $('#to_other').on('input', function (e) {
-    if (e.target.value) {
-      $("#to_other").css("border", "1px solid #ced4da");
-      $("#toOtherMessage").hide();
-    }
-  });
-
-  $('#tableGetBeneficiarySecond').on('click', 'tbody tr', function () {
-    $("#bank_list_popup_second").prop("disabled", false);
-
-    // const bankCorpCardID = document.getElementById('beneficiary_second_person_ref_id');
-
-    // if (bankCorpCardID.value) {
-    //   // $("#bank_list_third_name").val("");
-    //   // $("#bank_list_third_code").val("");
-    //   // $("#bank_list_third_detail").val("");
-
-    //   // $("#bank_accounts_third").val("");
-    //   // $("#bank_accounts_third_id").val("");
-    //   // $("#bank_accounts_third_detail").val("");
-    // }
-
-    // adjustInputSize(document.getElementById("beneficiary_second_person_position"), "string");
-  });
-
-  // $('#myGetBankListThird').on('hidden.bs.modal', function () {
-  //   const bankListThirdCode = document.getElementById('bank_list_third_code');
-
-  //   if (bankListThirdCode.value) {
-  //     getBankAccountData(bankListThirdCode.value,'third_modal');
-
-  //     $("#bank_accounts_third").val("");
-  //     $("#bank_accounts_third_id").val("");
-  //     $("#bank_accounts_third_detail").val("");
-
-  //     $("#bank_accounts_third").removeAttr("readonly");
-  //     $("#bank_accounts_third_detail").removeAttr("readonly");
-
-  //     $("#bank_accounts_third_popup").prop("disabled", false);
-  //   }
-  // });
-
-  $('#tableGetBankAccountThird').on('click', 'tbody tr', function () {
-    var sysID = $(this).find('input[type="hidden"]').val();
-    var bankAccount = $(this).find('td:nth-child(3)').text();
-    var accountName = $(this).find('td:nth-child(4)').text();
-    var bankListThirdCode = document.getElementById('bank_list_third_code');
-
-    $("#bank_accounts_duplicate_third_id").val(sysID);
-    $("#bank_accounts_duplicate_third").val(bankAccount);
-    $("#bank_accounts_duplicate_third_detail").val(accountName);
-  });
-
-  // $('#bank_accounts_third').on('input', function() {
-  //   var bankAccountThird                  = document.getElementById('bank_accounts_third');
-  //   var bankAccountThirdDuplicate         = document.getElementById('bank_accounts_duplicate_third');
-  //   var bankAccountThirdDuplicateId       = document.getElementById('bank_accounts_duplicate_third_id');
-  //   var bankAccountDetailThird            = document.getElementById('bank_accounts_third_detail');
-  //   var bankAccountDuplicateDetailThird   = document.getElementById('bank_accounts_duplicate_third_detail');
-
-  //   if (bankAccountThird.value !== bankAccountThirdDuplicate.value || bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value) {
-  //     $("#bank_accounts_third_id").val("");
-  //   } else {
-  //     $("#bank_accounts_third_id").val(bankAccountThirdDuplicateId.value);
-  //   }
-  // });
-
-  // $('#bank_accounts_third_detail').on('input', function() {
-  //   var bankAccountDetailThird           = document.getElementById('bank_accounts_third_detail');
-  //   var bankAccountDuplicateDetailThird  = document.getElementById('bank_accounts_duplicate_third_detail');
-  //   var bankAccountDuplicateIdThird      = document.getElementById('bank_accounts_duplicate_third_id');
-  //   var bankAccountThird                 = document.getElementById('bank_accounts_third');
-  //   var bankAccountThirdDuplicate        = document.getElementById('bank_accounts_duplicate_third');
-
-  //   if (bankAccountDetailThird.value !== bankAccountDuplicateDetailThird.value || bankAccountThird.value !== bankAccountThirdDuplicate.value) {
-  //     $("#bank_accounts_third_id").val("");
-  //   } else {
-  //     $("#bank_accounts_third_id").val(bankAccountDuplicateIdThird.value);
-  //   }
-  // });
-
-  // $('#myGetBankSecond').on('hidden.bs.modal', function () {
-  //   const bank_RefID = document.getElementById('bank_name_second_id');
-  //   const person_RefID = document.getElementById('beneficiary_second_person_ref_id');
-
-  //   if (bank_RefID.value && person_RefID.value) {
-  //     getBankAccountData(bank_RefID.value, "third_modal", person_RefID.value);
-  //   }
-  // });
-
-  $('#tableGetBankListThird').on('click', 'tbody tr', function () {
-    const bankListThirdCode = document.getElementById('bank_list_third_code');
-
-    $("#bank_accounts_third_popup").prop("disabled", false);
-    $("#bank_accounts_third").val("");
-    $("#bank_accounts_third_id").val("");
-    $("#bank_accounts_third_detail").val("");
-    getBankAccountData(bankListThirdCode.value, 'third_modal');
-  });
-  // ========== TO OTHER ==========
-
   $('#businessTripRequestListTable').on('click', 'tbody tr', function () {
     const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
     const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
@@ -1095,13 +1189,47 @@
     $('#businessTripRevisionModal').modal('toggle');
   });
 
-  $(document).on('input', '.number-without-negative', function () {
-    allowNumbersWithoutNegative(this);
-  });
-
   $(document).ready(function () {
-    getWorkflow();
-    // getDocumentType("Person Business Trip Revision Form");
-    getBusinessTripCostComponentEntityNew();
+    getRequesters();
+    getBeneficiaries();
+    getBankList();
+    getBudgetDetails(subBudgetID.value);
+
+    if (dateCommanceComp) {
+      dateCommanceComp.setAttribute('min', today.toISOString().split('T')[0]);
+    }
+    if (dateEndComp) {
+      dateEndComp.setAttribute('min', today.toISOString().split('T')[0]);
+    }
+    if (directToVendorComp) {
+      directToVendorComp.addEventListener("input", calculateTotalPayment);
+    }
+    if (byCorpCardComp) {
+      byCorpCardComp.addEventListener("input", calculateTotalPayment);
+    }
+    if (toOtherComp) {
+      toOtherComp.addEventListener("input", calculateTotalPayment);
+
+      getBusinessTripCostComponentEntityNew();
+    }
+
+    $("#mySitesTrigger").prop("disabled", true);
+    $("#bankAccountVendorListModalTrigger").prop("disabled", true);
+    $("#bankAccountCorpCardListModalTrigger").prop("disabled", true);
+    $("#bankAccountOtherListModalTrigger").prop("disabled", true);
+    $("#bankOtherListModalTrigger").prop("disabled", true);
+
+    // DIRECT TO VENDOR
+    $("#bank_list_popup_vendor").prop("disabled", true);
+    $("#bank_accounts_popup_vendor").prop("disabled", true);
+
+    // BY CORP CARD
+    $("#bank_list_popup_corp_card").prop("disabled", true);
+    $("#bank_accounts_popup_corp_card").prop("disabled", true);
+
+    // TO OTHER
+    $("#beneficiary_second_popup").prop("disabled", true);
+    $("#bank_list_popup_second").prop("disabled", true);
+    $("#bank_accounts_third_popup").prop("disabled", true);
   });
 </script>

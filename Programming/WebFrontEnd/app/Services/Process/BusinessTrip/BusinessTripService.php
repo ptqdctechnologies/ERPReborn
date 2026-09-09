@@ -246,11 +246,9 @@ class BusinessTripService
         );
     }
 
-    public function updates(Request $request): array
+    public function updates($data)
     {
-        $sessionToken = Session::get('SessionLogin');
-
-        $data = $request->storeData;
+        $token = Session::get('SessionLogin');
         $businessTripBudgets = $data['components'];
         $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
@@ -258,13 +256,12 @@ class BusinessTripService
         foreach ($businessTripBudgets as $businessTripBudget) {
             if (!empty($businessTripBudget['value'])) {
                 $result[] = [
-                    'recordID' => $businessTripBudget['sys_ID'] ? (int) $businessTripBudget['sys_ID'] : null,
                     'entities' => [
-                        'businessTripCostComponentEntity_RefID' => $businessTripBudget['id'] ? (int) $businessTripBudget['id'] : null,
-                        'amountCurrency_RefID' => $businessTripBudget['amountCurrency_RefID'] ? (int) $businessTripBudget['amountCurrency_RefID'] : null,
+                        'businessTripCostComponentEntity_RefID' => (int) $businessTripBudget['id'],
+                        'amountCurrency_RefID' => 62000000000001,
                         'amountCurrencyValue' => (float) str_replace(',', '', $businessTripBudget['value']),
-                        'amountCurrencyExchangeRate' => $businessTripBudget['amountCurrencyExchangeRate'] ? (int) $businessTripBudget['amountCurrencyExchangeRate'] : null,
-                        // 'remarks'                               => $businessTripBudget['remarks'] ? $businessTripBudget['remarks'] : null,
+                        'amountCurrencyExchangeRate' => 1,
+                        'remarks' => null
                     ]
                 ];
             }
@@ -272,20 +269,18 @@ class BusinessTripService
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.update.humanResource.setPersonBusinessTrip',
             'latest',
             [
-                'recordID' => (int) $data['personBusinessTripRefID'],
+                'recordID' => (int) $data['businessTrip_RefID'],
                 'entities' => [
                     'documentDateTimeTZ' => date('Y-m-d'),
                     'combinedBudgetSectionDetail_RefID' => (int) $data['combinedBudgetSectionDetail_RefID'],
-                    // 'paymentDisbursementMethod_RefID'   => null,
                     'additionalData' => [
                         'itemList' => [
                             'items' => [
                                 [
-                                    'recordID' => (int) $data['personBusinessTripDetailRefID'],
                                     'entities' => [
                                         'sequence' => 1,
                                         'log_FileUpload_Pointer_RefID' => $fileID,
@@ -297,23 +292,23 @@ class BusinessTripService
                                         'departurePoint' => $data['departingFrom'],
                                         'destinationPoint' => $data['destinationTo'],
                                         'reasonToTravel' => $data['reasonTravel'],
-                                        'businessTripAccommodationArrangementsType_RefID' => null,
-                                        'currency_RefID' => null, // HERE
-                                        'currencyExchangeRate' => null, // HERE
-                                        'paymentToVendor_amountCurrencyValue' => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null, // HERE
-                                        'paymentToVendor_paymentFundingDestination_RefID' => null, // HERE
-                                        'paymentToVendor_beneficiaryWorkerJobsPosition_RefID' => null, // HERE
-                                        'paymentToCreditCard_amountCurrencyValue' => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null, // HERE
-                                        'paymentToCreditCard_paymentFundingDestination_RefID' => null, // HERE
-                                        'paymentToCreditCard_beneficiaryWorkerJobsPosition_RefID' => null, // HERE
-                                        'paymentToOther_amountCurrencyValue' => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null, // HERE
-                                        'paymentToOther_paymentFundingDestination_RefID' => null, // HERE
-                                        'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => null, // HERE
+                                        'businessTripAccommodationArrangementsType_RefID' => null, // 219000000000002
+                                        'currency_RefID' => $data['currency_RefID'], // NEW
+                                        'currencyExchangeRate' => $data['currencyExchangeRate'], // NEW
+                                        'paymentToVendor_amountCurrencyValue' => $data['vendor_amount'] ? (float) str_replace(',', '', $data['vendor_amount']) : null, // NEW
+                                        'paymentToVendor_paymentFundingDestination_RefID' => $data['bank_account_id_vendor'] ? (int) $data['bank_account_id_vendor'] : null, // NEW
+                                        'paymentToVendor_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
+                                        'paymentToCreditCard_amountCurrencyValue' => $data['corp_amount'] ? (float) str_replace(',', '', $data['corp_amount']) : null, // NEW
+                                        'paymentToCreditCard_paymentFundingDestination_RefID' => $data['bank_account_id_corp_card'] ? (int) $data['bank_account_id_corp_card'] : null, // NEW
+                                        'paymentToCreditCard_beneficiaryWorkerJobsPosition_RefID' => null, // NEW
+                                        'paymentToOther_amountCurrencyValue' => $data['other_amount'] ? (float) str_replace(',', '', $data['other_amount']) : null, // NEW
+                                        'paymentToOther_paymentFundingDestination_RefID' => $data['bank_account_id_other'] ? (int) $data['bank_account_id_other'] : null, // NEW
+                                        'paymentToOther_beneficiaryWorkerJobsPosition_RefID' => $data['beneficiary_id'] ? (int) $data['beneficiary_id'] : null, // NEW
                                         'remarks' => null,
                                         'additionalData' => [
                                             'itemList' => [
                                                 'items' => $result
-                                            ],
+                                            ]
                                         ]
                                     ]
                                 ]
