@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.humanResource.getPersonBusinessTripSettlementSummary.v1_throughAPIGateway|
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-14                                                                                           |
+        | ▪ Last Update     : 2026-09-07                                                                                           |
         | ▪ Creation Date   : 2026-04-14                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -51,6 +51,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     'BeneficiaryWorkerJobsPosition_RefID' => NULL,
                     'StartDate' => NULL,
                     'EndDate' => NULL,
+                    ],
+                'SQLStatement' => [
+                    'paging' => [
+                        // 'limit' => "20",
+                        'limit' => "ALL",
+                        'offset' => 0
+                        ]
                     ]
                 ]
                 );

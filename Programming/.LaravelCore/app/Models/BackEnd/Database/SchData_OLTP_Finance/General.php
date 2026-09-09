@@ -5873,7 +5873,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_AdvanceSettlementSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varRequesterWorkerJobsPosition_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5886,6 +5886,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varRequesterWorkerJobsPosition_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
