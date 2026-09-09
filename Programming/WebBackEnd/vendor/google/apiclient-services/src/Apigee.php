@@ -236,6 +236,16 @@ class Apigee extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'getMcpServerConfig' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'getProjectMapping' => [
               'path' => 'v1/{+name}:getProjectMapping',
               'httpMethod' => 'GET',

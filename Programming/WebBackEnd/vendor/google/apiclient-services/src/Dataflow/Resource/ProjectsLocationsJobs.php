@@ -171,6 +171,7 @@ class ProjectsLocationsJobs extends \Google\Service\Resource
    * max_responses and an unspecified server-defined limit.
    * @opt_param string pageToken Set this to the 'next_page_token' field of a
    * previous response to request additional results in a long list.
+   * @opt_param bool regionalFanoutRequested Optional.
    * @opt_param string view Deprecated. ListJobs always returns summaries now. Use
    * GetJob for other JobViews.
    * @return ListJobsResponse

@@ -40,6 +40,21 @@ class Cluster extends \Google\Collection
    */
   public const STATE_UPDATING = 'UPDATING';
   protected $collection_key = 'brokerDetails';
+  /**
+   * Output only. The bootstrap address of the Kafka cluster. The returned
+   * address format is: `bootstrap-...managedkafka.s.cloud.goog` or
+   * `bootstrap...managedkafka..cloud.goog` (legacy format). ## Examples:
+   * `bootstrap-nol2mecj8p94jhx2ge2rg54579a.c0aad26f.europe-
+   * west1.managedkafka.s.cloud.goog` - `bootstrap.my-cluster.us-
+   * central1.managedkafka.my-project.cloud.goog` The port number is omitted so
+   * clients can connect to their target listener (for example, `:9092` for TLS
+   * or `:9094` for mTLS).
+   *
+   * @var string
+   */
+  public $bootstrapAddress;
+  protected $brokerCapacityConfigType = BrokerCapacityConfig::class;
+  protected $brokerCapacityConfigDataType = '';
   protected $brokerDetailsType = BrokerDetails::class;
   protected $brokerDetailsDataType = 'array';
   protected $capacityConfigType = CapacityConfig::class;
@@ -50,6 +65,8 @@ class Cluster extends \Google\Collection
    * @var string
    */
   public $createTime;
+  protected $effectiveCapacityConfigType = EffectiveCapacityConfig::class;
+  protected $effectiveCapacityConfigDataType = '';
   protected $gcpConfigType = GcpConfig::class;
   protected $gcpConfigDataType = '';
   /**
@@ -72,6 +89,8 @@ class Cluster extends \Google\Collection
    * @var string
    */
   public $name;
+  protected $publicClusterDetailsType = PublicClusterDetails::class;
+  protected $publicClusterDetailsDataType = '';
   protected $rebalanceConfigType = RebalanceConfig::class;
   protected $rebalanceConfigDataType = '';
   /**
@@ -103,6 +122,46 @@ class Cluster extends \Google\Collection
    */
   public $updateTime;
 
+  /**
+   * Output only. The bootstrap address of the Kafka cluster. The returned
+   * address format is: `bootstrap-...managedkafka.s.cloud.goog` or
+   * `bootstrap...managedkafka..cloud.goog` (legacy format). ## Examples:
+   * `bootstrap-nol2mecj8p94jhx2ge2rg54579a.c0aad26f.europe-
+   * west1.managedkafka.s.cloud.goog` - `bootstrap.my-cluster.us-
+   * central1.managedkafka.my-project.cloud.goog` The port number is omitted so
+   * clients can connect to their target listener (for example, `:9092` for TLS
+   * or `:9094` for mTLS).
+   *
+   * @param string $bootstrapAddress
+   */
+  public function setBootstrapAddress($bootstrapAddress)
+  {
+    $this->bootstrapAddress = $bootstrapAddress;
+  }
+  /**
+   * @return string
+   */
+  public function getBootstrapAddress()
+  {
+    return $this->bootstrapAddress;
+  }
+  /**
+   * Optional. Capacity configuration at a per-broker level within the Kafka
+   * cluster. The config will be appled to each broker in the cluster.
+   *
+   * @param BrokerCapacityConfig $brokerCapacityConfig
+   */
+  public function setBrokerCapacityConfig(BrokerCapacityConfig $brokerCapacityConfig)
+  {
+    $this->brokerCapacityConfig = $brokerCapacityConfig;
+  }
+  /**
+   * @return BrokerCapacityConfig
+   */
+  public function getBrokerCapacityConfig()
+  {
+    return $this->brokerCapacityConfig;
+  }
   /**
    * Output only. Only populated when FULL view is requested. Details of each
    * broker in the cluster.
@@ -151,6 +210,23 @@ class Cluster extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Output only. Only populated when FULL view is requested. The effective
+   * capacity configuration of the cluster.
+   *
+   * @param EffectiveCapacityConfig $effectiveCapacityConfig
+   */
+  public function setEffectiveCapacityConfig(EffectiveCapacityConfig $effectiveCapacityConfig)
+  {
+    $this->effectiveCapacityConfig = $effectiveCapacityConfig;
+  }
+  /**
+   * @return EffectiveCapacityConfig
+   */
+  public function getEffectiveCapacityConfig()
+  {
+    return $this->effectiveCapacityConfig;
   }
   /**
    * Required. Configuration properties for a Kafka cluster deployed to Google
@@ -218,6 +294,22 @@ class Cluster extends \Google\Collection
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Output only. Details of the public cluster feature for the Kafka cluster.
+   *
+   * @param PublicClusterDetails $publicClusterDetails
+   */
+  public function setPublicClusterDetails(PublicClusterDetails $publicClusterDetails)
+  {
+    $this->publicClusterDetails = $publicClusterDetails;
+  }
+  /**
+   * @return PublicClusterDetails
+   */
+  public function getPublicClusterDetails()
+  {
+    return $this->publicClusterDetails;
   }
   /**
    * Optional. Rebalance configuration for the Kafka cluster.

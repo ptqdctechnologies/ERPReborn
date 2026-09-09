@@ -211,6 +211,8 @@ class GoogleCloudAiplatformV1GenerationConfig extends \Google\Collection
    * @var float
    */
   public $topP;
+  protected $translationConfigType = GoogleCloudAiplatformV1TranslationConfig::class;
+  protected $translationConfigDataType = '';
 
   /**
    * Optional. If enabled, audio timestamps will be included in the request to
@@ -671,6 +673,22 @@ class GoogleCloudAiplatformV1GenerationConfig extends \Google\Collection
   public function getTopP()
   {
     return $this->topP;
+  }
+  /**
+   * Optional. Config for translation.
+   *
+   * @param GoogleCloudAiplatformV1TranslationConfig $translationConfig
+   */
+  public function setTranslationConfig(GoogleCloudAiplatformV1TranslationConfig $translationConfig)
+  {
+    $this->translationConfig = $translationConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1TranslationConfig
+   */
+  public function getTranslationConfig()
+  {
+    return $this->translationConfig;
   }
 }
 

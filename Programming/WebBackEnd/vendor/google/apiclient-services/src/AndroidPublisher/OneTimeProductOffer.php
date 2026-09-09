@@ -45,6 +45,8 @@ class OneTimeProductOffer extends \Google\Collection
   protected $collection_key = 'regionalPricingAndAvailabilityConfigs';
   protected $discountedOfferType = OneTimeProductDiscountedOffer::class;
   protected $discountedOfferDataType = '';
+  protected $gameRewardOfferType = OneTimeProductGameRewardOffer::class;
+  protected $gameRewardOfferDataType = '';
   /**
    * Required. Immutable. The ID of this product offer. Must be unique within
    * the purchase option. It must start with a number or lower-case letter, and
@@ -105,6 +107,22 @@ class OneTimeProductOffer extends \Google\Collection
   public function getDiscountedOffer()
   {
     return $this->discountedOffer;
+  }
+  /**
+   * A game reward offer.
+   *
+   * @param OneTimeProductGameRewardOffer $gameRewardOffer
+   */
+  public function setGameRewardOffer(OneTimeProductGameRewardOffer $gameRewardOffer)
+  {
+    $this->gameRewardOffer = $gameRewardOffer;
+  }
+  /**
+   * @return OneTimeProductGameRewardOffer
+   */
+  public function getGameRewardOffer()
+  {
+    return $this->gameRewardOffer;
   }
   /**
    * Required. Immutable. The ID of this product offer. Must be unique within

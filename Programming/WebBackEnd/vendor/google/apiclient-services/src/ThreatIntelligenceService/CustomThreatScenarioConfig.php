@@ -87,7 +87,7 @@ class CustomThreatScenarioConfig extends \Google\Model
     return $this->documentQuery;
   }
   /**
-   * Optional. Legacy metadata associated with this scenario/monitor.
+   * Output only. Legacy metadata associated with this scenario/monitor.
    *
    * @param LegacyMetadata $legacyMonitorMetadata
    */

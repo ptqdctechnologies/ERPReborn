@@ -74,6 +74,14 @@ class Project extends \Google\Collection
    */
   public $etag;
   /**
+   * Output only. If `true`, this project is a Management Project. A Management
+   * Project manages dedicated project groups for specific purposes (e.g., agent
+   * management or app management).
+   *
+   * @var bool
+   */
+  public $isManagementProject;
+  /**
    * Optional. The labels associated with this project. Label keys must be
    * between 1 and 63 characters long and must conform to the following regular
    * expression: \[a-z\](\[-a-z0-9\]*\[a-z0-9\])?. Label values must be between
@@ -217,6 +225,24 @@ class Project extends \Google\Collection
   public function getEtag()
   {
     return $this->etag;
+  }
+  /**
+   * Output only. If `true`, this project is a Management Project. A Management
+   * Project manages dedicated project groups for specific purposes (e.g., agent
+   * management or app management).
+   *
+   * @param bool $isManagementProject
+   */
+  public function setIsManagementProject($isManagementProject)
+  {
+    $this->isManagementProject = $isManagementProject;
+  }
+  /**
+   * @return bool
+   */
+  public function getIsManagementProject()
+  {
+    return $this->isManagementProject;
   }
   /**
    * Optional. The labels associated with this project. Label keys must be

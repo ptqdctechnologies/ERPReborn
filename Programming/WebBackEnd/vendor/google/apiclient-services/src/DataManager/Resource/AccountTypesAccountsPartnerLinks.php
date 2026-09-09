@@ -101,7 +101,8 @@ class AccountTypesAccountsPartnerLinks extends \Google\Service\Resource
    * `owning_account.account_id` - `partner_account.account_type` -
    * `partner_account.account_id` - `feature_set` For partner links with the
    * FEATURE_SET_AD_EVENT_MANAGEMENT feature set, the following fields are also
-   * supported: - `partner_customer_account.account_id` Example:
+   * supported: - `partner_customer_account.account_id` -
+   * `partner_link_metadata.implicit_accounts.account_id` Example:
    * `owning_account.account_type = "GOOGLE_ADS" AND partner_account.account_id =
    * 987654321`
    * @opt_param int pageSize The maximum number of partner links to return. The

@@ -62,8 +62,6 @@ class GcpUserAccessBinding extends \Google\Collection
   public $name;
   protected $principalType = Principal::class;
   protected $principalDataType = '';
-  protected $restrictedClientApplicationsType = Application::class;
-  protected $restrictedClientApplicationsDataType = 'array';
   protected $scopedAccessSettingsType = ScopedAccessSettings::class;
   protected $scopedAccessSettingsDataType = 'array';
   protected $sessionSettingsType = SessionSettings::class;
@@ -167,30 +165,8 @@ class GcpUserAccessBinding extends \Google\Collection
     return $this->principal;
   }
   /**
-   * Optional. Deprecated: Use `scoped_access_settings` instead. A list of
-   * applications that are subject to this binding's restrictions. If the list
-   * is empty, the binding restrictions will universally apply to all
-   * applications.
-   *
-   * @deprecated
-   * @param Application[] $restrictedClientApplications
-   */
-  public function setRestrictedClientApplications($restrictedClientApplications)
-  {
-    $this->restrictedClientApplications = $restrictedClientApplications;
-  }
-  /**
-   * @deprecated
-   * @return Application[]
-   */
-  public function getRestrictedClientApplications()
-  {
-    return $this->restrictedClientApplications;
-  }
-  /**
    * Optional. A list of scoped access settings that set this binding's
-   * restrictions on a subset of applications. This field cannot be set if
-   * restricted_client_applications is set.
+   * restrictions on a subset of applications.
    *
    * @param ScopedAccessSettings[] $scopedAccessSettings
    */

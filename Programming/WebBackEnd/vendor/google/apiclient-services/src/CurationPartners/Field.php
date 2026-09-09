@@ -175,7 +175,9 @@ class Field extends \Google\Model
    */
   public const METRIC_CLICKS = 'CLICKS';
   /**
-   * Curator fee.
+   * Curator fee. This will be redacted to 0.00 if the package's visibility is
+   * set to non-disclosed. Use the PACKAGE_FEE_VISIBILITY dimension to check if
+   * the package's fee is disclosed.
    */
   public const METRIC_CURATION_PARTNER_FEE = 'CURATION_PARTNER_FEE';
   /**

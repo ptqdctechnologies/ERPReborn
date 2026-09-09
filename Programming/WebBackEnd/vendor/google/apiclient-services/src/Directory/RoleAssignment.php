@@ -80,6 +80,8 @@ class RoleAssignment extends \Google\Model
    * @var string
    */
   public $etag;
+  protected $expirationDetailsType = ExpirationDetails::class;
+  protected $expirationDetailsDataType = '';
   /**
    * The type of the API resource. This is always
    * `admin#directory#roleAssignment`.
@@ -207,6 +209,22 @@ class RoleAssignment extends \Google\Model
   public function getEtag()
   {
     return $this->etag;
+  }
+  /**
+   * Optional. Details regarding the expiration of this role assignment.
+   *
+   * @param ExpirationDetails $expirationDetails
+   */
+  public function setExpirationDetails(ExpirationDetails $expirationDetails)
+  {
+    $this->expirationDetails = $expirationDetails;
+  }
+  /**
+   * @return ExpirationDetails
+   */
+  public function getExpirationDetails()
+  {
+    return $this->expirationDetails;
   }
   /**
    * The type of the API resource. This is always

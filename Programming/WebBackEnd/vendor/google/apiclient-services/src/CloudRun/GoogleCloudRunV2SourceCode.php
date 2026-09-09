@@ -43,7 +43,7 @@ class GoogleCloudRunV2SourceCode extends \Google\Model
   /**
    * Optional. Input only. Source code inlined in the request. Cloud Run will
    * store the inlined_source to Cloud Storage and replace the field with
-   * cloud_storage_source.
+   * cloud_storage_source. This field is only supported in Cloud Run Service.
    *
    * @param GoogleCloudRunV2InlinedSource $inlinedSource
    */

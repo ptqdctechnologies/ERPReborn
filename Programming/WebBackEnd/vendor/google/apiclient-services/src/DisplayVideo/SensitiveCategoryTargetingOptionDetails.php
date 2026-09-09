@@ -25,7 +25,9 @@ class SensitiveCategoryTargetingOptionDetails extends \Google\Model
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_UNSPECIFIED = 'SENSITIVE_CATEGORY_UNSPECIFIED';
   /**
-   * Adult or pornographic text, image, or video content.
+   * Adult or pornographic text, image, or video content. **Starting on *October
+   * 1, 2026*, this value will be deprecated and no longer be accepted as a
+   * valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_ADULT = 'SENSITIVE_CATEGORY_ADULT';
   /**
@@ -33,84 +35,113 @@ class SensitiveCategoryTargetingOptionDetails extends \Google\Model
    * organizations based on criteria such as race, religion, disability, sex,
    * age, veteran status, sexual orientation, gender identity, or political
    * affiliation. May also indicate discussion of such content, for instance, in
-   * an academic or journalistic context.
+   * an academic or journalistic context. **Starting on *October 1, 2026*, this
+   * value will be deprecated and no longer be accepted as a valid value when
+   * assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_DEROGATORY = 'SENSITIVE_CATEGORY_DEROGATORY';
   /**
-   * Content related to audio, video, or software downloads.
+   * Content related to audio, video, or software downloads. **Starting on
+   * *October 1, 2026*, this value will be deprecated and no longer be accepted
+   * as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_DOWNLOADS_SHARING = 'SENSITIVE_CATEGORY_DOWNLOADS_SHARING';
   /**
    * Contains content related to personal weapons, including knives, guns, small
    * firearms, and ammunition. Selecting either "weapons" or "sensitive social
-   * issues" will result in selecting both.
+   * issues" will result in selecting both. **Starting on *October 1, 2026*,
+   * this value will be deprecated and no longer be accepted as a valid value
+   * when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_WEAPONS = 'SENSITIVE_CATEGORY_WEAPONS';
   /**
    * Contains content related to betting or wagering in a real-world or online
-   * setting.
+   * setting. **Starting on *October 1, 2026*, this value will be deprecated and
+   * no longer be accepted as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_GAMBLING = 'SENSITIVE_CATEGORY_GAMBLING';
   /**
    * Content which may be considered graphically violent, gory, gruesome, or
    * shocking, such as street fighting videos, accident photos, descriptions of
-   * torture, etc.
+   * torture, etc. **Starting on *October 1, 2026*, this value will be
+   * deprecated and no longer be accepted as a valid value when assigning
+   * targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_VIOLENCE = 'SENSITIVE_CATEGORY_VIOLENCE';
   /**
    * Adult content, as well as suggestive content that's not explicitly
    * pornographic. This category includes all pages categorized as adult.
+   * **Starting on *October 1, 2026*, this value will be deprecated and no
+   * longer be accepted as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_SUGGESTIVE = 'SENSITIVE_CATEGORY_SUGGESTIVE';
   /**
    * Prominent use of words considered indecent, such as curse words and sexual
    * slang. Pages with only very occasional usage, such as news sites that might
-   * include such words in a quotation, are not included.
+   * include such words in a quotation, are not included. **Starting on *October
+   * 1, 2026*, this value will be deprecated and no longer be accepted as a
+   * valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_PROFANITY = 'SENSITIVE_CATEGORY_PROFANITY';
   /**
    * Contains content related to alcoholic beverages, alcohol brands, recipes,
-   * etc.
+   * etc. **Starting on *October 1, 2026*, this value will be deprecated and no
+   * longer be accepted as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_ALCOHOL = 'SENSITIVE_CATEGORY_ALCOHOL';
   /**
    * Contains content related to the recreational use of legal or illegal drugs,
-   * as well as to drug paraphernalia or cultivation.
+   * as well as to drug paraphernalia or cultivation. **Starting on *October 1,
+   * 2026*, this value will be deprecated and no longer be accepted as a valid
+   * value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_DRUGS = 'SENSITIVE_CATEGORY_DRUGS';
   /**
    * Contains content related to tobacco and tobacco accessories, including
-   * lighters, humidors, ashtrays, etc.
+   * lighters, humidors, ashtrays, etc. **Starting on *October 1, 2026*, this
+   * value will be deprecated and no longer be accepted as a valid value when
+   * assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_TOBACCO = 'SENSITIVE_CATEGORY_TOBACCO';
   /**
    * Political news and media, including discussions of social, governmental,
-   * and public policy.
+   * and public policy. **Starting on *October 1, 2026*, this value will be
+   * deprecated and no longer be accepted as a valid value when assigning
+   * targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_POLITICS = 'SENSITIVE_CATEGORY_POLITICS';
   /**
-   * Content related to religious thought or beliefs.
+   * Content related to religious thought or beliefs. **Starting on *October 1,
+   * 2026*, this value will be deprecated and no longer be accepted as a valid
+   * value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_RELIGION = 'SENSITIVE_CATEGORY_RELIGION';
   /**
-   * Content related to death, disasters, accidents, war, etc.
+   * Content related to death, disasters, accidents, war, etc. **Starting on
+   * *October 1, 2026*, this value will be deprecated and no longer be accepted
+   * as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_TRAGEDY = 'SENSITIVE_CATEGORY_TRAGEDY';
   /**
    * Content related to motor vehicle, aviation or other transportation
-   * accidents.
+   * accidents. **Starting on *October 1, 2026*, this value will be deprecated
+   * and no longer be accepted as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_TRANSPORTATION_ACCIDENTS = 'SENSITIVE_CATEGORY_TRANSPORTATION_ACCIDENTS';
   /**
    * Issues that evoke strong, opposing views and spark debate. These include
    * issues that are controversial in most countries and markets (such as
    * abortion), as well as those that are controversial in specific countries
-   * and markets (such as immigration reform in the United States).
+   * and markets (such as immigration reform in the United States). **Starting
+   * on *October 1, 2026*, this value will be deprecated and no longer be
+   * accepted as a valid value when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_SENSITIVE_SOCIAL_ISSUES = 'SENSITIVE_CATEGORY_SENSITIVE_SOCIAL_ISSUES';
   /**
    * Content which may be considered shocking or disturbing, such as violent
-   * news stories, stunts, or toilet humor.
+   * news stories, stunts, or toilet humor. **Starting on *October 1, 2026*,
+   * this value will be deprecated and no longer be accepted as a valid value
+   * when assigning targeting.**
    */
   public const SENSITIVE_CATEGORY_SENSITIVE_CATEGORY_SHOCKING = 'SENSITIVE_CATEGORY_SHOCKING';
   /**

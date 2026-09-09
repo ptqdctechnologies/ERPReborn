@@ -17,12 +17,15 @@
 
 namespace Google\Service\CustomerEngagementSuite;
 
-class AudioProcessingConfig extends \Google\Model
+class AudioProcessingConfig extends \Google\Collection
 {
+  protected $collection_key = 'customVoiceSamples';
   protected $ambientSoundConfigType = AmbientSoundConfig::class;
   protected $ambientSoundConfigDataType = '';
   protected $bargeInConfigType = BargeInConfig::class;
   protected $bargeInConfigDataType = '';
+  protected $customVoiceSamplesType = CustomVoiceSample::class;
+  protected $customVoiceSamplesDataType = 'array';
   /**
    * Optional. The duration of user inactivity (no speech or interaction) before
    * the agent prompts the user for reengagement. If not set, the agent will not
@@ -66,6 +69,22 @@ class AudioProcessingConfig extends \Google\Model
   public function getBargeInConfig()
   {
     return $this->bargeInConfig;
+  }
+  /**
+   * Optional. Configures custom voice samples for voice cloning.
+   *
+   * @param CustomVoiceSample[] $customVoiceSamples
+   */
+  public function setCustomVoiceSamples($customVoiceSamples)
+  {
+    $this->customVoiceSamples = $customVoiceSamples;
+  }
+  /**
+   * @return CustomVoiceSample[]
+   */
+  public function getCustomVoiceSamples()
+  {
+    return $this->customVoiceSamples;
   }
   /**
    * Optional. The duration of user inactivity (no speech or interaction) before

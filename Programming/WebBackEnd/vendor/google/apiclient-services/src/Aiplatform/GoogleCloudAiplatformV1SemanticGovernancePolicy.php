@@ -39,6 +39,8 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
    * @var string
    */
   public $agentIdentity;
+  protected $agentResponseCustomizationType = GoogleCloudAiplatformV1AgentResponseCustomization::class;
+  protected $agentResponseCustomizationDataType = '';
   /**
    * Output only. Timestamp when this SemanticGovernancePolicy was created.
    *
@@ -124,6 +126,24 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
   public function getAgentIdentity()
   {
     return $this->agentIdentity;
+  }
+  /**
+   * Optional. Settings for customizing the agent's response to end users when
+   * this policy is evaluated, such as messages displayed when the policy denies
+   * a request.
+   *
+   * @param GoogleCloudAiplatformV1AgentResponseCustomization $agentResponseCustomization
+   */
+  public function setAgentResponseCustomization(GoogleCloudAiplatformV1AgentResponseCustomization $agentResponseCustomization)
+  {
+    $this->agentResponseCustomization = $agentResponseCustomization;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1AgentResponseCustomization
+   */
+  public function getAgentResponseCustomization()
+  {
+    return $this->agentResponseCustomization;
   }
   /**
    * Output only. Timestamp when this SemanticGovernancePolicy was created.

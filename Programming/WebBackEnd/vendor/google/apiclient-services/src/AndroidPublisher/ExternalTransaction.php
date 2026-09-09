@@ -42,6 +42,8 @@ class ExternalTransaction extends \Google\Model
   protected $currentPreTaxAmountDataType = '';
   protected $currentTaxAmountType = Price::class;
   protected $currentTaxAmountDataType = '';
+  protected $externalContentLinkDetailsType = ExternalContentLinkDetails::class;
+  protected $externalContentLinkDetailsDataType = '';
   protected $externalOfferDetailsType = ExternalOfferDetails::class;
   protected $externalOfferDetailsDataType = '';
   /**
@@ -148,6 +150,23 @@ class ExternalTransaction extends \Google\Model
   public function getCurrentTaxAmount()
   {
     return $this->currentTaxAmount;
+  }
+  /**
+   * Optional. Details necessary to accurately report external content link
+   * transactions.
+   *
+   * @param ExternalContentLinkDetails $externalContentLinkDetails
+   */
+  public function setExternalContentLinkDetails(ExternalContentLinkDetails $externalContentLinkDetails)
+  {
+    $this->externalContentLinkDetails = $externalContentLinkDetails;
+  }
+  /**
+   * @return ExternalContentLinkDetails
+   */
+  public function getExternalContentLinkDetails()
+  {
+    return $this->externalContentLinkDetails;
   }
   /**
    * Optional. Details necessary to accurately report external offers

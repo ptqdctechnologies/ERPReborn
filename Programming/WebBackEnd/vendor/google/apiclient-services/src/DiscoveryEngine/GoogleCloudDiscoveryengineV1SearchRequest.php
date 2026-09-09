@@ -337,6 +337,8 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
    * @var bool
    */
   public $safeSearch;
+  protected $searchAddonSpecType = GoogleCloudDiscoveryengineV1SearchRequestSearchAddonSpec::class;
+  protected $searchAddonSpecDataType = '';
   protected $searchAsYouTypeSpecType = GoogleCloudDiscoveryengineV1SearchRequestSearchAsYouTypeSpec::class;
   protected $searchAsYouTypeSpecDataType = '';
   /**
@@ -1038,6 +1040,23 @@ class GoogleCloudDiscoveryengineV1SearchRequest extends \Google\Collection
   public function getSafeSearch()
   {
     return $this->safeSearch;
+  }
+  /**
+   * Optional. SearchAddonSpec is used to disable add-ons for search as per new
+   * repricing model. This field is only supported for search requests.
+   *
+   * @param GoogleCloudDiscoveryengineV1SearchRequestSearchAddonSpec $searchAddonSpec
+   */
+  public function setSearchAddonSpec(GoogleCloudDiscoveryengineV1SearchRequestSearchAddonSpec $searchAddonSpec)
+  {
+    $this->searchAddonSpec = $searchAddonSpec;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1SearchRequestSearchAddonSpec
+   */
+  public function getSearchAddonSpec()
+  {
+    return $this->searchAddonSpec;
   }
   /**
    * Search as you type configuration. Only supported for the

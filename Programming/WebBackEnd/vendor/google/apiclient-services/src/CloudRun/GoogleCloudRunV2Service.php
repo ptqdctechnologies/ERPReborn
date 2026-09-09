@@ -167,13 +167,6 @@ class GoogleCloudRunV2Service extends \Google\Collection
    */
   public $description;
   /**
-   * Optional. Immutable. Indicates whether the Service has durable execution
-   * enabled. This field is immutable once the Service is created.
-   *
-   * @var bool
-   */
-  public $durableExecution;
-  /**
    * Optional. A system-generated fingerprint for this version of the resource.
    * May be used to detect modification conflict during updates.
    *
@@ -574,23 +567,6 @@ class GoogleCloudRunV2Service extends \Google\Collection
   public function getDescription()
   {
     return $this->description;
-  }
-  /**
-   * Optional. Immutable. Indicates whether the Service has durable execution
-   * enabled. This field is immutable once the Service is created.
-   *
-   * @param bool $durableExecution
-   */
-  public function setDurableExecution($durableExecution)
-  {
-    $this->durableExecution = $durableExecution;
-  }
-  /**
-   * @return bool
-   */
-  public function getDurableExecution()
-  {
-    return $this->durableExecution;
   }
   /**
    * Optional. A system-generated fingerprint for this version of the resource.

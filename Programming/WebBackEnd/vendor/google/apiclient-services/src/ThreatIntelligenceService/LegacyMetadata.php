@@ -20,104 +20,110 @@ namespace Google\Service\ThreatIntelligenceService;
 class LegacyMetadata extends \Google\Model
 {
   /**
-   * Optional. Whether aggregation is enabled for alerts from this monitor.
+   * Output only. Whether aggregation is enabled for alerts from this monitor.
    *
    * @var bool
    */
   public $aggregationEnabled;
   /**
-   * Optional. Similarity threshold for aggregation.
+   * Output only. Similarity threshold for aggregation.
    *
    * @var 
    */
   public $aggregationSimilarity;
   /**
-   * Optional. Version of the condition schema.
+   * Output only. Version of the condition schema.
    *
    * @var int
    */
   public $conditionVersion;
   /**
-   * Optional. User ID who created the monitor.
+   * Output only. User ID who created the monitor.
    *
    * @var string
    */
   public $creatorUserId;
   /**
-   * Optional. Description of the legacy monitor.
+   * Output only. Description of the legacy monitor.
    *
    * @var string
    */
   public $description;
   /**
-   * Optional. Code indicating why the monitor is disabled (if applicable).
+   * Output only. Code indicating why the monitor is disabled (if applicable).
    *
    * @var string
    */
   public $disabledCode;
   /**
-   * Optional. Reason why the monitor is disabled (if applicable).
+   * Output only. Reason why the monitor is disabled (if applicable).
    *
    * @var string
    */
   public $disabledReason;
   /**
-   * Optional. Name of the legacy monitor.
+   * Output only. Name of the legacy monitor.
    *
    * @var string
    */
   public $displayName;
   /**
-   * Optional. Whether email notifications are enabled.
+   * Output only. Deprecated: Whether email notifications are enabled. This
+   * field will not be used as email notifications are handled through the GTI
+   * Mail Hub.
    *
+   * @deprecated
    * @var bool
    */
   public $emailNotificationEnabled;
   /**
-   * Optional. Whether email notifications are intermediate/immediate.
+   * Output only. Deprecated: Whether email notifications are
+   * intermediate/immediate. This field will not be used as email notifications
+   * are handled through the GTI Mail Hub.
    *
+   * @deprecated
    * @var bool
    */
   public $emailNotificationImmediate;
   /**
-   * Optional. Unique identifier of the legacy monitor.
+   * Output only. Unique identifier of the legacy monitor.
    *
    * @var string
    */
   public $legacyMonitorId;
   /**
-   * Optional. Time the legacy monitor was considered stale.
+   * Output only. Time the legacy monitor was considered stale.
    *
    * @var string
    */
   public $staleTime;
   /**
-   * Optional. ID of the template this monitor was created from.
+   * Output only. ID of the template this monitor was created from.
    *
    * @var string
    */
   public $templateId;
   /**
-   * Optional. ID of the tenant owning the monitor.
+   * Output only. ID of the tenant owning the monitor.
    *
    * @var string
    */
   public $tenantId;
   /**
-   * Optional. User ID who last updated the monitor.
+   * Output only. User ID who last updated the monitor.
    *
    * @var string
    */
   public $updaterUserId;
   /**
-   * Optional. Version of the monitor configuration.
+   * Output only. Version of the monitor configuration.
    *
    * @var int
    */
   public $version;
 
   /**
-   * Optional. Whether aggregation is enabled for alerts from this monitor.
+   * Output only. Whether aggregation is enabled for alerts from this monitor.
    *
    * @param bool $aggregationEnabled
    */
@@ -141,7 +147,7 @@ class LegacyMetadata extends \Google\Model
     return $this->aggregationSimilarity;
   }
   /**
-   * Optional. Version of the condition schema.
+   * Output only. Version of the condition schema.
    *
    * @param int $conditionVersion
    */
@@ -157,7 +163,7 @@ class LegacyMetadata extends \Google\Model
     return $this->conditionVersion;
   }
   /**
-   * Optional. User ID who created the monitor.
+   * Output only. User ID who created the monitor.
    *
    * @param string $creatorUserId
    */
@@ -173,7 +179,7 @@ class LegacyMetadata extends \Google\Model
     return $this->creatorUserId;
   }
   /**
-   * Optional. Description of the legacy monitor.
+   * Output only. Description of the legacy monitor.
    *
    * @param string $description
    */
@@ -189,7 +195,7 @@ class LegacyMetadata extends \Google\Model
     return $this->description;
   }
   /**
-   * Optional. Code indicating why the monitor is disabled (if applicable).
+   * Output only. Code indicating why the monitor is disabled (if applicable).
    *
    * @param string $disabledCode
    */
@@ -205,7 +211,7 @@ class LegacyMetadata extends \Google\Model
     return $this->disabledCode;
   }
   /**
-   * Optional. Reason why the monitor is disabled (if applicable).
+   * Output only. Reason why the monitor is disabled (if applicable).
    *
    * @param string $disabledReason
    */
@@ -221,7 +227,7 @@ class LegacyMetadata extends \Google\Model
     return $this->disabledReason;
   }
   /**
-   * Optional. Name of the legacy monitor.
+   * Output only. Name of the legacy monitor.
    *
    * @param string $displayName
    */
@@ -237,8 +243,11 @@ class LegacyMetadata extends \Google\Model
     return $this->displayName;
   }
   /**
-   * Optional. Whether email notifications are enabled.
+   * Output only. Deprecated: Whether email notifications are enabled. This
+   * field will not be used as email notifications are handled through the GTI
+   * Mail Hub.
    *
+   * @deprecated
    * @param bool $emailNotificationEnabled
    */
   public function setEmailNotificationEnabled($emailNotificationEnabled)
@@ -246,6 +255,7 @@ class LegacyMetadata extends \Google\Model
     $this->emailNotificationEnabled = $emailNotificationEnabled;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getEmailNotificationEnabled()
@@ -253,8 +263,11 @@ class LegacyMetadata extends \Google\Model
     return $this->emailNotificationEnabled;
   }
   /**
-   * Optional. Whether email notifications are intermediate/immediate.
+   * Output only. Deprecated: Whether email notifications are
+   * intermediate/immediate. This field will not be used as email notifications
+   * are handled through the GTI Mail Hub.
    *
+   * @deprecated
    * @param bool $emailNotificationImmediate
    */
   public function setEmailNotificationImmediate($emailNotificationImmediate)
@@ -262,6 +275,7 @@ class LegacyMetadata extends \Google\Model
     $this->emailNotificationImmediate = $emailNotificationImmediate;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getEmailNotificationImmediate()
@@ -269,7 +283,7 @@ class LegacyMetadata extends \Google\Model
     return $this->emailNotificationImmediate;
   }
   /**
-   * Optional. Unique identifier of the legacy monitor.
+   * Output only. Unique identifier of the legacy monitor.
    *
    * @param string $legacyMonitorId
    */
@@ -285,7 +299,7 @@ class LegacyMetadata extends \Google\Model
     return $this->legacyMonitorId;
   }
   /**
-   * Optional. Time the legacy monitor was considered stale.
+   * Output only. Time the legacy monitor was considered stale.
    *
    * @param string $staleTime
    */
@@ -301,7 +315,7 @@ class LegacyMetadata extends \Google\Model
     return $this->staleTime;
   }
   /**
-   * Optional. ID of the template this monitor was created from.
+   * Output only. ID of the template this monitor was created from.
    *
    * @param string $templateId
    */
@@ -317,7 +331,7 @@ class LegacyMetadata extends \Google\Model
     return $this->templateId;
   }
   /**
-   * Optional. ID of the tenant owning the monitor.
+   * Output only. ID of the tenant owning the monitor.
    *
    * @param string $tenantId
    */
@@ -333,7 +347,7 @@ class LegacyMetadata extends \Google\Model
     return $this->tenantId;
   }
   /**
-   * Optional. User ID who last updated the monitor.
+   * Output only. User ID who last updated the monitor.
    *
    * @param string $updaterUserId
    */
@@ -349,7 +363,7 @@ class LegacyMetadata extends \Google\Model
     return $this->updaterUserId;
   }
   /**
-   * Optional. Version of the monitor configuration.
+   * Output only. Version of the monitor configuration.
    *
    * @param int $version
    */

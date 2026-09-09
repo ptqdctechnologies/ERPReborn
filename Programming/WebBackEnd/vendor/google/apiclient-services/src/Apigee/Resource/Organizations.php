@@ -21,6 +21,7 @@ use Google\Service\Apigee\GoogleCloudApigeeV1ControlPlaneAccess;
 use Google\Service\Apigee\GoogleCloudApigeeV1GetSyncAuthorizationRequest;
 use Google\Service\Apigee\GoogleCloudApigeeV1IngressConfig;
 use Google\Service\Apigee\GoogleCloudApigeeV1ListOrganizationsResponse;
+use Google\Service\Apigee\GoogleCloudApigeeV1McpServerConfig;
 use Google\Service\Apigee\GoogleCloudApigeeV1Organization;
 use Google\Service\Apigee\GoogleCloudApigeeV1OrganizationProjectMapping;
 use Google\Service\Apigee\GoogleCloudApigeeV1RuntimeConfig;
@@ -147,6 +148,25 @@ class Organizations extends \Google\Service\Resource
     $params = ['name' => $name];
     $params = array_merge($params, $optParams);
     return $this->call('getDeployedIngressConfig', [$params], GoogleCloudApigeeV1IngressConfig::class);
+  }
+  /**
+   * Gets the deployed MCP server configuration for an organization.
+   * McpServerConfig is an org-scoped singleton (one per organization). The
+   * returned configuration may be up to 30 seconds out of date by default.
+   * (organizations.getMcpServerConfig)
+   *
+   * @param string $name Required. Name of the deployed MCP server configuration
+   * for the organization in the singleton form:
+   * `organizations/{org}/mcpServerConfig`.
+   * @param array $optParams Optional parameters.
+   * @return GoogleCloudApigeeV1McpServerConfig
+   * @throws \Google\Service\Exception
+   */
+  public function getMcpServerConfig($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('getMcpServerConfig', [$params], GoogleCloudApigeeV1McpServerConfig::class);
   }
   /**
    * Gets the project ID and region for an Apigee organization.

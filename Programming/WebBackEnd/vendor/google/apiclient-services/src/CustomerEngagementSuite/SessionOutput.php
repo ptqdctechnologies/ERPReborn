@@ -49,6 +49,12 @@ class SessionOutput extends \Google\Collection
    */
   public $payload;
   /**
+   * Intermediate progress update from the CES agent.
+   *
+   * @var string
+   */
+  public $progress;
+  /**
    * Output text from the CES agent.
    *
    * @var string
@@ -202,6 +208,22 @@ class SessionOutput extends \Google\Collection
   public function getPayload()
   {
     return $this->payload;
+  }
+  /**
+   * Intermediate progress update from the CES agent.
+   *
+   * @param string $progress
+   */
+  public function setProgress($progress)
+  {
+    $this->progress = $progress;
+  }
+  /**
+   * @return string
+   */
+  public function getProgress()
+  {
+    return $this->progress;
   }
   /**
    * Output text from the CES agent.

@@ -20,6 +20,12 @@ namespace Google\Service\BackupforGKE;
 class BDRBackupRestoreJobLog extends \Google\Model
 {
   /**
+   * The auto-protection policy that created the backup.
+   *
+   * @var string
+   */
+  public $autoProtectionPolicy;
+  /**
    * Backup consistency time.
    *
    * @var string
@@ -174,6 +180,22 @@ class BDRBackupRestoreJobLog extends \Google\Model
    */
   public $targetResourceType;
 
+  /**
+   * The auto-protection policy that created the backup.
+   *
+   * @param string $autoProtectionPolicy
+   */
+  public function setAutoProtectionPolicy($autoProtectionPolicy)
+  {
+    $this->autoProtectionPolicy = $autoProtectionPolicy;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoProtectionPolicy()
+  {
+    return $this->autoProtectionPolicy;
+  }
   /**
    * Backup consistency time.
    *
