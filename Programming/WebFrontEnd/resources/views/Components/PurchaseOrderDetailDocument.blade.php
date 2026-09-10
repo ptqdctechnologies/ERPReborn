@@ -179,6 +179,8 @@
                 <input type="hidden" name="transactionType" id="transactionType" value="<?= $transactionType; ?>">
                 <input type="hidden" name="picSourcing" id="picSourcing"
                     value="<?= $dataWorkFlows['itemList']['ungrouped'][0]['entities']['currentApproval']['approverEntityName'] ?? '-'; ?>">
+                <input type="hidden" name="picDestination" id="picDestination"
+                    value='<?= json_encode(collect($dataWorkFlows['itemList']['ungrouped'])->firstWhere('entities.currentApproval.workFlowPathActionName', 'Final Approval') ?? []); ?>'>
                 <input type="hidden" name="print_type" id="print_type" value="PDF">
 
                 <div class="col d-flex" style="gap: .2rem;">
@@ -227,6 +229,8 @@
                 <input type="hidden" name="transactionType" id="transactionType" value="<?= $transactionType; ?>">
                 <input type="hidden" name="picSourcing" id="picSourcing"
                     value="<?= $dataWorkFlows['itemList']['ungrouped'][0]['entities']['currentApproval']['approverEntityName'] ?? '-'; ?>">
+                <input type="hidden" name="picDestination" id="picDestination"
+                    value="<?= collect($dataWorkFlows['itemList']['ungrouped'])->firstWhere('entities.currentApproval.workFlowPathActionName', 'Final Approval'); ?>">
                 <input type="hidden" name="print_type" id="print_type" value="PDF">
 
                 <div class="col d-flex" style="gap: .2rem;">

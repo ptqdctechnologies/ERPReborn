@@ -77,9 +77,8 @@ class DocumentTypeMapper
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
             'Loan Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key' => 'transaction.read.dataList.finance.getLoanDetail',
+                'parameter' => ['loan_RefID' => (int) $referenceId]
             ],
             'Loan Settlement Form' => [
                 'key' => '',

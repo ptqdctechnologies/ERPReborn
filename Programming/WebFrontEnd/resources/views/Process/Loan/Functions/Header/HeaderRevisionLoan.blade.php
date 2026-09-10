@@ -296,18 +296,12 @@
         </div>
       </div>
 
-      <!-- LOAN SETTLEMENT TOTAL -->
+      <!-- LOAN PAYMENT TOTAL -->
       <div class="row" style="margin-top: 1rem;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Settlement Total</label>
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Payment Total</label>
         <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" value="0.00"
+          <input type="text" id="payment_loan" value="<?= number_format($header['loanPaymentTotal'], 2, '.', ','); ?>"
             class="form-control number-without-characters" style="border-radius:0;" readonly />
-        </div>
-      </div>
-      <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Total cannot be empty.
         </div>
       </div>
 

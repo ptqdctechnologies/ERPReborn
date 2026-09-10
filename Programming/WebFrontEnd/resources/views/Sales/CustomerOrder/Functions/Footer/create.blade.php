@@ -1107,25 +1107,31 @@
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_currencies"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+        const table = $('#tableCurrencies').DataTable();
+        const dataRow = table.row(this).data();
 
-        if (code != "USD" && code != "IDR" && code != "EUR") {
-            Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
+        if (dataRow) {
+            const currencyRefID = dataRow.sys_ID;
+            const currencyExchangeRate = dataRow.exchangeRate;
+            const currencyISOCode = dataRow.ISOCode;
+            const currencyName = dataRow.name;
 
-            return;
-        } else {
-            $("#currency_id").val(sysId);
-            $("#currency_name").val(`${code} - ${name}`);
+            if (!currencyExchangeRate) {
+                Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
+
+                return;
+            }
+
+            $("#currency_id").val(currencyRefID);
+            $("#currency_name").val(`${currencyISOCode} - ${currencyName}`);
             $("#currency_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
             $("#currency_message").hide();
 
             $("#myCurrenciesTrigger").prop("disabled", true);
             $("#myCurrenciesTrigger").css("cursor", "not-allowed");
-        }
 
-        $('#myCurrencies').modal('toggle');
+            $('#myCurrencies').modal('toggle');
+        }
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {

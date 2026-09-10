@@ -2,10 +2,11 @@
 @section('main')
   @include('Partials.navbar')
   @include('Partials.sidebar')
-  @include('getFunction.getPurchaseRequisition')
   @include('getFunction.getSuppliers')
   @include('getFunction.getWorkFlows')
+  @include('getFunction.getCurrencies')
   @include('getFunction.getPurchaseOrder')
+  @include('getFunction.getPurchaseRequisition')
   @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
   @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPurchaseOrderSummaryData')
 

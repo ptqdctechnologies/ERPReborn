@@ -37,9 +37,29 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
+                        <span style="border-radius: 0; cursor: pointer;" class="input-group-text form-control"
+                            data-toggle="modal" data-target="#myCurrencies">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div>
                         <div class="input-group">
-                            <input id="purchase_order_currency" style="border-radius:0;" class="form-control"
+                            <input id="purchase_order_currency" size="16" style="border-radius:0;" class="form-control"
                                 value="<?= $header['currencyISOCode']; ?>" readonly>
+                            <input type="hidden" id="purchase_order_currency_id" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXCHANGE RATE -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <div class="input-group">
+                            <input type="text" id="exchange_rate" style="border-radius:0;"
+                                class="form-control number-only" />
                         </div>
                     </div>
                 </div>

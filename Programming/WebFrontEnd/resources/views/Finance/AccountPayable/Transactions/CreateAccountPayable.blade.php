@@ -3,6 +3,7 @@
   @include('Partials.navbar')
   @include('Partials.sidebar')
   @include('getFunction.getWorkFlows')
+  @include('getFunction.getCurrencies')
   @include('getFunction.getAccountPayable')
   @include('getFunction.getPurchaseOrder')
   @include('getFunction.getChartOfAccount')

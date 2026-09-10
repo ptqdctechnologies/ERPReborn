@@ -72,8 +72,8 @@ class RateController extends Controller
                 'currencyCode' => $data['CurrencyISOCode'],
                 'currencyName' => $data['CurrencyName'],
                 'rate' => $data['Rate'],
-                'startDate' => "",
-                'endDate' => ""
+                'startDate' => $data['StartDate'],
+                'endDate' => $data['EndDate']
             ];
 
             return view('Master.Rate.Transactions.revision', $compact);

@@ -9,19 +9,23 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <span class="input-group-text form-control" style="border-radius:0;">
-                            <a href="javascript:;" id="purchase_order_trigger" data-toggle="modal" data-target="#mySearchPO" style="display: block; cursor: pointer;">
+                            <a href="javascript:;" id="purchase_order_trigger" data-toggle="modal"
+                                data-target="#mySearchPO" style="display: block; cursor: pointer;">
                                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="box" />
                             </a>
 
-                            <div id="purchase_order_loading" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+                            <div id="purchase_order_loading" class="spinner-border spinner-border-sm" role="status"
+                                style="display: none;">
                                 <span class="sr-only">Loading...</span>
                             </div>
                         </span>
                     </div>
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_number" class="form-control" size="16" readonly style="border-radius:0; background-color: white; cursor: default;" />
-                            <input id="purchase_order_id" name="purchase_order_id" style="border-radius:0;" class="form-control" hidden />
+                            <input id="purchase_order_number" class="form-control" size="16" readonly
+                                style="border-radius:0; background-color: white; cursor: default;" />
+                            <input id="purchase_order_id" name="purchase_order_id" style="border-radius:0;"
+                                class="form-control" hidden />
                         </div>
                     </div>
                 </div>
@@ -52,8 +56,29 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
+                        <span style="border-radius: 0; cursor: pointer;" class="input-group-text form-control"
+                            data-toggle="modal" data-target="#myCurrencies">
+                            <i class="fas fa-gift"></i>
+                        </span>
+                    </div>
+                    <div>
                         <div class="input-group">
-                            <input id="purchase_order_currency" style="border-radius:0;" class="form-control" readonly>
+                            <input type="text" id="purchase_order_currency" size="16"
+                                style="border-radius:0; background-color: white;" class="form-control" readonly />
+                            <input type="hidden" id="purchase_order_currency_id" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EXCHANGE RATE -->
+            <div class="row" style="margin-top: 1rem;">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Exchange Rate</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+                    <div>
+                        <div class="input-group">
+                            <input type="text" id="exchange_rate" style="border-radius:0;"
+                                class="form-control number-only" />
                         </div>
                     </div>
                 </div>
@@ -65,7 +90,8 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <input id="purchase_order_payment_term" style="border-radius:0;" class="form-control" readonly>
+                            <input id="purchase_order_payment_term" style="border-radius:0;" class="form-control"
+                                readonly>
                         </div>
                     </div>
                 </div>
@@ -80,7 +106,8 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control" readonly></textarea>
+                            <textarea id="purchase_order_delivery_from" cols="20" rows="4" class="form-control"
+                                readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -92,7 +119,8 @@
                 <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
                     <div>
                         <div class="input-group">
-                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control" readonly></textarea>
+                            <textarea id="purchase_order_delivery_to" cols="20" rows="4" class="form-control"
+                                readonly></textarea>
                         </div>
                     </div>
                 </div>

@@ -136,6 +136,13 @@
                 },
                 {
                     data: null,
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `IDR`;
+                    }
+                },
+                {
+                    data: null,
                     defaultContent: '-',
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.total_Idr_WithoutVat || '0');
@@ -152,14 +159,16 @@
                     data: null,
                     defaultContent: '-',
                     render: function (data, type, row, meta) {
-                        return currencyTotal(data.total_Other_Currency_WithoutVat || '0');
+                        return currencyTotal('0');
+                        // return currencyTotal(data.total_Other_Currency_WithoutVat || '0');
                     }
                 },
                 {
                     data: null,
                     defaultContent: '-',
                     render: function (data, type, row, meta) {
-                        return currencyTotal(data.total_Vat_Other_Currency || '0');
+                        return currencyTotal('0');
+                        // return currencyTotal(data.total_Vat_Other_Currency || '0');
                     }
                 },
                 {
@@ -180,8 +189,10 @@
             drawCallback: function (settings) {
                 $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalValuePO));
                 $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalVATPO));
-                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalValuePOOtherCurrency));
-                $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalVATPOOtherCurrency));
+                $('#table_summary tfoot th:nth-child(4)').text("");
+                // $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalValuePOOtherCurrency));
+                $('#table_summary tfoot th:nth-child(5)').text("");
+                // $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalVATPOOtherCurrency));
                 $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalValuePOEquivalentIDR));
                 $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalVATPOEquivalentIDR));
             }

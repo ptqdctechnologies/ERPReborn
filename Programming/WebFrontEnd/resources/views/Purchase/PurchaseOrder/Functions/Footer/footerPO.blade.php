@@ -932,6 +932,31 @@
         getModalPurchaseOrder();
     });
 
+    $('#tableCurrencies tbody').on('click', 'tr', function () {
+        const table = $('#tableCurrencies').DataTable();
+        const dataRow = table.row(this).data();
+
+        if (dataRow) {
+            const currencyRefID = dataRow.sys_ID;
+            const currencyExchangeRate = dataRow.exchangeRate;
+            const currencyISOCode = dataRow.ISOCode;
+            const currencyName = dataRow.name;
+
+            if (!currencyExchangeRate) {
+                Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
+
+                return;
+            }
+
+            $("#currency_id").val(currencyRefID);
+            $("#currency_name").val(`${currencyISOCode} - ${currencyName}`);
+            $("#currency_name").css('background-color', '#e9ecef');
+            $("#exchange_rate").val(Utils.formatCurrency(currencyExchangeRate));
+
+            $("#myCurrencies").modal('toggle');
+        }
+    });
+
     $(document).ready(function () {
         getModalPurchaseRequisition();
 

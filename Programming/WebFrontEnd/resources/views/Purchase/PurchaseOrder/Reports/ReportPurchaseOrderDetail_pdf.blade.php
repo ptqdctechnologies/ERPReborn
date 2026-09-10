@@ -322,16 +322,17 @@
                         <table style="width: 100%;">
                             <td style="text-align:center;">
                                 <div style="display:inline-block;">
-                                    <?= DNS2D::getBarcodeHTML('https://www.qdc.co.id', 'QRCODE', 2, 2) ?>
+                                    <?= $picDestination ? DNS2D::getBarcodeHTML($picDestination['entities']['currentApproval']['digitalSignatureID'], 'QRCODE', 2, 2) : ''; ?>
                                 </div>
                             </td>
                         </table>
                         <hr style="border: 1px solid black; margin: 8px 0px 2px 0px;" />
                         <div style="text-align: center; line-height: 15px; font-size: 10px;">
-                            Redi
+                            <?= $picDestination ? $picDestination['entities']['currentApproval']['approverEntityName'] : ''; ?>
                         </div>
                         <div style="font-size: 10px;">
-                            Date: <?= date('j F Y'); ?>
+                            Date:
+                            <?= $picDestination ? substr($picDestination['entities']['currentApproval']['approvalDateTimeTZ'], 0, 10) : '-'; ?>
                         </div>
                     </div>
                 </div>
@@ -345,7 +346,7 @@
                         <table style="width: 100%; visibility: hidden;">
                             <td style="text-align:center;">
                                 <div style="display:inline-block;">
-                                    <?= DNS2D::getBarcodeHTML('https://www.qdc.co.id', 'QRCODE', 2, 2) ?>
+                                    <?= $picDestination ? DNS2D::getBarcodeHTML($picDestination['entities']['currentApproval']['digitalSignatureID'], 'QRCODE', 2, 2) : ''; ?>
                                 </div>
                             </td>
                         </table>

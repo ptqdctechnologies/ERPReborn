@@ -37,6 +37,12 @@ class RateService
     {
         $token = Session::get('SessionLogin');
 
+        if ($request['rate_date_range']) {
+            $dates = explode(' - ', $request['rate_date_range']);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
+
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
@@ -45,7 +51,9 @@ class RateService
             [
                 'entities' => [
                     "currency_RefID" => (int) $request['currency_id'],
-                    "rate" => (float) str_replace(',', '', $request['rate'])
+                    "rate" => (float) str_replace(',', '', $request['rate']),
+                    "startDate" => $request['rate_date_range'] ? $startDate : NULL,
+                    "endDate" => $request['rate_date_range'] ? $endDate : NULL
                 ]
             ]
         );
@@ -54,6 +62,12 @@ class RateService
     public function update($request, $id)
     {
         $token = Session::get('SessionLogin');
+
+        if ($request['rate_date_range']) {
+            $dates = explode(' - ', $request['rate_date_range']);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+        }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -64,7 +78,9 @@ class RateService
                 'recordID' => (int) $id,
                 'entities' => [
                     "currency_RefID" => (int) $request['currency_id'],
-                    "rate" => (float) str_replace(',', '', $request['rate'])
+                    "rate" => (float) str_replace(',', '', $request['rate']),
+                    "startDate" => $request['rate_date_range'] ? $startDate : NULL,
+                    "endDate" => $request['rate_date_range'] ? $endDate : NULL
                 ]
             ]
         );

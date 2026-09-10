@@ -99,6 +99,7 @@
                                 render: function (data, type, row, meta) {
                                     return '<td class="align-middle text-center">' +
                                         '<input id="sys_id_currencies' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_currencies" type="hidden">' +
+                                        '<input id="exchange_rate' + (meta.row + 1) + '" value="' + data.exchangeRate + '" data-trigger="exchange_rate" type="hidden">' +
                                         (meta.row + 1) +
                                         '</td>';
                                 }
