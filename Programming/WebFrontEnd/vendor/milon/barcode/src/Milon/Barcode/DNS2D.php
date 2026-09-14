@@ -66,6 +66,11 @@ use Illuminate\Support\Str;
  */
 class DNS2D {
 
+    use ResolvesStorePath;
+    use DestroysGdImages;
+    use SupportsPadding;
+    use SupportsLogo;
+
     /**
      * Array representation of barcode.
      * @protected
@@ -93,22 +98,21 @@ class DNS2D {
      * @protected
      */
     public function getBarcodeSVG($code, $type, $w = 3, $h = 3, $color = 'black') {
-        if (!$this->store_path) {
-            $this->setStorPath(app('config')->get("barcode.store_path"));
-        }
+        $this->ensureStorePath();
         //set barcode code and type
         $this->setBarcode($code, $type);
         // replace table for special characters
         $repstr = array("\0" => '', '&' => '&amp;', '<' => '&lt;', '>' => '&gt;');
+        $pad = $this->getPadding();
         $svg = '<' . '?' . 'xml version="1.0" standalone="no"' . '?' . '>' . "\n";
         $svg .= '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">' . "\n";
-        $svg .= '<svg width="' . round(($this->barcode_array['num_cols'] * $w), 3) . '" height="' . round(($this->barcode_array['num_rows'] * $h), 3) . '" version="1.1" xmlns="http://www.w3.org/2000/svg">' . "\n";
+        $svg .= '<svg width="' . round(($this->barcode_array['num_cols'] * $w) + (2 * $pad), 3) . '" height="' . round(($this->barcode_array['num_rows'] * $h) + (2 * $pad), 3) . '" version="1.1" xmlns="http://www.w3.org/2000/svg" shape-rendering="crispEdges">' . "\n";
         $svg .= "\t" . '<g id="elements" fill="' . $color . '" stroke="none">' . "\n";
         // print barcode elements
-        $y = 0;
+        $y = $pad;
         // for each row
         for ($r = 0; $r < $this->barcode_array['num_rows']; ++$r) {
-            $x = 0;
+            $x = $pad;
             // for each column
             for ($c = 0; $c < $this->barcode_array['num_cols']; ++$c) {
                 if ($this->barcode_array['bcode'][$r][$c] == 1) {
@@ -139,17 +143,16 @@ class DNS2D {
      * @protected
      */
     public function getBarcodeHTML($code, $type, $w = 10, $h = 10, $color = 'black') {
-        if (!$this->store_path) {
-            $this->setStorPath(app('config')->get("barcode.store_path"));
-        }
+        $this->ensureStorePath();
         //set barcode code and type
         $this->setBarcode($code, $type);
-        $html = '<div style="font-size:0;position:relative;width:' . ($w * $this->barcode_array['num_cols']) . 'px;height:' . ($h * $this->barcode_array['num_rows']) . 'px;">' . "\n";
+        $pad = $this->getPadding();
+        $html = '<div style="font-size:0;position:relative;width:' . (($w * $this->barcode_array['num_cols']) + (2 * $pad)) . 'px;height:' . (($h * $this->barcode_array['num_rows']) + (2 * $pad)) . 'px;">' . "\n";
         // print barcode elements
-        $y = 0;
+        $y = $pad;
         // for each row
         for ($r = 0; $r < $this->barcode_array['num_rows']; ++$r) {
-            $x = 0;
+            $x = $pad;
             // for each column
             for ($c = 0; $c < $this->barcode_array['num_cols']; ++$c) {
                 if ($this->barcode_array['bcode'][$r][$c] == 1) {
@@ -180,18 +183,17 @@ class DNS2D {
      * @protected
      */
     public function getBarcodePNG($code, $type, $w = 3, $h = 3, $color = array(0, 0, 0), $bgcolor = null) {
-        if (!$this->store_path) {
-            $this->setStorPath(app('config')->get("barcode.store_path"));
-        }
+        $this->ensureStorePath();
         //set barcode code and type
         $this->setBarcode($code, $type);
+        $pad = $this->getPadding();
         // calculate image size
-        $width = ($this->barcode_array['num_cols'] * $w);
-        $height = ($this->barcode_array['num_rows'] * $h);
+        $width = ($this->barcode_array['num_cols'] * $w) + (2 * $pad);
+        $height = ($this->barcode_array['num_rows'] * $h) + (2 * $pad);
         if (function_exists('imagecreate')) {
             // GD library
             $imagick = false;
-            $png = imagecreate($width, $height);
+            $png = imagecreate((int) $width, (int) $height);
             $bgcol = imagecolorallocate($png, ...($bgcolor ?: [255, 255, 255]));
             if (!$bgcolor) {
                 imagecolortransparent($png, $bgcol);
@@ -209,10 +211,10 @@ class DNS2D {
             return false;
         }
         // print barcode elements
-        $y = 0;
+        $y = $pad;
         // for each row
         for ($r = 0; $r < $this->barcode_array['num_rows']; ++$r) {
-            $x = 0;
+            $x = $pad;
             // for each column
             for ($c = 0; $c < $this->barcode_array['num_cols']; ++$c) {
                 if ($this->barcode_array['bcode'][$r][$c] == 1) {
@@ -220,7 +222,7 @@ class DNS2D {
                     if ($imagick) {
                         $bar->rectangle($x, $y, ($x + ($w-1)), ($y + ($h-1)));
                     } else {
-                        imagefilledrectangle($png, $x, $y, ($x + ($w-1)), ($y + ($h-1)), $fgcol);
+                        imagefilledrectangle($png, (int) $x, (int) $y, (int) ($x + ($w-1)), (int) ($y + ($h-1)), $fgcol);
                     }
                 }
                 $x += $w;
@@ -234,8 +236,9 @@ class DNS2D {
             $png->drawimage($bar);
             echo $png;
         } else {
+            $this->applyLogoToGdImage($png, (int) $width, (int) $height);
             imagepng($png);
-            imagedestroy($png);
+            $this->destroyGdImage($png);
         }
         $image = ob_get_clean();
         $image = base64_encode($image);
@@ -271,22 +274,21 @@ class DNS2D {
      * @param $h (int) Height of a single rectangle element in pixels.
      * @param $color (array) RGB (0-255) foreground color for bar elements.
      * @param $bgcolor (array) RGB (0-255) background color (transparent as default).
+     * @param $filename (string|null) optional custom filename without path (extension optional).
      * @return string|false path of image which was created or false in case of error
-     * @protected
      */
-    protected function getBarcodePNGPath($code, $type, $w = 3, $h = 3, $color = array(0, 0, 0), $bgcolor = null) {
-        if (!$this->store_path) {
-            $this->setStorPath(app('config')->get("barcode.store_path"));
-        }
+    public function getBarcodePNGPath($code, $type, $w = 3, $h = 3, $color = array(0, 0, 0), $bgcolor = null, $filename = null) {
+        $this->ensureStorePath();
         //set barcode code and type
         $this->setBarcode($code, $type);
+        $pad = $this->getPadding();
         // calculate image size
-        $width = ($this->barcode_array['num_cols'] * $w);
-        $height = ($this->barcode_array['num_rows'] * $h);
+        $width = ($this->barcode_array['num_cols'] * $w) + (2 * $pad);
+        $height = ($this->barcode_array['num_rows'] * $h) + (2 * $pad);
         if (function_exists('imagecreate')) {
             // GD library
             $imagick = false;
-            $png = imagecreate($width, $height);
+            $png = imagecreate((int) $width, (int) $height);
             $bgcol = imagecolorallocate($png, ...($bgcolor ?: [255, 255, 255]));
             if (!$bgcolor) {
                 imagecolortransparent($png, $bgcol);
@@ -304,10 +306,10 @@ class DNS2D {
             return false;
         }
         // print barcode elements
-        $y = 0;
+        $y = $pad;
         // for each row
         for ($r = 0; $r < $this->barcode_array['num_rows']; ++$r) {
-            $x = 0;
+            $x = $pad;
             // for each column
             for ($c = 0; $c < $this->barcode_array['num_cols']; ++$c) {
                 if ($this->barcode_array['bcode'][$r][$c] == 1) {
@@ -315,25 +317,27 @@ class DNS2D {
                     if ($imagick) {
                         $bar->rectangle($x, $y, ($x + $w), ($y + $h));
                     } else {
-                        imagefilledrectangle($png, $x, $y, ($x + $w), ($y + $h), $fgcol);
+                        imagefilledrectangle($png, (int) $x, (int) $y, (int) ($x + $w), (int) ($y + $h), $fgcol);
                     }
                 }
                 $x += $w;
             }
             $y += $h;
         }
-        $file_name= Str::slug($code.$type);
+        $file_name = $this->resolveBarcodeFilename($code, $type, $filename);
         $save_file = $this->checkfile($this->store_path . $file_name . ".png");
 
         if ($imagick) {
             $png->drawimage($bar);
             //echo $png;
+        } else {
+            $this->applyLogoToGdImage($png, (int) $width, (int) $height);
         }
         if (ImagePng($png, $save_file)) {
-            imagedestroy($png);
+            $this->destroyGdImage($png);
             return str_replace(public_path(), '', $save_file);
         } else {
-            imagedestroy($png);
+            $this->destroyGdImage($png);
             return $code;
         }
     }
@@ -394,8 +398,19 @@ class DNS2D {
                     break;
                 }
             default: {
-                    $this->barcode_array = false;
+                    throw InvalidBarcodeException::forUnsupportedType($type);
                 }
+        }
+
+        if ($this->barcode_array === false || !is_array($this->barcode_array)) {
+            throw InvalidBarcodeException::forEncodingFailure($qrtype, $code);
+        }
+
+        if (
+            !isset($this->barcode_array['num_cols'], $this->barcode_array['num_rows'], $this->barcode_array['bcode'])
+            || !is_array($this->barcode_array['bcode'])
+        ) {
+            throw InvalidBarcodeException::forEncodingFailure($qrtype, $code);
         }
     }
 
@@ -412,7 +427,7 @@ class DNS2D {
     }
 
     public function setStorPath($path) {
-        $this->store_path = rtrim((string) $path, '/' . DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        $this->store_path = $this->normalizeStorePath($path);
         return $this;
     }
 
