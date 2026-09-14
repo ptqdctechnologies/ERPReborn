@@ -8,8 +8,12 @@ use Illuminate\Support\Facades\Facade;
  * @method static string getBarcodeSVG(string $code, string $type, int $w = 3, int $h = 3, string $color = 'black')
  * @method static string getBarcodeHTML(string $code, string $type, int $w = 10, int $h = 10, string $color = 'black')
  * @method static string|false getBarcodePNG(string $code, string $type, int $w = 3, int $h = 3, array $color = [0, 0, 0], ?array $bgcolor = null)
- * @method static string|false getBarcodePNGPath(string $code, string $type, int $w = 2, int $h = 30, array $color = [0, 0, 0], ?array $bgcolor = null)
+ * @method static string|false getBarcodePNGPath(string $code, string $type, int $w = 3, int $h = 3, array $color = [0, 0, 0], ?array $bgcolor = null, ?string $filename = null)
  * @method static \Milon\Barcode\DNS2D setStorPath(string $path)
+ * @method static \Milon\Barcode\DNS2D setPadding(int $padding)
+ * @method static int getPadding()
+ * @method static \Milon\Barcode\DNS2D setLogo(?string $path, float $widthPercent = 0.2)
+ * @method static string|null getLogoPath()
  */
 class DNS2DFacade extends Facade
 {
