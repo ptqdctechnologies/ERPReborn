@@ -3,22 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\customerRelation    |
-|                 \getSalesContract\v1                                                                                             |
-| ▪ API Key     : report.form.dataPickList.customerRelation.getSalesContract                                                       |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\customerRelation        |
+|                 \salesContract\getAll\v1                                                                                         |
+| ▪ API Key     : report.form.dataList.customerRelation.getAll                                                                     |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\customerRelation\getSalesContract\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\customerRelation\salesContract\getAll\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/report.form.dataPickList.customerRelation.getSalesContract.v1_throughAPIGateway     |
-        |                     ► http://172.28.0.4/report.form.dataPickList.customerRelation.getSalesContract.v1_throughAPIGateway  |
+        | ▪ Call URL        : http(s)://<HOST>/report.form.dataList.customerRelation.salesContract.getAll.v1_throughAPIGateway     |
+        |                     ► http://172.28.0.4/report.form.dataList.customerRelation.salesContract.getAll.v1_throughAPIGateway  |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2026-07-17                                                                                           |
@@ -39,7 +39,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'report.form.dataPickList.customerRelation.getSalesContract', 
+                        'report.form.dataList.customerRelation.salesContract.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
@@ -51,10 +51,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                                 'pageShow' => 1
                                 ],
                             'dataFilter' => [
-                                'businessDocumentNumber' => NULL,   //'DN/QDC',
+                                'businessDocumentNumber' => NULL,   //'DN/QDC', 
                                 'documentDateStart' => NULL,        //'2026-01-01'
                                 'documentDateFinish' => NULL,       //'2026-12-31'
-                                'requesterName' => NULL            //'Adhe'
+                                'requesterName' => NULL             //'Wisnu'
                                 ],
                             ]
                         ]
@@ -69,12 +69,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataPickList.customerRelation.getSalesContract.v1_throughAPIGatewayJQuery       |
-        |                     ► http://172.28.0.4/transaction.read.dataPickList.customerRelation.getSalesContract.v1_throughAPIGatewayJQuery    |
+        | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
+        |                     transaction.read.dataList.customerRelation.salesContract.getAll.v1_throughAPIGatewayJQuery           |
+        |                     ► http://172.28.0.4/                                                                                 |
+        |                       transaction.read.dataList.customerRelation.salesContract.getAll.v1_throughAPIGatewayJQuery         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2022-09-08                                                                                           |
-        | ▪ Creation Date   : 2022-09-08                                                                                           |
+        | ▪ Last Update     : 2026-07-13                                                                                           |
+        | ▪ Creation Date   : 2026-07-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGatewayJQuery($varAPIWebToken)
@@ -100,7 +102,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                         $varAPIWebToken, 
-                        'transaction.read.dataPickList.customerRelation.getSalesContract', 
+                        'transaction.read.dataList.customerRelation.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 

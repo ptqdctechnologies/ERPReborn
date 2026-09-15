@@ -9,21 +9,21 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class CustomerOrderService
-{
-    public function picklist($formatted)
     {
+    public function picklist($formatted)
+        {
         $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
-            'report.form.dataPickList.customerRelation.getSalesContract',
+            'report.form.dataPickList.customerRelation.salesContract.getAll',
             'latest',
             [
-                'parameter' => $formatted
+            'parameter' => $formatted
             ]
-        );
-    }
+            );
+        }
 
     public function getDetail($customerOrderRefID)
     {

@@ -3,21 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\getSalesContract   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\customerRelation\salesContract  |
+|                \getAll                                                                                                           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\getSalesContract\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\customerRelation\salesContract\getAll\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getSalesContract                                                                                             |
-    | ▪ Description : Menangani API report.form.dataList.customerRelation.getSalesContract Version 1                               |
+    | ▪ Class Name  : getAll                                                                                                       |
+    | ▪ Description : Menangani API report.form.dataPickList.customerRelation.salesContract.getAll Version 1                       |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getSalesContract extends \App\Http\Controllers\Controller
+    class getAll extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataList - Sales Contract (version 1)'
+                        'Get Report Form - DataPickList - Sales Contract - All (version 1)'
                         );
 
                 try {
@@ -71,7 +72,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                         if (!($varDataSend = 
                             \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                 $varUserSession,
-                                (new \App\Models\Database\SchData_OLTP_CustomerRelation\General())->getReport_Form_DataList_SalesContract_LatestVersion(
+                                (new \App\Models\Database\SchData_OLTP_CustomerRelation\General())->getReport_Form_DataPickList_SalesContract_LatestVersion(
                                     //-----[ System Parameter ]-----------------------------------------------------( START POINT )-----
                                         //---► userSession
                                             $varUserSession,
@@ -135,7 +136,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                                     : null
                                             ),
                                         //---► documentDateFinish
-                                            (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                            (
+                                            \App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,
                                                 'documentDateFinish',
                                                 $varData['parameter']['dataFilter']
@@ -164,7 +166,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                 )
                             ))
                             {
-                            throw new \Exception();
+                            throw
+                                new \Exception();
                             }
 
                         $varReturn =
