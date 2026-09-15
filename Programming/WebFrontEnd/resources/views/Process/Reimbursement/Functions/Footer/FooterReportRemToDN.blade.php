@@ -306,6 +306,10 @@
             remCustomerCell.textContent = `${item.REM_CustomerCode ?? ''} - ${item.REM_CustomerName ?? ''}`;
             row.appendChild(remCustomerCell);
 
+            const remCurrencyCell = document.createElement('td');
+            remCurrencyCell.textContent = '-';
+            row.appendChild(remCurrencyCell);
+
             const remTotalIDRCell = document.createElement('td');
             remTotalIDRCell.textContent = isNaN(item.REM_Total_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_IDR);
             row.appendChild(remTotalIDRCell);
@@ -347,6 +351,10 @@
             const dnDateCell = document.createElement('td');
             dnDateCell.textContent = item.DN_Date ?? '-';
             row.appendChild(dnDateCell);
+
+            const dnCurrencyCell = document.createElement('td');
+            dnCurrencyCell.textContent = '-';
+            row.appendChild(dnCurrencyCell);
 
             const dnTotalIDRCell = document.createElement('td');
             dnTotalIDRCell.textContent = isNaN(item.DN_Total_IDR) ? '-' : Utils.formatCurrency(item.DN_Total_IDR);

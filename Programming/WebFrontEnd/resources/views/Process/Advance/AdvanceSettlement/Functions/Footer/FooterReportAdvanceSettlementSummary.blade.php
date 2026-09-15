@@ -133,6 +133,11 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.total_Expense_Claim || '0');
                     }

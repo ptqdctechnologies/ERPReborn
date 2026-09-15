@@ -58,6 +58,9 @@
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Debitor</th>
+                                                        <th rowspan="2"
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                            Currency</th>
                                                         <th colspan="3"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Settlement Value</th>
@@ -104,7 +107,7 @@
                                                 <tbody></tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="5"
+                                                        <th colspan="6"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             GRAND TOTAL</th>
                                                         <th

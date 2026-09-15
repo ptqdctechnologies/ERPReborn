@@ -2,6 +2,7 @@
 
 namespace App\Services\Process\DebitNote;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
@@ -9,7 +10,7 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class DebitNoteService
 {
-    public function dataPickList() 
+    public function dataPickList()
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -25,7 +26,7 @@ class DebitNoteService
         );
     }
 
-    public function getDetail($debitNoteRefID) 
+    public function getDetail($debitNoteRefID)
     {
         $sessionToken = Session::get('SessionLogin');
 
@@ -49,39 +50,45 @@ class DebitNoteService
         );
     }
 
-    public function getDebitNoteSummary($budget, $subBudget, $date, $customer) 
+    public function getDebitNoteSummary($budget, $subBudget, $date, $customer)
     {
         $sessionToken = Session::get('SessionLogin');
 
         if ($date) {
-            $dates      = explode(' - ', $date);
-            $startDate  = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
-            $endDate    = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
+            $dates = explode(' - ', $date);
+            $startDate = Carbon::createFromFormat('m/d/Y', trim($dates[0]))->startOfDay()->format('Y-m-d');
+            $endDate = Carbon::createFromFormat('m/d/Y', trim($dates[1]))->endOfDay()->format('Y-m-d');
         }
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken, 
-            'report.form.documentForm.finance.getDebitNoteSummary', 
+            $sessionToken,
+            'report.form.documentForm.finance.getDebitNoteSummary',
             'latest',
             [
-                'parameter'     => [
-                    'CombinedBudgetCode'        => $budget,
+                'parameter' => [
+                    'CombinedBudgetCode' => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
-                    // 'StartDate'              => $date ? $startDate : NULL,
-                    // 'EndDate'                => $date ? $endDate : NULL
+                    'StartDate' => $date ? $startDate : NULL,
+                    'EndDate' => $date ? $endDate : NULL
+                ],
+                'SQLStatement' => [
+                    'paging' => [
+                        'limit' => "20",
+                        'offset' => 0
+                    ]
                 ]
             ]
         );
     }
-    
+
     public function create(Request $request)
     {
-        $sessionToken   = Session::get('SessionLogin');
+        $sessionToken = Session::get('SessionLogin');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['debit_note_details'], true);
-        $fileID         = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['debit_note_details'], true);
+        $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -89,14 +96,14 @@ class DebitNoteService
             'transaction.create.finance.setDebitNote',
             'latest',
             [
-            'entities' => [
-                "documentDateTimeTZ"            => date('Y-m-d'),
-                "partner_RefID"                 => (int) $data['debit_note_partner_id'],
-                "log_FileUpload_Pointer_RefID"  => $fileID,
-                "remarks"                       => nl2br(e($data['remarks'])),
-                "additionalData"    => [
-                    "itemList"      => [
-                        "items"     => $detailItems
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "partner_RefID" => (int) $data['debit_note_partner_id'],
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "remarks" => nl2br(e($data['remarks'])),
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $detailItems
                         ]
                     ]
                 ]
@@ -104,14 +111,14 @@ class DebitNoteService
         );
     }
 
-    public function update(Request $request) 
+    public function update(Request $request)
     {
-        $sessionToken   = Session::get('SessionLogin');
-        $careerRefID    = Session::get('SessionWorkerCareerInternal_RefID');
+        $sessionToken = Session::get('SessionLogin');
+        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data           = $request->storeData;
-        $detailItems    = json_decode($data['debit_note_details'], true);
-        $fileID         = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $data = $request->storeData;
+        $detailItems = json_decode($data['debit_note_details'], true);
+        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -119,14 +126,14 @@ class DebitNoteService
             'transaction.update.finance.setDebitNote',
             'latest',
             [
-            'recordID'  => (int) $data['debit_note_id'],
-            'entities'  => [
-                "documentDateTimeTZ"            => date('Y-m-d'),
-                "log_FileUpload_Pointer_RefID"  => $fileID,
-                "remarks"                       => nl2br(e($data['remarks'])),
-                "additionalData"    => [
-                    "itemList"      => [
-                        "items"     => $detailItems
+                'recordID' => (int) $data['debit_note_id'],
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "remarks" => nl2br(e($data['remarks'])),
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $detailItems
                         ]
                     ]
                 ]

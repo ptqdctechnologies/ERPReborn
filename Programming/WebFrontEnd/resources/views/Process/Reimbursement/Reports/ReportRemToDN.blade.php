@@ -56,11 +56,11 @@
                                                 entries
                                             </label>
                                             <!-- <label>
-                                                        Search:
-                                                        <input type="text" id="searchInput" autocomplete="off"
-                                                            placeholder="Search..."
-                                                            style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                                    </label> -->
+                                                                            Search:
+                                                                            <input type="text" id="searchInput" autocomplete="off"
+                                                                                placeholder="Search..."
+                                                                                style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
+                                                                        </label> -->
                                         </div>
 
                                         <div class="table-responsive">
@@ -70,15 +70,15 @@
                                                         <th rowspan="2"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             No</th>
-                                                        <th colspan="9"
+                                                        <th colspan="10"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Reimbursement</th>
-                                                        <th colspan="8"
+                                                        <th colspan="9"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Debit Note</th>
                                                         <!-- <th colspan="2"
-                                                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                                                            Balance</th> -->
+                                                                                                                style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                                                                                Balance</th> -->
                                                     </tr>
                                                     <tr>
                                                         <th
@@ -90,6 +90,9 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Customer</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Currency</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Total IDR</th>
@@ -114,6 +117,9 @@
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Date</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                            Currency</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             Total IDR</th>

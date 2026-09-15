@@ -63,6 +63,9 @@
                                                             Delivery To</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                            Currency</th>
+                                                        <th
+                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
                                                             Total IDR</th>
                                                         <th
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
@@ -78,7 +81,7 @@
                                                 <tbody></tbody>
                                                 <tfoot>
                                                     <tr>
-                                                        <th colspan="6"
+                                                        <th colspan="7"
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                             GRAND TOTAL</th>
                                                         <th

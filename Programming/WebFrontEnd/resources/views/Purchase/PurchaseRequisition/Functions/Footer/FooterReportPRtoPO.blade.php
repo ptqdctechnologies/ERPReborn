@@ -221,6 +221,10 @@
             prProductCell.textContent = `${item.product_Code ?? ''} - ${item.product_Name ?? ''}`;
             row.appendChild(prProductCell);
 
+            const prCurrencyCell = document.createElement('td');
+            prCurrencyCell.textContent = '-';
+            row.appendChild(prCurrencyCell);
+
             const prTotalCell = document.createElement('td');
             prTotalCell.textContent = isNaN(item.PR_Total) ? '-' : Utils.formatCurrency(item.PR_Total);
             row.appendChild(prTotalCell);
@@ -248,6 +252,10 @@
             const poQtyCell = document.createElement('td');
             poQtyCell.textContent = isNaN(item.PO_Qty) ? '-' : Utils.formatCurrency(item.PO_Qty);
             row.appendChild(poQtyCell);
+
+            const poCurrencyCell = document.createElement('td');
+            poCurrencyCell.textContent = '-';
+            row.appendChild(poCurrencyCell);
 
             const poTotalCell = document.createElement('td');
             poTotalCell.textContent = isNaN(item.PO_Total) ? '-' : Utils.formatCurrency(item.PO_Total);

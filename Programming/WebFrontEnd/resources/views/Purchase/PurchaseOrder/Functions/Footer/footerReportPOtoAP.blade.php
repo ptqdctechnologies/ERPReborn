@@ -223,6 +223,10 @@
             poSupplierCell.textContent = `${item.supplierCode ?? ''} - ${item.supplierName ?? ''}`;
             row.appendChild(poSupplierCell);
 
+            const poCurrencyCell = document.createElement('td');
+            poCurrencyCell.textContent = '-';
+            row.appendChild(poCurrencyCell);
+
             const poTotalIdrCell = document.createElement('td');
             poTotalIdrCell.textContent = item.purchaseOrderTotalIDR ?? '-';
             row.appendChild(poTotalIdrCell);
@@ -250,6 +254,10 @@
             const apDateCell = document.createElement('td');
             apDateCell.textContent = item.accountPayableDate ?? '-';
             row.appendChild(apDateCell);
+
+            const apCurrencyCell = document.createElement('td');
+            apCurrencyCell.textContent = '-';
+            row.appendChild(apCurrencyCell);
 
             const apTotalIdrCell = document.createElement('td');
             apTotalIdrCell.textContent = item.accountPayableTotalIDR ?? '-';

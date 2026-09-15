@@ -152,6 +152,10 @@
                 },
                 {
                     data: null,
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
                     defaultContent: '-',
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.CN_Total_IDR) || '-';

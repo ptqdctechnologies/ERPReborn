@@ -44,52 +44,58 @@
                         <thead>
                           <tr>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px; vertical-align: middle;">
                               No</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 100px">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 100px; vertical-align: middle;">
                               Advance Number</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
                               Sub Budget</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
                               Date</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
                               Requester</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
                               Beneficiary</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 100px;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;">
+                              Currency</th>
+                            <th
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;width: 100px;">
                               Total IDR</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 100px;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;width: 100px;">
                               Total Other Currency</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 100px;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;width: 100px;">
                               Total Equivalent IDR</th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 200px;">
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align: middle;width: 200px;">
                               Remark</th>
                           </tr>
                         </thead>
                         <tbody></tbody>
                         <tfoot>
                           <tr>
-                            <th colspan="6"
+                            <th colspan="7"
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                               GRAND TOTAL</th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                              <?= number_format(0, 2, '.', ','); ?></th>
+                              <?= number_format(0, 2, '.', ','); ?>
+                            </th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                              <?= number_format(0, 2, '.', ','); ?></th>
+                              <?= number_format(0, 2, '.', ','); ?>
+                            </th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                              <?= number_format(0, 2, '.', ','); ?></th>
+                              <?= number_format(0, 2, '.', ','); ?>
+                            </th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                             </th>
