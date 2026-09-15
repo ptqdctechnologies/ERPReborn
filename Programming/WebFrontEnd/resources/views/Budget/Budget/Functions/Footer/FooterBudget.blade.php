@@ -32,8 +32,12 @@
         }
     };
 
+    function getDefaultRow() {
+        return JSON.parse(JSON.stringify(defaultRow));
+    }
+
     function addRow() {
-        dataExcel.push(defaultRow);
+        dataExcel.push(getDefaultRow());
 
         renderBudgetTable();
     }
@@ -766,7 +770,7 @@
                     });
                 });
 
-                dataExcel.push(defaultRow);
+                dataExcel.push(getDefaultRow());
 
                 renderBudgetTable();
             }

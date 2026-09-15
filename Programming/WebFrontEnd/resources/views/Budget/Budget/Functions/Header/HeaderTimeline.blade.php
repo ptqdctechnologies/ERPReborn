@@ -34,10 +34,10 @@
   <div class="row">
     <div class="col"></div>
     <div class="col" style="margin-right: 20px;">
-      <button type="button" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#exampleModal"
+      <!-- <button type="button" class="btn btn-default btn-sm float-right" data-toggle="modal" data-target="#exampleModal"
         style="margin-left: 5px; background-color:#e9ecef; border:1px solid #ced4da;">
         Preview S-Curve
-      </button>
+      </button> -->
     </div>
   </div>
 </div>
