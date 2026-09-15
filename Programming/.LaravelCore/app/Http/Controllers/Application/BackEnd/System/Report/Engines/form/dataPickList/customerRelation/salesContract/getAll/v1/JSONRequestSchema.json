@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.dataPickList.master.getInstitutionType (version 1)",
+"description": "JSON Request Schema of report.form.dataPickList.customerRelation.salesContract.getAll (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.dataPickList.master.getInstitutionType" ]
+                        "enum": [ "report.form.dataPickList.customerRelation.salesContract.getAll" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -57,20 +57,27 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "name": {
-                                "type": [ "string", "null" ],
-                                "minLength": 1,
-                                "maxLength": 64
-                                },
-                            "country_RefID": {
-                                "type": [ "integer", "null" ],
-                                "minimum": 1,
-                                "maximum": 9223372036854775807
-                                },
-                            "countryName": {
+                            "businessDocumentNumber": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
                                 "maxLength": 32
+                                },
+                            "documentDateStart": {
+                                "type": [ "string", "null" ],
+                                "format": "date",
+                                "minLength": 10,
+                                "maxLength": 10
+                                },
+                            "documentDateFinish": {
+                                "type": [ "string", "null" ],
+                                "format": "date",
+                                "minLength": 10,
+                                "maxLength": 10
+                                },
+                            "requesterName": {
+                                "type": [ "string", "null" ],
+                                "minLength": 1,
+                                "maxLength": 64
                                 }
                             },
                         "required": [

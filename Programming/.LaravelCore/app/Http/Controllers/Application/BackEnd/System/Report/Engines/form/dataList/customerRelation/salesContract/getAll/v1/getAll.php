@@ -3,21 +3,22 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
-| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\getSalesContract   |
+| ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\salesContract      |
+|                \getAll                                                                                                           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\getSalesContract\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataList\customerRelation\salesContract\getAll\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getSalesContract                                                                                             |
-    | ▪ Description : Menangani API report.form.dataList.customerRelation.getSalesContract Version 1                               |
+    | ▪ Class Name  : getAll                                                                                                       |
+    | ▪ Description : Menangani API report.form.dataList.customerRelation.salesContract.getAll Version 1                           |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getSalesContract extends \App\Http\Controllers\Controller
+    class getAll extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -62,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataList - Sales Contract (version 1)'
+                        'Get Report Form - DataList - Sales Contract - All (version 1)'
                         );
 
                 try {

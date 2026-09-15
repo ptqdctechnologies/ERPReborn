@@ -1,6 +1,6 @@
 {
 "title": "JSON Request Schema",
-"description": "JSON Request Schema of report.form.dataPickList.master.getBank (version 1)",
+"description": "JSON Request Schema of report.form.dataList.customerRelation.salesContract.getAll (version 1)",
 "type": "object",
 "properties": {
     "metadata": {
@@ -11,7 +11,7 @@
                 "properties": {
                     "key": {
                         "type": "string",
-                        "enum": [ "report.form.dataPickList.master.getBank" ]
+                        "enum": [ "report.form.dataList.customerRelation.salesContract.getAll" ]
                         },
                     "version": {
                         "type": [ "integer", "string" ],
@@ -57,15 +57,27 @@
                     "dataFilter": {
                         "type": "object",
                         "properties": {
-                            "name": {
+                            "businessDocumentNumber": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 256
+                                "maxLength": 32
                                 },
-                            "acronym": {
+                            "documentDateStart": {
+                                "type": [ "string", "null" ],
+                                "format": "date",
+                                "minLength": 10,
+                                "maxLength": 10
+                                },
+                            "documentDateFinish": {
+                                "type": [ "string", "null" ],
+                                "format": "date",
+                                "minLength": 10,
+                                "maxLength": 10
+                                },
+                            "requesterName": {
                                 "type": [ "string", "null" ],
                                 "minLength": 1,
-                                "maxLength": 16
+                                "maxLength": 64
                                 }
                             },
                         "required": [
