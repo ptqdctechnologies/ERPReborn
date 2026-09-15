@@ -4888,7 +4888,7 @@ namespace App\Models\Database\SchData_OLTP_Master {
             int $varSysBranch_RefID,
             string $varFormNumber = null,
             int $varApproverEntity_RefID = null
-        ) {
+            ) {
             try {
                 $varReturn = \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
@@ -4904,11 +4904,14 @@ namespace App\Models\Database\SchData_OLTP_Master {
 
                 $varReturn = \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode($varUserSession, $varReturn['data'][0]['Func_GetReport_Resume_BusinessDocumentDispositionHistory']);
 
-                return $varReturn;
-            } catch (\Exception $ex) {
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
                 return [];
+                }
             }
-        }
 
 
         /*
@@ -4940,7 +4943,7 @@ namespace App\Models\Database\SchData_OLTP_Master {
             int $varPagination_PageShow = null,
             string $varName = null,
             string $varAcronym = null
-        ) {
+            ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4948,6 +4951,7 @@ namespace App\Models\Database\SchData_OLTP_Master {
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Master.Func_GetReport_DataList_Bank',
+
                             [
                                 [$varUserSession, 'bigint'],
                                 [$varSysBranch_RefID, 'bigint'],
@@ -4965,15 +4969,85 @@ namespace App\Models\Database\SchData_OLTP_Master {
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_Bank']
-                    );
+                        );
 
                 return
                     $varReturn;
-            } catch (\Exception $ex) {
+                }
+
+            catch (\Exception $ex) {
                 return
                     [];
+                }
             }
-        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataList_Currency                                                                     |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-06-08                                                                                           |
+        | ▪ Creation Date   : 2026-06-08                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Mata Uang                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varName ► Name                                                                                           |
+        |      ▪ (string) varSymbol ► Symbol                                                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataList_Currency(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varName = null,
+            string $varSymbol = null
+            ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Master.Func_GetReport_DataList_Currency',
+
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varName, 'varchar'],
+                                [$varSymbol, 'varchar']
+                            ]
+                        )
+                    );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataList_Currency']
+                        );
+
+                return
+                    $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
 
 
         /*
@@ -5005,7 +5079,7 @@ namespace App\Models\Database\SchData_OLTP_Master {
             int $varPagination_PageShow = null,
             string $varFullBankAccountNumber = null,
             string $varBankName = null
-        ) {
+            ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
