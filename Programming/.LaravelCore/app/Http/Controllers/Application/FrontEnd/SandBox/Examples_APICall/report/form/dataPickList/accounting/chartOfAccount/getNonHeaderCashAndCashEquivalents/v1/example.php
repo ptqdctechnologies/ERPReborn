@@ -4,23 +4,25 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataList\accounting              |
-|                 \chartOfAccount\getNonHeaderCashAndBank\v1                                                                       |
-| ▪ API Key     : report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank                                       |
+|                 \chartOfAccount\getNonHeaderCashAndCashEquivalents\v1                                                            |
+| ▪ API Key     : report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\accounting\chartOfAccount\getNonHeaderCashAndBank\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\dataPickList\accounting\chartOfAccount\getNonHeaderCashAndCashEquivalents\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank.v1_throughAPIGateway      |
+        |                     report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents.               |
+        |                     v1_throughAPIGateway                                                                                 |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank.v1_throughAPIGateway    |
+        |                       report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents.             |
+        |                       v1_throughAPIGateway                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.000000                                                                                        |
         | ▪ Last Update     : 2026-07-28                                                                                           |
@@ -41,21 +43,21 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                         //-----[ METADATA ]-----( START )-----
                             \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                             $varAPIWebToken, 
-                            'report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank', 
+                            'report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents', 
                             'latest',
                         //-----[ METADATA ]-----(  END  )-----
 
                         //-----[ DATA ]---------( START )-----
                             [
                             'parameter' => [
-                                'effectiveDate' => date('Y-m-d'),       //'2026-01-01',
+                                'effectiveDate' => date('Y-m-d'),    //'2026-01-01',
                                 'pagination' => [
                                     'pageSize' => 10,
                                     'pageShow' => 1
                                     ],
                                 'dataFilter' => [
-                                    'fullCode' => NULL,                 //'1-1102.01.000001'
-                                    'fullName' => NULL                  //'BCA'
+                                    'fullCode' => NULL,             //'1-1102.01.000001'
+                                    'fullName' => NULL              //'BCA'
                                     ]
                                 ]
                             ]
@@ -71,9 +73,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank.v1_throughAPIGatewayJQuery            |
+        |                     dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents.v1_throughAPIGatewayJQuery            |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank.v1_throughAPIGatewayJQuery          |
+        |                       dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents.v1_throughAPIGatewayJQuery          |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2024-05-02                                                                                           |
@@ -99,7 +101,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank', 
+                    'report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.

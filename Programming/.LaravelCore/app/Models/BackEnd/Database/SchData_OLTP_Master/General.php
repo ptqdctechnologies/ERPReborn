@@ -5085,7 +5085,6 @@ namespace App\Models\Database\SchData_OLTP_Master {
                             ]
                             )
                         );
-
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
