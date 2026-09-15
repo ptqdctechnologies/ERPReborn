@@ -117,7 +117,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
                                         //---► fullCodeBase
                                             '1-0000 ► 1-1000 ► 1-1100 ►',
                                         //---► fullNameBase
-                                            'Bank',
+                                            'Cash & Cash Equivalent',
                                         //---► fullCode
                                             (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                                 $varUserSession,

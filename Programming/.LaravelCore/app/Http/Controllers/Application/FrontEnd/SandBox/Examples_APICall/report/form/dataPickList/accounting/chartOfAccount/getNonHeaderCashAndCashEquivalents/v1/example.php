@@ -52,7 +52,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                             'parameter' => [
                                 'effectiveDate' => date('Y-m-d'),    //'2026-01-01',
                                 'pagination' => [
-                                    'pageSize' => 10,
+                                    'pageSize' => 100,
                                     'pageShow' => 1
                                     ],
                                 'dataFilter' => [
