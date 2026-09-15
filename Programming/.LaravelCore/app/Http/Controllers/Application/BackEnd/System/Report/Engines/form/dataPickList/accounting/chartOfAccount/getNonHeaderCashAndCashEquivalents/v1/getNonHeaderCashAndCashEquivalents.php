@@ -4,21 +4,22 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting                      |
-|                \chartOfAccount\getNonHeaderCashAndBank                                                                           |
+|                \chartOfAccount\getNonHeaderCashAndCashEquivalents                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\chartOfAccount\getNonHeaderCashAndBank\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\dataPickList\accounting\chartOfAccount\getNonHeaderCashAndCashEquivalents\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getNonHeaderCashAndBank                                                                                      |
-    | ▪ Description : Menangani API report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndBank Version 1           |
+    | ▪ Class Name  : getNonHeaderCashAndCashEquivalents                                                                           |
+    | ▪ Description : Menangani API report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents Version  |
+    |                 1                                                                                                            |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getNonHeaderCashAndBank extends \App\Http\Controllers\Controller
+    class getNonHeaderCashAndCashEquivalents extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +64,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\da
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - DataPickList - Chart Of Account - Non Header - Cash And Bank (version 1)'
+                        'Get Report Form - DataPickList - Chart Of Account - Non Header - Cash And Cash Equivalents (version 1)'
                         );
 
                 try {
