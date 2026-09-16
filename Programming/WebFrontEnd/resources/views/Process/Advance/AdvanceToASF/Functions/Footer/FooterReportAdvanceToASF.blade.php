@@ -310,7 +310,21 @@
         let rowspan = 1;
         let rowIndex = 0;
 
+        let totalARF = 0;
+        let totalPaymentARF = 0;
+        let totalPaymentBalanceARF = 0;
+        let totalASF = 0;
+        let totalPaymentASF = 0;
+        let totalPaymentBalanceASF = 0;
+
         data.forEach((item, ind) => {
+            totalARF += parseFloat(item.ARF_Total_IDR) || 0;
+            totalPaymentARF += parseFloat(item.ARF_Payment) || 0;
+            totalPaymentBalanceARF += parseFloat(item.advance_ToPayment) || 0;
+            totalASF += parseFloat(item.ASF_Total) || 0;
+            totalPaymentASF += parseFloat(item.ASF_Payment) || 0;
+            totalPaymentBalanceASF += parseFloat(item.advance_ToSettlement) || 0;
+
             const row = document.createElement('tr');
 
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
@@ -347,8 +361,12 @@
             arfRequesterCell.textContent = item.ARF_Requester ?? '-';
             row.appendChild(arfRequesterCell);
 
+            const arfCurrencyCell = document.createElement('td');
+            arfCurrencyCell.textContent = '-';
+            row.appendChild(arfCurrencyCell);
+
             const arfTotalCell = document.createElement('td');
-            arfTotalCell.textContent = item.ARF_Total_IDR ?? '-';
+            arfTotalCell.textContent = item.ARF_Total_IDR ? currencyTotal(item.ARF_Total_IDR) : '-';
             row.appendChild(arfTotalCell);
 
             const arfPaymentCell = document.createElement('td');
@@ -366,7 +384,7 @@
             row.appendChild(arfPaymentCell);
 
             const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.advance_ToPayment ?? '-';
+            balancePayment.textContent = item.advance_ToPayment ? currencyTotal(item.advance_ToPayment) : '-';
             row.appendChild(balancePayment);
 
             const arfStatusCell = document.createElement('td');
@@ -382,15 +400,19 @@
             row.appendChild(asfDateCell);
 
             const asfExpenseCell = document.createElement('td');
-            asfExpenseCell.textContent = item.expense_Claim_IDR ?? '-';
+            asfExpenseCell.textContent = item.expense_Claim_IDR ? currencyTotal(item.expense_Claim_IDR) : '-';
             row.appendChild(asfExpenseCell);
 
             const asfAmountCell = document.createElement('td');
-            asfAmountCell.textContent = item.amount_Due_Company_IDR ?? '-';
+            asfAmountCell.textContent = item.amount_Due_Company_IDR ? currencyTotal(item.amount_Due_Company_IDR) : '-';
             row.appendChild(asfAmountCell);
 
+            const asfCurrencyCell = document.createElement('td');
+            asfCurrencyCell.textContent = '-';
+            row.appendChild(asfCurrencyCell);
+
             const asfTotalCell = document.createElement('td');
-            asfTotalCell.textContent = item.ASF_Total ?? '-';
+            asfTotalCell.textContent = item.ASF_Total ? currencyTotal(item.ASF_Total) : '-';
             row.appendChild(asfTotalCell);
 
             const asfPaymentCell = document.createElement('td');
@@ -408,7 +430,7 @@
             row.appendChild(asfPaymentCell);
 
             const balanceSettlement = document.createElement('td');
-            balanceSettlement.textContent = item.advance_ToSettlement ?? '-';
+            balanceSettlement.textContent = item.advance_ToSettlement ? currencyTotal(item.advance_ToSettlement) : '-';
             row.appendChild(balanceSettlement);
 
             const asfStatusCell = document.createElement('td');
@@ -426,6 +448,13 @@
             }
             // tbody.rows[tbody.rows.length - rowspan].cells[1].rowSpan = rowspan;
         }
+
+        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalARF));
+        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPaymentARF));
+        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPaymentBalanceARF));
+        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalASF));
+        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalPaymentASF));
+        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalPaymentBalanceASF));
     }
 
     function updatePaginationInfo() {
