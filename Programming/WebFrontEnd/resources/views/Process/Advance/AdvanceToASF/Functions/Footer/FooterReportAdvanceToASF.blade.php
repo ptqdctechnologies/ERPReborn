@@ -152,11 +152,12 @@
 
         getSites(combinedBudgetID);
 
+        $("#mySitesTrigger").prop("disabled", false);
         $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
     }
 
     function resetForm() {
@@ -178,6 +179,8 @@
         $("#budget_id").val("");
         $("#budget_code").val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $("#sub_budget_name").val("");
         $("#sub_budget_id").val("");
@@ -187,10 +190,14 @@
         $("#requester_name").val("");
         $("#requester_id").val("");
 
+        $("#myArfTrigger").prop("disabled", false);
+        $("#myArfTrigger").css({ "cursor": "pointer" });
         $("#arf_number").css('background-color', '#fff');
         $("#arf_number").val("");
         $("#arf_id").val("");
 
+        $("#myAsfTrigger").prop("disabled", false);
+        $("#myAsfTrigger").css({ "cursor": "pointer" });
         $("#asf_number").css('background-color', '#fff');
         $("#asf_number").val("");
         $("#asf_id").val("");
@@ -665,6 +672,19 @@
         $("#budget_name").val("");
         $("#budget_name").css('background-color', '#fff');
 
+        $("#arf_number").css('background-color', '#fff');
+        $("#arf_number").val("");
+        $("#arf_id").val("");
+
+        $("#asf_number").css('background-color', '#fff');
+        $("#asf_number").val("");
+        $("#asf_id").val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $("#sub_budget_name").val("");
+        $("#sub_budget_id").val("");
+        $("#sub_budget_code").val("");
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
@@ -727,6 +747,9 @@
         $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
+        $("#myAsfTrigger").prop("disabled", true);
+        $("#myAsfTrigger").css({ "cursor": "not-allowed" });
+
         $("#myGetModalAdvance").modal('toggle');
     });
 
@@ -752,6 +775,9 @@
         $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
+        $("#myArfTrigger").prop("disabled", true);
+        $("#myArfTrigger").css({ "cursor": "not-allowed" });
+
         $('#myGetModalAdvanceSettlement').modal('toggle');
     });
 
@@ -761,6 +787,8 @@
         getRequesters();
         getModalAdvance();
         getModalAdvanceSettlement();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#advance_date_range').daterangepicker({
             autoUpdateInput: false,

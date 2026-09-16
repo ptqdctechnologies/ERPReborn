@@ -4,7 +4,7 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BRF Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="myBusinessTripRequestTrigger" class="input-group-text form-control" data-toggle="modal"
+                <span id="businessTripRequestListModalTrigger" class="input-group-text form-control" data-toggle="modal"
                     data-target="#businessTripRequestListModal" style="border-radius:0;cursor:pointer;">
                     <i class="fas fa-gift"></i>
                 </span>
@@ -29,8 +29,9 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">BSF Number</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="myBusinessTripSettlementTrigger" class="input-group-text form-control" data-toggle="modal"
-                    data-target="#myBusinessTripSettlement" style="border-radius:0;cursor:pointer;">
+                <span id="businessTripSettlementListModalTrigger" class="input-group-text form-control"
+                    data-toggle="modal" data-target="#businessTripSettlementListModal"
+                    style="border-radius:0;cursor:pointer;">
                     <i class="fas fa-gift"></i>
                 </span>
             </div>
@@ -86,8 +87,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Sub Budget</label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
             <div>
-                <span id="mySitesTrigger" class="input-group-text form-control"
-                    style="border-radius:0;cursor:not-allowed;">
+                <span id="mySitesTrigger" class="input-group-text form-control" data-toggle="modal"
+                    data-target="#mySites" style="border-radius:0;cursor:not-allowed;">
                     <i class="fas fa-gift"></i>
                 </span>
             </div>

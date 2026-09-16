@@ -147,6 +147,17 @@
     }
 
     function resetForm() {
+        isFromTo = false;
+        data = [];
+        dataReport = [];
+        currentPage = 1;
+        rowsPerPage = 10;
+        filteredData = [...data];
+        sortColumn = null;
+        sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
+
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
@@ -693,10 +704,17 @@
     $('#tableDebitNote').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_dn"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+        const combinedBudgetCode = $(this).find('td:nth-child(5)').text();
+        const combinedBudgetName = $(this).find('td:nth-child(6)').text();
 
         $("#dn_id").val(sysId);
         $("#dn_number").val(trano);
         $("#dn_number").css({ "background-color": "#e9ecef" });
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
 
         $('#myDebitNote').modal('toggle');
     });
