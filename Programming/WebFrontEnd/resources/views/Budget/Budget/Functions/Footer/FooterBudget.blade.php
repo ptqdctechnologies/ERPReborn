@@ -32,8 +32,12 @@
         }
     };
 
+    function getDefaultRow() {
+        return JSON.parse(JSON.stringify(defaultRow));
+    }
+
     function addRow() {
-        dataExcel.push(defaultRow);
+        dataExcel.push(getDefaultRow());
 
         renderBudgetTable();
     }
@@ -54,7 +58,7 @@
     }
 
     function findWorkByCode(codeToFind) {
-        return dataWorks.find(item => item.code == codeToFind);
+        return dataWorks.find(item => item.additionalData.code == codeToFind);
     }
 
     function findProductByCode(codeToFind) {
@@ -345,7 +349,7 @@
                 combinedBudget_RefID: combinedBudgetRefID
             },
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     $("#project_id").val(combinedBudgetRefID);
                     $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
                     $("#project_name").css('background-color', '#e9ecef');
@@ -383,13 +387,18 @@
         $('#table_timeline tbody').empty();
 
         const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
+            const validateSubBudgetValue = findSubBudgetByCode(currentItem.entities.combinedBudgetSectionCode);
             const validateValue = findWorkByCode(currentItem.entities.workCode);
+
+            const isSubBudgetExist = acc.some(
+                item => item.entities.combinedBudgetSectionCode === currentItem.entities.combinedBudgetSectionCode
+            );
 
             const isExist = acc.some(
                 item => item.entities.workCode === currentItem.entities.workCode
             );
 
-            if (!isExist && validateValue) {
+            if (!isSubBudgetExist && !isExist && validateSubBudgetValue && validateValue) {
                 acc.push(currentItem);
             }
 
@@ -420,6 +429,8 @@
             $('#table_timeline tbody').append(`
                 <tr>
                     <td style="padding: 5px;">
+                        <input id="timeline_sub_budget${index}" style="border-radius:0;" class="form-control" readonly value="${row.entities.combinedBudgetSectionCode} - ${row.entities.combinedBudgetSectionName}" />
+                    </td><td style="padding: 5px;">
                         <input id="timeline_work_name${index}" style="border-radius:0;" class="form-control" readonly value="${row.entities.workCode} - ${row.entities.workName}" />
                     </td>
                     <td style="padding: 5px;">
@@ -601,14 +612,30 @@
                     </td>
                     <td style="padding: 5px;">
                         <div class="input-group">
-                            <input class="form-control number-without-negative" id="qty${index}" autocomplete="off" style="border-radius:0px;" value="${Utils.formatCurrency(row.entities.qty)}" onchange="updateField(${index}, 'qty', this.value)" />
+                            <input
+                                class="form-control number-without-negative"
+                                id="qty${index}"
+                                autocomplete="off"
+                                style="border-radius:0px;"
+                                value="${Utils.formatCurrency(row.entities.qty)}"
+                                onchange="updateField(${index}, 'qty', Utils.removeCommas(this.value))"
+                            />
                         </div>
                     </td>
+
                     <td style="padding: 5px;">
                         <div class="input-group">
-                            <input class="form-control number-without-negative" id="price${index}" autocomplete="off" style="border-radius:0px;" value="${Utils.formatCurrency(row.entities.price)}" onchange="updateField(${index}, 'price', this.value)" />
+                            <input
+                                class="form-control number-without-negative"
+                                id="price${index}"
+                                autocomplete="off"
+                                style="border-radius:0px;"
+                                value="${Utils.formatCurrency(row.entities.price)}"
+                                onchange="updateField(${index}, 'price', Utils.removeCommas(this.value))"
+                            />
                         </div>
                     </td>
+
                     <td style="padding: 5px;">
                         <div class="input-group">
                             <input class="form-control number-without-negative" id="total${index}" autocomplete="off" style="border-radius:0px;" value="${Utils.formatCurrency(row.entities.total)}" />
@@ -743,7 +770,7 @@
                     });
                 });
 
-                dataExcel.push(defaultRow);
+                dataExcel.push(getDefaultRow());
 
                 renderBudgetTable();
             }
@@ -782,6 +809,8 @@
         updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
         updateField(indexSubBudget, 'combinedBudgetSectionCode', siteCode);
         updateField(indexSubBudget, 'combinedBudgetSectionName', siteName);
+
+        renderBudgetTable();
 
         $('#mySites').modal('toggle');
     });

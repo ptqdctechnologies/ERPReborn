@@ -71,11 +71,13 @@
                 {
                     data: null,
                     render: function (data, type, row, meta) {
+                        const combinedBudgetRefID = data.additionalData ? data.additionalData.combinedBudget_RefID : '';
+
                         return (
                             '<input id="sys_id_check_document' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' +
                             '<input id="sys_document_type_name' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' +
                             '<input id="sys_id_combined_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' +
-                            '<input id="sys_id_document_type' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_document_type" type="hidden">' +
+                            '<input id="sys_id_document_type' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + combinedBudgetRefID + '" data-trigger="sys_id_document_type" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                         )
                     }
@@ -90,7 +92,7 @@
                     defaultContent: '-',
                     className: "align-middle text-nowrap text-center",
                     render: function (data, type, row, meta) {
-                        return `${data.additionalData.combinedBudgetCode || '-'}`
+                        return `${data.combinedBudgetCode || data.additionalData.combinedBudgetCode || '-'}`
                         // return `${data.additionalData.combinedBudgetCode} - ${data.additionalData.combinedBudgetName}`
                     }
                 },
@@ -99,7 +101,7 @@
                     defaultContent: '-',
                     className: "align-middle text-nowrap text-center",
                     render: function (data, type, row, meta) {
-                        return `${data.additionalData.combinedBudgetSectionCode || '-'}`
+                        return `${data.combinedBudgetSectionCode || data.additionalData.combinedBudgetSectionCode || '-'}`
                         // return `${data.additionalData.combinedBudgetSectionCode} - ${data.additionalData.combinedBudgetSectionName}`
                     }
                 }
@@ -153,13 +155,12 @@
                     });
 
                     $('#DocumentType').append('<option value="' + 67812345 + '" data-name="General Journal Form">General Journal Form</option>');
-                    // $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Loan Form">Loan Form</option>');
-                    // $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Loan Settlement Form">Loan Settlement Form</option>');
                     // $('#DocumentType').append('<option value="' + 56781234 + '" data-name="Modify Budget Form">Modify Budget Form</option>');
                     // $('#DocumentType').append('<option value="' + 78912345 + '" data-name="Product Form">Product Form</option>');
                     $('#DocumentType').append('<option value="' + 12345678 + '" data-name="Sallary Allocation Form">Sallary Allocation Form</option>');
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Supplier Form">Supplier Form</option>');
-                    $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Tax Recon Form">Tax Recon Form</option>');
+                    $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Tax Recon Form">Tax Recon Form</option>');
+                    $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Stock Opname Form">Stock Opname Form</option>');
                 } else {
                     console.log('Data document type not found.');
                 }

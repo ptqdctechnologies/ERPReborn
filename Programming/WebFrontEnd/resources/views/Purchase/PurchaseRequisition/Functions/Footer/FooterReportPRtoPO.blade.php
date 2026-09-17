@@ -32,11 +32,12 @@
 
         getSites(id);
 
+        $("#mySitesTrigger").prop("disabled", false);
         $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
     }
 
     function resetForm() {
@@ -56,6 +57,8 @@
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $(`#sub_budget_name`).val("");
         $(`#sub_budget_id`).val("");
@@ -66,10 +69,14 @@
         $(`#supplier_code`).val("");
         $(`#supplier_id`).val("");
 
+        $("#purchaseRequisitionModalTrigger").prop("disabled", false);
+        $("#purchaseRequisitionModalTrigger").css({ "cursor": "pointer" });
         $("#pr_number").css('background-color', '#fff');
         $(`#pr_number`).val("");
         $(`#pr_id`).val("");
 
+        $("#mySearchPOTrigger").prop("disabled", false);
+        $("#mySearchPOTrigger").css({ "cursor": "pointer" });
         $("#po_number").css('background-color', '#fff');
         $(`#po_number`).val("");
         $(`#po_id`).val("");
@@ -221,6 +228,10 @@
             prProductCell.textContent = `${item.product_Code ?? ''} - ${item.product_Name ?? ''}`;
             row.appendChild(prProductCell);
 
+            const prCurrencyCell = document.createElement('td');
+            prCurrencyCell.textContent = '-';
+            row.appendChild(prCurrencyCell);
+
             const prTotalCell = document.createElement('td');
             prTotalCell.textContent = isNaN(item.PR_Total) ? '-' : Utils.formatCurrency(item.PR_Total);
             row.appendChild(prTotalCell);
@@ -248,6 +259,10 @@
             const poQtyCell = document.createElement('td');
             poQtyCell.textContent = isNaN(item.PO_Qty) ? '-' : Utils.formatCurrency(item.PO_Qty);
             row.appendChild(poQtyCell);
+
+            const poCurrencyCell = document.createElement('td');
+            poCurrencyCell.textContent = '-';
+            row.appendChild(poCurrencyCell);
 
             const poTotalCell = document.createElement('td');
             poTotalCell.textContent = isNaN(item.PO_Total) ? '-' : Utils.formatCurrency(item.PO_Total);
@@ -529,6 +544,19 @@
         $("#budget_name").val("");
         $("#budget_name").css('background-color', '#fff');
 
+        $("#pr_number").css('background-color', '#fff');
+        $("#pr_number").val("");
+        $("#pr_id").val("");
+
+        $("#po_number").css('background-color', '#fff');
+        $("#po_number").val("");
+        $("#po_id").val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $("#sub_budget_name").val("");
+        $("#sub_budget_id").val("");
+        $("#sub_budget_code").val("");
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
@@ -576,10 +604,27 @@
         const sysId = $row.find('input[data-trigger="sys_id_modal_purchase_requisition"]').val();
         const sysIdBudget = $row.find('input[data-trigger="sys_id_combinedBudget_purchase_requisition"]').val();
         const trano = $row.find('td:nth-child(2)').text();
+        const combinedBudgetCode = $row.find('td:nth-child(3)').text();
+        const combinedBudgetName = $row.find('td:nth-child(4)').text();
+        const combinedBudgetSectionCode = $row.find('td:nth-child(5)').text();
+        const combinedBudgetSectionName = $row.find('td:nth-child(6)').text();
 
         $('#pr_id').val(sysId);
         $('#pr_number').val(trano);
         $("#pr_number").css({ "background-color": "#e9ecef" });
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#sub_budget_id").val(combinedBudgetSectionCode);
+        $("#sub_budget_code").val(combinedBudgetSectionCode);
+        $("#sub_budget_name").val(`${combinedBudgetSectionCode} - ${combinedBudgetSectionName}`);
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#mySearchPOTrigger").prop("disabled", true);
+        $("#mySearchPOTrigger").css({ "cursor": "not-allowed" });
 
         $('#purchaseRequisitionModal').modal('toggle');
     });
@@ -597,6 +642,9 @@
             $('#po_id').val(purchaseOrder_RefID);
             $('#po_number').val(code);
             $("#po_number").css({ "background-color": "#e9ecef" });
+
+            $("#purchaseRequisitionModalTrigger").prop("disabled", true);
+            $("#purchaseRequisitionModalTrigger").css({ "cursor": "not-allowed" });
         }
     });
 
@@ -606,6 +654,8 @@
         getSuppliers();
         getModalPurchaseOrder();
         getModalPurchaseRequisition();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#purchase_request_date_range').daterangepicker({
             autoUpdateInput: false,

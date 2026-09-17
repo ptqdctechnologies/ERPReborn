@@ -64,7 +64,7 @@ class AdvanceSettlementService
         );
     }
 
-    public function getAdvanceSettlementSummary($budget, $subBudget, $date, $limit = 10, $offset = 0)
+    public function getAdvanceSettlementSummary($budget, $subBudget, $requester, $date, $limit = 10, $offset = 0)
     {
         $sessionToken = Session::get('SessionLogin');
         $formatLimit = $limit == -1 ? 'ALL' : $limit;
@@ -84,6 +84,7 @@ class AdvanceSettlementService
                 'parameter' => [
                     'CombinedBudgetCode' => $budget,
                     'CombinedBudgetSectionCode' => $subBudget ? $subBudget : NULL,
+                    'RequesterWorkerJobsPosition_RefID' => $requester ? $requester : NULL,
                     'StartDate' => $date ? $startDate : NULL,
                     'EndDate' => $date ? $endDate : NULL
                 ],

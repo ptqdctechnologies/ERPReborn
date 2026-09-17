@@ -81,6 +81,7 @@
                     d.site_id = subBudgetID.value;
                     d.site_name = subBudgetName.value;
                     d.site_code = subBudgetCode.value;
+                    d.requester_id = requesterID.value;
                     d.asfDate = asfDate.value;
 
                     return d;
@@ -126,6 +127,11 @@
                 },
                 {
                     data: 'date',
+                    defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
                     defaultContent: '-',
                     className: "text-nowrap",
                 },

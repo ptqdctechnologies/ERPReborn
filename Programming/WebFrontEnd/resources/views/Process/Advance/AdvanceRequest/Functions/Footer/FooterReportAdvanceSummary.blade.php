@@ -156,6 +156,11 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-nowrap",
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.total_IDR || '0');
                     }

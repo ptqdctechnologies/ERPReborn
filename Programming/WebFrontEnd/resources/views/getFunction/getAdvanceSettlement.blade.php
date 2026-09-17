@@ -11,20 +11,23 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
-                            <div class="card-body table-responsive p-0" style="min-height: 400px;">
-                                <table class="table table-head-fixed w-100" id="tableGetModalAdvanceSettlement">
+                            <div class="card-body p-0" style="min-height: 400px;">
+                                <table class="table table-responsive table-head-fixed w-100"
+                                    id="tableGetModalAdvanceSettlement">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loadingGetModalAdvanceSettlement">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -104,6 +107,22 @@
                     render: function (data) {
                         return data.additionalData.combinedBudgetName;
                     }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.combinedBudgetSectionCode;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.combinedBudgetSectionName;
+                    }
                 }
             ],
             initComplete: function () {
@@ -134,67 +153,4 @@
             }
         });
     }
-
-    // function getModalAdvanceSettlement() {
-    //     $('#tableGetModalAdvanceSettlement').DataTable({
-    //         processing: true,
-    //         serverSide: true,
-    //         destroy: true,
-    //         info: true,
-    //         paging: true,
-    //         searching: true,
-    //         lengthChange: true,
-    //         searchDelay: 1000,
-    //         pageLength: 10,
-    //         ajax: {
-    //             url: '{!! route("AdvanceSettlement.AdvanceSettlementPickList") !!}',
-    //             type: 'GET',
-    //             data: function (d) {
-    //                 // d.combinedBudgetCode = combinedBudgetCode;
-    //                 // d.combinedBudgetSectionCode = combinedBudgetSectionCode;
-
-    //                 return d;
-    //             },
-    //             beforeSend: function () {
-    //                 $('#tableGetModalAdvanceSettlement tbody').empty();
-    //                 $("#loadingGetModalAdvanceSettlement").show();
-    //             },
-    //             complete: function () {
-    //                 $("#loadingGetModalAdvanceSettlement").hide();
-    //             },
-    //             error: function (xhr, error, thrown) {
-    //                 $("#loadingGetModalAdvanceSettlement").hide();
-    //             }
-    //         },
-    //         columns: [
-    //             {
-    //                 data: null,
-    //                 render: function (data, type, row, meta) {
-    //                     return '<input id="sys_id_modal_advance_settlement' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_modal_advance_settlement" type="hidden">' + (meta.row + 1)
-    //                 }
-    //             },
-    //             {
-    //                 data: 'sys_Text',
-    //                 defaultContent: '-',
-    //                 className: "align-middle text-wrap"
-    //             },
-    //             {
-    //                 data: null,
-    //                 defaultContent: '-',
-    //                 className: "align-middle text-nowrap",
-    //                 render: function (data, type, row, meta) {
-    //                     return data.additionalData.combinedBudgetCode
-    //                 }
-    //             },
-    //             {
-    //                 data: null,
-    //                 defaultContent: '-',
-    //                 className: "align-middle text-nowrap",
-    //                 render: function (data, type, row, meta) {
-    //                     return data.additionalData.combinedBudgetName
-    //                 }
-    //             }
-    //         ]
-    //     });
-    // }
 </script>

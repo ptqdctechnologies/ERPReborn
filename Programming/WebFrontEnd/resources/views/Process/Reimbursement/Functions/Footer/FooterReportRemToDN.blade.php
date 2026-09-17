@@ -147,6 +147,17 @@
     }
 
     function resetForm() {
+        isFromTo = false;
+        data = [];
+        dataReport = [];
+        currentPage = 1;
+        rowsPerPage = 10;
+        filteredData = [...data];
+        sortColumn = null;
+        sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
+
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
@@ -306,6 +317,10 @@
             remCustomerCell.textContent = `${item.REM_CustomerCode ?? ''} - ${item.REM_CustomerName ?? ''}`;
             row.appendChild(remCustomerCell);
 
+            const remCurrencyCell = document.createElement('td');
+            remCurrencyCell.textContent = '-';
+            row.appendChild(remCurrencyCell);
+
             const remTotalIDRCell = document.createElement('td');
             remTotalIDRCell.textContent = isNaN(item.REM_Total_IDR) ? '-' : Utils.formatCurrency(item.REM_Total_IDR);
             row.appendChild(remTotalIDRCell);
@@ -347,6 +362,10 @@
             const dnDateCell = document.createElement('td');
             dnDateCell.textContent = item.DN_Date ?? '-';
             row.appendChild(dnDateCell);
+
+            const dnCurrencyCell = document.createElement('td');
+            dnCurrencyCell.textContent = '-';
+            row.appendChild(dnCurrencyCell);
 
             const dnTotalIDRCell = document.createElement('td');
             dnTotalIDRCell.textContent = isNaN(item.DN_Total_IDR) ? '-' : Utils.formatCurrency(item.DN_Total_IDR);
@@ -685,10 +704,17 @@
     $('#tableDebitNote').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_dn"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+        const combinedBudgetCode = $(this).find('td:nth-child(5)').text();
+        const combinedBudgetName = $(this).find('td:nth-child(6)').text();
 
         $("#dn_id").val(sysId);
         $("#dn_number").val(trano);
         $("#dn_number").css({ "background-color": "#e9ecef" });
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
 
         $('#myDebitNote').modal('toggle');
     });

@@ -20,6 +20,7 @@
     const fileID = document.getElementById("dataInput_Log_FileUpload");
     const lendingRate = document.getElementById("lending_rate");
     const loanTotal = document.getElementById("total_loan");
+    const paymentLoanTotal = document.getElementById("payment_loan");
     const loanTerm = document.getElementById("loan_term");
     const coaID = document.getElementById("coa_id");
     const remark = document.getElementById("remark");
@@ -216,8 +217,14 @@
         const isLoanPrincipleNotEmpty = loanPrinciple.value.trim() !== '';
         const isLendingRateNotEmpty = lendingRate.value.trim() !== '';
         const isLoanTotalNotEmpty = loanTotal.value.trim() !== '';
+        const isPaymentLoanTotalNotEmpty = paymentLoanTotal.value.trim() !== '';
         const isLoanTermNotEmpty = loanTerm.value.trim() !== '';
         const isRemarkNotEmpty = remark.value.trim() !== '';
+
+        if (Utils.parseFloatSafe(Utils.removeCommas(loanTotal.value)) < Utils.parseFloatSafe(Utils.removeCommas(paymentLoanTotal.value))) {
+            ErrorNotif("Loan Total can't be less than Loan Payment Total!");
+            return;
+        }
 
         if (
             isLoanPrincipleNotEmpty &&

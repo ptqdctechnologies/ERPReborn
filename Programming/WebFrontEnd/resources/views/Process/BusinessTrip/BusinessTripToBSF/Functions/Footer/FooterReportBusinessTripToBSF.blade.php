@@ -25,6 +25,22 @@
     const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
 
+    function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
+        $("#budget_id").val(combinedBudgetID);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        getSites(combinedBudgetID);
+
+        $("#mySitesTrigger").prop("disabled", false);
+        $("#mySitesTrigger").css('cursor', 'pointer');
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
+    }
+
     function modalPayment(params, title) {
         // buka modal dulu
         $('#paymentModal').modal('show');
@@ -321,6 +337,10 @@
             dateEndCell.textContent = item.dateEndTravel ?? '-';
             row.appendChild(dateEndCell);
 
+            const brfCurrencyCell = document.createElement('td');
+            brfCurrencyCell.textContent = '-';
+            row.appendChild(brfCurrencyCell);
+
             const brfTotalCell = document.createElement('td');
             brfTotalCell.textContent = item.brfTotal ?? '-';
             row.appendChild(brfTotalCell);
@@ -354,6 +374,10 @@
             const bsfDateCell = document.createElement('td');
             bsfDateCell.textContent = item.bsfDate ?? '-';
             row.appendChild(bsfDateCell);
+
+            const bsfCurrencyCell = document.createElement('td');
+            bsfCurrencyCell.textContent = '-';
+            row.appendChild(bsfCurrencyCell);
 
             const bsfTotalCell = document.createElement('td');
             bsfTotalCell.textContent = item.bsfTotal ?? '-';
@@ -611,27 +635,31 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
-        // if (Utils.isUserAuthorizedForReport()) {
-        //     selectBudget(sysId, code, name);
-        // } else {
-        //     $("#loadingBudget").show();
-        //     $("#iconBudget").hide();
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
 
-        //     getWorkflow(sysId, code, name);
-        // }
+        $("#business_trip_number").css('background-color', '#fff');
+        $("#business_trip_number").val("");
+        $("#business_trip_id").val("");
 
-        $("#budget_id").val(sysId);
-        $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
+        $("#business_trip_settlement_number").css('background-color', '#fff');
+        $("#business_trip_settlement_number").val("");
+        $("#business_trip_settlement_id").val("");
 
-        getSites(sysId);
+        $("#sub_budget_name").css('background-color', '#fff');
+        $("#sub_budget_name").val("");
+        $("#sub_budget_id").val("");
+        $("#sub_budget_code").val("");
 
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        if (Utils.isUserAuthorizedForReport()) {
+            selectBudget(sysId, code, name);
+        } else {
+            Utils.showBudgetLoading();
+
+            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
+        }
 
         ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
 
@@ -662,17 +690,34 @@
 
         ErrorHandler.hideErrorInputMessage("#requester_name", "#requesterMessage");
 
-        $('#myRequesters').modal('hide');
+        $('#myRequesters').modal('toggle');
     });
 
     $('#businessTripRequestListTable').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_brf"]').val();
         const sysBudgetId = $(this).find('input[data-trigger="sys_id_budget"]').val();
         const sysText = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(3)').text();
+        const budgetName = $(this).find('td:nth-child(4)').text();
+        const subBudgetCode = $(this).find('td:nth-child(5)').text();
+        const subBudgetName = $(this).find('td:nth-child(6)').text();
 
         $("#business_trip_id").val(sysId);
         $("#business_trip_number").val(sysText);
         $("#business_trip_number").css({ "display": "block", "background-color": "#e9ecef" });
+
+        $("#budget_id").val(budgetCode);
+        $("#budget_code").val(budgetCode);
+        $("#budget_name").val(`${budgetCode} - ${budgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#sub_budget_id").val(subBudgetCode);
+        $("#sub_budget_code").val(subBudgetCode);
+        $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#businessTripSettlementListModalTrigger").prop("disabled", true);
+        $("#businessTripSettlementListModalTrigger").css({ "cursor": "not-allowed" });
 
         $("#businessTripRequestListModal").modal('toggle');
     });
@@ -693,6 +738,8 @@
         renderPagination();
         getBusinessTripRequestList();
         getBusinessTripSettlementList();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#brf_to_bsf_date_range').daterangepicker({
             autoUpdateInput: false,

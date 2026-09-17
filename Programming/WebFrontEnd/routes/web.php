@@ -170,6 +170,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BusinessDocumentVersion', 'Register\BusinessDocumentVersionController');
 
     // BUDGET
+    Route::get('ReportBudget', 'Budget\BudgetController@ReportBudget')->name('Budget.ReportBudget');
     Route::post('BudgetPickList', 'Budget\BudgetController@BudgetPickList')->name('Budget.BudgetPickList');
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
@@ -380,14 +381,17 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     // Route::get('ReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDN')->name('Reimbursement.ReportRemToDN');
     // Route::post('ReportRemToDNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportRemToDNStore')->name('Reimbursement.ReportRemToDNStore');
     // Route::post('PrintExportReportRemToDN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportRemToDN')->name('Reimbursement.PrintExportReportRemToDN');
-    Route::get('ReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCN')->name('Reimbursement.ReportInvoiceToCN');
-    Route::post('ReportInvoiceToCNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCNStore')->name('Reimbursement.ReportInvoiceToCNStore');
-    Route::post('PrintExportReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportInvoiceToCN')->name('Reimbursement.PrintExportReportInvoiceToCN');
+    // Route::get('ReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCN')->name('Reimbursement.ReportInvoiceToCN');
+    // Route::post('ReportInvoiceToCNStore', 'Process\Reimbursement\ReimbursableExpenditureController@ReportInvoiceToCNStore')->name('Reimbursement.ReportInvoiceToCNStore');
+    // Route::post('PrintExportReportInvoiceToCN', 'Process\Reimbursement\ReimbursableExpenditureController@PrintExportReportInvoiceToCN')->name('Reimbursement.PrintExportReportInvoiceToCN');
     Route::resource('ReimbursableExpenditure', 'Process\Reimbursement\ReimbursableExpenditureController');
 
     // INVOICE
     Route::get('ReportInvoiceSummary', 'Finance\InvoiceController@ReportInvoiceSummary')->name('Invoice.ReportInvoiceSummary');
     Route::post('RevisionInvoice', 'Finance\InvoiceController@RevisionInvoice')->name('Invoice.RevisionInvoice');
+    Route::get('ReportInvoiceToCN', 'Finance\InvoiceController@ReportInvoiceToCN')->name('Invoice.ReportInvoiceToCN');
+    Route::post('ReportInvoiceToCNStore', 'Finance\InvoiceController@ReportInvoiceToCNStore')->name('Invoice.ReportInvoiceToCNStore');
+    Route::post('PrintExportReportInvoiceToCN', 'Finance\InvoiceController@PrintExportReportInvoiceToCN')->name('Invoice.PrintExportReportInvoiceToCN');
     Route::resource('Invoice', 'Finance\InvoiceController');
 
     // PURCHASE REQUISITION

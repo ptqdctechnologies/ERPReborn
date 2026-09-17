@@ -906,7 +906,7 @@
                 if (response.status == 200 && Array.isArray(response.data) && response.data.length > 0) {
                     const dataTransaction = response.data[0];
 
-                    if (response.documentTypeName == "Advance Form") {
+                    if (documentType == "Advance Form") {
                         const unpaidValue =
                             parseFloat(dataTransaction.totalTransactions || 0) -
                             parseFloat(dataTransaction.totalPayment || 0);
@@ -925,7 +925,7 @@
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
                         updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
                         updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
-                    } else if (response.documentTypeName == "Payment Instruction Form") {
+                    } else if (documentType == "Payment Instruction Form") {
                         const unpaidValue =
                             parseFloat(dataTransaction.totalTransactions || 0) -
                             parseFloat(dataTransaction.totalPayment || 0);
@@ -944,7 +944,7 @@
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.combinedBudgetCode);
                         updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
                         updateField(currentIndexPickRefNumber, 'value', dataTransaction.totalTransactions);
-                    } else if (response.documentTypeName == "Loan Form") {
+                    } else if (documentType == "Loan Form") {
                         const unpaidValue =
                             parseFloat(dataTransaction.TotalTransactions || 0) -
                             parseFloat(dataTransaction.TotalPayment || 0);
@@ -963,6 +963,14 @@
                         updateField(currentIndexPickRefNumber, 'budget_name', dataTransaction.CombinedBudgetCode);
                         updateField(currentIndexPickRefNumber, 'unpaid', unpaidValue);
                         updateField(currentIndexPickRefNumber, 'value', dataTransaction.TotalTransactions);
+                    } else if (documentType == "Reimbursement Form") {
+                        $(`#budget_ref_id${currentIndexPickRefNumbers}`).val(dataTransaction.CombinedBudget_RefID);
+                        $(`#budget${currentIndexPickRefNumbers}`).val(dataTransaction.CombinedBudgetCode);
+                        $(`#value${currentIndexPickRefNumbers}`).val(0);
+                        $(`#unpaid${currentIndexPickRefNumbers}`).val(0);
+                        $(`#ref_number_id${currentIndexPickRefNumbers}`).val(dataTransaction.BusinessDocument_RefID);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).val(dataTransaction.BusinessDocumentNumber);
+                        $(`#ref_number_name${currentIndexPickRefNumbers}`).css('background-color', '#e9ecef');
                     }
                 } else {
 

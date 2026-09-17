@@ -522,7 +522,15 @@
         $("#budget_id").val("");
         $("#budget_code").val("");
         $("#budget_name").val("");
-        $("#budget_name").css('background-color', '#fff');
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        $("#delivery_order_id").val("");
+        $("#delivery_order_number").val("");
+        $("#delivery_order_number").css('background-color', '#fff');
+
+        $("#material_receive_id").val("");
+        $("#material_receive_number").val("");
+        $("#material_receive_number").css('background-color', '#fff');
 
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
@@ -537,9 +545,53 @@
         $('#myProjects').modal('toggle');
     });
 
+    $('#deliveryOrderListTable').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_delivery_order"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const combinedBudgetCode = $(this).find('td:nth-child(3)').text();
+        const combinedBudgetName = $(this).find('td:nth-child(4)').text();
+
+        $("#delivery_order_id").val(sysId);
+        $("#delivery_order_number").val(trano);
+        $("#delivery_order_number").css('background-color', '#e9ecef');
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        $("#myGetModalMaterialReceiveTrigger").prop("disabled", true);
+        $("#myGetModalMaterialReceiveTrigger").css('cursor', 'not-allowed');
+
+        $('#deliveryOrderModal').modal('toggle');
+    });
+
+    $('#tableGetModalMaterialReceive').on('click', 'tbody tr', async function () {
+        const sysId = $(this).find('input[data-trigger="sys_id_modal_material_receive"]').val();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const combinedBudgetCode = $(this).find('td:nth-child(3)').text();
+        const combinedBudgetName = $(this).find('td:nth-child(4)').text();
+
+        $("#material_receive_id").val(sysId);
+        $("#material_receive_number").val(trano);
+        $("#material_receive_number").css('background-color', '#e9ecef');
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css('background-color', '#e9ecef');
+
+        $("#deliveryOrderModalTrigger").prop("disabled", true);
+        $("#deliveryOrderModalTrigger").css('cursor', 'not-allowed');
+
+        $('#myGetModalMaterialReceive').modal('toggle');
+    });
+
     $(document).ready(function () {
         renderPage();
         renderPagination();
+        getDeliveryOrderList();
+        getModalMaterialReceive();
 
         $('#do_to_mr_date_range').daterangepicker({
             autoUpdateInput: false,

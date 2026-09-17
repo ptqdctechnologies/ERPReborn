@@ -381,7 +381,7 @@
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.quantity) || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.productUnitPriceCurrencyValue) || '-'}</td>
                     <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(totalRequest) || '-'}</td>
-                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.balance) || '-'}</td>
+                    <td style="text-align: center;border:1px solid #e9ecef;">${currencyTotal(val2.totalUnsettled) || '-'}</td>
                     <td style="text-align: center; padding: 10px !important; width: 120px;">
                         <input class="form-control number-without-negative" id="qty_settlement${key}" data-default=${currencyTotal(val2.expenseQuantity) || 0} data-index=${key} data-total-request=${totalRequest} autocomplete="off" value=${currencyTotal(val2.expenseQuantity) || 0} style="border-radius:0px; width: 75px;" />
                     </td>

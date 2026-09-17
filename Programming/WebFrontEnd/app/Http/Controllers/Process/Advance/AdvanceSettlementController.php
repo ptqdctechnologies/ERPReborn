@@ -419,10 +419,12 @@ class AdvanceSettlementController extends Controller
                 "name" => $request->site_name,
                 "code" => $request->site_code,
             ];
+            $requesterID = $request->requester_id;
 
             $response = $this->advanceSettlementService->getAdvanceSettlementSummary(
                 $budget['code'],
                 $subBudget['code'],
+                $requesterID,
                 $date,
                 $limit,
                 $offset

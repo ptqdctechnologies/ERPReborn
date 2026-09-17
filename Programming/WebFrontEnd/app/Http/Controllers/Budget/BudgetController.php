@@ -633,4 +633,9 @@ class BudgetController extends Controller
             'status' => $status
         ]);
     }
+
+    public function ReportBudget()
+    {
+        return view('Budget.Budget.Transactions.ReportBudget');
+    }
 }

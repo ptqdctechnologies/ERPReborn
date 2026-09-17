@@ -152,11 +152,12 @@
 
         getSites(combinedBudgetID);
 
+        $("#mySitesTrigger").prop("disabled", false);
         $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
     }
 
     function resetForm() {
@@ -178,6 +179,8 @@
         $("#budget_id").val("");
         $("#budget_code").val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $("#sub_budget_name").val("");
         $("#sub_budget_id").val("");
@@ -187,10 +190,14 @@
         $("#requester_name").val("");
         $("#requester_id").val("");
 
+        $("#myArfTrigger").prop("disabled", false);
+        $("#myArfTrigger").css({ "cursor": "pointer" });
         $("#arf_number").css('background-color', '#fff');
         $("#arf_number").val("");
         $("#arf_id").val("");
 
+        $("#myAsfTrigger").prop("disabled", false);
+        $("#myAsfTrigger").css({ "cursor": "pointer" });
         $("#asf_number").css('background-color', '#fff');
         $("#asf_number").val("");
         $("#asf_id").val("");
@@ -303,7 +310,21 @@
         let rowspan = 1;
         let rowIndex = 0;
 
+        let totalARF = 0;
+        let totalPaymentARF = 0;
+        let totalPaymentBalanceARF = 0;
+        let totalASF = 0;
+        let totalPaymentASF = 0;
+        let totalPaymentBalanceASF = 0;
+
         data.forEach((item, ind) => {
+            totalARF += parseFloat(item.ARF_Total_IDR) || 0;
+            totalPaymentARF += parseFloat(item.ARF_Payment) || 0;
+            totalPaymentBalanceARF += parseFloat(item.advance_ToPayment) || 0;
+            totalASF += parseFloat(item.ASF_Total) || 0;
+            totalPaymentASF += parseFloat(item.ASF_Payment) || 0;
+            totalPaymentBalanceASF += parseFloat(item.advance_ToSettlement) || 0;
+
             const row = document.createElement('tr');
 
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
@@ -340,8 +361,12 @@
             arfRequesterCell.textContent = item.ARF_Requester ?? '-';
             row.appendChild(arfRequesterCell);
 
+            const arfCurrencyCell = document.createElement('td');
+            arfCurrencyCell.textContent = '-';
+            row.appendChild(arfCurrencyCell);
+
             const arfTotalCell = document.createElement('td');
-            arfTotalCell.textContent = item.ARF_Total_IDR ?? '-';
+            arfTotalCell.textContent = item.ARF_Total_IDR ? currencyTotal(item.ARF_Total_IDR) : '-';
             row.appendChild(arfTotalCell);
 
             const arfPaymentCell = document.createElement('td');
@@ -359,7 +384,7 @@
             row.appendChild(arfPaymentCell);
 
             const balancePayment = document.createElement('td');
-            balancePayment.textContent = item.advance_ToPayment ?? '-';
+            balancePayment.textContent = item.advance_ToPayment ? currencyTotal(item.advance_ToPayment) : '-';
             row.appendChild(balancePayment);
 
             const arfStatusCell = document.createElement('td');
@@ -375,15 +400,19 @@
             row.appendChild(asfDateCell);
 
             const asfExpenseCell = document.createElement('td');
-            asfExpenseCell.textContent = item.expense_Claim_IDR ?? '-';
+            asfExpenseCell.textContent = item.expense_Claim_IDR ? currencyTotal(item.expense_Claim_IDR) : '-';
             row.appendChild(asfExpenseCell);
 
             const asfAmountCell = document.createElement('td');
-            asfAmountCell.textContent = item.amount_Due_Company_IDR ?? '-';
+            asfAmountCell.textContent = item.amount_Due_Company_IDR ? currencyTotal(item.amount_Due_Company_IDR) : '-';
             row.appendChild(asfAmountCell);
 
+            const asfCurrencyCell = document.createElement('td');
+            asfCurrencyCell.textContent = '-';
+            row.appendChild(asfCurrencyCell);
+
             const asfTotalCell = document.createElement('td');
-            asfTotalCell.textContent = item.ASF_Total ?? '-';
+            asfTotalCell.textContent = item.ASF_Total ? currencyTotal(item.ASF_Total) : '-';
             row.appendChild(asfTotalCell);
 
             const asfPaymentCell = document.createElement('td');
@@ -401,7 +430,7 @@
             row.appendChild(asfPaymentCell);
 
             const balanceSettlement = document.createElement('td');
-            balanceSettlement.textContent = item.advance_ToSettlement ?? '-';
+            balanceSettlement.textContent = item.advance_ToSettlement ? currencyTotal(item.advance_ToSettlement) : '-';
             row.appendChild(balanceSettlement);
 
             const asfStatusCell = document.createElement('td');
@@ -419,6 +448,13 @@
             }
             // tbody.rows[tbody.rows.length - rowspan].cells[1].rowSpan = rowspan;
         }
+
+        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalARF));
+        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPaymentARF));
+        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPaymentBalanceARF));
+        $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalASF));
+        $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalPaymentASF));
+        $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalPaymentBalanceASF));
     }
 
     function updatePaginationInfo() {
@@ -665,6 +701,19 @@
         $("#budget_name").val("");
         $("#budget_name").css('background-color', '#fff');
 
+        $("#arf_number").css('background-color', '#fff');
+        $("#arf_number").val("");
+        $("#arf_id").val("");
+
+        $("#asf_number").css('background-color', '#fff');
+        $("#asf_number").val("");
+        $("#asf_id").val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $("#sub_budget_name").val("");
+        $("#sub_budget_id").val("");
+        $("#sub_budget_code").val("");
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
@@ -708,10 +757,27 @@
     $('#tableGetModalAdvance').on('click', 'tbody tr', async function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(5)').text();
+        const budgetName = $(this).find('td:nth-child(6)').text();
+        const subBudgetCode = $(this).find('td:nth-child(7)').text();
+        const subBudgetName = $(this).find('td:nth-child(8)').text();
 
         $("#arf_id").val(sysId);
         $("#arf_number").val(trano);
         $("#arf_number").css({ "background-color": "#e9ecef" });
+
+        $("#budget_id").val(budgetCode);
+        $("#budget_code").val(budgetCode);
+        $("#budget_name").val(`${budgetCode} - ${budgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#sub_budget_id").val(subBudgetCode);
+        $("#sub_budget_code").val(subBudgetCode);
+        $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#myAsfTrigger").prop("disabled", true);
+        $("#myAsfTrigger").css({ "cursor": "not-allowed" });
 
         $("#myGetModalAdvance").modal('toggle');
     });
@@ -719,10 +785,27 @@
     $('#tableGetModalAdvanceSettlement').on('click', 'tbody tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_modal_advance_settlement"]').val();
         const trano = $(this).find('td:nth-child(2)').text();
+        const budgetCode = $(this).find('td:nth-child(3)').text();
+        const budgetName = $(this).find('td:nth-child(4)').text();
+        const subBudgetCode = $(this).find('td:nth-child(5)').text();
+        const subBudgetName = $(this).find('td:nth-child(6)').text();
 
         $("#asf_id").val(sysId);
         $("#asf_number").val(trano);
         $("#asf_number").css({ "background-color": "#e9ecef" });
+
+        $("#budget_id").val(budgetCode);
+        $("#budget_code").val(budgetCode);
+        $("#budget_name").val(`${budgetCode} - ${budgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#sub_budget_id").val(subBudgetCode);
+        $("#sub_budget_code").val(subBudgetCode);
+        $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#myArfTrigger").prop("disabled", true);
+        $("#myArfTrigger").css({ "cursor": "not-allowed" });
 
         $('#myGetModalAdvanceSettlement').modal('toggle');
     });
@@ -733,6 +816,8 @@
         getRequesters();
         getModalAdvance();
         getModalAdvanceSettlement();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#advance_date_range').daterangepicker({
             autoUpdateInput: false,

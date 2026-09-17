@@ -55,95 +55,108 @@
     }
 
     function getDataReport() {
-        ShowLoading();
+        let totalBSF = 0;
 
-        $.ajax({
-            type: 'POST',
-            url: '{!! route("BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore") !!}',
-            data: {
-                budget_code: budgetCode.value,
-                site_code: subBudgetCode.value,
-                requester_id: requesterID.value,
-                bsfDate: bsfDate.value
+        $('#table_summary').DataTable({
+            destroy: true,
+            processing: true,
+            serverSide: true,
+            searching: false,
+            ordering: false,
+            lengthMenu: [
+                [10, 20, 50, 100, -1],
+                [10, 20, 50, 100, "All"]
+            ],
+            pageLength: 20,
+            ajax: {
+                type: 'POST',
+                url: '{!! route("BusinessTripSettlement.ReportBusinessTripSettlementSummaryStore") !!}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: function (d) {
+                    d.budget_code = budgetCode.value;
+                    d.site_code = subBudgetCode.value;
+                    d.requester_id = requesterID.value;
+                    d.bsfDate = bsfDate.value;
+
+                    return d;
+                },
+                dataSrc: function (json) {
+                    dataReport = json.data;
+
+                    json.data.forEach(function (row) {
+                        totalBSF += parseFloat(row.bsfTotal) || 0;
+                    });
+
+                    return json.data;
+                },
+                beforeSend: function () {
+                    Utils.showLoading();
+
+                    $('#table_summary tbody').empty();
+                    $('#table_container').css("display", "none");
+                },
+                complete: function () {
+                    Utils.hideLoading();
+
+                    $('#table_summary').css("width", "100%");
+                    $('#table_container').css("display", "block");
+                },
             },
-            dataType: 'json',
-            success: function (response) {
-                console.log('response', response);
-                let data = (response.status === 200 && response.data[0]) ? response.data : [];
-                dataReport = data;
-
-                let totalBSF = data.reduce((total, row) => {
-                    return total + Utils.parseFloatSafe(row.bsfTotal || 0);
-                }, 0);
-
-                $('#table_summary').DataTable({
-                    destroy: true,
-                    data: data,
-                    deferRender: true,
-                    scrollCollapse: true,
-                    scroller: true,
-                    columns: [
-                        {
-                            data: null,
-                            render: function (data, type, row, meta) {
-                                return (meta.row + 1);
-                            }
-                        },
-                        {
-                            data: 'bsfNumber',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            className: "text-nowrap",
-                            render: function (data, type, row, meta) {
-                                return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
-                            }
-                        },
-                        {
-                            data: 'departurePoint',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'destinationPoint',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'bsfDate',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'currencyISOCode',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: 'requesterName',
-                            defaultContent: '-'
-                        },
-                        {
-                            data: null,
-                            defaultContent: '-',
-                            render: function (data, type, row, meta) {
-                                return Utils.formatCurrency(Utils.parseFloatSafe(data.bsfTotal));
-                            }
-                        },
-                        {
-                            data: 'remarks',
-                            className: "text-wrap",
-                            defaultContent: '-'
-                        }
-                    ]
-                });
-
-                $('#table_summary').css("width", "100%");
-                $('#table_container').css("display", "block");
-
-                HideLoading();
-            },
-            error: function (xhr, status, error) {
-                HideLoading();
-                ErrorNotif("An error occurred while processing the received data. Please try again later.");
-                console.log('xhr, status, error', xhr, status, error);
+            columns: [
+                {
+                    data: null,
+                    render: function (data, type, row, meta) {
+                        return (meta.row + 1);
+                    }
+                },
+                {
+                    data: 'bsfNumber',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    className: "text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return `${data.combinedBudgetSectionCode || ''} - ${data.combinedBudgetSectionName || ''}`;
+                    }
+                },
+                {
+                    data: 'departurePoint',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'destinationPoint',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'bsfDate',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'currencyISOCode',
+                    defaultContent: '-'
+                },
+                {
+                    data: 'requesterName',
+                    defaultContent: '-'
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return Utils.formatCurrency(Utils.parseFloatSafe(data.bsfTotal));
+                    }
+                },
+                {
+                    data: 'remarks',
+                    className: "text-wrap",
+                    defaultContent: '-'
+                }
+            ],
+            drawCallback: function (settings) {
+                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalBSF));
             }
         });
     }
@@ -233,8 +246,6 @@
             }
         })
             .done(function (data, textStatus, jqXHR) {
-                console.log("Success:", data);
-
                 if (data.status == 200) {
                     $("#budget_id").val(combinedBudgetID);
                     $("#budget_code").val(combinedBudgetCode);

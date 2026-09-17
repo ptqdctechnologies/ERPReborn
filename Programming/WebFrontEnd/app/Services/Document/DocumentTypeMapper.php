@@ -135,6 +135,11 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
+            'Stock Opname Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Supplier Form' => [
                 'key' => '',
                 'parameter' => [],
@@ -834,6 +839,26 @@ class DocumentTypeMapper
                     'value' => ''
                 ],
                 'transactionType' => 'SUPPLIER',
+                'businessDocument_RefID' => '',
+            ],
+            'Stock Opname Form' => [
+                'dataHeader' => [
+                    'dateUpdate' => null,
+                    'date' => '2025-09-29 15:49:00.113 +0700',
+                    'type' => 'Warehouse',
+                    'warehouseName' => 'WH-MAPG - Head Office - Gudang Mampang',
+                ],
+                'components' => [
+                    'detail' => 'Components.StockOpnameDetailDocument',
+                    'additional' => 'Components.StockOpnameDetailDocumentTable',
+                    'table' => 'Components.StockOpnameCardDetailDocument'
+                ],
+                'resubmit' => [
+                    'url' => '',
+                    'name' => '',
+                    'value' => ''
+                ],
+                'transactionType' => 'STOCK OPNAME',
                 'businessDocument_RefID' => '',
             ],
             'Tax Recon Form' => [
