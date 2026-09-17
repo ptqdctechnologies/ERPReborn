@@ -142,6 +142,8 @@ class TransferConfig extends \Google\Model
   public $notificationPubsubTopic;
   protected $ownerInfoType = UserInfo::class;
   protected $ownerInfoDataType = '';
+  protected $paramConfigType = ParameterConfig::class;
+  protected $paramConfigDataType = '';
   /**
    * Parameters specific to each data source. For more information see the bq
    * tab in the 'Setting up a data transfer' section for each data source. For
@@ -452,6 +454,22 @@ class TransferConfig extends \Google\Model
   public function getOwnerInfo()
   {
     return $this->ownerInfo;
+  }
+  /**
+   * Optional. The config for values in `params`.
+   *
+   * @param ParameterConfig $paramConfig
+   */
+  public function setParamConfig(ParameterConfig $paramConfig)
+  {
+    $this->paramConfig = $paramConfig;
+  }
+  /**
+   * @return ParameterConfig
+   */
+  public function getParamConfig()
+  {
+    return $this->paramConfig;
   }
   /**
    * Parameters specific to each data source. For more information see the bq

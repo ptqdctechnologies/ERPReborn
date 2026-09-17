@@ -20,25 +20,15 @@ namespace Google\Service\DataManager;
 class RemovePpidDataStatus extends \Google\Model
 {
   /**
-   * The total count of ppids sent in the removal request. Includes all ppids in
-   * the request, regardless of whether they were successfully removed or not.
-   *
    * @var string
    */
   public $ppidCount;
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of ppids sent in the removal request. Includes all ppids in
-   * the request, regardless of whether they were successfully removed or not.
-   *
    * @param string $ppidCount
    */
   public function setPpidCount($ppidCount)
@@ -53,10 +43,6 @@ class RemovePpidDataStatus extends \Google\Model
     return $this->ppidCount;
   }
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

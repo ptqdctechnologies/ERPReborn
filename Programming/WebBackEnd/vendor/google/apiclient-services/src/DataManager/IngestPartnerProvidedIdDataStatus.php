@@ -20,27 +20,15 @@ namespace Google\Service\DataManager;
 class IngestPartnerProvidedIdDataStatus extends \Google\Model
 {
   /**
-   * The total count of partner provided ids sent in the upload request for the
-   * destination. Includes all partner provided ids in the request, regardless
-   * of whether they were successfully ingested or not.
-   *
    * @var string
    */
   public $partnerProvidedIdCount;
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of partner provided ids sent in the upload request for the
-   * destination. Includes all partner provided ids in the request, regardless
-   * of whether they were successfully ingested or not.
-   *
    * @param string $partnerProvidedIdCount
    */
   public function setPartnerProvidedIdCount($partnerProvidedIdCount)
@@ -55,10 +43,6 @@ class IngestPartnerProvidedIdDataStatus extends \Google\Model
     return $this->partnerProvidedIdCount;
   }
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

@@ -48,6 +48,8 @@ class ResponseMetaData extends \Google\Collection
    * @var bool
    */
   public $dataLossFromOtherRow;
+  protected $dataTruncationReasonsType = DataTruncationReason::class;
+  protected $dataTruncationReasonsDataType = 'array';
   /**
    * If empty reason is specified, the report is empty for this reason.
    *
@@ -126,6 +128,22 @@ class ResponseMetaData extends \Google\Collection
   public function getDataLossFromOtherRow()
   {
     return $this->dataLossFromOtherRow;
+  }
+  /**
+   * If set, indicate there is data truncation in the report.
+   *
+   * @param DataTruncationReason[] $dataTruncationReasons
+   */
+  public function setDataTruncationReasons($dataTruncationReasons)
+  {
+    $this->dataTruncationReasons = $dataTruncationReasons;
+  }
+  /**
+   * @return DataTruncationReason[]
+   */
+  public function getDataTruncationReasons()
+  {
+    return $this->dataTruncationReasons;
   }
   /**
    * If empty reason is specified, the report is empty for this reason.

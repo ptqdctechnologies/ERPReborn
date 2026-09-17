@@ -19,87 +19,36 @@ namespace Google\Service\DataManager;
 
 class MarketingDataInsightsAttribute extends \Google\Model
 {
-  /**
-   * Not specified.
-   */
   public const AGE_RANGE_AGE_RANGE_UNSPECIFIED = 'AGE_RANGE_UNSPECIFIED';
-  /**
-   * Unknown.
-   */
   public const AGE_RANGE_AGE_RANGE_UNKNOWN = 'AGE_RANGE_UNKNOWN';
-  /**
-   * Between 18 and 24 years old.
-   */
   public const AGE_RANGE_AGE_RANGE_18_24 = 'AGE_RANGE_18_24';
-  /**
-   * Between 25 and 34 years old.
-   */
   public const AGE_RANGE_AGE_RANGE_25_34 = 'AGE_RANGE_25_34';
-  /**
-   * Between 35 and 44 years old.
-   */
   public const AGE_RANGE_AGE_RANGE_35_44 = 'AGE_RANGE_35_44';
-  /**
-   * Between 45 and 54 years old.
-   */
   public const AGE_RANGE_AGE_RANGE_45_54 = 'AGE_RANGE_45_54';
-  /**
-   * Between 55 and 64 years old.
-   */
   public const AGE_RANGE_AGE_RANGE_55_64 = 'AGE_RANGE_55_64';
-  /**
-   * 65 years old and beyond.
-   */
   public const AGE_RANGE_AGE_RANGE_65_UP = 'AGE_RANGE_65_UP';
-  /**
-   * Not specified.
-   */
   public const GENDER_GENDER_UNSPECIFIED = 'GENDER_UNSPECIFIED';
-  /**
-   * Unknown.
-   */
   public const GENDER_GENDER_UNKNOWN = 'GENDER_UNKNOWN';
-  /**
-   * Male.
-   */
   public const GENDER_GENDER_MALE = 'GENDER_MALE';
-  /**
-   * Female.
-   */
   public const GENDER_GENDER_FEMALE = 'GENDER_FEMALE';
   /**
-   * Age range of the audience for which the lift is provided.
-   *
    * @var string
    */
   public $ageRange;
   /**
-   * Gender of the audience for which the lift is provided.
-   *
    * @var string
    */
   public $gender;
   /**
-   * Measure of lift that the audience has for the attribute value as compared
-   * to the baseline. Range [0-1].
-   *
    * @var float
    */
   public $lift;
   /**
-   * The user interest ID.
-   *
    * @var string
    */
   public $userInterestId;
 
   /**
-   * Age range of the audience for which the lift is provided.
-   *
-   * Accepted values: AGE_RANGE_UNSPECIFIED, AGE_RANGE_UNKNOWN, AGE_RANGE_18_24,
-   * AGE_RANGE_25_34, AGE_RANGE_35_44, AGE_RANGE_45_54, AGE_RANGE_55_64,
-   * AGE_RANGE_65_UP
-   *
    * @param self::AGE_RANGE_* $ageRange
    */
   public function setAgeRange($ageRange)
@@ -114,11 +63,6 @@ class MarketingDataInsightsAttribute extends \Google\Model
     return $this->ageRange;
   }
   /**
-   * Gender of the audience for which the lift is provided.
-   *
-   * Accepted values: GENDER_UNSPECIFIED, GENDER_UNKNOWN, GENDER_MALE,
-   * GENDER_FEMALE
-   *
    * @param self::GENDER_* $gender
    */
   public function setGender($gender)
@@ -133,9 +77,6 @@ class MarketingDataInsightsAttribute extends \Google\Model
     return $this->gender;
   }
   /**
-   * Measure of lift that the audience has for the attribute value as compared
-   * to the baseline. Range [0-1].
-   *
    * @param float $lift
    */
   public function setLift($lift)
@@ -150,8 +91,6 @@ class MarketingDataInsightsAttribute extends \Google\Model
     return $this->lift;
   }
   /**
-   * The user interest ID.
-   *
    * @param string $userInterestId
    */
   public function setUserInterestId($userInterestId)

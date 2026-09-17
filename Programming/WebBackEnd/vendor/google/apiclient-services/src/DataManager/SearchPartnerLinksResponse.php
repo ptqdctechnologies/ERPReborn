@@ -21,9 +21,6 @@ class SearchPartnerLinksResponse extends \Google\Collection
 {
   protected $collection_key = 'partnerLinks';
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @var string
    */
   public $nextPageToken;
@@ -31,9 +28,6 @@ class SearchPartnerLinksResponse extends \Google\Collection
   protected $partnerLinksDataType = 'array';
 
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @param string $nextPageToken
    */
   public function setNextPageToken($nextPageToken)
@@ -48,8 +42,6 @@ class SearchPartnerLinksResponse extends \Google\Collection
     return $this->nextPageToken;
   }
   /**
-   * The partner links for the given account.
-   *
    * @param PartnerLink[] $partnerLinks
    */
   public function setPartnerLinks($partnerLinks)

@@ -20,27 +20,15 @@ namespace Google\Service\DataManager;
 class IngestPpidDataStatus extends \Google\Model
 {
   /**
-   * The total count of ppids sent in the upload request for the destination.
-   * Includes all ppids in the request, regardless of whether they were
-   * successfully ingested or not.
-   *
    * @var string
    */
   public $ppidCount;
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of ppids sent in the upload request for the destination.
-   * Includes all ppids in the request, regardless of whether they were
-   * successfully ingested or not.
-   *
    * @param string $ppidCount
    */
   public function setPpidCount($ppidCount)
@@ -55,10 +43,6 @@ class IngestPpidDataStatus extends \Google\Model
     return $this->ppidCount;
   }
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

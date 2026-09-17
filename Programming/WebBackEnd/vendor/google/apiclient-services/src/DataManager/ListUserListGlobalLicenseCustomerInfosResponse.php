@@ -21,9 +21,6 @@ class ListUserListGlobalLicenseCustomerInfosResponse extends \Google\Collection
 {
   protected $collection_key = 'userListGlobalLicenseCustomerInfos';
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @var string
    */
   public $nextPageToken;
@@ -31,9 +28,6 @@ class ListUserListGlobalLicenseCustomerInfosResponse extends \Google\Collection
   protected $userListGlobalLicenseCustomerInfosDataType = 'array';
 
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @param string $nextPageToken
    */
   public function setNextPageToken($nextPageToken)
@@ -48,8 +42,6 @@ class ListUserListGlobalLicenseCustomerInfosResponse extends \Google\Collection
     return $this->nextPageToken;
   }
   /**
-   * The customer information for the given license in the request.
-   *
    * @param UserListGlobalLicenseCustomerInfo[] $userListGlobalLicenseCustomerInfos
    */
   public function setUserListGlobalLicenseCustomerInfos($userListGlobalLicenseCustomerInfos)

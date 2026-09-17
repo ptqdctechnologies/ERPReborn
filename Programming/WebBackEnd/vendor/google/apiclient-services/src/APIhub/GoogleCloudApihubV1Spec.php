@@ -46,6 +46,13 @@ class GoogleCloudApihubV1Spec extends \Google\Collection
    * @var string
    */
   public $createTime;
+  /**
+   * Optional. The deployments linked directly to this spec. Format is
+   * `projects/{project}/locations/{location}/deployments/{deployment}`
+   *
+   * @var string[]
+   */
+  public $deployments;
   protected $detailsType = GoogleCloudApihubV1SpecDetails::class;
   protected $detailsDataType = '';
   /**
@@ -157,6 +164,23 @@ class GoogleCloudApihubV1Spec extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Optional. The deployments linked directly to this spec. Format is
+   * `projects/{project}/locations/{location}/deployments/{deployment}`
+   *
+   * @param string[] $deployments
+   */
+  public function setDeployments($deployments)
+  {
+    $this->deployments = $deployments;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDeployments()
+  {
+    return $this->deployments;
   }
   /**
    * Output only. Details parsed from the spec.

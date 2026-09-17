@@ -20,21 +20,15 @@ namespace Google\Service\DataManager;
 class EventParameter extends \Google\Model
 {
   /**
-   * Required. The name of the parameter to use.
-   *
    * @var string
    */
   public $parameterName;
   /**
-   * Required. The string representation of the value of the parameter to set.
-   *
    * @var string
    */
   public $value;
 
   /**
-   * Required. The name of the parameter to use.
-   *
    * @param string $parameterName
    */
   public function setParameterName($parameterName)
@@ -49,8 +43,6 @@ class EventParameter extends \Google\Model
     return $this->parameterName;
   }
   /**
-   * Required. The string representation of the value of the parameter to set.
-   *
    * @param string $value
    */
   public function setValue($value)

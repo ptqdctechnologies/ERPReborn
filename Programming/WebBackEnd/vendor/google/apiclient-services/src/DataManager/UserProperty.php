@@ -20,22 +20,15 @@ namespace Google\Service\DataManager;
 class UserProperty extends \Google\Model
 {
   /**
-   * Required. The name of the user property to use.
-   *
    * @var string
    */
   public $propertyName;
   /**
-   * Required. The string representation of the value of the user property to
-   * use.
-   *
    * @var string
    */
   public $value;
 
   /**
-   * Required. The name of the user property to use.
-   *
    * @param string $propertyName
    */
   public function setPropertyName($propertyName)
@@ -50,9 +43,6 @@ class UserProperty extends \Google\Model
     return $this->propertyName;
   }
   /**
-   * Required. The string representation of the value of the user property to
-   * use.
-   *
    * @param string $value
    */
   public function setValue($value)

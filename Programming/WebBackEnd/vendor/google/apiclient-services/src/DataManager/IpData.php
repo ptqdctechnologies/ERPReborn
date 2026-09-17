@@ -20,30 +20,19 @@ namespace Google\Service\DataManager;
 class IpData extends \Google\Model
 {
   /**
-   * Required. IP address captured at the time of customer interaction. Accepts
-   * standard string formats for both IPv4 and IPv6.
-   *
    * @var string
    */
   public $ipAddress;
   /**
-   * Optional. Last recorded interaction time from this IP address in a session.
-   *
    * @var string
    */
   public $observeEndTime;
   /**
-   * Optional. First recorded interaction time from this IP address in a
-   * session.
-   *
    * @var string
    */
   public $observeStartTime;
 
   /**
-   * Required. IP address captured at the time of customer interaction. Accepts
-   * standard string formats for both IPv4 and IPv6.
-   *
    * @param string $ipAddress
    */
   public function setIpAddress($ipAddress)
@@ -58,8 +47,6 @@ class IpData extends \Google\Model
     return $this->ipAddress;
   }
   /**
-   * Optional. Last recorded interaction time from this IP address in a session.
-   *
    * @param string $observeEndTime
    */
   public function setObserveEndTime($observeEndTime)
@@ -74,9 +61,6 @@ class IpData extends \Google\Model
     return $this->observeEndTime;
   }
   /**
-   * Optional. First recorded interaction time from this IP address in a
-   * session.
-   *
    * @param string $observeStartTime
    */
   public function setObserveStartTime($observeStartTime)

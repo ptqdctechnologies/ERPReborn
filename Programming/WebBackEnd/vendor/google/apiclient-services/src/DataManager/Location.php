@@ -21,15 +21,11 @@ class Location extends \Google\Collection
 {
   protected $collection_key = 'regionCodes';
   /**
-   * List of ISO 3166-1 alpha-2 region codes.
-   *
    * @var string[]
    */
   public $regionCodes;
 
   /**
-   * List of ISO 3166-1 alpha-2 region codes.
-   *
    * @param string[] $regionCodes
    */
   public function setRegionCodes($regionCodes)

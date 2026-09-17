@@ -21,21 +21,11 @@ class MobileData extends \Google\Collection
 {
   protected $collection_key = 'mobileIds';
   /**
-   * Required. The list of mobile device IDs (Android advertising ID, iOS IDFA
-   * for Customer Match user lists and Android advertising ID, iOS IDFA, Xbox or
-   * Microsoft ID, Amazon Fire TV ID, Roku ID, Generic Device ID for basic user
-   * lists). At most 10 `mobileIds` can be provided in a single AudienceMember.
-   *
    * @var string[]
    */
   public $mobileIds;
 
   /**
-   * Required. The list of mobile device IDs (Android advertising ID, iOS IDFA
-   * for Customer Match user lists and Android advertising ID, iOS IDFA, Xbox or
-   * Microsoft ID, Amazon Fire TV ID, Roku ID, Generic Device ID for basic user
-   * lists). At most 10 `mobileIds` can be provided in a single AudienceMember.
-   *
    * @param string[] $mobileIds
    */
   public function setMobileIds($mobileIds)

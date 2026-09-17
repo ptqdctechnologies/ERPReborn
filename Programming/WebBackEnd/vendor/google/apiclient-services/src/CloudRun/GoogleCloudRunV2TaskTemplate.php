@@ -85,6 +85,8 @@ class GoogleCloudRunV2TaskTemplate extends \Google\Collection
   protected $volumesDataType = 'array';
   protected $vpcAccessType = GoogleCloudRunV2VpcAccess::class;
   protected $vpcAccessDataType = '';
+  protected $workloadIdentityConfigType = GoogleCloudRunV2WorkloadIdentityConfig::class;
+  protected $workloadIdentityConfigDataType = '';
 
   /**
    * Holds the single container that defines the unit of execution for this
@@ -260,6 +262,22 @@ class GoogleCloudRunV2TaskTemplate extends \Google\Collection
   public function getVpcAccess()
   {
     return $this->vpcAccess;
+  }
+  /**
+   * Optional. The Task's workload identity settings.
+   *
+   * @param GoogleCloudRunV2WorkloadIdentityConfig $workloadIdentityConfig
+   */
+  public function setWorkloadIdentityConfig(GoogleCloudRunV2WorkloadIdentityConfig $workloadIdentityConfig)
+  {
+    $this->workloadIdentityConfig = $workloadIdentityConfig;
+  }
+  /**
+   * @return GoogleCloudRunV2WorkloadIdentityConfig
+   */
+  public function getWorkloadIdentityConfig()
+  {
+    return $this->workloadIdentityConfig;
   }
 }
 

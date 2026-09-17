@@ -19,7 +19,7 @@ namespace Google\Service\Apigee;
 
 class GoogleCloudApigeeV1ControlPlaneAccess extends \Google\Collection
 {
-  protected $collection_key = 'synchronizerIdentities';
+  protected $collection_key = 'watcherIdentities';
   /**
    * Optional. Array of service accounts authorized to publish analytics data to
    * the control plane (for the Message Processor component).
@@ -44,6 +44,13 @@ class GoogleCloudApigeeV1ControlPlaneAccess extends \Google\Collection
    * @var string[]
    */
   public $synchronizerIdentities;
+  /**
+   * Optional. Service accounts granted access to control plane resources for
+   * the apigee-watcher component.
+   *
+   * @var string[]
+   */
+  public $watcherIdentities;
 
   /**
    * Optional. Array of service accounts authorized to publish analytics data to
@@ -98,6 +105,23 @@ class GoogleCloudApigeeV1ControlPlaneAccess extends \Google\Collection
   public function getSynchronizerIdentities()
   {
     return $this->synchronizerIdentities;
+  }
+  /**
+   * Optional. Service accounts granted access to control plane resources for
+   * the apigee-watcher component.
+   *
+   * @param string[] $watcherIdentities
+   */
+  public function setWatcherIdentities($watcherIdentities)
+  {
+    $this->watcherIdentities = $watcherIdentities;
+  }
+  /**
+   * @return string[]
+   */
+  public function getWatcherIdentities()
+  {
+    return $this->watcherIdentities;
   }
 }
 

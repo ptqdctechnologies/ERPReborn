@@ -31,20 +31,9 @@ use Google\Service\DataManager\RetrieveInsightsResponse;
 class AccountTypesAccountsInsights extends \Google\Service\Resource
 {
   /**
-   * Retrieves marketing data insights for a given user list. This feature is only
-   * available to data partners. Authorization Headers: This method supports the
-   * following optional headers to define how the API authorizes access for the
-   * request: * `login-account`: (Optional) The resource name of the account where
-   * the Google Account of the credentials is a user. If not set, defaults to the
-   * account of the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}`
    * (insights.retrieve)
    *
-   * @param string $parent Required. The parent account that owns the user list.
-   * Format: `accountTypes/{account_type}/accounts/{account}`
+   * @param string $parent
    * @param RetrieveInsightsRequest $postBody
    * @param array $optParams Optional parameters.
    * @return RetrieveInsightsResponse

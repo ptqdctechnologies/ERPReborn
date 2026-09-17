@@ -296,7 +296,7 @@ class PostgreSqlConnectionProfile extends \Google\Model
     return $this->privateConnectivity;
   }
   /**
-   * Private service connect connectivity.
+   * Private Service Connect connectivity.
    *
    * @param PrivateServiceConnectConnectivity $privateServiceConnectConnectivity
    */

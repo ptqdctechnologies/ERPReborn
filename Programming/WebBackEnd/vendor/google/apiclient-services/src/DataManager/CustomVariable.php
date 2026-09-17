@@ -21,32 +21,19 @@ class CustomVariable extends \Google\Collection
 {
   protected $collection_key = 'destinationReferences';
   /**
-   * Optional. Reference string used to determine which of the
-   * Event.destination_references the custom variable should be sent to. If
-   * empty, the Event.destination_references will be used.
-   *
    * @var string[]
    */
   public $destinationReferences;
   /**
-   * Optional. The value to store for the custom variable.
-   *
    * @var string
    */
   public $value;
   /**
-   * Optional. The name of the custom variable to set. If the variable is not
-   * found for the given destination, it will be ignored.
-   *
    * @var string
    */
   public $variable;
 
   /**
-   * Optional. Reference string used to determine which of the
-   * Event.destination_references the custom variable should be sent to. If
-   * empty, the Event.destination_references will be used.
-   *
    * @param string[] $destinationReferences
    */
   public function setDestinationReferences($destinationReferences)
@@ -61,8 +48,6 @@ class CustomVariable extends \Google\Collection
     return $this->destinationReferences;
   }
   /**
-   * Optional. The value to store for the custom variable.
-   *
    * @param string $value
    */
   public function setValue($value)
@@ -77,9 +62,6 @@ class CustomVariable extends \Google\Collection
     return $this->value;
   }
   /**
-   * Optional. The name of the custom variable to set. If the variable is not
-   * found for the given destination, it will be ignored.
-   *
    * @param string $variable
    */
   public function setVariable($variable)

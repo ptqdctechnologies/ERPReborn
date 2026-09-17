@@ -41,6 +41,8 @@ class Repository extends \Google\Model
    * @var string
    */
   public $displayName;
+  protected $endUserAuthConfigType = EndUserAuthConfig::class;
+  protected $endUserAuthConfigDataType = '';
   protected $gitRemoteSettingsType = GitRemoteSettings::class;
   protected $gitRemoteSettingsDataType = '';
   /**
@@ -173,6 +175,22 @@ class Repository extends \Google\Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  /**
+   * Optional. Includes configuration options for end user authentication.
+   *
+   * @param EndUserAuthConfig $endUserAuthConfig
+   */
+  public function setEndUserAuthConfig(EndUserAuthConfig $endUserAuthConfig)
+  {
+    $this->endUserAuthConfig = $endUserAuthConfig;
+  }
+  /**
+   * @return EndUserAuthConfig
+   */
+  public function getEndUserAuthConfig()
+  {
+    return $this->endUserAuthConfig;
   }
   /**
    * Optional. If set, configures this repository to be linked to a Git remote.

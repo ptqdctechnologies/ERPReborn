@@ -63,8 +63,8 @@ class Organizations extends \Google\Service\Resource
   /**
    * Delete an Apigee organization. For organizations with BillingType EVALUATION,
    * an immediate deletion is performed. For paid organizations (Subscription or
-   * Pay-as-you-go), a soft-deletion is performed. The organization can be
-   * restored within the soft-deletion period, which is specified using the
+   * Pay-as-you-go), a soft-deletion is performed by default. The organization can
+   * be restored within the soft-deletion period, which is specified using the
    * `retention` field in the request or by filing a support ticket with Apigee.
    * During the data retention period specified in the request, the Apigee
    * organization cannot be recreated in the same Google Cloud project.

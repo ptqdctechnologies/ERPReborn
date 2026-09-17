@@ -23,24 +23,15 @@ class RemoveAllAudienceMembersRequest extends \Google\Collection
   protected $destinationsType = Destination::class;
   protected $destinationsDataType = 'array';
   /**
-   * Optional. The remove as of time. If set, only audience members last added
-   * before this time will be removed. If not set, it defaults to current time.
-   * The remove as of time must not be in the future.
-   *
    * @var string
    */
   public $removeAsOfTime;
   /**
-   * Optional. For testing purposes. If `true`, the request is validated but not
-   * executed. Only errors are returned, not results.
-   *
    * @var bool
    */
   public $validateOnly;
 
   /**
-   * Required. The list of destinations to remove the users from.
-   *
    * @param Destination[] $destinations
    */
   public function setDestinations($destinations)
@@ -55,10 +46,6 @@ class RemoveAllAudienceMembersRequest extends \Google\Collection
     return $this->destinations;
   }
   /**
-   * Optional. The remove as of time. If set, only audience members last added
-   * before this time will be removed. If not set, it defaults to current time.
-   * The remove as of time must not be in the future.
-   *
    * @param string $removeAsOfTime
    */
   public function setRemoveAsOfTime($removeAsOfTime)
@@ -73,9 +60,6 @@ class RemoveAllAudienceMembersRequest extends \Google\Collection
     return $this->removeAsOfTime;
   }
   /**
-   * Optional. For testing purposes. If `true`, the request is validated but not
-   * executed. Only errors are returned, not results.
-   *
    * @param bool $validateOnly
    */
   public function setValidateOnly($validateOnly)

@@ -20,52 +20,27 @@ namespace Google\Service\DataManager;
 class PairIdInfo extends \Google\Model
 {
   /**
-   * Optional. The count of the advertiser's first party data records that have
-   * been uploaded to a clean room provider. This does not signify the size of a
-   * PAIR user list.
-   *
    * @var string
    */
   public $advertiserIdentifierCount;
   /**
-   * Required. Immutable. Identifies a unique advertiser to publisher
-   * relationship with one clean room provider or across multiple clean room
-   * providers.
-   *
    * @var string
    */
   public $cleanRoomIdentifier;
   /**
-   * Required. This field denotes the percentage of membership match of this
-   * user list with the corresponding publisher's first party data. Must be
-   * between 0 and 100 inclusive.
-   *
    * @var int
    */
   public $matchRatePercentage;
   /**
-   * Required. Immutable. Identifies the publisher that the Publisher Advertiser
-   * Identity Reconciliation user list is reconciled with. This field is
-   * provided by the cleanroom provider and is only unique in the scope of that
-   * cleanroom. This cannot be used as a global identifier across multiple
-   * cleanrooms.
-   *
    * @var string
    */
   public $publisherId;
   /**
-   * Required. Descriptive name of the publisher to be displayed in the UI for a
-   * better targeting experience.
-   *
    * @var string
    */
   public $publisherName;
 
   /**
-   * Optional. The count of the advertiser's first party data records that have
-   * been uploaded to a clean room provider. This does not signify the size of a
-   * PAIR user list.
-   *
    * @param string $advertiserIdentifierCount
    */
   public function setAdvertiserIdentifierCount($advertiserIdentifierCount)
@@ -80,10 +55,6 @@ class PairIdInfo extends \Google\Model
     return $this->advertiserIdentifierCount;
   }
   /**
-   * Required. Immutable. Identifies a unique advertiser to publisher
-   * relationship with one clean room provider or across multiple clean room
-   * providers.
-   *
    * @param string $cleanRoomIdentifier
    */
   public function setCleanRoomIdentifier($cleanRoomIdentifier)
@@ -98,10 +69,6 @@ class PairIdInfo extends \Google\Model
     return $this->cleanRoomIdentifier;
   }
   /**
-   * Required. This field denotes the percentage of membership match of this
-   * user list with the corresponding publisher's first party data. Must be
-   * between 0 and 100 inclusive.
-   *
    * @param int $matchRatePercentage
    */
   public function setMatchRatePercentage($matchRatePercentage)
@@ -116,12 +83,6 @@ class PairIdInfo extends \Google\Model
     return $this->matchRatePercentage;
   }
   /**
-   * Required. Immutable. Identifies the publisher that the Publisher Advertiser
-   * Identity Reconciliation user list is reconciled with. This field is
-   * provided by the cleanroom provider and is only unique in the scope of that
-   * cleanroom. This cannot be used as a global identifier across multiple
-   * cleanrooms.
-   *
    * @param string $publisherId
    */
   public function setPublisherId($publisherId)
@@ -136,9 +97,6 @@ class PairIdInfo extends \Google\Model
     return $this->publisherId;
   }
   /**
-   * Required. Descriptive name of the publisher to be displayed in the UI for a
-   * better targeting experience.
-   *
    * @param string $publisherName
    */
   public function setPublisherName($publisherName)

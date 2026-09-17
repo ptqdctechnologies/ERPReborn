@@ -115,6 +115,8 @@ class GoogleCloudDiscoveryengineV1betaDataStore extends \Google\Collection
    * @var string
    */
   public $createTime;
+  protected $dataProtectionPolicyType = GoogleCloudDiscoveryengineV1betaDataProtectionPolicy::class;
+  protected $dataProtectionPolicyDataType = '';
   /**
    * Output only. The id of the default Schema associated to this data store.
    *
@@ -335,6 +337,22 @@ class GoogleCloudDiscoveryengineV1betaDataStore extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Optional. Specifies the data protection policy for the data store.
+   *
+   * @param GoogleCloudDiscoveryengineV1betaDataProtectionPolicy $dataProtectionPolicy
+   */
+  public function setDataProtectionPolicy(GoogleCloudDiscoveryengineV1betaDataProtectionPolicy $dataProtectionPolicy)
+  {
+    $this->dataProtectionPolicy = $dataProtectionPolicy;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1betaDataProtectionPolicy
+   */
+  public function getDataProtectionPolicy()
+  {
+    return $this->dataProtectionPolicy;
   }
   /**
    * Output only. The id of the default Schema associated to this data store.

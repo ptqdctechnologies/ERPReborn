@@ -26,9 +26,6 @@ class CompositeData extends \Google\Collection
   protected $userDataDataType = '';
 
   /**
-   * Optional. IP address data representing customer interaction used to build
-   * the audience.
-   *
    * @param IpData[] $ipData
    */
   public function setIpData($ipData)
@@ -43,8 +40,6 @@ class CompositeData extends \Google\Collection
     return $this->ipData;
   }
   /**
-   * Optional. User-provided data that identifies the user.
-   *
    * @param UserData $userData
    */
   public function setUserData(UserData $userData)

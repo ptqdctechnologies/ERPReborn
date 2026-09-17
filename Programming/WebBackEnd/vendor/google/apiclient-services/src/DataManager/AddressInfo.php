@@ -20,65 +20,35 @@ namespace Google\Service\DataManager;
 class AddressInfo extends \Google\Model
 {
   /**
-   * Optional. The street and number of the user's address. Used only for Google
-   * Analytics. This field is hashed and possibly encrypted. Normalize the value
-   * before hashing: - Remove symbol characters - Convert to lowercase - Remove
-   * leading and trailing whitespace
-   *
    * @var string
    */
   public $addressLine;
   /**
-   * Optional. The administrative area (state/province) of the user's address.
-   * Used only for Google Analytics. The value should be normalized as such: -
-   * Remove symbol characters - Convert to lowercase - Remove leading and
-   * trailing whitespace
-   *
    * @var string
    */
   public $administrativeArea;
   /**
-   * Optional. The city of the user's address. Used only for Google Analytics.
-   * The value should be normalized as such: - Remove symbol characters -
-   * Convert to lowercase - Remove leading and trailing whitespace
-   *
    * @var string
    */
   public $city;
   /**
-   * Required. Family (last) name of the user, all lowercase, with no
-   * punctuation, no leading or trailing whitespace, and hashed as SHA-256.
-   *
    * @var string
    */
   public $familyName;
   /**
-   * Required. Given (first) name of the user, all lowercase, with no
-   * punctuation, no leading or trailing whitespace, and hashed as SHA-256.
-   *
    * @var string
    */
   public $givenName;
   /**
-   * Required. The postal code of the user's address.
-   *
    * @var string
    */
   public $postalCode;
   /**
-   * Required. The 2-letter region code in ISO-3166-1 alpha-2 of the user's
-   * address.
-   *
    * @var string
    */
   public $regionCode;
 
   /**
-   * Optional. The street and number of the user's address. Used only for Google
-   * Analytics. This field is hashed and possibly encrypted. Normalize the value
-   * before hashing: - Remove symbol characters - Convert to lowercase - Remove
-   * leading and trailing whitespace
-   *
    * @param string $addressLine
    */
   public function setAddressLine($addressLine)
@@ -93,11 +63,6 @@ class AddressInfo extends \Google\Model
     return $this->addressLine;
   }
   /**
-   * Optional. The administrative area (state/province) of the user's address.
-   * Used only for Google Analytics. The value should be normalized as such: -
-   * Remove symbol characters - Convert to lowercase - Remove leading and
-   * trailing whitespace
-   *
    * @param string $administrativeArea
    */
   public function setAdministrativeArea($administrativeArea)
@@ -112,10 +77,6 @@ class AddressInfo extends \Google\Model
     return $this->administrativeArea;
   }
   /**
-   * Optional. The city of the user's address. Used only for Google Analytics.
-   * The value should be normalized as such: - Remove symbol characters -
-   * Convert to lowercase - Remove leading and trailing whitespace
-   *
    * @param string $city
    */
   public function setCity($city)
@@ -130,9 +91,6 @@ class AddressInfo extends \Google\Model
     return $this->city;
   }
   /**
-   * Required. Family (last) name of the user, all lowercase, with no
-   * punctuation, no leading or trailing whitespace, and hashed as SHA-256.
-   *
    * @param string $familyName
    */
   public function setFamilyName($familyName)
@@ -147,9 +105,6 @@ class AddressInfo extends \Google\Model
     return $this->familyName;
   }
   /**
-   * Required. Given (first) name of the user, all lowercase, with no
-   * punctuation, no leading or trailing whitespace, and hashed as SHA-256.
-   *
    * @param string $givenName
    */
   public function setGivenName($givenName)
@@ -164,8 +119,6 @@ class AddressInfo extends \Google\Model
     return $this->givenName;
   }
   /**
-   * Required. The postal code of the user's address.
-   *
    * @param string $postalCode
    */
   public function setPostalCode($postalCode)
@@ -180,9 +133,6 @@ class AddressInfo extends \Google\Model
     return $this->postalCode;
   }
   /**
-   * Required. The 2-letter region code in ISO-3166-1 alpha-2 of the user's
-   * address.
-   *
    * @param string $regionCode
    */
   public function setRegionCode($regionCode)

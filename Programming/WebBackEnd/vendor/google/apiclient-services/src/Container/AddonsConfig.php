@@ -316,8 +316,10 @@ class AddonsConfig extends \Google\Model
     return $this->nodeReadinessConfig;
   }
   /**
+   * Deprecated: The Parallelstore CSI driver is no longer supported.
    * Configuration for the Cloud Storage Parallelstore CSI driver.
    *
+   * @deprecated
    * @param ParallelstoreCsiDriverConfig $parallelstoreCsiDriverConfig
    */
   public function setParallelstoreCsiDriverConfig(ParallelstoreCsiDriverConfig $parallelstoreCsiDriverConfig)
@@ -325,6 +327,7 @@ class AddonsConfig extends \Google\Model
     $this->parallelstoreCsiDriverConfig = $parallelstoreCsiDriverConfig;
   }
   /**
+   * @deprecated
    * @return ParallelstoreCsiDriverConfig
    */
   public function getParallelstoreCsiDriverConfig()

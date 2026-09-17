@@ -31,8 +31,7 @@ use Google\Service\DataManager\IngestAdEventsResponse;
 class AdEvents extends \Google\Service\Resource
 {
   /**
-   * Uploads a list of AdEvent resources to Google Analytics. This feature is only
-   * available to accounts on an allowlist. (adEvents.ingest)
+   * (adEvents.ingest)
    *
    * @param IngestAdEventsRequest $postBody
    * @param array $optParams Optional parameters.

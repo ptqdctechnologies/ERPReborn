@@ -20,27 +20,15 @@ namespace Google\Service\DataManager;
 class IngestUserIdDataStatus extends \Google\Model
 {
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @var string
    */
   public $recordCount;
   /**
-   * The total count of user ids sent in the upload request for the destination.
-   * Includes all user ids in the request, regardless of whether they were
-   * successfully ingested or not.
-   *
    * @var string
    */
   public $userIdCount;
 
   /**
-   * The total count of audience members sent in the upload request for the
-   * destination. Includes all audience members in the request, regardless of
-   * whether they were successfully ingested or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)
@@ -55,10 +43,6 @@ class IngestUserIdDataStatus extends \Google\Model
     return $this->recordCount;
   }
   /**
-   * The total count of user ids sent in the upload request for the destination.
-   * Includes all user ids in the request, regardless of whether they were
-   * successfully ingested or not.
-   *
    * @param string $userIdCount
    */
   public function setUserIdCount($userIdCount)

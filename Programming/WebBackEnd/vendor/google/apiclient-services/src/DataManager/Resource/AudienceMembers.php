@@ -35,7 +35,6 @@ use Google\Service\DataManager\RemoveAudienceMembersResponse;
 class AudienceMembers extends \Google\Service\Resource
 {
   /**
-   * Uploads a list of AudienceMember resources to the provided Destination.
    * (audienceMembers.ingest)
    *
    * @param IngestAudienceMembersRequest $postBody
@@ -50,7 +49,6 @@ class AudienceMembers extends \Google\Service\Resource
     return $this->call('ingest', [$params], IngestAudienceMembersResponse::class);
   }
   /**
-   * Removes a list of AudienceMember resources from the provided Destination.
    * (audienceMembers.remove)
    *
    * @param RemoveAudienceMembersRequest $postBody
@@ -65,7 +63,6 @@ class AudienceMembers extends \Google\Service\Resource
     return $this->call('remove', [$params], RemoveAudienceMembersResponse::class);
   }
   /**
-   * Removes all audience members from the provided destinations.
    * (audienceMembers.removeAll)
    *
    * @param RemoveAllAudienceMembersRequest $postBody

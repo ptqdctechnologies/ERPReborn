@@ -32,24 +32,13 @@ use Google\Service\DataManager\UserList;
 class AccountTypesAccountsUserLists extends \Google\Service\Resource
 {
   /**
-   * Creates a UserList. Authorization Headers: This method supports the following
-   * optional headers to define how the API authorizes access for the request: *
-   * `login-account`: (Optional) The resource name of the account where the Google
-   * Account of the credentials is a user. If not set, defaults to the account of
-   * the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}`
    * (userLists.create)
    *
-   * @param string $parent Required. The parent account where this user list will
-   * be created. Format: accountTypes/{account_type}/accounts/{account}
+   * @param string $parent
    * @param UserList $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool validateOnly Optional. If true, the request is validated but
-   * not executed.
+   * @opt_param bool validateOnly
    * @return UserList
    * @throws \Google\Service\Exception
    */
@@ -60,23 +49,12 @@ class AccountTypesAccountsUserLists extends \Google\Service\Resource
     return $this->call('create', [$params], UserList::class);
   }
   /**
-   * Deletes a UserList. Authorization Headers: This method supports the following
-   * optional headers to define how the API authorizes access for the request: *
-   * `login-account`: (Optional) The resource name of the account where the Google
-   * Account of the credentials is a user. If not set, defaults to the account of
-   * the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}`
    * (userLists.delete)
    *
-   * @param string $name Required. The name of the user list to delete. Format:
-   * accountTypes/{account_type}/accounts/{account}/userLists/{user_list}
+   * @param string $name
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool validateOnly Optional. If true, the request is validated but
-   * not executed.
+   * @opt_param bool validateOnly
    * @return DatamanagerEmpty
    * @throws \Google\Service\Exception
    */
@@ -87,18 +65,9 @@ class AccountTypesAccountsUserLists extends \Google\Service\Resource
     return $this->call('delete', [$params], DatamanagerEmpty::class);
   }
   /**
-   * Gets a UserList. Authorization Headers: This method supports the following
-   * optional headers to define how the API authorizes access for the request: *
-   * `login-account`: (Optional) The resource name of the account where the Google
-   * Account of the credentials is a user. If not set, defaults to the account of
-   * the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}` (userLists.get)
+   * (userLists.get)
    *
-   * @param string $name Required. The resource name of the UserList to retrieve.
-   * Format: accountTypes/{account_type}/accounts/{account}/userLists/{user_list}
+   * @param string $name
    * @param array $optParams Optional parameters.
    * @return UserList
    * @throws \Google\Service\Exception
@@ -110,41 +79,14 @@ class AccountTypesAccountsUserLists extends \Google\Service\Resource
     return $this->call('get', [$params], UserList::class);
   }
   /**
-   * Lists UserLists. Authorization Headers: This method supports the following
-   * optional headers to define how the API authorizes access for the request: *
-   * `login-account`: (Optional) The resource name of the account where the Google
-   * Account of the credentials is a user. If not set, defaults to the account of
-   * the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}`
    * (userLists.listAccountTypesAccountsUserLists)
    *
-   * @param string $parent Required. The parent account which owns this collection
-   * of user lists. Format: accountTypes/{account_type}/accounts/{account}
+   * @param string $parent
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. A [filter
-   * string](https://google.aip.dev/160). All fields need to be on the left hand
-   * side of each condition (for example: `display_name = "list 1"`). Fields must
-   * be specified using either all [camel
-   * case](https://en.wikipedia.org/wiki/Camel_case) or all [snake
-   * case](https://en.wikipedia.org/wiki/Snake_case). Don't use a combination of
-   * camel case and snake case. Supported operations: - `AND` - `=` - `!=` - `>` -
-   * `>=` - `<` - `<=` - `:` (has) **Supported Functions:** - `IN(field, value1,
-   * value2, ...)`: returns true if the field matches any of the values. Example:
-   * `IN(display_name, "name1", "name2")` Supported fields: - `id` -
-   * `display_name` - `description` - `membership_status` - `integration_code` -
-   * `access_reason` - `ingested_user_list_info.upload_key_types`
-   * @opt_param int pageSize Optional. The maximum number of user lists to return.
-   * The service may return fewer than this value. If unspecified, at most 50 user
-   * lists will be returned. The maximum value is 1000; values above 1000 will be
-   * coerced to 1000.
-   * @opt_param string pageToken Optional. A page token, received from a previous
-   * `ListUserLists` call. Provide this to retrieve the subsequent page. When
-   * paginating, all other parameters provided to `ListUserLists` must match the
-   * call that provided the page token.
+   * @opt_param string filter
+   * @opt_param int pageSize
+   * @opt_param string pageToken
    * @return ListUserListsResponse
    * @throws \Google\Service\Exception
    */
@@ -155,25 +97,14 @@ class AccountTypesAccountsUserLists extends \Google\Service\Resource
     return $this->call('list', [$params], ListUserListsResponse::class);
   }
   /**
-   * Updates a UserList. Authorization Headers: This method supports the following
-   * optional headers to define how the API authorizes access for the request: *
-   * `login-account`: (Optional) The resource name of the account where the Google
-   * Account of the credentials is a user. If not set, defaults to the account of
-   * the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}` * `linked-
-   * account`: (Optional) The resource name of the account with an established
-   * product link to the `login-account`. Format:
-   * `accountTypes/{linkedAccountType}/accounts/{linkedAccountId}`
    * (userLists.patch)
    *
-   * @param string $name Identifier. The resource name of the user list. Format:
-   * accountTypes/{account_type}/accounts/{account}/userLists/{user_list}
+   * @param string $name
    * @param UserList $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string updateMask Optional. The list of fields to update.
-   * @opt_param bool validateOnly Optional. If true, the request is validated but
-   * not executed.
+   * @opt_param string updateMask
+   * @opt_param bool validateOnly
    * @return UserList
    * @throws \Google\Service\Exception
    */

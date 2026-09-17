@@ -20,23 +20,23 @@ namespace Google\Service\Dataproc;
 class AttachedDiskConfig extends \Google\Model
 {
   /**
-   * Required unspecified disk type.
+   * Disk type is not specified.
    */
   public const DISK_TYPE_DISK_TYPE_UNSPECIFIED = 'DISK_TYPE_UNSPECIFIED';
   /**
-   * Hyperdisk Balanced disk type.
+   * Hyperdisk Balanced.
    */
   public const DISK_TYPE_HYPERDISK_BALANCED = 'HYPERDISK_BALANCED';
   /**
-   * Hyperdisk Extreme disk type.
+   * Hyperdisk Extreme.
    */
   public const DISK_TYPE_HYPERDISK_EXTREME = 'HYPERDISK_EXTREME';
   /**
-   * Hyperdisk ML disk type.
+   * Hyperdisk ML.
    */
   public const DISK_TYPE_HYPERDISK_ML = 'HYPERDISK_ML';
   /**
-   * Hyperdisk Throughput disk type.
+   * Hyperdisk Throughput.
    */
   public const DISK_TYPE_HYPERDISK_THROUGHPUT = 'HYPERDISK_THROUGHPUT';
   /**
@@ -46,8 +46,9 @@ class AttachedDiskConfig extends \Google\Model
    */
   public $diskSizeGb;
   /**
-   * Optional. Disk type.
+   * Optional. Deprecated: Use type instead.
    *
+   * @deprecated
    * @var string
    */
   public $diskType;
@@ -68,6 +69,15 @@ class AttachedDiskConfig extends \Google\Model
    * @var string
    */
   public $provisionedThroughput;
+  /**
+   * Optional. Attached disk type. Currently only supports Hyperdisks. See
+   * https://cloud.google.com/compute/docs/disks/hyperdisks. Note: Hyperdisk
+   * Balanced High Availability is not supported.Allowed values are: hyperdisk-
+   * balanced hyperdisk-extreme hyperdisk-ml hyperdisk-throughput
+   *
+   * @var string
+   */
+  public $type;
 
   /**
    * Optional. Disk size in GB.
@@ -86,11 +96,12 @@ class AttachedDiskConfig extends \Google\Model
     return $this->diskSizeGb;
   }
   /**
-   * Optional. Disk type.
+   * Optional. Deprecated: Use type instead.
    *
    * Accepted values: DISK_TYPE_UNSPECIFIED, HYPERDISK_BALANCED,
    * HYPERDISK_EXTREME, HYPERDISK_ML, HYPERDISK_THROUGHPUT
    *
+   * @deprecated
    * @param self::DISK_TYPE_* $diskType
    */
   public function setDiskType($diskType)
@@ -98,6 +109,7 @@ class AttachedDiskConfig extends \Google\Model
     $this->diskType = $diskType;
   }
   /**
+   * @deprecated
    * @return self::DISK_TYPE_*
    */
   public function getDiskType()
@@ -140,6 +152,25 @@ class AttachedDiskConfig extends \Google\Model
   public function getProvisionedThroughput()
   {
     return $this->provisionedThroughput;
+  }
+  /**
+   * Optional. Attached disk type. Currently only supports Hyperdisks. See
+   * https://cloud.google.com/compute/docs/disks/hyperdisks. Note: Hyperdisk
+   * Balanced High Availability is not supported.Allowed values are: hyperdisk-
+   * balanced hyperdisk-extreme hyperdisk-ml hyperdisk-throughput
+   *
+   * @param string $type
+   */
+  public function setType($type)
+  {
+    $this->type = $type;
+  }
+  /**
+   * @return string
+   */
+  public function getType()
+  {
+    return $this->type;
   }
 }
 

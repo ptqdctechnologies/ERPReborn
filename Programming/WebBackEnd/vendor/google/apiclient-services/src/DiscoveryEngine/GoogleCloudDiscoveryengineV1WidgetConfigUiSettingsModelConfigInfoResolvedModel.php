@@ -44,6 +44,15 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfoResolvedM
    */
   public $icon;
   /**
+   * Output only. Absolute URL of a brand mark to render instead of `icon`, for
+   * models whose vendor logo is not a GM3 glyph. `icon` stays populated as the
+   * fallback, so a client that does not render images, or that fails to fetch
+   * this one, shows the glyph instead of nothing.
+   *
+   * @var string
+   */
+  public $iconUrl;
+  /**
    * Output only. Whether the model is currently in preview. Clients should
    * surface this via a "Preview" badge in the selector UI.
    *
@@ -145,6 +154,25 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfoResolvedM
   public function getIcon()
   {
     return $this->icon;
+  }
+  /**
+   * Output only. Absolute URL of a brand mark to render instead of `icon`, for
+   * models whose vendor logo is not a GM3 glyph. `icon` stays populated as the
+   * fallback, so a client that does not render images, or that fails to fetch
+   * this one, shows the glyph instead of nothing.
+   *
+   * @param string $iconUrl
+   */
+  public function setIconUrl($iconUrl)
+  {
+    $this->iconUrl = $iconUrl;
+  }
+  /**
+   * @return string
+   */
+  public function getIconUrl()
+  {
+    return $this->iconUrl;
   }
   /**
    * Output only. Whether the model is currently in preview. Clients should

@@ -72,6 +72,17 @@ class Parameter extends \Google\Model
   protected $policyMemberType = ResourcePolicyMember::class;
   protected $policyMemberDataType = '';
   /**
+   * Optional. Input only. Immutable. Tag keys and tag values that are bound to
+   * this Parameter. You must represent each item in the map as: `"" : ""`. For
+   * example, a single resource can have the following tags: ```
+   * "123/environment": "production", "123/costCenter": "marketing", ``` Tags
+   * are used to organize and group resources. Tags can be used to control
+   * policy evaluation for the resource.
+   *
+   * @var string[]
+   */
+  public $tags;
+  /**
    * Output only. [Output only] Update time stamp
    *
    * @var string
@@ -180,6 +191,27 @@ class Parameter extends \Google\Model
   public function getPolicyMember()
   {
     return $this->policyMember;
+  }
+  /**
+   * Optional. Input only. Immutable. Tag keys and tag values that are bound to
+   * this Parameter. You must represent each item in the map as: `"" : ""`. For
+   * example, a single resource can have the following tags: ```
+   * "123/environment": "production", "123/costCenter": "marketing", ``` Tags
+   * are used to organize and group resources. Tags can be used to control
+   * policy evaluation for the resource.
+   *
+   * @param string[] $tags
+   */
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  /**
+   * @return string[]
+   */
+  public function getTags()
+  {
+    return $this->tags;
   }
   /**
    * Output only. [Output only] Update time stamp

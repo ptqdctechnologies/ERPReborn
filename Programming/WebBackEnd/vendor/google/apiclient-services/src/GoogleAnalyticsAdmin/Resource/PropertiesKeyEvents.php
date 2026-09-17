@@ -64,7 +64,7 @@ class PropertiesKeyEvents extends \Google\Service\Resource
     return $this->call('delete', [$params], GoogleProtobufEmpty::class);
   }
   /**
-   * Retrieve a single Key Event. (keyEvents.get)
+   * Retrieves a single Key Event. (keyEvents.get)
    *
    * @param string $name Required. The resource name of the Key Event to retrieve.
    * Format: properties/{property}/keyEvents/{key_event} Example:

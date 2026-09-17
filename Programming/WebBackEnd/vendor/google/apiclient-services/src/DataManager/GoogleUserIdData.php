@@ -21,15 +21,11 @@ class GoogleUserIdData extends \Google\Collection
 {
   protected $collection_key = 'googleUserIds';
   /**
-   * Required. The list of encrypted google user IDs.
-   *
    * @var string[]
    */
   public $googleUserIds;
 
   /**
-   * Required. The list of encrypted google user IDs.
-   *
    * @param string[] $googleUserIds
    */
   public function setGoogleUserIds($googleUserIds)

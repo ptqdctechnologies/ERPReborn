@@ -21,64 +21,51 @@ class AdIdentifiers extends \Google\Collection
 {
   protected $collection_key = 'encryptedUserIds';
   /**
-   * Optional. The display click ID associated with this event.
-   *
    * @var string
    */
   public $dclid;
   protected $encryptedUserIdsType = EncryptedUserId::class;
   protected $encryptedUserIdsDataType = 'array';
   /**
-   * Optional. The click identifier for clicks associated with app events and
-   * originating from iOS devices starting with iOS14.
-   *
    * @var string
    */
   public $gbraid;
   /**
-   * Optional. The Google click ID (gclid) associated with this event.
-   *
    * @var string
    */
   public $gclid;
   /**
-   * Optional. The impression ID associated with this event.
-   *
    * @var string
    */
   public $impressionId;
   protected $landingPageDeviceInfoType = DeviceInfo::class;
   protected $landingPageDeviceInfoDataType = '';
   /**
-   * Optional. The match ID field used to join this event with a previous event.
-   *
    * @var string
    */
   public $matchId;
   /**
-   * Optional. The mobile identifier for advertisers. This would be IDFA on iOS,
-   * AdID on Android, or other platforms’ identifiers for advertisers.
-   *
    * @var string
    */
   public $mobileDeviceId;
   /**
-   * Optional. Session attributes for event attribution and modeling.
-   *
+   * @var string
+   */
+  public $ppid;
+  /**
    * @var string
    */
   public $sessionAttributes;
   /**
-   * Optional. The click identifier for clicks associated with web events and
-   * originating from iOS devices starting with iOS14.
-   *
+   * @var string
+   */
+  public $visitorPpid;
+  /**
    * @var string
    */
   public $wbraid;
 
   /**
-   * Optional. The display click ID associated with this event.
-   *
    * @param string $dclid
    */
   public function setDclid($dclid)
@@ -93,8 +80,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->dclid;
   }
   /**
-   * Optional. Any number of encrypted user IDs.
-   *
    * @param EncryptedUserId[] $encryptedUserIds
    */
   public function setEncryptedUserIds($encryptedUserIds)
@@ -109,9 +94,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->encryptedUserIds;
   }
   /**
-   * Optional. The click identifier for clicks associated with app events and
-   * originating from iOS devices starting with iOS14.
-   *
    * @param string $gbraid
    */
   public function setGbraid($gbraid)
@@ -126,8 +108,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->gbraid;
   }
   /**
-   * Optional. The Google click ID (gclid) associated with this event.
-   *
    * @param string $gclid
    */
   public function setGclid($gclid)
@@ -142,8 +122,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->gclid;
   }
   /**
-   * Optional. The impression ID associated with this event.
-   *
    * @param string $impressionId
    */
   public function setImpressionId($impressionId)
@@ -158,9 +136,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->impressionId;
   }
   /**
-   * Optional. Information gathered about the device being used (if any) at the
-   * time of landing onto the advertiser’s site after interacting with the ad.
-   *
    * @param DeviceInfo $landingPageDeviceInfo
    */
   public function setLandingPageDeviceInfo(DeviceInfo $landingPageDeviceInfo)
@@ -175,8 +150,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->landingPageDeviceInfo;
   }
   /**
-   * Optional. The match ID field used to join this event with a previous event.
-   *
    * @param string $matchId
    */
   public function setMatchId($matchId)
@@ -191,9 +164,6 @@ class AdIdentifiers extends \Google\Collection
     return $this->matchId;
   }
   /**
-   * Optional. The mobile identifier for advertisers. This would be IDFA on iOS,
-   * AdID on Android, or other platforms’ identifiers for advertisers.
-   *
    * @param string $mobileDeviceId
    */
   public function setMobileDeviceId($mobileDeviceId)
@@ -208,8 +178,20 @@ class AdIdentifiers extends \Google\Collection
     return $this->mobileDeviceId;
   }
   /**
-   * Optional. Session attributes for event attribution and modeling.
-   *
+   * @param string $ppid
+   */
+  public function setPpid($ppid)
+  {
+    $this->ppid = $ppid;
+  }
+  /**
+   * @return string
+   */
+  public function getPpid()
+  {
+    return $this->ppid;
+  }
+  /**
    * @param string $sessionAttributes
    */
   public function setSessionAttributes($sessionAttributes)
@@ -224,9 +206,20 @@ class AdIdentifiers extends \Google\Collection
     return $this->sessionAttributes;
   }
   /**
-   * Optional. The click identifier for clicks associated with web events and
-   * originating from iOS devices starting with iOS14.
-   *
+   * @param string $visitorPpid
+   */
+  public function setVisitorPpid($visitorPpid)
+  {
+    $this->visitorPpid = $visitorPpid;
+  }
+  /**
+   * @return string
+   */
+  public function getVisitorPpid()
+  {
+    return $this->visitorPpid;
+  }
+  /**
    * @param string $wbraid
    */
   public function setWbraid($wbraid)

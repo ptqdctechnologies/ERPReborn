@@ -659,7 +659,7 @@ class MigrationJob extends \Google\Model
     return $this->originalMigrationName;
   }
   /**
-   * Optional. Data dump parallelism settings used by the migration.
+   * Optional. Data dump and load parallelism settings used by the migration.
    *
    * @param PerformanceConfig $performanceConfig
    */

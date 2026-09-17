@@ -20,27 +20,15 @@ namespace Google\Service\DataManager;
 class RemovePartnerProvidedIdDataStatus extends \Google\Model
 {
   /**
-   * The total count of partner provided ids sent in the removal request.
-   * Includes all partner provided ids in the request, regardless of whether
-   * they were successfully removed or not.
-   *
    * @var string
    */
   public $partnerProvidedIdCount;
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of partner provided ids sent in the removal request.
-   * Includes all partner provided ids in the request, regardless of whether
-   * they were successfully removed or not.
-   *
    * @param string $partnerProvidedIdCount
    */
   public function setPartnerProvidedIdCount($partnerProvidedIdCount)
@@ -55,10 +43,6 @@ class RemovePartnerProvidedIdDataStatus extends \Google\Model
     return $this->partnerProvidedIdCount;
   }
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

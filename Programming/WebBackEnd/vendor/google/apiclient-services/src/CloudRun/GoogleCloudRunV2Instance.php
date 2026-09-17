@@ -329,6 +329,12 @@ class GoogleCloudRunV2Instance extends \Google\Collection
    * @var string
    */
   public $serviceAccount;
+  /**
+   * Optional. Enables SSH access to the Instance.
+   *
+   * @var bool
+   */
+  public $sshEnabled;
   protected $terminalConditionType = GoogleCloudRunV2Condition::class;
   protected $terminalConditionDataType = '';
   /**
@@ -930,6 +936,22 @@ class GoogleCloudRunV2Instance extends \Google\Collection
   public function getServiceAccount()
   {
     return $this->serviceAccount;
+  }
+  /**
+   * Optional. Enables SSH access to the Instance.
+   *
+   * @param bool $sshEnabled
+   */
+  public function setSshEnabled($sshEnabled)
+  {
+    $this->sshEnabled = $sshEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getSshEnabled()
+  {
+    return $this->sshEnabled;
   }
   /**
    * Output only. The Condition of this Instance, containing its readiness

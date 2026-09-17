@@ -19,96 +19,49 @@ namespace Google\Service\DataManager;
 
 class ViewabilityInfo extends \Google\Model
 {
-  /**
-   * Unspecified media quartile.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_UNSPECIFIED = 'MEDIA_QUARTILE_UNSPECIFIED';
-  /**
-   * Start.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_START = 'MEDIA_QUARTILE_START';
-  /**
-   * First quartile.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_FIRST_QUARTILE = 'MEDIA_QUARTILE_FIRST_QUARTILE';
-  /**
-   * Midpoint.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_MIDPOINT = 'MEDIA_QUARTILE_MIDPOINT';
-  /**
-   * Third quartile.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_THIRD_QUARTILE = 'MEDIA_QUARTILE_THIRD_QUARTILE';
-  /**
-   * Complete.
-   */
   public const MEDIA_QUARTILE_MEDIA_QUARTILE_COMPLETE = 'MEDIA_QUARTILE_COMPLETE';
-  /**
-   * Unspecified view type.
-   */
   public const VIEW_TYPE_VIEW_TYPE_UNSPECIFIED = 'VIEW_TYPE_UNSPECIFIED';
-  /**
-   * MRC viewed.
-   */
   public const VIEW_TYPE_VIEW_TYPE_MRC_VIEWED = 'VIEW_TYPE_MRC_VIEWED';
-  /**
-   * MRC rendered.
-   */
   public const VIEW_TYPE_VIEW_TYPE_MRC_RENDERED = 'VIEW_TYPE_MRC_RENDERED';
   /**
-   * Optional. The duration of the ad media.
-   *
    * @var string
    */
   public $mediaDuration;
   /**
-   * Optional. The amount of the media that was played as discrete quartiles.
-   *
    * @var string
    */
   public $mediaQuartile;
   /**
-   * Optional. Whether the ad media was skippable or not.
-   *
    * @var bool
    */
   public $mediaSkippable;
   /**
-   * Optional. The numerical percent (0-100) of the volume of the media
-   * playback.
-   *
    * @var int
    */
   public $mediaVolumePercent;
   /**
-   * Optional. The duration of playback of the ad media, regardless of whether
-   * it was viewable or not.
-   *
    * @var string
    */
   public $playbackDuration;
   /**
-   * Required. The type of the event.
-   *
    * @var string
    */
   public $viewType;
   /**
-   * Optional. The amount of time the ad was viewable for.
-   *
    * @var string
    */
   public $viewableDuration;
   /**
-   * Optional. The numerical percent (0-100) of the pixels that were viewable.
-   *
    * @var int
    */
   public $viewablePercent;
 
   /**
-   * Optional. The duration of the ad media.
-   *
    * @param string $mediaDuration
    */
   public function setMediaDuration($mediaDuration)
@@ -123,12 +76,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->mediaDuration;
   }
   /**
-   * Optional. The amount of the media that was played as discrete quartiles.
-   *
-   * Accepted values: MEDIA_QUARTILE_UNSPECIFIED, MEDIA_QUARTILE_START,
-   * MEDIA_QUARTILE_FIRST_QUARTILE, MEDIA_QUARTILE_MIDPOINT,
-   * MEDIA_QUARTILE_THIRD_QUARTILE, MEDIA_QUARTILE_COMPLETE
-   *
    * @param self::MEDIA_QUARTILE_* $mediaQuartile
    */
   public function setMediaQuartile($mediaQuartile)
@@ -143,8 +90,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->mediaQuartile;
   }
   /**
-   * Optional. Whether the ad media was skippable or not.
-   *
    * @param bool $mediaSkippable
    */
   public function setMediaSkippable($mediaSkippable)
@@ -159,9 +104,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->mediaSkippable;
   }
   /**
-   * Optional. The numerical percent (0-100) of the volume of the media
-   * playback.
-   *
    * @param int $mediaVolumePercent
    */
   public function setMediaVolumePercent($mediaVolumePercent)
@@ -176,9 +118,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->mediaVolumePercent;
   }
   /**
-   * Optional. The duration of playback of the ad media, regardless of whether
-   * it was viewable or not.
-   *
    * @param string $playbackDuration
    */
   public function setPlaybackDuration($playbackDuration)
@@ -193,11 +132,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->playbackDuration;
   }
   /**
-   * Required. The type of the event.
-   *
-   * Accepted values: VIEW_TYPE_UNSPECIFIED, VIEW_TYPE_MRC_VIEWED,
-   * VIEW_TYPE_MRC_RENDERED
-   *
    * @param self::VIEW_TYPE_* $viewType
    */
   public function setViewType($viewType)
@@ -212,8 +146,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->viewType;
   }
   /**
-   * Optional. The amount of time the ad was viewable for.
-   *
    * @param string $viewableDuration
    */
   public function setViewableDuration($viewableDuration)
@@ -228,8 +160,6 @@ class ViewabilityInfo extends \Google\Model
     return $this->viewableDuration;
   }
   /**
-   * Optional. The numerical percent (0-100) of the pixels that were viewable.
-   *
    * @param int $viewablePercent
    */
   public function setViewablePercent($viewablePercent)

@@ -24,8 +24,6 @@ class PartnerLinkMetadata extends \Google\Collection
   protected $implicitAccountsDataType = 'array';
 
   /**
-   * Optional. The list of implicit accounts.
-   *
    * @param PartnerCustomerAccount[] $implicitAccounts
    */
   public function setImplicitAccounts($implicitAccounts)

@@ -37,8 +37,6 @@ class IngestAudienceMembersStatus extends \Google\Model
   protected $userIdDataIngestionStatusDataType = '';
 
   /**
-   * The status of the composite data ingestion to the destination.
-   *
    * @param IngestCompositeDataStatus $compositeDataIngestionStatus
    */
   public function setCompositeDataIngestionStatus(IngestCompositeDataStatus $compositeDataIngestionStatus)
@@ -53,8 +51,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->compositeDataIngestionStatus;
   }
   /**
-   * The status of the google user id data ingestion to the destination.
-   *
    * @param IngestGoogleUserIdDataStatus $googleUserIdDataIngestionStatus
    */
   public function setGoogleUserIdDataIngestionStatus(IngestGoogleUserIdDataStatus $googleUserIdDataIngestionStatus)
@@ -69,8 +65,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->googleUserIdDataIngestionStatus;
   }
   /**
-   * The status of the mobile data ingestion to the destination.
-   *
    * @param IngestMobileDataStatus $mobileDataIngestionStatus
    */
   public function setMobileDataIngestionStatus(IngestMobileDataStatus $mobileDataIngestionStatus)
@@ -85,8 +79,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->mobileDataIngestionStatus;
   }
   /**
-   * The status of the pair data ingestion to the destination.
-   *
    * @param IngestPairDataStatus $pairDataIngestionStatus
    */
   public function setPairDataIngestionStatus(IngestPairDataStatus $pairDataIngestionStatus)
@@ -101,8 +93,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->pairDataIngestionStatus;
   }
   /**
-   * The status of the partner provided id data ingestion to the destination.
-   *
    * @param IngestPartnerProvidedIdDataStatus $partnerProvidedIdDataIngestionStatus
    */
   public function setPartnerProvidedIdDataIngestionStatus(IngestPartnerProvidedIdDataStatus $partnerProvidedIdDataIngestionStatus)
@@ -117,8 +107,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->partnerProvidedIdDataIngestionStatus;
   }
   /**
-   * The status of the ppid data ingestion to the destination.
-   *
    * @param IngestPpidDataStatus $ppidDataIngestionStatus
    */
   public function setPpidDataIngestionStatus(IngestPpidDataStatus $ppidDataIngestionStatus)
@@ -133,8 +121,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->ppidDataIngestionStatus;
   }
   /**
-   * The status of the user data ingestion to the destination.
-   *
    * @param IngestUserDataStatus $userDataIngestionStatus
    */
   public function setUserDataIngestionStatus(IngestUserDataStatus $userDataIngestionStatus)
@@ -149,8 +135,6 @@ class IngestAudienceMembersStatus extends \Google\Model
     return $this->userDataIngestionStatus;
   }
   /**
-   * The status of the user id data ingestion to the destination.
-   *
    * @param IngestUserIdDataStatus $userIdDataIngestionStatus
    */
   public function setUserIdDataIngestionStatus(IngestUserIdDataStatus $userIdDataIngestionStatus)

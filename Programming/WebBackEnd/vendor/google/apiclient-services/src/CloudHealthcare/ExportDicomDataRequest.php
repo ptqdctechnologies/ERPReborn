@@ -21,6 +21,8 @@ class ExportDicomDataRequest extends \Google\Model
 {
   protected $bigqueryDestinationType = GoogleCloudHealthcareV1DicomBigQueryDestination::class;
   protected $bigqueryDestinationDataType = '';
+  protected $filterConfigType = DicomFilterConfig::class;
+  protected $filterConfigDataType = '';
   protected $gcsDestinationType = GoogleCloudHealthcareV1DicomGcsDestination::class;
   protected $gcsDestinationDataType = '';
 
@@ -42,6 +44,22 @@ class ExportDicomDataRequest extends \Google\Model
   public function getBigqueryDestination()
   {
     return $this->bigqueryDestination;
+  }
+  /**
+   * Specifies the filter configuration.
+   *
+   * @param DicomFilterConfig $filterConfig
+   */
+  public function setFilterConfig(DicomFilterConfig $filterConfig)
+  {
+    $this->filterConfig = $filterConfig;
+  }
+  /**
+   * @return DicomFilterConfig
+   */
+  public function getFilterConfig()
+  {
+    return $this->filterConfig;
   }
   /**
    * The Cloud Storage output destination. The Cloud Healthcare Service Agent

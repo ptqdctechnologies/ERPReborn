@@ -21,9 +21,6 @@ class ListUserListsResponse extends \Google\Collection
 {
   protected $collection_key = 'userLists';
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @var string
    */
   public $nextPageToken;
@@ -31,9 +28,6 @@ class ListUserListsResponse extends \Google\Collection
   protected $userListsDataType = 'array';
 
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @param string $nextPageToken
    */
   public function setNextPageToken($nextPageToken)
@@ -48,8 +42,6 @@ class ListUserListsResponse extends \Google\Collection
     return $this->nextPageToken;
   }
   /**
-   * The user lists from the specified account.
-   *
    * @param UserList[] $userLists
    */
   public function setUserLists($userLists)

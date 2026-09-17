@@ -49,12 +49,6 @@ class PropertyValue extends \Google\Model
    * @var string
    */
   public $stringValue;
-  /**
-   * A timestamp value.
-   *
-   * @var string
-   */
-  public $timestampValue;
 
   /**
    * A boolean value.
@@ -127,22 +121,6 @@ class PropertyValue extends \Google\Model
   public function getStringValue()
   {
     return $this->stringValue;
-  }
-  /**
-   * A timestamp value.
-   *
-   * @param string $timestampValue
-   */
-  public function setTimestampValue($timestampValue)
-  {
-    $this->timestampValue = $timestampValue;
-  }
-  /**
-   * @return string
-   */
-  public function getTimestampValue()
-  {
-    return $this->timestampValue;
   }
 }
 

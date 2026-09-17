@@ -20,24 +20,15 @@ namespace Google\Service\DataManager;
 class TargetNetworkInfo extends \Google\Model
 {
   /**
-   * Output only. Indicates this user list is eligible for Google Display
-   * Network.
-   *
    * @var bool
    */
   public $eligibleForDisplay;
   /**
-   * Optional. Indicates if this user list is eligible for Google Search
-   * Network.
-   *
    * @var bool
    */
   public $eligibleForSearch;
 
   /**
-   * Output only. Indicates this user list is eligible for Google Display
-   * Network.
-   *
    * @param bool $eligibleForDisplay
    */
   public function setEligibleForDisplay($eligibleForDisplay)
@@ -52,9 +43,6 @@ class TargetNetworkInfo extends \Google\Model
     return $this->eligibleForDisplay;
   }
   /**
-   * Optional. Indicates if this user list is eligible for Google Search
-   * Network.
-   *
    * @param bool $eligibleForSearch
    */
   public function setEligibleForSearch($eligibleForSearch)

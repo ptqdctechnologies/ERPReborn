@@ -51,6 +51,8 @@ class WorkflowInvocationAction extends \Google\Model
   public const STATE_FAILED = 'FAILED';
   protected $bigqueryActionType = BigQueryAction::class;
   protected $bigqueryActionDataType = '';
+  protected $bigqueryUnitTestActionType = BigQueryUnitTestAction::class;
+  protected $bigqueryUnitTestActionDataType = '';
   protected $canonicalTargetType = Target::class;
   protected $canonicalTargetDataType = '';
   protected $dataPreparationActionType = DataPreparationAction::class;
@@ -98,6 +100,22 @@ class WorkflowInvocationAction extends \Google\Model
   public function getBigqueryAction()
   {
     return $this->bigqueryAction;
+  }
+  /**
+   * Output only. The workflow action's unit test details.
+   *
+   * @param BigQueryUnitTestAction $bigqueryUnitTestAction
+   */
+  public function setBigqueryUnitTestAction(BigQueryUnitTestAction $bigqueryUnitTestAction)
+  {
+    $this->bigqueryUnitTestAction = $bigqueryUnitTestAction;
+  }
+  /**
+   * @return BigQueryUnitTestAction
+   */
+  public function getBigqueryUnitTestAction()
+  {
+    return $this->bigqueryUnitTestAction;
   }
   /**
    * Output only. The action's identifier if the project had been compiled

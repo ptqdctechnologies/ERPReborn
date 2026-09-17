@@ -23,15 +23,11 @@ class IngestEventsResponse extends \Google\Collection
   protected $fieldWarningsType = FieldWarning::class;
   protected $fieldWarningsDataType = 'array';
   /**
-   * The auto-generated ID of the request.
-   *
    * @var string
    */
   public $requestId;
 
   /**
-   * Detailed row-level warnings with field paths.
-   *
    * @param FieldWarning[] $fieldWarnings
    */
   public function setFieldWarnings($fieldWarnings)
@@ -46,8 +42,6 @@ class IngestEventsResponse extends \Google\Collection
     return $this->fieldWarnings;
   }
   /**
-   * The auto-generated ID of the request.
-   *
    * @param string $requestId
    */
   public function setRequestId($requestId)

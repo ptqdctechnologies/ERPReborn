@@ -19,7 +19,13 @@ namespace Google\Service\APIhub;
 
 class GoogleCloudApihubV1Deployment extends \Google\Collection
 {
-  protected $collection_key = 'sourceMetadata';
+  protected $collection_key = 'specs';
+  /**
+   * Output only. The API operations linked directly to this deployment.
+   *
+   * @var string[]
+   */
+  public $apiOperations;
   /**
    * Output only. The API versions linked to this deployment. Note: A particular
    * deployment could be linked to multiple different API versions (of same or
@@ -101,8 +107,25 @@ class GoogleCloudApihubV1Deployment extends \Google\Collection
    * @var string
    */
   public $sourceProject;
+  /**
+   * Optional. A revision identifier for the underlying gateway configuration
+   * that this deployment serves. For Apigee gateway variants, this is typically
+   * the proxy revision number populated automatically when the deployment is
+   * discovered.
+   *
+   * @var string
+   */
+  public $sourceRevision;
   protected $sourceUriType = GoogleCloudApihubV1AttributeValues::class;
   protected $sourceUriDataType = '';
+  /**
+   * Output only. The specs linked directly to this deployment. Note: a
+   * deployment could serve multiple specs (e.g., across different revisions of
+   * the same underlying gateway configuration).
+   *
+   * @var string[]
+   */
+  public $specs;
   /**
    * Output only. The time at which the deployment was last updated.
    *
@@ -110,6 +133,22 @@ class GoogleCloudApihubV1Deployment extends \Google\Collection
    */
   public $updateTime;
 
+  /**
+   * Output only. The API operations linked directly to this deployment.
+   *
+   * @param string[] $apiOperations
+   */
+  public function setApiOperations($apiOperations)
+  {
+    $this->apiOperations = $apiOperations;
+  }
+  /**
+   * @return string[]
+   */
+  public function getApiOperations()
+  {
+    return $this->apiOperations;
+  }
   /**
    * Output only. The API versions linked to this deployment. Note: A particular
    * deployment could be linked to multiple different API versions (of same or
@@ -405,6 +444,25 @@ class GoogleCloudApihubV1Deployment extends \Google\Collection
     return $this->sourceProject;
   }
   /**
+   * Optional. A revision identifier for the underlying gateway configuration
+   * that this deployment serves. For Apigee gateway variants, this is typically
+   * the proxy revision number populated automatically when the deployment is
+   * discovered.
+   *
+   * @param string $sourceRevision
+   */
+  public function setSourceRevision($sourceRevision)
+  {
+    $this->sourceRevision = $sourceRevision;
+  }
+  /**
+   * @return string
+   */
+  public function getSourceRevision()
+  {
+    return $this->sourceRevision;
+  }
+  /**
    * Optional. The uri where additional source specific information for this
    * deployment can be found. This maps to the following system defined
    * attribute: `projects/{project}/locations/{location}/attributes/system-
@@ -425,6 +483,24 @@ class GoogleCloudApihubV1Deployment extends \Google\Collection
   public function getSourceUri()
   {
     return $this->sourceUri;
+  }
+  /**
+   * Output only. The specs linked directly to this deployment. Note: a
+   * deployment could serve multiple specs (e.g., across different revisions of
+   * the same underlying gateway configuration).
+   *
+   * @param string[] $specs
+   */
+  public function setSpecs($specs)
+  {
+    $this->specs = $specs;
+  }
+  /**
+   * @return string[]
+   */
+  public function getSpecs()
+  {
+    return $this->specs;
   }
   /**
    * Output only. The time at which the deployment was last updated.

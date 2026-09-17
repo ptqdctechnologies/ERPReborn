@@ -28,20 +28,18 @@ class Profile extends \Google\Model
   public $age;
   /**
    * Output only. The automatically calculated running stride length, in
-   * millimeters. The user must consent to one of the following access scopes to
-   * access this field: - `https://www.googleapis.com/auth/googlehealth.activity
-   * _and_fitness.readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * millimeters. The user must consent to the following access scope to access
+   * this field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fi
+   * tness.readonly`
    *
    * @var int
    */
   public $autoRunningStrideLengthMm;
   /**
    * Output only. The automatically calculated walking stride length, in
-   * millimeters. The user must consent to one of the following access scopes to
-   * access this field: - `https://www.googleapis.com/auth/googlehealth.activity
-   * _and_fitness.readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * millimeters. The user must consent to the following access scope to access
+   * this field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fi
+   * tness.readonly`
    *
    * @var int
    */
@@ -61,20 +59,18 @@ class Profile extends \Google\Model
   public $name;
   /**
    * Optional. The user's user configured running stride length, in millimeters.
-   * The user must consent to one of the following access scopes to access this
-   * field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fitness
-   * .readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * The user must consent to the following access scope to access this field: -
+   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly
+   * `
    *
    * @var int
    */
   public $userConfiguredRunningStrideLengthMm;
   /**
    * Optional. The user's user configured walking stride length, in millimeters.
-   * The user must consent to one of the following access scopes to access this
-   * field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fitness
-   * .readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * The user must consent to the following access scope to access this field: -
+   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly
+   * `
    *
    * @var int
    */
@@ -99,10 +95,9 @@ class Profile extends \Google\Model
   }
   /**
    * Output only. The automatically calculated running stride length, in
-   * millimeters. The user must consent to one of the following access scopes to
-   * access this field: - `https://www.googleapis.com/auth/googlehealth.activity
-   * _and_fitness.readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * millimeters. The user must consent to the following access scope to access
+   * this field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fi
+   * tness.readonly`
    *
    * @param int $autoRunningStrideLengthMm
    */
@@ -119,10 +114,9 @@ class Profile extends \Google\Model
   }
   /**
    * Output only. The automatically calculated walking stride length, in
-   * millimeters. The user must consent to one of the following access scopes to
-   * access this field: - `https://www.googleapis.com/auth/googlehealth.activity
-   * _and_fitness.readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * millimeters. The user must consent to the following access scope to access
+   * this field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fi
+   * tness.readonly`
    *
    * @param int $autoWalkingStrideLengthMm
    */
@@ -177,10 +171,9 @@ class Profile extends \Google\Model
   }
   /**
    * Optional. The user's user configured running stride length, in millimeters.
-   * The user must consent to one of the following access scopes to access this
-   * field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fitness
-   * .readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * The user must consent to the following access scope to access this field: -
+   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly
+   * `
    *
    * @param int $userConfiguredRunningStrideLengthMm
    */
@@ -197,10 +190,9 @@ class Profile extends \Google\Model
   }
   /**
    * Optional. The user's user configured walking stride length, in millimeters.
-   * The user must consent to one of the following access scopes to access this
-   * field: - `https://www.googleapis.com/auth/googlehealth.activity_and_fitness
-   * .readonly` -
-   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness`
+   * The user must consent to the following access scope to access this field: -
+   * `https://www.googleapis.com/auth/googlehealth.activity_and_fitness.readonly
+   * `
    *
    * @param int $userConfiguredWalkingStrideLengthMm
    */

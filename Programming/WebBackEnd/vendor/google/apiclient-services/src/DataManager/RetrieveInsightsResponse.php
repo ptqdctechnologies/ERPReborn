@@ -24,8 +24,6 @@ class RetrieveInsightsResponse extends \Google\Collection
   protected $marketingDataInsightsDataType = 'array';
 
   /**
-   * Contains the insights for the marketing data.
-   *
    * @param MarketingDataInsight[] $marketingDataInsights
    */
   public function setMarketingDataInsights($marketingDataInsights)

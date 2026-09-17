@@ -279,6 +279,8 @@ class GoogleCloudDiscoveryengineV1DataConnector extends \Google\Collection
    * @var string
    */
   public $createTime;
+  protected $dataProtectionPolicyType = GoogleCloudDiscoveryengineV1DataProtectionPolicy::class;
+  protected $dataProtectionPolicyDataType = '';
   /**
    * Required. The identifier for the data source. For the full, up-to-date list
    * of supported connectors and their values, see [Connect a third-party data s
@@ -719,6 +721,22 @@ class GoogleCloudDiscoveryengineV1DataConnector extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Optional. Specifies the data protection policy for the connector.
+   *
+   * @param GoogleCloudDiscoveryengineV1DataProtectionPolicy $dataProtectionPolicy
+   */
+  public function setDataProtectionPolicy(GoogleCloudDiscoveryengineV1DataProtectionPolicy $dataProtectionPolicy)
+  {
+    $this->dataProtectionPolicy = $dataProtectionPolicy;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1DataProtectionPolicy
+   */
+  public function getDataProtectionPolicy()
+  {
+    return $this->dataProtectionPolicy;
   }
   /**
    * Required. The identifier for the data source. For the full, up-to-date list

@@ -19,17 +19,8 @@ namespace Google\Service\DataManager;
 
 class RemoveAudienceMembersRequest extends \Google\Collection
 {
-  /**
-   * Unspecified Encoding type. Should never be used.
-   */
   public const ENCODING_ENCODING_UNSPECIFIED = 'ENCODING_UNSPECIFIED';
-  /**
-   * Hex encoding.
-   */
   public const ENCODING_HEX = 'HEX';
-  /**
-   * Base 64 encoding.
-   */
   public const ENCODING_BASE64 = 'BASE64';
   protected $collection_key = 'destinations';
   protected $audienceMembersType = AudienceMember::class;
@@ -37,26 +28,17 @@ class RemoveAudienceMembersRequest extends \Google\Collection
   protected $destinationsType = Destination::class;
   protected $destinationsDataType = 'array';
   /**
-   * Optional. Required for UserData uploads. The encoding type of the user
-   * identifiers. Applies to only the outer encoding for encrypted user
-   * identifiers. For non `UserData` uploads, this field is ignored.
-   *
    * @var string
    */
   public $encoding;
   protected $encryptionInfoType = EncryptionInfo::class;
   protected $encryptionInfoDataType = '';
   /**
-   * Optional. For testing purposes. If `true`, the request is validated but not
-   * executed. Only errors are returned, not results.
-   *
    * @var bool
    */
   public $validateOnly;
 
   /**
-   * Required. The list of users to remove.
-   *
    * @param AudienceMember[] $audienceMembers
    */
   public function setAudienceMembers($audienceMembers)
@@ -71,8 +53,6 @@ class RemoveAudienceMembersRequest extends \Google\Collection
     return $this->audienceMembers;
   }
   /**
-   * Required. The list of destinations to remove the users from.
-   *
    * @param Destination[] $destinations
    */
   public function setDestinations($destinations)
@@ -87,12 +67,6 @@ class RemoveAudienceMembersRequest extends \Google\Collection
     return $this->destinations;
   }
   /**
-   * Optional. Required for UserData uploads. The encoding type of the user
-   * identifiers. Applies to only the outer encoding for encrypted user
-   * identifiers. For non `UserData` uploads, this field is ignored.
-   *
-   * Accepted values: ENCODING_UNSPECIFIED, HEX, BASE64
-   *
    * @param self::ENCODING_* $encoding
    */
   public function setEncoding($encoding)
@@ -107,10 +81,6 @@ class RemoveAudienceMembersRequest extends \Google\Collection
     return $this->encoding;
   }
   /**
-   * Optional. Encryption information for UserData uploads. If not set, it's
-   * assumed that uploaded identifying information is hashed but not encrypted.
-   * For non `UserData` uploads, this field is ignored.
-   *
    * @param EncryptionInfo $encryptionInfo
    */
   public function setEncryptionInfo(EncryptionInfo $encryptionInfo)
@@ -125,9 +95,6 @@ class RemoveAudienceMembersRequest extends \Google\Collection
     return $this->encryptionInfo;
   }
   /**
-   * Optional. For testing purposes. If `true`, the request is validated but not
-   * executed. Only errors are returned, not results.
-   *
    * @param bool $validateOnly
    */
   public function setValidateOnly($validateOnly)
