@@ -23,7 +23,8 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_material_disposal" href="javascript:;" class="nav-link"
-                                        data-toggle="modal" data-target="#" style="color:white;padding-bottom:10px;">
+                                        data-toggle="modal" data-target="#materialDisposalRevisionModal"
+                                        style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Material Disposal</i>
                                     </a>
                                 </li>

@@ -37,6 +37,7 @@ class MaterialDisposalController extends Controller
     public function edit(string $id)
     {
         // Menampilkan form edit
+        return view('Inventory.MaterialDisposal.Transactions.revision');
     }
 
     // PUT/PATCH

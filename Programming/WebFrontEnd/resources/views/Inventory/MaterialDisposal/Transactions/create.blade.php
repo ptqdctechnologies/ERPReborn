@@ -3,6 +3,7 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getWarehouses')
+    @include('Inventory.MaterialDisposal.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">

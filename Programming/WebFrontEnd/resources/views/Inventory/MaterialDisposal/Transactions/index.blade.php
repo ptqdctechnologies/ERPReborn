@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('Inventory.MaterialDisposal.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
