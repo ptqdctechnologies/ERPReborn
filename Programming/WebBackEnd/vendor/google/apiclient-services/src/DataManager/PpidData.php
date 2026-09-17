@@ -21,15 +21,11 @@ class PpidData extends \Google\Collection
 {
   protected $collection_key = 'ppids';
   /**
-   * Required. The list of publisher provided identifiers for a user.
-   *
    * @var string[]
    */
   public $ppids;
 
   /**
-   * Required. The list of publisher provided identifiers for a user.
-   *
    * @param string[] $ppids
    */
   public function setPpids($ppids)

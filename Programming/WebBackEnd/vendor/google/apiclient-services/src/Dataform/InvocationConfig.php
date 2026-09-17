@@ -20,6 +20,23 @@ namespace Google\Service\Dataform;
 class InvocationConfig extends \Google\Collection
 {
   /**
+   * Default value.
+   */
+  public const EXECUTION_MODE_EXECUTION_MODE_UNSPECIFIED = 'EXECUTION_MODE_UNSPECIFIED';
+  /**
+   * Default execution mode, which runs all actions except unit tests. Same as
+   * ALL_EXCEPT_UNIT_TESTS.
+   */
+  public const EXECUTION_MODE_DEFAULT = 'DEFAULT';
+  /**
+   * Run all actions except unit tests.
+   */
+  public const EXECUTION_MODE_ALL_EXCEPT_UNIT_TESTS = 'ALL_EXCEPT_UNIT_TESTS';
+  /**
+   * Run unit tests only.
+   */
+  public const EXECUTION_MODE_UNIT_TESTS_ONLY = 'UNIT_TESTS_ONLY';
+  /**
    * Default value. This value is unused.
    */
   public const QUERY_PRIORITY_QUERY_PRIORITY_UNSPECIFIED = 'QUERY_PRIORITY_UNSPECIFIED';
@@ -36,6 +53,14 @@ class InvocationConfig extends \Google\Collection
    */
   public const QUERY_PRIORITY_BATCH = 'BATCH';
   protected $collection_key = 'includedTargets';
+  protected $endUserAuthConfigType = EndUserAuthenticationConfig::class;
+  protected $endUserAuthConfigDataType = '';
+  /**
+   * Optional. Specifies the execution mode for the workflow invocation.
+   *
+   * @var string
+   */
+  public $executionMode;
   /**
    * Optional. When set to true, any incremental tables will be fully refreshed.
    *
@@ -79,6 +104,42 @@ class InvocationConfig extends \Google\Collection
    */
   public $transitiveDependentsIncluded;
 
+  /**
+   * Optional. Configuration for end user authentication. Note that this should
+   * not be set when `service_account` is used.
+   *
+   * @param EndUserAuthenticationConfig $endUserAuthConfig
+   */
+  public function setEndUserAuthConfig(EndUserAuthenticationConfig $endUserAuthConfig)
+  {
+    $this->endUserAuthConfig = $endUserAuthConfig;
+  }
+  /**
+   * @return EndUserAuthenticationConfig
+   */
+  public function getEndUserAuthConfig()
+  {
+    return $this->endUserAuthConfig;
+  }
+  /**
+   * Optional. Specifies the execution mode for the workflow invocation.
+   *
+   * Accepted values: EXECUTION_MODE_UNSPECIFIED, DEFAULT,
+   * ALL_EXCEPT_UNIT_TESTS, UNIT_TESTS_ONLY
+   *
+   * @param self::EXECUTION_MODE_* $executionMode
+   */
+  public function setExecutionMode($executionMode)
+  {
+    $this->executionMode = $executionMode;
+  }
+  /**
+   * @return self::EXECUTION_MODE_*
+   */
+  public function getExecutionMode()
+  {
+    return $this->executionMode;
+  }
   /**
    * Optional. When set to true, any incremental tables will be fully refreshed.
    *

@@ -19,118 +19,59 @@ namespace Google\Service\DataManager;
 
 class UserListGlobalLicenseCustomerInfo extends \Google\Collection
 {
-  /**
-   * Unknown.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN';
-  /**
-   * Google Ads customer.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS';
-  /**
-   * Display & Video 360 partner.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER';
-  /**
-   * Display & Video 360 advertiser.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER';
-  /**
-   * Google Ad Manager audience link.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK';
-  /**
-   * UNSPECIFIED.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED = 'USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED';
-  /**
-   * Reseller license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER = 'USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER';
-  /**
-   * DataMart Sell Side license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE = 'USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE';
-  /**
-   * DataMart Buy Side license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE = 'USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE';
-  /**
-   * Unknown.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_UNSPECIFIED = 'USER_LIST_LICENSE_STATUS_UNSPECIFIED';
-  /**
-   * Active status - user list is still being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_ENABLED = 'USER_LIST_LICENSE_STATUS_ENABLED';
-  /**
-   * Inactive status - user list is no longer being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_DISABLED = 'USER_LIST_LICENSE_STATUS_DISABLED';
   protected $collection_key = 'historicalPricings';
   /**
-   * Output only. Name of client customer which the user list is being licensed
-   * to.
-   *
    * @var string
    */
   public $clientAccountDisplayName;
   /**
-   * Output only. ID of client customer which the user list is being licensed
-   * to.
-   *
    * @var string
    */
   public $clientAccountId;
   /**
-   * Output only. Product type of client customer which the user list is being
-   * licensed to.
-   *
    * @var string
    */
   public $clientAccountType;
   protected $historicalPricingsType = UserListLicensePricing::class;
   protected $historicalPricingsDataType = 'array';
   /**
-   * Output only. Product type of client customer which the user list is being
-   * licensed to.
-   *
    * @var string
    */
   public $licenseType;
   protected $metricsType = UserListLicenseMetrics::class;
   protected $metricsDataType = '';
   /**
-   * Identifier. The resource name of the user list global license customer.
-   *
    * @var string
    */
   public $name;
   protected $pricingType = UserListLicensePricing::class;
   protected $pricingDataType = '';
   /**
-   * Output only. Status of UserListDirectLicense - ENABLED or DISABLED.
-   *
    * @var string
    */
   public $status;
   /**
-   * Output only. Name of the user list being licensed.
-   *
    * @var string
    */
   public $userListDisplayName;
   /**
-   * Output only. ID of the user list being licensed.
-   *
    * @var string
    */
   public $userListId;
 
   /**
-   * Output only. Name of client customer which the user list is being licensed
-   * to.
-   *
    * @param string $clientAccountDisplayName
    */
   public function setClientAccountDisplayName($clientAccountDisplayName)
@@ -145,9 +86,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->clientAccountDisplayName;
   }
   /**
-   * Output only. ID of client customer which the user list is being licensed
-   * to.
-   *
    * @param string $clientAccountId
    */
   public function setClientAccountId($clientAccountId)
@@ -162,15 +100,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->clientAccountId;
   }
   /**
-   * Output only. Product type of client customer which the user list is being
-   * licensed to.
-   *
-   * Accepted values: USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK
-   *
    * @param self::CLIENT_ACCOUNT_TYPE_* $clientAccountType
    */
   public function setClientAccountType($clientAccountType)
@@ -185,8 +114,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->clientAccountType;
   }
   /**
-   * Output only. Pricing history of this user list license.
-   *
    * @param UserListLicensePricing[] $historicalPricings
    */
   public function setHistoricalPricings($historicalPricings)
@@ -201,14 +128,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->historicalPricings;
   }
   /**
-   * Output only. Product type of client customer which the user list is being
-   * licensed to.
-   *
-   * Accepted values: USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE
-   *
    * @param self::LICENSE_TYPE_* $licenseType
    */
   public function setLicenseType($licenseType)
@@ -223,10 +142,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->licenseType;
   }
   /**
-   * Output only. Metrics related to this license This field is only populated
-   * if the start and end dates are set in the
-   * ListUserListGlobalLicenseCustomerInfos call.
-   *
    * @param UserListLicenseMetrics $metrics
    */
   public function setMetrics(UserListLicenseMetrics $metrics)
@@ -241,8 +156,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->metrics;
   }
   /**
-   * Identifier. The resource name of the user list global license customer.
-   *
    * @param string $name
    */
   public function setName($name)
@@ -257,8 +170,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->name;
   }
   /**
-   * Output only. UserListDirectLicense pricing.
-   *
    * @param UserListLicensePricing $pricing
    */
   public function setPricing(UserListLicensePricing $pricing)
@@ -273,11 +184,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->pricing;
   }
   /**
-   * Output only. Status of UserListDirectLicense - ENABLED or DISABLED.
-   *
-   * Accepted values: USER_LIST_LICENSE_STATUS_UNSPECIFIED,
-   * USER_LIST_LICENSE_STATUS_ENABLED, USER_LIST_LICENSE_STATUS_DISABLED
-   *
    * @param self::STATUS_* $status
    */
   public function setStatus($status)
@@ -292,8 +198,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->status;
   }
   /**
-   * Output only. Name of the user list being licensed.
-   *
    * @param string $userListDisplayName
    */
   public function setUserListDisplayName($userListDisplayName)
@@ -308,8 +212,6 @@ class UserListGlobalLicenseCustomerInfo extends \Google\Collection
     return $this->userListDisplayName;
   }
   /**
-   * Output only. ID of the user list being licensed.
-   *
    * @param string $userListId
    */
   public function setUserListId($userListId)

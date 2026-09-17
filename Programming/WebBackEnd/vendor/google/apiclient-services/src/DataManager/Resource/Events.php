@@ -31,7 +31,6 @@ use Google\Service\DataManager\IngestEventsResponse;
 class Events extends \Google\Service\Resource
 {
   /**
-   * Uploads a list of Event resources from the provided Destination.
    * (events.ingest)
    *
    * @param IngestEventsRequest $postBody

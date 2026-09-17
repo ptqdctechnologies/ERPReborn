@@ -19,56 +19,24 @@ namespace Google\Service\DataManager;
 
 class UserListDirectLicense extends \Google\Collection
 {
-  /**
-   * Unknown.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN';
-  /**
-   * Google Ads customer.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS';
-  /**
-   * Display & Video 360 partner.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER';
-  /**
-   * Display & Video 360 advertiser.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER';
-  /**
-   * Google Ad Manager audience link.
-   */
   public const CLIENT_ACCOUNT_TYPE_USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK = 'USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK';
-  /**
-   * Unknown.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_UNSPECIFIED = 'USER_LIST_LICENSE_STATUS_UNSPECIFIED';
-  /**
-   * Active status - user list is still being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_ENABLED = 'USER_LIST_LICENSE_STATUS_ENABLED';
-  /**
-   * Inactive status - user list is no longer being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_DISABLED = 'USER_LIST_LICENSE_STATUS_DISABLED';
   protected $collection_key = 'historicalPricings';
   /**
-   * Output only. Name of client customer which the user list is being licensed
-   * to. This field is read-only.
-   *
    * @var string
    */
   public $clientAccountDisplayName;
   /**
-   * Immutable. ID of client customer which the user list is being licensed to.
-   *
    * @var string
    */
   public $clientAccountId;
   /**
-   * Immutable. Account type of client customer which the user list is being
-   * licensed to.
-   *
    * @var string
    */
   public $clientAccountType;
@@ -77,36 +45,25 @@ class UserListDirectLicense extends \Google\Collection
   protected $metricsType = UserListLicenseMetrics::class;
   protected $metricsDataType = '';
   /**
-   * Identifier. The resource name of the user list direct license.
-   *
    * @var string
    */
   public $name;
   protected $pricingType = UserListLicensePricing::class;
   protected $pricingDataType = '';
   /**
-   * Optional. Status of UserListDirectLicense - ENABLED or DISABLED.
-   *
    * @var string
    */
   public $status;
   /**
-   * Output only. Name of the user list being licensed. This field is read-only.
-   *
    * @var string
    */
   public $userListDisplayName;
   /**
-   * Immutable. ID of the user list being licensed.
-   *
    * @var string
    */
   public $userListId;
 
   /**
-   * Output only. Name of client customer which the user list is being licensed
-   * to. This field is read-only.
-   *
    * @param string $clientAccountDisplayName
    */
   public function setClientAccountDisplayName($clientAccountDisplayName)
@@ -121,8 +78,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->clientAccountDisplayName;
   }
   /**
-   * Immutable. ID of client customer which the user list is being licensed to.
-   *
    * @param string $clientAccountId
    */
   public function setClientAccountId($clientAccountId)
@@ -137,15 +92,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->clientAccountId;
   }
   /**
-   * Immutable. Account type of client customer which the user list is being
-   * licensed to.
-   *
-   * Accepted values: USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_UNKNOWN,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_ADS,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_PARTNER,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_DISPLAY_VIDEO_ADVERTISER,
-   * USER_LIST_LICENSE_CLIENT_ACCOUNT_TYPE_GOOGLE_AD_MANAGER_AUDIENCE_LINK
-   *
    * @param self::CLIENT_ACCOUNT_TYPE_* $clientAccountType
    */
   public function setClientAccountType($clientAccountType)
@@ -160,9 +106,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->clientAccountType;
   }
   /**
-   * Output only. Pricing history of this user list license. This field is read-
-   * only.
-   *
    * @param UserListLicensePricing[] $historicalPricings
    */
   public function setHistoricalPricings($historicalPricings)
@@ -177,10 +120,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->historicalPricings;
   }
   /**
-   * Output only. Metrics related to this license This field is read-only and
-   * only populated if the start and end dates are set in the
-   * ListUserListDirectLicenses call
-   *
    * @param UserListLicenseMetrics $metrics
    */
   public function setMetrics(UserListLicenseMetrics $metrics)
@@ -195,8 +134,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->metrics;
   }
   /**
-   * Identifier. The resource name of the user list direct license.
-   *
    * @param string $name
    */
   public function setName($name)
@@ -211,8 +148,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->name;
   }
   /**
-   * Optional. UserListDirectLicense pricing.
-   *
    * @param UserListLicensePricing $pricing
    */
   public function setPricing(UserListLicensePricing $pricing)
@@ -227,11 +162,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->pricing;
   }
   /**
-   * Optional. Status of UserListDirectLicense - ENABLED or DISABLED.
-   *
-   * Accepted values: USER_LIST_LICENSE_STATUS_UNSPECIFIED,
-   * USER_LIST_LICENSE_STATUS_ENABLED, USER_LIST_LICENSE_STATUS_DISABLED
-   *
    * @param self::STATUS_* $status
    */
   public function setStatus($status)
@@ -246,8 +176,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->status;
   }
   /**
-   * Output only. Name of the user list being licensed. This field is read-only.
-   *
    * @param string $userListDisplayName
    */
   public function setUserListDisplayName($userListDisplayName)
@@ -262,8 +190,6 @@ class UserListDirectLicense extends \Google\Collection
     return $this->userListDisplayName;
   }
   /**
-   * Immutable. ID of the user list being licensed.
-   *
    * @param string $userListId
    */
   public function setUserListId($userListId)

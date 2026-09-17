@@ -208,9 +208,12 @@ class ProjectsLocationsAutonomousDatabases extends \Google\Service\Resource
    * (00000000-0000-0000-0000-000000000000).
    * @opt_param string updateMask Optional. Field mask is used to specify the
    * fields to be overwritten in the Exadata resource by the update. The fields
-   * specified in the update_mask are relative to the resource, not the full
+   * specified in the `update_mask` are relative to the resource, not the full
    * request. A field will be overwritten if it is in the mask. If the user does
-   * not provide a mask then all fields will be overwritten.
+   * not provide a mask then the service treats this as an implied field mask
+   * equivalent to all fields that are populated (have a non-empty value). To
+   * clear or unset a field, the field must be explicitly specified in the
+   * `update_mask`.
    * @return Operation
    * @throws \Google\Service\Exception
    */

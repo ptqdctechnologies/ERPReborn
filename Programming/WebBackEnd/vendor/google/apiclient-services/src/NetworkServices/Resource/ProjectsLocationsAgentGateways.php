@@ -91,6 +91,9 @@ class ProjectsLocationsAgentGateways extends \Google\Service\Resource
    * AgentGateways should be listed, specified in the format `projects/locations`.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string filter Optional. A filter expression to filter the results
+   * listed in the response. The expression must follow the syntax described in
+   * [AIP-160](https://google.aip.dev/160).
    * @opt_param int pageSize Optional. Maximum number of AgentGateways to return
    * per call.
    * @opt_param string pageToken Optional. The value returned by the last

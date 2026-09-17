@@ -22,23 +22,15 @@ class UserIdentifier extends \Google\Model
   protected $addressType = AddressInfo::class;
   protected $addressDataType = '';
   /**
-   * Hashed email address using SHA-256 hash function after normalization.
-   *
    * @var string
    */
   public $emailAddress;
   /**
-   * Hashed phone number using SHA-256 hash function after normalization (E164
-   * standard).
-   *
    * @var string
    */
   public $phoneNumber;
 
   /**
-   * The known components of a user's address. Holds a grouping of identifiers
-   * that are matched all at once.
-   *
    * @param AddressInfo $address
    */
   public function setAddress(AddressInfo $address)
@@ -53,8 +45,6 @@ class UserIdentifier extends \Google\Model
     return $this->address;
   }
   /**
-   * Hashed email address using SHA-256 hash function after normalization.
-   *
    * @param string $emailAddress
    */
   public function setEmailAddress($emailAddress)
@@ -69,9 +59,6 @@ class UserIdentifier extends \Google\Model
     return $this->emailAddress;
   }
   /**
-   * Hashed phone number using SHA-256 hash function after normalization (E164
-   * standard).
-   *
    * @param string $phoneNumber
    */
   public function setPhoneNumber($phoneNumber)

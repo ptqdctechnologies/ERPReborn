@@ -19,47 +19,21 @@ namespace Google\Service\DataManager;
 
 class ContactIdInfo extends \Google\Model
 {
-  /**
-   * Not specified.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_UNSPECIFIED = 'DATA_SOURCE_TYPE_UNSPECIFIED';
-  /**
-   * The uploaded data is first-party data.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_FIRST_PARTY = 'DATA_SOURCE_TYPE_FIRST_PARTY';
-  /**
-   * The uploaded data is from a third-party credit bureau.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU = 'DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU';
-  /**
-   * The uploaded data is from a third-party voter file.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE = 'DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE';
-  /**
-   * The uploaded data is third party partner data.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA = 'DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA';
   /**
-   * Optional. Immutable. Source of the upload data
-   *
    * @var string
    */
   public $dataSourceType;
   /**
-   * Output only. Match rate for customer match user lists.
-   *
    * @var int
    */
   public $matchRatePercentage;
 
   /**
-   * Optional. Immutable. Source of the upload data
-   *
-   * Accepted values: DATA_SOURCE_TYPE_UNSPECIFIED,
-   * DATA_SOURCE_TYPE_FIRST_PARTY, DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU,
-   * DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE,
-   * DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA
-   *
    * @param self::DATA_SOURCE_TYPE_* $dataSourceType
    */
   public function setDataSourceType($dataSourceType)
@@ -74,8 +48,6 @@ class ContactIdInfo extends \Google\Model
     return $this->dataSourceType;
   }
   /**
-   * Output only. Match rate for customer match user lists.
-   *
    * @param int $matchRatePercentage
    */
   public function setMatchRatePercentage($matchRatePercentage)

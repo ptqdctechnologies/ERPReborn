@@ -20,15 +20,11 @@ namespace Google\Service\DataManager;
 class UserIdData extends \Google\Model
 {
   /**
-   * Required. A unique identifier for a user, as defined by the advertiser.
-   *
    * @var string
    */
   public $userId;
 
   /**
-   * Required. A unique identifier for a user, as defined by the advertiser.
-   *
    * @param string $userId
    */
   public function setUserId($userId)

@@ -414,8 +414,9 @@ class Document extends \Google\Collection
     return $this->suggestionsViewMode;
   }
   /**
-   * Tabs that are part of a document. Tabs can contain child tabs, a tab nested
-   * within another tab. Child tabs are represented by the Tab.childTabs field.
+   * Output only. Tabs that are part of a document. Tabs can contain child tabs,
+   * a tab nested within another tab. Child tabs are represented by the
+   * Tab.childTabs field.
    *
    * @param Tab[] $tabs
    */

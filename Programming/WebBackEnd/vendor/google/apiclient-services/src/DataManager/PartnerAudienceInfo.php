@@ -19,40 +19,20 @@ namespace Google\Service\DataManager;
 
 class PartnerAudienceInfo extends \Google\Model
 {
-  /**
-   * Not specified.
-   */
   public const PARTNER_AUDIENCE_SOURCE_PARTNER_AUDIENCE_SOURCE_UNSPECIFIED = 'PARTNER_AUDIENCE_SOURCE_UNSPECIFIED';
-  /**
-   * Partner Audience source is commerce audience.
-   */
   public const PARTNER_AUDIENCE_SOURCE_COMMERCE_AUDIENCE = 'COMMERCE_AUDIENCE';
-  /**
-   * Partner Audience source is linear TV audience.
-   */
   public const PARTNER_AUDIENCE_SOURCE_LINEAR_TV_AUDIENCE = 'LINEAR_TV_AUDIENCE';
-  /**
-   * Partner Audience source is agency/provider audience.
-   */
   public const PARTNER_AUDIENCE_SOURCE_AGENCY_PROVIDER_AUDIENCE = 'AGENCY_PROVIDER_AUDIENCE';
   /**
-   * Optional. The commerce partner name. Only allowed if
-   * `partner_audience_source` is `COMMERCE_AUDIENCE`.
-   *
    * @var string
    */
   public $commercePartner;
   /**
-   * Required. Immutable. The source of the partner audience.
-   *
    * @var string
    */
   public $partnerAudienceSource;
 
   /**
-   * Optional. The commerce partner name. Only allowed if
-   * `partner_audience_source` is `COMMERCE_AUDIENCE`.
-   *
    * @param string $commercePartner
    */
   public function setCommercePartner($commercePartner)
@@ -67,11 +47,6 @@ class PartnerAudienceInfo extends \Google\Model
     return $this->commercePartner;
   }
   /**
-   * Required. Immutable. The source of the partner audience.
-   *
-   * Accepted values: PARTNER_AUDIENCE_SOURCE_UNSPECIFIED, COMMERCE_AUDIENCE,
-   * LINEAR_TV_AUDIENCE, AGENCY_PROVIDER_AUDIENCE
-   *
    * @param self::PARTNER_AUDIENCE_SOURCE_* $partnerAudienceSource
    */
   public function setPartnerAudienceSource($partnerAudienceSource)

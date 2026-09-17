@@ -19,42 +19,21 @@ namespace Google\Service\DataManager;
 
 class DataTypeCount extends \Google\Model
 {
-  /**
-   * The data type is unspecified.
-   */
   public const TYPE_DATA_TYPE_UNSPECIFIED = 'DATA_TYPE_UNSPECIFIED';
-  /**
-   * The data is an email address.
-   */
   public const TYPE_EMAIL = 'EMAIL';
-  /**
-   * The data is a phone number.
-   */
   public const TYPE_PHONE_NUMBER = 'PHONE_NUMBER';
-  /**
-   * The data is a physical address.
-   */
   public const TYPE_ADDRESS = 'ADDRESS';
-  /**
-   * The data is an IP address.
-   */
   public const TYPE_IP_ADDRESS = 'IP_ADDRESS';
   /**
-   * The count for this data type.
-   *
    * @var string
    */
   public $count;
   /**
-   * The type of data.
-   *
    * @var string
    */
   public $type;
 
   /**
-   * The count for this data type.
-   *
    * @param string $count
    */
   public function setCount($count)
@@ -69,11 +48,6 @@ class DataTypeCount extends \Google\Model
     return $this->count;
   }
   /**
-   * The type of data.
-   *
-   * Accepted values: DATA_TYPE_UNSPECIFIED, EMAIL, PHONE_NUMBER, ADDRESS,
-   * IP_ADDRESS
-   *
    * @param self::TYPE_* $type
    */
   public function setType($type)

@@ -17,7 +17,7 @@
 
 namespace Google\Service\PlayIntegrity;
 
-class EnvironmentDetails extends \Google\Model
+class EnvironmentDetails extends \Google\Collection
 {
   /**
    * Play Protect verdict has not been set.
@@ -48,8 +48,15 @@ class EnvironmentDetails extends \Google\Model
    * Play Protect is turned off. Turn on Play Protect.
    */
   public const PLAY_PROTECT_VERDICT_POSSIBLE_RISK = 'POSSIBLE_RISK';
+  protected $collection_key = 'locationSpoofingRiskVerdict';
   protected $appAccessRiskVerdictType = AppAccessRiskVerdict::class;
   protected $appAccessRiskVerdictDataType = '';
+  /**
+   * The evaluation of the Location Spoofing Risk verdict.
+   *
+   * @var string[]
+   */
+  public $locationSpoofingRiskVerdict;
   /**
    * The evaluation of Play Protect verdict.
    *
@@ -72,6 +79,22 @@ class EnvironmentDetails extends \Google\Model
   public function getAppAccessRiskVerdict()
   {
     return $this->appAccessRiskVerdict;
+  }
+  /**
+   * The evaluation of the Location Spoofing Risk verdict.
+   *
+   * @param string[] $locationSpoofingRiskVerdict
+   */
+  public function setLocationSpoofingRiskVerdict($locationSpoofingRiskVerdict)
+  {
+    $this->locationSpoofingRiskVerdict = $locationSpoofingRiskVerdict;
+  }
+  /**
+   * @return string[]
+   */
+  public function getLocationSpoofingRiskVerdict()
+  {
+    return $this->locationSpoofingRiskVerdict;
   }
   /**
    * The evaluation of Play Protect verdict.

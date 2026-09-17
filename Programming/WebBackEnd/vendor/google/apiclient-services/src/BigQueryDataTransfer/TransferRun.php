@@ -83,6 +83,8 @@ class TransferRun extends \Google\Model
    * @var string
    */
   public $notificationPubsubTopic;
+  protected $parameterConfigType = ParameterConfig::class;
+  protected $parameterConfigDataType = '';
   /**
    * Output only. Parameters specific to each data source. For more information
    * see the bq tab in the 'Setting up a data transfer' section for each data
@@ -260,6 +262,22 @@ class TransferRun extends \Google\Model
   public function getNotificationPubsubTopic()
   {
     return $this->notificationPubsubTopic;
+  }
+  /**
+   * Output only. The parameter config of the transfer run.
+   *
+   * @param ParameterConfig $parameterConfig
+   */
+  public function setParameterConfig(ParameterConfig $parameterConfig)
+  {
+    $this->parameterConfig = $parameterConfig;
+  }
+  /**
+   * @return ParameterConfig
+   */
+  public function getParameterConfig()
+  {
+    return $this->parameterConfig;
   }
   /**
    * Output only. Parameters specific to each data source. For more information

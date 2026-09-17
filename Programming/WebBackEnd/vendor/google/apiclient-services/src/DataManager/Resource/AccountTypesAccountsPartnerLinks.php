@@ -32,16 +32,9 @@ use Google\Service\DataManager\SearchPartnerLinksResponse;
 class AccountTypesAccountsPartnerLinks extends \Google\Service\Resource
 {
   /**
-   * Creates a partner link for the given account. Authorization Headers: This
-   * method supports the following optional headers to define how the API
-   * authorizes access for the request: * `login-account`: (Optional) The resource
-   * name of the account where the Google Account of the credentials is a user. If
-   * not set, defaults to the account of the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}`
    * (partnerLinks.create)
    *
-   * @param string $parent Required. The parent, which owns this collection of
-   * partner links. Format: accountTypes/{account_type}/accounts/{account}
+   * @param string $parent
    * @param PartnerLink $postBody
    * @param array $optParams Optional parameters.
    * @return PartnerLink
@@ -54,17 +47,9 @@ class AccountTypesAccountsPartnerLinks extends \Google\Service\Resource
     return $this->call('create', [$params], PartnerLink::class);
   }
   /**
-   * Deletes a partner link for the given account. Authorization Headers: This
-   * method supports the following optional headers to define how the API
-   * authorizes access for the request: * `login-account`: (Optional) The resource
-   * name of the account where the Google Account of the credentials is a user. If
-   * not set, defaults to the account of the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}`
    * (partnerLinks.delete)
    *
-   * @param string $name Required. The resource name of the partner link to
-   * delete. Format:
-   * accountTypes/{account_type}/accounts/{account}/partnerLinks/{partner_link}
+   * @param string $name
    * @param array $optParams Optional parameters.
    * @return DatamanagerEmpty
    * @throws \Google\Service\Exception
@@ -76,43 +61,14 @@ class AccountTypesAccountsPartnerLinks extends \Google\Service\Resource
     return $this->call('delete', [$params], DatamanagerEmpty::class);
   }
   /**
-   * Searches for all partner links to and from a given account. Authorization
-   * Headers: This method supports the following optional headers to define how
-   * the API authorizes access for the request: * `login-account`: (Optional) The
-   * resource name of the account where the Google Account of the credentials is a
-   * user. If not set, defaults to the account of the request. Format:
-   * `accountTypes/{loginAccountType}/accounts/{loginAccountId}`
    * (partnerLinks.search)
    *
-   * @param string $parent Required. Account to search for partner links. If no
-   * `filter` is specified, all partner links where this account is either the
-   * `owning_account` or `partner_account` are returned. Format:
-   * `accountTypes/{account_type}/accounts/{account}`
+   * @param string $parent
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. A [filter
-   * string](https://google.aip.dev/160). All fields need to be on the left hand
-   * side of each condition (for example: `partner_link_id = 123456789`). Fields
-   * must be specified using either all [camel
-   * case](https://en.wikipedia.org/wiki/Camel_case) or all [snake
-   * case](https://en.wikipedia.org/wiki/Snake_case). Don't use a combination of
-   * camel case and snake case. Supported operations: - `AND` - `=` - `!=`
-   * Supported fields: - `partner_link_id` - `owning_account.account_type` -
-   * `owning_account.account_id` - `partner_account.account_type` -
-   * `partner_account.account_id` - `feature_set` For partner links with the
-   * FEATURE_SET_AD_EVENT_MANAGEMENT feature set, the following fields are also
-   * supported: - `partner_customer_account.account_id` -
-   * `partner_link_metadata.implicit_accounts.account_id` Example:
-   * `owning_account.account_type = "GOOGLE_ADS" AND partner_account.account_id =
-   * 987654321`
-   * @opt_param int pageSize The maximum number of partner links to return. The
-   * service may return fewer than this value. If unspecified, at most 50 partner
-   * links will be returned. The maximum value is 100; values above 100 will be
-   * coerced to 100.
-   * @opt_param string pageToken A page token, received from a previous
-   * `SearchPartnerLinks` call. Provide this to retrieve the subsequent page. When
-   * paginating, all other parameters provided to `SearchPartnerLinks` must match
-   * the call that provided the page token.
+   * @opt_param string filter
+   * @opt_param int pageSize
+   * @opt_param string pageToken
    * @return SearchPartnerLinksResponse
    * @throws \Google\Service\Exception
    */

@@ -247,6 +247,8 @@ class GoogleCloudDiscoveryengineV1Engine extends \Google\Collection
   public $procurementContactEmails;
   protected $searchEngineConfigType = GoogleCloudDiscoveryengineV1EngineSearchEngineConfig::class;
   protected $searchEngineConfigDataType = '';
+  protected $sessionConfigType = GoogleCloudDiscoveryengineV1SessionConfig::class;
+  protected $sessionConfigDataType = '';
   /**
    * Required. The solutions of the engine.
    *
@@ -685,6 +687,22 @@ class GoogleCloudDiscoveryengineV1Engine extends \Google\Collection
   public function getSearchEngineConfig()
   {
     return $this->searchEngineConfig;
+  }
+  /**
+   * Optional. Non-empty default. Session config for the engine.
+   *
+   * @param GoogleCloudDiscoveryengineV1SessionConfig $sessionConfig
+   */
+  public function setSessionConfig(GoogleCloudDiscoveryengineV1SessionConfig $sessionConfig)
+  {
+    $this->sessionConfig = $sessionConfig;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1SessionConfig
+   */
+  public function getSessionConfig()
+  {
+    return $this->sessionConfig;
   }
   /**
    * Required. The solutions of the engine.

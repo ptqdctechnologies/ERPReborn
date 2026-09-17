@@ -104,6 +104,18 @@ class Server extends \Google\Model
    */
   public $name;
   /**
+   * Output only. Reserved for future use.
+   *
+   * @var bool
+   */
+  public $satisfiesPzi;
+  /**
+   * Output only. Reserved for future use.
+   *
+   * @var bool
+   */
+  public $satisfiesPzs;
+  /**
    * Output only. Service agent used to access the customer bucket.
    *
    * @var string
@@ -251,6 +263,38 @@ class Server extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Output only. Reserved for future use.
+   *
+   * @param bool $satisfiesPzi
+   */
+  public function setSatisfiesPzi($satisfiesPzi)
+  {
+    $this->satisfiesPzi = $satisfiesPzi;
+  }
+  /**
+   * @return bool
+   */
+  public function getSatisfiesPzi()
+  {
+    return $this->satisfiesPzi;
+  }
+  /**
+   * Output only. Reserved for future use.
+   *
+   * @param bool $satisfiesPzs
+   */
+  public function setSatisfiesPzs($satisfiesPzs)
+  {
+    $this->satisfiesPzs = $satisfiesPzs;
+  }
+  /**
+   * @return bool
+   */
+  public function getSatisfiesPzs()
+  {
+    return $this->satisfiesPzs;
   }
   /**
    * Output only. Service agent used to access the customer bucket.

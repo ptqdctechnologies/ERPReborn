@@ -20,19 +20,11 @@ namespace Google\Service\DataManager;
 class IngestEventsStatus extends \Google\Model
 {
   /**
-   * The total count of events sent in the upload request. Includes all events
-   * in the request, regardless of whether they were successfully ingested or
-   * not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of events sent in the upload request. Includes all events
-   * in the request, regardless of whether they were successfully ingested or
-   * not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

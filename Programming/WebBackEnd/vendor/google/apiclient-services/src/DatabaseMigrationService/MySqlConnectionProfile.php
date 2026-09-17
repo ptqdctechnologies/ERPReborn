@@ -53,8 +53,14 @@ class MySqlConnectionProfile extends \Google\Model
    * @var int
    */
   public $port;
+  protected $privateConnectivityType = PrivateConnectivity::class;
+  protected $privateConnectivityDataType = '';
+  protected $privateServiceConnectConnectivityType = PrivateServiceConnectConnectivity::class;
+  protected $privateServiceConnectConnectivityDataType = '';
   protected $sslType = SslConfig::class;
   protected $sslDataType = '';
+  protected $staticServiceIpConnectivityType = StaticServiceIpConnectivity::class;
+  protected $staticServiceIpConnectivityDataType = '';
   /**
    * Required. The username that Database Migration Service will use to connect
    * to the database. The value is encrypted when stored in Database Migration
@@ -149,6 +155,38 @@ class MySqlConnectionProfile extends \Google\Model
     return $this->port;
   }
   /**
+   * Private connectivity.
+   *
+   * @param PrivateConnectivity $privateConnectivity
+   */
+  public function setPrivateConnectivity(PrivateConnectivity $privateConnectivity)
+  {
+    $this->privateConnectivity = $privateConnectivity;
+  }
+  /**
+   * @return PrivateConnectivity
+   */
+  public function getPrivateConnectivity()
+  {
+    return $this->privateConnectivity;
+  }
+  /**
+   * Private Service Connect connectivity.
+   *
+   * @param PrivateServiceConnectConnectivity $privateServiceConnectConnectivity
+   */
+  public function setPrivateServiceConnectConnectivity(PrivateServiceConnectConnectivity $privateServiceConnectConnectivity)
+  {
+    $this->privateServiceConnectConnectivity = $privateServiceConnectConnectivity;
+  }
+  /**
+   * @return PrivateServiceConnectConnectivity
+   */
+  public function getPrivateServiceConnectConnectivity()
+  {
+    return $this->privateServiceConnectConnectivity;
+  }
+  /**
    * SSL configuration for the destination to connect to the source database.
    *
    * @param SslConfig $ssl
@@ -163,6 +201,22 @@ class MySqlConnectionProfile extends \Google\Model
   public function getSsl()
   {
     return $this->ssl;
+  }
+  /**
+   * Static Service IP connectivity.
+   *
+   * @param StaticServiceIpConnectivity $staticServiceIpConnectivity
+   */
+  public function setStaticServiceIpConnectivity(StaticServiceIpConnectivity $staticServiceIpConnectivity)
+  {
+    $this->staticServiceIpConnectivity = $staticServiceIpConnectivity;
+  }
+  /**
+   * @return StaticServiceIpConnectivity
+   */
+  public function getStaticServiceIpConnectivity()
+  {
+    return $this->staticServiceIpConnectivity;
   }
   /**
    * Required. The username that Database Migration Service will use to connect

@@ -17,8 +17,20 @@
 
 namespace Google\Service\APIhub;
 
-class GoogleCloudApihubV1SpecMetadata extends \Google\Model
+class GoogleCloudApihubV1SpecMetadata extends \Google\Collection
 {
+  protected $collection_key = 'deploymentResourceUris';
+  /**
+   * Optional. The gateway-side URIs of deployments that serve this spec. If
+   * provided, the API Hub service creates links between this spec and the
+   * deployments identified by these URIs. URIs that don't match any known
+   * deployment are ignored; a subsequent ingestion cycle that includes the
+   * missing deployment will re-establish the link. The maximum number of URIs
+   * allowed is 100.
+   *
+   * @var string[]
+   */
+  public $deploymentResourceUris;
   /**
    * Optional. Timestamp indicating when the spec was created at the source.
    *
@@ -42,6 +54,27 @@ class GoogleCloudApihubV1SpecMetadata extends \Google\Model
   protected $specType = GoogleCloudApihubV1Spec::class;
   protected $specDataType = '';
 
+  /**
+   * Optional. The gateway-side URIs of deployments that serve this spec. If
+   * provided, the API Hub service creates links between this spec and the
+   * deployments identified by these URIs. URIs that don't match any known
+   * deployment are ignored; a subsequent ingestion cycle that includes the
+   * missing deployment will re-establish the link. The maximum number of URIs
+   * allowed is 100.
+   *
+   * @param string[] $deploymentResourceUris
+   */
+  public function setDeploymentResourceUris($deploymentResourceUris)
+  {
+    $this->deploymentResourceUris = $deploymentResourceUris;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDeploymentResourceUris()
+  {
+    return $this->deploymentResourceUris;
+  }
   /**
    * Optional. Timestamp indicating when the spec was created at the source.
    *

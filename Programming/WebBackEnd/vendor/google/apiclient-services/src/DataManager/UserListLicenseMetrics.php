@@ -20,47 +20,27 @@ namespace Google\Service\DataManager;
 class UserListLicenseMetrics extends \Google\Model
 {
   /**
-   * Output only. The number of clicks for the user list license.
-   *
    * @var string
    */
   public $clickCount;
   /**
-   * Output only. The end date (inclusive) of the metrics in the format
-   * YYYYMMDD. For example, 20260102 represents January 2, 2026. If `start_date`
-   * is used in the filter, `end_date` is also required. If neither `start_date`
-   * nor `end_date` are included in the filter, the UserListLicenseMetrics
-   * fields will not be populated in the response.
-   *
    * @var string
    */
   public $endDate;
   /**
-   * Output only. The number of impressions for the user list license.
-   *
    * @var string
    */
   public $impressionCount;
   /**
-   * Output only. The revenue for the user list license in USD micros.
-   *
    * @var string
    */
   public $revenueUsdMicros;
   /**
-   * Output only. The start date (inclusive) of the metrics in the format
-   * YYYYMMDD. For example, 20260102 represents January 2, 2026. If `end_date`
-   * is used in the filter, `start_date` is also required. If neither
-   * `start_date` nor `end_date` are included in the filter, the
-   * UserListLicenseMetrics fields will not be populated in the response.
-   *
    * @var string
    */
   public $startDate;
 
   /**
-   * Output only. The number of clicks for the user list license.
-   *
    * @param string $clickCount
    */
   public function setClickCount($clickCount)
@@ -75,12 +55,6 @@ class UserListLicenseMetrics extends \Google\Model
     return $this->clickCount;
   }
   /**
-   * Output only. The end date (inclusive) of the metrics in the format
-   * YYYYMMDD. For example, 20260102 represents January 2, 2026. If `start_date`
-   * is used in the filter, `end_date` is also required. If neither `start_date`
-   * nor `end_date` are included in the filter, the UserListLicenseMetrics
-   * fields will not be populated in the response.
-   *
    * @param string $endDate
    */
   public function setEndDate($endDate)
@@ -95,8 +69,6 @@ class UserListLicenseMetrics extends \Google\Model
     return $this->endDate;
   }
   /**
-   * Output only. The number of impressions for the user list license.
-   *
    * @param string $impressionCount
    */
   public function setImpressionCount($impressionCount)
@@ -111,8 +83,6 @@ class UserListLicenseMetrics extends \Google\Model
     return $this->impressionCount;
   }
   /**
-   * Output only. The revenue for the user list license in USD micros.
-   *
    * @param string $revenueUsdMicros
    */
   public function setRevenueUsdMicros($revenueUsdMicros)
@@ -127,12 +97,6 @@ class UserListLicenseMetrics extends \Google\Model
     return $this->revenueUsdMicros;
   }
   /**
-   * Output only. The start date (inclusive) of the metrics in the format
-   * YYYYMMDD. For example, 20260102 represents January 2, 2026. If `end_date`
-   * is used in the filter, `start_date` is also required. If neither
-   * `start_date` nor `end_date` are included in the filter, the
-   * UserListLicenseMetrics fields will not be populated in the response.
-   *
    * @param string $startDate
    */
   public function setStartDate($startDate)

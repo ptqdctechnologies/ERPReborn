@@ -23,19 +23,11 @@ class RemoveCompositeDataStatus extends \Google\Collection
   protected $dataTypeCountsType = DataTypeCount::class;
   protected $dataTypeCountsDataType = 'array';
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @var string
    */
   public $recordCount;
 
   /**
-   * The total count of data types sent in the removal request, broken down by
-   * data type. Includes all data types in the request, regardless of whether
-   * they were successfully removed or not.
-   *
    * @param DataTypeCount[] $dataTypeCounts
    */
   public function setDataTypeCounts($dataTypeCounts)
@@ -50,10 +42,6 @@ class RemoveCompositeDataStatus extends \Google\Collection
     return $this->dataTypeCounts;
   }
   /**
-   * The total count of audience members sent in the removal request. Includes
-   * all audience members in the request, regardless of whether they were
-   * successfully removed or not.
-   *
    * @param string $recordCount
    */
   public function setRecordCount($recordCount)

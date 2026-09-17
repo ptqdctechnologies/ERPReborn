@@ -20,28 +20,19 @@ namespace Google\Service\DataManager;
 class PartnerCustomerAccount extends \Google\Model
 {
   /**
-   * Required. The identifier of the customer account in the partner's ID space.
-   *
    * @var string
    */
   public $accountId;
   /**
-   * Optional. The name of the account.
-   *
    * @var string
    */
   public $accountName;
   /**
-   * Optional. The type of the account. Can be used to distinguish between
-   * advertiser accounts and business level accounts, for example.
-   *
    * @var string
    */
   public $accountType;
 
   /**
-   * Required. The identifier of the customer account in the partner's ID space.
-   *
    * @param string $accountId
    */
   public function setAccountId($accountId)
@@ -56,8 +47,6 @@ class PartnerCustomerAccount extends \Google\Model
     return $this->accountId;
   }
   /**
-   * Optional. The name of the account.
-   *
    * @param string $accountName
    */
   public function setAccountName($accountName)
@@ -72,9 +61,6 @@ class PartnerCustomerAccount extends \Google\Model
     return $this->accountName;
   }
   /**
-   * Optional. The type of the account. Can be used to distinguish between
-   * advertiser accounts and business level accounts, for example.
-   *
    * @param string $accountType
    */
   public function setAccountType($accountType)

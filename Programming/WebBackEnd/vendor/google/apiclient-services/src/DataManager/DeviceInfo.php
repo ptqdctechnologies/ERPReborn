@@ -20,83 +20,55 @@ namespace Google\Service\DataManager;
 class DeviceInfo extends \Google\Model
 {
   /**
-   * Optional. The brand of the device.
-   *
    * @var string
    */
   public $brand;
   /**
-   * Optional. The brand or type of the browser.
-   *
    * @var string
    */
   public $browser;
   /**
-   * Optional. The version of the browser.
-   *
    * @var string
    */
   public $browserVersion;
   /**
-   * Optional. The category of device. For example, “desktop”, “tablet”,
-   * “mobile”, “smart TV”.
-   *
    * @var string
    */
   public $category;
   /**
-   * Optional. The IP address of the device for the given context. Required when
-   * used in an AdEvent.
-   *
    * @var string
    */
   public $ipAddress;
   /**
-   * Optional. The language the device uses in ISO 639-1 format.
-   *
    * @var string
    */
   public $languageCode;
   /**
-   * Optional. The model of the device.
-   *
    * @var string
    */
   public $model;
   /**
-   * Optional. The operating system or platform of the device.
-   *
    * @var string
    */
   public $operatingSystem;
   /**
-   * Optional. The version of the operating system or platform.
-   *
    * @var string
    */
   public $operatingSystemVersion;
   /**
-   * Optional. The height of the screen in pixels.
-   *
    * @var int
    */
   public $screenHeight;
   /**
-   * Optional. The width of the screen in pixels.
-   *
    * @var int
    */
   public $screenWidth;
   /**
-   * Optional. The user-agent string of the device for the given context.
-   *
    * @var string
    */
   public $userAgent;
 
   /**
-   * Optional. The brand of the device.
-   *
    * @param string $brand
    */
   public function setBrand($brand)
@@ -111,8 +83,6 @@ class DeviceInfo extends \Google\Model
     return $this->brand;
   }
   /**
-   * Optional. The brand or type of the browser.
-   *
    * @param string $browser
    */
   public function setBrowser($browser)
@@ -127,8 +97,6 @@ class DeviceInfo extends \Google\Model
     return $this->browser;
   }
   /**
-   * Optional. The version of the browser.
-   *
    * @param string $browserVersion
    */
   public function setBrowserVersion($browserVersion)
@@ -143,9 +111,6 @@ class DeviceInfo extends \Google\Model
     return $this->browserVersion;
   }
   /**
-   * Optional. The category of device. For example, “desktop”, “tablet”,
-   * “mobile”, “smart TV”.
-   *
    * @param string $category
    */
   public function setCategory($category)
@@ -160,9 +125,6 @@ class DeviceInfo extends \Google\Model
     return $this->category;
   }
   /**
-   * Optional. The IP address of the device for the given context. Required when
-   * used in an AdEvent.
-   *
    * @param string $ipAddress
    */
   public function setIpAddress($ipAddress)
@@ -177,8 +139,6 @@ class DeviceInfo extends \Google\Model
     return $this->ipAddress;
   }
   /**
-   * Optional. The language the device uses in ISO 639-1 format.
-   *
    * @param string $languageCode
    */
   public function setLanguageCode($languageCode)
@@ -193,8 +153,6 @@ class DeviceInfo extends \Google\Model
     return $this->languageCode;
   }
   /**
-   * Optional. The model of the device.
-   *
    * @param string $model
    */
   public function setModel($model)
@@ -209,8 +167,6 @@ class DeviceInfo extends \Google\Model
     return $this->model;
   }
   /**
-   * Optional. The operating system or platform of the device.
-   *
    * @param string $operatingSystem
    */
   public function setOperatingSystem($operatingSystem)
@@ -225,8 +181,6 @@ class DeviceInfo extends \Google\Model
     return $this->operatingSystem;
   }
   /**
-   * Optional. The version of the operating system or platform.
-   *
    * @param string $operatingSystemVersion
    */
   public function setOperatingSystemVersion($operatingSystemVersion)
@@ -241,8 +195,6 @@ class DeviceInfo extends \Google\Model
     return $this->operatingSystemVersion;
   }
   /**
-   * Optional. The height of the screen in pixels.
-   *
    * @param int $screenHeight
    */
   public function setScreenHeight($screenHeight)
@@ -257,8 +209,6 @@ class DeviceInfo extends \Google\Model
     return $this->screenHeight;
   }
   /**
-   * Optional. The width of the screen in pixels.
-   *
    * @param int $screenWidth
    */
   public function setScreenWidth($screenWidth)
@@ -273,8 +223,6 @@ class DeviceInfo extends \Google\Model
     return $this->screenWidth;
   }
   /**
-   * Optional. The user-agent string of the device for the given context.
-   *
    * @param string $userAgent
    */
   public function setUserAgent($userAgent)

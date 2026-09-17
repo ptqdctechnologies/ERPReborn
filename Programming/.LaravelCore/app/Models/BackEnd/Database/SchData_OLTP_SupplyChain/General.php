@@ -4459,18 +4459,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_DeliveryOrder_LatestVersion(
-            $varUserSession,
-            int $varSysBranch_RefID,
-            int $varPagination_PageSize = null,
-            int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null,
-            string $varDocumentDateStart = null,
-            string $varDocumentDateFinish = null,
-            string $varRequesterName = null,
-            string $varCombinedBudget = null,
-            string $varCombinedBudgetSection = null,
-            int $varType_RefID = null
-        ) {
+            $varUserSession, int $varSysBranch_RefID,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
+            {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4503,11 +4495,13 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
                 return
                     $varReturn;
-            } catch (\Exception $ex) {
+                }
+
+            catch (\Exception $ex) {
                 return
                     [];
+                }
             }
-        }
 
 
         /*
@@ -4547,7 +4541,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
             string $varRequesterName = null,
             string $varCombinedBudget = null,
             string $varCombinedBudgetSection = null
-        ) {
+            ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(

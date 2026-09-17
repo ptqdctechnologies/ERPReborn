@@ -25,6 +25,14 @@ class ParameterVersionPayload extends \Google\Model
    * @var string
    */
   public $data;
+  /**
+   * Optional. [Optional] The integrity checksum of the payload. If provided,
+   * the server will verify that the checksum matches the payload. If not
+   * provided, the server will generate the checksum.
+   *
+   * @var string
+   */
+  public $dataCrc32c;
 
   /**
    * Required. bytes data for storing payload.
@@ -41,6 +49,24 @@ class ParameterVersionPayload extends \Google\Model
   public function getData()
   {
     return $this->data;
+  }
+  /**
+   * Optional. [Optional] The integrity checksum of the payload. If provided,
+   * the server will verify that the checksum matches the payload. If not
+   * provided, the server will generate the checksum.
+   *
+   * @param string $dataCrc32c
+   */
+  public function setDataCrc32c($dataCrc32c)
+  {
+    $this->dataCrc32c = $dataCrc32c;
+  }
+  /**
+   * @return string
+   */
+  public function getDataCrc32c()
+  {
+    return $this->dataCrc32c;
   }
 }
 

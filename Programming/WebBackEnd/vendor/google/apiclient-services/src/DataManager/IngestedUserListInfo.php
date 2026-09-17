@@ -31,8 +31,6 @@ class IngestedUserListInfo extends \Google\Collection
   protected $pseudonymousIdInfoType = PseudonymousIdInfo::class;
   protected $pseudonymousIdInfoDataType = '';
   /**
-   * Required. Immutable. Upload key types of this user list.
-   *
    * @var string[]
    */
   public $uploadKeyTypes;
@@ -40,9 +38,6 @@ class IngestedUserListInfo extends \Google\Collection
   protected $userIdInfoDataType = '';
 
   /**
-   * Optional. Additional information when `CONTACT_ID` is one of the
-   * `upload_key_types`.
-   *
    * @param ContactIdInfo $contactIdInfo
    */
   public function setContactIdInfo(ContactIdInfo $contactIdInfo)
@@ -57,9 +52,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->contactIdInfo;
   }
   /**
-   * Optional. Additional information when `MOBILE_ID` is one of the
-   * `upload_key_types`.
-   *
    * @param MobileIdInfo $mobileIdInfo
    */
   public function setMobileIdInfo(MobileIdInfo $mobileIdInfo)
@@ -74,9 +66,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->mobileIdInfo;
   }
   /**
-   * Optional. Additional information when `PAIR_ID` is one of the
-   * `upload_key_types`. This feature is only available to data partners.
-   *
    * @param PairIdInfo $pairIdInfo
    */
   public function setPairIdInfo(PairIdInfo $pairIdInfo)
@@ -91,9 +80,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->pairIdInfo;
   }
   /**
-   * Optional. Additional information for partner audiences. This feature is
-   * only available to data partners.
-   *
    * @param PartnerAudienceInfo $partnerAudienceInfo
    */
   public function setPartnerAudienceInfo(PartnerAudienceInfo $partnerAudienceInfo)
@@ -108,9 +94,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->partnerAudienceInfo;
   }
   /**
-   * Optional. Additional information for `PSEUDONYMOUS_ID` is one of the
-   * `upload_key_types`.
-   *
    * @param PseudonymousIdInfo $pseudonymousIdInfo
    */
   public function setPseudonymousIdInfo(PseudonymousIdInfo $pseudonymousIdInfo)
@@ -125,8 +108,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->pseudonymousIdInfo;
   }
   /**
-   * Required. Immutable. Upload key types of this user list.
-   *
    * @param string[] $uploadKeyTypes
    */
   public function setUploadKeyTypes($uploadKeyTypes)
@@ -141,9 +122,6 @@ class IngestedUserListInfo extends \Google\Collection
     return $this->uploadKeyTypes;
   }
   /**
-   * Optional. Additional information when `USER_ID` is one of the
-   * `upload_key_types`.
-   *
    * @param UserIdInfo $userIdInfo
    */
   public function setUserIdInfo(UserIdInfo $userIdInfo)

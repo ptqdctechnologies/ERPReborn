@@ -28,6 +28,16 @@ class GoogleCloudApihubV1ApiOperation extends \Google\Collection
    * @var string
    */
   public $createTime;
+  /**
+   * Optional. The deployments linked directly to this API operation. For
+   * operations parsed from a spec, `UpdateApiOperation` returns
+   * `FAILED_PRECONDITION`; link the parent spec to the deployment via
+   * `Spec.deployments` instead. Format is
+   * `projects/{project}/locations/{location}/deployments/{deployment}`
+   *
+   * @var string[]
+   */
+  public $deployments;
   protected $detailsType = GoogleCloudApihubV1OperationDetails::class;
   protected $detailsDataType = '';
   /**
@@ -89,6 +99,26 @@ class GoogleCloudApihubV1ApiOperation extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Optional. The deployments linked directly to this API operation. For
+   * operations parsed from a spec, `UpdateApiOperation` returns
+   * `FAILED_PRECONDITION`; link the parent spec to the deployment via
+   * `Spec.deployments` instead. Format is
+   * `projects/{project}/locations/{location}/deployments/{deployment}`
+   *
+   * @param string[] $deployments
+   */
+  public function setDeployments($deployments)
+  {
+    $this->deployments = $deployments;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDeployments()
+  {
+    return $this->deployments;
   }
   /**
    * Optional. Operation details. Note: Even though this field is optional, it

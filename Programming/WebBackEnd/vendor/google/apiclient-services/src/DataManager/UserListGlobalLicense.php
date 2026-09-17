@@ -19,77 +19,42 @@ namespace Google\Service\DataManager;
 
 class UserListGlobalLicense extends \Google\Collection
 {
-  /**
-   * UNSPECIFIED.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED = 'USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED';
-  /**
-   * Reseller license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER = 'USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER';
-  /**
-   * DataMart Sell Side license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE = 'USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE';
-  /**
-   * DataMart Buy Side license.
-   */
   public const LICENSE_TYPE_USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE = 'USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE';
-  /**
-   * Unknown.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_UNSPECIFIED = 'USER_LIST_LICENSE_STATUS_UNSPECIFIED';
-  /**
-   * Active status - user list is still being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_ENABLED = 'USER_LIST_LICENSE_STATUS_ENABLED';
-  /**
-   * Inactive status - user list is no longer being licensed.
-   */
   public const STATUS_USER_LIST_LICENSE_STATUS_DISABLED = 'USER_LIST_LICENSE_STATUS_DISABLED';
   protected $collection_key = 'historicalPricings';
   protected $historicalPricingsType = UserListLicensePricing::class;
   protected $historicalPricingsDataType = 'array';
   /**
-   * Immutable. Product type of client customer which the user list is being
-   * licensed to.
-   *
    * @var string
    */
   public $licenseType;
   protected $metricsType = UserListLicenseMetrics::class;
   protected $metricsDataType = '';
   /**
-   * Identifier. The resource name of the user list global license.
-   *
    * @var string
    */
   public $name;
   protected $pricingType = UserListLicensePricing::class;
   protected $pricingDataType = '';
   /**
-   * Optional. Status of UserListGlobalLicense - ENABLED or DISABLED.
-   *
    * @var string
    */
   public $status;
   /**
-   * Output only. Name of the user list being licensed. This field is read-only.
-   *
    * @var string
    */
   public $userListDisplayName;
   /**
-   * Immutable. ID of the user list being licensed.
-   *
    * @var string
    */
   public $userListId;
 
   /**
-   * Output only. Pricing history of this user list license. This field is read-
-   * only.
-   *
    * @param UserListLicensePricing[] $historicalPricings
    */
   public function setHistoricalPricings($historicalPricings)
@@ -104,14 +69,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->historicalPricings;
   }
   /**
-   * Immutable. Product type of client customer which the user list is being
-   * licensed to.
-   *
-   * Accepted values: USER_LIST_GLOBAL_LICENSE_TYPE_UNSPECIFIED,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_RESELLER,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_SELL_SIDE,
-   * USER_LIST_GLOBAL_LICENSE_TYPE_DATA_MART_BUY_SIDE
-   *
    * @param self::LICENSE_TYPE_* $licenseType
    */
   public function setLicenseType($licenseType)
@@ -126,10 +83,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->licenseType;
   }
   /**
-   * Output only. Metrics related to this license This field is read-only and
-   * only populated if the start and end dates are set in the
-   * ListUserListGlobalLicenses call
-   *
    * @param UserListLicenseMetrics $metrics
    */
   public function setMetrics(UserListLicenseMetrics $metrics)
@@ -144,8 +97,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->metrics;
   }
   /**
-   * Identifier. The resource name of the user list global license.
-   *
    * @param string $name
    */
   public function setName($name)
@@ -160,8 +111,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->name;
   }
   /**
-   * Optional. UserListGlobalLicense pricing.
-   *
    * @param UserListLicensePricing $pricing
    */
   public function setPricing(UserListLicensePricing $pricing)
@@ -176,11 +125,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->pricing;
   }
   /**
-   * Optional. Status of UserListGlobalLicense - ENABLED or DISABLED.
-   *
-   * Accepted values: USER_LIST_LICENSE_STATUS_UNSPECIFIED,
-   * USER_LIST_LICENSE_STATUS_ENABLED, USER_LIST_LICENSE_STATUS_DISABLED
-   *
    * @param self::STATUS_* $status
    */
   public function setStatus($status)
@@ -195,8 +139,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->status;
   }
   /**
-   * Output only. Name of the user list being licensed. This field is read-only.
-   *
    * @param string $userListDisplayName
    */
   public function setUserListDisplayName($userListDisplayName)
@@ -211,8 +153,6 @@ class UserListGlobalLicense extends \Google\Collection
     return $this->userListDisplayName;
   }
   /**
-   * Immutable. ID of the user list being licensed.
-   *
    * @param string $userListId
    */
   public function setUserListId($userListId)

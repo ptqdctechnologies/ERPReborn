@@ -249,6 +249,8 @@ class GoogleCloudDiscoveryengineV1alphaEngine extends \Google\Collection
   protected $recommendationMetadataDataType = '';
   protected $searchEngineConfigType = GoogleCloudDiscoveryengineV1alphaEngineSearchEngineConfig::class;
   protected $searchEngineConfigDataType = '';
+  protected $sessionConfigType = GoogleCloudDiscoveryengineV1alphaSessionConfig::class;
+  protected $sessionConfigDataType = '';
   protected $similarDocumentsConfigType = GoogleCloudDiscoveryengineV1alphaEngineSimilarDocumentsEngineConfig::class;
   protected $similarDocumentsConfigDataType = '';
   /**
@@ -706,6 +708,22 @@ class GoogleCloudDiscoveryengineV1alphaEngine extends \Google\Collection
   public function getSearchEngineConfig()
   {
     return $this->searchEngineConfig;
+  }
+  /**
+   * Optional. Non-empty default. Session config for the engine.
+   *
+   * @param GoogleCloudDiscoveryengineV1alphaSessionConfig $sessionConfig
+   */
+  public function setSessionConfig(GoogleCloudDiscoveryengineV1alphaSessionConfig $sessionConfig)
+  {
+    $this->sessionConfig = $sessionConfig;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1alphaSessionConfig
+   */
+  public function getSessionConfig()
+  {
+    return $this->sessionConfig;
   }
   /**
    * Additional config specs for a `similar-items` engine.

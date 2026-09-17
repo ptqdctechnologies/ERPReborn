@@ -311,6 +311,8 @@ class GoogleCloudRunV2Revision extends \Google\Collection
   protected $volumesDataType = 'array';
   protected $vpcAccessType = GoogleCloudRunV2VpcAccess::class;
   protected $vpcAccessDataType = '';
+  protected $workloadIdentityConfigType = GoogleCloudRunV2WorkloadIdentityConfig::class;
+  protected $workloadIdentityConfigDataType = '';
 
   /**
    * Output only. Unstructured key value map that may be set by external tools
@@ -929,6 +931,22 @@ class GoogleCloudRunV2Revision extends \Google\Collection
   public function getVpcAccess()
   {
     return $this->vpcAccess;
+  }
+  /**
+   * Optional. The Revision's workload identity settings.
+   *
+   * @param GoogleCloudRunV2WorkloadIdentityConfig $workloadIdentityConfig
+   */
+  public function setWorkloadIdentityConfig(GoogleCloudRunV2WorkloadIdentityConfig $workloadIdentityConfig)
+  {
+    $this->workloadIdentityConfig = $workloadIdentityConfig;
+  }
+  /**
+   * @return GoogleCloudRunV2WorkloadIdentityConfig
+   */
+  public function getWorkloadIdentityConfig()
+  {
+    return $this->workloadIdentityConfig;
   }
 }
 

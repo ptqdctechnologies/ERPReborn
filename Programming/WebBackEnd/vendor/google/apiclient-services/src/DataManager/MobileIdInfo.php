@@ -19,62 +19,28 @@ namespace Google\Service\DataManager;
 
 class MobileIdInfo extends \Google\Model
 {
-  /**
-   * Not specified.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_UNSPECIFIED = 'DATA_SOURCE_TYPE_UNSPECIFIED';
-  /**
-   * The uploaded data is first-party data.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_FIRST_PARTY = 'DATA_SOURCE_TYPE_FIRST_PARTY';
-  /**
-   * The uploaded data is from a third-party credit bureau.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU = 'DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU';
-  /**
-   * The uploaded data is from a third-party voter file.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE = 'DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE';
-  /**
-   * The uploaded data is third party partner data.
-   */
   public const DATA_SOURCE_TYPE_DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA = 'DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA';
-  /**
-   * Not specified.
-   */
   public const KEY_SPACE_KEY_SPACE_UNSPECIFIED = 'KEY_SPACE_UNSPECIFIED';
-  /**
-   * The iOS keyspace.
-   */
   public const KEY_SPACE_IOS = 'IOS';
-  /**
-   * The Android keyspace.
-   */
   public const KEY_SPACE_ANDROID = 'ANDROID';
   /**
-   * Required. Immutable. A string that uniquely identifies a mobile application
-   * from which the data was collected.
-   *
    * @var string
    */
   public $appId;
   /**
-   * Optional. Immutable. Source of the upload data.
-   *
    * @var string
    */
   public $dataSourceType;
   /**
-   * Required. Immutable. The key space of mobile IDs.
-   *
    * @var string
    */
   public $keySpace;
 
   /**
-   * Required. Immutable. A string that uniquely identifies a mobile application
-   * from which the data was collected.
-   *
    * @param string $appId
    */
   public function setAppId($appId)
@@ -89,13 +55,6 @@ class MobileIdInfo extends \Google\Model
     return $this->appId;
   }
   /**
-   * Optional. Immutable. Source of the upload data.
-   *
-   * Accepted values: DATA_SOURCE_TYPE_UNSPECIFIED,
-   * DATA_SOURCE_TYPE_FIRST_PARTY, DATA_SOURCE_TYPE_THIRD_PARTY_CREDIT_BUREAU,
-   * DATA_SOURCE_TYPE_THIRD_PARTY_VOTER_FILE,
-   * DATA_SOURCE_TYPE_THIRD_PARTY_PARTNER_DATA
-   *
    * @param self::DATA_SOURCE_TYPE_* $dataSourceType
    */
   public function setDataSourceType($dataSourceType)
@@ -110,10 +69,6 @@ class MobileIdInfo extends \Google\Model
     return $this->dataSourceType;
   }
   /**
-   * Required. Immutable. The key space of mobile IDs.
-   *
-   * Accepted values: KEY_SPACE_UNSPECIFIED, IOS, ANDROID
-   *
    * @param self::KEY_SPACE_* $keySpace
    */
   public function setKeySpace($keySpace)

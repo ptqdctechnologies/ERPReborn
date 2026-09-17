@@ -20,12 +20,39 @@ namespace Google\Service\DiscoveryEngine;
 class GoogleCloudDiscoveryengineV1alphaAlphaEvolveExperimentConfigGenerationSettingsModelConfig extends \Google\Model
 {
   /**
+   * Unset. The model applies its own default, which is not the same level for
+   * every model.
+   */
+  public const THINKING_LEVEL_THINKING_LEVEL_UNSPECIFIED = 'THINKING_LEVEL_UNSPECIFIED';
+  /**
+   * Least thinking. Not offered by every model.
+   */
+  public const THINKING_LEVEL_MINIMAL = 'MINIMAL';
+  /**
+   * Vertex `LOW`.
+   */
+  public const THINKING_LEVEL_LOW = 'LOW';
+  /**
+   * Vertex `MEDIUM`.
+   */
+  public const THINKING_LEVEL_MEDIUM = 'MEDIUM';
+  /**
+   * Vertex `HIGH`.
+   */
+  public const THINKING_LEVEL_HIGH = 'HIGH';
+  /**
    * Required. Model name (e.g. `gemini-2.5-flash`, `gemini-3.1-pro-preview`).
    * See `model_mixture` for the list of allowed models.
    *
    * @var string
    */
   public $name;
+  /**
+   * Optional. Sent as Vertex `ThinkingConfig.thinking_level`.
+   *
+   * @var string
+   */
+  public $thinkingLevel;
   /**
    * Optional. Relative weight for this model in the mixture. Must be a finite,
    * strictly positive value. Weights across all entries are normalized server-
@@ -54,6 +81,24 @@ class GoogleCloudDiscoveryengineV1alphaAlphaEvolveExperimentConfigGenerationSett
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Sent as Vertex `ThinkingConfig.thinking_level`.
+   *
+   * Accepted values: THINKING_LEVEL_UNSPECIFIED, MINIMAL, LOW, MEDIUM, HIGH
+   *
+   * @param self::THINKING_LEVEL_* $thinkingLevel
+   */
+  public function setThinkingLevel($thinkingLevel)
+  {
+    $this->thinkingLevel = $thinkingLevel;
+  }
+  /**
+   * @return self::THINKING_LEVEL_*
+   */
+  public function getThinkingLevel()
+  {
+    return $this->thinkingLevel;
   }
   /**
    * Optional. Relative weight for this model in the mixture. Must be a finite,

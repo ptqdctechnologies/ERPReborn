@@ -22,17 +22,11 @@ class Baseline extends \Google\Model
   protected $baselineLocationType = Location::class;
   protected $baselineLocationDataType = '';
   /**
-   * If set to true, the service will try to automatically detect the baseline
-   * location for insights.
-   *
    * @var bool
    */
   public $locationAutoDetectionEnabled;
 
   /**
-   * The baseline location of the request. Baseline location is an OR-list of
-   * the requested regions.
-   *
    * @param Location $baselineLocation
    */
   public function setBaselineLocation(Location $baselineLocation)
@@ -47,9 +41,6 @@ class Baseline extends \Google\Model
     return $this->baselineLocation;
   }
   /**
-   * If set to true, the service will try to automatically detect the baseline
-   * location for insights.
-   *
    * @param bool $locationAutoDetectionEnabled
    */
   public function setLocationAutoDetectionEnabled($locationAutoDetectionEnabled)

@@ -34,7 +34,9 @@ use Google\Client;
  */
 class WebContentPublisher extends \Google\Service
 {
-
+  /** Private Service: https://www.googleapis.com/auth/webcontentpublisher.publications.manage.system. */
+  const WEBCONTENTPUBLISHER_PUBLICATIONS_MANAGE_SYSTEM =
+      "https://www.googleapis.com/auth/webcontentpublisher.publications.manage.system";
 
   public $organizations_publications;
   public $organizations_publications_ctas;

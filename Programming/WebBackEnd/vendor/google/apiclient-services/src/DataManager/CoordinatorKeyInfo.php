@@ -20,15 +20,11 @@ namespace Google\Service\DataManager;
 class CoordinatorKeyInfo extends \Google\Model
 {
   /**
-   * Required. The ID of the chosen coordinator key.
-   *
    * @var string
    */
   public $keyId;
 
   /**
-   * Required. The ID of the chosen coordinator key.
-   *
    * @param string $keyId
    */
   public function setKeyId($keyId)

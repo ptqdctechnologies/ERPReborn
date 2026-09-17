@@ -175,6 +175,8 @@ class NodeKubeletConfig extends \Google\Collection
    * @var string
    */
   public $podPidsLimit;
+  protected $reservedResourcesConfigType = ReservedResourcesConfig::class;
+  protected $reservedResourcesConfigDataType = '';
   /**
    * Optional. shutdown_grace_period_critical_pods_seconds is the maximum
    * allowed grace period (in seconds) used to terminate critical pods during a
@@ -585,6 +587,23 @@ class NodeKubeletConfig extends \Google\Collection
   public function getPodPidsLimit()
   {
     return $this->podPidsLimit;
+  }
+  /**
+   * Optional. Controls the reserved resources on the node. Only included if any
+   * fields are specified.
+   *
+   * @param ReservedResourcesConfig $reservedResourcesConfig
+   */
+  public function setReservedResourcesConfig(ReservedResourcesConfig $reservedResourcesConfig)
+  {
+    $this->reservedResourcesConfig = $reservedResourcesConfig;
+  }
+  /**
+   * @return ReservedResourcesConfig
+   */
+  public function getReservedResourcesConfig()
+  {
+    return $this->reservedResourcesConfig;
   }
   /**
    * Optional. shutdown_grace_period_critical_pods_seconds is the maximum

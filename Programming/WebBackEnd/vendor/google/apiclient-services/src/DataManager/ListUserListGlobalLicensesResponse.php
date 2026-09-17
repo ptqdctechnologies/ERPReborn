@@ -21,9 +21,6 @@ class ListUserListGlobalLicensesResponse extends \Google\Collection
 {
   protected $collection_key = 'userListGlobalLicenses';
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @var string
    */
   public $nextPageToken;
@@ -31,9 +28,6 @@ class ListUserListGlobalLicensesResponse extends \Google\Collection
   protected $userListGlobalLicensesDataType = 'array';
 
   /**
-   * A token, which can be sent as `page_token` to retrieve the next page. If
-   * this field is omitted, there are no subsequent pages.
-   *
    * @param string $nextPageToken
    */
   public function setNextPageToken($nextPageToken)
@@ -48,8 +42,6 @@ class ListUserListGlobalLicensesResponse extends \Google\Collection
     return $this->nextPageToken;
   }
   /**
-   * The licenses for the given user list in the request.
-   *
    * @param UserListGlobalLicense[] $userListGlobalLicenses
    */
   public function setUserListGlobalLicenses($userListGlobalLicenses)

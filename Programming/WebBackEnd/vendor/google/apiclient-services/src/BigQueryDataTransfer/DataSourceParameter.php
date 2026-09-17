@@ -128,6 +128,13 @@ class DataSourceParameter extends \Google\Collection
    */
   public $required;
   /**
+   * Output only. If true, the parameter value can be provided through Secret
+   * Manager.
+   *
+   * @var bool
+   */
+  public $secretManagerAllowed;
+  /**
    * Parameter type.
    *
    * @var string
@@ -345,6 +352,23 @@ class DataSourceParameter extends \Google\Collection
   public function getRequired()
   {
     return $this->required;
+  }
+  /**
+   * Output only. If true, the parameter value can be provided through Secret
+   * Manager.
+   *
+   * @param bool $secretManagerAllowed
+   */
+  public function setSecretManagerAllowed($secretManagerAllowed)
+  {
+    $this->secretManagerAllowed = $secretManagerAllowed;
+  }
+  /**
+   * @return bool
+   */
+  public function getSecretManagerAllowed()
+  {
+    return $this->secretManagerAllowed;
   }
   /**
    * Parameter type.

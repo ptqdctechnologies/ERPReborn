@@ -20,15 +20,11 @@ namespace Google\Service\DataManager;
 class RemoveAllAudienceMembersResponse extends \Google\Model
 {
   /**
-   * The auto-generated ID of the request.
-   *
    * @var string
    */
   public $requestId;
 
   /**
-   * The auto-generated ID of the request.
-   *
    * @param string $requestId
    */
   public function setRequestId($requestId)

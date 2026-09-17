@@ -21,15 +21,11 @@ class PartnerProvidedIdData extends \Google\Collection
 {
   protected $collection_key = 'partnerProvidedIds';
   /**
-   * Required. The list of partner-provided identifiers.
-   *
    * @var string[]
    */
   public $partnerProvidedIds;
 
   /**
-   * Required. The list of partner-provided identifiers.
-   *
    * @param string[] $partnerProvidedIds
    */
   public function setPartnerProvidedIds($partnerProvidedIds)

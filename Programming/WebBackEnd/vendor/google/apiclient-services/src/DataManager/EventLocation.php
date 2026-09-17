@@ -20,46 +20,31 @@ namespace Google\Service\DataManager;
 class EventLocation extends \Google\Model
 {
   /**
-   * Optional. The name of the city where the event occurred.
-   *
    * @var string
    */
   public $city;
   /**
-   * Optional. The continent code in UN M49 format where the event occurred.
-   *
    * @var string
    */
   public $continentCode;
   /**
-   * Optional. The 2-letter CLDR region code of the user's address.
-   *
    * @var string
    */
   public $regionCode;
   /**
-   * Optional. Required for Store Sales. The identifier to represent a physical
-   * store where the event happened.
-   *
    * @var string
    */
   public $storeId;
   /**
-   * Optional. The subcontinent code in UN M49 format where the event occurred.
-   *
    * @var string
    */
   public $subcontinentCode;
   /**
-   * Optional. The ISO 3166-2 subdivision code where the event occurred.
-   *
    * @var string
    */
   public $subdivisionCode;
 
   /**
-   * Optional. The name of the city where the event occurred.
-   *
    * @param string $city
    */
   public function setCity($city)
@@ -74,8 +59,6 @@ class EventLocation extends \Google\Model
     return $this->city;
   }
   /**
-   * Optional. The continent code in UN M49 format where the event occurred.
-   *
    * @param string $continentCode
    */
   public function setContinentCode($continentCode)
@@ -90,8 +73,6 @@ class EventLocation extends \Google\Model
     return $this->continentCode;
   }
   /**
-   * Optional. The 2-letter CLDR region code of the user's address.
-   *
    * @param string $regionCode
    */
   public function setRegionCode($regionCode)
@@ -106,9 +87,6 @@ class EventLocation extends \Google\Model
     return $this->regionCode;
   }
   /**
-   * Optional. Required for Store Sales. The identifier to represent a physical
-   * store where the event happened.
-   *
    * @param string $storeId
    */
   public function setStoreId($storeId)
@@ -123,8 +101,6 @@ class EventLocation extends \Google\Model
     return $this->storeId;
   }
   /**
-   * Optional. The subcontinent code in UN M49 format where the event occurred.
-   *
    * @param string $subcontinentCode
    */
   public function setSubcontinentCode($subcontinentCode)
@@ -139,8 +115,6 @@ class EventLocation extends \Google\Model
     return $this->subcontinentCode;
   }
   /**
-   * Optional. The ISO 3166-2 subdivision code where the event occurred.
-   *
    * @param string $subdivisionCode
    */
   public function setSubdivisionCode($subdivisionCode)

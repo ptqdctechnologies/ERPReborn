@@ -30,12 +30,11 @@ use Google\Service\DataManager\RetrieveRequestStatusResponse;
 class RequestStatus extends \Google\Service\Resource
 {
   /**
-   * Gets the status of a request given request id. (requestStatus.retrieve)
+   * (requestStatus.retrieve)
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string requestId Required. Required. The request ID of the Data
-   * Manager API request.
+   * @opt_param string requestId
    * @return RetrieveRequestStatusResponse
    * @throws \Google\Service\Exception
    */

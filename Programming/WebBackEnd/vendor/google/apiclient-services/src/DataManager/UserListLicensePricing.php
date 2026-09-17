@@ -19,112 +19,52 @@ namespace Google\Service\DataManager;
 
 class UserListLicensePricing extends \Google\Model
 {
-  /**
-   * UNSPECIFIED.
-   */
   public const BUYER_APPROVAL_STATE_USER_LIST_PRICING_BUYER_APPROVAL_STATE_UNSPECIFIED = 'USER_LIST_PRICING_BUYER_APPROVAL_STATE_UNSPECIFIED';
-  /**
-   * User list client has not yet accepted the pricing terms set by the user
-   * list owner.
-   */
   public const BUYER_APPROVAL_STATE_PENDING = 'PENDING';
-  /**
-   * User list client has accepted the pricing terms set by the user list owner.
-   */
   public const BUYER_APPROVAL_STATE_APPROVED = 'APPROVED';
-  /**
-   * User list client has rejected the pricing terms set by the user list owner.
-   */
   public const BUYER_APPROVAL_STATE_REJECTED = 'REJECTED';
-  /**
-   * Unspecified.
-   */
   public const COST_TYPE_USER_LIST_PRICING_COST_TYPE_UNSPECIFIED = 'USER_LIST_PRICING_COST_TYPE_UNSPECIFIED';
-  /**
-   * Cost per click.
-   */
   public const COST_TYPE_CPC = 'CPC';
-  /**
-   * Cost per mille (thousand impressions).
-   */
   public const COST_TYPE_CPM = 'CPM';
-  /**
-   * Media share.
-   */
   public const COST_TYPE_MEDIA_SHARE = 'MEDIA_SHARE';
   /**
-   * Output only. The buyer approval state of this pricing. This field is read-
-   * only.
-   *
    * @var string
    */
   public $buyerApprovalState;
   /**
-   * Optional. The cost associated with the model, in micro units (10^-6), in
-   * the currency specified by the currency_code field. For example, 2000000
-   * means $2 if `currency_code` is `USD`.
-   *
    * @var string
    */
   public $costMicros;
   /**
-   * Immutable. The cost type of this pricing. Can be set only in the `create`
-   * operation. Can't be updated for an existing license.
-   *
    * @var string
    */
   public $costType;
   /**
-   * Optional. The currency in which cost and max_cost is specified. Must be a
-   * three-letter currency code defined in ISO 4217.
-   *
    * @var string
    */
   public $currencyCode;
   /**
-   * Optional. End time of the pricing.
-   *
    * @var string
    */
   public $endTime;
   /**
-   * Optional. The maximum CPM a commerce audience can be charged when the
-   * MEDIA_SHARE cost type is used. The value is in micro units (10^-6) and in
-   * the currency specified by the currency_code field. For example, 2000000
-   * means $2 if `currency_code` is `USD`. This is only relevant when cost_type
-   * is MEDIA_SHARE. When cost_type is not MEDIA_SHARE, and this field is set, a
-   * MAX_COST_NOT_ALLOWED error will be returned. If not set or set to`0`, there
-   * is no cap.
-   *
    * @var string
    */
   public $maxCostMicros;
   /**
-   * Output only. Whether this pricing is active.
-   *
    * @var bool
    */
   public $pricingActive;
   /**
-   * Output only. The ID of this pricing.
-   *
    * @var string
    */
   public $pricingId;
   /**
-   * Output only. Start time of the pricing.
-   *
    * @var string
    */
   public $startTime;
 
   /**
-   * Output only. The buyer approval state of this pricing. This field is read-
-   * only.
-   *
-   * Accepted values: USER_LIST_PRICING_BUYER_APPROVAL_STATE_UNSPECIFIED,
-   * PENDING, APPROVED, REJECTED
-   *
    * @param self::BUYER_APPROVAL_STATE_* $buyerApprovalState
    */
   public function setBuyerApprovalState($buyerApprovalState)
@@ -139,10 +79,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->buyerApprovalState;
   }
   /**
-   * Optional. The cost associated with the model, in micro units (10^-6), in
-   * the currency specified by the currency_code field. For example, 2000000
-   * means $2 if `currency_code` is `USD`.
-   *
    * @param string $costMicros
    */
   public function setCostMicros($costMicros)
@@ -157,12 +93,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->costMicros;
   }
   /**
-   * Immutable. The cost type of this pricing. Can be set only in the `create`
-   * operation. Can't be updated for an existing license.
-   *
-   * Accepted values: USER_LIST_PRICING_COST_TYPE_UNSPECIFIED, CPC, CPM,
-   * MEDIA_SHARE
-   *
    * @param self::COST_TYPE_* $costType
    */
   public function setCostType($costType)
@@ -177,9 +107,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->costType;
   }
   /**
-   * Optional. The currency in which cost and max_cost is specified. Must be a
-   * three-letter currency code defined in ISO 4217.
-   *
    * @param string $currencyCode
    */
   public function setCurrencyCode($currencyCode)
@@ -194,8 +121,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->currencyCode;
   }
   /**
-   * Optional. End time of the pricing.
-   *
    * @param string $endTime
    */
   public function setEndTime($endTime)
@@ -210,14 +135,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->endTime;
   }
   /**
-   * Optional. The maximum CPM a commerce audience can be charged when the
-   * MEDIA_SHARE cost type is used. The value is in micro units (10^-6) and in
-   * the currency specified by the currency_code field. For example, 2000000
-   * means $2 if `currency_code` is `USD`. This is only relevant when cost_type
-   * is MEDIA_SHARE. When cost_type is not MEDIA_SHARE, and this field is set, a
-   * MAX_COST_NOT_ALLOWED error will be returned. If not set or set to`0`, there
-   * is no cap.
-   *
    * @param string $maxCostMicros
    */
   public function setMaxCostMicros($maxCostMicros)
@@ -232,8 +149,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->maxCostMicros;
   }
   /**
-   * Output only. Whether this pricing is active.
-   *
    * @param bool $pricingActive
    */
   public function setPricingActive($pricingActive)
@@ -248,8 +163,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->pricingActive;
   }
   /**
-   * Output only. The ID of this pricing.
-   *
    * @param string $pricingId
    */
   public function setPricingId($pricingId)
@@ -264,8 +177,6 @@ class UserListLicensePricing extends \Google\Model
     return $this->pricingId;
   }
   /**
-   * Output only. Start time of the pricing.
-   *
    * @param string $startTime
    */
   public function setStartTime($startTime)

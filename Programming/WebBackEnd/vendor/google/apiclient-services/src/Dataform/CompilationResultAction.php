@@ -21,6 +21,8 @@ class CompilationResultAction extends \Google\Model
 {
   protected $assertionType = Assertion::class;
   protected $assertionDataType = '';
+  protected $bigqueryUnitTestType = BigQueryUnitTest::class;
+  protected $bigqueryUnitTestDataType = '';
   protected $canonicalTargetType = Target::class;
   protected $canonicalTargetDataType = '';
   protected $dataPreparationType = DataPreparation::class;
@@ -66,6 +68,22 @@ class CompilationResultAction extends \Google\Model
   public function getAssertion()
   {
     return $this->assertion;
+  }
+  /**
+   * The unit test executed by this action.
+   *
+   * @param BigQueryUnitTest $bigqueryUnitTest
+   */
+  public function setBigqueryUnitTest(BigQueryUnitTest $bigqueryUnitTest)
+  {
+    $this->bigqueryUnitTest = $bigqueryUnitTest;
+  }
+  /**
+   * @return BigQueryUnitTest
+   */
+  public function getBigqueryUnitTest()
+  {
+    return $this->bigqueryUnitTest;
   }
   /**
    * The action's identifier if the project had been compiled without any

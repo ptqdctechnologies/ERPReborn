@@ -20,37 +20,23 @@ namespace Google\Service\DataManager;
 class SizeInfo extends \Google\Model
 {
   /**
-   * Output only. Estimated number of members in this user list, on the Google
-   * Display Network.
-   *
    * @var string
    */
   public $displayNetworkMembersCount;
   /**
-   * Output only. Estimated number of members in this user list on Gmail.
-   *
    * @var string
    */
   public $gmailMembersCount;
   /**
-   * Output only. Estimated number of members in this user list in the
-   * google.com domain. These are the members available for targeting in Search
-   * campaigns.
-   *
    * @var string
    */
   public $searchNetworkMembersCount;
   /**
-   * Output only. Estimated number of members in this user list on YouTube.
-   *
    * @var string
    */
   public $youtubeMembersCount;
 
   /**
-   * Output only. Estimated number of members in this user list, on the Google
-   * Display Network.
-   *
    * @param string $displayNetworkMembersCount
    */
   public function setDisplayNetworkMembersCount($displayNetworkMembersCount)
@@ -65,8 +51,6 @@ class SizeInfo extends \Google\Model
     return $this->displayNetworkMembersCount;
   }
   /**
-   * Output only. Estimated number of members in this user list on Gmail.
-   *
    * @param string $gmailMembersCount
    */
   public function setGmailMembersCount($gmailMembersCount)
@@ -81,10 +65,6 @@ class SizeInfo extends \Google\Model
     return $this->gmailMembersCount;
   }
   /**
-   * Output only. Estimated number of members in this user list in the
-   * google.com domain. These are the members available for targeting in Search
-   * campaigns.
-   *
    * @param string $searchNetworkMembersCount
    */
   public function setSearchNetworkMembersCount($searchNetworkMembersCount)
@@ -99,8 +79,6 @@ class SizeInfo extends \Google\Model
     return $this->searchNetworkMembersCount;
   }
   /**
-   * Output only. Estimated number of members in this user list on YouTube.
-   *
    * @param string $youtubeMembersCount
    */
   public function setYoutubeMembersCount($youtubeMembersCount)

@@ -20,6 +20,18 @@ namespace Google\Service\CloudRun;
 class GoogleCloudRunV2Job extends \Google\Collection
 {
   /**
+   * Specifies that the functional type is unspecified.
+   */
+  public const FUNCTIONAL_TYPE_FUNCTIONAL_TYPE_UNSPECIFIED = 'FUNCTIONAL_TYPE_UNSPECIFIED';
+  /**
+   * Represents an AGENT functional type.
+   */
+  public const FUNCTIONAL_TYPE_FUNCTIONAL_TYPE_AGENT = 'FUNCTIONAL_TYPE_AGENT';
+  /**
+   * Represents an MCP_SERVER functional type.
+   */
+  public const FUNCTIONAL_TYPE_FUNCTIONAL_TYPE_MCP_SERVER = 'FUNCTIONAL_TYPE_MCP_SERVER';
+  /**
    * Do not use this default value.
    */
   public const LAUNCH_STAGE_LAUNCH_STAGE_UNSPECIFIED = 'LAUNCH_STAGE_UNSPECIFIED';
@@ -141,6 +153,12 @@ class GoogleCloudRunV2Job extends \Google\Collection
    * @var string
    */
   public $expireTime;
+  /**
+   * Optional. The functional type of the Job.
+   *
+   * @var string
+   */
+  public $functionalType;
   /**
    * Output only. A number that monotonically increases every time the user
    * modifies the desired state.
@@ -448,6 +466,25 @@ class GoogleCloudRunV2Job extends \Google\Collection
   public function getExpireTime()
   {
     return $this->expireTime;
+  }
+  /**
+   * Optional. The functional type of the Job.
+   *
+   * Accepted values: FUNCTIONAL_TYPE_UNSPECIFIED, FUNCTIONAL_TYPE_AGENT,
+   * FUNCTIONAL_TYPE_MCP_SERVER
+   *
+   * @param self::FUNCTIONAL_TYPE_* $functionalType
+   */
+  public function setFunctionalType($functionalType)
+  {
+    $this->functionalType = $functionalType;
+  }
+  /**
+   * @return self::FUNCTIONAL_TYPE_*
+   */
+  public function getFunctionalType()
+  {
+    return $this->functionalType;
   }
   /**
    * Output only. A number that monotonically increases every time the user

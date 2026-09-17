@@ -22,15 +22,11 @@ class RetrieveInsightsRequest extends \Google\Model
   protected $baselineType = Baseline::class;
   protected $baselineDataType = '';
   /**
-   * Required. The user list ID for which insights are requested.
-   *
    * @var string
    */
   public $userListId;
 
   /**
-   * Required. Baseline for the insights requested.
-   *
    * @param Baseline $baseline
    */
   public function setBaseline(Baseline $baseline)
@@ -45,8 +41,6 @@ class RetrieveInsightsRequest extends \Google\Model
     return $this->baseline;
   }
   /**
-   * Required. The user list ID for which insights are requested.
-   *
    * @param string $userListId
    */
   public function setUserListId($userListId)

@@ -27,7 +27,7 @@ class GoogleCloudAiplatformV1AgentTool extends \Google\Model
    */
   public $headers;
   /**
-   * Optional. The tool's GCP resource name, used to resolve the tool.
+   * Optional. The tool's Google Cloud resource name, used to resolve the tool.
    * Applicable when `type` is `mcp_server` or `endpoint` (a tool registered in
    * Agent Registry), for example
    * `projects/{project}/locations/{location}/.../mcpServers/{id}` or
@@ -73,7 +73,7 @@ class GoogleCloudAiplatformV1AgentTool extends \Google\Model
     return $this->headers;
   }
   /**
-   * Optional. The tool's GCP resource name, used to resolve the tool.
+   * Optional. The tool's Google Cloud resource name, used to resolve the tool.
    * Applicable when `type` is `mcp_server` or `endpoint` (a tool registered in
    * Agent Registry), for example
    * `projects/{project}/locations/{location}/.../mcpServers/{id}` or
