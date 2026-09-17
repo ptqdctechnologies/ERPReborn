@@ -161,6 +161,7 @@
                     $('#DocumentType').append('<option value="' + 23456781 + '" data-name="Supplier Form">Supplier Form</option>');
                     $('#DocumentType').append('<option value="' + 45678123 + '" data-name="Tax Recon Form">Tax Recon Form</option>');
                     $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Stock Opname Form">Stock Opname Form</option>');
+                    $('#DocumentType').append('<option value="' + 34567812 + '" data-name="Material Disposal Form">Material Disposal Form</option>');
                 } else {
                     console.log('Data document type not found.');
                 }

@@ -82,6 +82,7 @@ class CheckDocumentController extends Controller
                 $documentType === 'Sales Order Form' ||
                 $documentType === 'Supplier Form' ||
                 $documentType === 'Stock Opname Form' ||
+                $documentType === 'Material Disposal Form' ||
                 $documentType === 'Tax Recon Form'
             ) {
                 // JUST FOR TRIGGER, WHEN API KEY NOT READY
@@ -669,6 +670,29 @@ class CheckDocumentController extends Controller
                             [
                                 'sys_ID' => 90381924,
                                 'sys_Text' => 'SC/QDC/2025/000002',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                        ]
+                    ]
+                ];
+                break;
+            case "Material Disposal Form":
+                $varData = [
+                    'metadata' => [
+                        'HTTPStatusCode' => 200
+                    ],
+                    'data' => [
+                        'data' => [
+                            [
+                                'sys_ID' => 73810928,
+                                'sys_Text' => 'MRED/QDC/2025/000001',
+                                'combinedBudgetCode' => 'Q000196',
+                                'combinedBudgetSectionCode' => 'Q000062 ► 235'
+                            ],
+                            [
+                                'sys_ID' => 90381924,
+                                'sys_Text' => 'MRED/QDC/2025/000002',
                                 'combinedBudgetCode' => 'Q000196',
                                 'combinedBudgetSectionCode' => 'Q000062 ► 235'
                             ],
