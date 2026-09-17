@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getWarehouses')
 
     <div class="content-wrapper">
         <section class="content">
@@ -72,9 +73,8 @@
                                             </div>
                                         </div>
 
-                                        <div class="card-body">
-                                            Here
-                                        </div>
+                                        <!-- BODY -->
+                                        @include('Inventory.MaterialDisposal.Functions.Header.sectionThree')
                                     </div>
                                 </div>
                             </div>
