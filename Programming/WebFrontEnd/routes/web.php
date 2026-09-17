@@ -564,6 +564,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
 
+    // MATERIAL DISPOSAL
+    Route::resource('MaterialDisposal', 'Inventory\MaterialDisposalController');
+
     // STOCK OPNAME
     Route::resource('StockOpname', 'Inventory\StockOpnameController');
 
