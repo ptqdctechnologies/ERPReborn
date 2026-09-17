@@ -4,7 +4,7 @@
             <div class="d-flex align-items-center" style="gap: 2rem;">
                 <label class="mb-0" style="flex: 0.3;">Type</label>
                 <div style="flex: 1; background-color: yellow;">
-                    <select type="text" class="form-control" name="stockOpnameValue" id="stockOpnameType"
+                    <select type="text" class="form-control" name="materialDisposalValueType" id="materialDisposalType"
                         onchange="selectType(this)" style="border-radius: 0;">
                         <option disabled selected value="Select a Type">Select a Type
                         </option>
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-12 col-lg-2">
+        <div class="col-md-12 col-lg-2 warehouse-type" style="display: none;">
             <div class="d-flex align-items-center" style="gap: 2rem;">
                 <label class="mb-0" style="flex: 0.3;">Warehouse</label>
                 <div class="d-flex" style="flex: 1; background-color: yellow;">

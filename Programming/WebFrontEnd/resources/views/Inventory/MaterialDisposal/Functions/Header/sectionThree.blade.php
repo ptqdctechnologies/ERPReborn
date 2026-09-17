@@ -19,12 +19,12 @@
                         <th
                             style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                             Name</th>
+                        <th class="all-type" style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;display: none
+                            ;">
+                            Warehouse</th>
                         <th
                             style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                             Unit</th>
-                        <th
-                            style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                            Warehouse</th>
                         <th
                             style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                             Qty</th>

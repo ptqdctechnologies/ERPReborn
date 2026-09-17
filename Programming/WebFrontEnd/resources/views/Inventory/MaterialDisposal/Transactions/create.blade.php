@@ -106,4 +106,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Inventory.MaterialDisposal.Functions.Footer.create')
 @endsection
