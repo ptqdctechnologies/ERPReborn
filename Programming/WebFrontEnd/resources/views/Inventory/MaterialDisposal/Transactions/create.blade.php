@@ -37,22 +37,25 @@
                                                 </button>
                                             </div>
                                         </div>
+
+                                        <!-- BODY -->
+                                        @include('Inventory.MaterialDisposal.Functions.Header.sectionOne')
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- CARD INFORMATION -->
-                        <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+                        <div class="tab-content px-3 pb-4" id="nav-tabContent">
                             <div class="row">
                                 <div class="col-12">
-                                    Here
+                                    @include('Inventory.MaterialDisposal.Functions.Header.sectionTwo')
                                 </div>
                             </div>
                         </div>
 
                         <!-- DISPOSAL DETAILS -->
-                        <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
+                        <div class="tab-content px-3 pb-2" id="nav-tabContent">
                             <div class="row">
                                 <div class="col-12">
                                     <div class="card">
@@ -67,6 +70,10 @@
                                                     <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                                 </button>
                                             </div>
+                                        </div>
+
+                                        <div class="card-body">
+                                            Here
                                         </div>
                                     </div>
                                 </div>
