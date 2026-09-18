@@ -8,7 +8,7 @@
 | ▪ API Key     : transaction.create.sysConfig.setAppObject_WorkFlow                                                               |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2023 - 2026 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\sysConfig\setAppObject_WorkFlow\v1
@@ -20,48 +20,58 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.sysConfig.setAppObject_WorkFlow.v1_throughAPIGateway             |
         |                     ► http://172.28.0.4/transaction.create.sysConfig.setAppObject_WorkFlow.v1_throughAPIGateway          |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2023-02-28                                                                                           |
+        | ▪ Version         : 1.0000.0000001                                                                                       |
+        | ▪ Last Update     : 2026-09-18                                                                                           |
         | ▪ Creation Date   : 2023-02-28                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]------------------------------------------------------------------------------------------------
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---              
-            $varData = \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                $varAPIWebToken, 
-                'transaction.create.sysConfig.setAppObject_WorkFlow', 
-                'latest', 
-                [
-                'entities' => [
-                    "JSONDataInitGraph" => 
-                        \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
-                            [
-                            'start' => [
-                                    ['S-IT-1', 164000000000023, 'I-IT-1'],
-                                    ['S-IT-2', 164000000000428, 'I-IT-1'],
-                                    ['S-IT-3', 164000000000196, 'FA-IT-1'],
-                                    ['S-IT-4', 164000000000497, 'FA-IT-1']
-                                ],
-                            'finish' => [
-                                    ['FA-IT-1', 164000000000439]
-                                ],
-                            'intermediate' => [
-                                    ['I-IT-1', 164000000000196, NULL, 'FA-IT-1']
-                                ]
+
+            //-----[ CORE PROCESS ]-------------------------------------------------------------------------------------------------
+            $varData =
+                \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    //-----[ METADATA ]-------------------------------------------------( START )-----
+                        $varAPIWebToken, 
+                        'transaction.create.sysConfig.setAppObject_WorkFlow', 
+                        'latest',
+                    //-----[ METADATA ]-------------------------------------------------(  END  )-----
+
+                    //-----[ DATA ]-----------------------------------------------------( START )-----
+                        [
+                        'entities' => [
+                            "JSONDataInitGraph" => 
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
+                                    [
+                                    'start' => [
+                                            ['S-IT-1', 164000000000023, 'I-IT-1'],
+                                            ['S-IT-2', 164000000000428, 'I-IT-1'],
+                                            ['S-IT-3', 164000000000196, 'FA-IT-1'],
+                                            ['S-IT-4', 164000000000497, 'FA-IT-1']
+                                        ],
+                                    'finish' => [
+                                            ['FA-IT-1', 164000000000439]
+                                        ],
+                                    'intermediate' => [
+                                            ['I-IT-1', 164000000000196, NULL, 'FA-IT-1']
+                                        ]
+                                    ]
+                                    ),
+                            "remarks" => null
                             ]
-                            ),
-                    "remarks" => null
-                    ]
-                ]                    
-                );
-            var_dump($varData);
+                        ]
+                    //-----[ DATA ]-----------------------------------------------------(  END  )-----
+                    );
+
+            //-----[ DATA RETURN ]--------------------------------------------------------------------------------------------------
+            return
+                $varData;
             }
 
 

@@ -3,8 +3,7 @@
 /*
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
-| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\master\getBank     |
-|                 \v1                                                                                                              |
+| ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\read\dataList\master\getBank\v1  |
 | ▪ API Key     : transaction.read.dataList.master.getBank                                                                         |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
@@ -18,7 +17,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/transaction.read.dataList.master.getBank.v1_throughAPIGateway                       |
-            |                     ► http://172.28.0.4/transaction.read.dataList.master.getBank.v1_throughAPIGateway                |
+        |                     ► http://172.28.0.4/transaction.read.dataList.master.getBank.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2022-09-13                                                                                           |
