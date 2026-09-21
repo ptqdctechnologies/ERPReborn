@@ -6,9 +6,9 @@
         tbodyTableMaterialDisposal.empty();
 
         $('#total_items').text('0');
-        $('#counted_items').text('0');
-        $('#shortage_items').text('0');
-        $('#reject_units').text('0');
+        $('#lines_entered').text('0');
+        $('#total_qty').text('0');
+        $('#hazardous_qty').text('0');
 
         if (e.value == "ALL") {
             getWarehouse("");
@@ -19,6 +19,32 @@
             $('.warehouse-type').show();
             $('.all-type').hide('');
         }
+    }
+
+    function updateSummary() {
+        let totalQty     = 0;
+        let hazardousQty = 0;
+        let linesEntered = 0;
+
+        tbodyTableMaterialDisposal.find('tr').each(function () {
+            const qty      = parseFloat($(this).find('input.number-only').val()) || 0;
+            const category = $(this).find('select[data-category]').val();
+            const categorySelected = category && category !== 'Select a Category';
+
+            totalQty += qty;
+
+            if (category === 'HAZARDOUS') {
+                hazardousQty += qty;
+            }
+
+            if (qty > 0 && categorySelected) {
+                linesEntered++;
+            }
+        });
+
+        $('#total_qty').text(totalQty);
+        $('#hazardous_qty').text(hazardousQty);
+        $('#lines_entered').text(linesEntered);
     }
 
     function getWarehouse(warehouseRefID) {
@@ -37,7 +63,13 @@
                 $("#loadingTableMaterialDisposal").hide();
 
                 if (Array.isArray(data)) {
-                    $("#total_items").text(data.length);
+                    // total_items = COUNT(DISTINCT ProductCode)
+                    const distinctProductCodes = new Set(data.map(item => item.ProductCode).filter(Boolean));
+                    $("#total_items").text(distinctProductCodes.size);
+
+                    // Reset qty-based summaries
+                    $('#total_qty').text('0');
+                    $('#hazardous_qty').text('0');
 
                     $.each(data, function (key, value) {
                         let row = null;
@@ -57,15 +89,16 @@
                                             autocomplete="off"
                                             style="border-radius:0px;"
                                             value="0"
-                                            oninput="$('#materialDisposalType').prop('disabled', true)"
+                                            oninput="$('#materialDisposalType').prop('disabled', true); updateSummary();"
                                         />
                                     </td>
                                     <td>
-                                        <select type="text" class="form-control" style="border-radius: 0;">
+                                        <select type="text" class="form-control" data-category style="border-radius: 0;" onchange="updateSummary()">
                                             <option disabled selected value="Select a Category">Select a Category</option>
                                             <option value="GENERAL">General</option>
                                             <option value="HAZARDOUS">Hazardous (B3)</option>
                                             <option value="E_WASTE">E-Waste</option>
+                                            <option value="LOST">Lost</option>
                                         </select>
                                     </td>
                                     <td style="text-align: center;">0</td>
@@ -90,15 +123,16 @@
                                             autocomplete="off"
                                             style="border-radius:0px;"
                                             value="0"
-                                            oninput="$('#materialDisposalType').prop('disabled', true)"
+                                            oninput="$('#materialDisposalType').prop('disabled', true); updateSummary();"
                                         />
                                     </td>
                                     <td>
-                                        <select type="text" class="form-control" style="border-radius: 0;">
+                                        <select type="text" class="form-control" data-category style="border-radius: 0;" onchange="updateSummary()">
                                             <option disabled selected value="Select a Category">Select a Category</option>
                                             <option value="GENERAL">General</option>
                                             <option value="HAZARDOUS">Hazardous (B3)</option>
                                             <option value="E_WASTE">E-Waste</option>
+                                            <option value="LOST">Lost</option>
                                         </select>
                                     </td>
                                     <td style="text-align: center;">0</td>
@@ -115,6 +149,7 @@
                     });
                 } else {
                     $("#total_items").text('0');
+                    $("#lines_entered").text('0');
                 }
             },
             error: function (textStatus, errorThrown) {
