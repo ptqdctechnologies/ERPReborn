@@ -40,7 +40,7 @@
                 <div class="card">
                   <div class="card-body p-0">
                     <div class="table-responsive">
-                      <table class="table table-head-fixed w-100" id="table_summary">
+                      <table class="table table-head-fixed text-wrap" id="table_summary">
                         <thead>
                           <tr>
                             <th
@@ -89,9 +89,7 @@
                               <?= number_format(0, 2, '.', ','); ?>
                             </th>
                             <th
-                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                              <?= number_format(0, 2, '.', ','); ?>
-                            </th>
+                              style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;"></th>
                             <th
                               style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                               <?= number_format(0, 2, '.', ','); ?>
