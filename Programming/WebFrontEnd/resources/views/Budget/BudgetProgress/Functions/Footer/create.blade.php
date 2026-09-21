@@ -105,4 +105,29 @@
 
         $("#myProjects").modal('toggle');
     });
+
+    $(document).ready(function () {
+        $('#budget_progress_date_range').daterangepicker({
+            autoUpdateInput: false,
+            maxDate: moment(),
+            locale: {
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('#budget_progress_date_range').on('apply.daterangepicker', function (ev, picker) {
+            $("#budget_progress_date_range").css('background-color', '#e9ecef');
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            ErrorHandler.hideErrorInputMessage("#budget_progress_date_range", "#dateRangeMessage");
+        });
+
+        $('#budget_progress_date_range').on('cancel.daterangepicker', function (ev, picker) {
+            $("#budget_progress_date_range").css('background-color', '#fff');
+            $(this).val('');
+        });
+
+        $('#budget_progress_date_range_container_icon').on('click', function () {
+            $('#budget_progress_date_range').trigger('click');
+        });
+    });
 </script>
