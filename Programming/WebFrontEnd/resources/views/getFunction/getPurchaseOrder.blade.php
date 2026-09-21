@@ -18,12 +18,14 @@
                                             <th>Trano</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
+                                            <th>Sub Budget Code</th>
+                                            <th>Sub Budget Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loadingGetPurchaseOrderRevision">
-                                            <td colspan="4" class="p-0" style="height: 22rem;">
+                                            <td colspan="6" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -100,9 +102,25 @@
                 {
                     data: null,
                     defaultContent: '-',
-                    className: "align-middle text-wrap",
+                    className: "align-middle text-nowrap",
                     render: function (data) {
-                        return '<span style="line-height: normal;">' + data.additionalData.combinedBudgetName + '</span>';
+                        return data.additionalData.combinedBudgetName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.combinedBudgetSectionCode
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data) {
+                        return data.additionalData.combinedBudgetSectionName
                     }
                 }
             ],
