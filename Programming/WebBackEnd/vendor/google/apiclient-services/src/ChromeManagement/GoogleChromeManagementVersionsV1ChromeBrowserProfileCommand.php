@@ -44,8 +44,8 @@ class GoogleChromeManagementVersionsV1ChromeBrowserProfileCommand extends \Googl
    */
   public $commandState;
   /**
-   * Required. Type of the remote command. The only supported command_type is
-   * "clearBrowsingData".
+   * Required. Type of the remote command. Supported commands:
+   * "clearBrowsingData" and "extensionUpdateCheck".
    *
    * @var string
    */
@@ -66,7 +66,8 @@ class GoogleChromeManagementVersionsV1ChromeBrowserProfileCommand extends \Googl
   /**
    * Required. Payload of the remote command. The payload for
    * "clearBrowsingData" command supports: - fields "clearCache" and
-   * "clearCookies" - values of boolean type.
+   * "clearCookies" - values of boolean type. The payload for
+   * "extensionUpdateCheck" should be empty.
    *
    * @var array[]
    */
@@ -114,8 +115,8 @@ class GoogleChromeManagementVersionsV1ChromeBrowserProfileCommand extends \Googl
     return $this->commandState;
   }
   /**
-   * Required. Type of the remote command. The only supported command_type is
-   * "clearBrowsingData".
+   * Required. Type of the remote command. Supported commands:
+   * "clearBrowsingData" and "extensionUpdateCheck".
    *
    * @param string $commandType
    */
@@ -166,7 +167,8 @@ class GoogleChromeManagementVersionsV1ChromeBrowserProfileCommand extends \Googl
   /**
    * Required. Payload of the remote command. The payload for
    * "clearBrowsingData" command supports: - fields "clearCache" and
-   * "clearCookies" - values of boolean type.
+   * "clearCookies" - values of boolean type. The payload for
+   * "extensionUpdateCheck" should be empty.
    *
    * @param array[] $payload
    */

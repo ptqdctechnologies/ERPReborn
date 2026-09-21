@@ -98,11 +98,23 @@ class GoogleCloudAssuredworkloadsV1DbControlComplianceSummary extends \Google\Co
    */
   public $name;
   /**
+   * Output only. Number of organization policy findings for this control.
+   *
+   * @var string
+   */
+  public $orgPolicyFindingCount;
+  /**
    * Output only. The overall evaluation status of the control.
    *
    * @var string
    */
   public $overallEvaluationState;
+  /**
+   * Output only. Number of resource findings for this control.
+   *
+   * @var string
+   */
+  public $resourceFindingCount;
   protected $similarControlsType = GoogleCloudAssuredworkloadsV1SimilarControls::class;
   protected $similarControlsDataType = 'array';
   /**
@@ -245,6 +257,22 @@ class GoogleCloudAssuredworkloadsV1DbControlComplianceSummary extends \Google\Co
     return $this->name;
   }
   /**
+   * Output only. Number of organization policy findings for this control.
+   *
+   * @param string $orgPolicyFindingCount
+   */
+  public function setOrgPolicyFindingCount($orgPolicyFindingCount)
+  {
+    $this->orgPolicyFindingCount = $orgPolicyFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getOrgPolicyFindingCount()
+  {
+    return $this->orgPolicyFindingCount;
+  }
+  /**
    * Output only. The overall evaluation status of the control.
    *
    * Accepted values: EVALUATION_STATE_UNSPECIFIED, EVALUATION_STATE_PASSED,
@@ -262,6 +290,22 @@ class GoogleCloudAssuredworkloadsV1DbControlComplianceSummary extends \Google\Co
   public function getOverallEvaluationState()
   {
     return $this->overallEvaluationState;
+  }
+  /**
+   * Output only. Number of resource findings for this control.
+   *
+   * @param string $resourceFindingCount
+   */
+  public function setResourceFindingCount($resourceFindingCount)
+  {
+    $this->resourceFindingCount = $resourceFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getResourceFindingCount()
+  {
+    return $this->resourceFindingCount;
   }
   /**
    * The list of similar controls.

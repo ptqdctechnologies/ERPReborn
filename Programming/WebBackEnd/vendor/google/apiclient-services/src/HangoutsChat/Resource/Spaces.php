@@ -437,7 +437,8 @@ class Spaces extends \Google\Service\Resource
    * `access_settings.access_permission_settings` is not supported with
    * `useAdminAccess`. The supported field masks include: -
    * `access_settings.access_permission_settings.discoverSpaceSetting` -
-   * `access_settings.access_permission_settings.joinSpaceSetting`
+   * `access_settings.access_permission_settings.joinSpaceSetting` -
+   * `access_settings.access_permission_settings.viewSpaceMembershipSetting`
    * `permission_settings`: Supports changing the [permission
    * settings](https://support.google.com/chat/answer/13340792) of a space. When
    * updating permission settings, you can only specify `permissionSettings` field
@@ -446,7 +447,8 @@ class Spaces extends \Google\Service\Resource
    * `permission_settings.modifySpaceDetails` -
    * `permission_settings.toggleHistory` - `permission_settings.useAtMentionAll` -
    * `permission_settings.manageApps` - `permission_settings.manageWebhooks` -
-   * `permission_settings.replyMessages`
+   * `permission_settings.replyMessages` -
+   * `permission_settings.viewSpaceMembership`
    * @opt_param bool useAdminAccess Optional. When `true`, the method runs using
    * the user's Google Workspace administrator privileges. The calling user must
    * be a Google Workspace administrator with the [manage chat and spaces

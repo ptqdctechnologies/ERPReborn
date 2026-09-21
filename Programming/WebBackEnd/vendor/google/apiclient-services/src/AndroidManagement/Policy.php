@@ -96,6 +96,22 @@ class Policy extends \Google\Collection
    */
   public const AUTOFILL_POLICY_AUTOFILL_DISABLED = 'AUTOFILL_DISABLED';
   /**
+   * Unspecified. Defaults to BACKUP_SERVICE_DISABLED.
+   */
+  public const BACKUP_SERVICE_BACKUP_SERVICE_UNSPECIFIED = 'BACKUP_SERVICE_UNSPECIFIED';
+  /**
+   * Backup service is disabled. The user is not allowed to change this setting.
+   * A NonComplianceDetail with API_LEVEL is reported if the Android version is
+   * less than 8 on a fully managed device.
+   */
+  public const BACKUP_SERVICE_BACKUP_SERVICE_DISABLED = 'BACKUP_SERVICE_DISABLED';
+  /**
+   * The user can enable or disable the backup service. A NonComplianceDetail
+   * with API_LEVEL is reported if the Android version is less than 8 on a fully
+   * managed device.
+   */
+  public const BACKUP_SERVICE_BACKUP_SERVICE_USER_CHOICE = 'BACKUP_SERVICE_USER_CHOICE';
+  /**
    * If camera_disabled is true, this is equivalent to CAMERA_ACCESS_DISABLED.
    * Otherwise, this is equivalent to CAMERA_ACCESS_USER_CHOICE.
    */
@@ -412,6 +428,13 @@ class Policy extends \Google\Collection
    * @var string
    */
   public $autofillPolicy;
+  /**
+   * Optional. Controls whether the backup service is disabled. Supported only
+   * on fully managed devices running Android 8 and above.
+   *
+   * @var string
+   */
+  public $backupService;
   /**
    * This field has no effect.
    *
@@ -1173,6 +1196,26 @@ class Policy extends \Google\Collection
   public function getAutofillPolicy()
   {
     return $this->autofillPolicy;
+  }
+  /**
+   * Optional. Controls whether the backup service is disabled. Supported only
+   * on fully managed devices running Android 8 and above.
+   *
+   * Accepted values: BACKUP_SERVICE_UNSPECIFIED, BACKUP_SERVICE_DISABLED,
+   * BACKUP_SERVICE_USER_CHOICE
+   *
+   * @param self::BACKUP_SERVICE_* $backupService
+   */
+  public function setBackupService($backupService)
+  {
+    $this->backupService = $backupService;
+  }
+  /**
+   * @return self::BACKUP_SERVICE_*
+   */
+  public function getBackupService()
+  {
+    return $this->backupService;
   }
   /**
    * This field has no effect.

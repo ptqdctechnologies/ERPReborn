@@ -31,8 +31,9 @@ use Google\Service\Meet\ParticipantSession;
 class ConferenceRecordsParticipantsParticipantSessions extends \Google\Service\Resource
 {
   /**
-   * Gets a participant session by participant session ID.
-   * (participantSessions.get)
+   * Gets a participant session by participant session ID. For more information,
+   * see [Work with participants](https://developers.google.com/workspace/meet/api
+   * /guides/participants). (participantSessions.get)
    *
    * @param string $name Required. Resource name of the participant.
    * @param array $optParams Optional parameters.
@@ -50,7 +51,9 @@ class ConferenceRecordsParticipantsParticipantSessions extends \Google\Service\R
    * default, ordered by join time and in descending order. This API supports
    * `fields` as standard parameters like every other API. However, when the
    * `fields` request parameter is omitted this API defaults to
-   * `'participantsessions, next_page_token'`.
+   * `'participantsessions, next_page_token'`. For more information, see [Work
+   * with participants](https://developers.google.com/workspace/meet/api/guides/pa
+   * rticipants).
    * (participantSessions.listConferenceRecordsParticipantsParticipantSessions)
    *
    * @param string $parent Required. Format:

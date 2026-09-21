@@ -80,7 +80,8 @@ class ServiceAreaBusiness extends \Google\Model
     return $this->businessType;
   }
   /**
-   * The area that this business serves defined through a set of places.
+   * Optional. The area that this business serves defined through a set of
+   * places.
    *
    * @param Places $places
    */

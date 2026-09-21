@@ -30,11 +30,34 @@ class RemoteAgentTool extends \Google\Model
    */
   public $description;
   /**
+   * Optional. Mapping of input variable names of remote agent to GECX variable
+   * names.
+   *
+   * @var string[]
+   */
+  public $inputVariableMapping;
+  /**
    * Required. The name of the tool.
    *
    * @var string
    */
   public $name;
+  /**
+   * Optional. Mapping of output variable names of remote agent to GECX variable
+   * names.
+   *
+   * @var string[]
+   */
+  public $outputVariableMapping;
+  /**
+   * Optional. When enabled, the interaction between the CXAS app and the remote
+   * agent will share the same context. If the remote agent returns a
+   * context_id, it will be persisted for the entirety of the session for this
+   * remote agent tool.
+   *
+   * @var bool
+   */
+  public $statefulAgent;
 
   /**
    * Required. The agent card of the remote agent that this tool invokes.
@@ -85,6 +108,23 @@ class RemoteAgentTool extends \Google\Model
     return $this->description;
   }
   /**
+   * Optional. Mapping of input variable names of remote agent to GECX variable
+   * names.
+   *
+   * @param string[] $inputVariableMapping
+   */
+  public function setInputVariableMapping($inputVariableMapping)
+  {
+    $this->inputVariableMapping = $inputVariableMapping;
+  }
+  /**
+   * @return string[]
+   */
+  public function getInputVariableMapping()
+  {
+    return $this->inputVariableMapping;
+  }
+  /**
    * Required. The name of the tool.
    *
    * @param string $name
@@ -99,6 +139,42 @@ class RemoteAgentTool extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Mapping of output variable names of remote agent to GECX variable
+   * names.
+   *
+   * @param string[] $outputVariableMapping
+   */
+  public function setOutputVariableMapping($outputVariableMapping)
+  {
+    $this->outputVariableMapping = $outputVariableMapping;
+  }
+  /**
+   * @return string[]
+   */
+  public function getOutputVariableMapping()
+  {
+    return $this->outputVariableMapping;
+  }
+  /**
+   * Optional. When enabled, the interaction between the CXAS app and the remote
+   * agent will share the same context. If the remote agent returns a
+   * context_id, it will be persisted for the entirety of the session for this
+   * remote agent tool.
+   *
+   * @param bool $statefulAgent
+   */
+  public function setStatefulAgent($statefulAgent)
+  {
+    $this->statefulAgent = $statefulAgent;
+  }
+  /**
+   * @return bool
+   */
+  public function getStatefulAgent()
+  {
+    return $this->statefulAgent;
   }
 }
 

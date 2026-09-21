@@ -21,6 +21,8 @@ class GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfig extends \Goo
 {
   protected $notebooklmConfigType = GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfigNotebooklmConfig::class;
   protected $notebooklmConfigDataType = '';
+  protected $resourceAccessControlConfigType = GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfigResourceAccessControlConfig::class;
+  protected $resourceAccessControlConfigDataType = '';
 
   /**
    * Optional. Configuration for NotebookLM settings.
@@ -37,6 +39,22 @@ class GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfig extends \Goo
   public function getNotebooklmConfig()
   {
     return $this->notebooklmConfig;
+  }
+  /**
+   * Optional. Resource-level access control config for Gemini Enterprise users.
+   *
+   * @param GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfigResourceAccessControlConfig $resourceAccessControlConfig
+   */
+  public function setResourceAccessControlConfig(GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfigResourceAccessControlConfig $resourceAccessControlConfig)
+  {
+    $this->resourceAccessControlConfig = $resourceAccessControlConfig;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1betaProjectCustomerProvidedConfigResourceAccessControlConfig
+   */
+  public function getResourceAccessControlConfig()
+  {
+    return $this->resourceAccessControlConfig;
   }
 }
 

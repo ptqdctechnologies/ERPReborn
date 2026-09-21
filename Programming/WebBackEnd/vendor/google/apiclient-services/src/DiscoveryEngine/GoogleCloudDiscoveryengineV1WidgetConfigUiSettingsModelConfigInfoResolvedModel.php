@@ -37,6 +37,15 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfoResolvedM
    */
   public $displayName;
   /**
+   * Output only. Groups models that render together in the selector. Models
+   * sharing a value form one group; empty means the model belongs to no group.
+   * Compared for equality only -- never parsed, and never shown to a user, so
+   * it is not localized.
+   *
+   * @var string
+   */
+  public $family;
+  /**
    * Output only. GM3-compatible icon token associated with the model (e.g.
    * `rocket_launch`, `bolt`, `graph_5`).
    *
@@ -137,6 +146,25 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfoResolvedM
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  /**
+   * Output only. Groups models that render together in the selector. Models
+   * sharing a value form one group; empty means the model belongs to no group.
+   * Compared for equality only -- never parsed, and never shown to a user, so
+   * it is not localized.
+   *
+   * @param string $family
+   */
+  public function setFamily($family)
+  {
+    $this->family = $family;
+  }
+  /**
+   * @return string
+   */
+  public function getFamily()
+  {
+    return $this->family;
   }
   /**
    * Output only. GM3-compatible icon token associated with the model (e.g.

@@ -251,6 +251,21 @@ class AbortInfo extends \Google\Collection
    * Aborted because the response size exceeds the limit.
    */
   public const CAUSE_RESPONSE_TOO_LARGE = 'RESPONSE_TOO_LARGE';
+  /**
+   * Aborted because revisions of Cloud Run Services are not supported as
+   * destinations.
+   */
+  public const CAUSE_DESTINATION_CLOUD_RUN_SERVICE_REVISION_UNSUPPORTED = 'DESTINATION_CLOUD_RUN_SERVICE_REVISION_UNSUPPORTED';
+  /**
+   * Aborted because serverless endpoints having Cloud Run VPC connectors
+   * configured are not supported as destinations.
+   */
+  public const CAUSE_DESTINATION_CLOUD_RUN_VPC_CONNECTOR_UNSUPPORTED = 'DESTINATION_CLOUD_RUN_VPC_CONNECTOR_UNSUPPORTED';
+  /**
+   * Aborted because Cloud Run destination resource is not connected to the VPC
+   * network.
+   */
+  public const CAUSE_CLOUD_RUN_RESOURCE_NOT_CONNECTED_TO_VPC = 'CLOUD_RUN_RESOURCE_NOT_CONNECTED_TO_VPC';
   protected $collection_key = 'projectsMissingPermission';
   /**
    * Causes that the analysis is aborted.
@@ -305,7 +320,9 @@ class AbortInfo extends \Google\Collection
    * UNKNOWN_ISSUE_IN_GOOGLE_MANAGED_PROJECT,
    * UNSUPPORTED_GOOGLE_MANAGED_PROJECT_CONFIG, NO_SERVERLESS_IP_RANGES,
    * IP_VERSION_PROTOCOL_MISMATCH, GKE_POD_UNKNOWN_ENDPOINT_LOCATION,
-   * RESPONSE_TOO_LARGE
+   * RESPONSE_TOO_LARGE, DESTINATION_CLOUD_RUN_SERVICE_REVISION_UNSUPPORTED,
+   * DESTINATION_CLOUD_RUN_VPC_CONNECTOR_UNSUPPORTED,
+   * CLOUD_RUN_RESOURCE_NOT_CONNECTED_TO_VPC
    *
    * @param self::CAUSE_* $cause
    */

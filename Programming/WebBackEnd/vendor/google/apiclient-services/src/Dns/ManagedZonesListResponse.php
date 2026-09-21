@@ -21,7 +21,7 @@ class ManagedZonesListResponse extends \Google\Collection
 {
   protected $collection_key = 'managedZones';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -43,7 +43,7 @@ class ManagedZonesListResponse extends \Google\Collection
   public $nextPageToken;
 
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

@@ -19,7 +19,7 @@ namespace Google\Service\CloudIdentity;
 
 class Group extends \Google\Collection
 {
-  protected $collection_key = 'additionalGroupKeys';
+  protected $collection_key = 'externalIds';
   protected $additionalGroupKeysType = EntityKey::class;
   protected $additionalGroupKeysDataType = 'array';
   /**
@@ -43,6 +43,8 @@ class Group extends \Google\Collection
   public $displayName;
   protected $dynamicGroupMetadataType = DynamicGroupMetadata::class;
   protected $dynamicGroupMetadataDataType = '';
+  protected $externalIdsType = ExternalId::class;
+  protected $externalIdsDataType = 'array';
   protected $groupKeyType = EntityKey::class;
   protected $groupKeyDataType = '';
   /**
@@ -172,6 +174,25 @@ class Group extends \Google\Collection
   public function getDynamicGroupMetadata()
   {
     return $this->dynamicGroupMetadata;
+  }
+  /**
+   * Optional. External identifiers associated with the `Group`. Enables
+   * external identity providers and directory sync tools to link their native
+   * unique identifiers with this group. Currently, the only allowable namespace
+   * is `"system/external"`.
+   *
+   * @param ExternalId[] $externalIds
+   */
+  public function setExternalIds($externalIds)
+  {
+    $this->externalIds = $externalIds;
+  }
+  /**
+   * @return ExternalId[]
+   */
+  public function getExternalIds()
+  {
+    return $this->externalIds;
   }
   /**
    * Required. The `EntityKey` of the `Group`.

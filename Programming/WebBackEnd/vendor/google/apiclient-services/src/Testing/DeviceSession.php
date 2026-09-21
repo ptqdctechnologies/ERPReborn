@@ -134,7 +134,7 @@ class DeviceSession extends \Google\Collection
     return $this->activeStartTime;
   }
   /**
-   * Required. The requested device
+   * Required. The requested device.
    *
    * @param AndroidDevice $androidDevice
    */

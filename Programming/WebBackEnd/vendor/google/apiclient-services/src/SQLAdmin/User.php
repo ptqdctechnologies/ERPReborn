@@ -76,8 +76,7 @@ class User extends \Google\Collection
    */
   public const TYPE_CLOUD_IAM_GROUP_SERVICE_ACCOUNT = 'CLOUD_IAM_GROUP_SERVICE_ACCOUNT';
   /**
-   * Cloud IAM workforce identity user managed via workforce identity
-   * federation.
+   * Cloud IAM workforce identity managed by Workforce Identity Federation.
    */
   public const TYPE_CLOUD_IAM_WORKFORCE_IDENTITY = 'CLOUD_IAM_WORKFORCE_IDENTITY';
   /**

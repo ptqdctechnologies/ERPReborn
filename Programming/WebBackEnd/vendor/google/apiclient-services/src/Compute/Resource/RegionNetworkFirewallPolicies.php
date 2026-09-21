@@ -48,6 +48,9 @@ class RegionNetworkFirewallPolicies extends \Google\Service\Resource
    * @param FirewallPolicyAssociation $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string associatedPolicyToBeReplaced Name of the firewall policy
+   * associated with the target network to swap association with. This field is
+   * mutually exclusive with 'replace_existing_association'.
    * @opt_param bool replaceExistingAssociation Indicates whether or not to
    * replace it if an association already exists. This is false by default, in
    * which case an error will be returned if an association already exists.
@@ -413,6 +416,37 @@ class RegionNetworkFirewallPolicies extends \Google\Service\Resource
     $params = ['project' => $project, 'region' => $region, 'firewallPolicy' => $firewallPolicy, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], Operation::class);
+  }
+  /**
+   * Updates an association for the specified network firewall policy.
+   * (regionNetworkFirewallPolicies.patchAssociation)
+   *
+   * @param string $project Project ID for this request.
+   * @param string $region Name of the region scoping this request.
+   * @param string $firewallPolicy Name of the firewall policy to update.
+   * @param FirewallPolicyAssociation $postBody
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string requestId An optional request ID to identify requests.
+   * Specify a unique request ID so that if you must retry your request, the
+   * server will know to ignore the request if it has already been completed.
+   *
+   * For example, consider a situation where you make an initial request and the
+   * request times out. If you make the request again with the same request ID,
+   * the server can check if original operation with the same request ID was
+   * received, and if so, will ignore the second request. This prevents clients
+   * from accidentally creating duplicate commitments.
+   *
+   * The request ID must be a valid UUID with the exception that zero UUID is not
+   * supported (00000000-0000-0000-0000-000000000000).
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function patchAssociation($project, $region, $firewallPolicy, FirewallPolicyAssociation $postBody, $optParams = [])
+  {
+    $params = ['project' => $project, 'region' => $region, 'firewallPolicy' => $firewallPolicy, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('patchAssociation', [$params], Operation::class);
   }
   /**
    * Patches a rule of the specified priority.

@@ -190,14 +190,14 @@ class ProjectsLocationsAgents extends \Google\Service\Resource
    *
    * @opt_param string updateMask Optional. The list of fields to update. If not
    * present, all fields are updated.
-   * @return GoogleCloudAiplatformV1Agent
+   * @return GoogleLongrunningOperation
    * @throws \Google\Service\Exception
    */
   public function patch($name, GoogleCloudAiplatformV1Agent $postBody, $optParams = [])
   {
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('patch', [$params], GoogleCloudAiplatformV1Agent::class);
+    return $this->call('patch', [$params], GoogleLongrunningOperation::class);
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any

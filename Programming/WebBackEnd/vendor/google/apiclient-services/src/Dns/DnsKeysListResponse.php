@@ -23,7 +23,7 @@ class DnsKeysListResponse extends \Google\Collection
   protected $dnsKeysType = DnsKey::class;
   protected $dnsKeysDataType = 'array';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -59,7 +59,7 @@ class DnsKeysListResponse extends \Google\Collection
     return $this->dnsKeys;
   }
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

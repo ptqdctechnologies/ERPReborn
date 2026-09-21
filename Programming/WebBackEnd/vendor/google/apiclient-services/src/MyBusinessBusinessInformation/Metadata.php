@@ -50,8 +50,8 @@ class Metadata extends \Google\Model
    */
   public $canOperateHealthData;
   /**
-   * Output only. Indicates if the listing can manage local posts. Deprecated:
-   * This field is no longer populated and will be removed in a future version.
+   * Output only. Deprecated: This field is no longer populated and will be
+   * removed in a future version.
    *
    * @deprecated
    * @var bool
@@ -94,7 +94,10 @@ class Metadata extends \Google\Model
    */
   public $hasVoiceOfMerchant;
   /**
-   * Output only.
+   * Output only. Indicates whether the location is classified as a particularly
+   * personal place. This means there are restrictions on Location History
+   * features. If you believe this was a mistake, see the [help center
+   * article](https://support.google.com/business/answer/3480441).
    *
    * @var bool
    */
@@ -203,8 +206,8 @@ class Metadata extends \Google\Model
     return $this->canOperateHealthData;
   }
   /**
-   * Output only. Indicates if the listing can manage local posts. Deprecated:
-   * This field is no longer populated and will be removed in a future version.
+   * Output only. Deprecated: This field is no longer populated and will be
+   * removed in a future version.
    *
    * @deprecated
    * @param bool $canOperateLocalPost
@@ -308,7 +311,10 @@ class Metadata extends \Google\Model
     return $this->hasVoiceOfMerchant;
   }
   /**
-   * Output only.
+   * Output only. Indicates whether the location is classified as a particularly
+   * personal place. This means there are restrictions on Location History
+   * features. If you believe this was a mistake, see the [help center
+   * article](https://support.google.com/business/answer/3480441).
    *
    * @param bool $isParticularlyPersonalPlace
    */

@@ -69,6 +69,7 @@ class Compute extends \Google\Service
   public $futureReservations;
   public $globalAddresses;
   public $globalForwardingRules;
+  public $globalFrontendSettings;
   public $globalNetworkEndpointGroups;
   public $globalOperations;
   public $globalOrganizationOperations;
@@ -79,6 +80,7 @@ class Compute extends \Google\Service
   public $httpHealthChecks;
   public $httpsHealthChecks;
   public $imageFamilyViews;
+  public $imageViews;
   public $images;
   public $instanceGroupManagerResizeRequests;
   public $instanceGroupManagers;
@@ -98,6 +100,7 @@ class Compute extends \Google\Service
   public $licenses;
   public $machineImages;
   public $machineTypes;
+  public $managedRulesets;
   public $networkAttachments;
   public $networkEdgeSecurityServices;
   public $networkEndpointGroups;
@@ -3417,6 +3420,44 @@ class Compute extends \Google\Service
           ]
         ]
     );
+    $this->globalFrontendSettings = new Compute\Resource\GlobalFrontendSettings(
+        $this,
+        $this->serviceName,
+        'globalFrontendSettings',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'projects/{project}/global/globalFrontendSettings',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'patch' => [
+              'path' => 'projects/{project}/global/globalFrontendSettings',
+              'httpMethod' => 'PATCH',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->globalNetworkEndpointGroups = new Compute\Resource\GlobalNetworkEndpointGroups(
         $this,
         $this->serviceName,
@@ -4609,6 +4650,71 @@ class Compute extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->imageViews = new Compute\Resource\ImageViews(
+        $this,
+        $this->serviceName,
+        'imageViews',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'projects/{project}/regions/{region}/imageViews/{resourceId}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'region' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'resourceId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'projects/{project}/regions/{region}/imageViews',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'region' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'maxResults' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'orderBy' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'returnPartialSuccess' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -9187,6 +9293,61 @@ class Compute extends \Google\Service
                   'required' => true,
                 ],
                 'zone' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'maxResults' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'orderBy' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'returnPartialSuccess' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->managedRulesets = new Compute\Resource\ManagedRulesets(
+        $this,
+        $this->serviceName,
+        'managedRulesets',
+        [
+          'methods' => [
+            'get' => [
+              'path' => 'projects/{project}/global/managedRulesets/{managedRuleset}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'managedRuleset' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'projects/{project}/global/managedRulesets',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'project' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
@@ -16528,6 +16689,10 @@ class Compute extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'associatedPolicyToBeReplaced' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'replaceExistingAssociation' => [
                   'location' => 'query',
                   'type' => 'boolean',
@@ -16790,6 +16955,30 @@ class Compute extends \Google\Service
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/firewallPolicies/{firewallPolicy}',
               'httpMethod' => 'PATCH',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'region' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'firewallPolicy' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'patchAssociation' => [
+              'path' => 'projects/{project}/regions/{region}/firewallPolicies/{firewallPolicy}/patchAssociation',
+              'httpMethod' => 'POST',
               'parameters' => [
                 'project' => [
                   'location' => 'path',

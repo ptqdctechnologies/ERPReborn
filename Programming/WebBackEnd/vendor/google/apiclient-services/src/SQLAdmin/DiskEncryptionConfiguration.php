@@ -20,6 +20,14 @@ namespace Google\Service\SQLAdmin;
 class DiskEncryptionConfiguration extends \Google\Model
 {
   /**
+   * Optional. Whether to enforce CMEK log encryption at source. When enforced,
+   * transaction logs are encrypted prior to being uploaded to Cloud Storage. If
+   * not enforced, then CMEK logs are encrypted by the Cloud Storage service.
+   *
+   * @var bool
+   */
+  public $cmekSourceLogEncryptionEnforced;
+  /**
    * Optional. If true, enables Confidential Mode for the instance's Hyperdisk
    * Balanced volumes. Only supported for zonal C4A instances currently.
    *
@@ -33,12 +41,30 @@ class DiskEncryptionConfiguration extends \Google\Model
    */
   public $kind;
   /**
-   * Resource name of KMS key for disk encryption
+   * Resource name of KMS key for disk encryption.
    *
    * @var string
    */
   public $kmsKeyName;
 
+  /**
+   * Optional. Whether to enforce CMEK log encryption at source. When enforced,
+   * transaction logs are encrypted prior to being uploaded to Cloud Storage. If
+   * not enforced, then CMEK logs are encrypted by the Cloud Storage service.
+   *
+   * @param bool $cmekSourceLogEncryptionEnforced
+   */
+  public function setCmekSourceLogEncryptionEnforced($cmekSourceLogEncryptionEnforced)
+  {
+    $this->cmekSourceLogEncryptionEnforced = $cmekSourceLogEncryptionEnforced;
+  }
+  /**
+   * @return bool
+   */
+  public function getCmekSourceLogEncryptionEnforced()
+  {
+    return $this->cmekSourceLogEncryptionEnforced;
+  }
   /**
    * Optional. If true, enables Confidential Mode for the instance's Hyperdisk
    * Balanced volumes. Only supported for zonal C4A instances currently.
@@ -73,7 +99,7 @@ class DiskEncryptionConfiguration extends \Google\Model
     return $this->kind;
   }
   /**
-   * Resource name of KMS key for disk encryption
+   * Resource name of KMS key for disk encryption.
    *
    * @param string $kmsKeyName
    */

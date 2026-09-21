@@ -355,12 +355,20 @@ class Operation extends \Google\Model
    * @var string
    */
   public $startTime;
+  protected $startWorkloadCaptureContextType = StartWorkloadCaptureContext::class;
+  protected $startWorkloadCaptureContextDataType = '';
+  protected $startWorkloadReplayContextType = StartWorkloadReplayContext::class;
+  protected $startWorkloadReplayContextDataType = '';
   /**
    * The status of an operation.
    *
    * @var string
    */
   public $status;
+  protected $stopWorkloadCaptureContextType = StopWorkloadCaptureContext::class;
+  protected $stopWorkloadCaptureContextDataType = '';
+  protected $stopWorkloadReplayContextType = StopWorkloadReplayContext::class;
+  protected $stopWorkloadReplayContextDataType = '';
   protected $subOperationTypeType = SqlSubOperationType::class;
   protected $subOperationTypeDataType = '';
   /**
@@ -643,6 +651,43 @@ class Operation extends \Google\Model
     return $this->startTime;
   }
   /**
+   * The context for the `StartWorkloadCapture` operation, which contains
+   * details to start recording the workload (SQL queries) on a Cloud SQL
+   * instance.
+   *
+   * @param StartWorkloadCaptureContext $startWorkloadCaptureContext
+   */
+  public function setStartWorkloadCaptureContext(StartWorkloadCaptureContext $startWorkloadCaptureContext)
+  {
+    $this->startWorkloadCaptureContext = $startWorkloadCaptureContext;
+  }
+  /**
+   * @return StartWorkloadCaptureContext
+   */
+  public function getStartWorkloadCaptureContext()
+  {
+    return $this->startWorkloadCaptureContext;
+  }
+  /**
+   * The context for the `StartWorkloadReplay` operation, which contains details
+   * about starting the execution of a captured workload (recorded read and
+   * write SQL queries) on a replay instance (the Cloud SQL instance where the
+   * recorded SQL queries are executed).
+   *
+   * @param StartWorkloadReplayContext $startWorkloadReplayContext
+   */
+  public function setStartWorkloadReplayContext(StartWorkloadReplayContext $startWorkloadReplayContext)
+  {
+    $this->startWorkloadReplayContext = $startWorkloadReplayContext;
+  }
+  /**
+   * @return StartWorkloadReplayContext
+   */
+  public function getStartWorkloadReplayContext()
+  {
+    return $this->startWorkloadReplayContext;
+  }
+  /**
    * The status of an operation.
    *
    * Accepted values: SQL_OPERATION_STATUS_UNSPECIFIED, PENDING, RUNNING, DONE
@@ -659,6 +704,41 @@ class Operation extends \Google\Model
   public function getStatus()
   {
     return $this->status;
+  }
+  /**
+   * The context for the `StopWorkloadCapture` operation, which contains details
+   * to stop recording the workload (SQL queries) on a Cloud SQL instance.
+   *
+   * @param StopWorkloadCaptureContext $stopWorkloadCaptureContext
+   */
+  public function setStopWorkloadCaptureContext(StopWorkloadCaptureContext $stopWorkloadCaptureContext)
+  {
+    $this->stopWorkloadCaptureContext = $stopWorkloadCaptureContext;
+  }
+  /**
+   * @return StopWorkloadCaptureContext
+   */
+  public function getStopWorkloadCaptureContext()
+  {
+    return $this->stopWorkloadCaptureContext;
+  }
+  /**
+   * The context for the `StopWorkloadReplay` operation, which contains details
+   * about stopping the execution of a captured workload (recorded read and
+   * write SQL queries) on a replay instance.
+   *
+   * @param StopWorkloadReplayContext $stopWorkloadReplayContext
+   */
+  public function setStopWorkloadReplayContext(StopWorkloadReplayContext $stopWorkloadReplayContext)
+  {
+    $this->stopWorkloadReplayContext = $stopWorkloadReplayContext;
+  }
+  /**
+   * @return StopWorkloadReplayContext
+   */
+  public function getStopWorkloadReplayContext()
+  {
+    return $this->stopWorkloadReplayContext;
   }
   /**
    * Optional. The sub operation based on the operation type.

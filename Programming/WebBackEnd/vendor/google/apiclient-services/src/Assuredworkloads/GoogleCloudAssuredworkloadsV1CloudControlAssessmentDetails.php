@@ -47,6 +47,18 @@ class GoogleCloudAssuredworkloadsV1CloudControlAssessmentDetails extends \Google
    * @var int
    */
   public $findingsCount;
+  /**
+   * Output only. Number of organization policy findings for the cloud control.
+   *
+   * @var string
+   */
+  public $orgPolicyFindingCount;
+  /**
+   * Output only. Number of resource findings for the cloud control.
+   *
+   * @var string
+   */
+  public $resourceFindingCount;
 
   /**
    * Output only. The evaluation status of the cloud control.
@@ -82,6 +94,38 @@ class GoogleCloudAssuredworkloadsV1CloudControlAssessmentDetails extends \Google
   public function getFindingsCount()
   {
     return $this->findingsCount;
+  }
+  /**
+   * Output only. Number of organization policy findings for the cloud control.
+   *
+   * @param string $orgPolicyFindingCount
+   */
+  public function setOrgPolicyFindingCount($orgPolicyFindingCount)
+  {
+    $this->orgPolicyFindingCount = $orgPolicyFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getOrgPolicyFindingCount()
+  {
+    return $this->orgPolicyFindingCount;
+  }
+  /**
+   * Output only. Number of resource findings for the cloud control.
+   *
+   * @param string $resourceFindingCount
+   */
+  public function setResourceFindingCount($resourceFindingCount)
+  {
+    $this->resourceFindingCount = $resourceFindingCount;
+  }
+  /**
+   * @return string
+   */
+  public function getResourceFindingCount()
+  {
+    return $this->resourceFindingCount;
   }
 }
 

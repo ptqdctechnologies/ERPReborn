@@ -47,6 +47,8 @@ class GoogleCloudDiscoveryengineV1alphaQueryPart extends \Google\Model
    * @var string
    */
   public $uiJsonPayload;
+  protected $userSuppliedSobiArtifactReferenceType = GoogleCloudDiscoveryengineV1alphaQueryPartUserSuppliedSobiArtifactReference::class;
+  protected $userSuppliedSobiArtifactReferenceDataType = '';
 
   /**
    * Other VAIS Document references.
@@ -147,6 +149,23 @@ class GoogleCloudDiscoveryengineV1alphaQueryPart extends \Google\Model
   public function getUiJsonPayload()
   {
     return $this->uiJsonPayload;
+  }
+  /**
+   * Reference to a user-supplied file attached to a long-running-agent (Sobi)
+   * task. See `UserSuppliedSobiArtifactReference` above.
+   *
+   * @param GoogleCloudDiscoveryengineV1alphaQueryPartUserSuppliedSobiArtifactReference $userSuppliedSobiArtifactReference
+   */
+  public function setUserSuppliedSobiArtifactReference(GoogleCloudDiscoveryengineV1alphaQueryPartUserSuppliedSobiArtifactReference $userSuppliedSobiArtifactReference)
+  {
+    $this->userSuppliedSobiArtifactReference = $userSuppliedSobiArtifactReference;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1alphaQueryPartUserSuppliedSobiArtifactReference
+   */
+  public function getUserSuppliedSobiArtifactReference()
+  {
+    return $this->userSuppliedSobiArtifactReference;
   }
 }
 

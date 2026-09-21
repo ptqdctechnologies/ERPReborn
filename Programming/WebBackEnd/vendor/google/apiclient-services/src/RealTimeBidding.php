@@ -466,7 +466,17 @@ class RealTimeBidding extends \Google\Service
         'creatives',
         [
           'methods' => [
-            'create' => [
+            'addDeals' => [
+              'path' => 'v1/{+name}:addDeals',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'create' => [
               'path' => 'v1/{+parent}/creatives',
               'httpMethod' => 'POST',
               'parameters' => [

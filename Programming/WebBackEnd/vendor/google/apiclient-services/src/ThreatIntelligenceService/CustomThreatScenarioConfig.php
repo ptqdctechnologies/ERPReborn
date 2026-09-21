@@ -20,6 +20,46 @@ namespace Google\Service\ThreatIntelligenceService;
 class CustomThreatScenarioConfig extends \Google\Model
 {
   /**
+   * Unspecified scenario type.
+   */
+  public const SCENARIO_TYPE_CUSTOM_THREAT_SCENARIO_TYPE_UNSPECIFIED = 'CUSTOM_THREAT_SCENARIO_TYPE_UNSPECIFIED';
+  /**
+   * Data Leaks.
+   */
+  public const SCENARIO_TYPE_DATA_LEAKS = 'DATA_LEAKS';
+  /**
+   * Deep & Dark Web.
+   */
+  public const SCENARIO_TYPE_DEEP_DARK_WEB = 'DEEP_DARK_WEB';
+  /**
+   * Domain Protection.
+   */
+  public const SCENARIO_TYPE_DOMAIN_PROTECTION = 'DOMAIN_PROTECTION';
+  /**
+   * Ransomware Threats.
+   */
+  public const SCENARIO_TYPE_RANSOMWARE_THREATS = 'RANSOMWARE_THREATS';
+  /**
+   * Initial Access Broker.
+   */
+  public const SCENARIO_TYPE_INITIAL_ACCESS_BROKER = 'INITIAL_ACCESS_BROKER';
+  /**
+   * Netblocks and Domain Mentions.
+   */
+  public const SCENARIO_TYPE_NETBLOCKS_AND_DOMAIN_MENTIONS = 'NETBLOCKS_AND_DOMAIN_MENTIONS';
+  /**
+   * Supply Chain Compromise.
+   */
+  public const SCENARIO_TYPE_SUPPLY_CHAIN_COMPROMISE = 'SUPPLY_CHAIN_COMPROMISE';
+  /**
+   * Card Shops.
+   */
+  public const SCENARIO_TYPE_CARD_SHOPS = 'CARD_SHOPS';
+  /**
+   * Custom Monitor (Non-templated legacy monitor).
+   */
+  public const SCENARIO_TYPE_CUSTOM_MONITOR = 'CUSTOM_MONITOR';
+  /**
    * Output only. The compiled Lucene query string.
    *
    * @var string
@@ -36,6 +76,13 @@ class CustomThreatScenarioConfig extends \Google\Model
   protected $documentQueryDataType = '';
   protected $legacyMonitorMetadataType = LegacyMetadata::class;
   protected $legacyMonitorMetadataDataType = '';
+  /**
+   * Optional. The custom threat scenario type used to create this
+   * configuration.
+   *
+   * @var string
+   */
+  public $scenarioType;
 
   /**
    * Output only. The compiled Lucene query string.
@@ -101,6 +148,28 @@ class CustomThreatScenarioConfig extends \Google\Model
   public function getLegacyMonitorMetadata()
   {
     return $this->legacyMonitorMetadata;
+  }
+  /**
+   * Optional. The custom threat scenario type used to create this
+   * configuration.
+   *
+   * Accepted values: CUSTOM_THREAT_SCENARIO_TYPE_UNSPECIFIED, DATA_LEAKS,
+   * DEEP_DARK_WEB, DOMAIN_PROTECTION, RANSOMWARE_THREATS,
+   * INITIAL_ACCESS_BROKER, NETBLOCKS_AND_DOMAIN_MENTIONS,
+   * SUPPLY_CHAIN_COMPROMISE, CARD_SHOPS, CUSTOM_MONITOR
+   *
+   * @param self::SCENARIO_TYPE_* $scenarioType
+   */
+  public function setScenarioType($scenarioType)
+  {
+    $this->scenarioType = $scenarioType;
+  }
+  /**
+   * @return self::SCENARIO_TYPE_*
+   */
+  public function getScenarioType()
+  {
+    return $this->scenarioType;
   }
 }
 

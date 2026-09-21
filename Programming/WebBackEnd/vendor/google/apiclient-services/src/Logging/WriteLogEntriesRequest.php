@@ -50,7 +50,8 @@ class WriteLogEntriesRequest extends \Google\Collection
    * "organizations/123/logs/cloudaudit.googleapis.com%2Factivity" The
    * permission logging.logEntries.create is needed on each project,
    * organization, billing account, or folder that is receiving new log entries,
-   * whether the resource is specified in logName or in an individual log entry.
+   * whether the resource is specified in logName or in an individual log
+   * entry.Only platform services can write logs to billing accounts.
    *
    * @var string
    */
@@ -151,7 +152,8 @@ class WriteLogEntriesRequest extends \Google\Collection
    * "organizations/123/logs/cloudaudit.googleapis.com%2Factivity" The
    * permission logging.logEntries.create is needed on each project,
    * organization, billing account, or folder that is receiving new log entries,
-   * whether the resource is specified in logName or in an individual log entry.
+   * whether the resource is specified in logName or in an individual log
+   * entry.Only platform services can write logs to billing accounts.
    *
    * @param string $logName
    */

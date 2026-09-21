@@ -91,6 +91,9 @@ class OperationErrorErrors extends \Google\Collection
     return $this->code;
   }
   /**
+   * Output only. [Output Only] Advanced debugging information with stack traces
+   * and other diagnostic details for the error.
+   *
    * @param DebugInfo $debugInfo
    */
   public function setDebugInfo(DebugInfo $debugInfo)

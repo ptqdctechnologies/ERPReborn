@@ -35,6 +35,8 @@ class PermissionSettings extends \Google\Model
   protected $toggleHistoryDataType = '';
   protected $useAtMentionAllType = PermissionSetting::class;
   protected $useAtMentionAllDataType = '';
+  protected $viewSpaceMembershipType = PermissionSetting::class;
+  protected $viewSpaceMembershipDataType = '';
 
   /**
    * Optional. Setting for managing apps in a space.
@@ -164,6 +166,30 @@ class PermissionSettings extends \Google\Model
   public function getUseAtMentionAll()
   {
     return $this->useAtMentionAll;
+  }
+  /**
+   * Optional. Setting for viewing space membership. Must be specified together
+   * with `AccessPermissionSettings.view_space_membership_setting` in the update
+   * mask and request body when updating who can view space membership. When
+   * restricting view access to specific roles (for example, space managers or
+   * assistant managers only), specify the desired role permissions here and
+   * provide an empty `AccessPermissionSettings.view_space_membership_setting`
+   * in the same request. If a target audience is configured in
+   * `AccessPermissionSettings.view_space_membership_setting`, this setting must
+   * be granted to all members.
+   *
+   * @param PermissionSetting $viewSpaceMembership
+   */
+  public function setViewSpaceMembership(PermissionSetting $viewSpaceMembership)
+  {
+    $this->viewSpaceMembership = $viewSpaceMembership;
+  }
+  /**
+   * @return PermissionSetting
+   */
+  public function getViewSpaceMembership()
+  {
+    return $this->viewSpaceMembership;
   }
 }
 

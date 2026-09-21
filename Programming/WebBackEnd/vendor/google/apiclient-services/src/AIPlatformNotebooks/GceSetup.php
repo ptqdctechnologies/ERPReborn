@@ -82,6 +82,13 @@ class GceSetup extends \Google\Collection
   protected $shieldedInstanceConfigType = ShieldedInstanceConfig::class;
   protected $shieldedInstanceConfigDataType = '';
   /**
+   * Output only. Represents system-managed metadata for this instance: the
+   * subset of `metadata` whose keys are recognized Workbench system keys.
+   *
+   * @var string[]
+   */
+  public $systemMetadata;
+  /**
    * Optional. The Compute Engine network tags to add to runtime (see [Add
    * network tags](https://cloud.google.com/vpc/docs/add-remove-network-tags)).
    *
@@ -359,6 +366,23 @@ class GceSetup extends \Google\Collection
   public function getShieldedInstanceConfig()
   {
     return $this->shieldedInstanceConfig;
+  }
+  /**
+   * Output only. Represents system-managed metadata for this instance: the
+   * subset of `metadata` whose keys are recognized Workbench system keys.
+   *
+   * @param string[] $systemMetadata
+   */
+  public function setSystemMetadata($systemMetadata)
+  {
+    $this->systemMetadata = $systemMetadata;
+  }
+  /**
+   * @return string[]
+   */
+  public function getSystemMetadata()
+  {
+    return $this->systemMetadata;
   }
   /**
    * Optional. The Compute Engine network tags to add to runtime (see [Add

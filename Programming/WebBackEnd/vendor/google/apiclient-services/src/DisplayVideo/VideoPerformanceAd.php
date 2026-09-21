@@ -53,7 +53,7 @@ class VideoPerformanceAd extends \Google\Collection
    */
   public $displayUrlBreadcrumb2;
   /**
-   * The domain of the display URL.
+   * Output only. The domain of the display URL.
    *
    * @var string
    */
@@ -182,7 +182,7 @@ class VideoPerformanceAd extends \Google\Collection
     return $this->displayUrlBreadcrumb2;
   }
   /**
-   * The domain of the display URL.
+   * Output only. The domain of the display URL.
    *
    * @param string $domain
    */

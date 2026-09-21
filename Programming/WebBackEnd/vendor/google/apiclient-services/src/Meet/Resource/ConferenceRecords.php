@@ -31,7 +31,9 @@ use Google\Service\Meet\ListConferenceRecordsResponse;
 class ConferenceRecords extends \Google\Service\Resource
 {
   /**
-   * Gets a conference record by conference ID. (conferenceRecords.get)
+   * Gets a conference record by conference ID. For more information, see [Work
+   * with conferences](https://developers.google.com/workspace/meet/api/guides/con
+   * ferences). (conferenceRecords.get)
    *
    * @param string $name Required. Resource name of the conference.
    * @param array $optParams Optional parameters.
@@ -46,7 +48,9 @@ class ConferenceRecords extends \Google\Service\Resource
   }
   /**
    * Lists the conference records. By default, ordered by start time and in
-   * descending order. (conferenceRecords.listConferenceRecords)
+   * descending order. For more information, see [Work with conferences](https://d
+   * evelopers.google.com/workspace/meet/api/guides/conferences).
+   * (conferenceRecords.listConferenceRecords)
    *
    * @param array $optParams Optional parameters.
    *

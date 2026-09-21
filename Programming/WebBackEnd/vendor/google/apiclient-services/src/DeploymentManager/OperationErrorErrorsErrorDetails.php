@@ -29,6 +29,8 @@ class OperationErrorErrorsErrorDetails extends \Google\Model
   protected $quotaInfoDataType = '';
 
   /**
+   * Error information containing structured domain, reason, and metadata.
+   *
    * @param ErrorInfo $errorInfo
    */
   public function setErrorInfo(ErrorInfo $errorInfo)
@@ -43,6 +45,8 @@ class OperationErrorErrorsErrorDetails extends \Google\Model
     return $this->errorInfo;
   }
   /**
+   * Links and information to help the user resolve the error.
+   *
    * @param Help $help
    */
   public function setHelp(Help $help)
@@ -57,6 +61,8 @@ class OperationErrorErrorsErrorDetails extends \Google\Model
     return $this->help;
   }
   /**
+   * A localized human-readable error message intended for end users.
+   *
    * @param LocalizedMessage $localizedMessage
    */
   public function setLocalizedMessage(LocalizedMessage $localizedMessage)
@@ -71,6 +77,8 @@ class OperationErrorErrorsErrorDetails extends \Google\Model
     return $this->localizedMessage;
   }
   /**
+   * Details about quota limits and metrics when a quota is exceeded.
+   *
    * @param QuotaExceededInfo $quotaInfo
    */
   public function setQuotaInfo(QuotaExceededInfo $quotaInfo)

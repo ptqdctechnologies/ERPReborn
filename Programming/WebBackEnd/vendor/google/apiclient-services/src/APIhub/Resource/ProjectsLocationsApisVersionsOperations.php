@@ -63,7 +63,9 @@ class ProjectsLocationsApisVersionsOperations extends \Google\Service\Resource
   /**
    * Delete an operation in an API version and we can delete only the operations
    * created via create API. If the operation was created by parsing the spec,
-   * then it can be deleted by editing or deleting the spec. (operations.delete)
+   * then it can be deleted by editing or deleting the spec. Deleting an operation
+   * will also remove any links between the operation and deployments.
+   * (operations.delete)
    *
    * @param string $name Required. The name of the operation resource to delete.
    * Format: `projects/{project}/locations/{location}/apis/{api}/versions/{version

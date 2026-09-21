@@ -46,7 +46,8 @@ class Location extends \Google\Collection
   protected $moreHoursType = MoreHours::class;
   protected $moreHoursDataType = 'array';
   /**
-   * Google identifier for this location in the form: `locations/{location_id}`.
+   * Identifier. Google identifier for this location in the form:
+   * `locations/{location_id}`.
    *
    * @var string
    */
@@ -223,7 +224,8 @@ class Location extends \Google\Collection
     return $this->moreHours;
   }
   /**
-   * Google identifier for this location in the form: `locations/{location_id}`.
+   * Identifier. Google identifier for this location in the form:
+   * `locations/{location_id}`.
    *
    * @param string $name
    */

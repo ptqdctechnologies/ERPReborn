@@ -31,7 +31,9 @@ use Google\Service\Meet\SmartNote;
 class ConferenceRecordsSmartNotes extends \Google\Service\Resource
 {
   /**
-   * Gets smart notes by smart note ID. (smartNotes.get)
+   * Gets smart notes by smart note ID. For more information, see [Work with artif
+   * acts](https://developers.google.com/workspace/meet/api/guides/artifacts).
+   * (smartNotes.get)
    *
    * @param string $name Required. Resource name of the smart note. Format:
    * conferenceRecords/{conference_record}/smartNotes/{smart_note}
@@ -47,7 +49,8 @@ class ConferenceRecordsSmartNotes extends \Google\Service\Resource
   }
   /**
    * Lists the set of smart notes from the conference record. By default, ordered
-   * by start time and in ascending order.
+   * by start time and in ascending order. For more information, see [Work with ar
+   * tifacts](https://developers.google.com/workspace/meet/api/guides/artifacts).
    * (smartNotes.listConferenceRecordsSmartNotes)
    *
    * @param string $parent Required. Format:

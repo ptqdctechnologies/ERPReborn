@@ -31,7 +31,9 @@ use Google\Service\Meet\Transcript;
 class ConferenceRecordsTranscripts extends \Google\Service\Resource
 {
   /**
-   * Gets a transcript by transcript ID. (transcripts.get)
+   * Gets a transcript by transcript ID. For more information, see [Work with arti
+   * facts](https://developers.google.com/workspace/meet/api/guides/artifacts).
+   * (transcripts.get)
    *
    * @param string $name Required. Resource name of the transcript.
    * @param array $optParams Optional parameters.
@@ -46,7 +48,8 @@ class ConferenceRecordsTranscripts extends \Google\Service\Resource
   }
   /**
    * Lists the set of transcripts from the conference record. By default, ordered
-   * by start time and in ascending order.
+   * by start time and in ascending order. For more information, see [Work with ar
+   * tifacts](https://developers.google.com/workspace/meet/api/guides/artifacts).
    * (transcripts.listConferenceRecordsTranscripts)
    *
    * @param string $parent Required. Format:

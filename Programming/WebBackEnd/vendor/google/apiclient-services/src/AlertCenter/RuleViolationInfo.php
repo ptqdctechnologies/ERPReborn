@@ -120,6 +120,10 @@ class RuleViolationInfo extends \Google\Collection
    * Text copied from Chrome.
    */
   public const TRIGGER_CHROME_DATA_COPIED = 'CHROME_DATA_COPIED';
+  /**
+   * Network request from Chrome.
+   */
+  public const TRIGGER_CHROME_NETWORK_REQUEST = 'CHROME_NETWORK_REQUEST';
   protected $collection_key = 'triggeredActionTypes';
   /**
    * Optional. Agent type that triggered the rule.
@@ -330,7 +334,7 @@ class RuleViolationInfo extends \Google\Collection
    * CHROME_FILE_DOWNLOAD, CHROME_FILE_UPLOAD, CHROME_WEB_CONTENT_UPLOAD,
    * CHAT_MESSAGE_SENT, CHAT_ATTACHMENT_UPLOADED, CHROME_PAGE_PRINT,
    * CHROME_URL_VISITED, CHROMEOS_FILE_TRANSFER, GEMINI_ACCESS, AGENT_EXECUTION,
-   * CHROME_DATA_COPIED
+   * CHROME_DATA_COPIED, CHROME_NETWORK_REQUEST
    *
    * @param self::TRIGGER_* $trigger
    */

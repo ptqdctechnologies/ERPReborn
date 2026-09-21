@@ -40,8 +40,6 @@ class ResourceRecordSet extends \Google\Collection
    */
   public $rrdatas;
   /**
-   * As defined in RFC 4034 (section 3.2).
-   *
    * @var string[]
    */
   public $signatureRrdatas;
@@ -126,8 +124,6 @@ class ResourceRecordSet extends \Google\Collection
     return $this->rrdatas;
   }
   /**
-   * As defined in RFC 4034 (section 3.2).
-   *
    * @param string[] $signatureRrdatas
    */
   public function setSignatureRrdatas($signatureRrdatas)

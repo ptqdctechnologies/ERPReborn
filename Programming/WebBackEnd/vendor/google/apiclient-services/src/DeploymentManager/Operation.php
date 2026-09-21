@@ -19,8 +19,17 @@ namespace Google\Service\DeploymentManager;
 
 class Operation extends \Google\Collection
 {
+  /**
+   * The operation is waiting to be processed.
+   */
   public const STATUS_PENDING = 'PENDING';
+  /**
+   * The operation is actively being processed.
+   */
   public const STATUS_RUNNING = 'RUNNING';
+  /**
+   * The operation has completed processing successfully or with an error.
+   */
   public const STATUS_DONE = 'DONE';
   protected $collection_key = 'warnings';
   /**
@@ -43,6 +52,8 @@ class Operation extends \Google\Collection
    * @var string
    */
   public $description;
+  protected $detailsType = OperationDetails::class;
+  protected $detailsDataType = '';
   /**
    * [Output Only] The time that this operation was completed. This value is in
    * RFC3339 text format.
@@ -54,6 +65,8 @@ class Operation extends \Google\Collection
   protected $errorDataType = '';
   protected $firewallPolicyRuleOperationMetadataType = FirewallPolicyRuleOperationMetadata::class;
   protected $firewallPolicyRuleOperationMetadataDataType = '';
+  protected $getHealthOperationMetadataType = GetHealthOperationMetadata::class;
+  protected $getHealthOperationMetadataDataType = '';
   protected $getVersionOperationMetadataType = GetVersionOperationMetadata::class;
   protected $getVersionOperationMetadataDataType = '';
   /**
@@ -87,6 +100,8 @@ class Operation extends \Google\Collection
   public $insertTime;
   protected $instancesBulkInsertOperationMetadataType = InstancesBulkInsertOperationMetadata::class;
   protected $instancesBulkInsertOperationMetadataDataType = '';
+  protected $instancesTroubleshootOperationMetadataType = InstancesTroubleshootOperationMetadata::class;
+  protected $instancesTroubleshootOperationMetadataDataType = '';
   /**
    * Output only. [Output Only] Type of the resource. Always `compute#operation`
    * for Operation resources.
@@ -253,6 +268,22 @@ class Operation extends \Google\Collection
     return $this->description;
   }
   /**
+   * [Output Only] Extended details about the operation's execution.
+   *
+   * @param OperationDetails $details
+   */
+  public function setDetails(OperationDetails $details)
+  {
+    $this->details = $details;
+  }
+  /**
+   * @return OperationDetails
+   */
+  public function getDetails()
+  {
+    return $this->details;
+  }
+  /**
    * [Output Only] The time that this operation was completed. This value is in
    * RFC3339 text format.
    *
@@ -287,6 +318,11 @@ class Operation extends \Google\Collection
     return $this->error;
   }
   /**
+   * Output only. [Output Only] Metadata containing the allocated priority from
+   * the networkFirewallPolicies.addRule and
+   * regionNetworkFirewallPolicies.addRule methods if not explicitly provided by
+   * the user.
+   *
    * @param FirewallPolicyRuleOperationMetadata $firewallPolicyRuleOperationMetadata
    */
   public function setFirewallPolicyRuleOperationMetadata(FirewallPolicyRuleOperationMetadata $firewallPolicyRuleOperationMetadata)
@@ -299,6 +335,22 @@ class Operation extends \Google\Collection
   public function getFirewallPolicyRuleOperationMetadata()
   {
     return $this->firewallPolicyRuleOperationMetadata;
+  }
+  /**
+   * Output only. Metadata for GetHealth operations.
+   *
+   * @param GetHealthOperationMetadata $getHealthOperationMetadata
+   */
+  public function setGetHealthOperationMetadata(GetHealthOperationMetadata $getHealthOperationMetadata)
+  {
+    $this->getHealthOperationMetadata = $getHealthOperationMetadata;
+  }
+  /**
+   * @return GetHealthOperationMetadata
+   */
+  public function getGetHealthOperationMetadata()
+  {
+    return $this->getHealthOperationMetadata;
   }
   /**
    * @param GetVersionOperationMetadata $getVersionOperationMetadata
@@ -396,6 +448,22 @@ class Operation extends \Google\Collection
   public function getInstancesBulkInsertOperationMetadata()
   {
     return $this->instancesBulkInsertOperationMetadata;
+  }
+  /**
+   * Output only. [Output Only] Operation metadata for instances.troubleshoot.
+   *
+   * @param InstancesTroubleshootOperationMetadata $instancesTroubleshootOperationMetadata
+   */
+  public function setInstancesTroubleshootOperationMetadata(InstancesTroubleshootOperationMetadata $instancesTroubleshootOperationMetadata)
+  {
+    $this->instancesTroubleshootOperationMetadata = $instancesTroubleshootOperationMetadata;
+  }
+  /**
+   * @return InstancesTroubleshootOperationMetadata
+   */
+  public function getInstancesTroubleshootOperationMetadata()
+  {
+    return $this->instancesTroubleshootOperationMetadata;
   }
   /**
    * Output only. [Output Only] Type of the resource. Always `compute#operation`

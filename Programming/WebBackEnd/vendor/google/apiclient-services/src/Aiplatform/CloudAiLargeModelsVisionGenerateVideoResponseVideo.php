@@ -27,6 +27,8 @@ class CloudAiLargeModelsVisionGenerateVideoResponseVideo extends \Google\Model
   public $bytesBase64Encoded;
   protected $experimentsMetadataType = CloudAiLargeModelsVisionGenerateVideoExperiments::class;
   protected $experimentsMetadataDataType = '';
+  protected $experimentsResponseType = CloudAiLargeModelsVisionExperimentsResponse::class;
+  protected $experimentsResponseDataType = '';
   /**
    * Cloud Storage URI where the generated video is written.
    *
@@ -60,6 +62,7 @@ class CloudAiLargeModelsVisionGenerateVideoResponseVideo extends \Google\Model
    * Optional metadata returned from experimental requests. Likely only includes
    * the rewritten prompt chunks.
    *
+   * @deprecated
    * @param CloudAiLargeModelsVisionGenerateVideoExperiments $experimentsMetadata
    */
   public function setExperimentsMetadata(CloudAiLargeModelsVisionGenerateVideoExperiments $experimentsMetadata)
@@ -67,11 +70,28 @@ class CloudAiLargeModelsVisionGenerateVideoResponseVideo extends \Google\Model
     $this->experimentsMetadata = $experimentsMetadata;
   }
   /**
+   * @deprecated
    * @return CloudAiLargeModelsVisionGenerateVideoExperiments
    */
   public function getExperimentsMetadata()
   {
     return $this->experimentsMetadata;
+  }
+  /**
+   * Optional response returned from experimental requests.
+   *
+   * @param CloudAiLargeModelsVisionExperimentsResponse $experimentsResponse
+   */
+  public function setExperimentsResponse(CloudAiLargeModelsVisionExperimentsResponse $experimentsResponse)
+  {
+    $this->experimentsResponse = $experimentsResponse;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionExperimentsResponse
+   */
+  public function getExperimentsResponse()
+  {
+    return $this->experimentsResponse;
   }
   /**
    * Cloud Storage URI where the generated video is written.

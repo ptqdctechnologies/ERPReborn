@@ -70,6 +70,8 @@ class Guardrail extends \Google\Model
    * @var string
    */
   public $name;
+  protected $supervisorType = GuardrailSupervisor::class;
+  protected $supervisorDataType = '';
   /**
    * Output only. Timestamp when the guardrail was last updated.
    *
@@ -276,6 +278,22 @@ class Guardrail extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Guardrail that runs supervisor intervention.
+   *
+   * @param GuardrailSupervisor $supervisor
+   */
+  public function setSupervisor(GuardrailSupervisor $supervisor)
+  {
+    $this->supervisor = $supervisor;
+  }
+  /**
+   * @return GuardrailSupervisor
+   */
+  public function getSupervisor()
+  {
+    return $this->supervisor;
   }
   /**
    * Output only. Timestamp when the guardrail was last updated.

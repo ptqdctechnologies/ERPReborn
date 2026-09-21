@@ -85,6 +85,8 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
    * @var string
    */
   public $object;
+  protected $observabilityConfigType = GoogleCloudAiplatformV1ObservabilityConfig::class;
+  protected $observabilityConfigDataType = '';
   /**
    * Optional. The instructions for the agent to follow. These instructions are
    * passed to the LLM as a system instruction.
@@ -240,6 +242,22 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
   public function getObject()
   {
     return $this->object;
+  }
+  /**
+   * Optional. Observability settings for this agent's sessions.
+   *
+   * @param GoogleCloudAiplatformV1ObservabilityConfig $observabilityConfig
+   */
+  public function setObservabilityConfig(GoogleCloudAiplatformV1ObservabilityConfig $observabilityConfig)
+  {
+    $this->observabilityConfig = $observabilityConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1ObservabilityConfig
+   */
+  public function getObservabilityConfig()
+  {
+    return $this->observabilityConfig;
   }
   /**
    * Optional. The instructions for the agent to follow. These instructions are

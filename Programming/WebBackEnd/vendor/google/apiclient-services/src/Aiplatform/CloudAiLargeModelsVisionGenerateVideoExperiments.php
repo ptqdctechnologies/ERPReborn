@@ -25,6 +25,14 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public const CODEC_VIDEO_CODEC_DNXHR = 'VIDEO_CODEC_DNXHR';
   protected $collection_key = 'conditioningFrames';
   /**
+   * If false, when a non-subscription customer tries to call an experimental
+   * feature, the request will be rejected. This field has no effect for
+   * subscription customers.
+   *
+   * @var bool
+   */
+  public $allowMeteredBilling;
+  /**
    * Optional. If true, anchors the last frame in video generation by generating
    * a custom border mask.
    *
@@ -96,6 +104,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public $originalRequestJson;
   protected $outpaintConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig::class;
   protected $outpaintConfigDataType = '';
+  protected $proEditType = CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig::class;
+  protected $proEditDataType = '';
   protected $promptInputsType = CloudAiLargeModelsVisionPromptInputs::class;
   protected $promptInputsDataType = '';
   /**
@@ -140,6 +150,24 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
    */
   public $videoTransformStrength;
 
+  /**
+   * If false, when a non-subscription customer tries to call an experimental
+   * feature, the request will be rejected. This field has no effect for
+   * subscription customers.
+   *
+   * @param bool $allowMeteredBilling
+   */
+  public function setAllowMeteredBilling($allowMeteredBilling)
+  {
+    $this->allowMeteredBilling = $allowMeteredBilling;
+  }
+  /**
+   * @return bool
+   */
+  public function getAllowMeteredBilling()
+  {
+    return $this->allowMeteredBilling;
+  }
   /**
    * Optional. If true, anchors the last frame in video generation by generating
    * a custom border mask.
@@ -389,6 +417,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getOutpaintConfig()
   {
     return $this->outpaintConfig;
+  }
+  /**
+   * Configuration for Pro Edit.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig $proEdit
+   */
+  public function setProEdit(CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig $proEdit)
+  {
+    $this->proEdit = $proEdit;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig
+   */
+  public function getProEdit()
+  {
+    return $this->proEdit;
   }
   /**
    * Prompt chunks for "ProModel" prompting. If set, the prompt will not be
