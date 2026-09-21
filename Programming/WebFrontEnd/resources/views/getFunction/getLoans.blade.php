@@ -20,6 +20,8 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Trano</th>
+                                            <th>Creditor</th>
+                                            <th>Debitor</th>
                                             <th>Budget Code</th>
                                             <th>Budget Name</th>
                                             <th>Sub Budget Code</th>
@@ -29,7 +31,7 @@
                                     <tbody></tbody>
                                     <tfoot>
                                         <tr id="loanListLoadingTable">
-                                            <td colspan="6" class="p-0" style="height: 22rem;">
+                                            <td colspan="8" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
@@ -96,6 +98,22 @@
                     data: 'sys_Text',
                     defaultContent: '-',
                     className: "align-middle text-nowrap"
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.creditorName
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        return data.additionalData.debitorName
+                    }
                 },
                 {
                     data: null,
