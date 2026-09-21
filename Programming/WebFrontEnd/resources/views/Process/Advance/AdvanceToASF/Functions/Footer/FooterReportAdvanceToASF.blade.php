@@ -776,8 +776,9 @@
         $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
-        $("#myAsfTrigger").prop("disabled", true);
-        $("#myAsfTrigger").css({ "cursor": "not-allowed" });
+        $("#asf_number").css('background-color', '#fff');
+        $("#asf_number").val("");
+        $("#asf_id").val("");
 
         $("#myGetModalAdvance").modal('toggle');
     });
@@ -804,8 +805,9 @@
         $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
-        $("#myArfTrigger").prop("disabled", true);
-        $("#myArfTrigger").css({ "cursor": "not-allowed" });
+        $("#arf_number").css('background-color', '#fff');
+        $("#arf_number").val("");
+        $("#arf_id").val("");
 
         $('#myGetModalAdvanceSettlement').modal('toggle');
     });

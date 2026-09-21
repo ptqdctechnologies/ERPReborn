@@ -160,16 +160,25 @@
     function resetForm() {
         isFromTo = false;
         data = [];
+        dataReport = [];
         currentPage = 1;
         rowsPerPage = 10;
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
 
+        $('#table_container').hide();
+
+        $("#businessTripRequestListModalTrigger").prop("disabled", false);
+        $("#businessTripRequestListModalTrigger").css({ "cursor": "pointer" });
         $("#business_trip_number").css('background-color', '#fff');
         $(`#business_trip_number`).val("");
         $(`#business_trip_id`).val("");
 
+        $("#businessTripSettlementListModalTrigger").prop("disabled", false);
+        $("#businessTripSettlementListModalTrigger").css({ "cursor": "pointer" });
         $("#business_trip_settlement_number").css('background-color', '#fff');
         $(`#business_trip_settlement_number`).val("");
         $(`#business_trip_settlement_id`).val("");
@@ -179,6 +188,8 @@
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $(`#sub_budget_name`).val("");
         $(`#sub_budget_id`).val("");
@@ -716,8 +727,9 @@
         $("#sub_budget_name").val(`${subBudgetCode} - ${subBudgetName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
-        $("#businessTripSettlementListModalTrigger").prop("disabled", true);
-        $("#businessTripSettlementListModalTrigger").css({ "cursor": "not-allowed" });
+        $("#business_trip_settlement_number").css('background-color', '#fff');
+        $(`#business_trip_settlement_number`).val("");
+        $(`#business_trip_settlement_id`).val("");
 
         $("#businessTripRequestListModal").modal('toggle');
     });
@@ -730,7 +742,11 @@
         $("#business_trip_settlement_number").val(sysText);
         $("#business_trip_settlement_number").css({ "display": "block", "background-color": "#e9ecef" });
 
-        $("#myBusinessTripSettlement").modal('toggle');
+        $("#business_trip_number").css('background-color', '#fff');
+        $(`#business_trip_number`).val("");
+        $(`#business_trip_id`).val("");
+
+        $("#businessTripSettlementListModal").modal('toggle');
     });
 
     $(document).ready(function () {

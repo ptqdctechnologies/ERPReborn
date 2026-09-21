@@ -31,11 +31,12 @@
 
         getSites(id);
 
+        $("#mySitesTrigger").prop("disabled", false);
         $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
     }
 
     function resetForm() {
@@ -57,15 +58,21 @@
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $(`#sub_budget_name`).val("");
         $(`#sub_budget_id`).val("");
         $(`#sub_budget_code`).val("");
 
+        $("#mySearchPOTrigger").prop("disabled", false);
+        $("#mySearchPOTrigger").css({ "cursor": "pointer" });
         $("#po_number").css('background-color', '#fff');
         $("#po_number").val("");
         $("#po_id").val("");
 
+        $("#deliveryOrderModalTrigger").prop("disabled", false);
+        $("#deliveryOrderModalTrigger").css({ "cursor": "pointer" });
         $("#do_number").css('background-color', '#fff');
         $("#do_number").val("");
         $("#do_id").val("");
@@ -502,6 +509,19 @@
         $("#budget_name").val("");
         $("#budget_name").css('background-color', '#fff');
 
+        $("#po_number").css('background-color', '#fff');
+        $("#po_number").val("");
+        $("#po_id").val("");
+
+        $("#do_number").css('background-color', '#fff');
+        $("#do_number").val("");
+        $("#do_id").val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
@@ -561,6 +581,8 @@
     $(document).ready(function () {
         getDeliveryOrderList();
         getModalPurchaseOrder();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#purchase_order_date_range').daterangepicker({
             autoUpdateInput: false,
