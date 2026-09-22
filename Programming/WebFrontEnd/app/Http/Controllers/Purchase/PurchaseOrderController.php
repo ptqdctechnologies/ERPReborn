@@ -122,7 +122,8 @@ class PurchaseOrderController extends Controller
                     'fileID' => $dataPODetail[0]['log_FileUpload_Pointer_RefID'] ?? null,
                     'vatValue' => $dataPODetail[0]['vatRatio'] ?? null,
                     'isVATSelected' => $dataPODetail[0]['vatRatio'] != "0.00" ? 'selected' : '',
-                    'transactionTaxDetailRefID' => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? ''
+                    'transactionTaxDetailRefID' => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? '',
+                    'isHaveAPValue' => $dataPODetail[0]['ap_Value'] > 0 ? true : false
                 ],
                 'detail' => $dataPODetail
             ];
