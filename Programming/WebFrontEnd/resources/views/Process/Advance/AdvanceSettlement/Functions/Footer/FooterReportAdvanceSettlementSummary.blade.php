@@ -192,13 +192,13 @@
             ],
             drawCallback: function (settings) {
                 $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalExpenseClaim));
-                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0'));
+                // $('#table_summary tfoot th:nth-child(3)').text(currencyTotal('0'));
                 $('#table_summary tfoot th:nth-child(4)').text(currencyTotal('0'));
                 $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalAmountDueCompany));
-                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0'));
+                // $('#table_summary tfoot th:nth-child(6)').text(currencyTotal('0'));
                 $('#table_summary tfoot th:nth-child(7)').text(currencyTotal('0'));
                 $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalAdvanceSettlement));
-                $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0'));
+                // $('#table_summary tfoot th:nth-child(9)').text(currencyTotal('0'));
                 $('#table_summary tfoot th:nth-child(10)').text(currencyTotal('0'));
             }
         });

@@ -25,6 +25,122 @@
     const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
 
+    function modalPayment(params, title) {
+        // buka modal dulu
+        $('#paymentModal').modal('show');
+
+        // loading state
+        // document.getElementById('modalBody').innerHTML = 'Loading...';
+
+        try {
+
+            // misalnya pakai id payment
+            // const paymentId = item.id;
+
+            // hit API
+            // const response = await fetch(`/api/payment/${paymentId}`);
+
+            // if (!response.ok) {
+            //     throw new Error('Gagal mengambil data');
+            // }
+
+            // const result = await response.json();
+            document.getElementById('paymentModalLabel').textContent = `${title ?? '-'}`;
+
+            // render hasil API ke modal
+            // document.getElementById('modalBody').innerHTML = `
+            //     <p><strong>Payment No:</strong> -</p>
+            //     <p><strong>Customer:</strong> -</p>
+            //     <p><strong>Amount:</strong> -</p>
+            //     <p><strong>Status:</strong> -</p>
+            // `;
+
+            const dummyData = [
+                {
+                    transaction_number: 'TRX/QDC/2026/001',
+                    payment_value: 1500000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-26'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/002',
+                    payment_value: 2750000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-25'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/003',
+                    payment_value: 3200000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-24'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/004',
+                    payment_value: 4500000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-23'
+                },
+                {
+                    transaction_number: 'TRX/QDC/2026/005',
+                    payment_value: 1850000,
+                    currency: 'IDR',
+                    payment_number_date: '2026-05-22'
+                }
+            ];
+
+            $('#paymentTable').DataTable({
+                destroy: true,
+                data: dummyData,
+                deferRender: true,
+                scrollCollapse: true,
+                scroller: true,
+                // paging: false,     // mematikan limit/pagination
+                searching: false, // mematikan search
+                lengthChange: false, // mematikan dropdown limit per halaman
+                // info: false        // opsional: hilangkan tulisan "Showing 1 to ..."
+                columns: [
+                    {
+                        data: null,
+                        render: function (data, type, row, meta) {
+                            return (meta.row + 1);
+                        }
+                    },
+                    {
+                        data: 'transaction_number',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'payment_number_date',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'payment_value',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: 'currency',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    },
+                    {
+                        data: '-',
+                        defaultContent: '-',
+                        className: "text-nowrap",
+                    }
+                ]
+            });
+        } catch (error) {
+            document.getElementById('modalBody').innerHTML = `
+                <div class="text-danger">
+                    ${error.message}
+                </div>
+            `;
+        }
+    }
+
     function selectBudget(id, code, name) {
         $("#budget_id").val(id);
         $("#budget_code").val(code);
@@ -33,11 +149,12 @@
 
         getSites(id);
 
+        $("#mySitesTrigger").prop("disabled", false);
         $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        // $("#mySitesTrigger").attr({
+        //     "data-toggle": "modal",
+        //     "data-target": "#mySites"
+        // });
     }
 
     function resetForm() {
@@ -49,6 +166,8 @@
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
 
         $('#table_container').hide();
 
@@ -57,15 +176,21 @@
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
 
+        $("#mySitesTrigger").prop("disabled", true);
+        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
         $("#sub_budget_name").css('background-color', '#fff');
         $(`#sub_budget_name`).val("");
         $(`#sub_budget_id`).val("");
         $(`#sub_budget_code`).val("");
 
+        $("#mySearchPOTrigger").prop("disabled", false);
+        $("#mySearchPOTrigger").css({ "cursor": "pointer" });
         $("#purchase_order_number").css('background-color', '#fff');
         $(`#purchase_order_number`).val("");
         $(`#purchase_order_id`).val("");
 
+        $("#myAccountPayablesTrigger").prop("disabled", false);
+        $("#myAccountPayablesTrigger").css({ "cursor": "pointer" });
         $("#account_payable_number").css('background-color', '#fff');
         $(`#account_payable_number`).val("");
         $(`#account_payable_id`).val("");
@@ -270,6 +395,20 @@
             const apTotalEquivalentIdrCell = document.createElement('td');
             apTotalEquivalentIdrCell.textContent = item.accountPayableTotalEquivalentIDR ?? '-';
             row.appendChild(apTotalEquivalentIdrCell);
+
+            const apToPaymentCell = document.createElement('td');
+            const apToPaymentLink = document.createElement('a');
+            apToPaymentLink.href = '#';
+            apToPaymentLink.textContent = item.apToPayment ?? '0.00';
+            apToPaymentLink.style.cssText = "text-decoration: underline;";
+
+            apToPaymentLink.addEventListener('click', async function (e) {
+                e.preventDefault();
+
+                modalPayment(item, item.accountPayableNumber);
+            });
+            apToPaymentCell.appendChild(apToPaymentLink);
+            row.appendChild(apToPaymentCell);
 
             const apToPaymentBalanceCell = document.createElement('td');
             apToPaymentBalanceCell.textContent = item.balanceAPtoPayment ?? '-';
@@ -574,6 +713,24 @@
         const code = $(this).find('td:nth-child(2)').text();
         const name = $(this).find('td:nth-child(3)').text();
 
+        $("#budget_id").val("");
+        $("#budget_code").val("");
+        $("#budget_name").val("");
+        $("#budget_name").css('background-color', '#fff');
+
+        $("#purchase_order_number").css('background-color', '#fff');
+        $(`#purchase_order_number`).val("");
+        $(`#purchase_order_id`).val("");
+
+        $("#account_payable_number").css('background-color', '#fff');
+        $(`#account_payable_number`).val("");
+        $(`#account_payable_id`).val("");
+
+        $("#sub_budget_name").css('background-color', '#fff');
+        $(`#sub_budget_name`).val("");
+        $(`#sub_budget_id`).val("");
+        $(`#sub_budget_code`).val("");
+
         if (Utils.isUserAuthorizedForReport()) {
             selectBudget(sysId, code, name);
         } else {
@@ -616,11 +773,30 @@
 
     $('#TableSearchPORevision tbody').on('click', 'tr', function () {
         const sysId = $(this).find('input[data-trigger="sys_id_po"]').val();
-        const number = $(this).find('td:nth-child(2)').text();
+        const trano = $(this).find('td:nth-child(2)').text();
+        const combinedBudgetCode = $(this).find('td:nth-child(3)').text();
+        const combinedBudgetName = $(this).find('td:nth-child(4)').text();
+        const combinedBudgetSectionCode = $(this).find('td:nth-child(5)').text();
+        const combinedBudgetSectionName = $(this).find('td:nth-child(6)').text();
 
         $("#purchase_order_id").val(sysId);
-        $("#purchase_order_number").val(number);
+        $("#purchase_order_number").val(trano);
         $("#purchase_order_number").css('background-color', '#e9ecef');
+
+        $("#budget_id").val(combinedBudgetCode);
+        $("#budget_code").val(combinedBudgetCode);
+        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#sub_budget_id").val(combinedBudgetSectionCode);
+        $("#sub_budget_code").val(combinedBudgetSectionCode);
+        $("#sub_budget_name").val(`${combinedBudgetSectionCode} - ${combinedBudgetSectionName}`);
+        $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+        $("#account_payable_number").css('background-color', '#fff');
+        $(`#account_payable_number`).val("");
+        $(`#account_payable_id`).val("");
+
         ErrorHandler.hideErrorInputMessage("#purchase_order_number", "#purchaseOrderMessage");
 
         $("#mySearchPO").modal('toggle');
@@ -633,6 +809,11 @@
         $("#account_payable_id").val(sysId);
         $("#account_payable_number").val(trano);
         $("#account_payable_number").css('background-color', '#e9ecef');
+
+        $("#purchase_order_number").css('background-color', '#fff');
+        $(`#purchase_order_number`).val("");
+        $(`#purchase_order_id`).val("");
+
         ErrorHandler.hideErrorInputMessage("#account_payable_number", "#accountPayableMessage");
 
         $('#myAccountPayables').modal('toggle');
@@ -644,6 +825,8 @@
         getSuppliers();
         getAccountPayable();
         getModalPurchaseOrder();
+
+        $("#mySitesTrigger").prop("disabled", true);
 
         $('#po_to_ap_date_range').daterangepicker({
             autoUpdateInput: false,

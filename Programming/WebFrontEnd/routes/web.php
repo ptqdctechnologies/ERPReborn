@@ -171,6 +171,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // BUDGET
     Route::get('ReportBudget', 'Budget\BudgetController@ReportBudget')->name('Budget.ReportBudget');
+    Route::post('ReportBudgetStore', 'Budget\BudgetController@ReportBudgetStore')->name('Budget.ReportBudgetStore');
     Route::post('BudgetPickList', 'Budget\BudgetController@BudgetPickList')->name('Budget.BudgetPickList');
     Route::post('RevisionModifyBudget', 'Budget\BudgetController@RevisionModifyBudget')->name('Budget.RevisionModifyBudget');
     Route::get('ModifyBudget', 'Budget\BudgetController@ModifyBudget')->name('Budget.ModifyBudget');
@@ -563,6 +564,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::post('ReportMatReceivetoMatReturnStore', 'Inventory\MaterialReceiveController@ReportMatReceivetoMatReturnStore')->name('Inventory.ReportMatReceivetoMatReturnStore');
     Route::post('PrintExportReportMatReceivetoMatReturn', 'Inventory\MaterialReceiveController@PrintExportReportMatReceivetoMatReturn')->name('Inventory.PrintExportReportMatReceivetoMatReturn');
     Route::resource('MaterialReceive', 'Inventory\MaterialReceiveController');
+
+    // MATERIAL DISPOSAL
+    Route::resource('MaterialDisposal', 'Inventory\MaterialDisposalController');
 
     // STOCK OPNAME
     Route::resource('StockOpname', 'Inventory\StockOpnameController');

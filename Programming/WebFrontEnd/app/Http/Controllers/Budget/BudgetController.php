@@ -636,6 +636,201 @@ class BudgetController extends Controller
 
     public function ReportBudget()
     {
-        return view('Budget.Budget.Transactions.ReportBudget');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+        $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
+        $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
+
+        $compact = [
+            'documentTypeRefID' => $documentTypeRefID,
+            'sessionOrganizationalDepartmentName' => $sessionOrganizationalDepartmentName,
+            'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
+        ];
+
+        return view('Budget.Budget.Transactions.ReportBudget', $compact);
+    }
+
+    public function ReportBudgetStore(Request $request)
+    {
+        $dataDummy = [
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '235 Ampang Kuranji Padang',
+                'work_id' => 'W-05 Pondasi',
+                'start_date' => '2026-01-05',
+                'end_date' => '2026-01-18',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '235 Ampang Kuranji Padang',
+                'work_id' => 'W-04 Memasang Semen',
+                'start_date' => '2026-01-19',
+                'end_date' => '2026-02-02',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '248 Bukit Pakis Sby Infill',
+                'work_id' => 'W-01 Memasang Beton',
+                'start_date' => '2026-02-03',
+                'end_date' => '2026-02-17',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '248 Bukit Pakis Sby Infill',
+                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
+                'start_date' => '2026-02-18',
+                'end_date' => '2026-03-05',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '240 Cendana Andalas',
+                'work_id' => 'W-05 Pondasi',
+                'start_date' => '2026-03-01',
+                'end_date' => '2026-03-14',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '240 Cendana Andalas',
+                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
+                'start_date' => '2026-03-15',
+                'end_date' => '2026-03-28',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '221 Halat Medan',
+                'work_id' => 'W-04 Memasang Semen',
+                'start_date' => '2026-04-01',
+                'end_date' => '2026-04-15',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '221 Halat Medan',
+                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
+                'start_date' => '2026-04-16',
+                'end_date' => '2026-04-30',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
+                'work_id' => 'W-01 Memasang Beton',
+                'start_date' => '2026-05-04',
+                'end_date' => '2026-05-18',
+            ],
+            [
+                'budget_code' => 'Q000062',
+                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
+                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
+                'start_date' => '2026-05-19',
+                'end_date' => '2026-06-02',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '235 Ampang Kuranji Padang',
+                'work_id' => 'W-01 Memasang Beton',
+                'start_date' => '2026-06-03',
+                'end_date' => '2026-06-17',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '248 Bukit Pakis Sby Infill',
+                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
+                'start_date' => '2026-06-05',
+                'end_date' => '2026-06-19',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '240 Cendana Andalas',
+                'work_id' => 'W-01 Memasang Beton',
+                'start_date' => '2026-06-08',
+                'end_date' => '2026-06-22',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '221 Halat Medan',
+                'work_id' => 'W-05 Pondasi',
+                'start_date' => '2026-06-10',
+                'end_date' => '2026-06-24',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
+                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
+                'start_date' => '2026-06-12',
+                'end_date' => '2026-06-26',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '235 Ampang Kuranji Padang',
+                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
+                'start_date' => '2026-07-01',
+                'end_date' => '2026-07-15',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '248 Bukit Pakis Sby Infill',
+                'work_id' => 'W-05 Pondasi',
+                'start_date' => '2026-07-03',
+                'end_date' => '2026-07-17',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '240 Cendana Andalas',
+                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
+                'start_date' => '2026-07-06',
+                'end_date' => '2026-07-20',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '221 Halat Medan',
+                'work_id' => 'W-01 Memasang Beton',
+                'start_date' => '2026-07-08',
+                'end_date' => '2026-07-22',
+            ],
+            [
+                'budget_code' => 'Q000055',
+                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
+                'work_id' => 'W-04 Memasang Semen',
+                'start_date' => '2026-07-10',
+                'end_date' => '2026-07-24',
+            ]
+        ];
+
+        try {
+            $limit = $request->input('length', 10);
+            $offset = $request->input('start', 0);
+            $draw = $request->input('draw');
+            $search = $request->input('search.value');
+            $budgetCode = $request->input('budget_code');
+
+            // Filter berdasarkan budget_code
+            if (!empty($budgetCode)) {
+                $dataDummy = array_filter($dataDummy, function ($item) use ($budgetCode) {
+                    return $item['budget_code'] === $budgetCode;
+                });
+            }
+
+            // Reset index array setelah array_filter
+            $dataDummy = array_values($dataDummy);
+
+            $totalRecords = 10;
+
+            $compact = [
+                'status' => 200,
+                'data' => $dataDummy,
+                'draw' => intval($draw),
+                'recordsTotal' => $totalRecords,
+                'recordsFiltered' => $totalRecords
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Report Budget Store Function Error:" . $th->getMessage());
+
+            $compact = [
+                'status' => 500,
+                'message' => $th->getMessage()
+            ];
+
+            return response()->json($compact);
+        }
     }
 }

@@ -186,7 +186,7 @@
             ],
             drawCallback: function (settings) {
                 $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalIDR));
-                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
+                // $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalOtherCurrency));
                 $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalEquivalentIDR));
             }
         });

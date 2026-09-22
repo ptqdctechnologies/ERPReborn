@@ -7,9 +7,12 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Supplier</label>
                 <div class="col-5 d-flex">
                     <div style="flex: 100%;">
-                        <input id="supplier_id" name="supplier_id" style="border-radius:0;" type="hidden" class="form-control" readonly value="<?= $header['supplierID']; ?>">
-                        <input id="supplier_code" style="border-radius:0;" class="form-control" readonly value="<?= "(". $header['supplierCode'] . ") " . $header['supplierName'] . ' - ' . $header['supplierAddress']; ?>">
-                        <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname" type="hidden" value="<?= $header['supplierAddress']; ?>">
+                        <input id="supplier_id" name="supplier_id" style="border-radius:0;" type="hidden"
+                            class="form-control" readonly value="<?= $header['supplierID']; ?>">
+                        <input id="supplier_code" style="border-radius:0;" class="form-control" readonly
+                            value="<?= "(" . $header['supplierCode'] . ") " . $header['supplierName'] . ' - ' . $header['supplierAddress']; ?>">
+                        <input id="supplier_name" style="border-radius:0;" class="form-control" name="projectname"
+                            type="hidden" value="<?= $header['supplierAddress']; ?>">
                     </div>
                 </div>
             </div>
@@ -19,7 +22,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">DP</label>
                 <div class="col-5 d-flex">
                     <div id="dp_section">
-                        <input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 25%;" autocomplete="off" value="<?= $header['downPayment']; ?>" /><strong>%</strong>
+                        <input type="number" id="downPaymentValue" name="downPaymentValue" max="100" style="width: 25%;"
+                            autocomplete="off" value="<?= $header['downPayment']; ?>" /><strong>%</strong>
                     </div>
                 </div>
             </div>
@@ -45,8 +49,10 @@
                     </div>
 
                     <div id="containerSelectTOP" style="display: none;">
-                        <input hidden id="termOfPaymentID" style="width: 20%;" value="<?= $header['termOfPaymentID']; ?>" />
-                        <select class="form-control" name="termOfPaymentValue" id="termOfPaymentOption" style="border-radius:0;" type="text">
+                        <input hidden id="termOfPaymentID" style="width: 20%;"
+                            value="<?= $header['termOfPaymentID']; ?>" />
+                        <select class="form-control" name="termOfPaymentValue" id="termOfPaymentOption"
+                            style="border-radius:0;" type="text" <?= $header['isHaveAPValue'] ? 'disabled' : ''; ?>>
                             <option disabled selected>Select a TOP</option>
                         </select>
                     </div>
@@ -57,7 +63,8 @@
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Payment Notes</label>
                 <div class="col-5 d-flex">
-                    <input id="paymentNotes" name="paymentNotes" style="border-radius:0;" type="text" class="form-control" value="<?= $header['paymentNotes']; ?>" autocomplete="off">
+                    <input id="paymentNotes" name="paymentNotes" style="border-radius:0;" type="text"
+                        class="form-control" value="<?= $header['paymentNotes']; ?>" autocomplete="off">
                 </div>
             </div>
         </div>
@@ -68,15 +75,17 @@
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Remark PO</label>
                 <div class="col-5 d-flex">
-                    <input id="remarkPO" name="remarkPO" style="border-radius:0;" type="text" class="form-control" value="<?= $header['remarkPO']; ?>" autocomplete="off">
+                    <input id="remarkPO" name="remarkPO" style="border-radius:0;" type="text" class="form-control"
+                        value="<?= $header['remarkPO']; ?>" autocomplete="off" <?= $header['isHaveAPValue'] ? 'disabled' : ''; ?>>
                 </div>
             </div>
-            
+
             <!-- INTERNAL NOTE -->
             <div class="row" style="margin-top: 1rem;">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Internal Note</label>
                 <div class="col-5">
-                    <textarea name="internalNote" id="internalNote" cols="30" rows="4" class="form-control" autocomplete="off"><?= $header['internalNote']; ?></textarea>
+                    <textarea name="internalNote" id="internalNote" cols="30" rows="4" class="form-control"
+                        autocomplete="off"><?= $header['internalNote']; ?></textarea>
                 </div>
             </div>
         </div>

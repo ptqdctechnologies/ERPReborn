@@ -30,5 +30,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-md-12 col-lg-3">
+            <!-- DATE RANGE -->
+            <div class="row p-0 align-items-center">
+                <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
+                <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                    <div>
+                        <div class="input-group" id="budget_progress_date_range_container">
+                            <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                                <span class="input-group-text" id="budget_progress_date_range_container_icon" style="border-radius: 0;">
+                                    <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                                </span>
+                            </div>
+                            <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="budget_progress_date_range" name="budget_progress_date_range" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

@@ -49,6 +49,8 @@
         filteredData = [...data];
         sortColumn = null;
         sortOrder = 'asc';
+        totalRecords = 0;
+        totalPages = 0;
 
         $('#table_container').hide();
 
@@ -623,8 +625,9 @@
         $("#sub_budget_name").val(`${combinedBudgetSectionCode} - ${combinedBudgetSectionName}`);
         $("#sub_budget_name").css({ "background-color": "#e9ecef" });
 
-        $("#mySearchPOTrigger").prop("disabled", true);
-        $("#mySearchPOTrigger").css({ "cursor": "not-allowed" });
+        $("#po_number").css('background-color', '#fff');
+        $(`#po_number`).val("");
+        $(`#po_id`).val("");
 
         $('#purchaseRequisitionModal').modal('toggle');
     });
@@ -636,15 +639,30 @@
         if (data) {
             $("#mySearchPO").modal('toggle');
 
-            const purchaseOrder_RefID = data.sys_ID;
-            const code = data.sys_Text;
+            const purchaseOrderRefID = data.sys_ID;
+            const trano = data.sys_Text;
+            const combinedBudgetCode = data.additionalData.combinedBudgetCode;
+            const combinedBudgetName = data.additionalData.combinedBudgetName;
+            const combinedBudgetSectionCode = data.additionalData.combinedBudgetSectionCode;
+            const combinedBudgetSectionName = data.additionalData.combinedBudgetSectionName;
 
-            $('#po_id').val(purchaseOrder_RefID);
-            $('#po_number').val(code);
+            $('#po_id').val(purchaseOrderRefID);
+            $('#po_number').val(trano);
             $("#po_number").css({ "background-color": "#e9ecef" });
 
-            $("#purchaseRequisitionModalTrigger").prop("disabled", true);
-            $("#purchaseRequisitionModalTrigger").css({ "cursor": "not-allowed" });
+            $("#budget_id").val(combinedBudgetCode);
+            $("#budget_code").val(combinedBudgetCode);
+            $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+            $("#budget_name").css({ "background-color": "#e9ecef" });
+
+            $("#sub_budget_id").val(combinedBudgetSectionCode);
+            $("#sub_budget_code").val(combinedBudgetSectionCode);
+            $("#sub_budget_name").val(`${combinedBudgetSectionCode} - ${combinedBudgetSectionName}`);
+            $("#sub_budget_name").css({ "background-color": "#e9ecef" });
+
+            $("#pr_number").css('background-color', '#fff');
+            $(`#pr_number`).val("");
+            $(`#pr_id`).val("");
         }
     });
 

@@ -2690,7 +2690,7 @@ namespace App\Helpers\ZhtHelper\General
                 }
                 
             $varReturn = 
-                '<script src = "js/zht-js/core.js" type="text/javascript"></script>'.
+                '<script src = "/js/zht-js/core.js" type="text/javascript"></script>'.
                 '<script>new zht_JSCore('.$varJSParameter.');</script>'.
                 '';
             return $varReturn;

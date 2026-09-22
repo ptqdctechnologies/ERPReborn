@@ -458,8 +458,9 @@
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
                             var price_settlement = $(`#price_settlement${data_index}`).val();
+                            var total_settlement_company = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
                             var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
-                            var countBalance = data_total_request - total_settlements;
+                            var countBalance = data_total_request - total_settlements - parseFloat(total_settlement_company || 0);
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -485,8 +486,9 @@
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
                             var qty_settlement = $(`#qty_settlement${data_index}`).val();
+                            var total_settlement_company = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
                             var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
-                            var countBalance = data_total_request - total_settlements;
+                            var countBalance = data_total_request - total_settlements - parseFloat(total_settlement_company || 0);
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -512,8 +514,9 @@
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
                             var price_settlement_company = $(`#price_settlement_company${data_index}`).val();
+                            var total_settlements = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
                             var total_settlement_company = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
-                            var countBalance = data_total_request - total_settlement_company;
+                            var countBalance = data_total_request - parseFloat(total_settlements || 0) - total_settlement_company;
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -539,8 +542,9 @@
                             var data_index = $(this).data('index');
                             var data_total_request = $(this).data('total-request');
                             var qty_settlement_company = $(`#qty_settlement_company${data_index}`).val();
+                            var total_settlements = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
                             var total_settlement_company = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
-                            var countBalance = data_total_request - total_settlement_company;
+                            var countBalance = data_total_request - parseFloat(total_settlements || 0) - total_settlement_company;
 
                             countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 

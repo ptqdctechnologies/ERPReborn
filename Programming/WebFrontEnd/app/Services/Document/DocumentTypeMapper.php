@@ -90,6 +90,11 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
+            'Material Disposal Form' => [
+                'key' => '',
+                'parameter' => [],
+                'businessDocument_RefID' => (int) 74000000021494,
+            ],
             'Payment Instruction Form' => [
                 'key' => 'transaction.read.dataList.finance.getPaymentInstructionDetail',
                 'parameter' => ['paymentInstruction_RefID' => (int) $referenceId]
@@ -471,6 +476,26 @@ class DocumentTypeMapper
                     'value' => ''
                 ],
                 'transactionType' => 'MODIFY BUDGET',
+                'businessDocument_RefID' => '',
+            ],
+            'Material Disposal Form' => [
+                'dataHeader' => [
+                    'dateUpdate' => null,
+                    'date' => '2025-09-29 15:49:00.113 +0700',
+                    'type' => 'ALL',
+                    'warehouseName' => 'WH-MAPG - Head Office - Gudang Mampang',
+                ],
+                'components' => [
+                    'detail' => 'Components.MaterialDisposalDetailDocument',
+                    'additional' => 'Components.MaterialDisposalDetailDocumentTable',
+                    'table' => 'Components.MaterialDisposalCardDetailDocument'
+                ],
+                'resubmit' => [
+                    'url' => '',
+                    'name' => '',
+                    'value' => ''
+                ],
+                'transactionType' => 'MATERIAL DISPOSAL',
                 'businessDocument_RefID' => '',
             ],
             'Payment Instruction Form' => [
@@ -992,6 +1017,7 @@ class DocumentTypeMapper
             'Sales Invoice Form' => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
             'Sales Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Tax Recon Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Material Disposal Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',
             'Warehouse Outbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReturn'
         ];

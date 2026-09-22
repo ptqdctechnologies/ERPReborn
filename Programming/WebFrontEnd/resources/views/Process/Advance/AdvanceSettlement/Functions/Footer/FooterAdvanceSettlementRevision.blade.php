@@ -354,7 +354,7 @@
             let totalRequest = val2.quantity * val2.productUnitPriceCurrencyValue;
             let totalExpense = val2.expenseQuantity * val2.expenseProductUnitPriceCurrencyValue;
             let totalCompany = val2.refundQuantity * val2.refundProductUnitPriceCurrencyValue;
-            let balanced = (totalRequest - totalExpense) + totalCompany;
+            let balanced = (totalRequest - totalExpense) - totalCompany;
 
             let row = `
                 <tr>
@@ -415,7 +415,7 @@
                 var price_settlement = $(`#price_settlement${data_index}`).val();
                 var total_company = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
                 var total_settlements = parseFloat(qty_settlement || 0) * parseFloat(price_settlement.replace(/,/g, '') || 0);
-                var countBalance = (totalRequest - total_settlements) + parseFloat(total_company || 0);
+                var countBalance = (totalRequest - total_settlements) - parseFloat(total_company || 0);
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -440,7 +440,7 @@
                 var qty_settlement = $(`#qty_settlement${data_index}`).val();
                 var total_company = $(`#total_settlement_company${data_index}`).val().replace(/,/g, '');
                 var total_settlements = parseFloat(qty_settlement.replace(/,/g, '') || 0) * parseFloat(price_settlement || 0);
-                var countBalance = (totalRequest - total_settlements) + parseFloat(total_company || 0);
+                var countBalance = (totalRequest - total_settlements) - parseFloat(total_company || 0);
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -465,7 +465,7 @@
                 var price_settlement_company = $(`#price_settlement_company${data_index}`).val();
                 var total_settlement = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
                 var total_settlement_company = parseFloat(qty_settlement_company || 0) * parseFloat(price_settlement_company.replace(/,/g, '') || 0);
-                var countBalance = (totalRequest - parseFloat(total_settlement || 0)) + total_settlement_company;
+                var countBalance = (totalRequest - parseFloat(total_settlement || 0)) - total_settlement_company;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
@@ -490,7 +490,7 @@
                 var qty_settlement_company = $(`#qty_settlement_company${data_index}`).val();
                 var total_settlement = $(`#total_settlement${data_index}`).val().replace(/,/g, '');
                 var total_settlement_company = parseFloat(qty_settlement_company.replace(/,/g, '') || 0) * parseFloat(price_settlement_company || 0);
-                var countBalance = (totalRequest - parseFloat(total_settlement || 0)) + total_settlement_company;
+                var countBalance = (totalRequest - parseFloat(total_settlement || 0)) - total_settlement_company;
 
                 countBalance = countBalance < 0.00 ? 0.00 : countBalance;
 
