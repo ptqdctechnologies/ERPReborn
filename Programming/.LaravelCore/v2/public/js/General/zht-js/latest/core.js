@@ -74,13 +74,22 @@ class zht_JSCore
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     isScriptAlreadyIncluded(varURL) {
+        if (varURL && varURL.charAt(0) !== '/') {
+            varURL = '/' + varURL;
+        }
         var scripts = document.getElementsByTagName("script");
         for(var i = 0; i < scripts.length; i++)
             {
-            if(scripts[i].getAttribute('src') == varURL)
-                {
-                return true;
+            var src = scripts[i].getAttribute('src');
+            if(src) {
+                if (src.charAt(0) !== '/') {
+                    src = '/' + src;
                 }
+                if(src == varURL || scripts[i].src.indexOf(varURL) !== -1)
+                    {
+                    return true;
+                    }
+            }
             }
         return false;
         }
@@ -103,6 +112,9 @@ class zht_JSCore
     */
     setLoadScript(varURL)
         {
+        if (varURL && varURL.charAt(0) !== '/') {
+            varURL = '/' + varURL;
+        }
         // Adding the script tag to the head as suggested before
         var varHead = document.getElementsByTagName('head')[0];
         var varScript = document.createElement('script');
@@ -131,6 +143,9 @@ class zht_JSCore
     */
     setJSSource_Specific(varURL)
         {
+        if (varURL && varURL.charAt(0) !== '/') {
+            varURL = '/' + varURL;
+        }
         if(this.isScriptAlreadyIncluded(varURL) == false)
             {
             this.setLoadScript(varURL);
@@ -158,12 +173,12 @@ class zht_JSCore
         {
         //window.alert(varJQueryEnable);
         if(varJQueryEnable == true) {
-            this.setJSSource_Specific("js/jQuery/jquery.min.js");            
+            this.setJSSource_Specific("/js/jQuery/jquery.min.js");            
             }
-        this.setJSSource_Specific("js/crypto-js/core.min.js");
-        this.setJSSource_Specific("js/crypto-js/md5.js");
-        //this.setJSSource_Specific("js/jQuery-MD5/jquery.md5.js");
-        this.setJSSource_Specific("js/zht-js/api-request.js");
+        this.setJSSource_Specific("/js/crypto-js/core.min.js");
+        this.setJSSource_Specific("/js/crypto-js/md5.js");
+        //this.setJSSource_Specific("/js/jQuery-MD5/jquery.md5.js");
+        this.setJSSource_Specific("/js/zht-js/api-request.js");
         }
     }
 

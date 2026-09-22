@@ -64,7 +64,8 @@
                                             Attachment
                                         </label>
                                         <div class="card-tools">
-                                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                            <button type="button" class="btn btn-tool" data-card-widget="collapse"
+                                                aria-label="Collapse Section Attachment">
                                                 <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                             </button>
                                         </div>
@@ -78,7 +79,7 @@
                                                     <div class="col p-0">
                                                         <input type="text" id="dataInput_Log_FileUpload"
                                                             name="dataInput_Log_FileUpload_1" style="display:none">
-                                                        <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                                                        <?php  echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
         $varAPIWebToken,
         'dataInput_Log_FileUpload',
