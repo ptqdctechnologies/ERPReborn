@@ -34,9 +34,9 @@ trait InteractsWithDockerComposeServices
         'memcached',
         'meilisearch',
         'typesense',
-        'minio',
         'rustfs',
         'mailpit',
+        'mailtrap-local',
         'rabbitmq',
         'selenium',
         'soketi',
@@ -108,7 +108,7 @@ trait InteractsWithDockerComposeServices
         // Merge volumes...
         collect($services)
             ->filter(function ($service) {
-                return in_array($service, ['mysql', 'pgsql', 'mariadb', 'mongodb', 'redis', 'valkey', 'meilisearch', 'typesense', 'minio', 'rustfs', 'rabbitmq']);
+                return in_array($service, ['mysql', 'pgsql', 'mariadb', 'mongodb', 'redis', 'valkey', 'meilisearch', 'typesense', 'rustfs', 'mailtrap-local', 'rabbitmq']);
             })->filter(function ($service) use ($compose) {
                 return ! array_key_exists($service, $compose['volumes'] ?? []);
             })->each(function ($service) use (&$compose) {
@@ -222,6 +222,10 @@ trait InteractsWithDockerComposeServices
             $environment = preg_replace("/^MAIL_MAILER=(.*)/m", "MAIL_MAILER=smtp", $environment);
             $environment = preg_replace("/^MAIL_HOST=(.*)/m", "MAIL_HOST=mailpit", $environment);
             $environment = preg_replace("/^MAIL_PORT=(.*)/m", "MAIL_PORT=1025", $environment);
+        } elseif (in_array('mailtrap-local', $services)) {
+            $environment = preg_replace("/^MAIL_MAILER=(.*)/m", "MAIL_MAILER=smtp", $environment);
+            $environment = preg_replace("/^MAIL_HOST=(.*)/m", "MAIL_HOST=mailtrap-local", $environment);
+            $environment = preg_replace("/^MAIL_PORT=(.*)/m", "MAIL_PORT=3535", $environment);
         }
 
         if (in_array('rabbitmq', $services)) {
