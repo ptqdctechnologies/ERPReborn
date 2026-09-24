@@ -95,6 +95,8 @@ class CloudLocation extends \Google\Model
    * @var string
    */
   public $displayName;
+  protected $gcpAttributesType = GcpAttributes::class;
+  protected $gcpAttributesDataType = '';
   /**
    * Identifier. Name of the cloud location. Unique name of the cloud location
    * including project and location using the form: `projects/{project_id}/locat
@@ -207,6 +209,22 @@ class CloudLocation extends \Google\Model
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  /**
+   * Optional. GCP-specific attributes.
+   *
+   * @param GcpAttributes $gcpAttributes
+   */
+  public function setGcpAttributes(GcpAttributes $gcpAttributes)
+  {
+    $this->gcpAttributes = $gcpAttributes;
+  }
+  /**
+   * @return GcpAttributes
+   */
+  public function getGcpAttributes()
+  {
+    return $this->gcpAttributes;
   }
   /**
    * Identifier. Name of the cloud location. Unique name of the cloud location

@@ -24,7 +24,8 @@ class Places extends \Google\Collection
   protected $placeInfosDataType = 'array';
 
   /**
-   * The areas represented by place IDs. Limited to a maximum of 20 places.
+   * Optional. The areas represented by place IDs. Limited to a maximum of 20
+   * places.
    *
    * @param PlaceInfo[] $placeInfos
    */

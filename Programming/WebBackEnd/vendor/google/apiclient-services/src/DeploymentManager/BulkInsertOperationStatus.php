@@ -33,6 +33,10 @@ class BulkInsertOperationStatus extends \Google\Model
    */
   public const STATUS_DONE = 'DONE';
   /**
+   * Pending - waiting until the capacity is available.
+   */
+  public const STATUS_PENDING = 'PENDING';
+  /**
    * [Output Only] Count of VMs successfully created so far.
    *
    * @var int
@@ -116,7 +120,7 @@ class BulkInsertOperationStatus extends \Google\Model
    * [Output Only] Creation status of BulkInsert operation - information if the
    * flow is rolling forward or rolling back.
    *
-   * Accepted values: STATUS_UNSPECIFIED, CREATING, ROLLING_BACK, DONE
+   * Accepted values: STATUS_UNSPECIFIED, CREATING, ROLLING_BACK, DONE, PENDING
    *
    * @param self::STATUS_* $status
    */

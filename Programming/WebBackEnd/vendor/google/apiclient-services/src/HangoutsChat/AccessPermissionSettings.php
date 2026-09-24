@@ -23,6 +23,8 @@ class AccessPermissionSettings extends \Google\Model
   protected $discoverSpaceSettingDataType = '';
   protected $joinSpaceSettingType = AccessPermissionSetting::class;
   protected $joinSpaceSettingDataType = '';
+  protected $viewSpaceMembershipSettingType = AccessPermissionSetting::class;
+  protected $viewSpaceMembershipSettingDataType = '';
 
   /**
    * Optional. Access permission setting for discovering the space.
@@ -55,6 +57,29 @@ class AccessPermissionSettings extends \Google\Model
   public function getJoinSpaceSetting()
   {
     return $this->joinSpaceSetting;
+  }
+  /**
+   * Optional. Access permission setting for viewing space membership. Must be
+   * specified together with `PermissionSettings.view_space_membership` in the
+   * update mask and request body when updating who can view space membership.
+   * When granting view access to a target audience, you must also grant
+   * `PermissionSettings.view_space_membership` to all members in the same
+   * request. To remove an existing target audience (for example, to restrict
+   * view access to space managers or assistant managers only), specify an empty
+   * `AccessPermissionSetting` (with no `principals`).
+   *
+   * @param AccessPermissionSetting $viewSpaceMembershipSetting
+   */
+  public function setViewSpaceMembershipSetting(AccessPermissionSetting $viewSpaceMembershipSetting)
+  {
+    $this->viewSpaceMembershipSetting = $viewSpaceMembershipSetting;
+  }
+  /**
+   * @return AccessPermissionSetting
+   */
+  public function getViewSpaceMembershipSetting()
+  {
+    return $this->viewSpaceMembershipSetting;
   }
 }
 

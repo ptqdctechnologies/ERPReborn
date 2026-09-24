@@ -99,6 +99,32 @@ class Chromewebstore extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'fetchReviews' => [
+              'path' => 'v2/{+name}:fetchReviews',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'orderBy' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'fetchStatus' => [
               'path' => 'v2/{+name}:fetchStatus',
               'httpMethod' => 'GET',

@@ -23,7 +23,7 @@ class ChangesListResponse extends \Google\Collection
   protected $changesType = Change::class;
   protected $changesDataType = 'array';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -59,7 +59,7 @@ class ChangesListResponse extends \Google\Collection
     return $this->changes;
   }
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

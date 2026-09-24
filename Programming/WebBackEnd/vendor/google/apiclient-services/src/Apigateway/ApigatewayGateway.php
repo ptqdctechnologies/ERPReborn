@@ -81,8 +81,7 @@ class ApigatewayGateway extends \Google\Model
    */
   public $createTime;
   /**
-   * Output only. The default API Gateway host name of the form
-   * `{gateway_id}-{hash}.{region_code}.gateway.dev`.
+   * Output only. The default hostname that serves traffic for this Gateway.
    *
    * @var string
    */
@@ -175,8 +174,7 @@ class ApigatewayGateway extends \Google\Model
     return $this->createTime;
   }
   /**
-   * Output only. The default API Gateway host name of the form
-   * `{gateway_id}-{hash}.{region_code}.gateway.dev`.
+   * Output only. The default hostname that serves traffic for this Gateway.
    *
    * @param string $defaultHostname
    */

@@ -17,7 +17,7 @@
 
 namespace Google\Service\DiscoveryEngine;
 
-class GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpec extends \Google\Model
+class GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpec extends \Google\Collection
 {
   /**
    * Server behavior defaults to Condition.DISABLED.
@@ -36,6 +36,7 @@ class GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpec extends 
    * ideal for single-API implementations (e.g., debouncing).
    */
   public const CONDITION_AUTO = 'AUTO';
+  protected $collection_key = 'fields';
   /**
    * The condition under which search as you type should occur. Default to
    * Condition.DISABLED.
@@ -43,6 +44,15 @@ class GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpec extends 
    * @var string
    */
   public $condition;
+  protected $fieldsType = GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpecField::class;
+  protected $fieldsDataType = 'array';
+  /**
+   * Optional. Search As You Type score threshold for filtering purpose. We keep
+   * the result if `score` >= `score_threshold`.
+   *
+   * @var 
+   */
+  public $scoreThreshold;
 
   /**
    * The condition under which search as you type should occur. Default to
@@ -62,6 +72,30 @@ class GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpec extends 
   public function getCondition()
   {
     return $this->condition;
+  }
+  /**
+   * Optional. The list of fields to be used for Search As You Type scoring.
+   *
+   * @param GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpecField[] $fields
+   */
+  public function setFields($fields)
+  {
+    $this->fields = $fields;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1alphaSearchRequestSearchAsYouTypeSpecField[]
+   */
+  public function getFields()
+  {
+    return $this->fields;
+  }
+  public function setScoreThreshold($scoreThreshold)
+  {
+    $this->scoreThreshold = $scoreThreshold;
+  }
+  public function getScoreThreshold()
+  {
+    return $this->scoreThreshold;
   }
 }
 

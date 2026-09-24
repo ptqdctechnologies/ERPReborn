@@ -22,25 +22,15 @@ class DocumentQuery extends \Google\Model
   /**
    * Default value, should never be set.
    */
-  public const DATA_MODEL_DATA_MODEL_UNSPECIFIED = 'DATA_MODEL_UNSPECIFIED';
-  /**
-   * GTI data model.
-   */
-  public const DATA_MODEL_DATA_MODEL_GTI = 'DATA_MODEL_GTI';
-  /**
-   * Default value, should never be set.
-   */
   public const QUERY_TYPE_QUERY_TYPE_UNSPECIFIED = 'QUERY_TYPE_UNSPECIFIED';
   /**
-   * Lucene query type.
+   * Structured JSON condition tree built via query builder.
    */
-  public const QUERY_TYPE_QUERY_TYPE_LUCENE = 'QUERY_TYPE_LUCENE';
+  public const QUERY_TYPE_JSON = 'JSON';
   /**
-   * Required. The data model to query against.
-   *
-   * @var string
+   * Raw search query string e.g., VTI search syntax.
    */
-  public $dataModel;
+  public const QUERY_TYPE_STRING = 'STRING';
   /**
    * Required. The query string.
    *
@@ -54,24 +44,6 @@ class DocumentQuery extends \Google\Model
    */
   public $queryType;
 
-  /**
-   * Required. The data model to query against.
-   *
-   * Accepted values: DATA_MODEL_UNSPECIFIED, DATA_MODEL_GTI
-   *
-   * @param self::DATA_MODEL_* $dataModel
-   */
-  public function setDataModel($dataModel)
-  {
-    $this->dataModel = $dataModel;
-  }
-  /**
-   * @return self::DATA_MODEL_*
-   */
-  public function getDataModel()
-  {
-    return $this->dataModel;
-  }
   /**
    * Required. The query string.
    *
@@ -91,7 +63,7 @@ class DocumentQuery extends \Google\Model
   /**
    * Required. The type of query.
    *
-   * Accepted values: QUERY_TYPE_UNSPECIFIED, QUERY_TYPE_LUCENE
+   * Accepted values: QUERY_TYPE_UNSPECIFIED, JSON, STRING
    *
    * @param self::QUERY_TYPE_* $queryType
    */

@@ -25,6 +25,12 @@ class Event extends \Google\Model
    * @var string
    */
   public $event;
+  /**
+   * Optional. Additional variables associated with the event.
+   *
+   * @var array[]
+   */
+  public $variables;
 
   /**
    * Required. The name of the event.
@@ -41,6 +47,22 @@ class Event extends \Google\Model
   public function getEvent()
   {
     return $this->event;
+  }
+  /**
+   * Optional. Additional variables associated with the event.
+   *
+   * @param array[] $variables
+   */
+  public function setVariables($variables)
+  {
+    $this->variables = $variables;
+  }
+  /**
+   * @return array[]
+   */
+  public function getVariables()
+  {
+    return $this->variables;
   }
 }
 

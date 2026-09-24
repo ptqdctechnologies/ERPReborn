@@ -57,7 +57,9 @@ class ProjectsLocationsDeployments extends \Google\Service\Resource
     return $this->call('create', [$params], GoogleCloudApihubV1Deployment::class);
   }
   /**
-   * Delete a deployment resource in the API hub. (deployments.delete)
+   * Deletes a deployment resource in the API hub. A deployment can only be
+   * deleted after its links to any versions, specs, and API operations have been
+   * removed. (deployments.delete)
    *
    * @param string $name Required. The name of the deployment resource to delete.
    * Format: `projects/{project}/locations/{location}/deployments/{deployment}`

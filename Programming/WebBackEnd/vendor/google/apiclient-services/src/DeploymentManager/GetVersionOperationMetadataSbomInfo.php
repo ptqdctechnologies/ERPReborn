@@ -20,23 +20,23 @@ namespace Google\Service\DeploymentManager;
 class GetVersionOperationMetadataSbomInfo extends \Google\Model
 {
   /**
-   * SBOM versions currently applied to the resource. The key is the component
-   * name and the value is the version.
+   * A mapping of components to their currently-applied versions or other
+   * appropriate identifiers.
    *
    * @var string[]
    */
   public $currentComponentVersions;
   /**
-   * SBOM versions scheduled for the next maintenance. The key is the component
-   * name and the value is the version.
+   * A mapping of components to their target versions or other appropriate
+   * identifiers.
    *
    * @var string[]
    */
   public $targetComponentVersions;
 
   /**
-   * SBOM versions currently applied to the resource. The key is the component
-   * name and the value is the version.
+   * A mapping of components to their currently-applied versions or other
+   * appropriate identifiers.
    *
    * @param string[] $currentComponentVersions
    */
@@ -52,8 +52,8 @@ class GetVersionOperationMetadataSbomInfo extends \Google\Model
     return $this->currentComponentVersions;
   }
   /**
-   * SBOM versions scheduled for the next maintenance. The key is the component
-   * name and the value is the version.
+   * A mapping of components to their target versions or other appropriate
+   * identifiers.
    *
    * @param string[] $targetComponentVersions
    */

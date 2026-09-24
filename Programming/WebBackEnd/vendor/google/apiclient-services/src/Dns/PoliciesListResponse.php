@@ -21,7 +21,7 @@ class PoliciesListResponse extends \Google\Collection
 {
   protected $collection_key = 'policies';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -43,7 +43,7 @@ class PoliciesListResponse extends \Google\Collection
   protected $policiesDataType = 'array';
 
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

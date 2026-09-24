@@ -74,7 +74,8 @@ class ProjectsLocationsApisVersionsSpecs extends \Google\Service\Resource
   }
   /**
    * Delete a spec. Deleting a spec will also delete the associated operations
-   * from the version. (specs.delete)
+   * from the version and remove any links between the spec and deployments.
+   * (specs.delete)
    *
    * @param string $name Required. The name of the spec to delete. Format: `projec
    * ts/{project}/locations/{location}/apis/{api}/versions/{version}/specs/{spec}`

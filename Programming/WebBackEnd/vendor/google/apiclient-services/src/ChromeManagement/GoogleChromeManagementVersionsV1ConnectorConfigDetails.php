@@ -37,6 +37,8 @@ class GoogleChromeManagementVersionsV1ConnectorConfigDetails extends \Google\Mod
   protected $pubSubConfigDataType = '';
   protected $pubSubXdrConfigType = GoogleChromeManagementVersionsV1PubSubXdrConfig::class;
   protected $pubSubXdrConfigDataType = '';
+  protected $secureGatewayConfigType = GoogleChromeManagementVersionsV1SecureGatewayConfig::class;
+  protected $secureGatewayConfigDataType = '';
   protected $splunkConfigType = GoogleChromeManagementVersionsV1SplunkConfig::class;
   protected $splunkConfigDataType = '';
 
@@ -183,6 +185,22 @@ class GoogleChromeManagementVersionsV1ConnectorConfigDetails extends \Google\Mod
   public function getPubSubXdrConfig()
   {
     return $this->pubSubXdrConfig;
+  }
+  /**
+   * Secure gateway connector config.
+   *
+   * @param GoogleChromeManagementVersionsV1SecureGatewayConfig $secureGatewayConfig
+   */
+  public function setSecureGatewayConfig(GoogleChromeManagementVersionsV1SecureGatewayConfig $secureGatewayConfig)
+  {
+    $this->secureGatewayConfig = $secureGatewayConfig;
+  }
+  /**
+   * @return GoogleChromeManagementVersionsV1SecureGatewayConfig
+   */
+  public function getSecureGatewayConfig()
+  {
+    return $this->secureGatewayConfig;
   }
   /**
    * Splunk connector config.

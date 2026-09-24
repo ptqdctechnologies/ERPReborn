@@ -31,7 +31,9 @@ use Google\Service\Meet\Participant;
 class ConferenceRecordsParticipants extends \Google\Service\Resource
 {
   /**
-   * Gets a participant by participant ID. (participants.get)
+   * Gets a participant by participant ID. For more information, see [Work with pa
+   * rticipants](https://developers.google.com/workspace/meet/api/guides/participa
+   * nts). (participants.get)
    *
    * @param string $name Required. Resource name of the participant.
    * @param array $optParams Optional parameters.
@@ -48,7 +50,9 @@ class ConferenceRecordsParticipants extends \Google\Service\Resource
    * Lists the participants in a conference record. By default, ordered by join
    * time and in descending order. This API supports `fields` as standard
    * parameters like every other API. However, when the `fields` request parameter
-   * is omitted, this API defaults to `'participants, next_page_token'`.
+   * is omitted, this API defaults to `'participants, next_page_token'`. For more
+   * information, see [Work with participants](https://developers.google.com/works
+   * pace/meet/api/guides/participants).
    * (participants.listConferenceRecordsParticipants)
    *
    * @param string $parent Required. Format:

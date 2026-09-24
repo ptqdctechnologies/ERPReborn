@@ -32,7 +32,9 @@ use Google\Service\Meet\Space;
 class Spaces extends \Google\Service\Resource
 {
   /**
-   * Creates a space. (spaces.create)
+   * Creates a space. For more information, see [Manage meeting
+   * spaces](https://developers.google.com/workspace/meet/api/guides/manage-
+   * meeting-spaces). (spaces.create)
    *
    * @param Space $postBody
    * @param array $optParams Optional parameters.
@@ -46,9 +48,10 @@ class Spaces extends \Google\Service\Resource
     return $this->call('create', [$params], Space::class);
   }
   /**
-   * Ends an active conference (if there's one). For an example, see [End active
-   * conference](https://developers.google.com/workspace/meet/api/guides/meeting-
-   * spaces#end-active-conference). (spaces.endActiveConference)
+   * Ends an active conference (if there's one). For more information, see [Manage
+   * meeting
+   * spaces](https://developers.google.com/workspace/meet/api/guides/manage-
+   * meeting-spaces). (spaces.endActiveConference)
    *
    * @param string $name Required. Resource name of the space. Format:
    * `spaces/{space}`. `{space}` is the resource identifier for the space. It's a
@@ -68,7 +71,9 @@ class Spaces extends \Google\Service\Resource
     return $this->call('endActiveConference', [$params], MeetEmpty::class);
   }
   /**
-   * Gets details about a meeting space. For an example, see [Get a meeting
+   * Gets details about a meeting space. For more information, see [Manage meeting
+   * spaces](https://developers.google.com/workspace/meet/api/guides/manage-
+   * meeting-spaces). For an example, see [Get a meeting
    * space](https://developers.google.com/workspace/meet/api/guides/meeting-
    * spaces#get-meeting-space). (spaces.get)
    *
@@ -97,9 +102,10 @@ class Spaces extends \Google\Service\Resource
     return $this->call('get', [$params], Space::class);
   }
   /**
-   * Updates details about a meeting space. For an example, see [Update a meeting
-   * space](https://developers.google.com/workspace/meet/api/guides/meeting-
-   * spaces#update-meeting-space). (spaces.patch)
+   * Updates details about a meeting space. For more information, see [Manage
+   * meeting
+   * spaces](https://developers.google.com/workspace/meet/api/guides/manage-
+   * meeting-spaces). (spaces.patch)
    *
    * @param string $name Immutable. Resource name of the space. Format:
    * `spaces/{space}`. `{space}` is the resource identifier for the space. It's a

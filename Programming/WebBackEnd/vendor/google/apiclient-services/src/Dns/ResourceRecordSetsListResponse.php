@@ -21,7 +21,7 @@ class ResourceRecordSetsListResponse extends \Google\Collection
 {
   protected $collection_key = 'rrsets';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -43,7 +43,7 @@ class ResourceRecordSetsListResponse extends \Google\Collection
   protected $rrsetsDataType = 'array';
 
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

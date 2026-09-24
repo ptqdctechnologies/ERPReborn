@@ -168,6 +168,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionCloudWatchEvents(array $args = [])
  * @method \Aws\CloudWatchLogs\CloudWatchLogsClient createCloudWatchLogs(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCloudWatchLogs(array $args = [])
+ * @method \Aws\CloudWatchOmni\CloudWatchOmniClient createCloudWatchOmni(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionCloudWatchOmni(array $args = [])
  * @method \Aws\CloudWatchRUM\CloudWatchRUMClient createCloudWatchRUM(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionCloudWatchRUM(array $args = [])
  * @method \Aws\CodeArtifact\CodeArtifactClient createCodeArtifact(array $args = [])
@@ -558,6 +560,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionNetworkManager(array $args = [])
  * @method \Aws\NetworkMonitor\NetworkMonitorClient createNetworkMonitor(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionNetworkMonitor(array $args = [])
+ * @method \Aws\NetworkSecurityManager\NetworkSecurityManagerClient createNetworkSecurityManager(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionNetworkSecurityManager(array $args = [])
  * @method \Aws\Notifications\NotificationsClient createNotifications(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionNotifications(array $args = [])
  * @method \Aws\NotificationsContacts\NotificationsContactsClient createNotificationsContacts(array $args = [])
@@ -867,7 +871,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.395.4';
+    const VERSION = '3.397.0';
 
     /** @var array Arguments for creating clients */
     private $args;

@@ -1216,6 +1216,8 @@ use Aws\AwsClient;
  *             LastRefreshType?: 'FULL'|'INCREMENTAL',
  *             SubObjects?: list<string>,
  *             SubObjectVersionIds?: list<int>,
+ *             SubObjectsStatistics?: list<array>,
+ *             SparkPipelineInfo?: array<string, string>,
  *             ...,
  *         },
  *         ...,
@@ -1273,6 +1275,8 @@ use Aws\AwsClient;
  *             LastRefreshType?: 'FULL'|'INCREMENTAL',
  *             SubObjects?: list<string>,
  *             SubObjectVersionIds?: list<int>,
+ *             SubObjectsStatistics?: list<array>,
+ *             SparkPipelineInfo?: array<string, string>,
  *             ...,
  *         },
  *         ...,
@@ -3434,6 +3438,7 @@ use Aws\AwsClient;
  *     DataQualitySecurityConfiguration?: string,
  *     ClientToken?: string,
  *     AdditionalRunOptions?: array{CustomLogGroupPrefix?: string, ...},
+ *     RecommendationMode?: 'ADVANCED'|'BASIC',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise startDataQualityRuleRecommendationRunAsync(array $args = [])
@@ -3465,6 +3470,7 @@ use Aws\AwsClient;
  *     DataQualitySecurityConfiguration?: string,
  *     ClientToken?: string,
  *     AdditionalRunOptions?: array{CustomLogGroupPrefix?: string, ...},
+ *     RecommendationMode?: 'ADVANCED'|'BASIC',
  *     ...,
  * } $args = [])
  * @method \Aws\Result startDataQualityRulesetEvaluationRun(array $args = [])
@@ -4448,6 +4454,8 @@ use Aws\AwsClient;
  *             LastRefreshType?: 'FULL'|'INCREMENTAL',
  *             SubObjects?: list<string>,
  *             SubObjectVersionIds?: list<int>,
+ *             SubObjectsStatistics?: list<array>,
+ *             SparkPipelineInfo?: array<string, string>,
  *             ...,
  *         },
  *         ...,
@@ -4505,6 +4513,8 @@ use Aws\AwsClient;
  *             LastRefreshType?: 'FULL'|'INCREMENTAL',
  *             SubObjects?: list<string>,
  *             SubObjectVersionIds?: list<int>,
+ *             SubObjectsStatistics?: list<array>,
+ *             SparkPipelineInfo?: array<string, string>,
  *             ...,
  *         },
  *         ...,

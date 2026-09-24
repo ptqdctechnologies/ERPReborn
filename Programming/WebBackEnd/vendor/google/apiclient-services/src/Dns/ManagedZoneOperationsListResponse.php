@@ -21,7 +21,7 @@ class ManagedZoneOperationsListResponse extends \Google\Collection
 {
   protected $collection_key = 'operations';
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @var string
    */
@@ -43,7 +43,7 @@ class ManagedZoneOperationsListResponse extends \Google\Collection
   protected $operationsDataType = 'array';
 
   /**
-   * Type of resource.
+   * Output only. Type of resource.
    *
    * @param string $kind
    */

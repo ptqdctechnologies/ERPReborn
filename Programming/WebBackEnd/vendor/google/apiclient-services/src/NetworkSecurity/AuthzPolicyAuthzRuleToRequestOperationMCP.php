@@ -33,7 +33,7 @@ class AuthzPolicyAuthzRuleToRequestOperationMCP extends \Google\Collection
   public const BASE_PROTOCOL_METHODS_OPTION_MATCH_BASE_PROTOCOL_METHODS = 'MATCH_BASE_PROTOCOL_METHODS';
   protected $collection_key = 'methods';
   /**
-   * Optional. If specified, matches on the MCP protocol’s non-access specific
+   * Optional. If specified, matches on the MCP protocol's non-access specific
    * methods namely: * initialize * completion/ * logging/ * notifications/ *
    * ping Defaults to SKIP_BASE_PROTOCOL_METHODS if not specified.
    *
@@ -44,7 +44,7 @@ class AuthzPolicyAuthzRuleToRequestOperationMCP extends \Google\Collection
   protected $methodsDataType = 'array';
 
   /**
-   * Optional. If specified, matches on the MCP protocol’s non-access specific
+   * Optional. If specified, matches on the MCP protocol's non-access specific
    * methods namely: * initialize * completion/ * logging/ * notifications/ *
    * ping Defaults to SKIP_BASE_PROTOCOL_METHODS if not specified.
    *

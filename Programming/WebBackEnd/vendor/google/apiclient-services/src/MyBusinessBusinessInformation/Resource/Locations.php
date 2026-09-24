@@ -109,8 +109,8 @@ class Locations extends \Google\Service\Resource
   /**
    * Updates the specified location. (locations.patch)
    *
-   * @param string $name Google identifier for this location in the form:
-   * `locations/{location_id}`.
+   * @param string $name Identifier. Google identifier for this location in the
+   * form: `locations/{location_id}`.
    * @param Location $postBody
    * @param array $optParams Optional parameters.
    *

@@ -26,19 +26,22 @@ class GooglePrivacyDlpV2AdjustByMatchingInfoTypes extends \Google\Collection
   /**
    * Full match. - Dictionary: join of Dictionary results matched the complete
    * finding quote - Regex: all regex matches fill a finding quote from start to
-   * end - Exclude infoType: completely inside affecting infoTypes findings
+   * end - Exclude infoType: completely inside affecting infoTypes findings -
+   * Exclude by prompt: finding matches the prompt definition
    */
   public const MATCHING_TYPE_MATCHING_TYPE_FULL_MATCH = 'MATCHING_TYPE_FULL_MATCH';
   /**
    * Partial match. - Dictionary: at least one of the tokens in the finding
    * matches - Regex: substring of the finding matches - Exclude infoType:
-   * intersects with affecting infoTypes findings
+   * intersects with affecting infoTypes findings - Exclude by prompt: not
+   * supported
    */
   public const MATCHING_TYPE_MATCHING_TYPE_PARTIAL_MATCH = 'MATCHING_TYPE_PARTIAL_MATCH';
   /**
    * Inverse match. - Dictionary: no tokens in the finding match the dictionary
    * - Regex: finding doesn't match the regex - Exclude infoType: no
-   * intersection with affecting infoTypes findings
+   * intersection with affecting infoTypes findings - Exclude by prompt: finding
+   * does not match the prompt definition
    */
   public const MATCHING_TYPE_MATCHING_TYPE_INVERSE_MATCH = 'MATCHING_TYPE_INVERSE_MATCH';
   /**
@@ -47,7 +50,8 @@ class GooglePrivacyDlpV2AdjustByMatchingInfoTypes extends \Google\Collection
    * simple string comparison (e.g., image containment). This matching type can
    * only be used with the `ExcludeByImageFindings` rule. - Exclude by image
    * findings: The matching logic is defined within `ExcludeByImageFindings`
-   * based on spatial relationships between bounding boxes.
+   * based on spatial relationships between bounding boxes. - Exclude by prompt:
+   * not supported
    */
   public const MATCHING_TYPE_MATCHING_TYPE_RULE_SPECIFIC = 'MATCHING_TYPE_RULE_SPECIFIC';
   /**

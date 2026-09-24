@@ -185,6 +185,10 @@ class Step extends \Google\Model
    */
   public const STATE_DIRECT_VPC_EGRESS_CONNECTION = 'DIRECT_VPC_EGRESS_CONNECTION';
   /**
+   * Forwarding state: arriving at a direct VPC ingress connection.
+   */
+  public const STATE_ARRIVE_AT_DIRECT_VPC_INGRESS_CONNECTION = 'ARRIVE_AT_DIRECT_VPC_INGRESS_CONNECTION';
+  /**
    * Forwarding state: for packets originating from a serverless endpoint
    * forwarded through public (external) connectivity.
    */
@@ -279,6 +283,8 @@ class Step extends \Google\Model
   public $description;
   protected $directVpcEgressConnectionType = DirectVpcEgressConnectionInfo::class;
   protected $directVpcEgressConnectionDataType = '';
+  protected $directVpcIngressConnectionType = DirectVpcIngressConnectionInfo::class;
+  protected $directVpcIngressConnectionDataType = '';
   protected $dmsPrivateConnectionType = PrivateConnectionInfo::class;
   protected $dmsPrivateConnectionDataType = '';
   protected $dropType = DropInfo::class;
@@ -529,6 +535,23 @@ class Step extends \Google\Model
   public function getDirectVpcEgressConnection()
   {
     return $this->directVpcEgressConnection;
+  }
+  /**
+   * Display information of a serverless direct VPC ingress connection for Cloud
+   * Run.
+   *
+   * @param DirectVpcIngressConnectionInfo $directVpcIngressConnection
+   */
+  public function setDirectVpcIngressConnection(DirectVpcIngressConnectionInfo $directVpcIngressConnection)
+  {
+    $this->directVpcIngressConnection = $directVpcIngressConnection;
+  }
+  /**
+   * @return DirectVpcIngressConnectionInfo
+   */
+  public function getDirectVpcIngressConnection()
+  {
+    return $this->directVpcIngressConnection;
   }
   /**
    * Display information of a DMS Private Connection.
@@ -987,11 +1010,11 @@ class Step extends \Google\Model
    * ARRIVE_AT_HYBRID_SUBNET, ARRIVE_AT_VPN_GATEWAY, ARRIVE_AT_VPN_TUNNEL,
    * ARRIVE_AT_INTERCONNECT_ATTACHMENT, ARRIVE_AT_VPC_CONNECTOR,
    * ARRIVE_AT_GKE_POD, DIRECT_VPC_EGRESS_CONNECTION,
-   * SERVERLESS_EXTERNAL_CONNECTION, NGFW_PACKET_INSPECTION, NAT,
-   * SKIP_GKE_POD_IP_MASQUERADING, SKIP_GKE_INGRESS_NETWORK_POLICY,
-   * SKIP_GKE_EGRESS_NETWORK_POLICY, APPLY_INGRESS_GKE_NETWORK_POLICY,
-   * APPLY_EGRESS_GKE_NETWORK_POLICY, PROXY_CONNECTION, DELIVER, DROP, FORWARD,
-   * ABORT, VIEWER_PERMISSION_MISSING
+   * ARRIVE_AT_DIRECT_VPC_INGRESS_CONNECTION, SERVERLESS_EXTERNAL_CONNECTION,
+   * NGFW_PACKET_INSPECTION, NAT, SKIP_GKE_POD_IP_MASQUERADING,
+   * SKIP_GKE_INGRESS_NETWORK_POLICY, SKIP_GKE_EGRESS_NETWORK_POLICY,
+   * APPLY_INGRESS_GKE_NETWORK_POLICY, APPLY_EGRESS_GKE_NETWORK_POLICY,
+   * PROXY_CONNECTION, DELIVER, DROP, FORWARD, ABORT, VIEWER_PERMISSION_MISSING
    *
    * @param self::STATE_* $state
    */

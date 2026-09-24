@@ -23,7 +23,7 @@ class MigrationSummary extends \Google\Collection
   protected $catalogSummariesType = CatalogSummary::class;
   protected $catalogSummariesDataType = 'array';
   /**
-   * Output only. The UTC time when this report was finalized.
+   * Output only. The UTC time when the source metadata read was initiated.
    *
    * @var string
    */
@@ -34,6 +34,12 @@ class MigrationSummary extends \Google\Collection
    * @var bool
    */
   public $dryRun;
+  /**
+   * Output only. The UTC time when the report was written.
+   *
+   * @var string
+   */
+  public $endTime;
   /**
    * Output only. The Dataproc Metastore service name (format:
    * projects/locations/services) on which the migration was executed.
@@ -59,7 +65,7 @@ class MigrationSummary extends \Google\Collection
     return $this->catalogSummaries;
   }
   /**
-   * Output only. The UTC time when this report was finalized.
+   * Output only. The UTC time when the source metadata read was initiated.
    *
    * @param string $createTime
    */
@@ -89,6 +95,22 @@ class MigrationSummary extends \Google\Collection
   public function getDryRun()
   {
     return $this->dryRun;
+  }
+  /**
+   * Output only. The UTC time when the report was written.
+   *
+   * @param string $endTime
+   */
+  public function setEndTime($endTime)
+  {
+    $this->endTime = $endTime;
+  }
+  /**
+   * @return string
+   */
+  public function getEndTime()
+  {
+    return $this->endTime;
   }
   /**
    * Output only. The Dataproc Metastore service name (format:

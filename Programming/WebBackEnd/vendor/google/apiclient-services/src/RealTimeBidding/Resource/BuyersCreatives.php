@@ -17,6 +17,7 @@
 
 namespace Google\Service\RealTimeBidding\Resource;
 
+use Google\Service\RealTimeBidding\AddDealsRequest;
 use Google\Service\RealTimeBidding\Creative;
 use Google\Service\RealTimeBidding\ListCreativesResponse;
 
@@ -30,6 +31,23 @@ use Google\Service\RealTimeBidding\ListCreativesResponse;
  */
 class BuyersCreatives extends \Google\Service\Resource
 {
+  /**
+   * Adds a list of deals to a creative, which submits the creative for publisher
+   * review. Returns the updated creative. (creatives.addDeals)
+   *
+   * @param string $name Required. Name of the creative to add the deals to. See
+   * creative.name.
+   * @param AddDealsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Creative
+   * @throws \Google\Service\Exception
+   */
+  public function addDeals($name, AddDealsRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('addDeals', [$params], Creative::class);
+  }
   /**
    * Creates a creative. (creatives.create)
    *

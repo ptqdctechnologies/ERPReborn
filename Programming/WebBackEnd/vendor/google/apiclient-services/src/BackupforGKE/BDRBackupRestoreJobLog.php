@@ -26,6 +26,12 @@ class BDRBackupRestoreJobLog extends \Google\Model
    */
   public $autoProtectionPolicy;
   /**
+   * The auto-protection policy binding that created the backup.
+   *
+   * @var string
+   */
+  public $autoProtectionPolicyBinding;
+  /**
    * Backup consistency time.
    *
    * @var string
@@ -195,6 +201,22 @@ class BDRBackupRestoreJobLog extends \Google\Model
   public function getAutoProtectionPolicy()
   {
     return $this->autoProtectionPolicy;
+  }
+  /**
+   * The auto-protection policy binding that created the backup.
+   *
+   * @param string $autoProtectionPolicyBinding
+   */
+  public function setAutoProtectionPolicyBinding($autoProtectionPolicyBinding)
+  {
+    $this->autoProtectionPolicyBinding = $autoProtectionPolicyBinding;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoProtectionPolicyBinding()
+  {
+    return $this->autoProtectionPolicyBinding;
   }
   /**
    * Backup consistency time.

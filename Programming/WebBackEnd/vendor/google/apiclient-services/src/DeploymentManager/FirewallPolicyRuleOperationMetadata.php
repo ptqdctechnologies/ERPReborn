@@ -20,16 +20,16 @@ namespace Google\Service\DeploymentManager;
 class FirewallPolicyRuleOperationMetadata extends \Google\Model
 {
   /**
-   * The priority allocated for the firewall policy rule if query parameters
-   * specified minPriority/maxPriority.
+   * Output only. [Output Only] The priority allocated for the firewall policy
+   * rule if query parameters specified minPriority/maxPriority.
    *
    * @var int
    */
   public $allocatedPriority;
 
   /**
-   * The priority allocated for the firewall policy rule if query parameters
-   * specified minPriority/maxPriority.
+   * Output only. [Output Only] The priority allocated for the firewall policy
+   * rule if query parameters specified minPriority/maxPriority.
    *
    * @param int $allocatedPriority
    */

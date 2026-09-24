@@ -21,6 +21,14 @@ class AppStoreAppActiveApkSet extends \Google\Collection
 {
   protected $collection_key = 'splitApkId';
   /**
+   * Optional. Whether all APKs referenced in this active APK set are published
+   * on Play Store (or derived from an app bundle published on Play Store). When
+   * this is set, version_code must be provided.
+   *
+   * @var bool
+   */
+  public $alreadyPublishedOnPlay;
+  /**
    * Required. The ID for the main base application module. Example: base.apk or
    * app.apk.
    *
@@ -35,7 +43,31 @@ class AppStoreAppActiveApkSet extends \Google\Collection
    * @var string[]
    */
   public $splitApkId;
+  /**
+   * Optional. Version code for the version this APK set represents.
+   *
+   * @var string
+   */
+  public $versionCode;
 
+  /**
+   * Optional. Whether all APKs referenced in this active APK set are published
+   * on Play Store (or derived from an app bundle published on Play Store). When
+   * this is set, version_code must be provided.
+   *
+   * @param bool $alreadyPublishedOnPlay
+   */
+  public function setAlreadyPublishedOnPlay($alreadyPublishedOnPlay)
+  {
+    $this->alreadyPublishedOnPlay = $alreadyPublishedOnPlay;
+  }
+  /**
+   * @return bool
+   */
+  public function getAlreadyPublishedOnPlay()
+  {
+    return $this->alreadyPublishedOnPlay;
+  }
   /**
    * Required. The ID for the main base application module. Example: base.apk or
    * app.apk.
@@ -70,6 +102,22 @@ class AppStoreAppActiveApkSet extends \Google\Collection
   public function getSplitApkId()
   {
     return $this->splitApkId;
+  }
+  /**
+   * Optional. Version code for the version this APK set represents.
+   *
+   * @param string $versionCode
+   */
+  public function setVersionCode($versionCode)
+  {
+    $this->versionCode = $versionCode;
+  }
+  /**
+   * @return string
+   */
+  public function getVersionCode()
+  {
+    return $this->versionCode;
   }
 }
 
