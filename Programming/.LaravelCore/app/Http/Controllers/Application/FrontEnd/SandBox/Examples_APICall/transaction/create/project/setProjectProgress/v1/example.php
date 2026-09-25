@@ -57,7 +57,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "projectProgress_RefID" => 309000000000001,
                                                 "projectSectionItem_RefID" => 143000000000305,
-                                                "progressCompletion" => 25.2,
+                                                "progressCompletion" => 0.2525,
                                                 "annotation" => 'My Annotation 1'
                                                 ]
                                             ],
@@ -65,7 +65,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                             "entities" => [
                                                 "projectProgress_RefID" => 309000000000001,
                                                 "projectSectionItem_RefID" => 143000000000306,
-                                                "progressCompletion" => 10.7,
+                                                "progressCompletion" => 0.1071,
                                                 "annotation" => 'My Annotation 2'
                                                 ]
                                             ]
