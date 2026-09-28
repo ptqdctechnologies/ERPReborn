@@ -22,7 +22,8 @@ class Distance extends \Google\Model
   protected $intervalType = ObservationTimeInterval::class;
   protected $intervalDataType = '';
   /**
-   * Required. Distance in millimeters over the observed interval.
+   * Required. Distance in millimeters over the observed interval. Must be in
+   * the range `[0, 1000000000]`.
    *
    * @var string
    */
@@ -45,7 +46,8 @@ class Distance extends \Google\Model
     return $this->interval;
   }
   /**
-   * Required. Distance in millimeters over the observed interval.
+   * Required. Distance in millimeters over the observed interval. Must be in
+   * the range `[0, 1000000000]`.
    *
    * @param string $millimeters
    */

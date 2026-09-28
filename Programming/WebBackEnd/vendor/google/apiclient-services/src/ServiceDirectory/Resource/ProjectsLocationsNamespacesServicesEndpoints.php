@@ -130,7 +130,7 @@ class ProjectsLocationsNamespacesServicesEndpoints extends \Google\Service\Resou
   /**
    * Updates an endpoint. (endpoints.patch)
    *
-   * @param string $name Immutable. The resource name for the endpoint in the
+   * @param string $name Identifier. The resource name for the endpoint in the
    * format `projects/locations/namespaces/services/endpoints`.
    * @param Endpoint $postBody
    * @param array $optParams Optional parameters.

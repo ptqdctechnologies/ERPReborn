@@ -320,6 +320,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionEntityResolution(array $args = [])
  * @method \Aws\EventBridge\EventBridgeClient createEventBridge(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEventBridge(array $args = [])
+ * @method \Aws\EventBridgeV2\EventBridgeV2Client createEventBridgeV2(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionEventBridgeV2(array $args = [])
  * @method \Aws\Evs\EvsClient createEvs(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEvs(array $args = [])
  * @method \Aws\FIS\FISClient createFIS(array $args = [])
@@ -871,7 +873,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.397.0';
+    const VERSION = '3.398.1';
 
     /** @var array Arguments for creating clients */
     private $args;

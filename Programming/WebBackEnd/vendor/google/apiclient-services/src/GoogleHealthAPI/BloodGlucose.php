@@ -112,7 +112,8 @@ class BloodGlucose extends \Google\Model
    */
   public const SPECIMEN_WHOLE_BLOOD = 'WHOLE_BLOOD';
   /**
-   * Required. Blood glucose level concentration in mg/dL.
+   * Required. Blood glucose level concentration in mg/dL. Must be in the range
+   * `[0, 900]`.
    *
    * @var 
    */

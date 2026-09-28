@@ -20,7 +20,8 @@ namespace Google\Service\GoogleHealthAPI;
 class OxygenSaturation extends \Google\Model
 {
   /**
-   * Required. The oxygen saturation percentage. Valid values are from 0 to 100.
+   * Required. The oxygen saturation percentage. Must be in the range `[0,
+   * 100]`.
    *
    * @var 
    */

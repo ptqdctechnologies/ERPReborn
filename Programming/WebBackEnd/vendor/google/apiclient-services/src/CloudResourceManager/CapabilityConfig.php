@@ -48,7 +48,7 @@ class CapabilityConfig extends \Google\Collection
    * Optional. Human-readable non-unique display name of the CapabilityConfig.
    * When present it must be between 4 to 30 characters. Allowed characters are:
    * lowercase and uppercase letters, numbers, hyphen, single-quote, double-
-   * quote, space, and exclamation point. Example: `My Capability Config`
+   * quote, space, and exclamation point. Example: `My CapabilityConfig`
    *
    * @var string
    */
@@ -137,7 +137,7 @@ class CapabilityConfig extends \Google\Collection
    * Optional. Human-readable non-unique display name of the CapabilityConfig.
    * When present it must be between 4 to 30 characters. Allowed characters are:
    * lowercase and uppercase letters, numbers, hyphen, single-quote, double-
-   * quote, space, and exclamation point. Example: `My Capability Config`
+   * quote, space, and exclamation point. Example: `My CapabilityConfig`
    *
    * @param string $displayName
    */

@@ -20,7 +20,7 @@ namespace Google\Service\GoogleHealthAPI;
 class RunVO2Max extends \Google\Model
 {
   /**
-   * Required. Run VO2 max value in ml/kg/min.
+   * Required. Run VO2 max value in ml/kg/min. Must be in the range `[0, 100]`.
    *
    * @var 
    */

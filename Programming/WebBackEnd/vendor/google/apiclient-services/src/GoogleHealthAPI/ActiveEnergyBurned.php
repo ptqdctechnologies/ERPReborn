@@ -22,7 +22,8 @@ class ActiveEnergyBurned extends \Google\Model
   protected $intervalType = ObservationTimeInterval::class;
   protected $intervalDataType = '';
   /**
-   * Required. Energy burned during an activity, measured in kilocalories.
+   * Required. Energy burned during an activity, measured in kilocalories. Must
+   * be in the range `[0, 1000000]`.
    *
    * @var 
    */

@@ -36,6 +36,10 @@ class CloudLocation extends \Google\Model
    */
   public const CLOUD_LOCATION_TYPE_CLOUD_LOCATION_TYPE_GDCC_ZONE = 'CLOUD_LOCATION_TYPE_GDCC_ZONE';
   /**
+   * CloudLocation type for global.
+   */
+  public const CLOUD_LOCATION_TYPE_CLOUD_LOCATION_TYPE_GLOBAL = 'CLOUD_LOCATION_TYPE_GLOBAL';
+  /**
    * Unspecified type.
    */
   public const CLOUD_PROVIDER_CLOUD_PROVIDER_UNSPECIFIED = 'CLOUD_PROVIDER_UNSPECIFIED';
@@ -140,7 +144,7 @@ class CloudLocation extends \Google\Model
    *
    * Accepted values: CLOUD_LOCATION_TYPE_UNSPECIFIED,
    * CLOUD_LOCATION_TYPE_REGION, CLOUD_LOCATION_TYPE_ZONE,
-   * CLOUD_LOCATION_TYPE_GDCC_ZONE
+   * CLOUD_LOCATION_TYPE_GDCC_ZONE, CLOUD_LOCATION_TYPE_GLOBAL
    *
    * @param self::CLOUD_LOCATION_TYPE_* $cloudLocationType
    */

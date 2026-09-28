@@ -154,7 +154,7 @@ class ProjectsLocationsNamespacesServices extends \Google\Service\Resource
   /**
    * Updates a service. (services.patch)
    *
-   * @param string $name Immutable. The resource name for the service in the
+   * @param string $name Identifier. The resource name for the service in the
    * format `projects/locations/namespaces/services`.
    * @param Service $postBody
    * @param array $optParams Optional parameters.

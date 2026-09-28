@@ -19,36 +19,14 @@ namespace Google\Service\ServiceUsage;
 
 class EnableRule extends \Google\Collection
 {
-  /**
-   * Unspecified enable type, which means enabled as both client and resource
-   * project.
-   */
-  public const ENABLE_TYPE_ENABLE_TYPE_UNSPECIFIED = 'ENABLE_TYPE_UNSPECIFIED';
-  /**
-   * Enable all clients under the CRM node specified by `ConsumerPolicy.name` to
-   * use the listed services. A client can be an API key, an OAuth client, or a
-   * service account.
-   */
-  public const ENABLE_TYPE_CLIENT = 'CLIENT';
-  /**
-   * Enable resources in the list services to be created and used under the CRM
-   * node specified by the `ConsumerPolicy.name`.
-   */
-  public const ENABLE_TYPE_RESOURCE = 'RESOURCE';
-  /**
-   * Activation made by Service Usage v1 API. This will be how consumers
-   * differentiate between policy changes made by v1 and v2 clients and
-   * understand what is actually possible based on those different policies.
-   */
-  public const ENABLE_TYPE_V1_COMPATIBLE = 'V1_COMPATIBLE';
   protected $collection_key = 'values';
   /**
-   * Deprecated: EnableType is not supported.
+   * The names of the catalogs that are enabled. Example: `catalogs/default-
+   * cloud-services`.
    *
-   * @deprecated
-   * @var string
+   * @var string[]
    */
-  public $enableType;
+  public $catalogs;
   /**
    * The names of the services that are enabled. Example:
    * `services/storage.googleapis.com`.
@@ -68,24 +46,21 @@ class EnableRule extends \Google\Collection
   public $values;
 
   /**
-   * Deprecated: EnableType is not supported.
+   * The names of the catalogs that are enabled. Example: `catalogs/default-
+   * cloud-services`.
    *
-   * Accepted values: ENABLE_TYPE_UNSPECIFIED, CLIENT, RESOURCE, V1_COMPATIBLE
-   *
-   * @deprecated
-   * @param self::ENABLE_TYPE_* $enableType
+   * @param string[] $catalogs
    */
-  public function setEnableType($enableType)
+  public function setCatalogs($catalogs)
   {
-    $this->enableType = $enableType;
+    $this->catalogs = $catalogs;
   }
   /**
-   * @deprecated
-   * @return self::ENABLE_TYPE_*
+   * @return string[]
    */
-  public function getEnableType()
+  public function getCatalogs()
   {
-    return $this->enableType;
+    return $this->catalogs;
   }
   /**
    * The names of the services that are enabled. Example:

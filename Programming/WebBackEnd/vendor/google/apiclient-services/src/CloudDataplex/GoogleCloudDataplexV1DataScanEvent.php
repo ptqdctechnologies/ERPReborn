@@ -95,6 +95,8 @@ class GoogleCloudDataplexV1DataScanEvent extends \Google\Model
    * @var string
    */
   public $createTime;
+  protected $dataDocumentationType = GoogleCloudDataplexV1DataScanEventDataDocumentationResult::class;
+  protected $dataDocumentationDataType = '';
   protected $dataProfileType = GoogleCloudDataplexV1DataScanEventDataProfileResult::class;
   protected $dataProfileDataType = '';
   protected $dataProfileConfigsType = GoogleCloudDataplexV1DataScanEventDataProfileAppliedConfigs::class;
@@ -198,6 +200,22 @@ class GoogleCloudDataplexV1DataScanEvent extends \Google\Model
   public function getCreateTime()
   {
     return $this->createTime;
+  }
+  /**
+   * Data documentation result for data documentation (insights) scan.
+   *
+   * @param GoogleCloudDataplexV1DataScanEventDataDocumentationResult $dataDocumentation
+   */
+  public function setDataDocumentation(GoogleCloudDataplexV1DataScanEventDataDocumentationResult $dataDocumentation)
+  {
+    $this->dataDocumentation = $dataDocumentation;
+  }
+  /**
+   * @return GoogleCloudDataplexV1DataScanEventDataDocumentationResult
+   */
+  public function getDataDocumentation()
+  {
+    return $this->dataDocumentation;
   }
   /**
    * Data profile result for data profile type data scan.

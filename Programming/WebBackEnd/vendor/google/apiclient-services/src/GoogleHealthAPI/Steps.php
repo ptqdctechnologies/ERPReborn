@@ -20,7 +20,8 @@ namespace Google\Service\GoogleHealthAPI;
 class Steps extends \Google\Model
 {
   /**
-   * Required. Number of steps in the recorded interval.
+   * Required. Number of steps in the recorded interval. Must be in the range
+   * `[0, 1000000]`.
    *
    * @var string
    */
@@ -29,7 +30,8 @@ class Steps extends \Google\Model
   protected $intervalDataType = '';
 
   /**
-   * Required. Number of steps in the recorded interval.
+   * Required. Number of steps in the recorded interval. Must be in the range
+   * `[0, 1000000]`.
    *
    * @param string $count
    */

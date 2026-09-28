@@ -32,9 +32,8 @@ class BigtableConfig extends \Google\Model
    * creator or updater that specifies this field must have
    * `iam.serviceAccounts.actAs` permission on the service account. If not
    * specified, the Pub/Sub [service
-   * agent]({$universe.dns_names.final_documentation_domain}/iam/docs/service-
-   * agents), service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is
-   * used.
+   * agent](https://cloud.google.com/iam/docs/service-agents),
+   * service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
    *
    * @var string
    */
@@ -81,9 +80,8 @@ class BigtableConfig extends \Google\Model
    * creator or updater that specifies this field must have
    * `iam.serviceAccounts.actAs` permission on the service account. If not
    * specified, the Pub/Sub [service
-   * agent]({$universe.dns_names.final_documentation_domain}/iam/docs/service-
-   * agents), service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is
-   * used.
+   * agent](https://cloud.google.com/iam/docs/service-agents),
+   * service-{project_number}@gcp-sa-pubsub.iam.gserviceaccount.com, is used.
    *
    * @param string $serviceAccountEmail
    */

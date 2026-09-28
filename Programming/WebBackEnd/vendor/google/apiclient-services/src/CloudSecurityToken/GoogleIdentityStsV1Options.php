@@ -22,7 +22,7 @@ class GoogleIdentityStsV1Options extends \Google\Model
   protected $accessBoundaryType = GoogleIdentityStsV1AccessBoundary::class;
   protected $accessBoundaryDataType = '';
   /**
-   * The unpadded, url-escaped, base64-encoded SHA-256 hash of the certificate's
+   * The unpadded, URL-escaped, base64-encoded SHA-256 hash of the certificate's
    * DER encoding. It must be 43 characters long. The resulting token will be
    * bound to this value.
    *
@@ -60,7 +60,7 @@ class GoogleIdentityStsV1Options extends \Google\Model
     return $this->accessBoundary;
   }
   /**
-   * The unpadded, url-escaped, base64-encoded SHA-256 hash of the certificate's
+   * The unpadded, URL-escaped, base64-encoded SHA-256 hash of the certificate's
    * DER encoding. It must be 43 characters long. The resulting token will be
    * bound to this value.
    *

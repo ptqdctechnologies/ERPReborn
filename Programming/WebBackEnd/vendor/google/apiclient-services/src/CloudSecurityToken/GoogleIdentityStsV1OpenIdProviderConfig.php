@@ -36,9 +36,9 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
    */
   public $authorizationEndpoint;
   /**
-   * JSON array containing a list of the JWS signing algorithms (alg values)
-   * supported by the OP for the ID token to encode the claims in a JWT [JWT].
-   * Note: Currently always "["RS256"]".
+   * JSON array that contains a list of the JWS signing algorithms (alg values)
+   * supported by the OP for the ID token to encode the claims in a JWT.
+   * Supported value: `RS256`.
    *
    * @var string[]
    */
@@ -51,21 +51,21 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
    */
   public $issuer;
   /**
-   * URL of the OP's JWK Set [JWK] document, which MUST use the https scheme.
+   * URL of the OP's JWK Set document, which MUST use the https scheme.
    *
    * @var string
    */
   public $jwksUri;
   /**
-   * JSON array containing a list of the OAuth 2.0 response_type values that
-   * this OP supports. Note: Currently always "["id_token"]".
+   * JSON array that contains a list of the OAuth 2.0 response_type values that
+   * this OP supports. Supported value: `id_token`.
    *
    * @var string[]
    */
   public $responseTypesSupported;
   /**
-   * JSON array containing a list of the subject identifier types that this OP
-   * supports. Note: Currently always "["public"]".
+   * JSON array that contains a list of the subject identifier types that this
+   * OP supports. Supported value: `public`.
    *
    * @var string[]
    */
@@ -96,9 +96,9 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
     return $this->authorizationEndpoint;
   }
   /**
-   * JSON array containing a list of the JWS signing algorithms (alg values)
-   * supported by the OP for the ID token to encode the claims in a JWT [JWT].
-   * Note: Currently always "["RS256"]".
+   * JSON array that contains a list of the JWS signing algorithms (alg values)
+   * supported by the OP for the ID token to encode the claims in a JWT.
+   * Supported value: `RS256`.
    *
    * @param string[] $idTokenSigningAlgValuesSupported
    */
@@ -131,7 +131,7 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
     return $this->issuer;
   }
   /**
-   * URL of the OP's JWK Set [JWK] document, which MUST use the https scheme.
+   * URL of the OP's JWK Set document, which MUST use the https scheme.
    *
    * @param string $jwksUri
    */
@@ -147,8 +147,8 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
     return $this->jwksUri;
   }
   /**
-   * JSON array containing a list of the OAuth 2.0 response_type values that
-   * this OP supports. Note: Currently always "["id_token"]".
+   * JSON array that contains a list of the OAuth 2.0 response_type values that
+   * this OP supports. Supported value: `id_token`.
    *
    * @param string[] $responseTypesSupported
    */
@@ -164,8 +164,8 @@ class GoogleIdentityStsV1OpenIdProviderConfig extends \Google\Collection
     return $this->responseTypesSupported;
   }
   /**
-   * JSON array containing a list of the subject identifier types that this OP
-   * supports. Note: Currently always "["public"]".
+   * JSON array that contains a list of the subject identifier types that this
+   * OP supports. Supported value: `public`.
    *
    * @param string[] $subjectTypesSupported
    */

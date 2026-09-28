@@ -20,7 +20,8 @@ namespace Google\Service\GoogleHealthAPI;
 class Height extends \Google\Model
 {
   /**
-   * Required. Height of the user in millimeters.
+   * Required. Height of the user in millimeters. Must be in the range `[0,
+   * 3000]`.
    *
    * @var string
    */
@@ -29,7 +30,8 @@ class Height extends \Google\Model
   protected $sampleTimeDataType = '';
 
   /**
-   * Required. Height of the user in millimeters.
+   * Required. Height of the user in millimeters. Must be in the range `[0,
+   * 3000]`.
    *
    * @param string $heightMillimeters
    */

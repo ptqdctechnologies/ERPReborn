@@ -56,7 +56,8 @@ class VolumeQuantity extends \Google\Model
    */
   public const USER_PROVIDED_UNIT_PINT_US = 'PINT_US';
   /**
-   * Required. Value representing the volume in milliliters.
+   * Required. Value representing the volume in milliliters. Must be in the
+   * range `[0, 100000]`.
    *
    * @var 
    */
