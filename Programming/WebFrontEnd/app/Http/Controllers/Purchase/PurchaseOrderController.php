@@ -215,6 +215,102 @@ class PurchaseOrderController extends Controller
         ]);
     }
 
+    public function verify()
+    {
+        return view('Purchase.PurchaseOrder.Reports.verify');
+    }
+
+    public function verifyStore(Request $request)
+    {
+        $uniqueCode = strtoupper(trim((string) $request->input('unique_code')));
+
+        $dummyPurchaseOrders = [
+            [
+                'unique_code' => 'PO/QDC/2026/000022',
+                'status' => 'approved',
+                'po_number' => 'PO/2026/09/0148',
+                'vendor' => 'Supplier Nusa Indonesia',
+                'total_amount' => 8000000000,
+                'approval_date' => '19 Sep 2026',
+                'signer' => [
+                    'name' => 'Wisnu Trenggono Wirayuda',
+                    'position' => 'Staff',
+                ],
+            ],
+            [
+                'unique_code' => 'PO/QDC/2026/000021',
+                'status' => 'approved',
+                'po_number' => 'PO/2026/09/0149',
+                'vendor' => 'PT Sumber Logistik Nusantara',
+                'total_amount' => 2450000000,
+                'approval_date' => '20 Sep 2026',
+                'signer' => [
+                    'name' => 'Andi Pratama',
+                    'position' => 'Procurement Manager',
+                ],
+            ],
+            [
+                'unique_code' => 'PO/QDC/2026/000020',
+                'status' => 'expired',
+                'po_number' => 'PO/2026/09/0150',
+                'vendor' => 'PT Mitra Teknologi Indonesia',
+                'total_amount' => 1250000000,
+                'approval_date' => '01 Sep 2026',
+                'signer' => [
+                    'name' => 'Rina Maharani',
+                    'position' => 'Finance Manager',
+                ],
+            ],
+            [
+                'unique_code' => 'PO/QDC/2026/000019',
+                'status' => 'revoked',
+                'po_number' => 'PO/2026/09/0151',
+                'vendor' => 'PT Global Supply Chain',
+                'total_amount' => 5600000000,
+                'approval_date' => '15 Sep 2026',
+                'signer' => [
+                    'name' => 'Budi Santoso',
+                    'position' => 'Director',
+                ],
+            ]
+        ];
+
+        $matches = array_values(
+            array_filter(
+                $dummyPurchaseOrders,
+                function ($purchaseOrder) use ($uniqueCode) {
+                    return $purchaseOrder['unique_code'] === $uniqueCode;
+                }
+            )
+        );
+
+        if (count($matches) === 0) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Unique code tidak ditemukan. Pastikan code yang dimasukkan sudah benar.',
+                'errors' => [
+                    'unique_code' => [
+                        'Unique code tidak terdaftar atau sudah tidak tersedia.'
+                    ],
+                ],
+            ], 404);
+        }
+
+        $purchaseOrder = $matches[0];
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Signature berhasil diverifikasi.',
+            'data' => [
+                'po_number' => $purchaseOrder['po_number'],
+                'vendor' => $purchaseOrder['vendor'],
+                'total_amount' => $purchaseOrder['total_amount'],
+                'approval_date' => $purchaseOrder['approval_date'],
+                'signer' => $purchaseOrder['signer'],
+            ],
+        ]);
+    }
+
     // +--------------------------------------------------------------------------------------------------------------------------+
     // |                                        REPORTS                                                                           |
     // +--------------------------------------------------------------------------------------------------------------------------+

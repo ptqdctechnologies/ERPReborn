@@ -1,3 +1,51 @@
+<style>
+    /*
+   * Fixed-height, sticky-header, vertical-scroll-only table.
+   *
+   * The height math: 10 body rows x 41px (row height incl. borders) = 410px.
+   * We pin every header/body cell to that same 41px so the "±10 rows"
+   * viewport stays true no matter which page-length (10/20/50/100/All)
+   * is selected. Only the numbers below need to change if the table's
+   * font-size/padding is redesigned later.
+   */
+    #table_summary_wrapper {
+        /* prevents any stray horizontal scrollbar from the wrapper itself */
+        overflow-x: hidden;
+    }
+
+    #table_summary thead th,
+    #table_summary tbody td {
+        height: 41px;
+        /* box-sizing: border-box;
+        padding-top: 8px;
+        padding-bottom: 8px; */
+    }
+
+    /* DataTables' scrollY feature clones the header into its own table
+     inside .dataTables_scrollHead, and wraps the real <tbody> in
+     .dataTables_scrollBody. Constrain + isolate scrolling there: */
+    #table_summary_wrapper .dataTables_scrollHead,
+    #table_summary_wrapper .dataTables_scrollHeadInner,
+    #table_summary_wrapper .dataTables_scrollHeadInner table {
+        width: 100% !important;
+    }
+
+    #table_summary_wrapper .dataTables_scrollBody {
+        /* only vertical scrolling is allowed inside the table body */
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+
+    #table_summary_wrapper .dataTables_scrollBody table {
+        width: 100% !important;
+    }
+
+    /* Pagination + "Showing x of y" info live in the DataTables footer,
+     which sits outside .dataTables_scroll and therefore never scrolls
+     with the body -- no extra CSS is needed to "pin" it, this comment
+     just documents why. */
+</style>
+
 <script>
     let dataReport = [];
     let triggerWarehouse = null;
@@ -15,6 +63,9 @@
     const deliveryToName = document.getElementById("delivery_to_name");
     const mrDate = document.getElementById("material_receive_date_range");
     const printType = document.getElementById("print_type");
+    const TABLE_ROW_HEIGHT_PX = 41;
+    const TABLE_VISIBLE_ROWS = 13;
+    const TABLE_SCROLL_Y_PX = TABLE_ROW_HEIGHT_PX * TABLE_VISIBLE_ROWS; // 410px
 
     function changeTriggerWarehouse(params) {
         triggerWarehouse = params;
@@ -30,6 +81,8 @@
     function resetForm() {
         triggerWarehouse = null;
         dataReport = [];
+
+        $('#table_container').hide();
 
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
@@ -50,6 +103,12 @@
 
         $("#material_receive_date_range").css('background-color', '#fff');
         $(`#material_receive_date_range`).val("");
+
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#received_name", "#receivedAtMessage");
+        ErrorHandler.hideErrorInputMessage("#delivery_from_name", "#deliveryFromMessage");
+        ErrorHandler.hideErrorInputMessage("#delivery_to_name", "#deliveryToMessage");
+        ErrorHandler.hideErrorInputMessage("#material_receive_date_range", "#dateRangeMessage");
     }
 
     function getDataReport() {
@@ -66,7 +125,10 @@
                 [10, 20, 50, 100, -1],
                 [10, 20, 50, 100, "All"]
             ],
-            pageLength: 20,
+            pageLength: 10,
+            scrollY: `${TABLE_SCROLL_Y_PX}px`,
+            scrollCollapse: true,
+            scrollX: false,
             ajax: {
                 type: 'POST',
                 url: '{!! route("MaterialReceive.ReportMaterialReceiveSummaryStore") !!}',
@@ -96,6 +158,9 @@
                 beforeSend: function () {
                     Utils.showLoading();
 
+                    totalQtyGood = 0;
+                    totalQtyReject = 0;
+
                     $('#table_summary tbody').empty();
                     $('#table_container').css("display", "none");
                 },
@@ -104,22 +169,27 @@
 
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
+
+                    $('#table_summary').DataTable().columns.adjust();
                 },
             },
             columns: [
                 {
                     data: null,
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return (meta.row + meta.settings._iDisplayStart + 1);
                     }
                 },
                 {
                     data: 'MR_Number',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         let dateOrigin = new Date(data.date);
                         let formattedDate = dateOrigin.toISOString().split('T')[0];
@@ -128,11 +198,13 @@
                 },
                 {
                     data: 'combinedBudgetName',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.qtyGood || '0');
                     }
@@ -140,34 +212,43 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.qtyReject || '0');
                     }
                 },
                 {
                     data: 'referenceNumber',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: 'deliveryFrom_NonRefID.address',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: 'deliveryTo_NonRefID.address',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: 'receiveAt',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 },
                 {
                     data: 'remarks',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap"
                 }
             ],
             drawCallback: function (settings) {
-                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalQtyGood));
-                $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalQtyReject));
+                // $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalQtyGood));
+                // $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalQtyReject));
+
+                $('#grandTotalQtyGood').text(currencyTotal(totalQtyGood));
+                $('#grandTotalQtyReject').text(currencyTotal(totalQtyReject));
             }
         })
     }
@@ -384,5 +465,21 @@
         });
 
         getSuppliers();
+
+        // Keep <thead>/<tbody>/<tfoot> column widths in sync with each
+        // other whenever the viewport/container is resized. DataTables
+        // already listens for window resize internally for scrollY
+        // tables, but this is a cheap, explicit safeguard using the same
+        // official columns.adjust() API (no hardcoded widths), debounced
+        // so it doesn't fire on every pixel while the user drags.
+        let tableResizeTimeout;
+        $(window).on('resize', function () {
+            clearTimeout(tableResizeTimeout);
+            tableResizeTimeout = setTimeout(function () {
+                if ($.fn.dataTable.isDataTable('#table_summary')) {
+                    $('#table_summary').DataTable().columns.adjust();
+                }
+            }, 150);
+        });
     });
 </script>

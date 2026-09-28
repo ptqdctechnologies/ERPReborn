@@ -349,11 +349,33 @@
         Swal.fire("Error", message, "error");
     }
 
+    function renderFileUpload(fileUploadRefID) {
+        $.ajax({
+            type: 'GET',
+            url: '{!! route(name: "renderFileUpload") !!}',
+            data: {
+                fileUploadRefID: fileUploadRefID
+            },
+            success: function (response) {
+                $("#fileUploadContainer").show();
+                $('#fileUploadContainer').html(response.html);
+                $("#loadingAttachment").hide();
+            },
+            error: function (xhr) {
+                console.error(xhr);
+                $("#fileUploadContainer").show();
+                $("#loadingAttachment").hide();
+            }
+        });
+    }
+
     function getAdvanceDetail(advanceRefID, advanceNumber) {
         $("#tableAdvanceDetail tbody").hide();
         $(".loadingAdvanceSettlementTable").show();
         $("#myGetModalAdvanceTrigger").show();
         $("#loadingBudget").hide();
+        $("#loadingAttachment").show();
+        $("#fileUploadContainer").hide();
 
         $.ajaxSetup({
             headers: {
@@ -370,6 +392,7 @@
                     const isDuplicate = arrAdvanceNumber.includes(result[0].businessDocumentNumber);
                     const sameBeneficiary = beneficiaryTrigger == result[0].beneficiaryBankAccountName;
                     const sameBudget = budgetCodeTrigger == result[0].combinedBudget_RefID;
+                    const fileUploadRefID = result[0].log_FileUpload_Pointer_RefID;
 
                     if (arrAdvanceNumber.length == 0) {
                         advanceID.push(result[0].advance_RefID);
@@ -397,6 +420,12 @@
                     } else if (isDuplicate && sameBeneficiary && sameBudget) {
                         showError("Advance number has been selected !");
                         return;
+                    }
+
+                    if (fileUploadRefID !== null) {
+                        renderFileUpload(fileUploadRefID);
+                    } else {
+                        renderFileUpload(null);
                     }
 
                     let tbody = $('#tableAdvanceDetail tbody');

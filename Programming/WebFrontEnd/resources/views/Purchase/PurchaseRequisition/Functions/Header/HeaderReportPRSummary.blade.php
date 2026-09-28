@@ -4,7 +4,8 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects"
+          style="border-radius:0;cursor:pointer;">
           <i id="iconBudget" class="fas fa-gift"></i>
 
           <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
@@ -13,7 +14,8 @@
         </span>
       </div>
       <div>
-        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
         <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;" name="budget_code" />
       </div>
@@ -36,9 +38,11 @@
         </span>
       </div>
       <div>
-        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;" name="sub_budget_id" />
-        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;" name="sub_budget_code" />
+        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;"
+          name="sub_budget_code" />
       </div>
     </div>
   </div>
@@ -51,11 +55,14 @@
       <div>
         <div class="input-group" id="purchase_requisition_date_range_container">
           <div class="input-group-prepend" style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
-            <span class="input-group-text" id="purchase_requisition_date_range_container_icon" style="border-radius: 0;">
+            <span class="input-group-text" id="purchase_requisition_date_range_container_icon"
+              style="border-radius: 0;">
               <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
             </span>
           </div>
-          <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="purchase_requisition_date_range" name="purchase_requisition_date_range" />
+          <input readonly type="text" class="form-control"
+            style="height: 21.8px;border-radius:0;background-color:white;" id="purchase_requisition_date_range"
+            name="purchase_requisition_date_range" />
         </div>
       </div>
     </div>

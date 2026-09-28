@@ -49,22 +49,16 @@
                                                 <select id="limitSelect"
                                                     style="border: 1px solid #aaa; border-radius: 3px; padding: 4px; background: transparent;">
                                                     <option value="10" selected>10</option>
-                                                    <option value="25">25</option>
+                                                    <option value="20">20</option>
                                                     <option value="50">50</option>
                                                     <option value="100">100</option>
                                                     <option value="ALL">All</option>
                                                 </select>
                                                 entries
                                             </label>
-                                            <!-- <label>
-                                                                                                                    Search:
-                                                                                                                    <input type="text" id="searchInput" autocomplete="off"
-                                                                                                                        placeholder="Search..."
-                                                                                                                        style="border: 1px solid #aaa; border-radius: 3px; padding: 5px; margin-left: 3px; background: transparent;" />
-                                                                                                                </label> -->
                                         </div>
 
-                                        <div class="table-responsive">
+                                        <div class="table-scroll-wrapper" id="tableScrollWrapper">
                                             <table class="table table-head-fixed text-wrap" id="table_summary">
                                                 <thead>
                                                     <tr>

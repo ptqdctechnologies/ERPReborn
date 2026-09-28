@@ -49,7 +49,7 @@
                   </div>
                 </div>
 
-                <!-- ATTACHMENT -->
+                <!-- FILE -->
                 <div class="tab-content px-3 pb-2" id="nav-tabContent">
                   <div class="row">
                     <div class="col-12">
@@ -57,7 +57,7 @@
                         <!-- HEADER -->
                         <div class="card-header">
                           <label class="card-title">
-                            Attachment
+                            Advance Settlement Files
                           </label>
                           <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">

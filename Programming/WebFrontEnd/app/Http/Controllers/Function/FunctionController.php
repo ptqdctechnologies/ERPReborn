@@ -1640,4 +1640,28 @@ class FunctionController extends Controller
             'status' => $status
         ]);
     }
+
+    public function renderFileUpload(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+        $fileUploadRefID = $request->input('fileUploadRefID');
+
+        if ($fileUploadRefID !== null && $fileUploadRefID !== '') {
+            $html =
+                \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                    $token,
+                    'dataInput_Log_FileUploadARF',
+                    $fileUploadRefID,
+                    'dataInput_Return'
+                );
+        } else {
+            $html = '-';
+        }
+
+        return response()->json([
+            'html' => $html
+        ]);
+    }
+
 }

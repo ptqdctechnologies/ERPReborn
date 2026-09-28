@@ -4,7 +4,8 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects" style="border-radius:0;cursor:pointer;">
+        <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#myProjects"
+          style="border-radius:0;cursor:pointer;">
           <i id="iconBudget" class="fas fa-gift"></i>
 
           <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status" style="display: none;">
@@ -13,7 +14,8 @@
         </span>
       </div>
       <div>
-        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
         <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;" name="budget_code" />
       </div>
@@ -36,9 +38,11 @@
         </span>
       </div>
       <div>
-        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="sub_budget_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="sub_budget_id" class="form-control" style="border-radius:0;" name="sub_budget_id" />
-        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;" name="sub_budget_code" />
+        <input type="hidden" id="sub_budget_code" class="form-control" style="border-radius:0;"
+          name="sub_budget_code" />
       </div>
     </div>
   </div>
@@ -49,12 +53,14 @@
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Supplier</label>
     <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
       <div>
-        <span id="mySuppliersTrigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySuppliers" style="border-radius:0;cursor:pointer;">
+        <span id="mySuppliersTrigger" class="input-group-text form-control" data-toggle="modal"
+          data-target="#mySuppliers" style="border-radius:0;cursor:pointer;">
           <i class="fas fa-gift"></i>
         </span>
       </div>
       <div>
-        <input type="text" id="supplier_name" class="form-control" style="border-radius:0;background-color:white;" readonly />
+        <input type="text" id="supplier_name" class="form-control" style="border-radius:0;background-color:white;"
+          readonly />
         <input type="hidden" id="supplier_id" class="form-control" style="border-radius:0;" name="supplier_id" />
         <input type="hidden" id="supplier_code" class="form-control" style="border-radius:0;" name="supplier_code" />
       </div>
@@ -78,7 +84,9 @@
               <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
             </span>
           </div>
-          <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;background-color:white;" id="purchase_order_date_range" name="purchase_order_date_range" />
+          <input readonly type="text" class="form-control"
+            style="height: 21.8px;border-radius:0;background-color:white;" id="purchase_order_date_range"
+            name="purchase_order_date_range" />
         </div>
       </div>
     </div>

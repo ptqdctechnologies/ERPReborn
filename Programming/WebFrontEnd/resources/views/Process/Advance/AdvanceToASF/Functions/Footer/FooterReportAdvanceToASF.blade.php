@@ -1,3 +1,55 @@
+<style>
+    /*
+     * Table scroll behavior:
+     * - The wrapper's height is fixed via JS (adjustTableScrollHeight) to always match
+     *   header height + 10 body rows, regardless of the selected limit (10/20/50/100/ALL).
+     * - Only this wrapper scrolls vertically; horizontal scrolling is disabled so cell
+     *   content wraps instead of overflowing.
+     * - thead cells are sticky so the header never scrolls out of view.
+     */
+    .table-scroll-wrapper {
+        position: relative;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    #table_summary {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    #table_summary th,
+    #table_summary td {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
+
+    #table_summary thead th {
+        position: sticky;
+        z-index: 4;
+    }
+
+    /* First header row sticks to the very top of the scroll area.
+       The second header row's top offset is set dynamically in JS
+       (adjustStickyHeaderOffsets) to equal the first row's height,
+       since row height depends on rendered padding/line-height. */
+    #table_summary thead tr:first-child th {
+        top: 0;
+    }
+
+    /* Grand Total row stays pinned to the bottom of the scroll area while
+       the body scrolls underneath it. z-index is below the header (4) so
+       the header always wins if the table is ever short enough for both
+       to be near each other, but above body rows (auto/0) so it never
+       looks transparent or gets overlapped. */
+    #table_summary tfoot th {
+        position: sticky;
+        bottom: 0;
+        z-index: 3;
+        background-color: #4B586A;
+    }
+</style>
+
 <script>
     let isFromTo = false;
     let data = [];
@@ -27,6 +79,59 @@
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
     const printType = document.getElementById("print_type");
+
+    // ---- Table scroll / sticky-header helpers -----------------------------------
+    // These keep the visible table area pinned to roughly 10 rows tall no matter
+    // which limit (10/20/50/100/ALL) is selected, keep the header pinned while the
+    // body scrolls vertically, and never introduce a horizontal scrollbar.
+
+    function adjustStickyHeaderOffsets() {
+        const thead = document.querySelector('#table_summary thead');
+        if (!thead) return;
+
+        const firstRow = thead.querySelector('tr:first-child');
+        const secondRow = thead.querySelector('tr:nth-child(2)');
+
+        if (!firstRow || !secondRow) return;
+
+        const firstRowHeight = firstRow.getBoundingClientRect().height;
+
+        secondRow.querySelectorAll('th').forEach(function (th) {
+            th.style.top = firstRowHeight + 'px';
+        });
+    }
+
+    function adjustTableScrollHeight() {
+        const wrapper = document.getElementById('tableScrollWrapper');
+        const thead = document.querySelector('#table_summary thead');
+        const tbody = document.querySelector('#table_summary tbody');
+        const tfoot = document.querySelector('#table_summary tfoot');
+
+        if (!wrapper || !thead) return;
+
+        const visibleRows = 10;
+        const headerHeight = thead.getBoundingClientRect().height;
+        const footerHeight = tfoot ? tfoot.getBoundingClientRect().height : 0;
+
+        let rowHeight = 0;
+        if (tbody && tbody.rows.length) {
+            rowHeight = tbody.rows[0].getBoundingClientRect().height;
+        }
+
+        if (!rowHeight) {
+            rowHeight = 45; // fallback estimate before any data has rendered
+        }
+
+        // Header + ~10 body rows + the sticky Grand Total row, so all three
+        // are visible together before any scrolling is needed.
+        wrapper.style.maxHeight = Math.ceil(headerHeight + (rowHeight * visibleRows) + footerHeight) + 'px';
+    }
+
+    function refreshTableLayout() {
+        adjustStickyHeaderOffsets();
+        adjustTableScrollHeight();
+    }
+    // -------------------------------------------------------------------------------
 
     function modalPayment(params, title) {
         // buka modal dulu
@@ -239,6 +344,10 @@
                 renderPagination();
 
                 $('#table_container').show();
+
+                // Recalculate once the table is visible and populated, so the
+                // measured header/row heights are accurate.
+                refreshTableLayout();
 
                 Utils.hideLoading();
             },
@@ -843,5 +952,9 @@
         $('#advance_date_range_container_icon').on('click', function () {
             $('#advance_date_range').trigger('click');
         });
+
+        // Keep the sticky header offset / scroll-area height correct on load and on resize.
+        refreshTableLayout();
+        $(window).on('resize', refreshTableLayout);
     });
 </script>

@@ -4,7 +4,7 @@
     <!-- LEFT COLUMN -->
     <div class="col-md-12 col-lg-5">
       <!-- ADVANCE NUMBER -->
-      <div class="row">
+      <div class="row" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Advance Number
         </label>
@@ -36,13 +36,26 @@
       </div>
 
       <!-- BUDGET -->
-      <div class="row" style="margin-top: 1rem;">
+      <div class="row" style="margin-bottom: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
           Budget
         </label>
         <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
           <div>
             <input id="budget_value" style="border-radius:0;" size="24" class="form-control" readonly />
+          </div>
+        </div>
+      </div>
+
+      <!-- ADVANCE FILES -->
+      <div class="row">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
+          Advance Files
+        </label>
+        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0">
+          <div id="fileUploadContainer">-</div>
+          <div id="loadingAttachment" class="spinner-border spinner-border-sm" role="status" style="display: none;">
+            <span class="sr-only">Loading...</span>
           </div>
         </div>
       </div>
