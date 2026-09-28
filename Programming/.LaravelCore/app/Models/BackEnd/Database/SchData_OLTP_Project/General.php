@@ -566,5 +566,62 @@ namespace App\Models\Database\SchData_OLTP_Project
                 return [];
                 }
             }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_ProjectProgress                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-09-28                                                                                           |
+        | ▪ Creation Date   : 2026-09-28                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Resume - Kemajuan Proyek                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        |      ▪ (string) varEffectiveTimeStampTZ ► Effective TimeStampTZ                                                          |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_UserRolePrivilegesMenuAccess(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varSysID,
+            string $varEffectiveTimeStampTZ = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-Project.Func_GetReport_Resume_ProjectProgress',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint'],
+
+                                [$varEffectiveTimeStampTZ, 'timestamptz']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_Resume_ProjectProgress']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
         }
     }
