@@ -37,8 +37,7 @@ class GoogleCloudApigeeV1TargetServerConfig extends \Google\Model
   public const PROTOCOL_GRPC_TARGET = 'GRPC_TARGET';
   /**
    * GRPC TargetServer to be used in ExternalCallout Policy. Prefer to use
-   * EXTERNAL_CALLOUT instead. TODO(b/266125112) deprecate once EXTERNAL
-   * _CALLOUT generally available.
+   * EXTERNAL_CALLOUT instead.
    */
   public const PROTOCOL_GRPC = 'GRPC';
   /**

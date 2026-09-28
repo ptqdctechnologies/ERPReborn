@@ -150,6 +150,8 @@ class Service extends \Google\Model
    * @var string[]
    */
   public $labels;
+  protected $lakehouseProxyConfigType = LakehouseProxyConfig::class;
+  protected $lakehouseProxyConfigDataType = '';
   protected $maintenanceWindowType = MaintenanceWindow::class;
   protected $maintenanceWindowDataType = '';
   protected $metadataIntegrationType = MetadataIntegration::class;
@@ -368,6 +370,23 @@ class Service extends \Google\Model
   public function getLabels()
   {
     return $this->labels;
+  }
+  /**
+   * Output only. The Lakehouse proxy routing configuration for the metastore
+   * service.
+   *
+   * @param LakehouseProxyConfig $lakehouseProxyConfig
+   */
+  public function setLakehouseProxyConfig(LakehouseProxyConfig $lakehouseProxyConfig)
+  {
+    $this->lakehouseProxyConfig = $lakehouseProxyConfig;
+  }
+  /**
+   * @return LakehouseProxyConfig
+   */
+  public function getLakehouseProxyConfig()
+  {
+    return $this->lakehouseProxyConfig;
   }
   /**
    * Optional. The one hour maintenance window of the metastore service. This

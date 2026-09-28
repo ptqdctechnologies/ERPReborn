@@ -19,6 +19,35 @@ namespace Google\Service\AndroidPublisher;
 
 class UpdateAppStoreHostedAppResponse extends \Google\Model
 {
+  /**
+   * Unique identifier for the specific version of the hosted app submitted in
+   * this update. This identifier can be used to correlate publishing signals
+   * (such as those returned by ListHostedAppsPublishingSignals) with this
+   * specific app update.
+   *
+   * @var string
+   */
+  public $updateId;
+
+  /**
+   * Unique identifier for the specific version of the hosted app submitted in
+   * this update. This identifier can be used to correlate publishing signals
+   * (such as those returned by ListHostedAppsPublishingSignals) with this
+   * specific app update.
+   *
+   * @param string $updateId
+   */
+  public function setUpdateId($updateId)
+  {
+    $this->updateId = $updateId;
+  }
+  /**
+   * @return string
+   */
+  public function getUpdateId()
+  {
+    return $this->updateId;
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

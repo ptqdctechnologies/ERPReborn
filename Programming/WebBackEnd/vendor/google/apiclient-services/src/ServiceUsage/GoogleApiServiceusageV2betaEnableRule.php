@@ -21,6 +21,13 @@ class GoogleApiServiceusageV2betaEnableRule extends \Google\Collection
 {
   protected $collection_key = 'services';
   /**
+   * The names of the catalogs that are enabled. Example: `catalogs/default-
+   * cloud-services`.
+   *
+   * @var string[]
+   */
+  public $catalogs;
+  /**
    * The names of the services that are enabled. Example:
    * `services/storage.googleapis.com`.
    *
@@ -28,6 +35,23 @@ class GoogleApiServiceusageV2betaEnableRule extends \Google\Collection
    */
   public $services;
 
+  /**
+   * The names of the catalogs that are enabled. Example: `catalogs/default-
+   * cloud-services`.
+   *
+   * @param string[] $catalogs
+   */
+  public function setCatalogs($catalogs)
+  {
+    $this->catalogs = $catalogs;
+  }
+  /**
+   * @return string[]
+   */
+  public function getCatalogs()
+  {
+    return $this->catalogs;
+  }
   /**
    * The names of the services that are enabled. Example:
    * `services/storage.googleapis.com`.

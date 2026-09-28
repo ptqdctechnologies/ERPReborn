@@ -65,7 +65,7 @@ class DailyVO2Max extends \Google\Model
   public $estimated;
   /**
    * Required. Daily VO2 max value measured as in ml consumed oxygen / kg of
-   * body weight / min.
+   * body weight / min. Must be in the range `[0, 100]`.
    *
    * @var 
    */

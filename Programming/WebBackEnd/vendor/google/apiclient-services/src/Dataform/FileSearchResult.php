@@ -20,14 +20,14 @@ namespace Google\Service\Dataform;
 class FileSearchResult extends \Google\Model
 {
   /**
-   * File system path relative to the workspace root.
+   * File system path relative to the file tree root.
    *
    * @var string
    */
   public $path;
 
   /**
-   * File system path relative to the workspace root.
+   * File system path relative to the file tree root.
    *
    * @param string $path
    */

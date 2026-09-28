@@ -28,7 +28,7 @@ class ServicedirectoryNamespace extends \Google\Model
    */
   public $labels;
   /**
-   * Immutable. The resource name for the namespace in the format
+   * Identifier. The resource name for the namespace in the format
    * `projects/locations/namespaces`.
    *
    * @var string
@@ -61,7 +61,7 @@ class ServicedirectoryNamespace extends \Google\Model
     return $this->labels;
   }
   /**
-   * Immutable. The resource name for the namespace in the format
+   * Identifier. The resource name for the namespace in the format
    * `projects/locations/namespaces`.
    *
    * @param string $name

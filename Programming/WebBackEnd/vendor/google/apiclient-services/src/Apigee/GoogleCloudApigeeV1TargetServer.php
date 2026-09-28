@@ -37,8 +37,7 @@ class GoogleCloudApigeeV1TargetServer extends \Google\Model
   public const PROTOCOL_GRPC_TARGET = 'GRPC_TARGET';
   /**
    * GRPC TargetServer to be used in ExternalCallout Policy. Prefer to use
-   * EXTERNAL_CALLOUT instead. TODO(b/266125112) deprecate once EXTERNAL
-   * _CALLOUT generally available.
+   * EXTERNAL_CALLOUT instead.
    */
   public const PROTOCOL_GRPC = 'GRPC';
   /**
@@ -67,8 +66,7 @@ class GoogleCloudApigeeV1TargetServer extends \Google\Model
    */
   public $isEnabled;
   /**
-   * Required. The resource id of this target server. Values must match the
-   * regular expression
+   * Required. The resource id of this target server.
    *
    * @var string
    */
@@ -141,8 +139,7 @@ class GoogleCloudApigeeV1TargetServer extends \Google\Model
     return $this->isEnabled;
   }
   /**
-   * Required. The resource id of this target server. Values must match the
-   * regular expression
+   * Required. The resource id of this target server.
    *
    * @param string $name
    */

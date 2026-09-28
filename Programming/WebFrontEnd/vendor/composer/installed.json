@@ -301,17 +301,17 @@
         },
         {
             "name": "composer/semver",
-            "version": "3.4.4",
-            "version_normalized": "3.4.4.0",
+            "version": "3.5.0",
+            "version_normalized": "3.5.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/semver.git",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95"
+                "reference": "f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/semver/zipball/198166618906cb2de69b95d7d47e5fa8aa1b2b95",
-                "reference": "198166618906cb2de69b95d7d47e5fa8aa1b2b95",
+                "url": "https://api.github.com/repos/composer/semver/zipball/f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5",
+                "reference": "f7a296f4c4cf8cb8bb83e35d6951a406bb11afa5",
                 "shasum": ""
             },
             "require": {
@@ -321,7 +321,7 @@
                 "phpstan/phpstan": "^1.11",
                 "symfony/phpunit-bridge": "^3 || ^7"
             },
-            "time": "2025-08-20T19:15:30+00:00",
+            "time": "2026-09-24T14:38:51+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -355,7 +355,7 @@
                     "homepage": "http://robbast.nl"
                 }
             ],
-            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "description": "Version comparison library that offers utilities, version constraint parsing and validation.",
             "keywords": [
                 "semantic",
                 "semver",
@@ -365,7 +365,7 @@
             "support": {
                 "irc": "ircs://irc.libera.chat:6697/composer",
                 "issues": "https://github.com/composer/semver/issues",
-                "source": "https://github.com/composer/semver/tree/3.4.4"
+                "source": "https://github.com/composer/semver/tree/3.5.0"
             },
             "funding": [
                 {
@@ -3229,17 +3229,17 @@
         },
         {
             "name": "milon/barcode",
-            "version": "v13.5",
-            "version_normalized": "13.5.0.0",
+            "version": "v13.5.1",
+            "version_normalized": "13.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/milon/barcode.git",
-                "reference": "45c9ea721c0e241a5f588ef6536301af3e24d6e8"
+                "reference": "e980a926d43ef8609c12a319c1b4c37c673f833a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/milon/barcode/zipball/45c9ea721c0e241a5f588ef6536301af3e24d6e8",
-                "reference": "45c9ea721c0e241a5f588ef6536301af3e24d6e8",
+                "url": "https://api.github.com/repos/milon/barcode/zipball/e980a926d43ef8609c12a319c1b4c37c673f833a",
+                "reference": "e980a926d43ef8609c12a319c1b4c37c673f833a",
                 "shasum": ""
             },
             "require": {
@@ -3250,7 +3250,7 @@
             "require-dev": {
                 "phpunit/phpunit": "^9.5 || ^10.0"
             },
-            "time": "2026-09-12T07:29:19+00:00",
+            "time": "2026-09-25T17:21:25+00:00",
             "type": "library",
             "extra": {
                 "laravel": {
@@ -3294,7 +3294,7 @@
             ],
             "support": {
                 "issues": "https://github.com/milon/barcode/issues",
-                "source": "https://github.com/milon/barcode/tree/v13.5"
+                "source": "https://github.com/milon/barcode/tree/v13.5.1"
             },
             "funding": [
                 {
@@ -3566,17 +3566,17 @@
         },
         {
             "name": "nesbot/carbon",
-            "version": "3.14.0",
-            "version_normalized": "3.14.0.0",
+            "version": "3.14.1",
+            "version_normalized": "3.14.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/CarbonPHP/carbon.git",
-                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2"
+                "reference": "34e9109535165bf1d7ff17a610492372ae73a896"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/0023eaa2c9110e47446dd512a263c69c40cd41f2",
-                "reference": "0023eaa2c9110e47446dd512a263c69c40cd41f2",
+                "url": "https://api.github.com/repos/CarbonPHP/carbon/zipball/34e9109535165bf1d7ff17a610492372ae73a896",
+                "reference": "34e9109535165bf1d7ff17a610492372ae73a896",
                 "shasum": ""
             },
             "require": {
@@ -3602,7 +3602,7 @@
                 "phpunit/phpunit": "^10.5.53",
                 "squizlabs/php_codesniffer": "^3.13.4 || ^4.0.0"
             },
-            "time": "2026-09-12T20:45:19+00:00",
+            "time": "2026-09-27T12:07:26+00:00",
             "bin": [
                 "bin/carbon"
             ],

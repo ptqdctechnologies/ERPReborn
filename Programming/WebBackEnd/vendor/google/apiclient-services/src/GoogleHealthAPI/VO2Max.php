@@ -84,7 +84,7 @@ class VO2Max extends \Google\Model
   protected $sampleTimeDataType = '';
   /**
    * Required. VO2 max value measured as in ml consumed oxygen / kg of body
-   * weight / min.
+   * weight / min. Must be in the range `[0, 100]`.
    *
    * @var 
    */

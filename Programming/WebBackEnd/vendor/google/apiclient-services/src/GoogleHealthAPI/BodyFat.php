@@ -20,7 +20,7 @@ namespace Google\Service\GoogleHealthAPI;
 class BodyFat extends \Google\Model
 {
   /**
-   * Required. Body fat percentage, in range [0, 100].
+   * Required. Body fat percentage. Must be in the range `[0, 100]`.
    *
    * @var 
    */

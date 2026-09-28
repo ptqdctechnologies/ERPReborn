@@ -24,7 +24,7 @@ class GoogleIdentityStsV1Jwks extends \Google\Collection
   protected $keysDataType = 'array';
 
   /**
-   * The JWKS for this OP.
+   * The JWKs for this OP.
    *
    * @param GoogleIdentityStsV1Jwk[] $keys
    */

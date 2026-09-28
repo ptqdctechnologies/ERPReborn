@@ -49,6 +49,10 @@ class KeyServiceError extends \Google\Model
    */
   public const ERROR_INFO_FETCH_REQUEST_ERROR = 'FETCH_REQUEST_ERROR';
   /**
+   * Fetch request from the Google server to the key service has failed.
+   */
+  public const ERROR_INFO_SERVER_SIDE_FETCH_REQUEST_ERROR = 'SERVER_SIDE_FETCH_REQUEST_ERROR';
+  /**
    * Number of similar errors encountered.
    *
    * @var string
@@ -94,7 +98,7 @@ class KeyServiceError extends \Google\Model
    *
    * Accepted values: KEY_SERVICE_ERROR_INFO_UNSPECIFIED, MALFORMED_JSON,
    * MISSING_KEY, MISSING_SIGNATURE, MISSING_ALGORITHM_NAME,
-   * UNSUPPORTED_ALGORITHM, FETCH_REQUEST_ERROR
+   * UNSUPPORTED_ALGORITHM, FETCH_REQUEST_ERROR, SERVER_SIDE_FETCH_REQUEST_ERROR
    *
    * @param self::ERROR_INFO_* $errorInfo
    */

@@ -290,6 +290,10 @@ class PackageData extends \Google\Collection
     return $this->ingestionSources;
   }
   /**
+   * Deprecated: Layer details are captured per file location in
+   * FileLocation.layer_details. Top-level layer details is not persisted.
+   *
+   * @deprecated
    * @param LayerDetails $layerDetails
    */
   public function setLayerDetails(LayerDetails $layerDetails)
@@ -297,6 +301,7 @@ class PackageData extends \Google\Collection
     $this->layerDetails = $layerDetails;
   }
   /**
+   * @deprecated
    * @return LayerDetails
    */
   public function getLayerDetails()

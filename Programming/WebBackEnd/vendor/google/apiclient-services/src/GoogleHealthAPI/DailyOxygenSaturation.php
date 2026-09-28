@@ -21,7 +21,7 @@ class DailyOxygenSaturation extends \Google\Model
 {
   /**
    * Required. The average value of the oxygen saturation samples during the
-   * sleep.
+   * sleep. Must be in the range `[0, 100]`.
    *
    * @var 
    */
@@ -30,7 +30,7 @@ class DailyOxygenSaturation extends \Google\Model
   protected $dateDataType = '';
   /**
    * Required. The lower bound of the confidence interval of oxygen saturation
-   * samples during sleep.
+   * samples during sleep. Must be in the range `[0, 100]`.
    *
    * @var 
    */
@@ -44,7 +44,7 @@ class DailyOxygenSaturation extends \Google\Model
   public $standardDeviationPercentage;
   /**
    * Required. The upper bound of the confidence interval of oxygen saturation
-   * samples during sleep.
+   * samples during sleep. Must be in the range `[0, 100]`.
    *
    * @var 
    */

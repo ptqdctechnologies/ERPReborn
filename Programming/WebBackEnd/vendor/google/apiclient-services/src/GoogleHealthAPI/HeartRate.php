@@ -20,7 +20,8 @@ namespace Google\Service\GoogleHealthAPI;
 class HeartRate extends \Google\Model
 {
   /**
-   * Required. The heart rate value in beats per minute.
+   * Required. The heart rate value in beats per minute. Must be in the range
+   * `[1, 300]`.
    *
    * @var string
    */
@@ -31,7 +32,8 @@ class HeartRate extends \Google\Model
   protected $sampleTimeDataType = '';
 
   /**
-   * Required. The heart rate value in beats per minute.
+   * Required. The heart rate value in beats per minute. Must be in the range
+   * `[1, 300]`.
    *
    * @param string $beatsPerMinute
    */

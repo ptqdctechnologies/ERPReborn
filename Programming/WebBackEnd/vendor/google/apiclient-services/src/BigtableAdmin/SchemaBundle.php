@@ -19,6 +19,8 @@ namespace Google\Service\BigtableAdmin;
 
 class SchemaBundle extends \Google\Model
 {
+  protected $avroSchemaType = AvroSchema::class;
+  protected $avroSchemaDataType = '';
   /**
    * Optional. The etag for this schema bundle. This may be sent on update and
    * delete requests to ensure the client has an up-to-date value before
@@ -38,6 +40,22 @@ class SchemaBundle extends \Google\Model
   protected $protoSchemaType = ProtoSchema::class;
   protected $protoSchemaDataType = '';
 
+  /**
+   * Optional. Schema for Avros.
+   *
+   * @param AvroSchema $avroSchema
+   */
+  public function setAvroSchema(AvroSchema $avroSchema)
+  {
+    $this->avroSchema = $avroSchema;
+  }
+  /**
+   * @return AvroSchema
+   */
+  public function getAvroSchema()
+  {
+    return $this->avroSchema;
+  }
   /**
    * Optional. The etag for this schema bundle. This may be sent on update and
    * delete requests to ensure the client has an up-to-date value before

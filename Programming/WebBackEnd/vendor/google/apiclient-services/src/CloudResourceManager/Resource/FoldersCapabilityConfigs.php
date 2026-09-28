@@ -77,7 +77,7 @@ class FoldersCapabilityConfigs extends \Google\Service\Resource
     return $this->call('delete', [$params], Operation::class);
   }
   /**
-   * Retrieves the Capability Config identified by the specified `name` (for
+   * Retrieves the CapabilityConfig identified by the specified `name` (for
    * example, `folders/123456789/capabilityConfigs/my-capability-config`).
    * (capabilityConfigs.get)
    *

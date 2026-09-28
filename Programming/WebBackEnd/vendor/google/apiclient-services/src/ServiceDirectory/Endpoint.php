@@ -47,7 +47,7 @@ class Endpoint extends \Google\Model
    */
   public $annotations;
   /**
-   * Immutable. The resource name for the endpoint in the format
+   * Identifier. The resource name for the endpoint in the format
    * `projects/locations/namespaces/services/endpoints`.
    *
    * @var string
@@ -125,7 +125,7 @@ class Endpoint extends \Google\Model
     return $this->annotations;
   }
   /**
-   * Immutable. The resource name for the endpoint in the format
+   * Identifier. The resource name for the endpoint in the format
    * `projects/locations/namespaces/services/endpoints`.
    *
    * @param string $name

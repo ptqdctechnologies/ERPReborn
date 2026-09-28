@@ -41,7 +41,7 @@ class Service extends \Google\Collection
   protected $endpointsType = Endpoint::class;
   protected $endpointsDataType = 'array';
   /**
-   * Immutable. The resource name for the service in the format
+   * Identifier. The resource name for the service in the format
    * `projects/locations/namespaces/services`.
    *
    * @var string
@@ -102,7 +102,7 @@ class Service extends \Google\Collection
     return $this->endpoints;
   }
   /**
-   * Immutable. The resource name for the service in the format
+   * Identifier. The resource name for the service in the format
    * `projects/locations/namespaces/services`.
    *
    * @param string $name

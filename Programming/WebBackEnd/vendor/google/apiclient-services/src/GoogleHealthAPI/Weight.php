@@ -28,7 +28,7 @@ class Weight extends \Google\Model
   protected $sampleTimeType = ObservationSampleTime::class;
   protected $sampleTimeDataType = '';
   /**
-   * Required. Weight of a user in grams.
+   * Required. Weight of a user in grams. Must be in the range `[0, 1000000]`.
    *
    * @var 
    */

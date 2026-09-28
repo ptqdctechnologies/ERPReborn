@@ -106,7 +106,8 @@ class CoreBodyTemperature extends \Google\Model
   protected $sampleTimeType = ObservationSampleTime::class;
   protected $sampleTimeDataType = '';
   /**
-   * Required. The core body temperature in Celsius.
+   * Required. The core body temperature in Celsius. Must be in the range `[0,
+   * 100]`.
    *
    * @var 
    */

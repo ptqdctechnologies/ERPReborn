@@ -1357,6 +1357,8 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Aws\\Endpoint\\UseFipsEndpoint\\Exception\\ConfigurationException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Exception/ConfigurationException.php',
         'Aws\\EntityResolution\\EntityResolutionClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EntityResolution/EntityResolutionClient.php',
         'Aws\\EntityResolution\\Exception\\EntityResolutionException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EntityResolution/Exception/EntityResolutionException.php',
+        'Aws\\EventBridgeV2\\EventBridgeV2Client' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridgeV2/EventBridgeV2Client.php',
+        'Aws\\EventBridgeV2\\Exception\\EventBridgeV2Exception' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridgeV2/Exception/EventBridgeV2Exception.php',
         'Aws\\EventBridge\\EventBridgeClient' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/EventBridgeClient.php',
         'Aws\\EventBridge\\EventBridgeEndpointMiddleware' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/EventBridgeEndpointMiddleware.php',
         'Aws\\EventBridge\\Exception\\EventBridgeException' => __DIR__ . '/..' . '/aws/aws-sdk-php/src/EventBridge/Exception/EventBridgeException.php',

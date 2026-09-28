@@ -20,7 +20,8 @@ namespace Google\Service\GoogleHealthAPI;
 class Altitude extends \Google\Model
 {
   /**
-   * Required. Altitude gain in millimeters over the observed interval.
+   * Required. Altitude gain in millimeters over the observed interval. Must be
+   * in the range `[-1000000000, 1000000000]`.
    *
    * @var string
    */
@@ -29,7 +30,8 @@ class Altitude extends \Google\Model
   protected $intervalDataType = '';
 
   /**
-   * Required. Altitude gain in millimeters over the observed interval.
+   * Required. Altitude gain in millimeters over the observed interval. Must be
+   * in the range `[-1000000000, 1000000000]`.
    *
    * @param string $gainMillimeters
    */

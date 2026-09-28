@@ -56,7 +56,7 @@ class ProjectsLocationsMetadataFeeds extends \Google\Service\Resource
    * Deletes a MetadataFeed. (metadataFeeds.delete)
    *
    * @param string $name Required. The resource name of the metadata feed, in the
-   * format projects/{project_id_or_number}/locations/{location_id}/MetadataFeeds/
+   * format projects/{project_id_or_number}/locations/{location_id}/metadataFeeds/
    * {metadata_feed_id}.
    * @param array $optParams Optional parameters.
    * @return GoogleLongrunningOperation
@@ -72,7 +72,7 @@ class ProjectsLocationsMetadataFeeds extends \Google\Service\Resource
    * Gets a MetadataFeed. (metadataFeeds.get)
    *
    * @param string $name Required. The resource name of the metadata feed, in the
-   * format projects/{project_id_or_number}/locations/{location_id}/MetadataFeeds/
+   * format projects/{project_id_or_number}/locations/{location_id}/metadataFeeds/
    * {metadata_feed_id}.
    * @param array $optParams Optional parameters.
    * @return GoogleCloudDataplexV1MetadataFeed

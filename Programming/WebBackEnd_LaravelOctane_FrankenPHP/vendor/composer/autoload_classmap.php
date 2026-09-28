@@ -576,6 +576,8 @@ return array(
     'Aws\\Endpoint\\UseFipsEndpoint\\Exception\\ConfigurationException' => $vendorDir . '/aws/aws-sdk-php/src/Endpoint/UseFipsEndpoint/Exception/ConfigurationException.php',
     'Aws\\EntityResolution\\EntityResolutionClient' => $vendorDir . '/aws/aws-sdk-php/src/EntityResolution/EntityResolutionClient.php',
     'Aws\\EntityResolution\\Exception\\EntityResolutionException' => $vendorDir . '/aws/aws-sdk-php/src/EntityResolution/Exception/EntityResolutionException.php',
+    'Aws\\EventBridgeV2\\EventBridgeV2Client' => $vendorDir . '/aws/aws-sdk-php/src/EventBridgeV2/EventBridgeV2Client.php',
+    'Aws\\EventBridgeV2\\Exception\\EventBridgeV2Exception' => $vendorDir . '/aws/aws-sdk-php/src/EventBridgeV2/Exception/EventBridgeV2Exception.php',
     'Aws\\EventBridge\\EventBridgeClient' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/EventBridgeClient.php',
     'Aws\\EventBridge\\EventBridgeEndpointMiddleware' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/EventBridgeEndpointMiddleware.php',
     'Aws\\EventBridge\\Exception\\EventBridgeException' => $vendorDir . '/aws/aws-sdk-php/src/EventBridge/Exception/EventBridgeException.php',

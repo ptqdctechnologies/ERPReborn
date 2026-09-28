@@ -69,7 +69,8 @@ class OrganizationsPublications extends \Google\Service\Resource
    * Lists publications. (publications.listOrganizationsPublications)
    *
    * @param string $parent Required. The parent organization whose publications to
-   * list. Format: `organizations/{organization}`.
+   * list, or "organizations/-" for all organizations a user has access to.
+   * Format: `organizations/{organization}`.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string filter Optional. A filter expression to filter the
