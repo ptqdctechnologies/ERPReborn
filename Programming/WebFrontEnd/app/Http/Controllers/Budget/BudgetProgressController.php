@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use App\Services\Budget\BudgetProgressService;
 
 class BudgetProgressController extends Controller
 {
+    protected $budgetProgressService;
+
+    public function __construct(BudgetProgressService $budgetProgressService)
+    {
+        $this->budgetProgressService = $budgetProgressService;
+    }
+
     // +--------------------------------------------------------------------------------------------------------------------------+
     // |                                        TRANSACTIONS                                                                      |
     // +--------------------------------------------------------------------------------------------------------------------------+
@@ -31,6 +39,25 @@ class BudgetProgressController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $response = $this->budgetProgressService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Budget Progress => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode']
+                // "status" => $responseWorkflow['metadata']['HTTPStatusCode']
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Budget Progress Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function show($id)
