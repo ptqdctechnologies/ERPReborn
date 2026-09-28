@@ -16,9 +16,9 @@
     #table_summary thead th,
     #table_summary tbody td {
         height: 41px;
-        box-sizing: border-box;
+        /* box-sizing: border-box;
         padding-top: 8px;
-        padding-bottom: 8px;
+        padding-bottom: 8px; */
     }
 
     /* DataTables' scrollY feature clones the header into its own table

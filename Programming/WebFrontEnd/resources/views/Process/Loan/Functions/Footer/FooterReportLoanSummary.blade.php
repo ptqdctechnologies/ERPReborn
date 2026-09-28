@@ -1,3 +1,51 @@
+<style>
+    /*
+   * Fixed-height, sticky-header, vertical-scroll-only table.
+   *
+   * The height math: 10 body rows x 41px (row height incl. borders) = 410px.
+   * We pin every header/body cell to that same 41px so the "±10 rows"
+   * viewport stays true no matter which page-length (10/20/50/100/All)
+   * is selected. Only the numbers below need to change if the table's
+   * font-size/padding is redesigned later.
+   */
+    #table_summary_wrapper {
+        /* prevents any stray horizontal scrollbar from the wrapper itself */
+        overflow-x: hidden;
+    }
+
+    #table_summary thead th,
+    #table_summary tbody td {
+        height: 41px;
+        /* box-sizing: border-box;
+        padding-top: 8px;
+        padding-bottom: 8px; */
+    }
+
+    /* DataTables' scrollY feature clones the header into its own table
+     inside .dataTables_scrollHead, and wraps the real <tbody> in
+     .dataTables_scrollBody. Constrain + isolate scrolling there: */
+    #table_summary_wrapper .dataTables_scrollHead,
+    #table_summary_wrapper .dataTables_scrollHeadInner,
+    #table_summary_wrapper .dataTables_scrollHeadInner table {
+        width: 100% !important;
+    }
+
+    #table_summary_wrapper .dataTables_scrollBody {
+        /* only vertical scrolling is allowed inside the table body */
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+    }
+
+    #table_summary_wrapper .dataTables_scrollBody table {
+        width: 100% !important;
+    }
+
+    /* Pagination + "Showing x of y" info live in the DataTables footer,
+     which sits outside .dataTables_scroll and therefore never scrolls
+     with the body -- no extra CSS is needed to "pin" it, this comment
+     just documents why. */
+</style>
+
 <script>
     let isCreditorClicked = false;
     let dataReport = [];
@@ -11,6 +59,9 @@
     const debitorID = document.getElementById("debitor_id");
     const loanDate = document.getElementById("loan_date_range");
     const printType = document.getElementById("print_type");
+    const TABLE_ROW_HEIGHT_PX = 41;
+    const TABLE_VISIBLE_ROWS = 10;
+    const TABLE_SCROLL_Y_PX = TABLE_ROW_HEIGHT_PX * TABLE_VISIBLE_ROWS; // 410px
 
     function selectBudget(id, code, name) {
         $("#budget_id").val(id);
@@ -23,13 +74,12 @@
         isCreditorClicked = false;
         dataReport = [];
 
+        $('#table_container').hide();
+
         $("#budget_name").css('background-color', '#fff');
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
-
-        $("#loan_date_range").css('background-color', '#fff');
-        $(`#loan_date_range`).val("");
 
         $("#creditor_name").css('background-color', '#fff');
         $(`#creditor_name`).val("");
@@ -40,6 +90,14 @@
         $(`#debitor_name`).val("");
         $(`#debitor_id`).val("");
         $(`#debitor_code`).val("");
+
+        $("#loan_date_range").css('background-color', '#fff');
+        $(`#loan_date_range`).val("");
+
+        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#creditor_name", "#creditorMessage");
+        ErrorHandler.hideErrorInputMessage("#debitor_name", "#debitorMessage");
+        ErrorHandler.hideErrorInputMessage("#loan_date_range", "#dateRangeMessage");
     }
 
     function getDataReport() {
@@ -60,7 +118,10 @@
                 [10, 20, 50, 100, -1],
                 [10, 20, 50, 100, "All"]
             ],
-            pageLength: 20,
+            pageLength: 10,
+            scrollY: `${TABLE_SCROLL_Y_PX}px`,
+            scrollCollapse: true,
+            scrollX: false,
             ajax: {
                 type: 'POST',
                 url: '{!! route("Loan.ReportLoanSummaryStore") !!}',
@@ -96,6 +157,13 @@
                 beforeSend: function () {
                     Utils.showLoading();
 
+                    totalPrincipalIDR = 0;
+                    totalPrincipalOther = 0;
+                    totalPrincipalEquivalent = 0;
+                    totalIDR = 0;
+                    totalOtherCurrency = 0;
+                    totalEquivalent = 0;
+
                     $('#table_summary tbody').empty();
                     $('#table_container').css("display", "none");
                 },
@@ -104,30 +172,37 @@
 
                     $('#table_summary').css("width", "100%");
                     $('#table_container').css("display", "block");
+
+                    $('#table_summary').DataTable().columns.adjust();
                 },
             },
             columns: [
                 {
                     data: null,
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return (meta.row + 1);
                     }
                 },
                 {
                     data: 'loanNumber',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: 'date',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: 'type',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return data.creditorName ? data.creditorName : '-';
                     }
@@ -135,17 +210,20 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return data.debitorName ? data.debitorName : '-';
                     }
                 },
                 {
                     data: null,
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.principleLoan_IDR || 0);
                     }
@@ -153,6 +231,7 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.principleLoan_Other_Currency || 0);
                     }
@@ -160,21 +239,25 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.principleLoan_Equivalent_IDR || 0);
                     }
                 },
                 {
                     data: 'rate',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: 'term',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 },
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.totalLoan_IDR || 0);
                     }
@@ -182,6 +265,7 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.totalLoan_Other_Currency || 0);
                     }
@@ -189,22 +273,29 @@
                 {
                     data: null,
                     defaultContent: '-',
+                    className: "text-wrap",
                     render: function (data, type, row, meta) {
                         return currencyTotal(data.totalLoan_Equivalent_IDR || 0);
                     }
                 },
                 {
                     data: 'notes',
-                    defaultContent: '-'
+                    defaultContent: '-',
+                    className: "text-wrap",
                 }
             ],
             drawCallback: function (settings) {
-                $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalPrincipalIDR));
+                // $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalPrincipalIDR));
                 // $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalPrincipalOther));
-                $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPrincipalEquivalent));
-                $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIDR));
+                // $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalPrincipalEquivalent));
+                // $('#table_summary tfoot th:nth-child(6)').text(currencyTotal(totalIDR));
                 // $('#table_summary tfoot th:nth-child(7)').text(currencyTotal(totalOtherCurrency));
-                $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalEquivalent));
+                // $('#table_summary tfoot th:nth-child(8)').text(currencyTotal(totalEquivalent));
+
+                $('#grandTotalPrincipalIDR').text(currencyTotal(totalPrincipalIDR));
+                $('#grandTotalPrincipalEquivalentIDR').text(currencyTotal(totalPrincipalEquivalent));
+                $('#grandTotalIDR').text(currencyTotal(totalIDR));
+                $('#grandTotalEquivalentIDR').text(currencyTotal(totalEquivalent));
             }
         });
     }
@@ -372,5 +463,21 @@
         });
 
         getSuppliers();
+
+        // Keep <thead>/<tbody>/<tfoot> column widths in sync with each
+        // other whenever the viewport/container is resized. DataTables
+        // already listens for window resize internally for scrollY
+        // tables, but this is a cheap, explicit safeguard using the same
+        // official columns.adjust() API (no hardcoded widths), debounced
+        // so it doesn't fire on every pixel while the user drags.
+        let tableResizeTimeout;
+        $(window).on('resize', function () {
+            clearTimeout(tableResizeTimeout);
+            tableResizeTimeout = setTimeout(function () {
+                if ($.fn.dataTable.isDataTable('#table_summary')) {
+                    $('#table_summary').DataTable().columns.adjust();
+                }
+            }, 150);
+        });
     });
 </script>

@@ -39,102 +39,100 @@
                             <div class="col-12" id="table_container" style="display: none;">
                                 <div class="card">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-head-fixed w-100" id="table_summary">
-                                                <thead>
-                                                    <tr>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;width: 10px;">
-                                                            No</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Loan Number</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Date</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Type</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Creditor</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Debitor</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Currency</th>
-                                                        <th colspan="3"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Principal Loan</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Rate (%)</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Term</th>
-                                                        <th colspan="3"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total Loan</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Remark</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total IDR</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total Other Currency</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total Equivalent IDR</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total IDR</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total Other Currency</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Total Equivalent IDR</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colspan="7"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                            GRAND TOTAL</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th colspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                        <table class="table table-head-fixed text-wrap" id="table_summary">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;width: 10px;">
+                                                        No</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Loan Number</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Date</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Type</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Creditor</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Debitor</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Currency</th>
+                                                    <th colspan="3"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Principal Loan</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Rate (%)</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Term</th>
+                                                    <th colspan="3"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total Loan</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Remark</th>
+                                                </tr>
+                                                <tr>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total IDR</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total Other Currency</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total Equivalent IDR</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total IDR</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total Other Currency</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Total Equivalent IDR</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="7"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                        GRAND TOTAL</th>
+                                                    <th id="grandTotalPrincipalIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalPrincipalEquivalentIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th colspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalEquivalentIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

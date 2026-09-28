@@ -40,90 +40,88 @@
                             <div class="col-12" id="table_container" style="display: none;">
                                 <div class="card">
                                     <div class="card-body p-0">
-                                        <div class="table-responsive">
-                                            <table class="table table-head-fixed" id="table_summary">
-                                                <thead>
-                                                    <tr>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;vertical-align:middle;">
-                                                            No</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            CN Number</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Budget</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Sub Budget</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Date</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Customer</th>
-                                                        <th rowspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
-                                                            Currency</th>
-                                                        <th colspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            CN IDR</th>
-                                                        <th colspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            CN Other Currency</th>
-                                                        <th colspan="2"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            CN Equivalent IDR</th>
-                                                    </tr>
-                                                    <tr>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Total</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            VAT</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Total</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            VAT</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            Total</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            VAT</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th colspan="7"
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                            GRAND TOTAL</th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
-                                                        </th>
-                                                    </tr>
-                                                </tfoot>
-                                            </table>
-                                        </div>
+                                        <table class="table table-head-fixed text-wrap" id="table_summary">
+                                            <thead>
+                                                <tr>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;vertical-align:middle;">
+                                                        No</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        CN Number</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Budget</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Sub Budget</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Date</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Customer</th>
+                                                    <th rowspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;vertical-align:middle;">
+                                                        Currency</th>
+                                                    <th colspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        CN IDR</th>
+                                                    <th colspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        CN Other Currency</th>
+                                                    <th colspan="2"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        CN Equivalent IDR</th>
+                                                </tr>
+                                                <tr>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        Total</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        VAT</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        Total</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        VAT</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        Total</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
+                                                        VAT</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody></tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th colspan="7"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                        GRAND TOTAL</th>
+                                                    <th id="grandTotalIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalVatIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalEquivalentIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalVatEquivalentIDR"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                </tr>
+                                            </tfoot>
+                                        </table>
                                     </div>
                                 </div>
                             </div>
