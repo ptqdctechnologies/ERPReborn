@@ -79,68 +79,67 @@
                 tbody.empty();
 
                 $.each(data, function (key, value) {
-
                     let row = `
-                    <tr>
-                        <input
-                            type="hidden"
-                            id="projectProgress_RefID${key}"
-                            name="additionalData[${key}][entities][projectProgress_RefID]"
-                            value=""
-                        />
+                        <tr>
+                            <input
+                                type="hidden"
+                                id="projectProgress_RefID${key}"
+                                name="additionalData[${key}][entities][projectProgress_RefID]"
+                                value=""
+                            />
 
-                        <input
-                            type="hidden"
-                            id="projectSectionItem_RefID${key}"
-                            name="additionalData[${key}][entities][projectSectionItem_RefID]"
-                            value="${value.Sys_ID}"
-                        />
+                            <input
+                                type="hidden"
+                                id="projectSectionItem_RefID${key}"
+                                name="additionalData[${key}][entities][projectSectionItem_RefID]"
+                                value="${value.Sys_ID}"
+                            />
 
-                        <input
-                            type="hidden"
-                            id="annotation${key}"
-                            name="additionalData[${key}][entities][annotation]"
-                            value=""
-                        />
+                            <input
+                                type="hidden"
+                                id="annotation${key}"
+                                name="additionalData[${key}][entities][annotation]"
+                                value=""
+                            />
 
-                        <td style="text-align: center;">
-                            ${value.Code}
-                        </td>
+                            <td style="text-align: center;">
+                                ${value.Code}
+                            </td>
 
-                        <td>
-                            ${value.Name}
-                        </td>
+                            <td>
+                                ${value.Name}
+                            </td>
 
-                        <td>
-                            <div class="progress-group" style="margin-top: .5rem;">
-                                <span class="float-right" style="margin-left: .5rem;">
-                                    <b>78.00%</b>
-                                </span>
+                            <td>
+                                <div class="progress-group" style="margin-top: .5rem;">
+                                    <span class="float-right" style="margin-left: .5rem;">
+                                        <b>78.00%</b>
+                                    </span>
 
-                                <div class="progress progress-sm">
-                                    <div
-                                        class="progress-bar bg-primary"
-                                        style="width: 80%">
+                                    <div class="progress progress-sm">
+                                        <div
+                                            class="progress-bar bg-primary"
+                                            style="width: 80%">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td
-                            class="d-flex align-items-center justify-content-center"
-                            style="gap: .5rem; padding-right: 4px;"
-                        >
-                            <input
-                                type="text"
-                                class="form-control number-only"
-                                id="current_progress${key}"
-                                autocomplete="off"
-                                style="border-radius:0px; max-width: 30%;"
-                                name="additionalData[${key}][entities][progressCompletion]"
-                            /> %
-                        </td>
-                    </tr>
-                `;
+                            <td
+                                class="d-flex align-items-center justify-content-center"
+                                style="gap: .5rem; padding-right: 4px;"
+                            >
+                                <input
+                                    type="text"
+                                    class="form-control number-only"
+                                    id="current_progress${key}"
+                                    autocomplete="off"
+                                    style="border-radius:0px; max-width: 30%;"
+                                    name="additionalData[${key}][entities][progressCompletion]"
+                                /> %
+                            </td>
+                        </tr>
+                    `;
 
                     tbody.append(row);
                 });
@@ -182,7 +181,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,

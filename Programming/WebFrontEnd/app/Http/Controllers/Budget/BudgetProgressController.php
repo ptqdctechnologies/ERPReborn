@@ -63,28 +63,51 @@ class BudgetProgressController extends Controller
 
     public function show($id)
     {
-    }
+        $response = $this->budgetProgressService->detail($id);
 
-    public function revision()
-    {
-        $varAPIWebToken = Session::get('SessionLogin');
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'status' => $response['metadata']['HTTPStatusCode'],
+                'data' => []
+            ]);
+        }
 
-        $compact = [
-            'varAPIWebToken' => $varAPIWebToken,
-            'combinedBudgetRefID' => '46000000000033',
-            'combinedBudgetCode' => 'Q000062',
-            'combinedBudgetName' => 'XL Microcell 2007'
-        ];
-
-        return view('Budget.BudgetProgress.Transactions.revision', $compact);
+        return response()->json($response);
     }
 
     public function edit($id)
     {
+        try {
+            $response = $this->budgetProgressService->detail($id);
+
+            return view('Budget.BudgetProgress.Transactions.revision', $response);
+        } catch (\Throwable $th) {
+            Log::error("Detail Budget Progress Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
-    public function update(Request $request, $id)
+    public function update(StoreBudgetProgress $request, $id)
     {
+        try {
+            $response = $this->budgetProgressService->update($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Budget Progress');
+            }
+
+            $compact = [
+                "documentNumber" => '',
+                "status" => $response['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Budget Progress Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function destroy($id)
