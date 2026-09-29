@@ -99,7 +99,7 @@
                             >
                                 <input
                                     type="text"
-                                    class="form-control number-only"
+                                    class="form-control number-only current-progress"
                                     id="current_progress${key}"
                                     autocomplete="off"
                                     style="border-radius:0px; max-width: 30%;"
@@ -181,6 +181,18 @@
                 }
             }
         });
+    });
+
+    $(document).on('input', '.current-progress', function () {
+        const value = parseFloat(this.value);
+
+        if (value > 100) {
+            this.value = 100;
+        }
+
+        if (value <= 0) {
+            this.value = 0;
+        }
     });
 
     $(document).ready(function () {
