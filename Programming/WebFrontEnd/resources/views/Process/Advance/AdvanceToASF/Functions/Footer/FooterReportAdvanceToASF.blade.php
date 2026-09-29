@@ -481,7 +481,7 @@
             const arfPaymentCell = document.createElement('td');
             const link = document.createElement('a');
             link.href = '#';
-            link.textContent = item.ARF_Payment ?? '0';
+            link.textContent = item.totalPayment ? currencyTotal(item.totalPayment) : '0';
             link.style.cssText = "text-decoration: underline;";
 
             link.addEventListener('click', async function (e) {

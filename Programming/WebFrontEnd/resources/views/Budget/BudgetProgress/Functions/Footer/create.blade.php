@@ -53,6 +53,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + budgetId,
+
             success: function (data) {
                 $("#loadingTableBudgetProgress").hide();
 
@@ -60,38 +61,131 @@
                 tbody.empty();
 
                 $.each(data, function (key, value) {
+
                     let row = `
-                        <tr>
-                            <td style="text-align: center;">${value.Code}</td>
-                            <td>${value.Name}</td>
-                            <td>
-                                <div class="progress-group" style="margin-top: .5rem;">
-                                    <span class="float-right" style="margin-left: .5rem;"><b>78.00%</b></span>
-                                    <div class="progress progress-sm">
-                                        <div class="progress-bar bg-primary" style="width: 80%"></div>
+                    <tr>
+                        <input
+                            type="hidden"
+                            id="projectProgress_RefID${key}"
+                            name="additionalData[${key}][entities][projectProgress_RefID]"
+                            value=""
+                        />
+
+                        <input
+                            type="hidden"
+                            id="projectSectionItem_RefID${key}"
+                            name="additionalData[${key}][entities][projectSectionItem_RefID]"
+                            value="${value.Sys_ID}"
+                        />
+
+                        <input
+                            type="hidden"
+                            id="annotation${key}"
+                            name="additionalData[${key}][entities][annotation]"
+                            value=""
+                        />
+
+                        <td style="text-align: center;">
+                            ${value.Code}
+                        </td>
+
+                        <td>
+                            ${value.Name}
+                        </td>
+
+                        <td>
+                            <div class="progress-group" style="margin-top: .5rem;">
+                                <span class="float-right" style="margin-left: .5rem;">
+                                    <b>78.00%</b>
+                                </span>
+
+                                <div class="progress progress-sm">
+                                    <div
+                                        class="progress-bar bg-primary"
+                                        style="width: 80%">
                                     </div>
                                 </div>
-                            </td>
-                            <td class="d-flex align-items-center justify-content-center" style="gap: .5rem; padding-right: 4px;">
-                                <input
-                                    class="form-control number-only"
-                                    id="current_progress${key}"
-                                    autocomplete="off"
-                                    style="border-radius:0px; max-width: 30%;"
-                                    value="0"
-                                /> %
-                            </td>
-                        </tr>
-                    `;
+                            </div>
+                        </td>
+
+                        <td
+                            class="d-flex align-items-center justify-content-center"
+                            style="gap: .5rem; padding-right: 4px;"
+                        >
+                            <input
+                                type="text"
+                                class="form-control number-only"
+                                id="current_progress${key}"
+                                autocomplete="off"
+                                style="border-radius:0px; max-width: 30%;"
+                                name="additionalData[${key}][entities][progressCompletion]"
+                            /> %
+                        </td>
+                    </tr>
+                `;
 
                     tbody.append(row);
                 });
             },
+
             error: function (textStatus, errorThrown) {
                 $("#loadingTableBudgetProgress").hide();
             }
         });
     }
+
+    $('#budgetProgressForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("BudgetProgress.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            },
+            success: function (response) {
+                Utils.hideLoading();
+
+                if (response.status === 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('BudgetProgress.index') }}");
+                    });
+                } else {
+                    throw new Error("Create Budget Progress Faild");
+                }
+            },
+            error: function (xhr) {
+                console.log(xhr.responseJSON);
+
+                Utils.hideLoading();
+                ErrorNotif("Internal Server Error");
+            }
+        });
+    });
 
     $('#tableProjects').on('click', 'tbody tr', async function () {
         const id = $(this).find('input[data-trigger="sys_id_project"]').val();
