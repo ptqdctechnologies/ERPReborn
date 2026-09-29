@@ -48,3 +48,9 @@
         </tfoot>
     </table>
 </div>
+
+<div class="row justify-content-between" id="budgetDetailsMessage" style="margin: .3rem 7.5px; display: none;">
+    <div class="col">
+        <label id="budgetDetailsMessageText" class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-red"></label>
+    </div>
+</div>

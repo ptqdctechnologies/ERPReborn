@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Services\Budget\BudgetProgressService;
+use App\Http\Requests\Budget\StoreBudgetProgress;
 
 class BudgetProgressController extends Controller
 {
@@ -37,7 +38,7 @@ class BudgetProgressController extends Controller
         return view('Budget.BudgetProgress.Transactions.create', $compact);
     }
 
-    public function store(Request $request)
+    public function store(StoreBudgetProgress $request)
     {
         try {
             $response = $this->budgetProgressService->create($request);

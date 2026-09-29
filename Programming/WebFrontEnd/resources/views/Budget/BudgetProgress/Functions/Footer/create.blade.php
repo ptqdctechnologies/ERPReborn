@@ -4,6 +4,23 @@
         approverEntityRefID: null,
         comment: null
     };
+    const formList = {
+        budget_id: {
+            component: '#budget_name',
+            containerMessageId: '#budgetMessage',
+            messageId: '#budgetMessageText'
+        },
+        budget_progress_date_range: {
+            component: '#budget_progress_date_range',
+            containerMessageId: '#dateRangeMessage',
+            messageId: '#dateRangeMessageText'
+        },
+        additionalData: {
+            component: '',
+            containerMessageId: '#budgetDetailsMessage',
+            messageId: '#budgetDetailsMessageText'
+        }
+    };
 
     function getWorkflow(budgetRefID, budgetCode, budgetName) {
         $.ajaxSetup({
@@ -26,6 +43,8 @@
                     $("#budget_id").val(budgetRefID);
                     $("#budget_name").val(`${budgetCode} - ${budgetName}`);
                     $("#budget_name").css("background-color", "#e9ecef");
+
+                    ErrorHandler.hideErrorInputMessage(formList.budget_id.component, formList.budget_id.containerMessageId);
 
                     getSites(budgetRefID);
                 } else {
@@ -53,7 +72,6 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + budgetId,
-
             success: function (data) {
                 $("#loadingTableBudgetProgress").hide();
 
@@ -126,8 +144,9 @@
 
                     tbody.append(row);
                 });
-            },
 
+                ErrorHandler.hideErrorInputMessage(formList.additionalData.component, formList.additionalData.containerMessageId);
+            },
             error: function (textStatus, errorThrown) {
                 $("#loadingTableBudgetProgress").hide();
             }
@@ -178,11 +197,22 @@
                     throw new Error("Create Budget Progress Faild");
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.responseJSON);
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
 
                 Utils.hideLoading();
-                ErrorNotif("Internal Server Error");
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        // console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
             }
         });
     });
@@ -212,7 +242,7 @@
         $('#budget_progress_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#budget_progress_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            ErrorHandler.hideErrorInputMessage("#budget_progress_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage(formList.budget_progress_date_range.component, formList.budget_progress_date_range.containerMessageId);
         });
 
         $('#budget_progress_date_range').on('cancel.daterangepicker', function (ev, picker) {
