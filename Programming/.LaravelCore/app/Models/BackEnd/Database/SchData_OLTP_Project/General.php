@@ -570,6 +570,59 @@ namespace App\Models\Database\SchData_OLTP_Project
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : isProjectProgressDataFromLastWeekAvailable                                                           |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-09-29                                                                                           |
+        | ▪ Creation Date   : 2026-09-29                                                                                           |
+        | ▪ Description     : Mengecek Status Eksistensi Keterisian Kemajuan Proyek Minggu Lalu                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varProject_RefID ► Project Reference ID                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function isProjectProgressDataFromLastWeekAvailable(
+            mixed $varUserSession,
+            int $varSysBranch_RefID,
+            int $varProject_RefID = null
+            )
+            {
+            try {
+                $varData =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            '"SchData-OLTP-Project.Func_General_IsExistProjectProgressDataFromLastWeek',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varProject_RefID, 'bigint']
+                            ]
+                        )
+                    );
+
+                $varReturn = [
+                    'status' => $varData['data'][0]['Func_General_IsExistProjectProgressDataFromLastWeek']
+                    ];
+
+                return
+                    $varReturn;
+                }
+            catch (\Exception $ex) {
+                return [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getReport_Form_Resume_ProjectProgress                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
