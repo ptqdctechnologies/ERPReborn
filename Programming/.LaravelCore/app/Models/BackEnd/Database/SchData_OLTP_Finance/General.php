@@ -6016,7 +6016,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_DebitNoteSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null,int $varCustomer_RefID = null, string  $varStartDate = null, string  $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -6029,6 +6029,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCustomer_RefID, 'bigint' ],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
@@ -6036,6 +6037,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             ]
                             )
                         );
+
 	            $varReturn['totalRecords'] = $varReturn['data'][0]['TotalRecords'];
                 return $varReturn;
                 }
