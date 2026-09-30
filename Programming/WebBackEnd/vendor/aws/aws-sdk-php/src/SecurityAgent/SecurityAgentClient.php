@@ -229,7 +229,7 @@ use Aws\AwsClient;
  * } $args = [])
  * @method \Aws\Result createIntegration(array $args = [])
  * @phpstan-method \Aws\Result createIntegration(array{
- *     provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *     provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
  *     input?: array{
  *         github?: array{
  *             code?: string,
@@ -242,6 +242,8 @@ use Aws\AwsClient;
  *         gitlab?: array{accessToken?: string, targetUrl?: string, tokenType?: 'GROUP'|'PERSONAL', groupId?: string, ...},
  *         bitbucket?: array{installationId?: string, workspace?: string, code?: string, state?: string, ...},
  *         confluence?: array{installationId?: string, code?: string, state?: string, siteUrl?: string, ...},
+ *         azureDevOps?: array{code?: string, state?: string, organizationName?: string, ...},
+ *         bitbucketDataCenter?: array{targetUrl?: string, code?: string, state?: string, ...},
  *         ...,
  *     },
  *     integrationDisplayName?: string,
@@ -252,7 +254,7 @@ use Aws\AwsClient;
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createIntegrationAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise createIntegrationAsync(array{
- *     provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *     provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
  *     input?: array{
  *         github?: array{
  *             code?: string,
@@ -265,6 +267,8 @@ use Aws\AwsClient;
  *         gitlab?: array{accessToken?: string, targetUrl?: string, tokenType?: 'GROUP'|'PERSONAL', groupId?: string, ...},
  *         bitbucket?: array{installationId?: string, workspace?: string, code?: string, state?: string, ...},
  *         confluence?: array{installationId?: string, code?: string, state?: string, siteUrl?: string, ...},
+ *         azureDevOps?: array{code?: string, state?: string, organizationName?: string, ...},
+ *         bitbucketDataCenter?: array{targetUrl?: string, code?: string, state?: string, ...},
  *         ...,
  *     },
  *     integrationDisplayName?: string,
@@ -324,6 +328,7 @@ use Aws\AwsClient;
  *         complianceReport?: bool,
  *         ...,
  *     },
+ *     cicdConfiguration?: array{enabled?: bool, ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createPentestAsync(array $args = [])
@@ -359,6 +364,7 @@ use Aws\AwsClient;
  *         complianceReport?: bool,
  *         ...,
  *     },
+ *     cicdConfiguration?: array{enabled?: bool, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result createPrivateConnection(array $args = [])
@@ -574,9 +580,23 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise importSecurityRequirementsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise importSecurityRequirementsAsync(array{packId?: string, input?: array{documents?: list<array>, ...}, ...} $args = [])
  * @method \Aws\Result initiateProviderRegistration(array $args = [])
- * @phpstan-method \Aws\Result initiateProviderRegistration(array{provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB', ...} $args = [])
+ * @phpstan-method \Aws\Result initiateProviderRegistration(array{
+ *     provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *     targetUrl?: string,
+ *     organizationName?: string,
+ *     clientId?: string,
+ *     clientSecret?: string,
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise initiateProviderRegistrationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise initiateProviderRegistrationAsync(array{provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB', ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise initiateProviderRegistrationAsync(array{
+ *     provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *     targetUrl?: string,
+ *     organizationName?: string,
+ *     clientId?: string,
+ *     clientSecret?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listActorMessages(array $args = [])
  * @phpstan-method \Aws\Result listActorMessages(array{
  *     maxResults?: int,
@@ -702,7 +722,7 @@ use Aws\AwsClient;
  * @method \Aws\Result listIntegrations(array $args = [])
  * @phpstan-method \Aws\Result listIntegrations(array{
  *     filter?: array{
- *         provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *         provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
  *         providerType?: 'DOCUMENTATION'|'SOURCE_CODE',
  *         ...,
  *     },
@@ -713,7 +733,7 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise listIntegrationsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listIntegrationsAsync(array{
  *     filter?: array{
- *         provider?: 'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
+ *         provider?: 'AZURE_DEVOPS'|'BITBUCKET'|'CONFLUENCE'|'GITHUB'|'GITLAB',
  *         providerType?: 'DOCUMENTATION'|'SOURCE_CODE',
  *         ...,
  *     },
@@ -760,9 +780,23 @@ use Aws\AwsClient;
  *     ...,
  * } $args = [])
  * @method \Aws\Result listPentestJobsForPentest(array $args = [])
- * @phpstan-method \Aws\Result listPentestJobsForPentest(array{maxResults?: int, pentestId?: string, agentSpaceId?: string, nextToken?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result listPentestJobsForPentest(array{
+ *     maxResults?: int,
+ *     pentestId?: string,
+ *     agentSpaceId?: string,
+ *     nextToken?: string,
+ *     jobType?: 'CICD'|'FULL'|'REVALIDATION',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise listPentestJobsForPentestAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listPentestJobsForPentestAsync(array{maxResults?: int, pentestId?: string, agentSpaceId?: string, nextToken?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listPentestJobsForPentestAsync(array{
+ *     maxResults?: int,
+ *     pentestId?: string,
+ *     agentSpaceId?: string,
+ *     nextToken?: string,
+ *     jobType?: 'CICD'|'FULL'|'REVALIDATION',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listPentests(array $args = [])
  * @phpstan-method \Aws\Result listPentests(array{maxResults?: int, nextToken?: string, agentSpaceId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listPentestsAsync(array $args = [])
@@ -825,16 +859,32 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result startPentestJob(array{
  *     agentSpaceId?: string,
  *     pentestId?: string,
- *     jobType?: 'FULL'|'REVALIDATION',
+ *     jobType?: 'CICD'|'FULL'|'REVALIDATION',
  *     selectedFindingIds?: list<string>,
+ *     scopeChanges?: list<array{
+ *         integrationId?: string,
+ *         providerResourceId?: string,
+ *         baseCommitSha?: string,
+ *         headCommitSha?: string,
+ *         triggerRunId?: string,
+ *         ...,
+ *     }>,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise startPentestJobAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise startPentestJobAsync(array{
  *     agentSpaceId?: string,
  *     pentestId?: string,
- *     jobType?: 'FULL'|'REVALIDATION',
+ *     jobType?: 'CICD'|'FULL'|'REVALIDATION',
  *     selectedFindingIds?: list<string>,
+ *     scopeChanges?: list<array{
+ *         integrationId?: string,
+ *         providerResourceId?: string,
+ *         baseCommitSha?: string,
+ *         headCommitSha?: string,
+ *         triggerRunId?: string,
+ *         ...,
+ *     }>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result startThreatModelJob(array $args = [])
@@ -1011,6 +1061,10 @@ use Aws\AwsClient;
  *     items?: list<array{resource?: array, capabilities?: array, ...}>,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result updateIntegration(array $args = [])
+ * @phpstan-method \Aws\Result updateIntegration(array{integrationId?: string, webhookAction?: 'CREATE_IF_ABSENT'|'ROTATE', ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateIntegrationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateIntegrationAsync(array{integrationId?: string, webhookAction?: 'CREATE_IF_ABSENT'|'ROTATE', ...} $args = [])
  * @method \Aws\Result updatePentest(array $args = [])
  * @phpstan-method \Aws\Result updatePentest(array{
  *     pentestId?: string,
@@ -1045,6 +1099,7 @@ use Aws\AwsClient;
  *         complianceReport?: bool,
  *         ...,
  *     },
+ *     cicdConfiguration?: array{enabled?: bool, ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updatePentestAsync(array $args = [])
@@ -1081,6 +1136,7 @@ use Aws\AwsClient;
  *         complianceReport?: bool,
  *         ...,
  *     },
+ *     cicdConfiguration?: array{enabled?: bool, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result updatePrivateConnectionCertificate(array $args = [])
