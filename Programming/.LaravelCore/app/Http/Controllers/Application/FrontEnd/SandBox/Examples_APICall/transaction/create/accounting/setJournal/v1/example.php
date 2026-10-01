@@ -70,7 +70,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 50000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 10.00
+                                                                        'quantity' => 10.00,
+                                                                        'variance' => 0.00
                                                                     ],
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -79,7 +80,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 50000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 10.00
+                                                                        'quantity' => 10.00,
+                                                                        'variance' => 0.00
                                                                     ]
 
                                                                 ]
@@ -122,7 +124,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 75000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 8.00
+                                                                        'quantity' => 8.00,
+                                                                        'variance' => 0.00
                                                                     ],
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -131,7 +134,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 75000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 8.00
+                                                                        'quantity' => 8.00,
+                                                                        'variance' => 0.00
                                                                     ]
                                                                 ]
                                                             ]
@@ -173,7 +177,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 125000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 23.00
+                                                                        'quantity' => 23.00,
+                                                                        'variance' => 0.00
                                                                     ],
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -182,7 +187,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 125000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 23.00
+                                                                        'quantity' => 23.00,
+                                                                        'variance' => 0.00
                                                                     ]
                                                                 ]
                                                             ]
@@ -224,7 +230,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 230000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 49.00
+                                                                        'quantity' => 49.00,
+                                                                        'variance' => 0.00
                                                                     ],
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -233,7 +240,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrencyValue' => 230000,
                                                                         'amountCurrencyExchangeRate' => 1,
                                                                         'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 49.00
+                                                                        'quantity' => 49.00,
+                                                                        'variance' => 0.00
                                                                     ]
                                                                 ]
                                                             ]
