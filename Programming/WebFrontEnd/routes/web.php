@@ -186,7 +186,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::post('ReportBudgetStore', 'ReportBudgetStore')
             ->name('Budget.ReportBudgetStore');
 
-        Route::post('BudgetPickList', 'BudgetPickList')
+        Route::get('BudgetPickList', 'BudgetPickList')
             ->name('Budget.BudgetPickList');
 
         Route::post('RevisionModifyBudget', 'RevisionModifyBudget')
@@ -500,7 +500,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::post('AdvanceRequest/report/detail/export', 'PrintExportReportAdvanceSummaryDetail')
             ->name('AdvanceRequest.PrintExportReportAdvanceSummaryDetail');
     });
-    Route::resource('AdvanceRequest', AdvanceRequestController::class)->only(['index', 'store']);
+    Route::resource('AdvanceRequest', AdvanceRequestController::class);
 
     // ADVANCE SETTLEMENT
     Route::controller(AdvanceSettlementController::class)->group(function () {
