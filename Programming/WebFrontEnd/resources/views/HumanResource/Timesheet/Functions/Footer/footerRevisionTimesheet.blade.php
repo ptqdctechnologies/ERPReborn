@@ -15,7 +15,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("Budget.BudgetPickList") !!}',
             success: function (data) {
                 if (data.data && Array.isArray(data.data)) {
@@ -49,7 +49,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("Budget.BudgetPickList") !!}',
             success: function (data) {
                 if (data.data && Array.isArray(data.data)) {
