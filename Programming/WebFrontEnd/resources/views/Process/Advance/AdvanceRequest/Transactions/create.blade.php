@@ -2,7 +2,9 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getAdvance')
     @include('getFunction.getProductss')
+    @include('Process.Advance.AdvanceRequest.Functions.PopUp.revision')
     @include('Process.Advance.AdvanceRequest.Functions.PopUp.summary')
 
     <div class="content-wrapper">
@@ -196,6 +198,7 @@
         </section>
     </div>
 
+    @include('Process.Advance.AdvanceRequest.Functions.Footer.index')
     @include('Process.Advance.AdvanceRequest.Functions.Footer.create')
     @include('Partials.footer')
 @endsection

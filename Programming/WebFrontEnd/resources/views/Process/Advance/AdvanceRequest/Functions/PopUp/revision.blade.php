@@ -19,8 +19,8 @@
                             <div class="form-group d-flex">
                                 <div>
                                     <span id="modal_advance_request_document_number_icon"
-                                        class="input-group-text form-control" data-toggle="modal" data-target="#myWorks"
-                                        style="cursor:pointer; border-radius: 0;">
+                                        class="input-group-text form-control" data-toggle="modal"
+                                        data-target="#myGetModalAdvance" style="cursor:pointer; border-radius: 0;">
                                         <i class="fas fa-gift"></i>
                                     </span>
                                 </div>

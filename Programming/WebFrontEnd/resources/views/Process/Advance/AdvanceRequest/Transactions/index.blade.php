@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getAdvance')
+    @include('Process.Advance.AdvanceRequest.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -20,5 +22,6 @@
         </section>
     </div>
 
+    @include('Process.Advance.AdvanceRequest.Functions.Footer.index')
     @include('Partials.footer')
 @endsection

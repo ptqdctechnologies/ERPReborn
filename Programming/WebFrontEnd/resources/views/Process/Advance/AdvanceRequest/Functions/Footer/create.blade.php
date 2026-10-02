@@ -381,6 +381,8 @@
 
                     $('#budget_details_table tbody').append(row);
                 });
+
+                getProductss();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
@@ -752,8 +754,6 @@
     });
 
     $(document).ready(function () {
-        getProductss();
-
         $('#advance_summary_modal').on('hide.bs.modal', function () {
             if (document.activeElement && this.contains(document.activeElement)) {
                 document.activeElement.blur();
