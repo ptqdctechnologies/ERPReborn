@@ -8,10 +8,10 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class WorkflowService
 {
-    public function submit($businessDocument_RefID, $workFlowPath_RefID, $remarks, $approverEntity_RefID)
+    public function submit($businessDocument_RefID, $workFlowPath_RefID, $remarks, $approverEntity_RefID): mixed
     {
-        $varAPIWebToken             = Session::get('SessionLogin');
-        $varWorkerCareerInternal    = Session::get('SessionWorkerCareerInternal_RefID');
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varWorkerCareerInternal = Session::get('SessionWorkerCareerInternal_RefID');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -20,19 +20,19 @@ class WorkflowService
             'latest',
             [
                 'entities' => [
-                    "businessDocument_RefID"    => (int) $businessDocument_RefID,
-                    "workFlowPath_RefID"        => (int) $workFlowPath_RefID,
-                    "remarks"                   => $remarks,
-                    "approverEntity_RefID"      => (int) $varWorkerCareerInternal
+                    "businessDocument_RefID" => (int) $businessDocument_RefID,
+                    "workFlowPath_RefID" => (int) $workFlowPath_RefID,
+                    "remarks" => $remarks,
+                    "approverEntity_RefID" => (int) $varWorkerCareerInternal
                 ]
             ]
         );
     }
 
-    public function resubmit($businessDocument_RefID, $comment, $approverEntity_RefID) 
+    public function resubmit($businessDocument_RefID, $comment, $approverEntity_RefID): mixed
     {
-        $varAPIWebToken             = Session::get('SessionLogin');
-        $varWorkerCareerInternal    = Session::get('SessionWorkerCareerInternal_RefID');
+        $varAPIWebToken = Session::get('SessionLogin');
+        $varWorkerCareerInternal = Session::get('SessionWorkerCareerInternal_RefID');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
@@ -41,9 +41,9 @@ class WorkflowService
             'latest',
             [
                 'entities' => [
-                    "businessDocument_RefID"    => (int) $businessDocument_RefID,
-                    "remarks"                   => $comment,
-                    "approverEntity_RefID"      => (int) $varWorkerCareerInternal
+                    "businessDocument_RefID" => (int) $businessDocument_RefID,
+                    "remarks" => $comment,
+                    "approverEntity_RefID" => (int) $varWorkerCareerInternal
                 ]
             ]
         );
