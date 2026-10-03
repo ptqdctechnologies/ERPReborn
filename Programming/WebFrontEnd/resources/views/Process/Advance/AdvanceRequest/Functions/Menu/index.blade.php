@@ -16,15 +16,15 @@
                             <ul class="dropdown-menu dropdown-menu-lg dropdown-menu-left"
                                 style="padding: 10px;font-size:14px;background-color:#4B586A;margin-top:8px;">
                                 <li class="nav-item">
-                                    <a id="create_advance" href="{{ route('AdvanceRequest.index') }}" class="nav-link"
+                                    <a id="create_advance" href="{{ route('AdvanceRequest.create') }}" class="nav-link"
                                         style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Create Advance Request</i>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a id="revision_advance" href="javascript:;" class="nav-link myPopUpArfRevision"
-                                        data-toggle="modal" data-target="#myPopUpArfRevision"
-                                        style="color:white;padding-bottom:10px;cursor:pointer">
+                                    <a id="revision_advance" href="javascript:;" class="nav-link" data-toggle="modal"
+                                        data-target="#advanceRequestRevisionModal"
+                                        style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Advance Request</i>
                                     </a>
                                 </li>

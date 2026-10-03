@@ -12,8 +12,7 @@
                 </button>
             </div>
             <div class="modal-body d-flex justify-content-center">
-                <form id="editForm" method="POST" action="{{ route('BudgetProgress.revision') }}">
-                    @csrf
+                <form id="editForm" method="GET" action="{{ url('BudgetProgress') }}">
                     <div class="card mb-0" style="width: fit-content;">
                         <div class="card-body d-flex align-items-center justify-content-center" style="gap: 1rem;">
                             <label class="p-0 m-0">Revision Number</label>
@@ -28,8 +27,7 @@
                                 <div>
                                     <input id="modal_budget_progress_document_number" class="form-control"
                                         style="border-radius:0; background-color: white;" readonly />
-                                    <input id="modal_budget_progress_id" class="form-control"
-                                        name="modal_budget_progress_id"
+                                    <input id="modal_budget_progress_id" class="form-control" value="309000000000008"
                                         style="border-radius:0; background-color: white;" hidden />
                                 </div>
                             </div>
@@ -58,17 +56,30 @@
         const budgetProgressRefID = $('#modal_budget_progress_id').val();
 
         if (!budgetProgressRefID) {
-            ShowLoading();
-
-            $('#editForm').submit();
-        } else {
             $('#modal_budget_progress_document_number').focus();
             $('#modal_budget_progress_document_number').css("border", "1px solid red");
+            return;
         }
+
+        const url = "{{ url('BudgetProgress') }}/" + budgetProgressRefID + "/edit";
+
+        $('#editForm').attr('action', url);
+        $('#modal_budget_progress_document_number').css('border', '');
+
+        ShowLoading();
+
+        $('#editForm').submit();
     });
 
     $('#btn-cancel').on('click', function () {
-        $('#modal_budget_progress_id').val("");
-        $('#modal_budget_progress_document_number').val("");
+        $('#modal_budget_progress_id').val('');
+        $('#modal_budget_progress_document_number').val('');
+        $('#modal_budget_progress_document_number').css('border', '');
+    });
+
+    $('#budgetProgressRevisionModal').on('hidden.bs.modal', function () {
+        $('#modal_budget_progress_id').val('');
+        $('#modal_budget_progress_document_number').val('');
+        $('#modal_budget_progress_document_number').css('border', '');
     });
 </script>

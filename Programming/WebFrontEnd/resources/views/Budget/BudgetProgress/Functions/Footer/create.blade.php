@@ -4,6 +4,23 @@
         approverEntityRefID: null,
         comment: null
     };
+    const formList = {
+        budget_id: {
+            component: '#budget_name',
+            containerMessageId: '#budgetMessage',
+            messageId: '#budgetMessageText'
+        },
+        budget_progress_date_range: {
+            component: '#budget_progress_date_range',
+            containerMessageId: '#dateRangeMessage',
+            messageId: '#dateRangeMessageText'
+        },
+        additionalData: {
+            component: '',
+            containerMessageId: '#budgetDetailsMessage',
+            messageId: '#budgetDetailsMessageText'
+        }
+    };
 
     function getWorkflow(budgetRefID, budgetCode, budgetName) {
         $.ajaxSetup({
@@ -26,6 +43,8 @@
                     $("#budget_id").val(budgetRefID);
                     $("#budget_name").val(`${budgetCode} - ${budgetName}`);
                     $("#budget_name").css("background-color", "#e9ecef");
+
+                    ErrorHandler.hideErrorInputMessage(formList.budget_id.component, formList.budget_id.containerMessageId);
 
                     getSites(budgetRefID);
                 } else {
@@ -53,7 +72,6 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getNewSite") !!}?project_code=' + budgetId,
-
             success: function (data) {
                 $("#loadingTableBudgetProgress").hide();
 
@@ -61,73 +79,73 @@
                 tbody.empty();
 
                 $.each(data, function (key, value) {
-
                     let row = `
-                    <tr>
-                        <input
-                            type="hidden"
-                            id="projectProgress_RefID${key}"
-                            name="additionalData[${key}][entities][projectProgress_RefID]"
-                            value=""
-                        />
+                        <tr>
+                            <input
+                                type="hidden"
+                                id="projectProgress_RefID${key}"
+                                name="additionalData[${key}][entities][projectProgress_RefID]"
+                                value=""
+                            />
 
-                        <input
-                            type="hidden"
-                            id="projectSectionItem_RefID${key}"
-                            name="additionalData[${key}][entities][projectSectionItem_RefID]"
-                            value="${value.Sys_ID}"
-                        />
+                            <input
+                                type="hidden"
+                                id="projectSectionItem_RefID${key}"
+                                name="additionalData[${key}][entities][projectSectionItem_RefID]"
+                                value="${value.Sys_ID}"
+                            />
 
-                        <input
-                            type="hidden"
-                            id="annotation${key}"
-                            name="additionalData[${key}][entities][annotation]"
-                            value=""
-                        />
+                            <input
+                                type="hidden"
+                                id="annotation${key}"
+                                name="additionalData[${key}][entities][annotation]"
+                                value=""
+                            />
 
-                        <td style="text-align: center;">
-                            ${value.Code}
-                        </td>
+                            <td style="text-align: center;">
+                                ${value.Code}
+                            </td>
 
-                        <td>
-                            ${value.Name}
-                        </td>
+                            <td>
+                                ${value.Name}
+                            </td>
 
-                        <td>
-                            <div class="progress-group" style="margin-top: .5rem;">
-                                <span class="float-right" style="margin-left: .5rem;">
-                                    <b>78.00%</b>
-                                </span>
+                            <td>
+                                <div class="progress-group" style="margin-top: .5rem;">
+                                    <span class="float-right" style="margin-left: .5rem;">
+                                        <b>78.00%</b>
+                                    </span>
 
-                                <div class="progress progress-sm">
-                                    <div
-                                        class="progress-bar bg-primary"
-                                        style="width: 80%">
+                                    <div class="progress progress-sm">
+                                        <div
+                                            class="progress-bar bg-primary"
+                                            style="width: 80%">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td
-                            class="d-flex align-items-center justify-content-center"
-                            style="gap: .5rem; padding-right: 4px;"
-                        >
-                            <input
-                                type="text"
-                                class="form-control number-only"
-                                id="current_progress${key}"
-                                autocomplete="off"
-                                style="border-radius:0px; max-width: 30%;"
-                                name="additionalData[${key}][entities][progressCompletion]"
-                            /> %
-                        </td>
-                    </tr>
-                `;
+                            <td
+                                class="d-flex align-items-center justify-content-center"
+                                style="gap: .5rem; padding-right: 4px;"
+                            >
+                                <input
+                                    type="text"
+                                    class="form-control number-only current-progress"
+                                    id="current_progress${key}"
+                                    autocomplete="off"
+                                    style="border-radius:0px; max-width: 30%;"
+                                    name="additionalData[${key}][entities][progressCompletion]"
+                                /> %
+                            </td>
+                        </tr>
+                    `;
 
                     tbody.append(row);
                 });
-            },
 
+                ErrorHandler.hideErrorInputMessage(formList.additionalData.component, formList.additionalData.containerMessageId);
+            },
             error: function (textStatus, errorThrown) {
                 $("#loadingTableBudgetProgress").hide();
             }
@@ -163,7 +181,7 @@
                     swalWithBootstrapButtons.fire({
                         title: 'Successful !',
                         type: 'success',
-                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + res.documentNumber + '</span>',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
                         showCloseButton: false,
                         showCancelButton: false,
                         focusConfirm: false,
@@ -178,11 +196,22 @@
                     throw new Error("Create Budget Progress Faild");
                 }
             },
-            error: function (xhr) {
-                console.log(xhr.responseJSON);
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
 
                 Utils.hideLoading();
-                ErrorNotif("Internal Server Error");
+
+                if (jqXHR.status === 422) {
+                    let errors = jqXHR.responseJSON.errors;
+
+                    $.each(errors, function (key, value) {
+                        // console.log(key + ': ' + value[0]);
+
+                        if (formList[key]) {
+                            ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                        }
+                    });
+                }
             }
         });
     });
@@ -200,6 +229,18 @@
         $("#myProjects").modal('toggle');
     });
 
+    $(document).on('input', '.current-progress', function () {
+        const value = parseFloat(this.value);
+
+        if (value > 100) {
+            this.value = 100;
+        }
+
+        if (value <= 0) {
+            this.value = 0;
+        }
+    });
+
     $(document).ready(function () {
         $('#budget_progress_date_range').daterangepicker({
             autoUpdateInput: false,
@@ -212,7 +253,7 @@
         $('#budget_progress_date_range').on('apply.daterangepicker', function (ev, picker) {
             $("#budget_progress_date_range").css('background-color', '#e9ecef');
             $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            ErrorHandler.hideErrorInputMessage("#budget_progress_date_range", "#dateRangeMessage");
+            ErrorHandler.hideErrorInputMessage(formList.budget_progress_date_range.component, formList.budget_progress_date_range.containerMessageId);
         });
 
         $('#budget_progress_date_range').on('cancel.daterangepicker', function (ev, picker) {

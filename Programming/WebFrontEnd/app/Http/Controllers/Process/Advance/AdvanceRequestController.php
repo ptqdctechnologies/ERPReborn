@@ -14,6 +14,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 use App\Services\Process\Advance\AdvanceRequestService;
+use App\Http\Requests\Process\StoreAdvanceRequest;
 use App\Services\WorkflowService;
 use Carbon\Carbon;
 
@@ -34,19 +35,24 @@ class AdvanceRequestController extends Controller
     // INDEX FUNCTION
     public function index(Request $request)
     {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
+        return view('Process.Advance.AdvanceRequest.Transactions.index');
+    }
+
+    public function create()
+    {
+        $token = Session::get('SessionLogin');
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
 
-        return view('Process.Advance.AdvanceRequest.Transactions.CreateAdvanceRequest', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'documentType_RefID' => $documentTypeRefID
-        ]);
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Process.Advance.AdvanceRequest.Transactions.create', $compact);
     }
 
     // STORE FUNCTION FOR INSERT DATA (NEW FUNCTION)
-    public function store(Request $request)
+    public function store(StoreAdvanceRequest $request)
     {
         try {
             $response = $this->advanceRequestService->create($request);
@@ -55,11 +61,14 @@ class AdvanceRequestController extends Controller
                 throw new \Exception('Failed to fetch Create Advance Request => ' . $response['data']['message']);
             }
 
+            $workflowPathID = $request->input('workflow_path_id');
+            $workflowComment = $request->input('workflow_comment');
+
             $responseWorkflow = $this->workflowService->submit(
                 $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
+                $workflowPathID,
+                $workflowComment,
+                null
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
@@ -79,6 +88,32 @@ class AdvanceRequestController extends Controller
         }
     }
 
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+        try {
+            $response = $this->advanceRequestService->detail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Advance Request');
+            }
+
+            return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $response);
+        } catch (\Throwable $th) {
+            Log::error('Detail Advance Request Error', [
+                'message' => $th->getMessage(),
+                'advanceRefId' => $id
+            ]);
+
+            return redirect()
+                ->route('AdvanceRequest.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
+    }
+
     // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
     public function RevisionAdvanceIndex(Request $request)
     {
@@ -87,7 +122,7 @@ class AdvanceRequestController extends Controller
             $advance_RefID = $request->input('modal_advance_id');
             $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
 
-            $response = $this->advanceRequestService->getDetail($advance_RefID);
+            $response = $this->advanceRequestService->detail($advance_RefID);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
                 throw new \Exception('Failed to fetch Detail Advance Request');

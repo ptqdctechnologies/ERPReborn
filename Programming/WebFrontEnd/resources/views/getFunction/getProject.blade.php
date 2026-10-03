@@ -72,7 +72,7 @@
 
             var keys = 0;
             $.ajax({
-                type: 'POST',
+                type: 'GET',
                 url: '{!! route("Budget.BudgetPickList") !!}',
                 success: function (data) {
                     $(".loadingGetProjectSecond").hide();

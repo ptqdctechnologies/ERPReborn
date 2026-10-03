@@ -55,7 +55,7 @@
         });
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '{!! route("Budget.BudgetPickList") !!}',
         })
             .done(function (response) {

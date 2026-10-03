@@ -10,22 +10,6 @@ use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class AdvanceRequestService
 {
-    // public function getPickList()
-    // {
-    //     $sessionToken = Session::get('SessionLogin');
-
-    //     return Helper_APICall::setCallAPIGateway(
-    //         Helper_Environment::getUserSessionID_System(),
-    //         $sessionToken,
-    //         'dataPickList.finance.getAdvance',
-    //         'latest',
-    //         [
-    //             'parameter' => null
-    //         ],
-    //         false
-    //     );
-    // }
-
     public function getPickList($formatted)
     {
         $token = Session::get('SessionLogin');
@@ -41,18 +25,18 @@ class AdvanceRequestService
         );
     }
 
-    public function getDetail($advanceRequestID)
+    public function detail($id): mixed
     {
-        $sessionToken = Session::get('SessionLogin');
+        $token = Session::get('SessionLogin');
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.read.dataList.finance.getAdvanceDetail',
             'latest',
             [
                 'parameter' => [
-                    'advance_RefID' => (int) $advanceRequestID,
+                    'advance_RefID' => (int) $id,
                 ],
                 'SQLStatement' => [
                     'pick' => null,
@@ -100,30 +84,58 @@ class AdvanceRequestService
         );
     }
 
-    public function create(Request $request): array
+    public function create($request): mixed
     {
-        $sessionToken = Session::get('SessionLogin');
-        $data = $request->storeData;
-        $detailItems = json_decode($data['advanceRequestDetail'], true);
-        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $token = Session::get('SessionLogin');
+
+        $fileID = $request->input('advance_attachment');
+        $requesterID = $request->input('requester_id');
+        $beneficiaryID = $request->input('beneficiary_id');
+        $accountNumberID = $request->input('account_number_id');
+        $remark = $request->input('remark');
+
+        $budgetDetails = $request->input('additionalData', []);
+        $items = collect($budgetDetails)
+            ->filter(
+                fn($entity) =>
+                    filled($entity['productUnitPriceCurrencyValue'] ?? null) &&
+                    filled($entity['quantity'] ?? null)
+            )
+            ->map(function ($entity) {
+                return [
+                    'entities' => [
+                        'workStructure_RefID' => (int) $entity['workStructure_RefID'],
+                        'combinedBudgetSectionDetail_RefID' => (int) $entity['combinedBudgetSectionDetail_RefID'],
+                        'product_RefID' => (int) $entity['product_RefID'],
+                        'quantity' => (float) number_format($entity['quantity'], 2),
+                        'quantityUnit_RefID' => (int) $entity['quantityUnit_RefID'],
+                        'productUnitPriceCurrency_RefID' => (int) $entity['productUnitPriceCurrency_RefID'],
+                        'productUnitPriceCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
+                        'productUnitPriceCurrencyExchangeRate' => (float) number_format($entity['productUnitPriceCurrencyExchangeRate'], 2),
+                        'remarks' => $entity['remarks'] ?? NULL,
+                    ]
+                ];
+            })
+            ->values()
+            ->all();
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.create.finance.setAdvance',
             'latest',
             [
                 'entities' => [
                     "documentDateTimeTZ" => date('Y-m-d'),
-                    "log_FileUpload_Pointer_RefID" => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $data['requester_id'],
-                    "beneficiaryWorkerJobsPosition_RefID" => (int) $data['beneficiary_id'],
-                    "beneficiaryBankAccount_RefID" => (int) $data['bank_account_id'],
-                    "internalNotes" => null,
-                    "remarks" => $data['var_remark'],
+                    "log_FileUpload_Pointer_RefID" => $fileID ? (int) $fileID : NULL,
+                    "requesterWorkerJobsPosition_RefID" => (int) $requesterID,
+                    "beneficiaryWorkerJobsPosition_RefID" => (int) $beneficiaryID,
+                    "beneficiaryBankAccount_RefID" => (int) $accountNumberID,
+                    "internalNotes" => NULL,
+                    "remarks" => $remark,
                     "additionalData" => [
                         "itemList" => [
-                            "items" => $detailItems
+                            "items" => $items
                         ]
                     ]
                 ]
