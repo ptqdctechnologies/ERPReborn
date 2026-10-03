@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Budget\BudgetController;
+use App\Http\Controllers\Budget\BudgetProgressController;
 use App\Http\Controllers\Function\FunctionController;
 use App\Http\Controllers\Finance\AccountPayableController;
 use App\Http\Controllers\Purchase\PurchaseOrderController;
@@ -258,7 +259,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
 
     // BUDGET PROGRESS
-    Route::resource('BudgetProgress', 'Budget\BudgetProgressController');
+    Route::controller(BudgetProgressController::class)->group(function () {
+        Route::get('BudgetProgress/last-week-available', 'lastWeekAvailable')
+            ->name('BudgetProgress.lastWeekAvailable');
+    });
+    Route::resource('BudgetProgress', BudgetProgressController::class);
 
     // FUNCTION CONTROLLER
     Route::controller(FunctionController::class)->group(function () {

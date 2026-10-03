@@ -32,6 +32,23 @@ class BudgetProgressService
         return $compact;
     }
 
+    public function lastWeekAvailable($recordID): mixed
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'generalPurposes.status.project.isProjectProgressDataFromLastWeekAvailable',
+            'latest',
+            [
+                'parameter' => [
+                    'recordID' => (int) $recordID
+                ]
+            ]
+        );
+    }
+
     public function create($request): mixed
     {
         $token = Session::get('SessionLogin');
