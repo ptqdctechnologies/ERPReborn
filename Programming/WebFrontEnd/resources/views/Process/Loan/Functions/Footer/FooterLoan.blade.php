@@ -63,6 +63,39 @@
         clickedAt = params;
     }
 
+    function getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
+            data: {
+                record_id: combinedBudgetRefID
+            },
+            success: function (response) {
+                if (response.status === 200 && response.isAvailable) {
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_code").val(combinedBudgetCode);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css({ "background-color": "#e9ecef" });
+                } else {
+                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
+                }
+
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectTrigger").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+            }
+        });
+    }
+
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajaxSetup({
             headers: {
@@ -83,19 +116,13 @@
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    // getWorkflows(response.data[0].nextApproverPath);
-
-                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
-                    $("#project_id").val(combinedBudgetRefID);
-                    $("#project_code").val(combinedBudgetCode);
-                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#project_name").css({ "background-color": "#e9ecef" });
+                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
                 } else {
+                    $("#loadingBudget").css({ "display": "none" });
+                    $("#myProjectTrigger").css({ "display": "block" });
+
                     Swal.fire("Error", "You don't have access", "error");
                 }
-
-                $("#loadingBudget").css({ "display": "none" });
-                $("#myProjectTrigger").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
