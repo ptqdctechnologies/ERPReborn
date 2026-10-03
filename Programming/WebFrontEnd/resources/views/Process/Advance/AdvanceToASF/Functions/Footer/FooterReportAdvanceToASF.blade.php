@@ -428,10 +428,10 @@
 
         data.forEach((item, ind) => {
             totalARF += parseFloat(item.ARF_Total_IDR) || 0;
-            totalPaymentARF += parseFloat(item.ARF_Payment) || 0;
+            totalPaymentARF += parseFloat(item.totalPayment) || 0;
             totalPaymentBalanceARF += parseFloat(item.advance_ToPayment) || 0;
             totalASF += parseFloat(item.ASF_Total) || 0;
-            totalPaymentASF += parseFloat(item.ASF_Payment) || 0;
+            totalPaymentASF += parseFloat(item.totalPaymentSettlement) || 0;
             totalPaymentBalanceASF += parseFloat(item.advance_ToSettlement) || 0;
 
             const row = document.createElement('tr');
@@ -527,7 +527,7 @@
             const asfPaymentCell = document.createElement('td');
             const asfLink = document.createElement('a');
             asfLink.href = '#';
-            asfLink.textContent = '0';
+            asfLink.textContent = item.totalPaymentSettlement ? currencyTotal(item.totalPaymentSettlement) : '0';
             asfLink.style.cssText = "text-decoration: underline;";
 
             asfLink.addEventListener('click', async function (e) {

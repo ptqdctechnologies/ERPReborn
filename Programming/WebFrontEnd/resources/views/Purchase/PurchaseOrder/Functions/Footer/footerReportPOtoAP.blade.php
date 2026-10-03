@@ -399,7 +399,7 @@
             const apToPaymentCell = document.createElement('td');
             const apToPaymentLink = document.createElement('a');
             apToPaymentLink.href = '#';
-            apToPaymentLink.textContent = item.apToPayment ?? '0.00';
+            apToPaymentLink.textContent = item.totalPaymentAP ? currencyTotal(item.totalPaymentAP) : '0';
             apToPaymentLink.style.cssText = "text-decoration: underline;";
 
             apToPaymentLink.addEventListener('click', async function (e) {

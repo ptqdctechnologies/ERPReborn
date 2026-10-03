@@ -359,7 +359,7 @@
             const brfPaymentCell = document.createElement('td');
             const brfPaymentLink = document.createElement('a');
             brfPaymentLink.href = '#';
-            brfPaymentLink.textContent = item.brfPayment ?? '0';
+            brfPaymentLink.textContent = item.totalPayment ? currencyTotal(item.totalPayment) : '0';
             brfPaymentLink.style.cssText = "text-decoration: underline;";
 
             brfPaymentLink.addEventListener('click', async function (e) {
@@ -397,7 +397,7 @@
             const bsfPaymentCell = document.createElement('td');
             const bsfPaymentLink = document.createElement('a');
             bsfPaymentLink.href = '#';
-            bsfPaymentLink.textContent = item.bsfPayment ?? '0';
+            bsfPaymentLink.textContent = item.totalPaymentSettlement ? currencyTotal(item.totalPaymentSettlement) : '0';
             bsfPaymentLink.style.cssText = "text-decoration: underline;";
 
             bsfPaymentLink.addEventListener('click', async function (e) {
