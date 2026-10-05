@@ -19,6 +19,8 @@ namespace Google\Service\CloudDataplex;
 
 class GoogleCloudDataplexV1DataProductAccessGroup extends \Google\Model
 {
+  protected $defaultIamRoleConfigType = GoogleCloudDataplexV1DataProductAccessGroupDefaultIamRoleConfig::class;
+  protected $defaultIamRoleConfigDataType = '';
   /**
    * Optional. Description of the access group.
    *
@@ -42,6 +44,23 @@ class GoogleCloudDataplexV1DataProductAccessGroup extends \Google\Model
   protected $principalType = GoogleCloudDataplexV1DataProductPrincipal::class;
   protected $principalDataType = '';
 
+  /**
+   * Optional. Default IAM role configuration to be applied on the data assets
+   * associated with this data product, for this access group.
+   *
+   * @param GoogleCloudDataplexV1DataProductAccessGroupDefaultIamRoleConfig $defaultIamRoleConfig
+   */
+  public function setDefaultIamRoleConfig(GoogleCloudDataplexV1DataProductAccessGroupDefaultIamRoleConfig $defaultIamRoleConfig)
+  {
+    $this->defaultIamRoleConfig = $defaultIamRoleConfig;
+  }
+  /**
+   * @return GoogleCloudDataplexV1DataProductAccessGroupDefaultIamRoleConfig
+   */
+  public function getDefaultIamRoleConfig()
+  {
+    return $this->defaultIamRoleConfig;
+  }
   /**
    * Optional. Description of the access group.
    *

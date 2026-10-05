@@ -23,9 +23,9 @@ class GoogleFirebaseAppcheckV1LimitedUseConfig extends \Google\Model
    * Optional. Specifies the desired `jti` claim (Section 4.1.7 of RFC 7519) in
    * the returned App Check token. Limited-use App Check tokens with the same
    * `jti` will be counted as the same token for the purposes of replay
-   * protection. The size of this field is limited to 500 bytes. If specified,
+   * protection. The size of this field is limited to 250 bytes. If specified,
    * its length must be at least 16 bytes. If this field is omitted or is empty,
-   * a randomly generated `jti` claim with length between 16 and 500 bytes
+   * a randomly generated `jti` claim with length between 16 and 250 bytes
    * (inclusive) will be used in the returned App Check token. Leaving this
    * field empty is only recommended if your custom attestation provider itself
    * is not vulnerable to replay attacks.
@@ -38,9 +38,9 @@ class GoogleFirebaseAppcheckV1LimitedUseConfig extends \Google\Model
    * Optional. Specifies the desired `jti` claim (Section 4.1.7 of RFC 7519) in
    * the returned App Check token. Limited-use App Check tokens with the same
    * `jti` will be counted as the same token for the purposes of replay
-   * protection. The size of this field is limited to 500 bytes. If specified,
+   * protection. The size of this field is limited to 250 bytes. If specified,
    * its length must be at least 16 bytes. If this field is omitted or is empty,
-   * a randomly generated `jti` claim with length between 16 and 500 bytes
+   * a randomly generated `jti` claim with length between 16 and 250 bytes
    * (inclusive) will be used in the returned App Check token. Leaving this
    * field empty is only recommended if your custom attestation provider itself
    * is not vulnerable to replay attacks.

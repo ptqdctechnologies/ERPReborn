@@ -609,7 +609,7 @@ class ClusterUpdate extends \Google\Collection
     return $this->desiredControlPlaneEndpointsConfig;
   }
   /**
-   * The desired configuration for the fine-grained cost management feature.
+   * The desired configuration for the fine-grained cost allocation feature.
    *
    * @param CostManagementConfig $desiredCostManagementConfig
    */

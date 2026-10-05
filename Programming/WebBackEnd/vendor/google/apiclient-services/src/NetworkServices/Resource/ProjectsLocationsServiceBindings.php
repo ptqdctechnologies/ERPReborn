@@ -40,6 +40,16 @@ class ProjectsLocationsServiceBindings extends \Google\Service\Resource
    * @param ServiceBinding $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string requestId Optional. An optional request ID to identify
+   * requests. Specify a unique request ID so that if you must retry your request,
+   * the server can ignore the request if it has already been completed. The
+   * server guarantees this for 60 minutes after the first request. For example,
+   * consider a situation where you make an initial request and the request times
+   * out. If you make the request again with the same request ID, the server
+   * ignores the second request. This prevents clients from accidentally creating
+   * duplicate commitments. The request ID must be a valid UUID version 4 with the
+   * exception that zero UUID is not supported
+   * (00000000-0000-0000-0000-000000000000).
    * @opt_param string serviceBindingId Required. Short name of the ServiceBinding
    * resource to be created.
    * @return Operation
@@ -57,6 +67,17 @@ class ProjectsLocationsServiceBindings extends \Google\Service\Resource
    * @param string $name Required. A name of the ServiceBinding to delete. Must be
    * in the format `projects/locations/serviceBindings`.
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string requestId Optional. An optional request ID to identify
+   * requests. Specify a unique request ID so that if you must retry your request,
+   * the server can ignore the request if it has already been completed. The
+   * server guarantees this for 60 minutes after the first request. For example,
+   * consider a situation where you make an initial request and the request times
+   * out. If you make the request again with the same request ID, the server
+   * ignores the second request. This prevents clients from accidentally creating
+   * duplicate commitments. The request ID must be a valid UUID version 4 with the
+   * exception that zero UUID is not supported
+   * (00000000-0000-0000-0000-000000000000).
    * @return Operation
    * @throws \Google\Service\Exception
    */
@@ -112,6 +133,16 @@ class ProjectsLocationsServiceBindings extends \Google\Service\Resource
    * @param ServiceBinding $postBody
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string requestId Optional. An optional request ID to identify
+   * requests. Specify a unique request ID so that if you must retry your request,
+   * the server can ignore the request if it has already been completed. The
+   * server guarantees this for 60 minutes after the first request. For example,
+   * consider a situation where you make an initial request and the request times
+   * out. If you make the request again with the same request ID, the server
+   * ignores the second request. This prevents clients from accidentally creating
+   * duplicate commitments. The request ID must be a valid UUID version 4 with the
+   * exception that zero UUID is not supported
+   * (00000000-0000-0000-0000-000000000000).
    * @opt_param string updateMask Optional. Field mask is used to specify the
    * fields to be overwritten in the ServiceBinding resource by the update. The
    * fields specified in the update_mask are relative to the resource, not the

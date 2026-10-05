@@ -82,12 +82,10 @@ class Session extends \Google\Collection
   protected $runtimeInfoType = RuntimeInfo::class;
   protected $runtimeInfoDataType = '';
   /**
-   * Optional. The session template used by the session.Only resource names,
-   * including project ID and location, are valid.Example: * https://www.googlea
-   * pis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/sessio
-   * nTemplates/[template_id] * projects/[project_id]/locations/[dataproc_region
-   * ]/sessionTemplates/[template_id]The template must be in the same project
-   * and Dataproc region as the session.
+   * Optional. The session template used by the session.Resource names and short
+   * template IDs are valid. Examples: * projects/[project_id]/locations/[datapr
+   * oc_region]/sessionTemplates/[template_id] * [template_id]The template must
+   * be in the same project and Dataproc region as the session.
    *
    * @var string
    */
@@ -263,12 +261,10 @@ class Session extends \Google\Collection
     return $this->runtimeInfo;
   }
   /**
-   * Optional. The session template used by the session.Only resource names,
-   * including project ID and location, are valid.Example: * https://www.googlea
-   * pis.com/compute/v1/projects/[project_id]/locations/[dataproc_region]/sessio
-   * nTemplates/[template_id] * projects/[project_id]/locations/[dataproc_region
-   * ]/sessionTemplates/[template_id]The template must be in the same project
-   * and Dataproc region as the session.
+   * Optional. The session template used by the session.Resource names and short
+   * template IDs are valid. Examples: * projects/[project_id]/locations/[datapr
+   * oc_region]/sessionTemplates/[template_id] * [template_id]The template must
+   * be in the same project and Dataproc region as the session.
    *
    * @param string $sessionTemplate
    */

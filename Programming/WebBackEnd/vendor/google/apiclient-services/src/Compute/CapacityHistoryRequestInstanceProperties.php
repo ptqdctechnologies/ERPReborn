@@ -17,8 +17,13 @@
 
 namespace Google\Service\Compute;
 
-class CapacityHistoryRequestInstanceProperties extends \Google\Model
+class CapacityHistoryRequestInstanceProperties extends \Google\Collection
 {
+  protected $collection_key = 'guestAccelerators';
+  protected $disksType = CapacityHistoryRequestInstancePropertiesAttachedDisk::class;
+  protected $disksDataType = 'array';
+  protected $guestAcceleratorsType = AcceleratorConfig::class;
+  protected $guestAcceleratorsDataType = 'array';
   /**
    * The machine type for the VM, such as `n2-standard-4`.
    *
@@ -28,6 +33,38 @@ class CapacityHistoryRequestInstanceProperties extends \Google\Model
   protected $schedulingType = CapacityHistoryRequestInstancePropertiesScheduling::class;
   protected $schedulingDataType = '';
 
+  /**
+   * Local SSDs.
+   *
+   * @param CapacityHistoryRequestInstancePropertiesAttachedDisk[] $disks
+   */
+  public function setDisks($disks)
+  {
+    $this->disks = $disks;
+  }
+  /**
+   * @return CapacityHistoryRequestInstancePropertiesAttachedDisk[]
+   */
+  public function getDisks()
+  {
+    return $this->disks;
+  }
+  /**
+   * Accelerators configuration.
+   *
+   * @param AcceleratorConfig[] $guestAccelerators
+   */
+  public function setGuestAccelerators($guestAccelerators)
+  {
+    $this->guestAccelerators = $guestAccelerators;
+  }
+  /**
+   * @return AcceleratorConfig[]
+   */
+  public function getGuestAccelerators()
+  {
+    return $this->guestAccelerators;
+  }
   /**
    * The machine type for the VM, such as `n2-standard-4`.
    *

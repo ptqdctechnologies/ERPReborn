@@ -131,8 +131,8 @@ class ProjectsLocationsParameters extends \Google\Service\Resource
   /**
    * Updates a single Parameter. (parameters.patch)
    *
-   * @param string $name Identifier. [Output only] The resource name of the
-   * Parameter in the format `projects/locations/parameters`.
+   * @param string $name Identifier. The resource name of the Parameter in the
+   * format `projects/locations/parameters`.
    * @param Parameter $postBody
    * @param array $optParams Optional parameters.
    *

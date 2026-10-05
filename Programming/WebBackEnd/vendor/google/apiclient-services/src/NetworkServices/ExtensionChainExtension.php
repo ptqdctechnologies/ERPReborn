@@ -205,7 +205,9 @@ class ExtensionChainExtension extends \Google\Collection
    * `LbEdgeExtension` resource, this field is required and must only contain
    * `REQUEST_HEADERS` event. For the `AuthzExtension` resource, this field is
    * optional. `REQUEST_HEADERS` is the only supported event. If unspecified,
-   * `REQUEST_HEADERS` event is assumed as supported.
+   * `REQUEST_HEADERS` event is assumed as supported. For the `CdnEdgeExtension`
+   * resource, this field is optional. Eligible values are `REQUEST_HEADERS` and
+   * `RESPONSE_HEADERS`. If unspecified, both are assumed as supported.
    *
    * @var string[]
    */
@@ -469,7 +471,9 @@ class ExtensionChainExtension extends \Google\Collection
    * `LbEdgeExtension` resource, this field is required and must only contain
    * `REQUEST_HEADERS` event. For the `AuthzExtension` resource, this field is
    * optional. `REQUEST_HEADERS` is the only supported event. If unspecified,
-   * `REQUEST_HEADERS` event is assumed as supported.
+   * `REQUEST_HEADERS` event is assumed as supported. For the `CdnEdgeExtension`
+   * resource, this field is optional. Eligible values are `REQUEST_HEADERS` and
+   * `RESPONSE_HEADERS`. If unspecified, both are assumed as supported.
    *
    * @param string[] $supportedEvents
    */

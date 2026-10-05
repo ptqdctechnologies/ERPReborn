@@ -138,8 +138,8 @@ class ProjectsLocationsParametersVersions extends \Google\Service\Resource
   /**
    * Updates a single ParameterVersion. (versions.patch)
    *
-   * @param string $name Identifier. [Output only] The resource name of the
-   * ParameterVersion in the format `projects/locations/parameters/versions`.
+   * @param string $name Identifier. The resource name of the ParameterVersion in
+   * the format `projects/locations/parameters/versions`.
    * @param ParameterVersion $postBody
    * @param array $optParams Optional parameters.
    *

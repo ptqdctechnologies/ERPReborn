@@ -19,8 +19,14 @@ namespace Google\Service\Docs;
 
 class Request extends \Google\Model
 {
+  protected $acceptSuggestionType = AcceptSuggestionRequest::class;
+  protected $acceptSuggestionDataType = '';
+  protected $addCommentReplyType = AddCommentReplyRequest::class;
+  protected $addCommentReplyDataType = '';
   protected $addDocumentTabType = AddDocumentTabRequest::class;
   protected $addDocumentTabDataType = '';
+  protected $createDropdownDefinitionType = CreateDropdownDefinitionRequest::class;
+  protected $createDropdownDefinitionDataType = '';
   protected $createFooterType = CreateFooterRequest::class;
   protected $createFooterDataType = '';
   protected $createFootnoteType = CreateFootnoteRequest::class;
@@ -31,8 +37,14 @@ class Request extends \Google\Model
   protected $createNamedRangeDataType = '';
   protected $createParagraphBulletsType = CreateParagraphBulletsRequest::class;
   protected $createParagraphBulletsDataType = '';
+  protected $deleteCommentType = DeleteCommentRequest::class;
+  protected $deleteCommentDataType = '';
+  protected $deleteCommentReplyType = DeleteCommentReplyRequest::class;
+  protected $deleteCommentReplyDataType = '';
   protected $deleteContentRangeType = DeleteContentRangeRequest::class;
   protected $deleteContentRangeDataType = '';
+  protected $deleteDropdownDefinitionType = DeleteDropdownDefinitionRequest::class;
+  protected $deleteDropdownDefinitionDataType = '';
   protected $deleteFooterType = DeleteFooterRequest::class;
   protected $deleteFooterDataType = '';
   protected $deleteHeaderType = DeleteHeaderRequest::class;
@@ -43,14 +55,20 @@ class Request extends \Google\Model
   protected $deleteParagraphBulletsDataType = '';
   protected $deletePositionedObjectType = DeletePositionedObjectRequest::class;
   protected $deletePositionedObjectDataType = '';
+  protected $deleteSuggestionType = DeleteSuggestionRequest::class;
+  protected $deleteSuggestionDataType = '';
   protected $deleteTabType = DeleteTabRequest::class;
   protected $deleteTabDataType = '';
   protected $deleteTableColumnType = DeleteTableColumnRequest::class;
   protected $deleteTableColumnDataType = '';
   protected $deleteTableRowType = DeleteTableRowRequest::class;
   protected $deleteTableRowDataType = '';
+  protected $insertCommentType = InsertCommentRequest::class;
+  protected $insertCommentDataType = '';
   protected $insertDateType = InsertDateRequest::class;
   protected $insertDateDataType = '';
+  protected $insertDropdownType = InsertDropdownRequest::class;
+  protected $insertDropdownDataType = '';
   protected $insertInlineImageType = InsertInlineImageRequest::class;
   protected $insertInlineImageDataType = '';
   protected $insertPageBreakType = InsertPageBreakRequest::class;
@@ -73,6 +91,8 @@ class Request extends \Google\Model
   protected $mergeTableCellsDataType = '';
   protected $pinTableHeaderRowsType = PinTableHeaderRowsRequest::class;
   protected $pinTableHeaderRowsDataType = '';
+  protected $rejectSuggestionType = RejectSuggestionRequest::class;
+  protected $rejectSuggestionDataType = '';
   protected $replaceAllTextType = ReplaceAllTextRequest::class;
   protected $replaceAllTextDataType = '';
   protected $replaceImageType = ReplaceImageRequest::class;
@@ -81,10 +101,16 @@ class Request extends \Google\Model
   protected $replaceNamedRangeContentDataType = '';
   protected $unmergeTableCellsType = UnmergeTableCellsRequest::class;
   protected $unmergeTableCellsDataType = '';
+  protected $updateCommentPostType = UpdateCommentPostRequest::class;
+  protected $updateCommentPostDataType = '';
   protected $updateDocumentStyleType = UpdateDocumentStyleRequest::class;
   protected $updateDocumentStyleDataType = '';
   protected $updateDocumentTabPropertiesType = UpdateDocumentTabPropertiesRequest::class;
   protected $updateDocumentTabPropertiesDataType = '';
+  protected $updateDropdownDefinitionPropertiesType = UpdateDropdownDefinitionPropertiesRequest::class;
+  protected $updateDropdownDefinitionPropertiesDataType = '';
+  protected $updateDropdownPropertiesType = UpdateDropdownPropertiesRequest::class;
+  protected $updateDropdownPropertiesDataType = '';
   protected $updateNamedStyleType = UpdateNamedStyleRequest::class;
   protected $updateNamedStyleDataType = '';
   protected $updateParagraphStyleType = UpdateParagraphStyleRequest::class;
@@ -101,6 +127,40 @@ class Request extends \Google\Model
   protected $updateTextStyleDataType = '';
 
   /**
+   * Accepts a suggestion. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param AcceptSuggestionRequest $acceptSuggestion
+   */
+  public function setAcceptSuggestion(AcceptSuggestionRequest $acceptSuggestion)
+  {
+    $this->acceptSuggestion = $acceptSuggestion;
+  }
+  /**
+   * @return AcceptSuggestionRequest
+   */
+  public function getAcceptSuggestion()
+  {
+    return $this->acceptSuggestion;
+  }
+  /**
+   * Adds a reply to a CommentThread or SuggestionThread. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param AddCommentReplyRequest $addCommentReply
+   */
+  public function setAddCommentReply(AddCommentReplyRequest $addCommentReply)
+  {
+    $this->addCommentReply = $addCommentReply;
+  }
+  /**
+   * @return AddCommentReplyRequest
+   */
+  public function getAddCommentReply()
+  {
+    return $this->addCommentReply;
+  }
+  /**
    * Adds a document tab.
    *
    * @param AddDocumentTabRequest $addDocumentTab
@@ -115,6 +175,22 @@ class Request extends \Google\Model
   public function getAddDocumentTab()
   {
     return $this->addDocumentTab;
+  }
+  /**
+   * Creates a DropdownDefinition.
+   *
+   * @param CreateDropdownDefinitionRequest $createDropdownDefinition
+   */
+  public function setCreateDropdownDefinition(CreateDropdownDefinitionRequest $createDropdownDefinition)
+  {
+    $this->createDropdownDefinition = $createDropdownDefinition;
+  }
+  /**
+   * @return CreateDropdownDefinitionRequest
+   */
+  public function getCreateDropdownDefinition()
+  {
+    return $this->createDropdownDefinition;
   }
   /**
    * Creates a footer.
@@ -197,6 +273,40 @@ class Request extends \Google\Model
     return $this->createParagraphBullets;
   }
   /**
+   * Deletes a CommentThread. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param DeleteCommentRequest $deleteComment
+   */
+  public function setDeleteComment(DeleteCommentRequest $deleteComment)
+  {
+    $this->deleteComment = $deleteComment;
+  }
+  /**
+   * @return DeleteCommentRequest
+   */
+  public function getDeleteComment()
+  {
+    return $this->deleteComment;
+  }
+  /**
+   * Deletes a reply Post from a CommentThread or SuggestionThread. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param DeleteCommentReplyRequest $deleteCommentReply
+   */
+  public function setDeleteCommentReply(DeleteCommentReplyRequest $deleteCommentReply)
+  {
+    $this->deleteCommentReply = $deleteCommentReply;
+  }
+  /**
+   * @return DeleteCommentReplyRequest
+   */
+  public function getDeleteCommentReply()
+  {
+    return $this->deleteCommentReply;
+  }
+  /**
    * Deletes content from the document.
    *
    * @param DeleteContentRangeRequest $deleteContentRange
@@ -211,6 +321,22 @@ class Request extends \Google\Model
   public function getDeleteContentRange()
   {
     return $this->deleteContentRange;
+  }
+  /**
+   * Deletes a DropdownDefinition.
+   *
+   * @param DeleteDropdownDefinitionRequest $deleteDropdownDefinition
+   */
+  public function setDeleteDropdownDefinition(DeleteDropdownDefinitionRequest $deleteDropdownDefinition)
+  {
+    $this->deleteDropdownDefinition = $deleteDropdownDefinition;
+  }
+  /**
+   * @return DeleteDropdownDefinitionRequest
+   */
+  public function getDeleteDropdownDefinition()
+  {
+    return $this->deleteDropdownDefinition;
   }
   /**
    * Deletes a footer from the document.
@@ -293,6 +419,23 @@ class Request extends \Google\Model
     return $this->deletePositionedObject;
   }
   /**
+   * Deletes a suggestion. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param DeleteSuggestionRequest $deleteSuggestion
+   */
+  public function setDeleteSuggestion(DeleteSuggestionRequest $deleteSuggestion)
+  {
+    $this->deleteSuggestion = $deleteSuggestion;
+  }
+  /**
+   * @return DeleteSuggestionRequest
+   */
+  public function getDeleteSuggestion()
+  {
+    return $this->deleteSuggestion;
+  }
+  /**
    * Deletes a document tab.
    *
    * @param DeleteTabRequest $deleteTab
@@ -341,6 +484,23 @@ class Request extends \Google\Model
     return $this->deleteTableRow;
   }
   /**
+   * Inserts a CommentThread into the document. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param InsertCommentRequest $insertComment
+   */
+  public function setInsertComment(InsertCommentRequest $insertComment)
+  {
+    $this->insertComment = $insertComment;
+  }
+  /**
+   * @return InsertCommentRequest
+   */
+  public function getInsertComment()
+  {
+    return $this->insertComment;
+  }
+  /**
    * Inserts a date.
    *
    * @param InsertDateRequest $insertDate
@@ -355,6 +515,22 @@ class Request extends \Google\Model
   public function getInsertDate()
   {
     return $this->insertDate;
+  }
+  /**
+   * Inserts a Dropdown at the specified location.
+   *
+   * @param InsertDropdownRequest $insertDropdown
+   */
+  public function setInsertDropdown(InsertDropdownRequest $insertDropdown)
+  {
+    $this->insertDropdown = $insertDropdown;
+  }
+  /**
+   * @return InsertDropdownRequest
+   */
+  public function getInsertDropdown()
+  {
+    return $this->insertDropdown;
   }
   /**
    * Inserts an inline image at the specified location.
@@ -533,6 +709,23 @@ class Request extends \Google\Model
     return $this->pinTableHeaderRows;
   }
   /**
+   * Rejects a suggestion. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param RejectSuggestionRequest $rejectSuggestion
+   */
+  public function setRejectSuggestion(RejectSuggestionRequest $rejectSuggestion)
+  {
+    $this->rejectSuggestion = $rejectSuggestion;
+  }
+  /**
+   * @return RejectSuggestionRequest
+   */
+  public function getRejectSuggestion()
+  {
+    return $this->rejectSuggestion;
+  }
+  /**
    * Replaces all instances of the specified text.
    *
    * @param ReplaceAllTextRequest $replaceAllText
@@ -597,6 +790,24 @@ class Request extends \Google\Model
     return $this->unmergeTableCells;
   }
   /**
+   * Updates an existing post (head post or reply) of a CommentThread or
+   * SuggestionThread. [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param UpdateCommentPostRequest $updateCommentPost
+   */
+  public function setUpdateCommentPost(UpdateCommentPostRequest $updateCommentPost)
+  {
+    $this->updateCommentPost = $updateCommentPost;
+  }
+  /**
+   * @return UpdateCommentPostRequest
+   */
+  public function getUpdateCommentPost()
+  {
+    return $this->updateCommentPost;
+  }
+  /**
    * Updates the style of the document.
    *
    * @param UpdateDocumentStyleRequest $updateDocumentStyle
@@ -627,6 +838,38 @@ class Request extends \Google\Model
   public function getUpdateDocumentTabProperties()
   {
     return $this->updateDocumentTabProperties;
+  }
+  /**
+   * Updates the properties of a DropdownDefinition.
+   *
+   * @param UpdateDropdownDefinitionPropertiesRequest $updateDropdownDefinitionProperties
+   */
+  public function setUpdateDropdownDefinitionProperties(UpdateDropdownDefinitionPropertiesRequest $updateDropdownDefinitionProperties)
+  {
+    $this->updateDropdownDefinitionProperties = $updateDropdownDefinitionProperties;
+  }
+  /**
+   * @return UpdateDropdownDefinitionPropertiesRequest
+   */
+  public function getUpdateDropdownDefinitionProperties()
+  {
+    return $this->updateDropdownDefinitionProperties;
+  }
+  /**
+   * Updates the properties of a Dropdown.
+   *
+   * @param UpdateDropdownPropertiesRequest $updateDropdownProperties
+   */
+  public function setUpdateDropdownProperties(UpdateDropdownPropertiesRequest $updateDropdownProperties)
+  {
+    $this->updateDropdownProperties = $updateDropdownProperties;
+  }
+  /**
+   * @return UpdateDropdownPropertiesRequest
+   */
+  public function getUpdateDropdownProperties()
+  {
+    return $this->updateDropdownProperties;
   }
   /**
    * Updates a named style.

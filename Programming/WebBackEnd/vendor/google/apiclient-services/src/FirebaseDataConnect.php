@@ -610,6 +610,16 @@ class FirebaseDataConnect extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'migrate' => [
+              'path' => 'v1/{+name}:migrate',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'patch' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'PATCH',

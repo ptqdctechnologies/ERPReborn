@@ -105,6 +105,12 @@ class ConversionWorkspace extends \Google\Model
    */
   public $hasUncommittedChanges;
   /**
+   * Optional. Output only. The timestamp when the workspace was last applied.
+   *
+   * @var string
+   */
+  public $latestApplyTime;
+  /**
    * Output only. The latest commit ID.
    *
    * @var string
@@ -116,6 +122,12 @@ class ConversionWorkspace extends \Google\Model
    * @var string
    */
   public $latestCommitTime;
+  /**
+   * Optional. Output only. The timestamp when the workspace was last converted.
+   *
+   * @var string
+   */
+  public $latestConvertTime;
   /**
    * Full name of the workspace resource, in the form of: projects/{project}/loc
    * ations/{location}/conversionWorkspaces/{conversion_workspace}.
@@ -243,6 +255,22 @@ class ConversionWorkspace extends \Google\Model
     return $this->hasUncommittedChanges;
   }
   /**
+   * Optional. Output only. The timestamp when the workspace was last applied.
+   *
+   * @param string $latestApplyTime
+   */
+  public function setLatestApplyTime($latestApplyTime)
+  {
+    $this->latestApplyTime = $latestApplyTime;
+  }
+  /**
+   * @return string
+   */
+  public function getLatestApplyTime()
+  {
+    return $this->latestApplyTime;
+  }
+  /**
    * Output only. The latest commit ID.
    *
    * @param string $latestCommitId
@@ -273,6 +301,22 @@ class ConversionWorkspace extends \Google\Model
   public function getLatestCommitTime()
   {
     return $this->latestCommitTime;
+  }
+  /**
+   * Optional. Output only. The timestamp when the workspace was last converted.
+   *
+   * @param string $latestConvertTime
+   */
+  public function setLatestConvertTime($latestConvertTime)
+  {
+    $this->latestConvertTime = $latestConvertTime;
+  }
+  /**
+   * @return string
+   */
+  public function getLatestConvertTime()
+  {
+    return $this->latestConvertTime;
   }
   /**
    * Full name of the workspace resource, in the form of: projects/{project}/loc

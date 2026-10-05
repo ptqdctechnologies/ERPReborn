@@ -17,13 +17,10 @@
 
 namespace Google\Service\CloudDataplex\Resource;
 
-use Google\Service\CloudDataplex\GoogleCloudDataplexV1DataTaxonomy;
-use Google\Service\CloudDataplex\GoogleCloudDataplexV1ListDataTaxonomiesResponse;
 use Google\Service\CloudDataplex\GoogleIamV1Policy;
 use Google\Service\CloudDataplex\GoogleIamV1SetIamPolicyRequest;
 use Google\Service\CloudDataplex\GoogleIamV1TestIamPermissionsRequest;
 use Google\Service\CloudDataplex\GoogleIamV1TestIamPermissionsResponse;
-use Google\Service\CloudDataplex\GoogleLongrunningOperation;
 
 /**
  * The "dataTaxonomies" collection of methods.
@@ -35,62 +32,6 @@ use Google\Service\CloudDataplex\GoogleLongrunningOperation;
  */
 class ProjectsLocationsDataTaxonomies extends \Google\Service\Resource
 {
-  /**
-   * Create a DataTaxonomy resource. (dataTaxonomies.create)
-   *
-   * @param string $parent
-   * @param GoogleCloudDataplexV1DataTaxonomy $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string dataTaxonomyId Required. DataTaxonomy identifier. * Must
-   * contain only lowercase letters, numbers and hyphens. * Must start with a
-   * letter. * Must be between 1-63 characters. * Must end with a number or a
-   * letter. * Must be unique within the Project.
-   * @opt_param bool validateOnly Optional. Only validate the request, but do not
-   * perform mutations. The default is false.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function create($parent, GoogleCloudDataplexV1DataTaxonomy $postBody, $optParams = [])
-  {
-    $params = ['parent' => $parent, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('create', [$params], GoogleLongrunningOperation::class);
-  }
-  /**
-   * Deletes a DataTaxonomy resource. All attributes within the DataTaxonomy must
-   * be deleted before the DataTaxonomy can be deleted. (dataTaxonomies.delete)
-   *
-   * @param string $name Required. The resource name of the DataTaxonomy: projects
-   * /{project_number}/locations/{location_id}/dataTaxonomies/{data_taxonomy_id}
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string etag Optional. If the client provided etag value does not
-   * match the current etag value,the DeleteDataTaxonomy method returns an ABORTED
-   * error.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function delete($name, $optParams = [])
-  {
-    $params = ['name' => $name];
-    $params = array_merge($params, $optParams);
-    return $this->call('delete', [$params], GoogleLongrunningOperation::class);
-  }
-  /**
-   * Retrieves a DataTaxonomy resource. (dataTaxonomies.get)
-   *
-   * @param string $name
-   * @param array $optParams Optional parameters.
-   * @return GoogleCloudDataplexV1DataTaxonomy
-   * @throws \Google\Service\Exception
-   */
-  public function get($name, $optParams = [])
-  {
-    $params = ['name' => $name];
-    $params = array_merge($params, $optParams);
-    return $this->call('get', [$params], GoogleCloudDataplexV1DataTaxonomy::class);
-  }
   /**
    * Gets the access control policy for a resource. Returns an empty policy if the
    * resource exists and does not have a policy set. (dataTaxonomies.getIamPolicy)
@@ -120,55 +61,6 @@ class ProjectsLocationsDataTaxonomies extends \Google\Service\Resource
     $params = ['resource' => $resource];
     $params = array_merge($params, $optParams);
     return $this->call('getIamPolicy', [$params], GoogleIamV1Policy::class);
-  }
-  /**
-   * Lists DataTaxonomy resources in a project and location.
-   * (dataTaxonomies.listProjectsLocationsDataTaxonomies)
-   *
-   * @param string $parent Required. The resource name of the DataTaxonomy
-   * location, of the form: projects/{project_number}/locations/{location_id}
-   * where location_id refers to a Google Cloud region.
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string filter Optional. Filter request.
-   * @opt_param string orderBy Optional. Order by fields for the result.
-   * @opt_param int pageSize Optional. Maximum number of DataTaxonomies to return.
-   * The service may return fewer than this value. If unspecified, at most 10
-   * DataTaxonomies will be returned. The maximum value is 1000; values above 1000
-   * will be coerced to 1000.
-   * @opt_param string pageToken Optional. Page token received from a previous
-   * ListDataTaxonomies call. Provide this to retrieve the subsequent page. When
-   * paginating, all other parameters provided to ListDataTaxonomies must match
-   * the call that provided the page token.
-   * @return GoogleCloudDataplexV1ListDataTaxonomiesResponse
-   * @throws \Google\Service\Exception
-   */
-  public function listProjectsLocationsDataTaxonomies($parent, $optParams = [])
-  {
-    $params = ['parent' => $parent];
-    $params = array_merge($params, $optParams);
-    return $this->call('list', [$params], GoogleCloudDataplexV1ListDataTaxonomiesResponse::class);
-  }
-  /**
-   * Updates a DataTaxonomy resource. (dataTaxonomies.patch)
-   *
-   * @param string $name Output only. The relative resource name of the
-   * DataTaxonomy, of the form: projects/{project_number}/locations/{location_id}/
-   * dataTaxonomies/{data_taxonomy_id}.
-   * @param GoogleCloudDataplexV1DataTaxonomy $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string updateMask Required. Mask of fields to update.
-   * @opt_param bool validateOnly Optional. Only validate the request, but do not
-   * perform mutations. The default is false.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function patch($name, GoogleCloudDataplexV1DataTaxonomy $postBody, $optParams = [])
-  {
-    $params = ['name' => $name, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', [$params], GoogleLongrunningOperation::class);
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any

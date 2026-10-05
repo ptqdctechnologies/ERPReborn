@@ -164,6 +164,10 @@ class FirebaseCrashlytics extends \Google\Service
                   'type' => 'string',
                   'repeated' => true,
                 ],
+                'filterExpression' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'pageSize' => [
                   'location' => 'query',
                   'type' => 'integer',
@@ -353,6 +357,10 @@ class FirebaseCrashlytics extends \Google\Service
                   'repeated' => true,
                 ],
                 'granularity' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'metricsMode' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],

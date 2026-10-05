@@ -37,8 +37,8 @@ class PolicyCompliance extends \Google\Collection
   public const STATUS_APPROVED = 'APPROVED';
   /**
    * Certificates are required for the creative to be served in some regions.
-   * For more information about creative certification, refer to:
-   * https://support.google.com/authorizedbuyers/answer/7450776
+   *
+   * @deprecated
    */
   public const STATUS_CERTIFICATE_REQUIRED = 'CERTIFICATE_REQUIRED';
   protected $collection_key = 'topics';

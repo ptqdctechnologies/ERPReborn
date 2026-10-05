@@ -100,6 +100,15 @@ class GoogleCloudAiplatformV1GenerateMemoriesRequest extends \Google\Collection
    * @var string[]
    */
   public $scope;
+  /**
+   * Optional. The time zone of the conversation or caller, used as the baseline
+   * for resolving relative time expressions (e.g., "yesterday") and formatting
+   * timestamps. If not set, "UTC" is used. Must be a valid IANA Time Zone
+   * Database name, e.g. "America/New_York".
+   *
+   * @var string
+   */
+  public $timeZone;
   protected $vertexSessionSourceType = GoogleCloudAiplatformV1GenerateMemoriesRequestVertexSessionSource::class;
   protected $vertexSessionSourceDataType = '';
 
@@ -295,6 +304,25 @@ class GoogleCloudAiplatformV1GenerateMemoriesRequest extends \Google\Collection
   public function getScope()
   {
     return $this->scope;
+  }
+  /**
+   * Optional. The time zone of the conversation or caller, used as the baseline
+   * for resolving relative time expressions (e.g., "yesterday") and formatting
+   * timestamps. If not set, "UTC" is used. Must be a valid IANA Time Zone
+   * Database name, e.g. "America/New_York".
+   *
+   * @param string $timeZone
+   */
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  /**
+   * @return string
+   */
+  public function getTimeZone()
+  {
+    return $this->timeZone;
   }
   /**
    * Defines a Vertex Session as the source content from which to generate

@@ -40,6 +40,10 @@ class SecurityProfile extends \Google\Model
    */
   public const TYPE_URL_FILTERING = 'URL_FILTERING';
   /**
+   * Profile type for WildFire Analysis.
+   */
+  public const TYPE_WILDFIRE_ANALYSIS = 'WILDFIRE_ANALYSIS';
+  /**
    * Output only. Resource creation timestamp.
    *
    * @var string
@@ -95,6 +99,8 @@ class SecurityProfile extends \Google\Model
   public $updateTime;
   protected $urlFilteringProfileType = UrlFilteringProfile::class;
   protected $urlFilteringProfileDataType = '';
+  protected $wildfireAnalysisProfileType = WildfireAnalysisProfile::class;
+  protected $wildfireAnalysisProfileDataType = '';
 
   /**
    * Output only. Resource creation timestamp.
@@ -234,7 +240,7 @@ class SecurityProfile extends \Google\Model
    * configures.
    *
    * Accepted values: PROFILE_TYPE_UNSPECIFIED, THREAT_PREVENTION,
-   * CUSTOM_MIRRORING, CUSTOM_INTERCEPT, URL_FILTERING
+   * CUSTOM_MIRRORING, CUSTOM_INTERCEPT, URL_FILTERING, WILDFIRE_ANALYSIS
    *
    * @param self::TYPE_* $type
    */
@@ -280,6 +286,22 @@ class SecurityProfile extends \Google\Model
   public function getUrlFilteringProfile()
   {
     return $this->urlFilteringProfile;
+  }
+  /**
+   * The WildFire Analysis configurations for SecurityProfile.
+   *
+   * @param WildfireAnalysisProfile $wildfireAnalysisProfile
+   */
+  public function setWildfireAnalysisProfile(WildfireAnalysisProfile $wildfireAnalysisProfile)
+  {
+    $this->wildfireAnalysisProfile = $wildfireAnalysisProfile;
+  }
+  /**
+   * @return WildfireAnalysisProfile
+   */
+  public function getWildfireAnalysisProfile()
+  {
+    return $this->wildfireAnalysisProfile;
   }
 }
 

@@ -40,9 +40,11 @@ class GoogleCloudContactcenterinsightsV1BulkAnalyzeConversationsRequest extends 
    */
   public $parent;
   /**
-   * Optional. If true, the labeling rules will be re-evaluated for the
+   * Optional. Deprecated: Use `annotator_selector.run_auto_labeling_annotator`
+   * instead. If true, the labeling rules will be re-evaluated for the
    * conversations.
    *
+   * @deprecated
    * @var bool
    */
   public $relabel;
@@ -113,9 +115,11 @@ class GoogleCloudContactcenterinsightsV1BulkAnalyzeConversationsRequest extends 
     return $this->parent;
   }
   /**
-   * Optional. If true, the labeling rules will be re-evaluated for the
+   * Optional. Deprecated: Use `annotator_selector.run_auto_labeling_annotator`
+   * instead. If true, the labeling rules will be re-evaluated for the
    * conversations.
    *
+   * @deprecated
    * @param bool $relabel
    */
   public function setRelabel($relabel)
@@ -123,6 +127,7 @@ class GoogleCloudContactcenterinsightsV1BulkAnalyzeConversationsRequest extends 
     $this->relabel = $relabel;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getRelabel()

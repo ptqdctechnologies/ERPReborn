@@ -18,6 +18,7 @@
 namespace Google\Service\FirebaseDataConnect\Resource;
 
 use Google\Service\FirebaseDataConnect\ListSchemasResponse;
+use Google\Service\FirebaseDataConnect\MigrateSchemaRequest;
 use Google\Service\FirebaseDataConnect\Operation;
 use Google\Service\FirebaseDataConnect\Schema;
 
@@ -145,6 +146,27 @@ class ProjectsLocationsServicesSchemas extends \Google\Service\Resource
     $params = ['parent' => $parent];
     $params = array_merge($params, $optParams);
     return $this->call('list', [$params], ListSchemasResponse::class);
+  }
+  /**
+   * Executes SQL migration steps against the active database schema. This
+   * operation compares submitted migration steps against the schema migration
+   * ledger (`firebasesql.schema_migrations`), executes unapplied DDL, and records
+   * applied steps. It does NOT persist the GraphQL schema to the control plane.
+   * (schemas.migrate)
+   *
+   * @param string $name Required. Resource name of the target schema:
+   * projects/{project}/locations/{location}/services/{service}/schemas/{schema}
+   * Note: Only `schemas/main` is supported (singleton schema per service).
+   * @param MigrateSchemaRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function migrate($name, MigrateSchemaRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('migrate', [$params], Operation::class);
   }
   /**
    * Updates the parameters of a single Schema, and creates a new SchemaRevision

@@ -111,6 +111,12 @@ class GoogleCloudAiplatformV1TuningJob extends \Google\Collection
    */
   public $experiment;
   /**
+   * Output only. The Cloud Storage metrics URI associated with this TuningJob.
+   *
+   * @var string
+   */
+  public $gcsMetricsUri;
+  /**
    * Optional. The labels with user-defined metadata to organize TuningJob and
    * generated resources such as Model and Endpoint. Label keys and values can
    * be no longer than 64 characters (Unicode codepoints), can only contain
@@ -312,6 +318,22 @@ class GoogleCloudAiplatformV1TuningJob extends \Google\Collection
   public function getExperiment()
   {
     return $this->experiment;
+  }
+  /**
+   * Output only. The Cloud Storage metrics URI associated with this TuningJob.
+   *
+   * @param string $gcsMetricsUri
+   */
+  public function setGcsMetricsUri($gcsMetricsUri)
+  {
+    $this->gcsMetricsUri = $gcsMetricsUri;
+  }
+  /**
+   * @return string
+   */
+  public function getGcsMetricsUri()
+  {
+    return $this->gcsMetricsUri;
   }
   /**
    * Optional. The labels with user-defined metadata to organize TuningJob and

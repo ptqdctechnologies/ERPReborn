@@ -21,6 +21,8 @@ class AwsProperties extends \Google\Model
 {
   protected $accessRoleType = AwsAccessRole::class;
   protected $accessRoleDataType = '';
+  protected $crossCloudCacheOptionsType = CrossCloudCacheOptions::class;
+  protected $crossCloudCacheOptionsDataType = '';
 
   /**
    * Authentication using Google owned service account to assume into customer's
@@ -38,6 +40,23 @@ class AwsProperties extends \Google\Model
   public function getAccessRole()
   {
     return $this->accessRole;
+  }
+  /**
+   * Optional. Configuration options for cross-cloud caching of data and
+   * metadata files.
+   *
+   * @param CrossCloudCacheOptions $crossCloudCacheOptions
+   */
+  public function setCrossCloudCacheOptions(CrossCloudCacheOptions $crossCloudCacheOptions)
+  {
+    $this->crossCloudCacheOptions = $crossCloudCacheOptions;
+  }
+  /**
+   * @return CrossCloudCacheOptions
+   */
+  public function getCrossCloudCacheOptions()
+  {
+    return $this->crossCloudCacheOptions;
   }
 }
 

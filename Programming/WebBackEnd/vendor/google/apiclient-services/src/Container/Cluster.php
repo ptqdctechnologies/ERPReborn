@@ -685,7 +685,7 @@ class Cluster extends \Google\Collection
     return $this->controlPlaneEndpointsConfig;
   }
   /**
-   * Configuration for the fine-grained cost management feature.
+   * Configuration for the fine-grained cost allocation feature.
    *
    * @param CostManagementConfig $costManagementConfig
    */

@@ -274,6 +274,8 @@ class Instance extends \Google\Collection
   protected $nodesDataType = 'array';
   protected $observabilityConfigType = ObservabilityInstanceConfig::class;
   protected $observabilityConfigDataType = '';
+  protected $observabilityInstanceInfoType = ObservabilityInstanceInfo::class;
+  protected $observabilityInstanceInfoDataType = '';
   /**
    * Output only. All outbound public IP addresses configured for the instance.
    *
@@ -294,6 +296,8 @@ class Instance extends \Google\Collection
   public $publicIpAddress;
   protected $queryInsightsConfigType = QueryInsightsInstanceConfig::class;
   protected $queryInsightsConfigDataType = '';
+  protected $queryInsightsInfoType = QueryInsightsInstanceInfo::class;
+  protected $queryInsightsInfoDataType = '';
   protected $readPoolConfigType = ReadPoolConfig::class;
   protected $readPoolConfigDataType = '';
   /**
@@ -722,6 +726,25 @@ class Instance extends \Google\Collection
     return $this->observabilityConfig;
   }
   /**
+   * Output only. Instance level observability information, contains the
+   * effective values of observability settings for this instance, by merging
+   * customer's provided `ObservabilityInstanceConfig` with the Observability
+   * defaults.
+   *
+   * @param ObservabilityInstanceInfo $observabilityInstanceInfo
+   */
+  public function setObservabilityInstanceInfo(ObservabilityInstanceInfo $observabilityInstanceInfo)
+  {
+    $this->observabilityInstanceInfo = $observabilityInstanceInfo;
+  }
+  /**
+   * @return ObservabilityInstanceInfo
+   */
+  public function getObservabilityInstanceInfo()
+  {
+    return $this->observabilityInstanceInfo;
+  }
+  /**
    * Output only. All outbound public IP addresses configured for the instance.
    *
    * @param string[] $outboundPublicIpAddresses
@@ -804,6 +827,25 @@ class Instance extends \Google\Collection
   public function getQueryInsightsConfig()
   {
     return $this->queryInsightsConfig;
+  }
+  /**
+   * Output only. Instance level Query Insights information, which is read-only
+   * and available in the output only. Contains the effective query insights
+   * settings for this instance, by merging customer's provided
+   * `QueryInsightsInstanceConfig` with the Query Insights defaults.
+   *
+   * @param QueryInsightsInstanceInfo $queryInsightsInfo
+   */
+  public function setQueryInsightsInfo(QueryInsightsInstanceInfo $queryInsightsInfo)
+  {
+    $this->queryInsightsInfo = $queryInsightsInfo;
+  }
+  /**
+   * @return QueryInsightsInstanceInfo
+   */
+  public function getQueryInsightsInfo()
+  {
+    return $this->queryInsightsInfo;
   }
   /**
    * Read pool instance configuration. This is required if the value of

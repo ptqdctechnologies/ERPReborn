@@ -20,23 +20,23 @@ namespace Google\Service\Aiplatform;
 class CloudAiLargeModelsVisionExperimentsResponseProEditResult extends \Google\Model
 {
   /**
-   * The output structured prompt produced by this edit.
+   * The output structured prompt (JSON string) produced by this edit.
    *
-   * @var array[]
+   * @var string
    */
   public $structuredPrompt;
 
   /**
-   * The output structured prompt produced by this edit.
+   * The output structured prompt (JSON string) produced by this edit.
    *
-   * @param array[] $structuredPrompt
+   * @param string $structuredPrompt
    */
   public function setStructuredPrompt($structuredPrompt)
   {
     $this->structuredPrompt = $structuredPrompt;
   }
   /**
-   * @return array[]
+   * @return string
    */
   public function getStructuredPrompt()
   {

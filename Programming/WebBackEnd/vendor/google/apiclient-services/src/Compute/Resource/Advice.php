@@ -34,6 +34,8 @@ use Google\Service\Compute\CapacityHistoryResponse;
  */
 class Advice extends \Google\Service\Resource
 {
+  protected $apiVersion = '2026-09-01';
+
   /**
    * Advise how, where and when to create the requested amount of instances with
    * specified accelerators, within the specified time and location limits. The

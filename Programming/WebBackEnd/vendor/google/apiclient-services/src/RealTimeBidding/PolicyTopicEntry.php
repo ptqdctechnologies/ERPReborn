@@ -29,11 +29,9 @@ class PolicyTopicEntry extends \Google\Collection
    */
   public $helpCenterUrl;
   /**
-   * Whether or not the policy topic is missing a certificate. Some policy
-   * topics require a certificate to unblock serving in some regions. For more
-   * information about creative certification, refer to:
-   * https://support.google.com/authorizedbuyers/answer/7450776
+   * Whether or not the policy topic is missing a certificate.
    *
+   * @deprecated
    * @var bool
    */
   public $missingCertificate;
@@ -80,11 +78,9 @@ class PolicyTopicEntry extends \Google\Collection
     return $this->helpCenterUrl;
   }
   /**
-   * Whether or not the policy topic is missing a certificate. Some policy
-   * topics require a certificate to unblock serving in some regions. For more
-   * information about creative certification, refer to:
-   * https://support.google.com/authorizedbuyers/answer/7450776
+   * Whether or not the policy topic is missing a certificate.
    *
+   * @deprecated
    * @param bool $missingCertificate
    */
   public function setMissingCertificate($missingCertificate)
@@ -92,6 +88,7 @@ class PolicyTopicEntry extends \Google\Collection
     $this->missingCertificate = $missingCertificate;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getMissingCertificate()

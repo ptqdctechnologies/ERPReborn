@@ -41,6 +41,7 @@ class NetworkSecurity extends \Google\Service
   public $organizations_locations;
   public $organizations_locations_addressGroups;
   public $organizations_locations_firewallEndpoints;
+  public $organizations_locations_firewallEndpoints_wildfireVerdictChangeRequests;
   public $organizations_locations_operations;
   public $organizations_locations_securityProfileGroups;
   public $organizations_locations_securityProfiles;
@@ -53,6 +54,7 @@ class NetworkSecurity extends \Google\Service
   public $projects_locations_dnsThreatDetectors;
   public $projects_locations_firewallEndpointAssociations;
   public $projects_locations_firewallEndpoints;
+  public $projects_locations_firewallEndpoints_wildfireVerdictChangeRequests;
   public $projects_locations_gatewaySecurityPolicies;
   public $projects_locations_gatewaySecurityPolicies_rules;
   public $projects_locations_interceptDeploymentGroups;
@@ -379,6 +381,58 @@ class NetworkSecurity extends \Google\Service
                   'type' => 'string',
                 ],
                 'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->organizations_locations_firewallEndpoints_wildfireVerdictChangeRequests = new NetworkSecurity\Resource\OrganizationsLocationsFirewallEndpointsWildfireVerdictChangeRequests(
+        $this,
+        $this->serviceName,
+        'wildfireVerdictChangeRequests',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}/wildfireVerdictChangeRequests',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/wildfireVerdictChangeRequests',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],
@@ -1528,6 +1582,58 @@ class NetworkSecurity extends \Google\Service
                   'type' => 'string',
                 ],
                 'updateMask' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_firewallEndpoints_wildfireVerdictChangeRequests = new NetworkSecurity\Resource\ProjectsLocationsFirewallEndpointsWildfireVerdictChangeRequests(
+        $this,
+        $this->serviceName,
+        'wildfireVerdictChangeRequests',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/{+parent}/wildfireVerdictChangeRequests',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/wildfireVerdictChangeRequests',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
                 ],

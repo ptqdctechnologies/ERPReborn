@@ -60,6 +60,18 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
    */
   public $displayName;
   /**
+   * Optional. If true, this policy is evaluated and its result is reported, but
+   * the policy is not enforced: a violation does not block the agent's action.
+   * Use this to validate a policy against real traffic before turning
+   * enforcement on. Defaults to `false`, meaning the policy is enforced. This
+   * setting applies only to this policy. If the SemanticGovernancePolicyEngine
+   * for the project is itself in dry run, every policy behaves as dry run
+   * regardless of this field.
+   *
+   * @var bool
+   */
+  public $dryRun;
+  /**
    * Optional. Used to perform consistent read-modify-write transactions. If
    * provided, the request will only succeed if the etag matches the current
    * value. Otherwise, an ABORTED error will be returned.
@@ -192,6 +204,28 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
   public function getDisplayName()
   {
     return $this->displayName;
+  }
+  /**
+   * Optional. If true, this policy is evaluated and its result is reported, but
+   * the policy is not enforced: a violation does not block the agent's action.
+   * Use this to validate a policy against real traffic before turning
+   * enforcement on. Defaults to `false`, meaning the policy is enforced. This
+   * setting applies only to this policy. If the SemanticGovernancePolicyEngine
+   * for the project is itself in dry run, every policy behaves as dry run
+   * regardless of this field.
+   *
+   * @param bool $dryRun
+   */
+  public function setDryRun($dryRun)
+  {
+    $this->dryRun = $dryRun;
+  }
+  /**
+   * @return bool
+   */
+  public function getDryRun()
+  {
+    return $this->dryRun;
   }
   /**
    * Optional. Used to perform consistent read-modify-write transactions. If

@@ -50,10 +50,10 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    */
   public const CREDIT_TYPES_TREATMENT_EXCLUDE_ALL_CREDITS = 'EXCLUDE_ALL_CREDITS';
   /**
-   * [Credit types](https://cloud.google.com/billing/docs/how-to/export-data-
-   * bigquery-tables#credits-type) specified in the credit_types field are
-   * subtracted from the gross cost to determine the spend for threshold
-   * calculations.
+   * [Credit types](https://docs.cloud.google.com/billing/docs/how-to/export-
+   * data-bigquery-tables/detailed-usage#credits-type) specified in the
+   * credit_types field are subtracted from the gross cost to determine the
+   * spend for threshold calculations.
    */
   public const CREDIT_TYPES_TREATMENT_INCLUDE_SPECIFIED_CREDITS = 'INCLUDE_SPECIFIED_CREDITS';
   protected $collection_key = 'subaccounts';
@@ -62,7 +62,9 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * example, assume that CalendarPeriod.QUARTER is set. The budget tracks usage
    * from April 1 to June 30, when the current calendar month is April, May,
    * June. After that, it tracks usage from July 1 to September 30 when the
-   * current calendar month is July, August, September, so on.
+   * current calendar month is July, August, September, so on. When `spend_cap`
+   * is set, must be `MONTH` (or `usage_period` left unset, which defaults to
+   * `MONTH`). `QUARTER` and `YEAR` are not supported for spend caps.
    *
    * @var string
    */
@@ -71,15 +73,17 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * Optional. If Filter.credit_types_treatment is INCLUDE_SPECIFIED_CREDITS,
    * this is a list of credit types to be subtracted from gross cost to
    * determine the spend for threshold calculations. See [a list of acceptable
-   * credit type values](https://cloud.google.com/billing/docs/how-to/export-
-   * data-bigquery-tables#credits-type). If Filter.credit_types_treatment is
-   * **not** INCLUDE_SPECIFIED_CREDITS, this field must be empty.
+   * credit type values](https://docs.cloud.google.com/billing/docs/how-
+   * to/export-data-bigquery-tables/detailed-usage#credits-type). If
+   * Filter.credit_types_treatment is **not** INCLUDE_SPECIFIED_CREDITS, this
+   * field must be empty. Not supported when `spend_cap` is set; must be empty.
    *
    * @var string[]
    */
   public $creditTypes;
   /**
-   * Optional. If not set, default behavior is `INCLUDE_ALL_CREDITS`.
+   * Optional. If not set, default behavior is `INCLUDE_ALL_CREDITS`. Must be
+   * set to `EXCLUDE_ALL_CREDITS` when `spend_cap` is set.
    *
    * @var string
    */
@@ -91,7 +95,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * this set of labeled resources should be included in the budget. If omitted,
    * the report includes all labeled and unlabeled usage. An object containing a
    * single `"key": value` pair. Example: `{ "name": "wrench" }`. _Currently,
-   * multiple entries or multiple values per entry are not allowed._
+   * multiple entries or multiple values per entry are not allowed._ Not
+   * supported when `spend_cap` is set; must be empty.
    *
    * @var array[]
    */
@@ -100,7 +105,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * Optional. A set of projects of the form `projects/{project}`, specifying
    * that usage from only this set of projects should be included in the budget.
    * If omitted, the report includes all usage for the billing account,
-   * regardless of which project the usage occurred on.
+   * regardless of which project the usage occurred on. Must be set when
+   * `spend_cap` is set; must contain exactly one project.
    *
    * @var string[]
    */
@@ -112,7 +118,7 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * the budget. If omitted, the budget includes all usage that the billing
    * account pays for. If the folder or organization contains projects that are
    * paid for by a different Cloud Billing account, the budget *doesn't* apply
-   * to those projects.
+   * to those projects. Not supported when `spend_cap` is set; must be empty.
    *
    * @var string[]
    */
@@ -122,7 +128,11 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * that usage from only this set of services should be included in the budget.
    * If omitted, the report includes usage for all the services. The service
    * names are available through the Catalog API:
-   * https://cloud.google.com/billing/v1/how-tos/catalog-api.
+   * https://docs.cloud.google.com/billing/v1/how-tos/catalog-api. When
+   * `spend_cap` is set, the services filter must be set and must contain
+   * exactly one service from this list of eligible services:
+   * https://docs.cloud.google.com/billing/docs/how-to/budgets-spend-
+   * caps#eligible-services.
    *
    * @var string[]
    */
@@ -133,7 +143,7 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * in the budget. If a subaccount is set to the name of the parent account,
    * usage from the parent account is included. If the field is omitted, the
    * report includes usage from the parent account and all subaccounts, if they
-   * exist.
+   * exist. Not supported when `spend_cap` is set; must be empty.
    *
    * @var string[]
    */
@@ -144,7 +154,9 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * example, assume that CalendarPeriod.QUARTER is set. The budget tracks usage
    * from April 1 to June 30, when the current calendar month is April, May,
    * June. After that, it tracks usage from July 1 to September 30 when the
-   * current calendar month is July, August, September, so on.
+   * current calendar month is July, August, September, so on. When `spend_cap`
+   * is set, must be `MONTH` (or `usage_period` left unset, which defaults to
+   * `MONTH`). `QUARTER` and `YEAR` are not supported for spend caps.
    *
    * Accepted values: CALENDAR_PERIOD_UNSPECIFIED, MONTH, QUARTER, YEAR
    *
@@ -165,9 +177,10 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * Optional. If Filter.credit_types_treatment is INCLUDE_SPECIFIED_CREDITS,
    * this is a list of credit types to be subtracted from gross cost to
    * determine the spend for threshold calculations. See [a list of acceptable
-   * credit type values](https://cloud.google.com/billing/docs/how-to/export-
-   * data-bigquery-tables#credits-type). If Filter.credit_types_treatment is
-   * **not** INCLUDE_SPECIFIED_CREDITS, this field must be empty.
+   * credit type values](https://docs.cloud.google.com/billing/docs/how-
+   * to/export-data-bigquery-tables/detailed-usage#credits-type). If
+   * Filter.credit_types_treatment is **not** INCLUDE_SPECIFIED_CREDITS, this
+   * field must be empty. Not supported when `spend_cap` is set; must be empty.
    *
    * @param string[] $creditTypes
    */
@@ -183,7 +196,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
     return $this->creditTypes;
   }
   /**
-   * Optional. If not set, default behavior is `INCLUDE_ALL_CREDITS`.
+   * Optional. If not set, default behavior is `INCLUDE_ALL_CREDITS`. Must be
+   * set to `EXCLUDE_ALL_CREDITS` when `spend_cap` is set.
    *
    * Accepted values: CREDIT_TYPES_TREATMENT_UNSPECIFIED, INCLUDE_ALL_CREDITS,
    * EXCLUDE_ALL_CREDITS, INCLUDE_SPECIFIED_CREDITS
@@ -203,7 +217,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
   }
   /**
    * Optional. Specifies to track usage from any start date (required) to any
-   * end date (optional). This time period is static, it does not recur.
+   * end date (optional). This time period is static, it does not recur. Not
+   * supported when `spend_cap` is set.
    *
    * @param GoogleCloudBillingBudgetsV1CustomPeriod $customPeriod
    */
@@ -223,7 +238,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * this set of labeled resources should be included in the budget. If omitted,
    * the report includes all labeled and unlabeled usage. An object containing a
    * single `"key": value` pair. Example: `{ "name": "wrench" }`. _Currently,
-   * multiple entries or multiple values per entry are not allowed._
+   * multiple entries or multiple values per entry are not allowed._ Not
+   * supported when `spend_cap` is set; must be empty.
    *
    * @param array[] $labels
    */
@@ -242,7 +258,8 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * Optional. A set of projects of the form `projects/{project}`, specifying
    * that usage from only this set of projects should be included in the budget.
    * If omitted, the report includes all usage for the billing account,
-   * regardless of which project the usage occurred on.
+   * regardless of which project the usage occurred on. Must be set when
+   * `spend_cap` is set; must contain exactly one project.
    *
    * @param string[] $projects
    */
@@ -264,7 +281,7 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * the budget. If omitted, the budget includes all usage that the billing
    * account pays for. If the folder or organization contains projects that are
    * paid for by a different Cloud Billing account, the budget *doesn't* apply
-   * to those projects.
+   * to those projects. Not supported when `spend_cap` is set; must be empty.
    *
    * @param string[] $resourceAncestors
    */
@@ -284,7 +301,11 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * that usage from only this set of services should be included in the budget.
    * If omitted, the report includes usage for all the services. The service
    * names are available through the Catalog API:
-   * https://cloud.google.com/billing/v1/how-tos/catalog-api.
+   * https://docs.cloud.google.com/billing/v1/how-tos/catalog-api. When
+   * `spend_cap` is set, the services filter must be set and must contain
+   * exactly one service from this list of eligible services:
+   * https://docs.cloud.google.com/billing/docs/how-to/budgets-spend-
+   * caps#eligible-services.
    *
    * @param string[] $services
    */
@@ -305,7 +326,7 @@ class GoogleCloudBillingBudgetsV1Filter extends \Google\Collection
    * in the budget. If a subaccount is set to the name of the parent account,
    * usage from the parent account is included. If the field is omitted, the
    * report includes usage from the parent account and all subaccounts, if they
-   * exist.
+   * exist. Not supported when `spend_cap` is set; must be empty.
    *
    * @param string[] $subaccounts
    */

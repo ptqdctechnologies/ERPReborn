@@ -19,6 +19,26 @@ namespace Google\Service\CloudDataplex;
 
 class GoogleCloudDataplexV1DataAssetAccessGroupConfig extends \Google\Collection
 {
+  /**
+   * State is unspecified.
+   */
+  public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
+  /**
+   * The iam role is being applied.
+   */
+  public const STATE_APPLYING = 'APPLYING';
+  /**
+   * The iam role has been successfully applied.
+   */
+  public const STATE_APPLIED = 'APPLIED';
+  /**
+   * The iam role application failed due to transient error.
+   */
+  public const STATE_FAILED = 'FAILED';
+  /**
+   * The iam role application is not supported for the asset resource type.
+   */
+  public const STATE_UNSUPPORTED = 'UNSUPPORTED';
   protected $collection_key = 'iamRoles';
   /**
    * Optional. IAM roles granted on the resource to this access group. Role name
@@ -28,6 +48,12 @@ class GoogleCloudDataplexV1DataAssetAccessGroupConfig extends \Google\Collection
    * @var string[]
    */
   public $iamRoles;
+  /**
+   * Output only. The state of the iam role application.
+   *
+   * @var string
+   */
+  public $state;
 
   /**
    * Optional. IAM roles granted on the resource to this access group. Role name
@@ -46,6 +72,24 @@ class GoogleCloudDataplexV1DataAssetAccessGroupConfig extends \Google\Collection
   public function getIamRoles()
   {
     return $this->iamRoles;
+  }
+  /**
+   * Output only. The state of the iam role application.
+   *
+   * Accepted values: STATE_UNSPECIFIED, APPLYING, APPLIED, FAILED, UNSUPPORTED
+   *
+   * @param self::STATE_* $state
+   */
+  public function setState($state)
+  {
+    $this->state = $state;
+  }
+  /**
+   * @return self::STATE_*
+   */
+  public function getState()
+  {
+    return $this->state;
   }
 }
 

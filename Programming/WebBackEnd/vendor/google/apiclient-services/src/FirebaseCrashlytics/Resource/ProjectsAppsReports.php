@@ -89,6 +89,9 @@ class ProjectsAppsReports extends \Google\Service\Resource
    * @opt_param string granularity Optional. The report response will contain one
    * data point per time grain. If omitted, the report will contain a single data
    * point for the complete interval.
+   * @opt_param string metricsMode Optional. Controls whether metrics are raw
+   * observed values (mobile and web) or extrapolated values (web only). If
+   * omitted, defaults to OBSERVED.
    * @opt_param int pageSize Optional. The maximum number of result groups to
    * return. If omitted, defaults to 25.
    * @opt_param string pageToken Optional. A page token, received from a previous

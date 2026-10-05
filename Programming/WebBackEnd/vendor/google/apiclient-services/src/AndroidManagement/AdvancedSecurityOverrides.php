@@ -125,8 +125,8 @@ class AdvancedSecurityOverrides extends \Google\Collection
   public const UNTRUSTED_APPS_POLICY_ALLOW_INSTALL_DEVICE_WIDE = 'ALLOW_INSTALL_DEVICE_WIDE';
   protected $collection_key = 'personalAppsThatCanReadWorkNotifications';
   /**
-   * Controls Common Criteria Mode—security standards defined in the Common
-   * Criteria for Information Technology Security Evaluation
+   * Optional. Controls Common Criteria Mode—security standards defined in the
+   * Common Criteria for Information Technology Security Evaluation
    * (https://www.commoncriteriaportal.org/) (CC). Enabling Common Criteria Mode
    * increases certain security components on a device, see CommonCriteriaMode
    * for details.Warning: Common Criteria Mode enforces a strict security model
@@ -148,8 +148,8 @@ class AdvancedSecurityOverrides extends \Google\Collection
    */
   public $contentProtectionPolicy;
   /**
-   * Controls access to developer settings: developer options and safe boot.
-   * Replaces safeBootDisabled (deprecated) and debuggingFeaturesAllowed
+   * Optional. Controls access to developer settings: developer options and safe
+   * boot. Replaces safeBootDisabled (deprecated) and debuggingFeaturesAllowed
    * (deprecated). On personally-owned devices with a work profile, setting this
    * policy will not disable safe boot. In this case, a NonComplianceDetail with
    * MANAGEMENT_MODE is reported.
@@ -158,7 +158,7 @@ class AdvancedSecurityOverrides extends \Google\Collection
    */
   public $developerSettings;
   /**
-   * Whether Google Play Protect verification
+   * Optional. Whether Google Play Protect verification
    * (https://support.google.com/accounts/answer/2812853) is enforced. Replaces
    * ensureVerifyAppsEnabled (deprecated).
    *
@@ -176,7 +176,7 @@ class AdvancedSecurityOverrides extends \Google\Collection
    */
   public $mtePolicy;
   /**
-   * Personal apps that can read work profile notifications using a
+   * Optional. Personal apps that can read work profile notifications using a
    * NotificationListenerService (https://developer.android.com/reference/androi
    * d/service/notification/NotificationListenerService). By default, no
    * personal apps (aside from system apps) can read work notifications. Each
@@ -186,16 +186,17 @@ class AdvancedSecurityOverrides extends \Google\Collection
    */
   public $personalAppsThatCanReadWorkNotifications;
   /**
-   * The policy for untrusted apps (apps from unknown sources) enforced on the
-   * device. Replaces install_unknown_sources_allowed (deprecated).
+   * Optional. The policy for untrusted apps (apps from unknown sources)
+   * enforced on the device. Replaces install_unknown_sources_allowed
+   * (deprecated).
    *
    * @var string
    */
   public $untrustedAppsPolicy;
 
   /**
-   * Controls Common Criteria Mode—security standards defined in the Common
-   * Criteria for Information Technology Security Evaluation
+   * Optional. Controls Common Criteria Mode—security standards defined in the
+   * Common Criteria for Information Technology Security Evaluation
    * (https://www.commoncriteriaportal.org/) (CC). Enabling Common Criteria Mode
    * increases certain security components on a device, see CommonCriteriaMode
    * for details.Warning: Common Criteria Mode enforces a strict security model
@@ -244,8 +245,8 @@ class AdvancedSecurityOverrides extends \Google\Collection
     return $this->contentProtectionPolicy;
   }
   /**
-   * Controls access to developer settings: developer options and safe boot.
-   * Replaces safeBootDisabled (deprecated) and debuggingFeaturesAllowed
+   * Optional. Controls access to developer settings: developer options and safe
+   * boot. Replaces safeBootDisabled (deprecated) and debuggingFeaturesAllowed
    * (deprecated). On personally-owned devices with a work profile, setting this
    * policy will not disable safe boot. In this case, a NonComplianceDetail with
    * MANAGEMENT_MODE is reported.
@@ -267,7 +268,7 @@ class AdvancedSecurityOverrides extends \Google\Collection
     return $this->developerSettings;
   }
   /**
-   * Whether Google Play Protect verification
+   * Optional. Whether Google Play Protect verification
    * (https://support.google.com/accounts/answer/2812853) is enforced. Replaces
    * ensureVerifyAppsEnabled (deprecated).
    *
@@ -311,7 +312,7 @@ class AdvancedSecurityOverrides extends \Google\Collection
     return $this->mtePolicy;
   }
   /**
-   * Personal apps that can read work profile notifications using a
+   * Optional. Personal apps that can read work profile notifications using a
    * NotificationListenerService (https://developer.android.com/reference/androi
    * d/service/notification/NotificationListenerService). By default, no
    * personal apps (aside from system apps) can read work notifications. Each
@@ -331,8 +332,9 @@ class AdvancedSecurityOverrides extends \Google\Collection
     return $this->personalAppsThatCanReadWorkNotifications;
   }
   /**
-   * The policy for untrusted apps (apps from unknown sources) enforced on the
-   * device. Replaces install_unknown_sources_allowed (deprecated).
+   * Optional. The policy for untrusted apps (apps from unknown sources)
+   * enforced on the device. Replaces install_unknown_sources_allowed
+   * (deprecated).
    *
    * Accepted values: UNTRUSTED_APPS_POLICY_UNSPECIFIED, DISALLOW_INSTALL,
    * ALLOW_INSTALL_IN_PERSONAL_PROFILE_ONLY, ALLOW_INSTALL_DEVICE_WIDE

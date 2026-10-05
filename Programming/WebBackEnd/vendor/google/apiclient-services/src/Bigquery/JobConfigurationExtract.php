@@ -66,6 +66,14 @@ class JobConfigurationExtract extends \Google\Collection
   protected $modelExtractOptionsType = ModelExtractOptions::class;
   protected $modelExtractOptionsDataType = '';
   /**
+   * Optional. Applicable to formats: PARQUET. If enabled, BigQuery to Parquet
+   * export will write the native Parquet Geography type instead of the default
+   * GeoParquet type.
+   *
+   * @var bool
+   */
+  public $nativeGeographyExportEnabled;
+  /**
    * Optional. Whether to print out a header row in the results. Default is
    * true. Not applicable when extracting models.
    *
@@ -192,6 +200,24 @@ class JobConfigurationExtract extends \Google\Collection
   public function getModelExtractOptions()
   {
     return $this->modelExtractOptions;
+  }
+  /**
+   * Optional. Applicable to formats: PARQUET. If enabled, BigQuery to Parquet
+   * export will write the native Parquet Geography type instead of the default
+   * GeoParquet type.
+   *
+   * @param bool $nativeGeographyExportEnabled
+   */
+  public function setNativeGeographyExportEnabled($nativeGeographyExportEnabled)
+  {
+    $this->nativeGeographyExportEnabled = $nativeGeographyExportEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getNativeGeographyExportEnabled()
+  {
+    return $this->nativeGeographyExportEnabled;
   }
   /**
    * Optional. Whether to print out a header row in the results. Default is

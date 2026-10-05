@@ -25,6 +25,8 @@ class ParagraphElement extends \Google\Model
   protected $columnBreakDataType = '';
   protected $dateElementType = DateElement::class;
   protected $dateElementDataType = '';
+  protected $dropdownType = Dropdown::class;
+  protected $dropdownDataType = '';
   /**
    * The zero-base end index of this paragraph element, exclusive, in UTF-16
    * code units.
@@ -102,6 +104,22 @@ class ParagraphElement extends \Google\Model
   public function getDateElement()
   {
     return $this->dateElement;
+  }
+  /**
+   * A paragraph element that represents a dropdown menu.
+   *
+   * @param Dropdown $dropdown
+   */
+  public function setDropdown(Dropdown $dropdown)
+  {
+    $this->dropdown = $dropdown;
+  }
+  /**
+   * @return Dropdown
+   */
+  public function getDropdown()
+  {
+    return $this->dropdown;
   }
   /**
    * The zero-base end index of this paragraph element, exclusive, in UTF-16

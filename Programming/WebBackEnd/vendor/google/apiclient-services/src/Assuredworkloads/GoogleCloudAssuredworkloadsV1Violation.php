@@ -64,6 +64,14 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
    */
   public $acknowledgementTime;
   /**
+   * Output only. List of compliance frameworks that are affected by this
+   * violation. This field is only populated when using
+   * `VIOLATION_VIEW_DATA_BOUNDARY`. e.g. "FedRAMP High", "NIST 800-53".
+   *
+   * @var string[]
+   */
+  public $affectedFrameworks;
+  /**
    * Optional. Output only. Violation Id of the org-policy violation due to
    * which the resource violation is caused. Empty for org-policy violations.
    *
@@ -91,6 +99,13 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
    * @var string
    */
   public $category;
+  /**
+   * Optional. Output only. The number of resource violations for particular org
+   * policy violation. This will be 0 in case of resource violation.
+   *
+   * @var int
+   */
+  public $childResourceViolationCount;
   /**
    * Output only. Description for the Violation. e.g. OrgPolicy
    * gcp.resourceLocations has non compliant value.
@@ -144,6 +159,13 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
   public $parentProjectNumber;
   protected $remediationType = GoogleCloudAssuredworkloadsV1ViolationRemediation::class;
   protected $remediationDataType = '';
+  /**
+   * Output only. Contains the remediation instructions for the violation in
+   * markdown format.
+   *
+   * @var string
+   */
+  public $remediationMarkdown;
   /**
    * Output only. Time of the event which fixed the Violation. If the violation
    * is ACTIVE this will be empty.
@@ -221,6 +243,24 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
     return $this->acknowledgementTime;
   }
   /**
+   * Output only. List of compliance frameworks that are affected by this
+   * violation. This field is only populated when using
+   * `VIOLATION_VIEW_DATA_BOUNDARY`. e.g. "FedRAMP High", "NIST 800-53".
+   *
+   * @param string[] $affectedFrameworks
+   */
+  public function setAffectedFrameworks($affectedFrameworks)
+  {
+    $this->affectedFrameworks = $affectedFrameworks;
+  }
+  /**
+   * @return string[]
+   */
+  public function getAffectedFrameworks()
+  {
+    return $this->affectedFrameworks;
+  }
+  /**
    * Optional. Output only. Violation Id of the org-policy violation due to
    * which the resource violation is caused. Empty for org-policy violations.
    *
@@ -287,6 +327,23 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
   public function getCategory()
   {
     return $this->category;
+  }
+  /**
+   * Optional. Output only. The number of resource violations for particular org
+   * policy violation. This will be 0 in case of resource violation.
+   *
+   * @param int $childResourceViolationCount
+   */
+  public function setChildResourceViolationCount($childResourceViolationCount)
+  {
+    $this->childResourceViolationCount = $childResourceViolationCount;
+  }
+  /**
+   * @return int
+   */
+  public function getChildResourceViolationCount()
+  {
+    return $this->childResourceViolationCount;
   }
   /**
    * Output only. Description for the Violation. e.g. OrgPolicy
@@ -429,6 +486,23 @@ class GoogleCloudAssuredworkloadsV1Violation extends \Google\Collection
   public function getRemediation()
   {
     return $this->remediation;
+  }
+  /**
+   * Output only. Contains the remediation instructions for the violation in
+   * markdown format.
+   *
+   * @param string $remediationMarkdown
+   */
+  public function setRemediationMarkdown($remediationMarkdown)
+  {
+    $this->remediationMarkdown = $remediationMarkdown;
+  }
+  /**
+   * @return string
+   */
+  public function getRemediationMarkdown()
+  {
+    return $this->remediationMarkdown;
   }
   /**
    * Output only. Time of the event which fixed the Violation. If the violation

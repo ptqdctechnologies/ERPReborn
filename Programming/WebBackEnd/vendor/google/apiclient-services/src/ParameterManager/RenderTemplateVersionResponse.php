@@ -32,8 +32,8 @@ class RenderTemplateVersionResponse extends \Google\Model
    */
   public const TEMPLATE_FORMAT_TEMPLATE_FORMAT_JSON = 'TEMPLATE_FORMAT_JSON';
   /**
-   * Output only. The resource name of the ParameterVersion used to render the
-   * template version in the format `projects/locations/parameters/versions`.
+   * The resource name of the ParameterVersion used to render the template
+   * version in the format `projects/locations/parameters/versions`.
    *
    * @var string
    */
@@ -41,15 +41,15 @@ class RenderTemplateVersionResponse extends \Google\Model
   protected $payloadType = TemplateVersionPayload::class;
   protected $payloadDataType = '';
   /**
-   * Output only. Server generated rendered version of the user provided payload
-   * data (TemplateVersionPayload) which has all the variables resolved using
-   * the provided parameter version.
+   * Server generated rendered version of the user provided payload data
+   * (TemplateVersionPayload) which has all the variables resolved using the
+   * provided parameter version.
    *
    * @var string
    */
   public $renderedPayload;
   /**
-   * Output only. Format of the template version.
+   * Format of the template version.
    *
    * @var string
    */
@@ -63,8 +63,8 @@ class RenderTemplateVersionResponse extends \Google\Model
   public $templateVersion;
 
   /**
-   * Output only. The resource name of the ParameterVersion used to render the
-   * template version in the format `projects/locations/parameters/versions`.
+   * The resource name of the ParameterVersion used to render the template
+   * version in the format `projects/locations/parameters/versions`.
    *
    * @param string $parameterVersion
    */
@@ -96,9 +96,9 @@ class RenderTemplateVersionResponse extends \Google\Model
     return $this->payload;
   }
   /**
-   * Output only. Server generated rendered version of the user provided payload
-   * data (TemplateVersionPayload) which has all the variables resolved using
-   * the provided parameter version.
+   * Server generated rendered version of the user provided payload data
+   * (TemplateVersionPayload) which has all the variables resolved using the
+   * provided parameter version.
    *
    * @param string $renderedPayload
    */
@@ -114,7 +114,7 @@ class RenderTemplateVersionResponse extends \Google\Model
     return $this->renderedPayload;
   }
   /**
-   * Output only. Format of the template version.
+   * Format of the template version.
    *
    * Accepted values: TEMPLATE_FORMAT_UNSPECIFIED, TEMPLATE_FORMAT_YAML,
    * TEMPLATE_FORMAT_JSON

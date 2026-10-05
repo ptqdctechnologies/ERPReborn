@@ -24,7 +24,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Optional. When set to true, disables default notifications sent when a
    * threshold is exceeded. Default notifications are sent to those with Billing
    * Account Administrator and Billing Account User IAM roles for the target
-   * account.
+   * account. Must be `false` (or unset) when `spend_cap` is set; default
+   * notifications cannot be disabled for spend caps.
    *
    * @var bool
    */
@@ -34,7 +35,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * configured, notifications will be sent to project level recipients of that
    * project. This field will be ignored if the budget has multiple or no
    * project configured. Currently, project level recipients are the users with
-   * `Owner` role on a cloud project.
+   * `Owner` role on a cloud project. Must be set to `true` when `spend_cap` is
+   * set.
    *
    * @var bool
    */
@@ -50,14 +52,16 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * the monitoring notification channels before you link them to a budget_. For
    * guidance on setting up notification channels to use with budgets, see
    * [Customize budget alert email
-   * recipients](https://cloud.google.com/billing/docs/how-to/budgets-
+   * recipients](https://docs.cloud.google.com/billing/docs/how-to/budgets-
    * notification-recipients). For Cloud Billing budget alerts, you _must use
    * email notification channels_. The other types of notification channels are
    * _not_ supported, such as Slack, SMS, or PagerDuty. If you want to [send
-   * budget notifications to Slack](https://cloud.google.com/billing/docs/how-
-   * to/notify#send_notifications_to_slack), use a pubsubTopic and configure
-   * [programmatic notifications](https://cloud.google.com/billing/docs/how-
-   * to/budgets-programmatic-notifications).
+   * budget notifications to
+   * Slack](https://docs.cloud.google.com/billing/docs/how-to/send-
+   * notifications-to-slack), use a pubsubTopic and configure [programmatic
+   * notifications](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications). Not supported when `spend_cap` is set; must be
+   * empty.
    *
    * @var string[]
    */
@@ -68,8 +72,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * are sent to the topic at regular intervals; the timing of the updates is
    * not dependent on the [threshold rules](#thresholdrule) you've set. Note
    * that if you want your [Pub/Sub JSON
-   * object](https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#notification_format) to contain data for
+   * object](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications#notification-format) to contain data for
    * `alertThresholdExceeded`, you need at least one [alert threshold
    * rule](#thresholdrule). When you set threshold rules, you must also enable
    * at least one of the email notification options, either using the default
@@ -77,13 +81,14 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Pub/Sub topics with budgets, you must do the following: 1. Create the
    * Pub/Sub topic before connecting it to your budget. For guidance, see
    * [Manage programmatic budget alert
-   * notifications](https://cloud.google.com/billing/docs/how-to/budgets-
+   * notifications](https://docs.cloud.google.com/billing/docs/how-to/budgets-
    * programmatic-notifications). 2. Grant the API caller the
    * `pubsub.topics.setIamPolicy` permission on the Pub/Sub topic. If not set,
    * the API call fails with PERMISSION_DENIED. For additional details on
    * Pub/Sub roles and permissions, see [Permissions required for this
-   * task](https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#permissions_required_for_this_task).
+   * task](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications#permissions). Not supported when `spend_cap` is
+   * set; must be empty.
    *
    * @var string
    */
@@ -92,8 +97,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Optional. Required when NotificationsRule.pubsub_topic is set. The schema
    * version of the notification sent to NotificationsRule.pubsub_topic. Only
    * "1.0" is accepted. It represents the JSON schema as defined in
-   * https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#notification_format.
+   * https://docs.cloud.google.com/billing/docs/how-to/budgets-programmatic-
+   * notifications#notification-format.
    *
    * @var string
    */
@@ -103,7 +108,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Optional. When set to true, disables default notifications sent when a
    * threshold is exceeded. Default notifications are sent to those with Billing
    * Account Administrator and Billing Account User IAM roles for the target
-   * account.
+   * account. Must be `false` (or unset) when `spend_cap` is set; default
+   * notifications cannot be disabled for spend caps.
    *
    * @param bool $disableDefaultIamRecipients
    */
@@ -123,7 +129,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * configured, notifications will be sent to project level recipients of that
    * project. This field will be ignored if the budget has multiple or no
    * project configured. Currently, project level recipients are the users with
-   * `Owner` role on a cloud project.
+   * `Owner` role on a cloud project. Must be set to `true` when `spend_cap` is
+   * set.
    *
    * @param bool $enableProjectLevelRecipients
    */
@@ -149,14 +156,16 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * the monitoring notification channels before you link them to a budget_. For
    * guidance on setting up notification channels to use with budgets, see
    * [Customize budget alert email
-   * recipients](https://cloud.google.com/billing/docs/how-to/budgets-
+   * recipients](https://docs.cloud.google.com/billing/docs/how-to/budgets-
    * notification-recipients). For Cloud Billing budget alerts, you _must use
    * email notification channels_. The other types of notification channels are
    * _not_ supported, such as Slack, SMS, or PagerDuty. If you want to [send
-   * budget notifications to Slack](https://cloud.google.com/billing/docs/how-
-   * to/notify#send_notifications_to_slack), use a pubsubTopic and configure
-   * [programmatic notifications](https://cloud.google.com/billing/docs/how-
-   * to/budgets-programmatic-notifications).
+   * budget notifications to
+   * Slack](https://docs.cloud.google.com/billing/docs/how-to/send-
+   * notifications-to-slack), use a pubsubTopic and configure [programmatic
+   * notifications](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications). Not supported when `spend_cap` is set; must be
+   * empty.
    *
    * @param string[] $monitoringNotificationChannels
    */
@@ -177,8 +186,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * are sent to the topic at regular intervals; the timing of the updates is
    * not dependent on the [threshold rules](#thresholdrule) you've set. Note
    * that if you want your [Pub/Sub JSON
-   * object](https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#notification_format) to contain data for
+   * object](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications#notification-format) to contain data for
    * `alertThresholdExceeded`, you need at least one [alert threshold
    * rule](#thresholdrule). When you set threshold rules, you must also enable
    * at least one of the email notification options, either using the default
@@ -186,13 +195,14 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Pub/Sub topics with budgets, you must do the following: 1. Create the
    * Pub/Sub topic before connecting it to your budget. For guidance, see
    * [Manage programmatic budget alert
-   * notifications](https://cloud.google.com/billing/docs/how-to/budgets-
+   * notifications](https://docs.cloud.google.com/billing/docs/how-to/budgets-
    * programmatic-notifications). 2. Grant the API caller the
    * `pubsub.topics.setIamPolicy` permission on the Pub/Sub topic. If not set,
    * the API call fails with PERMISSION_DENIED. For additional details on
    * Pub/Sub roles and permissions, see [Permissions required for this
-   * task](https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#permissions_required_for_this_task).
+   * task](https://docs.cloud.google.com/billing/docs/how-to/budgets-
+   * programmatic-notifications#permissions). Not supported when `spend_cap` is
+   * set; must be empty.
    *
    * @param string $pubsubTopic
    */
@@ -211,8 +221,8 @@ class GoogleCloudBillingBudgetsV1NotificationsRule extends \Google\Collection
    * Optional. Required when NotificationsRule.pubsub_topic is set. The schema
    * version of the notification sent to NotificationsRule.pubsub_topic. Only
    * "1.0" is accepted. It represents the JSON schema as defined in
-   * https://cloud.google.com/billing/docs/how-to/budgets-programmatic-
-   * notifications#notification_format.
+   * https://docs.cloud.google.com/billing/docs/how-to/budgets-programmatic-
+   * notifications#notification-format.
    *
    * @param string $schemaVersion
    */

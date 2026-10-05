@@ -28,6 +28,10 @@ class SandboxConfig extends \Google\Model
    */
   public const TYPE_GVISOR = 'GVISOR';
   /**
+   * Run sandbox using MicroVM.
+   */
+  public const TYPE_MICROVM = 'MICROVM';
+  /**
    * Type of the sandbox to use for the node.
    *
    * @var string
@@ -37,7 +41,7 @@ class SandboxConfig extends \Google\Model
   /**
    * Type of the sandbox to use for the node.
    *
-   * Accepted values: UNSPECIFIED, GVISOR
+   * Accepted values: UNSPECIFIED, GVISOR, MICROVM
    *
    * @param self::TYPE_* $type
    */

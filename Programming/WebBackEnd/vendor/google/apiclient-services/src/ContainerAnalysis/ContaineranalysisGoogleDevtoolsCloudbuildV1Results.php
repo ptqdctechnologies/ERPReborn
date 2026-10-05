@@ -68,6 +68,8 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1Results extends \Google\Collect
   public $numArtifacts;
   protected $pythonPackagesType = ContaineranalysisGoogleDevtoolsCloudbuildV1UploadedPythonPackage::class;
   protected $pythonPackagesDataType = 'array';
+  protected $resourceUsageType = ContaineranalysisGoogleDevtoolsCloudbuildV1BuildResourceUsage::class;
+  protected $resourceUsageDataType = '';
 
   /**
    * Path to the artifact manifest for non-container artifacts uploaded to Cloud
@@ -270,6 +272,22 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1Results extends \Google\Collect
   public function getPythonPackages()
   {
     return $this->pythonPackages;
+  }
+  /**
+   * Output only. Aggregated metrics for the build.
+   *
+   * @param ContaineranalysisGoogleDevtoolsCloudbuildV1BuildResourceUsage $resourceUsage
+   */
+  public function setResourceUsage(ContaineranalysisGoogleDevtoolsCloudbuildV1BuildResourceUsage $resourceUsage)
+  {
+    $this->resourceUsage = $resourceUsage;
+  }
+  /**
+   * @return ContaineranalysisGoogleDevtoolsCloudbuildV1BuildResourceUsage
+   */
+  public function getResourceUsage()
+  {
+    return $this->resourceUsage;
   }
 }
 

@@ -44,12 +44,11 @@ class GoogleCloudAiplatformV1AgentTool extends \Google\Model
    */
   public $type;
   /**
-   * Optional. Temporary: the tool's runtime reference, consumed by CreateAgent
-   * to create the downstream AI App. Applicable when `type` is `mcp_server` or
-   * `endpoint`. It is duplicated here (the resource name is already in `name`)
-   * only because the Agent service is not yet connected to Agent Registry to
-   * derive it from `name`; the Task Service instead resolves it from Agent
-   * Registry (GetMcpServer / GetEndpoint) at task creation.
+   * Optional. Fallback for the tool's runtime reference, consumed by
+   * `CreateAgent` to create the downstream AI App. Applicable when `type` is
+   * `mcp_server` or `endpoint`, and optional: the Agent service derives the
+   * runtime reference from `name` via Agent Registry (`GetMcpServer` /
+   * `GetEndpoint`), and reads this only when that lookup yields none.
    *
    * @var string
    */
@@ -110,12 +109,11 @@ class GoogleCloudAiplatformV1AgentTool extends \Google\Model
     return $this->type;
   }
   /**
-   * Optional. Temporary: the tool's runtime reference, consumed by CreateAgent
-   * to create the downstream AI App. Applicable when `type` is `mcp_server` or
-   * `endpoint`. It is duplicated here (the resource name is already in `name`)
-   * only because the Agent service is not yet connected to Agent Registry to
-   * derive it from `name`; the Task Service instead resolves it from Agent
-   * Registry (GetMcpServer / GetEndpoint) at task creation.
+   * Optional. Fallback for the tool's runtime reference, consumed by
+   * `CreateAgent` to create the downstream AI App. Applicable when `type` is
+   * `mcp_server` or `endpoint`, and optional: the Agent service derives the
+   * runtime reference from `name` via Agent Registry (`GetMcpServer` /
+   * `GetEndpoint`), and reads this only when that lookup yields none.
    *
    * @param string $url
    */

@@ -21,8 +21,12 @@ class DocumentTab extends \Google\Model
 {
   protected $bodyType = Body::class;
   protected $bodyDataType = '';
+  protected $commentAnchorsType = CommentAnchor::class;
+  protected $commentAnchorsDataType = 'map';
   protected $documentStyleType = DocumentStyle::class;
   protected $documentStyleDataType = '';
+  protected $dropdownDefinitionsType = DropdownDefinition::class;
+  protected $dropdownDefinitionsDataType = 'map';
   protected $footersType = Footer::class;
   protected $footersDataType = 'map';
   protected $footnotesType = Footnote::class;
@@ -61,6 +65,25 @@ class DocumentTab extends \Google\Model
     return $this->body;
   }
   /**
+   * The comment anchors in a document tab, keyed by anchor ID. Only populated
+   * if the commentsViewMode parameter is set to require comments (such as
+   * `COMMENTS_VIEW_MODE_INCLUDED`). [Developer
+   * Preview](https://developers.google.com/workspace/preview).
+   *
+   * @param CommentAnchor[] $commentAnchors
+   */
+  public function setCommentAnchors($commentAnchors)
+  {
+    $this->commentAnchors = $commentAnchors;
+  }
+  /**
+   * @return CommentAnchor[]
+   */
+  public function getCommentAnchors()
+  {
+    return $this->commentAnchors;
+  }
+  /**
    * The style of the document tab.
    *
    * @param DocumentStyle $documentStyle
@@ -75,6 +98,23 @@ class DocumentTab extends \Google\Model
   public function getDocumentStyle()
   {
     return $this->documentStyle;
+  }
+  /**
+   * The dropdown definitions in a document tab, keyed by dropdown definition
+   * ID.
+   *
+   * @param DropdownDefinition[] $dropdownDefinitions
+   */
+  public function setDropdownDefinitions($dropdownDefinitions)
+  {
+    $this->dropdownDefinitions = $dropdownDefinitions;
+  }
+  /**
+   * @return DropdownDefinition[]
+   */
+  public function getDropdownDefinitions()
+  {
+    return $this->dropdownDefinitions;
   }
   /**
    * The footers in the document tab, keyed by footer ID.

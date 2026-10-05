@@ -63,7 +63,7 @@ class Alert extends \Google\Collection
    * alert is tracked externally.
    */
   public const STATE_TRACKED_EXTERNALLY = 'TRACKED_EXTERNALLY';
-  protected $collection_key = 'findings';
+  protected $collection_key = 'tags';
   /**
    * Optional. AI summary of the alert.
    *
@@ -147,6 +147,12 @@ class Alert extends \Google\Collection
    * @var string
    */
   public $state;
+  /**
+   * Output only. System taxonomy tags associated with this alert.
+   *
+   * @var string[]
+   */
+  public $tags;
 
   /**
    * Optional. AI summary of the alert.
@@ -415,6 +421,22 @@ class Alert extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * Output only. System taxonomy tags associated with this alert.
+   *
+   * @param string[] $tags
+   */
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  /**
+   * @return string[]
+   */
+  public function getTags()
+  {
+    return $this->tags;
   }
 }
 

@@ -17,14 +17,22 @@
 
 namespace Google\Service\NetworkServices;
 
-class DnsPeeringConfig extends \Google\Model
+class DnsPeeringConfig extends \Google\Collection
 {
+  protected $collection_key = 'domains';
   /**
-   * Optional. The domain to peer.
+   * Optional. Deprecated: Use `domains` instead. The domain to peer.
    *
+   * @deprecated
    * @var string
    */
   public $domain;
+  /**
+   * Optional. The domains to peer.
+   *
+   * @var string[]
+   */
+  public $domains;
   /**
    * Optional. The target network resource name for DNS peering. Format:
    * projects/{project}/global/networks/{network_id}
@@ -34,8 +42,9 @@ class DnsPeeringConfig extends \Google\Model
   public $targetNetwork;
 
   /**
-   * Optional. The domain to peer.
+   * Optional. Deprecated: Use `domains` instead. The domain to peer.
    *
+   * @deprecated
    * @param string $domain
    */
   public function setDomain($domain)
@@ -43,11 +52,28 @@ class DnsPeeringConfig extends \Google\Model
     $this->domain = $domain;
   }
   /**
+   * @deprecated
    * @return string
    */
   public function getDomain()
   {
     return $this->domain;
+  }
+  /**
+   * Optional. The domains to peer.
+   *
+   * @param string[] $domains
+   */
+  public function setDomains($domains)
+  {
+    $this->domains = $domains;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDomains()
+  {
+    return $this->domains;
   }
   /**
    * Optional. The target network resource name for DNS peering. Format:

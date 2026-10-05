@@ -54,6 +54,8 @@ class SolarPotential extends \Google\Collection
    * @var float
    */
   public $maxSunshineHoursPerYear;
+  protected $obstaclesType = Obstacle::class;
+  protected $obstaclesDataType = 'array';
   /**
    * Capacity, in watts, of the panel used in the calculations.
    *
@@ -201,6 +203,26 @@ class SolarPotential extends \Google\Collection
   public function getMaxSunshineHoursPerYear()
   {
     return $this->maxSunshineHoursPerYear;
+  }
+  /**
+   * Details for each obstacle detected on the rooftop. An obstacle is defined
+   * as any non-buildable area where solar panels cannot be placed due to
+   * physical barriers (vents, chimneys, etc.). This field is only populated if
+   * ROOF_GEOMETRY is included in the request's
+   * FindClosestBuildingInsightsRequest.additional_insights.
+   *
+   * @param Obstacle[] $obstacles
+   */
+  public function setObstacles($obstacles)
+  {
+    $this->obstacles = $obstacles;
+  }
+  /**
+   * @return Obstacle[]
+   */
+  public function getObstacles()
+  {
+    return $this->obstacles;
   }
   /**
    * Capacity, in watts, of the panel used in the calculations.

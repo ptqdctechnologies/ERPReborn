@@ -31,7 +31,7 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
   /**
    * Only billing account-level users have full access to the budget. Project-
    * level users have read-only access, even if they have the required IAM
-   * permissions.
+   * permissions. Not supported when `spend_cap` is set.
    */
   public const OWNERSHIP_SCOPE_BILLING_ACCOUNT = 'BILLING_ACCOUNT';
   protected $collection_key = 'thresholdRules';
@@ -64,14 +64,21 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
   protected $notificationsRuleType = GoogleCloudBillingBudgetsV1NotificationsRule::class;
   protected $notificationsRuleDataType = '';
   /**
+   * Optional. When `spend_cap` is set, must be `OWNERSHIP_SCOPE_UNSPECIFIED` or
+   * `ALL_USERS`. `BILLING_ACCOUNT` is not supported for spend caps.
+   *
    * @var string
    */
   public $ownershipScope;
+  protected $spendCapType = GoogleCloudBillingBudgetsV1SpendCap::class;
+  protected $spendCapDataType = '';
   protected $thresholdRulesType = GoogleCloudBillingBudgetsV1ThresholdRule::class;
   protected $thresholdRulesDataType = 'array';
 
   /**
-   * Required. Budgeted amount.
+   * Required. Budgeted amount. When `spend_cap` is set, `specified_amount` must
+   * be set to a non-negative amount (>= 0); `last_period_amount` is not
+   * supported.
    *
    * @param GoogleCloudBillingBudgetsV1BudgetAmount $amount
    */
@@ -89,7 +96,8 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
   /**
    * Optional. Filters that define which resources are used to compute the
    * actual spend against the budget amount, such as projects, services, and the
-   * budget's time period, as well as other filters.
+   * budget's time period, as well as other filters. Must be set when
+   * `spend_cap` is set. See `Filter` fields for spend cap restrictions.
    *
    * @param GoogleCloudBillingBudgetsV1Filter $budgetFilter
    */
@@ -158,7 +166,10 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
   }
   /**
    * Optional. Rules to apply to notifications sent based on budget spend and
-   * thresholds.
+   * thresholds. Must be set when `spend_cap` is set. For spend caps,
+   * `enable_project_level_recipients` must be set to `true`,
+   * `disable_default_iam_recipients` must be `false` (or unset), and
+   * `pubsub_topic` and `monitoring_notification_channels` must be empty.
    *
    * @param GoogleCloudBillingBudgetsV1NotificationsRule $notificationsRule
    */
@@ -174,6 +185,11 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
     return $this->notificationsRule;
   }
   /**
+   * Optional. When `spend_cap` is set, must be `OWNERSHIP_SCOPE_UNSPECIFIED` or
+   * `ALL_USERS`. `BILLING_ACCOUNT` is not supported for spend caps.
+   *
+   * Accepted values: OWNERSHIP_SCOPE_UNSPECIFIED, ALL_USERS, BILLING_ACCOUNT
+   *
    * @param self::OWNERSHIP_SCOPE_* $ownershipScope
    */
   public function setOwnershipScope($ownershipScope)
@@ -188,10 +204,36 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
     return $this->ownershipScope;
   }
   /**
+   * Optional. The spend cap configured for this budget. When `spend_cap` is
+   * set, strict field restrictions apply to the budget (see field-level
+   * comments on `ownership_scope`, `budget_filter`, `amount`,
+   * `threshold_rules`, and `notifications_rule`). When `spend_cap.output_state`
+   * is `ENFORCED`, only `spend_cap.input_state` can be modified in an
+   * `UpdateBudget` request (e.g., setting `input_state` to
+   * `AWAITING_NEXT_PERIOD` to lift the cap); modifying any other budget field
+   * while enforced will fail with `FAILED_PRECONDITION`.
+   *
+   * @param GoogleCloudBillingBudgetsV1SpendCap $spendCap
+   */
+  public function setSpendCap(GoogleCloudBillingBudgetsV1SpendCap $spendCap)
+  {
+    $this->spendCap = $spendCap;
+  }
+  /**
+   * @return GoogleCloudBillingBudgetsV1SpendCap
+   */
+  public function getSpendCap()
+  {
+    return $this->spendCap;
+  }
+  /**
    * Optional. Rules that trigger alerts (notifications of thresholds being
    * crossed) when spend exceeds the specified percentages of the budget.
    * Optional for `pubsubTopic` notifications. Required if using email
-   * notifications.
+   * notifications. Must be set when `spend_cap` is set. Spend caps must have
+   * exactly three `CURRENT_SPEND` threshold rules with `threshold_percent`
+   * values of `0.5`, `0.8`, and `1.0` (50%, 80%, and 100%). `FORECASTED_SPEND`
+   * threshold rules are not supported for spend caps.
    *
    * @param GoogleCloudBillingBudgetsV1ThresholdRule[] $thresholdRules
    */

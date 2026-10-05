@@ -229,6 +229,8 @@ class QueryRequest extends \Google\Collection
    * @var string
    */
   public $reservation;
+  protected $secureContextType = SecureContext::class;
+  protected $secureContextDataType = '';
   /**
    * Optional. Optional: Specifies the maximum amount of time, in milliseconds,
    * that the client is willing to wait for the query to complete. By default,
@@ -713,6 +715,25 @@ class QueryRequest extends \Google\Collection
   public function getReservation()
   {
     return $this->reservation;
+  }
+  /**
+   * Optional. A set of key-value pairs representing the secure context. This
+   * can be used to pass sensitive or context-specific information. They can be
+   * retrieved via the SECURE_CONTEXT() function and used to modify the run-time
+   * behavior of a query.
+   *
+   * @param SecureContext $secureContext
+   */
+  public function setSecureContext(SecureContext $secureContext)
+  {
+    $this->secureContext = $secureContext;
+  }
+  /**
+   * @return SecureContext
+   */
+  public function getSecureContext()
+  {
+    return $this->secureContext;
   }
   /**
    * Optional. Optional: Specifies the maximum amount of time, in milliseconds,

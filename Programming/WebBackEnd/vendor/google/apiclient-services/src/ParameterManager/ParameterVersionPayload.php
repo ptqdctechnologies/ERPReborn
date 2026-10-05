@@ -26,9 +26,9 @@ class ParameterVersionPayload extends \Google\Model
    */
   public $data;
   /**
-   * Optional. [Optional] The integrity checksum of the payload. If provided,
-   * the server will verify that the checksum matches the payload. If not
-   * provided, the server will generate the checksum.
+   * Optional. The integrity checksum of the payload. If provided, the server
+   * will verify that the checksum matches the payload. If not provided, the
+   * server will generate the checksum.
    *
    * @var string
    */
@@ -51,9 +51,9 @@ class ParameterVersionPayload extends \Google\Model
     return $this->data;
   }
   /**
-   * Optional. [Optional] The integrity checksum of the payload. If provided,
-   * the server will verify that the checksum matches the payload. If not
-   * provided, the server will generate the checksum.
+   * Optional. The integrity checksum of the payload. If provided, the server
+   * will verify that the checksum matches the payload. If not provided, the
+   * server will generate the checksum.
    *
    * @param string $dataCrc32c
    */

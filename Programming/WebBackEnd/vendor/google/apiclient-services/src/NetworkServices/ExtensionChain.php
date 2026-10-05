@@ -38,8 +38,9 @@ class ExtensionChain extends \Google\Collection
   /**
    * Required. A set of extensions to execute for the matching request. At least
    * one extension is required. Up to 3 extensions can be defined for each
-   * extension chain for `LbTrafficExtension` resource. `LbRouteExtension` and
-   * `LbEdgeExtension` chains are limited to 1 extension per extension chain.
+   * extension chain for `LbTrafficExtension` resource. `LbRouteExtension`,
+   * `LbEdgeExtension`, and `LbTcpExtension` chains are limited to 1 extension
+   * per extension chain.
    *
    * @param ExtensionChainExtension[] $extensions
    */

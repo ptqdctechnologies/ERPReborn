@@ -31,6 +31,8 @@ class AzureProperties extends \Google\Model
    * @var string
    */
   public $clientId;
+  protected $crossCloudCacheOptionsType = CrossCloudCacheOptions::class;
+  protected $crossCloudCacheOptionsDataType = '';
   /**
    * The id of customer's directory that host the data.
    *
@@ -97,6 +99,23 @@ class AzureProperties extends \Google\Model
   public function getClientId()
   {
     return $this->clientId;
+  }
+  /**
+   * Optional. Configuration options for cross-cloud caching of data and
+   * metadata files.
+   *
+   * @param CrossCloudCacheOptions $crossCloudCacheOptions
+   */
+  public function setCrossCloudCacheOptions(CrossCloudCacheOptions $crossCloudCacheOptions)
+  {
+    $this->crossCloudCacheOptions = $crossCloudCacheOptions;
+  }
+  /**
+   * @return CrossCloudCacheOptions
+   */
+  public function getCrossCloudCacheOptions()
+  {
+    return $this->crossCloudCacheOptions;
   }
   /**
    * The id of customer's directory that host the data.

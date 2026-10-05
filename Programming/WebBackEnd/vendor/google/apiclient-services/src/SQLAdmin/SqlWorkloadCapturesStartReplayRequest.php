@@ -23,7 +23,7 @@ class SqlWorkloadCapturesStartReplayRequest extends \Google\Model
   protected $startWorkloadReplayContextDataType = '';
 
   /**
-   * Optional. Contains details about the start workload replay operation.
+   * Required. Contains details about the start workload replay operation.
    *
    * @param StartWorkloadReplayContext $startWorkloadReplayContext
    */

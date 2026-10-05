@@ -118,6 +118,8 @@ class FirewallEndpoint extends \Google\Collection
    * @var string
    */
   public $updateTime;
+  protected $wildfireSettingsType = FirewallEndpointWildfireSettings::class;
+  protected $wildfireSettingsDataType = '';
 
   /**
    * Output only. Deprecated: List of networks that are associated with this
@@ -339,6 +341,22 @@ class FirewallEndpoint extends \Google\Collection
   public function getUpdateTime()
   {
     return $this->updateTime;
+  }
+  /**
+   * Optional. Settings for WildFire analysis.
+   *
+   * @param FirewallEndpointWildfireSettings $wildfireSettings
+   */
+  public function setWildfireSettings(FirewallEndpointWildfireSettings $wildfireSettings)
+  {
+    $this->wildfireSettings = $wildfireSettings;
+  }
+  /**
+   * @return FirewallEndpointWildfireSettings
+   */
+  public function getWildfireSettings()
+  {
+    return $this->wildfireSettings;
   }
 }
 
