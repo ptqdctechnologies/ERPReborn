@@ -24,6 +24,10 @@
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                     Total Budget
                 </th>
+                <th
+                    style="display: <?= isset($advance_id) ? 'table-cell' : 'none'; ?>;padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
+                    ASF Value
+                </th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                     Currency
                 </th>
