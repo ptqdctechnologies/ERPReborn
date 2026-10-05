@@ -472,12 +472,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::get('AdvanceRequest/picklist', 'AdvancePickList')
             ->name('AdvanceRequest.AdvancePickList');
 
-        Route::post('AdvanceRequest/revision', 'RevisionAdvanceIndex')
-            ->name('AdvanceRequest.RevisionAdvanceIndex');
-
-        Route::post('AdvanceRequest/updates', 'UpdatesAdvanceRequest')
-            ->name('AdvanceRequest.UpdatesAdvanceRequest');
-
         Route::get('ReportAdvanceToASF', 'ReportAdvanceToASF')
             ->name('AdvanceRequest.ReportAdvanceToASF');
 
