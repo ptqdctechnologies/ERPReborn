@@ -93,6 +93,7 @@ class AdvanceRequestService
         $beneficiaryID = $request->input('beneficiary_id');
         $accountNumberID = $request->input('account_number_id');
         $remark = $request->input('remark');
+        $remark = preg_replace('/[^\p{L}\p{N}\s.,\-\/()]/u', '', $remark);
 
         $budgetDetails = $request->input('additionalData', []);
         $items = collect($budgetDetails)
@@ -125,6 +126,69 @@ class AdvanceRequestService
             'transaction.create.finance.setAdvance',
             'latest',
             [
+                'entities' => [
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID ? (int) $fileID : NULL,
+                    "requesterWorkerJobsPosition_RefID" => (int) $requesterID,
+                    "beneficiaryWorkerJobsPosition_RefID" => (int) $beneficiaryID,
+                    "beneficiaryBankAccount_RefID" => (int) $accountNumberID,
+                    "internalNotes" => NULL,
+                    "remarks" => $remark,
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $items
+                        ]
+                    ]
+                ]
+            ]
+        );
+    }
+
+    public function update($request, $id): mixed
+    {
+        $token = Session::get('SessionLogin');
+
+        $beneficiaryID = $request->input('beneficiary_id');
+        $fileID = $request->input('advance_attachment');
+        $requesterID = $request->input('requester_id');
+        $beneficiaryID = $request->input('beneficiary_id');
+        $accountNumberID = $request->input('account_number_id');
+        $remark = $request->input('remark');
+        $remark = preg_replace('/[^\p{L}\p{N}\s.,\-\/()]/u', '', $remark);
+
+        $budgetDetails = $request->input('additionalData', []);
+        $items = collect($budgetDetails)
+            ->filter(
+                fn($entity) =>
+                    filled($entity['productUnitPriceCurrencyValue'] ?? null) &&
+                    filled($entity['quantity'] ?? null)
+            )
+            ->map(function ($entity) {
+                return [
+                    'recordID' => $entity['recordID'] ? (int) $entity['recordID'] : NULL,
+                    'entities' => [
+                        'workStructure_RefID' => (int) $entity['workStructure_RefID'],
+                        'combinedBudgetSectionDetail_RefID' => (int) $entity['combinedBudgetSectionDetail_RefID'],
+                        'product_RefID' => (int) $entity['product_RefID'],
+                        'quantity' => (float) number_format($entity['quantity'], 2),
+                        'quantityUnit_RefID' => (int) $entity['quantityUnit_RefID'],
+                        'productUnitPriceCurrency_RefID' => (int) $entity['productUnitPriceCurrency_RefID'],
+                        'productUnitPriceCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
+                        'productUnitPriceCurrencyExchangeRate' => (float) number_format($entity['productUnitPriceCurrencyExchangeRate'], 2),
+                        'remarks' => $entity['remarks'] ?? NULL,
+                    ]
+                ];
+            })
+            ->values()
+            ->all();
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.update.finance.setAdvance',
+            'latest',
+            [
+                'recordID' => (int) $id,
                 'entities' => [
                     "documentDateTimeTZ" => date('Y-m-d'),
                     "log_FileUpload_Pointer_RefID" => $fileID ? (int) $fileID : NULL,
