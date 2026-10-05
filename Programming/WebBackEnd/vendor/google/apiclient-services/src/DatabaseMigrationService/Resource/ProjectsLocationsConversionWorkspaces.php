@@ -23,12 +23,16 @@ use Google\Service\DatabaseMigrationService\ConversionWorkspace;
 use Google\Service\DatabaseMigrationService\ConvertConversionWorkspaceRequest;
 use Google\Service\DatabaseMigrationService\DescribeConversionWorkspaceRevisionsResponse;
 use Google\Service\DatabaseMigrationService\DescribeDatabaseEntitiesResponse;
+use Google\Service\DatabaseMigrationService\FetchEntitiesStatusViewResponse;
+use Google\Service\DatabaseMigrationService\FetchIssuesResponse;
 use Google\Service\DatabaseMigrationService\ListConversionWorkspacesResponse;
 use Google\Service\DatabaseMigrationService\Operation;
 use Google\Service\DatabaseMigrationService\Policy;
 use Google\Service\DatabaseMigrationService\RollbackConversionWorkspaceRequest;
 use Google\Service\DatabaseMigrationService\SearchBackgroundJobsResponse;
 use Google\Service\DatabaseMigrationService\SeedConversionWorkspaceRequest;
+use Google\Service\DatabaseMigrationService\SetDraftEntityDdlRequest;
+use Google\Service\DatabaseMigrationService\SetDraftEntityDdlResponse;
 use Google\Service\DatabaseMigrationService\SetIamPolicyRequest;
 use Google\Service\DatabaseMigrationService\TestIamPermissionsRequest;
 use Google\Service\DatabaseMigrationService\TestIamPermissionsResponse;
@@ -204,6 +208,80 @@ class ProjectsLocationsConversionWorkspaces extends \Google\Service\Resource
     return $this->call('describeDatabaseEntities', [$params], DescribeDatabaseEntitiesResponse::class);
   }
   /**
+   * An internal, RPC only method that returns a list of the (filtered) entities
+   * with minimal information required for the entities tree view.
+   * (conversionWorkspaces.fetchEntitiesStatusView)
+   *
+   * @param string $conversionWorkspace Required. Name of the conversion workspace
+   * resource whose database entities are described. Must be in the form of: proje
+   * cts/{project}/locations/{location}/conversionWorkspaces/{conversion_workspace
+   * }.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string fetchView Optional. The view to fetch. If not specified,
+   * FULL is used.
+   * @opt_param string filter Optional. Filter the returned entities based on
+   * AIP-160 standard.
+   * @opt_param int pageSize Optional. The maximum number of entities to return.
+   * The service may return fewer entities than the value specifies. Default is
+   * 100000.
+   * @opt_param string pageToken Optional. The nextPageToken value received in the
+   * previous call to conversionWorkspace.FetchEntitiesStatusView, used in the
+   * subsequent request to retrieve the next page of results. On first call this
+   * should be left blank. When paginating, all other parameters provided to
+   * conversionWorkspace.FetchEntitiesStatusView must match the call that provided
+   * the page token, except for the page_size parameter.
+   * @opt_param string tree Required. The tree to fetch.
+   * @return FetchEntitiesStatusViewResponse
+   * @throws \Google\Service\Exception
+   */
+  public function fetchEntitiesStatusView($conversionWorkspace, $optParams = [])
+  {
+    $params = ['conversionWorkspace' => $conversionWorkspace];
+    $params = array_merge($params, $optParams);
+    return $this->call('fetchEntitiesStatusView', [$params], FetchEntitiesStatusViewResponse::class);
+  }
+  /**
+   * List issues of conversion workspace operations e.g. conversion.
+   * (conversionWorkspaces.fetchIssues)
+   *
+   * @param string $conversionWorkspace Required. Conversion workspace with issues
+   * to fetch. Must be in the form of: projects/{project}/locations/{location}/con
+   * versionWorkspaces/{conversion_workspace}.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param bool allIssues Optional. If 'true', gets all issues matching the
+   * filter. Otherwise, for each entity only the issues matching the DdlKind
+   * chosen for application on the destination are returned.
+   * @opt_param string filter Optional. AIP-160 standard filter. Supporting both
+   * entity and issue fields. Supported fields: - `name` / `fullname`: The entity
+   * full name. - `type`: The entity type (e.g. `TABLE`, `VIEW`, `INDEX`,
+   * `TRIGGER`). - `ddlkind`: The kind of DDL (e.g. `DDL_KIND_SOURCE`,
+   * `DDL_KIND_AI`, `DDL_KIND_DETERMINISTIC`). - `issue.severity`: The severity of
+   * the issue (e.g. `INFO`, `WARNING`, `ERROR`). - `issue.state`: The state of
+   * the issue (e.g. `OPEN`, `RESOLVED`). - `issue.origin`: The origin of the
+   * issue (e.g. `DETERMINISTIC`, `AI`). - `issue.category_id`: The category ID of
+   * the issue. - `issue.group_id`: The group ID of the issue.
+   * @opt_param int pageSize Optional. The maximum number of issues to return. The
+   * service may return fewer issues than the value specifies.
+   * @opt_param string pageToken Optional. The FetchIssuesResponse.next_page_token
+   * value received in the previous call to FetchIssues, used in the subsequent
+   * request to retrieve the next page of results. On first call this should be
+   * left blank. When paginating, all other parameters provided to FetchIssues
+   * must match the call that provided the page token, except for the page_size
+   * parameter.
+   * @opt_param string tree Optional. The tree to fetch issues from. If not
+   * specified, source tree is assumed.
+   * @return FetchIssuesResponse
+   * @throws \Google\Service\Exception
+   */
+  public function fetchIssues($conversionWorkspace, $optParams = [])
+  {
+    $params = ['conversionWorkspace' => $conversionWorkspace];
+    $params = array_merge($params, $optParams);
+    return $this->call('fetchIssues', [$params], FetchIssuesResponse::class);
+  }
+  /**
    * Gets details of a single conversion workspace. (conversionWorkspaces.get)
    *
    * @param string $name Required. Name of the conversion workspace resource to
@@ -372,6 +450,23 @@ class ProjectsLocationsConversionWorkspaces extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('seed', [$params], Operation::class);
+  }
+  /**
+   * Updates the draft DDL of an entity. (conversionWorkspaces.setDraftEntityDdl)
+   *
+   * @param string $conversionWorkspace Required. Name of the conversion workspace
+   * resource in the form of: projects/{project}/locations/{location}/conversionWo
+   * rkspaces/{conversion_workspace}.
+   * @param SetDraftEntityDdlRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return SetDraftEntityDdlResponse
+   * @throws \Google\Service\Exception
+   */
+  public function setDraftEntityDdl($conversionWorkspace, SetDraftEntityDdlRequest $postBody, $optParams = [])
+  {
+    $params = ['conversionWorkspace' => $conversionWorkspace, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('setDraftEntityDdl', [$params], SetDraftEntityDdlResponse::class);
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any

@@ -238,10 +238,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -297,10 +293,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -340,10 +332,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -442,10 +430,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'move' => [
@@ -610,10 +594,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -711,10 +691,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -841,10 +817,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -966,10 +938,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listUsable' => [
               'path' => 'projects/{project}/global/backendBuckets/listUsable',
@@ -995,10 +963,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -1145,10 +1109,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -1301,10 +1261,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listUsable' => [
               'path' => 'projects/{project}/global/backendServices/listUsable',
@@ -1330,10 +1286,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -1529,10 +1481,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/crossSiteNetworks/{crossSiteNetwork}',
@@ -1600,10 +1548,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -1658,10 +1602,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -1726,10 +1666,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -1926,10 +1862,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'removeResourcePolicies' => [
@@ -2251,10 +2183,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setLabels' => [
               'path' => 'projects/{project}/global/externalVpnGateways/{resource}/setLabels',
@@ -2448,10 +2376,6 @@ class Compute extends \Google\Service
                 'parentId' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'listAssociations' => [
@@ -2656,10 +2580,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/firewalls/{firewall}',
@@ -2752,10 +2672,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -2858,10 +2774,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -2974,10 +2886,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -3101,10 +3009,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'update' => [
               'path' => 'projects/{project}/zones/{zone}/futureReservations/{futureReservation}',
@@ -3216,10 +3120,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'move' => [
@@ -3357,10 +3257,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -3575,10 +3471,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listNetworkEndpoints' => [
               'path' => 'projects/{project}/global/networkEndpointGroups/{networkEndpointGroup}/listNetworkEndpoints',
@@ -3609,10 +3501,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -3653,10 +3541,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -3717,10 +3601,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'wait' => [
@@ -3799,10 +3679,6 @@ class Compute extends \Google\Service
                 'parentId' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -3888,10 +3764,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/publicDelegatedPrefixes/{publicDelegatedPrefix}',
@@ -3950,10 +3822,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -4033,10 +3901,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'update' => [
               'path' => 'projects/{project}/global/vmExtensionPolicies/{globalVmExtensionPolicy}',
@@ -4095,10 +3959,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -4177,10 +4037,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -4335,10 +4191,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -4422,10 +4274,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -4563,10 +4411,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -4712,10 +4556,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -4856,10 +4696,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -5078,10 +4914,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -5145,10 +4977,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -5344,10 +5172,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listErrors' => [
               'path' => 'projects/{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/listErrors',
@@ -5383,10 +5207,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'listManagedInstances' => [
@@ -5424,10 +5244,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listPerInstanceConfigs' => [
               'path' => 'projects/{project}/zones/{zone}/instanceGroupManagers/{instanceGroupManager}/listPerInstanceConfigs',
@@ -5463,10 +5279,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -5809,10 +5621,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -5911,10 +5719,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listInstances' => [
               'path' => 'projects/{project}/zones/{zone}/instanceGroups/{instanceGroup}/listInstances',
@@ -5950,10 +5754,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'removeInstances' => [
@@ -6111,10 +5911,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -6211,10 +6007,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setIamPolicy' => [
@@ -6362,10 +6154,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -6761,10 +6549,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listReferrers' => [
               'path' => 'projects/{project}/zones/{zone}/instances/{instance}/referrers',
@@ -6800,10 +6584,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'performMaintenance' => [
@@ -7721,10 +7501,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/zones/{zone}/instantSnapshotGroups/{resource}/setIamPolicy',
@@ -7804,10 +7580,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -7930,10 +7702,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setIamPolicy' => [
@@ -8117,10 +7885,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/interconnectAttachmentGroups/{interconnectAttachmentGroup}',
@@ -8213,10 +7977,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -8319,10 +8079,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -8505,10 +8261,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/interconnectGroups/{interconnectGroup}',
@@ -8613,10 +8365,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -8667,10 +8415,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -8786,10 +8530,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/interconnects/{interconnect}',
@@ -8823,6 +8563,25 @@ class Compute extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+              ],
+            ],'setName' => [
+              'path' => 'projects/{project}/global/interconnects/{interconnect}/setName',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'project' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'interconnect' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'requestId' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],
@@ -9001,10 +8760,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/global/licenses/{resource}/setIamPolicy',
@@ -9165,10 +8920,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/global/machineImages/{resource}/setIamPolicy',
@@ -9254,10 +9005,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -9313,10 +9060,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -9368,10 +9111,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -9411,10 +9150,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -9538,10 +9273,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/networkAttachments/{networkAttachment}',
@@ -9645,10 +9376,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -9793,10 +9520,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -9944,10 +9667,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listNetworkEndpoints' => [
               'path' => 'projects/{project}/zones/{zone}/networkEndpointGroups/{networkEndpointGroup}/listNetworkEndpoints',
@@ -9983,10 +9702,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'testIamPermissions' => [
@@ -10124,10 +9839,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -10305,10 +10016,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -10525,10 +10232,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -10666,10 +10369,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listPeeringRoutes' => [
               'path' => 'projects/{project}/global/networks/{network}/listPeeringRoutes',
@@ -10712,10 +10411,6 @@ class Compute extends \Google\Service
                 'region' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -10876,10 +10571,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -11031,10 +10722,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listNodes' => [
               'path' => 'projects/{project}/zones/{zone}/nodeGroups/{nodeGroup}/listNodes',
@@ -11070,10 +10757,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -11251,10 +10934,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -11377,10 +11056,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/regions/{region}/nodeTemplates/{resource}/setIamPolicy',
@@ -11461,10 +11136,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -11519,10 +11190,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -11674,10 +11341,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listAssociations' => [
               'path' => 'locations/global/securityPolicies/listAssociations',
@@ -11711,10 +11374,6 @@ class Compute extends \Google\Service
                 'parentId' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'move' => [
@@ -11842,10 +11501,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -11944,10 +11599,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/packetMirrorings/{packetMirroring}',
@@ -12042,10 +11693,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'update' => [
@@ -12203,10 +11850,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listXpnHosts' => [
               'path' => 'projects/{project}/listXpnHosts',
@@ -12232,10 +11875,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'moveDisk' => [
@@ -12424,10 +12063,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/publicAdvertisedPrefixes/{publicAdvertisedPrefix}',
@@ -12505,10 +12140,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -12631,10 +12262,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -12787,10 +12414,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -12986,10 +12609,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listUsable' => [
               'path' => 'projects/{project}/regions/{region}/backendBuckets/listUsable',
@@ -13020,10 +12639,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -13237,10 +12852,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listUsable' => [
               'path' => 'projects/{project}/regions/{region}/backendServices/listUsable',
@@ -13271,10 +12882,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -13428,10 +13035,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -13506,10 +13109,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'update' => [
               'path' => 'projects/{project}/regions/{region}/commitments/{commitment}',
@@ -13582,10 +13181,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -13705,10 +13300,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/compositeHealthChecks/{compositeHealthCheck}',
@@ -13813,10 +13404,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -14016,10 +13603,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'removeResourcePolicies' => [
@@ -14297,10 +13880,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -14398,10 +13977,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -14487,10 +14062,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -14588,10 +14159,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -14741,10 +14308,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/healthChecks/{healthCheck}',
@@ -14852,10 +14415,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -14974,10 +14533,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -15175,10 +14730,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -15404,10 +14955,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listErrors' => [
               'path' => 'projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/listErrors',
@@ -15443,10 +14990,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'listManagedInstances' => [
@@ -15484,10 +15027,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listPerInstanceConfigs' => [
               'path' => 'projects/{project}/regions/{region}/instanceGroupManagers/{instanceGroupManager}/listPerInstanceConfigs',
@@ -15523,10 +15062,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -15866,10 +15401,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listInstances' => [
               'path' => 'projects/{project}/regions/{region}/instanceGroups/{instanceGroup}/listInstances',
@@ -15905,10 +15436,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setNamedPorts' => [
@@ -16057,10 +15584,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -16222,10 +15745,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setIamPolicy' => [
@@ -16394,10 +15913,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setIamPolicy' => [
@@ -16615,10 +16130,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listNetworkEndpoints' => [
               'path' => 'projects/{project}/regions/{region}/networkEndpointGroups/{networkEndpointGroup}/listNetworkEndpoints',
@@ -16654,10 +16165,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -16947,10 +16454,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/regions/{region}/firewallPolicies/{firewallPolicy}',
@@ -17163,10 +16666,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -17264,10 +16763,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'testIamPermissions' => [
@@ -17369,10 +16864,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'wait' => [
@@ -17549,10 +17040,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -17838,10 +17325,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/regions/{region}/snapshots/{resource}/setIamPolicy',
@@ -18034,10 +17517,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -18142,10 +17621,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listAvailableFeatures' => [
               'path' => 'projects/{project}/regions/{region}/sslPolicies/listAvailableFeatures',
@@ -18176,10 +17651,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -18309,10 +17780,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setUrlMap' => [
               'path' => 'projects/{project}/regions/{region}/targetHttpProxies/{targetHttpProxy}/setUrlMap',
@@ -18440,10 +17907,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -18621,10 +18084,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -18728,10 +18187,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -18842,10 +18297,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -18897,10 +18348,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -18951,10 +18398,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -19059,10 +18502,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'performMaintenance' => [
@@ -19272,10 +18711,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'update' => [
               'path' => 'projects/{project}/zones/{zone}/{+parentName}/reservationSlots/{reservationSlot}',
@@ -19438,10 +18873,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'performMaintenance' => [
               'path' => 'projects/{project}/zones/{zone}/{+parentName}/reservationSubBlocks/{reservationSubBlock}/performMaintenance',
@@ -19590,10 +19021,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -19715,10 +19142,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'performMaintenance' => [
@@ -19881,10 +19304,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -20006,10 +19425,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -20163,10 +19578,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -20283,10 +19694,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'pause' => [
               'path' => 'projects/{project}/global/rollouts/{rollout}/pause',
@@ -20372,10 +19779,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -20569,10 +19972,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'getRoutePolicy' => [
               'path' => 'projects/{project}/regions/{region}/routers/{router}/getRoutePolicy',
@@ -20667,10 +20066,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listBgpRoutes' => [
               'path' => 'projects/{project}/regions/{region}/routers/{router}/listBgpRoutes',
@@ -20723,10 +20118,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'boolean',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'routeType' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -20767,10 +20158,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listRoutePolicies' => [
               'path' => 'projects/{project}/regions/{region}/routers/{router}/listRoutePolicies',
@@ -20806,10 +20193,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -21059,10 +20442,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'testIamPermissions' => [
               'path' => 'projects/{project}/global/routes/{resource}/testIamPermissions',
@@ -21136,10 +20515,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -21242,10 +20617,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listPreconfiguredExpressionSets' => [
               'path' => 'projects/{project}/global/securityPolicies/listPreconfiguredExpressionSets',
@@ -21271,10 +20642,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -21399,10 +20766,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -21529,10 +20892,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -21739,10 +21098,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setIamPolicy' => [
               'path' => 'projects/{project}/global/snapshots/{resource}/setIamPolicy',
@@ -21847,10 +21202,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -21928,10 +21279,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -21973,10 +21320,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -22055,10 +21398,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listAvailableFeatures' => [
               'path' => 'projects/{project}/global/sslPolicies/listAvailableFeatures',
@@ -22084,10 +21423,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -22148,10 +21483,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -22207,10 +21538,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],
           ]
@@ -22250,10 +21577,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -22377,10 +21700,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'listDisks' => [
               'path' => 'projects/{project}/zones/{zone}/storagePools/{storagePool}/listDisks',
@@ -22416,10 +21735,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setIamPolicy' => [
@@ -22528,10 +21843,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -22689,10 +22000,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'views' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -22723,10 +22030,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProject' => [
                   'location' => 'query',
@@ -22908,10 +22211,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/targetGrpcProxies/{targetGrpcProxy}',
@@ -22970,10 +22269,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -23052,10 +22347,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -23135,10 +22426,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -23216,10 +22503,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -23375,10 +22658,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -23476,10 +22755,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setSecurityPolicy' => [
@@ -23613,10 +22888,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -23734,10 +23005,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'removeHealthCheck' => [
@@ -23943,10 +23210,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setBackendService' => [
               'path' => 'projects/{project}/global/targetSslProxies/{targetSslProxy}/setBackendService',
@@ -24097,10 +23360,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -24178,10 +23437,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setBackendService' => [
@@ -24276,10 +23531,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -24378,10 +23629,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setLabels' => [
               'path' => 'projects/{project}/regions/{region}/targetVpnGateways/{resource}/setLabels',
@@ -24445,10 +23692,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -24546,10 +23789,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'patch' => [
@@ -24658,10 +23897,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -24781,10 +24016,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'setLabels' => [
               'path' => 'projects/{project}/regions/{region}/vpnGateways/{resource}/setLabels',
@@ -24868,10 +24099,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
                 'serviceProjectNumber' => [
                   'location' => 'query',
@@ -24970,10 +24197,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'setLabels' => [
@@ -25107,10 +24330,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'patch' => [
               'path' => 'projects/{project}/global/crossSiteNetworks/{crossSiteNetwork}/wireGroups/{wireGroup}',
@@ -25223,10 +24442,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],'wait' => [
@@ -25352,10 +24567,6 @@ class Compute extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
-                ],
               ],
             ],'update' => [
               'path' => 'projects/{project}/zones/{zone}/vmExtensionPolicies/{vmExtensionPolicy}',
@@ -25430,10 +24641,6 @@ class Compute extends \Google\Service
                 'pageToken' => [
                   'location' => 'query',
                   'type' => 'string',
-                ],
-                'returnPartialSuccess' => [
-                  'location' => 'query',
-                  'type' => 'boolean',
                 ],
               ],
             ],

@@ -37,6 +37,12 @@ class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
   public const ENVIRONMENT_ENVIRONMENT_DESKTOP = 'ENVIRONMENT_DESKTOP';
   protected $collection_key = 'excludedPredefinedFunctions';
   /**
+   * Optional. Disabled safety policies for computer use.
+   *
+   * @var string[]
+   */
+  public $disabledSafetyPolicies;
+  /**
    * Optional. Enables the prompt injection detection check on computer-use
    * request.
    *
@@ -61,6 +67,22 @@ class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
    */
   public $excludedPredefinedFunctions;
 
+  /**
+   * Optional. Disabled safety policies for computer use.
+   *
+   * @param string[] $disabledSafetyPolicies
+   */
+  public function setDisabledSafetyPolicies($disabledSafetyPolicies)
+  {
+    $this->disabledSafetyPolicies = $disabledSafetyPolicies;
+  }
+  /**
+   * @return string[]
+   */
+  public function getDisabledSafetyPolicies()
+  {
+    return $this->disabledSafetyPolicies;
+  }
   /**
    * Optional. Enables the prompt injection detection check on computer-use
    * request.

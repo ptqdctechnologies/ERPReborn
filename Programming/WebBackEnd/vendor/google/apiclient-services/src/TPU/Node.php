@@ -61,6 +61,26 @@ class Node extends \Google\Collection
    */
   public const HEALTH_UNHEALTHY_MAINTENANCE = 'UNHEALTHY_MAINTENANCE';
   /**
+   * Protection tier is unknown.
+   */
+  public const PROTECTION_TIER_PROTECTION_TIER_UNSPECIFIED = 'PROTECTION_TIER_UNSPECIFIED';
+  /**
+   * STANDARD protection for workload that should be protected by redundancies
+   * (e.g. power, cooling) at the data center level. In the event of
+   * infrastructure failures at data center (e.g. power and/or cooling
+   * failures), this workload is expected to continue as normal using the
+   * redundancies.
+   */
+  public const PROTECTION_TIER_STANDARD = 'STANDARD';
+  /**
+   * CAPACITY_OPTIMIZED capacity leverages redundancies (e.g. power, cooling) at
+   * the data center during normal operating conditions. In the event of
+   * infrastructure failures at data center (e.g. power and/or cooling
+   * failures), this workload may be disrupted. As a consequence, it has a
+   * weaker availability SLO than STANDARD.
+   */
+  public const PROTECTION_TIER_CAPACITY_OPTIMIZED = 'CAPACITY_OPTIMIZED';
+  /**
    * TPU node state is not known/set.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -220,6 +240,14 @@ class Node extends \Google\Collection
   protected $networkConfigsDataType = 'array';
   protected $networkEndpointsType = NetworkEndpoint::class;
   protected $networkEndpointsDataType = 'array';
+  /**
+   * Output only. Protection tier for the workload which specifies the workload
+   * expectations in the event of infrastructure failures at data center (e.g.
+   * power and/or cooling failures).
+   *
+   * @var string
+   */
+  public $protectionTier;
   /**
    * Output only. The qualified name of the QueuedResource that requested this
    * Node.
@@ -565,6 +593,26 @@ class Node extends \Google\Collection
   public function getNetworkEndpoints()
   {
     return $this->networkEndpoints;
+  }
+  /**
+   * Output only. Protection tier for the workload which specifies the workload
+   * expectations in the event of infrastructure failures at data center (e.g.
+   * power and/or cooling failures).
+   *
+   * Accepted values: PROTECTION_TIER_UNSPECIFIED, STANDARD, CAPACITY_OPTIMIZED
+   *
+   * @param self::PROTECTION_TIER_* $protectionTier
+   */
+  public function setProtectionTier($protectionTier)
+  {
+    $this->protectionTier = $protectionTier;
+  }
+  /**
+   * @return self::PROTECTION_TIER_*
+   */
+  public function getProtectionTier()
+  {
+    return $this->protectionTier;
   }
   /**
    * Output only. The qualified name of the QueuedResource that requested this

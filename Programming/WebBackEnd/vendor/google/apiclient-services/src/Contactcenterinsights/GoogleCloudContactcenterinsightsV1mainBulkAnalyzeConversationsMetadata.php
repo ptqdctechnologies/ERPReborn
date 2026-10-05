@@ -47,9 +47,11 @@ class GoogleCloudContactcenterinsightsV1mainBulkAnalyzeConversationsMetadata ext
   protected $partialErrorsType = GoogleRpcStatus::class;
   protected $partialErrorsDataType = 'array';
   /**
-   * Output only. If true, the labeling rules will be re-evaluated for the
-   * conversations.
+   * Output only. Deprecated: Use
+   * `request.annotator_selector.run_auto_labeling_annotator` instead. If true,
+   * the labeling rules will be re-evaluated for the conversations.
    *
+   * @deprecated
    * @var bool
    */
   public $relabel;
@@ -145,9 +147,11 @@ class GoogleCloudContactcenterinsightsV1mainBulkAnalyzeConversationsMetadata ext
     return $this->partialErrors;
   }
   /**
-   * Output only. If true, the labeling rules will be re-evaluated for the
-   * conversations.
+   * Output only. Deprecated: Use
+   * `request.annotator_selector.run_auto_labeling_annotator` instead. If true,
+   * the labeling rules will be re-evaluated for the conversations.
    *
+   * @deprecated
    * @param bool $relabel
    */
   public function setRelabel($relabel)
@@ -155,6 +159,7 @@ class GoogleCloudContactcenterinsightsV1mainBulkAnalyzeConversationsMetadata ext
     $this->relabel = $relabel;
   }
   /**
+   * @deprecated
    * @return bool
    */
   public function getRelabel()

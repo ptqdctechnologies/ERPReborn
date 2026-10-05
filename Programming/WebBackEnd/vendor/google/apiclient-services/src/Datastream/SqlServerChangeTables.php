@@ -19,6 +19,25 @@ namespace Google\Service\Datastream;
 
 class SqlServerChangeTables extends \Google\Model
 {
+  protected $ddlConfigType = SqlServerDdlConfig::class;
+  protected $ddlConfigDataType = '';
+
+  /**
+   * Optional. DDL configuration for change tables.
+   *
+   * @param SqlServerDdlConfig $ddlConfig
+   */
+  public function setDdlConfig(SqlServerDdlConfig $ddlConfig)
+  {
+    $this->ddlConfig = $ddlConfig;
+  }
+  /**
+   * @return SqlServerDdlConfig
+   */
+  public function getDdlConfig()
+  {
+    return $this->ddlConfig;
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

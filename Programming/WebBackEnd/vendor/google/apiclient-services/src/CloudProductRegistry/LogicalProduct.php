@@ -29,8 +29,11 @@ class LogicalProduct extends \Google\Collection
    */
   public const LIFECYCLE_STATE_LIFECYCLE_STATE_PUBLIC_PREVIEW = 'LIFECYCLE_STATE_PUBLIC_PREVIEW';
   /**
-   * The entity is in Private General Availability. It is fully supported and
+   * Deprecated: Private General Availability entities are not exposed. The
+   * entity is in Private General Availability. It is fully supported and
    * stable, but only available to a select group of customers.
+   *
+   * @deprecated
    */
   public const LIFECYCLE_STATE_LIFECYCLE_STATE_PRIVATE_GA = 'LIFECYCLE_STATE_PRIVATE_GA';
   /**

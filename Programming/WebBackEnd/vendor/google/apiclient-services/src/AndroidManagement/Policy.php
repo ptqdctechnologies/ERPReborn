@@ -1005,7 +1005,8 @@ class Policy extends \Google\Collection
     return $this->adjustVolumeDisabled;
   }
   /**
-   * Advanced security settings. In most cases, setting these is not needed.
+   * Optional. Advanced security settings. In most cases, setting these is not
+   * needed.
    *
    * @param AdvancedSecurityOverrides $advancedSecurityOverrides
    */
@@ -1457,7 +1458,7 @@ class Policy extends \Google\Collection
     return $this->crossDevicePolicies;
   }
   /**
-   * Cross-profile policies applied on the device.
+   * Optional. Cross-profile policies applied on the device.
    *
    * @param CrossProfilePolicies $crossProfilePolicies
    */
@@ -1813,9 +1814,9 @@ class Policy extends \Google\Collection
     return $this->kioskCustomLauncherEnabled;
   }
   /**
-   * Settings controlling the behavior of a device in kiosk mode. To enable
-   * kiosk mode, set kioskCustomLauncherEnabled to true or specify an app in the
-   * policy with installType KIOSK.
+   * Optional. Settings controlling the behavior of a device in kiosk mode. To
+   * enable kiosk mode, set kioskCustomLauncherEnabled to true or specify an app
+   * in the policy with installType KIOSK.
    *
    * @param KioskCustomization $kioskCustomization
    */
@@ -2097,9 +2098,9 @@ class Policy extends \Google\Collection
     return $this->outgoingCallsDisabled;
   }
   /**
-   * Password requirement policies. Different policies can be set for work
-   * profile or fully managed devices by setting the password_scope field in the
-   * policy.
+   * Optional. Password requirement policies. Different policies can be set for
+   * work profile or fully managed devices by setting the password_scope field
+   * in the policy.
    *
    * @param PasswordRequirements[] $passwordPolicies
    */
@@ -2657,7 +2658,7 @@ class Policy extends \Google\Collection
     return $this->unmuteMicrophoneDisabled;
   }
   /**
-   * Configuration of device activity logging.
+   * Optional. Configuration of device activity logging.
    *
    * @param UsageLog $usageLog
    */

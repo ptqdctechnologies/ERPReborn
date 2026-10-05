@@ -150,6 +150,8 @@ class JobConfigurationQuery extends \Google\Collection
   public $schemaUpdateOptions;
   protected $scriptOptionsType = ScriptOptions::class;
   protected $scriptOptionsDataType = '';
+  protected $secureContextType = SecureContext::class;
+  protected $secureContextDataType = '';
   protected $systemVariablesType = SystemVariables::class;
   protected $systemVariablesDataType = '';
   protected $tableDefinitionsType = ExternalDataConfiguration::class;
@@ -575,6 +577,25 @@ class JobConfigurationQuery extends \Google\Collection
   public function getScriptOptions()
   {
     return $this->scriptOptions;
+  }
+  /**
+   * Optional. A set of key-value pairs representing the secure context. This
+   * can be used to pass sensitive or context-specific information. They can be
+   * retrieved via the SECURE_CONTEXT() function and used to modify the run-time
+   * behavior of a query.
+   *
+   * @param SecureContext $secureContext
+   */
+  public function setSecureContext(SecureContext $secureContext)
+  {
+    $this->secureContext = $secureContext;
+  }
+  /**
+   * @return SecureContext
+   */
+  public function getSecureContext()
+  {
+    return $this->secureContext;
   }
   /**
    * Output only. System variables for GoogleSQL queries. A system variable is

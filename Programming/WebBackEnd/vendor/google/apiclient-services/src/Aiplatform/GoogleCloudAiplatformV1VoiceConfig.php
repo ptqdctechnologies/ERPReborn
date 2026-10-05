@@ -23,6 +23,15 @@ class GoogleCloudAiplatformV1VoiceConfig extends \Google\Model
   protected $prebuiltVoiceConfigDataType = '';
   protected $replicatedVoiceConfigType = GoogleCloudAiplatformV1ReplicatedVoiceConfig::class;
   protected $replicatedVoiceConfigDataType = '';
+  /**
+   * Optional. The speaker identifier for synthesis. Supported formats: *
+   * Speaker name for prebuilt voices (for example, `Orus` or `Kore`). * Voice
+   * ID for stored voices (for example, `voice_xxx`). * Voice replication key
+   * (for example, `voicekey_xxx`).
+   *
+   * @var string
+   */
+  public $voice;
 
   /**
    * The configuration for a prebuilt voice.
@@ -56,6 +65,25 @@ class GoogleCloudAiplatformV1VoiceConfig extends \Google\Model
   public function getReplicatedVoiceConfig()
   {
     return $this->replicatedVoiceConfig;
+  }
+  /**
+   * Optional. The speaker identifier for synthesis. Supported formats: *
+   * Speaker name for prebuilt voices (for example, `Orus` or `Kore`). * Voice
+   * ID for stored voices (for example, `voice_xxx`). * Voice replication key
+   * (for example, `voicekey_xxx`).
+   *
+   * @param string $voice
+   */
+  public function setVoice($voice)
+  {
+    $this->voice = $voice;
+  }
+  /**
+   * @return string
+   */
+  public function getVoice()
+  {
+    return $this->voice;
   }
 }
 

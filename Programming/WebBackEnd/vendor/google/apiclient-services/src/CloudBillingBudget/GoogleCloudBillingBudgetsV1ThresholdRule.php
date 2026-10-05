@@ -31,19 +31,24 @@ class GoogleCloudBillingBudgetsV1ThresholdRule extends \Google\Model
    * Use forecasted spend for the period as the basis for comparison against the
    * threshold. FORECASTED_SPEND can only be set when the budget's time period
    * is a Filter.calendar_period. It cannot be set in combination with
-   * Filter.custom_period.
+   * Filter.custom_period. Not supported when `spend_cap` is set.
    */
   public const SPEND_BASIS_FORECASTED_SPEND = 'FORECASTED_SPEND';
   /**
    * Optional. The type of basis used to determine if spend has passed the
-   * threshold. Behavior defaults to CURRENT_SPEND if not set.
+   * threshold. Behavior defaults to CURRENT_SPEND if not set. When `spend_cap`
+   * is set on the budget, must be `CURRENT_SPEND` or `BASIS_UNSPECIFIED`.
+   * `FORECASTED_SPEND` is not supported.
    *
    * @var string
    */
   public $spendBasis;
   /**
    * Required. Send an alert when this threshold is exceeded. This is a
-   * 1.0-based percentage, so 0.5 = 50%. Validation: non-negative number.
+   * 1.0-based percentage, so 0.5 = 50%. Validation: non-negative number. When
+   * `spend_cap` is set on the budget, `threshold_rules` must contain exactly
+   * three rules with `threshold_percent` values of `0.5`, `0.8`, and `1.0`
+   * (50%, 80%, and 100%).
    *
    * @var 
    */
@@ -51,7 +56,9 @@ class GoogleCloudBillingBudgetsV1ThresholdRule extends \Google\Model
 
   /**
    * Optional. The type of basis used to determine if spend has passed the
-   * threshold. Behavior defaults to CURRENT_SPEND if not set.
+   * threshold. Behavior defaults to CURRENT_SPEND if not set. When `spend_cap`
+   * is set on the budget, must be `CURRENT_SPEND` or `BASIS_UNSPECIFIED`.
+   * `FORECASTED_SPEND` is not supported.
    *
    * Accepted values: BASIS_UNSPECIFIED, CURRENT_SPEND, FORECASTED_SPEND
    *

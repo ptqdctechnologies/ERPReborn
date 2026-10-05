@@ -47,7 +47,7 @@ class MulticastConsumerAssociation extends \Google\Model
    */
   public $description;
   /**
-   * Optional. Labels as key-value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @var string[]
    */
@@ -97,8 +97,9 @@ class MulticastConsumerAssociation extends \Google\Model
   /**
    * Output only. [Output only] The Google-generated UUID for the resource. This
    * value is unique across all multicast consumer association resources. If a
-   * consumer association is deleted and another with the same name is created,
-   * the new consumer association is assigned a different unique_id.
+   * multicast consumer association is deleted and another with the same name is
+   * created, the new multicast consumer association is assigned a different
+   * unique_id.
    *
    * @var string
    */
@@ -146,7 +147,7 @@ class MulticastConsumerAssociation extends \Google\Model
     return $this->description;
   }
   /**
-   * Optional. Labels as key-value pairs
+   * Optional. Labels as key-value pairs.
    *
    * @param string[] $labels
    */
@@ -273,8 +274,9 @@ class MulticastConsumerAssociation extends \Google\Model
   /**
    * Output only. [Output only] The Google-generated UUID for the resource. This
    * value is unique across all multicast consumer association resources. If a
-   * consumer association is deleted and another with the same name is created,
-   * the new consumer association is assigned a different unique_id.
+   * multicast consumer association is deleted and another with the same name is
+   * created, the new multicast consumer association is assigned a different
+   * unique_id.
    *
    * @param string $uniqueId
    */

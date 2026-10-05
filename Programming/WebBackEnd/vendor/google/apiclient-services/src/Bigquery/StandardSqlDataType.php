@@ -94,6 +94,10 @@ class StandardSqlDataType extends \Google\Model
    * with "[", end with ")", and be separated by ", ".
    */
   public const TYPE_KIND_RANGE = 'RANGE';
+  /**
+   * Encoded as a string.
+   */
+  public const TYPE_KIND_UUID = 'UUID';
   protected $arrayElementTypeType = StandardSqlDataType::class;
   protected $arrayElementTypeDataType = '';
   protected $rangeElementTypeType = StandardSqlDataType::class;
@@ -162,7 +166,7 @@ class StandardSqlDataType extends \Google\Model
    *
    * Accepted values: TYPE_KIND_UNSPECIFIED, INT64, BOOL, FLOAT64, STRING,
    * BYTES, TIMESTAMP, DATE, TIME, DATETIME, INTERVAL, GEOGRAPHY, NUMERIC,
-   * BIGNUMERIC, JSON, ARRAY, STRUCT, RANGE
+   * BIGNUMERIC, JSON, ARRAY, STRUCT, RANGE, UUID
    *
    * @param self::TYPE_KIND_* $typeKind
    */

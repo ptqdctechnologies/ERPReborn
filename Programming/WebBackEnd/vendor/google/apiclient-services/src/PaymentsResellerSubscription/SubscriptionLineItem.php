@@ -20,6 +20,18 @@ namespace Google\Service\PaymentsResellerSubscription;
 class SubscriptionLineItem extends \Google\Collection
 {
   /**
+   * The line item plan type is unspecified.
+   */
+  public const PLAN_TYPE_LINE_ITEM_PLAN_TYPE_UNSPECIFIED = 'LINE_ITEM_PLAN_TYPE_UNSPECIFIED';
+  /**
+   * The line item is the base plan in the subscription.
+   */
+  public const PLAN_TYPE_LINE_ITEM_PLAN_TYPE_BASE = 'LINE_ITEM_PLAN_TYPE_BASE';
+  /**
+   * The line item is an add-on to the subscription.
+   */
+  public const PLAN_TYPE_LINE_ITEM_PLAN_TYPE_ADDON = 'LINE_ITEM_PLAN_TYPE_ADDON';
+  /**
    * The line item recurrence type is unspecified.
    */
   public const RECURRENCE_TYPE_LINE_ITEM_RECURRENCE_TYPE_UNSPECIFIED = 'LINE_ITEM_RECURRENCE_TYPE_UNSPECIFIED';
@@ -109,6 +121,12 @@ class SubscriptionLineItem extends \Google\Collection
   public $name;
   protected $oneTimeRecurrenceDetailsType = SubscriptionLineItemOneTimeRecurrenceDetails::class;
   protected $oneTimeRecurrenceDetailsDataType = '';
+  /**
+   * Optional. Output only. The plan type of the line item.
+   *
+   * @var string
+   */
+  public $planType;
   /**
    * Required. Product resource name that identifies the product associated with
    * this line item. The format is
@@ -287,6 +305,25 @@ class SubscriptionLineItem extends \Google\Collection
   public function getOneTimeRecurrenceDetails()
   {
     return $this->oneTimeRecurrenceDetails;
+  }
+  /**
+   * Optional. Output only. The plan type of the line item.
+   *
+   * Accepted values: LINE_ITEM_PLAN_TYPE_UNSPECIFIED, LINE_ITEM_PLAN_TYPE_BASE,
+   * LINE_ITEM_PLAN_TYPE_ADDON
+   *
+   * @param self::PLAN_TYPE_* $planType
+   */
+  public function setPlanType($planType)
+  {
+    $this->planType = $planType;
+  }
+  /**
+   * @return self::PLAN_TYPE_*
+   */
+  public function getPlanType()
+  {
+    return $this->planType;
   }
   /**
    * Required. Product resource name that identifies the product associated with

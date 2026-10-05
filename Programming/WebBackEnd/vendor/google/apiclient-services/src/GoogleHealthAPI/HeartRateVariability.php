@@ -39,7 +39,8 @@ class HeartRateVariability extends \Google\Model
   public $standardDeviationMilliseconds;
 
   /**
-   * Optional. Metadata used in 1P surfaces.
+   * Optional. Additional information about the heart rate variability
+   * measurement.
    *
    * @param HeartRateVariabilityMetadata $metadata
    */

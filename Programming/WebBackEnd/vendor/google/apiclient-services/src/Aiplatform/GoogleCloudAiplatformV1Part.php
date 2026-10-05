@@ -35,6 +35,8 @@ class GoogleCloudAiplatformV1Part extends \Google\Model
   protected $inlineDataDataType = '';
   protected $mediaResolutionType = GoogleCloudAiplatformV1PartMediaResolution::class;
   protected $mediaResolutionDataType = '';
+  protected $speechMetadataType = GoogleCloudAiplatformV1SpeechMetadata::class;
+  protected $speechMetadataDataType = '';
   /**
    * Optional. The text content of the part. When sent from the VSCode Gemini
    * Code Assist extension, references to @mentioned items will be converted to
@@ -193,6 +195,24 @@ class GoogleCloudAiplatformV1Part extends \Google\Model
   public function getMediaResolution()
   {
     return $this->mediaResolution;
+  }
+  /**
+   * Optional. Turn-level metadata for speech generation (e.g. Daikon
+   * speaker/style). May be set alongside `text` to attach speaker and style
+   * information to a text part.
+   *
+   * @param GoogleCloudAiplatformV1SpeechMetadata $speechMetadata
+   */
+  public function setSpeechMetadata(GoogleCloudAiplatformV1SpeechMetadata $speechMetadata)
+  {
+    $this->speechMetadata = $speechMetadata;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1SpeechMetadata
+   */
+  public function getSpeechMetadata()
+  {
+    return $this->speechMetadata;
   }
   /**
    * Optional. The text content of the part. When sent from the VSCode Gemini

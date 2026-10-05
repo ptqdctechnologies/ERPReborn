@@ -409,6 +409,66 @@ class DatabaseMigrationService extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'fetchEntitiesStatusView' => [
+              'path' => 'v1/{+conversionWorkspace}:fetchEntitiesStatusView',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'conversionWorkspace' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'fetchView' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'tree' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'fetchIssues' => [
+              'path' => 'v1/{+conversionWorkspace}:fetchIssues',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'conversionWorkspace' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'allIssues' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'tree' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'get' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'GET',
@@ -510,6 +570,16 @@ class DatabaseMigrationService extends \Google\Service
               'httpMethod' => 'POST',
               'parameters' => [
                 'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'setDraftEntityDdl' => [
+              'path' => 'v1/{+conversionWorkspace}:setDraftEntityDdl',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'conversionWorkspace' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

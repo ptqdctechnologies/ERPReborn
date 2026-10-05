@@ -40,6 +40,12 @@ class ApplicationAttemptInfo extends \Google\Model
    */
   public $endTime;
   /**
+   * Output only. The event log path for the application attempt.
+   *
+   * @var string
+   */
+  public $eventLogPath;
+  /**
    * @var string
    */
   public $lastUpdated;
@@ -121,6 +127,22 @@ class ApplicationAttemptInfo extends \Google\Model
   public function getEndTime()
   {
     return $this->endTime;
+  }
+  /**
+   * Output only. The event log path for the application attempt.
+   *
+   * @param string $eventLogPath
+   */
+  public function setEventLogPath($eventLogPath)
+  {
+    $this->eventLogPath = $eventLogPath;
+  }
+  /**
+   * @return string
+   */
+  public function getEventLogPath()
+  {
+    return $this->eventLogPath;
   }
   /**
    * @param string $lastUpdated

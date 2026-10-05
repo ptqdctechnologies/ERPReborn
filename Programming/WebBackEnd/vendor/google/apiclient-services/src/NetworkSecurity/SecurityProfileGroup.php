@@ -95,6 +95,12 @@ class SecurityProfileGroup extends \Google\Model
    * @var string
    */
   public $urlFilteringProfile;
+  /**
+   * Optional. Reference to a SecurityProfile with the WildFire configuration.
+   *
+   * @var string
+   */
+  public $wildfireAnalysisProfile;
 
   /**
    * Output only. Resource creation timestamp.
@@ -281,6 +287,22 @@ class SecurityProfileGroup extends \Google\Model
   public function getUrlFilteringProfile()
   {
     return $this->urlFilteringProfile;
+  }
+  /**
+   * Optional. Reference to a SecurityProfile with the WildFire configuration.
+   *
+   * @param string $wildfireAnalysisProfile
+   */
+  public function setWildfireAnalysisProfile($wildfireAnalysisProfile)
+  {
+    $this->wildfireAnalysisProfile = $wildfireAnalysisProfile;
+  }
+  /**
+   * @return string
+   */
+  public function getWildfireAnalysisProfile()
+  {
+    return $this->wildfireAnalysisProfile;
   }
 }
 

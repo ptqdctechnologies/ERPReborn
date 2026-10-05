@@ -120,6 +120,10 @@ class Commitment extends \Google\Collection
    */
   public const TYPE_STORAGE_OPTIMIZED_Z4DS = 'STORAGE_OPTIMIZED_Z4DS';
   /**
+   * CUD bucket for Z4M (bare metal) machines.
+   */
+  public const TYPE_STORAGE_OPTIMIZED_Z4M = 'STORAGE_OPTIMIZED_Z4M';
+  /**
    * Note for internal users: When adding a new enum Type for v1, make sure to
    * also add it in the comment for the `optional Type type` definition. This
    * ensures that the public documentation displays the new enum Type.
@@ -291,9 +295,9 @@ class Commitment extends \Google\Collection
    * GRAPHICS_OPTIMIZED_G4,GRAPHICS_OPTIMIZED_G4_VGPU,MEMORY_OPTIMIZED,
    * MEMORY_OPTIMIZED_M3,MEMORY_OPTIMIZED_X4,
    * STORAGE_OPTIMIZED_Z3,STORAGE_OPTIMIZED_Z4DS,
-   * STORAGE_OPTIMIZED_Z4DH,STORAGE_OPTIMIZED_Z4D4T. For example, type
-   * MEMORY_OPTIMIZED specifies a commitment that applies only to eligible
-   * resources of memory optimized M1 and M2 machine series. Type
+   * STORAGE_OPTIMIZED_Z4DH,STORAGE_OPTIMIZED_Z4D4T,STORAGE_OPTIMIZED_Z4M. For
+   * example, type MEMORY_OPTIMIZED specifies a commitment that applies only to
+   * eligible resources of memory optimized M1 and M2 machine series. Type
    * GENERAL_PURPOSE specifies a commitment that applies only to eligible
    * resources of general purpose N1 machine series.
    *
@@ -734,9 +738,9 @@ class Commitment extends \Google\Collection
    * GRAPHICS_OPTIMIZED_G4,GRAPHICS_OPTIMIZED_G4_VGPU,MEMORY_OPTIMIZED,
    * MEMORY_OPTIMIZED_M3,MEMORY_OPTIMIZED_X4,
    * STORAGE_OPTIMIZED_Z3,STORAGE_OPTIMIZED_Z4DS,
-   * STORAGE_OPTIMIZED_Z4DH,STORAGE_OPTIMIZED_Z4D4T. For example, type
-   * MEMORY_OPTIMIZED specifies a commitment that applies only to eligible
-   * resources of memory optimized M1 and M2 machine series. Type
+   * STORAGE_OPTIMIZED_Z4DH,STORAGE_OPTIMIZED_Z4D4T,STORAGE_OPTIMIZED_Z4M. For
+   * example, type MEMORY_OPTIMIZED specifies a commitment that applies only to
+   * eligible resources of memory optimized M1 and M2 machine series. Type
    * GENERAL_PURPOSE specifies a commitment that applies only to eligible
    * resources of general purpose N1 machine series.
    *
@@ -757,7 +761,8 @@ class Commitment extends \Google\Collection
    * MEMORY_OPTIMIZED_X4_960_12T, MEMORY_OPTIMIZED_X4_960_16T,
    * NETWORK_OPTIMIZED_C4N, NETWORK_OPTIMIZED_U4C, NETWORK_OPTIMIZED_U4P,
    * NETWORK_OPTIMIZED_U4S, STORAGE_OPTIMIZED_Z3, STORAGE_OPTIMIZED_Z4D4T,
-   * STORAGE_OPTIMIZED_Z4DH, STORAGE_OPTIMIZED_Z4DS, TYPE_UNSPECIFIED
+   * STORAGE_OPTIMIZED_Z4DH, STORAGE_OPTIMIZED_Z4DS, STORAGE_OPTIMIZED_Z4M,
+   * TYPE_UNSPECIFIED
    *
    * @param self::TYPE_* $type
    */

@@ -82,6 +82,9 @@ class Calendar extends \Google\Service
   /** See and download any calendar you can access using your Google Calendar. */
   const CALENDAR_READONLY =
       "https://www.googleapis.com/auth/calendar.readonly";
+  /** View and edit your Calendar settings. */
+  const CALENDAR_SETTINGS =
+      "https://www.googleapis.com/auth/calendar.settings";
   /** View your Calendar settings. */
   const CALENDAR_SETTINGS_READONLY =
       "https://www.googleapis.com/auth/calendar.settings.readonly";

@@ -36,7 +36,7 @@ class Parameter extends \Google\Model
    */
   public const FORMAT_JSON = 'JSON';
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. Create time stamp
    *
    * @var string
    */
@@ -63,7 +63,7 @@ class Parameter extends \Google\Model
    */
   public $labels;
   /**
-   * Identifier. [Output only] The resource name of the Parameter in the format
+   * Identifier. The resource name of the Parameter in the format
    * `projects/locations/parameters`.
    *
    * @var string
@@ -83,14 +83,14 @@ class Parameter extends \Google\Model
    */
   public $tags;
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. Update time stamp
    *
    * @var string
    */
   public $updateTime;
 
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. Create time stamp
    *
    * @param string $createTime
    */
@@ -159,7 +159,7 @@ class Parameter extends \Google\Model
     return $this->labels;
   }
   /**
-   * Identifier. [Output only] The resource name of the Parameter in the format
+   * Identifier. The resource name of the Parameter in the format
    * `projects/locations/parameters`.
    *
    * @param string $name
@@ -176,8 +176,7 @@ class Parameter extends \Google\Model
     return $this->name;
   }
   /**
-   * Output only. [Output-only] policy member strings of a Google Cloud
-   * resource.
+   * Output only. Policy member strings of a Google Cloud resource.
    *
    * @param ResourcePolicyMember $policyMember
    */
@@ -214,7 +213,7 @@ class Parameter extends \Google\Model
     return $this->tags;
   }
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. Update time stamp
    *
    * @param string $updateTime
    */

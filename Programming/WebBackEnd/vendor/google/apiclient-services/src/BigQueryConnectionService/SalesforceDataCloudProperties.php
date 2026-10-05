@@ -19,6 +19,8 @@ namespace Google\Service\BigQueryConnectionService;
 
 class SalesforceDataCloudProperties extends \Google\Model
 {
+  protected $crossCloudCacheOptionsType = CrossCloudCacheOptions::class;
+  protected $crossCloudCacheOptionsDataType = '';
   /**
    * Output only. A unique Google-owned and Google-generated service account
    * identity for the connection.
@@ -39,6 +41,23 @@ class SalesforceDataCloudProperties extends \Google\Model
    */
   public $tenantId;
 
+  /**
+   * Optional. Configuration options for cross-cloud caching of data and
+   * metadata files.
+   *
+   * @param CrossCloudCacheOptions $crossCloudCacheOptions
+   */
+  public function setCrossCloudCacheOptions(CrossCloudCacheOptions $crossCloudCacheOptions)
+  {
+    $this->crossCloudCacheOptions = $crossCloudCacheOptions;
+  }
+  /**
+   * @return CrossCloudCacheOptions
+   */
+  public function getCrossCloudCacheOptions()
+  {
+    return $this->crossCloudCacheOptions;
+  }
   /**
    * Output only. A unique Google-owned and Google-generated service account
    * identity for the connection.

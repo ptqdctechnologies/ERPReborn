@@ -21,7 +21,7 @@ class SpaceDetails extends \Google\Model
 {
   /**
    * Optional. A description of the space. For example, describe the space's
-   * discussion topic, functional purpose, or participants. Supports up to 150
+   * discussion topic, functional purpose, or participants. Supports up to 4,096
    * characters.
    *
    * @var string
@@ -37,7 +37,7 @@ class SpaceDetails extends \Google\Model
 
   /**
    * Optional. A description of the space. For example, describe the space's
-   * discussion topic, functional purpose, or participants. Supports up to 150
+   * discussion topic, functional purpose, or participants. Supports up to 4,096
    * characters.
    *
    * @param string $description

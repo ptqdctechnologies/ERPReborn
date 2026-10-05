@@ -41,7 +41,11 @@ class GrantDnsBindPermissionRequest extends \Google\Model
   /**
    * Required. The consumer provided user/service account which needs to be
    * granted permission to bind with the intranet VPC corresponding to the
-   * consumer project.
+   * consumer project. Principal can be a user or a service account. For
+   * example, to specify the user `user@example.com`, use `"principal": {"user":
+   * "user@example.com"}` and to specify the service account `service-
+   * account@gserviceaccount.com`, use `"principal": {"serviceAccount":
+   * "service-account@gserviceaccount.com"}`.
    *
    * @param Principal $principal
    */

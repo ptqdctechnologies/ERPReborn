@@ -32,6 +32,8 @@ class GoogleCloudAiplatformV1CacheConfig extends \Google\Model
    * @var string
    */
   public $name;
+  protected $retentionConfigType = GoogleCloudAiplatformV1CacheConfigRetentionConfig::class;
+  protected $retentionConfigDataType = '';
 
   /**
    * If set to true, disables GenAI caching. Otherwise caching is enabled.
@@ -65,6 +67,27 @@ class GoogleCloudAiplatformV1CacheConfig extends \Google\Model
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Project-level retention type for implicit caching. On
+   * `GetCacheConfig` this is populated with the retention the project gets: a
+   * project that has stated no preference reports `DURABLE`. On
+   * `UpdateCacheConfig`, leaving it unset means the project states no
+   * preference. Whether that clears an existing preference depends on
+   * `update_mask`; see that field.
+   *
+   * @param GoogleCloudAiplatformV1CacheConfigRetentionConfig $retentionConfig
+   */
+  public function setRetentionConfig(GoogleCloudAiplatformV1CacheConfigRetentionConfig $retentionConfig)
+  {
+    $this->retentionConfig = $retentionConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1CacheConfigRetentionConfig
+   */
+  public function getRetentionConfig()
+  {
+    return $this->retentionConfig;
   }
 }
 

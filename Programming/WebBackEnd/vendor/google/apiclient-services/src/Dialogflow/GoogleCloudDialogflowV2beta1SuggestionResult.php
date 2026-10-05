@@ -21,6 +21,8 @@ class GoogleCloudDialogflowV2beta1SuggestionResult extends \Google\Model
 {
   protected $errorType = GoogleRpcStatus::class;
   protected $errorDataType = '';
+  protected $generateCompanionSuggestionsResponseType = GoogleCloudDialogflowV2beta1GenerateCompanionSuggestionsResponse::class;
+  protected $generateCompanionSuggestionsResponseDataType = '';
   protected $generateSuggestionsResponseType = GoogleCloudDialogflowV2beta1GenerateSuggestionsResponse::class;
   protected $generateSuggestionsResponseDataType = '';
   protected $suggestArticlesResponseType = GoogleCloudDialogflowV2beta1SuggestArticlesResponse::class;
@@ -49,6 +51,20 @@ class GoogleCloudDialogflowV2beta1SuggestionResult extends \Google\Model
   public function getError()
   {
     return $this->error;
+  }
+  /**
+   * @param GoogleCloudDialogflowV2beta1GenerateCompanionSuggestionsResponse $generateCompanionSuggestionsResponse
+   */
+  public function setGenerateCompanionSuggestionsResponse(GoogleCloudDialogflowV2beta1GenerateCompanionSuggestionsResponse $generateCompanionSuggestionsResponse)
+  {
+    $this->generateCompanionSuggestionsResponse = $generateCompanionSuggestionsResponse;
+  }
+  /**
+   * @return GoogleCloudDialogflowV2beta1GenerateCompanionSuggestionsResponse
+   */
+  public function getGenerateCompanionSuggestionsResponse()
+  {
+    return $this->generateCompanionSuggestionsResponse;
   }
   /**
    * @param GoogleCloudDialogflowV2beta1GenerateSuggestionsResponse $generateSuggestionsResponse

@@ -59,6 +59,9 @@ class OrganizationsLocationsWorkloadsViolations extends \Google\Service\Resource
    * (ie. Violation.name). Format: organizations/{organization}/locations/{locatio
    * n}/workloads/{workload}/violations/{violation}
    * @param array $optParams Optional parameters.
+   *
+   * @opt_param string view Optional. Specifies the violation view
+   * (`AssuredWorkloads` or `DataBoundary`) for fetching violations.
    * @return GoogleCloudAssuredworkloadsV1Violation
    * @throws \Google\Service\Exception
    */
@@ -88,6 +91,8 @@ class OrganizationsLocationsWorkloadsViolations extends \Google\Service\Resource
    * @opt_param int pageSize Optional. Page size.
    * @opt_param string pageToken Optional. Page token returned from previous
    * request.
+   * @opt_param string view Optional. Specifies the violation
+   * view(AssuredWorkloads or DataBoundary) for fetching violations.
    * @return GoogleCloudAssuredworkloadsV1ListViolationsResponse
    * @throws \Google\Service\Exception
    */

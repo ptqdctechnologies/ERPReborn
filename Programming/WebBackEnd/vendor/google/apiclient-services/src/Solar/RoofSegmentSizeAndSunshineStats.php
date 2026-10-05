@@ -47,6 +47,20 @@ class RoofSegmentSizeAndSunshineStats extends \Google\Model
    * @var float
    */
   public $planeHeightAtCenterMeters;
+  /**
+   * Output only. A GeoJSON representation of the detailed geometry for the roof
+   * segment plane. The polygon represents the physical roof facet, excluding
+   * overlapping vegetation and internal cutouts (e.g., courtyards). This field
+   * is only populated if ROOF_GEOMETRY is included in the request's
+   * FindClosestBuildingInsightsRequest.additional_insights parameter. The
+   * GeoJSON data must be in RFC 7946 format and represent a Polygon for a
+   * single contiguous area. The Polygon will be represented by several loops
+   * when it contains holes. Example: { "type": "Polygon", "coordinates": [ [
+   * [-1, -1, 0], [-1, 0, 0], [0, 0, 0], [-1, -1, 0] ] ] }
+   *
+   * @var array[]
+   */
+  public $polygonGeojson;
   protected $statsType = SizeAndSunshineStats::class;
   protected $statsDataType = '';
 
@@ -135,6 +149,30 @@ class RoofSegmentSizeAndSunshineStats extends \Google\Model
   public function getPlaneHeightAtCenterMeters()
   {
     return $this->planeHeightAtCenterMeters;
+  }
+  /**
+   * Output only. A GeoJSON representation of the detailed geometry for the roof
+   * segment plane. The polygon represents the physical roof facet, excluding
+   * overlapping vegetation and internal cutouts (e.g., courtyards). This field
+   * is only populated if ROOF_GEOMETRY is included in the request's
+   * FindClosestBuildingInsightsRequest.additional_insights parameter. The
+   * GeoJSON data must be in RFC 7946 format and represent a Polygon for a
+   * single contiguous area. The Polygon will be represented by several loops
+   * when it contains holes. Example: { "type": "Polygon", "coordinates": [ [
+   * [-1, -1, 0], [-1, 0, 0], [0, 0, 0], [-1, -1, 0] ] ] }
+   *
+   * @param array[] $polygonGeojson
+   */
+  public function setPolygonGeojson($polygonGeojson)
+  {
+    $this->polygonGeojson = $polygonGeojson;
+  }
+  /**
+   * @return array[]
+   */
+  public function getPolygonGeojson()
+  {
+    return $this->polygonGeojson;
   }
   /**
    * Total size and sunlight quantiles for the roof segment.

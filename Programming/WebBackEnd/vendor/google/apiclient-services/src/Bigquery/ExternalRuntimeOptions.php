@@ -17,8 +17,9 @@
 
 namespace Google\Service\Bigquery;
 
-class ExternalRuntimeOptions extends \Google\Model
+class ExternalRuntimeOptions extends \Google\Collection
 {
+  protected $collection_key = 'volumeMounts';
   /**
    * Optional. Amount of CPU provisioned for a Python UDF container instance.
    * For more information, see [Configure container limits for Python
@@ -71,6 +72,8 @@ class ExternalRuntimeOptions extends \Google\Model
    * @var string
    */
   public $runtimeVersion;
+  protected $volumeMountsType = ExternalVolumeMount::class;
+  protected $volumeMountsDataType = 'array';
 
   public function setContainerCpu($containerCpu)
   {
@@ -172,6 +175,23 @@ class ExternalRuntimeOptions extends \Google\Model
   public function getRuntimeVersion()
   {
     return $this->runtimeVersion;
+  }
+  /**
+   * Optional. List of volume mounts for the Python UDF container that executes
+   * the managed function.
+   *
+   * @param ExternalVolumeMount[] $volumeMounts
+   */
+  public function setVolumeMounts($volumeMounts)
+  {
+    $this->volumeMounts = $volumeMounts;
+  }
+  /**
+   * @return ExternalVolumeMount[]
+   */
+  public function getVolumeMounts()
+  {
+    return $this->volumeMounts;
   }
 }
 

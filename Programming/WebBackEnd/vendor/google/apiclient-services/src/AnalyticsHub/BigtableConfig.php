@@ -27,6 +27,8 @@ class BigtableConfig extends \Google\Model
    * @var string
    */
   public $appProfileId;
+  protected $columnFamilyMappingType = ColumnFamilyMapping::class;
+  protected $columnFamilyMappingDataType = '';
   /**
    * Optional. The service account to use to write to Bigtable. The subscription
    * creator or updater that specifies this field must have
@@ -74,6 +76,24 @@ class BigtableConfig extends \Google\Model
   public function getAppProfileId()
   {
     return $this->appProfileId;
+  }
+  /**
+   * Optional. Configuration that allows writing row keys and/or columns based
+   * on fields in the input message. The input message format must be JSON if
+   * this field is set.
+   *
+   * @param ColumnFamilyMapping $columnFamilyMapping
+   */
+  public function setColumnFamilyMapping(ColumnFamilyMapping $columnFamilyMapping)
+  {
+    $this->columnFamilyMapping = $columnFamilyMapping;
+  }
+  /**
+   * @return ColumnFamilyMapping
+   */
+  public function getColumnFamilyMapping()
+  {
+    return $this->columnFamilyMapping;
   }
   /**
    * Optional. The service account to use to write to Bigtable. The subscription

@@ -259,11 +259,13 @@ class ProjectsLocationsPrivateClouds extends \Google\Service\Resource
   }
   /**
    * Modifies a `PrivateCloud` resource. Only the following fields can be updated:
-   * `description`. Only fields specified in `updateMask` are applied. During
-   * operation processing, the resource is temporarily in the `ACTIVE` state
-   * before the operation fully completes. For that period of time, you can't
-   * update the resource. Use the operation status to determine when the
-   * processing fully completes. (privateClouds.patch)
+   * `description`, `encryption_config`. If `updateMask` is provided, only fields
+   * specified in it are applied. If `updateMask` is not provided, the default
+   * behavior is to update the `description`. It is advised to provide an
+   * `updateMask` to avoid confusion. During operation processing, the resource is
+   * temporarily in the `ACTIVE` state before the operation fully completes. For
+   * that period of time, you can't update the resource. Use the operation status
+   * to determine when the processing fully completes. (privateClouds.patch)
    *
    * @param string $name Output only. Identifier. The resource name of this
    * private cloud. Resource names are schemeless URIs that follow the conventions
@@ -279,7 +281,7 @@ class ProjectsLocationsPrivateClouds extends \Google\Service\Resource
    * fields to be overwritten in the `PrivateCloud` resource by the update. The
    * fields specified in `updateMask` are relative to the resource, not the full
    * request. A field will be overwritten if it is in the mask. If the user does
-   * not provide a mask then all fields will be overwritten.
+   * not provide a mask then only the description field will be overwritten.
    * @opt_param bool validateOnly Optional. If set to `true`, only validates the
    * request but doesn’t execute the request. If set to `false`, validates and
    * executes the request.

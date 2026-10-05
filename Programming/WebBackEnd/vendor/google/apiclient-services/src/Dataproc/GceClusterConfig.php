@@ -78,6 +78,8 @@ class GceClusterConfig extends \Google\Collection
    * @var string[]
    */
   public $metadata;
+  protected $multiZoneConfigType = MultiZoneConfig::class;
+  protected $multiZoneConfigDataType = '';
   /**
    * Optional. The Compute Engine network to be used for machine communications.
    * Cannot be specified with subnetwork_uri. If neither network_uri nor
@@ -254,6 +256,24 @@ class GceClusterConfig extends \Google\Collection
   public function getMetadata()
   {
     return $this->metadata;
+  }
+  /**
+   * Optional. Controls how instances within this Cluster are allowed to exist
+   * in multiple Zones within the Region. Only one of zone_uri or
+   * multi_zone_config must be set.
+   *
+   * @param MultiZoneConfig $multiZoneConfig
+   */
+  public function setMultiZoneConfig(MultiZoneConfig $multiZoneConfig)
+  {
+    $this->multiZoneConfig = $multiZoneConfig;
+  }
+  /**
+   * @return MultiZoneConfig
+   */
+  public function getMultiZoneConfig()
+  {
+    return $this->multiZoneConfig;
   }
   /**
    * Optional. The Compute Engine network to be used for machine communications.

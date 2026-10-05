@@ -457,6 +457,10 @@ class GoogleHealthAPI extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'dataSourceFamily' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'filter' => [
                   'location' => 'query',
                   'type' => 'string',

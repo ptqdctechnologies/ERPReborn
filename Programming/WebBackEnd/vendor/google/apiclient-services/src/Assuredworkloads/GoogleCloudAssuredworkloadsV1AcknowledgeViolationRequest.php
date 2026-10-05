@@ -33,6 +33,19 @@ class GoogleCloudAssuredworkloadsV1AcknowledgeViolationRequest extends \Google\M
    */
   public const ACKNOWLEDGE_TYPE_EXISTING_CHILD_RESOURCE_VIOLATIONS = 'EXISTING_CHILD_RESOURCE_VIOLATIONS';
   /**
+   * Defaults to the ASSURED_WORKLOADS view.
+   */
+  public const VIEW_VIOLATION_VIEW_UNSPECIFIED = 'VIOLATION_VIEW_UNSPECIFIED';
+  /**
+   * Includes the basic metadata about the violation.
+   */
+  public const VIEW_VIOLATION_VIEW_ASSURED_WORKLOADS = 'VIOLATION_VIEW_ASSURED_WORKLOADS';
+  /**
+   * Includes all information about the violation, including details about the
+   * data boundary.
+   */
+  public const VIEW_VIOLATION_VIEW_DATA_BOUNDARY = 'VIOLATION_VIEW_DATA_BOUNDARY';
+  /**
    * Optional. Acknowledge type of specified violation.
    *
    * @var string
@@ -57,6 +70,13 @@ class GoogleCloudAssuredworkloadsV1AcknowledgeViolationRequest extends \Google\M
    * @var string
    */
   public $nonCompliantOrgPolicy;
+  /**
+   * Optional. Specifies the violation view (`AssuredWorkloads` or
+   * `DataBoundary`) for acknowledging violations.
+   *
+   * @var string
+   */
+  public $view;
 
   /**
    * Optional. Acknowledge type of specified violation.
@@ -116,6 +136,26 @@ class GoogleCloudAssuredworkloadsV1AcknowledgeViolationRequest extends \Google\M
   public function getNonCompliantOrgPolicy()
   {
     return $this->nonCompliantOrgPolicy;
+  }
+  /**
+   * Optional. Specifies the violation view (`AssuredWorkloads` or
+   * `DataBoundary`) for acknowledging violations.
+   *
+   * Accepted values: VIOLATION_VIEW_UNSPECIFIED,
+   * VIOLATION_VIEW_ASSURED_WORKLOADS, VIOLATION_VIEW_DATA_BOUNDARY
+   *
+   * @param self::VIEW_* $view
+   */
+  public function setView($view)
+  {
+    $this->view = $view;
+  }
+  /**
+   * @return self::VIEW_*
+   */
+  public function getView()
+  {
+    return $this->view;
   }
 }
 

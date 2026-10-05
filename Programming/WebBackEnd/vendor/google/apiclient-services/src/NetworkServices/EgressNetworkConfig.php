@@ -40,6 +40,8 @@ class EgressNetworkConfig extends \Google\Model
    * @var string
    */
   public $networkAttachment;
+  protected $tlsConfigType = EgressNetworkConfigTlsConfig::class;
+  protected $tlsConfigDataType = '';
   /**
    * Optional. Deprecated: Use tls_config instead. The trust config resource
    * name. Format:
@@ -88,6 +90,22 @@ class EgressNetworkConfig extends \Google\Model
   public function getNetworkAttachment()
   {
     return $this->networkAttachment;
+  }
+  /**
+   * Optional. The TLS configuration for the egress traffic.
+   *
+   * @param EgressNetworkConfigTlsConfig $tlsConfig
+   */
+  public function setTlsConfig(EgressNetworkConfigTlsConfig $tlsConfig)
+  {
+    $this->tlsConfig = $tlsConfig;
+  }
+  /**
+   * @return EgressNetworkConfigTlsConfig
+   */
+  public function getTlsConfig()
+  {
+    return $this->tlsConfig;
   }
   /**
    * Optional. Deprecated: Use tls_config instead. The trust config resource

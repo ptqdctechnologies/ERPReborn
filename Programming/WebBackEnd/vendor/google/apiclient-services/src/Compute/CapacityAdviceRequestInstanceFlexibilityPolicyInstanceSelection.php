@@ -30,6 +30,14 @@ class CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection extends \G
    * @var string[]
    */
   public $machineTypes;
+  /**
+   * Optional. Rank when prioritizing the shape flexibilities. The instance
+   * selections are considered in the ascending order of the rank. If not set,
+   * defaults to 0.
+   *
+   * @var string
+   */
+  public $rank;
 
   /**
    * Local SSDs.
@@ -78,6 +86,24 @@ class CapacityAdviceRequestInstanceFlexibilityPolicyInstanceSelection extends \G
   public function getMachineTypes()
   {
     return $this->machineTypes;
+  }
+  /**
+   * Optional. Rank when prioritizing the shape flexibilities. The instance
+   * selections are considered in the ascending order of the rank. If not set,
+   * defaults to 0.
+   *
+   * @param string $rank
+   */
+  public function setRank($rank)
+  {
+    $this->rank = $rank;
+  }
+  /**
+   * @return string
+   */
+  public function getRank()
+  {
+    return $this->rank;
   }
 }
 

@@ -17,9 +17,8 @@
 
 namespace Google\Service\Integrations\Resource;
 
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecRequest;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaGetClientResponse;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationRequest;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationResponse;
 
 /**
  * The "locations" collection of methods.
@@ -32,38 +31,21 @@ use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaGetClientResponse;
 class ProjectsLocations extends \Google\Service\Resource
 {
   /**
-   * Generate OpenAPI spec for the requested integrations and api triggers
-   * (locations.generateOpenApiSpec)
+   * Generates an integration skeleton based on a natural language prompt.
+   * (locations.generateIntegration)
    *
-   * @param string $name Required. Project and location from which the
-   * integrations should be fetched. Format:
-   * projects/{project}/location/{location}
-   * @param GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecRequest $postBody
+   * @param string $parent Required. The location in which the integration will be
+   * generated. Format: `projects/{project}/locations/{location}`
+   * @param GoogleCloudIntegrationsV2DuetGenerateIntegrationRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecResponse
+   * @return GoogleCloudIntegrationsV2DuetGenerateIntegrationResponse
    * @throws \Google\Service\Exception
    */
-  public function generateOpenApiSpec($name, GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecRequest $postBody, $optParams = [])
+  public function generateIntegration($parent, GoogleCloudIntegrationsV2DuetGenerateIntegrationRequest $postBody, $optParams = [])
   {
-    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('generateOpenApiSpec', [$params], GoogleCloudIntegrationsV1alphaGenerateOpenApiSpecResponse::class);
-  }
-  /**
-   * Gets the client configuration for the given project and location resource
-   * name (locations.getClients)
-   *
-   * @param string $parent Required. Required: The ID of the GCP Project to be
-   * provisioned.
-   * @param array $optParams Optional parameters.
-   * @return GoogleCloudIntegrationsV1alphaGetClientResponse
-   * @throws \Google\Service\Exception
-   */
-  public function getClients($parent, $optParams = [])
-  {
-    $params = ['parent' => $parent];
-    $params = array_merge($params, $optParams);
-    return $this->call('getClients', [$params], GoogleCloudIntegrationsV1alphaGetClientResponse::class);
+    return $this->call('generateIntegration', [$params], GoogleCloudIntegrationsV2DuetGenerateIntegrationResponse::class);
   }
 }
 

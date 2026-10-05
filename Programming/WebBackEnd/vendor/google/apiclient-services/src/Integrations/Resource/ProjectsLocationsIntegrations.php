@@ -17,17 +17,17 @@
 
 namespace Google\Service\Integrations\Resource;
 
-use Google\Service\Integrations\ExecuteEventRequestContent;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaExecuteEventResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaExecuteIntegrationsRequest;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaExecuteIntegrationsResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaListIntegrationsResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaScheduleIntegrationsRequest;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaScheduleIntegrationsResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaSearchIntegrationsResponse;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaTestIntegrationsRequest;
-use Google\Service\Integrations\GoogleCloudIntegrationsV1alphaTestIntegrationsResponse;
-use Google\Service\Integrations\GoogleProtobufEmpty;
+use Google\Service\Integrations\ExecuteRequestContent;
+use Google\Service\Integrations\GoogleApiHttpBody;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchRequest;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchResponse;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentRequest;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentResponse;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateJavascriptRequest;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetGenerateJavascriptResponse;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetRecommendTasksRequest;
+use Google\Service\Integrations\GoogleCloudIntegrationsV2DuetRecommendTasksResponse;
+use Google\Service\Integrations\ScheduleRequestContent;
 
 /**
  * The "integrations" collection of methods.
@@ -40,157 +40,122 @@ use Google\Service\Integrations\GoogleProtobufEmpty;
 class ProjectsLocationsIntegrations extends \Google\Service\Resource
 {
   /**
-   * Delete the selected integration and all versions inside (integrations.delete)
+   * Executes integrations synchronously. The response is not returned until the
+   * requested execution is either fulfilled or experienced an error. Only one
+   * integration can be executed. Request format URL: https://integrations.googlea
+   * pis.com/v2/projects/$PROJECT/locations/$LOCATION/integrations/$INTEGRATION_NA
+   * ME:execute Request payload: (the entire payload is optional unless input
+   * variables need to be set.) {"variable1": "hello world", "variable2": 1,
+   * "variable3": {"my_json_key": "my json string value" } (integrations.execute)
    *
-   * @param string $name Required. The location resource of the request.
+   * @param string $parent Required. The integration resource name.
+   * @param ExecuteRequestContent $postBody
    * @param array $optParams Optional parameters.
-   * @return GoogleProtobufEmpty
+   *
+   * @opt_param string requestId Optional. This is used to de-dup incoming
+   * request: if the duplicate request was detected, the response from the
+   * previous execution is returned.
+   * @opt_param string triggerId Required. The API trigger id associated with the
+   * integration. An integration can have multiple trigger_id. This field is
+   * required to disambiguate which trigger should be invoked.
+   * @return GoogleApiHttpBody
    * @throws \Google\Service\Exception
    */
-  public function delete($name, $optParams = [])
+  public function execute($parent, ExecuteRequestContent $postBody, $optParams = [])
   {
-    $params = ['name' => $name];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('delete', [$params], GoogleProtobufEmpty::class);
+    return $this->call('execute', [$params], GoogleApiHttpBody::class);
   }
   /**
-   * Executes integrations synchronously by passing the trigger id in the request
-   * body. The request is not returned until the requested executions are either
-   * fulfilled or experienced an error. If the integration name is not specified
-   * (passing `-`), all of the associated integration under the given trigger_id
-   * will be executed. Otherwise only the specified integration for the given
-   * `trigger_id` is executed. This is helpful for execution the integration from
-   * UI. (integrations.execute)
+   * Generates an integration branch. (integrations.generateIntegrationBranch)
    *
-   * @param string $name Required. The integration resource name.
-   * @param GoogleCloudIntegrationsV1alphaExecuteIntegrationsRequest $postBody
+   * @param string $parent Required. Format:
+   * `projects/{project}/locations/{location}/integrations/{integration}`
+   * @param GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return GoogleCloudIntegrationsV1alphaExecuteIntegrationsResponse
+   * @return GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchResponse
    * @throws \Google\Service\Exception
    */
-  public function execute($name, GoogleCloudIntegrationsV1alphaExecuteIntegrationsRequest $postBody, $optParams = [])
+  public function generateIntegrationBranch($parent, GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchRequest $postBody, $optParams = [])
   {
-    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('execute', [$params], GoogleCloudIntegrationsV1alphaExecuteIntegrationsResponse::class);
+    return $this->call('generateIntegrationBranch', [$params], GoogleCloudIntegrationsV2DuetGenerateIntegrationBranchResponse::class);
   }
   /**
-   * Executes an integration on receiving events from Integration Connector
-   * triggers, Eventarc or CPS Trigger. Input data to integration is received in
-   * body in json format (integrations.executeEvent)
+   * Generates documentation for an integration version.
+   * (integrations.generateIntegrationDocument)
    *
-   * @param string $name Required. The integration resource name. Format:
-   * projects/{gcp_project_id}/locations/{location}/integrations/{integration_id}
-   * @param ExecuteEventRequestContent $postBody
+   * @param string $parent Required. Format:
+   * `projects/{project}/locations/{location}/integrations/{integration}`
+   * @param GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentRequest $postBody
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string triggerId Required. Id of the integration trigger config.
-   * The trigger_id is in the format: `integration_connector_trigger/projects/{gcp
-   * _project_id}/location/{location}/connections/{connection_name}/subscriptions/
-   * {subscription_name}`.
-   * @return GoogleCloudIntegrationsV1alphaExecuteEventResponse
+   * @return GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentResponse
    * @throws \Google\Service\Exception
    */
-  public function executeEvent($name, ExecuteEventRequestContent $postBody, $optParams = [])
+  public function generateIntegrationDocument($parent, GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentRequest $postBody, $optParams = [])
   {
-    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('executeEvent', [$params], GoogleCloudIntegrationsV1alphaExecuteEventResponse::class);
+    return $this->call('generateIntegrationDocument', [$params], GoogleCloudIntegrationsV2DuetGenerateIntegrationDocumentResponse::class);
   }
   /**
-   * Returns the list of all integrations in the specified project.
-   * (integrations.listProjectsLocationsIntegrations)
+   * Generates Javascript code for data mapping. (integrations.generateJavascript)
    *
-   * @param string $parent Required. Project and location from which the
-   * integrations should be listed. Format: projects/{project}
+   * @param string $parent Required. Format:
+   * `projects/{project}/locations/{location}/integrations/{integration}`
+   * @param GoogleCloudIntegrationsV2DuetGenerateJavascriptRequest $postBody
    * @param array $optParams Optional parameters.
-   *
-   * @opt_param string filter Filter on fields of IntegrationVersion. Fields can
-   * be compared with literal values by use of ":" (containment), "=" (equality),
-   * ">" (greater), "<" (less than), >=" (greater than or equal to), "<=" (less
-   * than or equal to), and "!=" (inequality) operators. Negation, conjunction,
-   * and disjunction are written using NOT, AND, and OR keywords. For example,
-   * organization_id=\"1\" AND state=ACTIVE AND description:"test". Filtering
-   * cannot be performed on repeated fields like `task_config`.
-   * @opt_param string orderBy The results would be returned in order you
-   * specified here. Supported sort keys are: Descending sort order by
-   * "last_modified_time", "created_time", "snapshot_number". Ascending sort order
-   * by the integration name.
-   * @opt_param int pageSize The page size for the resquest.
-   * @opt_param string pageToken The page token for the resquest.
-   * @return GoogleCloudIntegrationsV1alphaListIntegrationsResponse
+   * @return GoogleCloudIntegrationsV2DuetGenerateJavascriptResponse
    * @throws \Google\Service\Exception
    */
-  public function listProjectsLocationsIntegrations($parent, $optParams = [])
+  public function generateJavascript($parent, GoogleCloudIntegrationsV2DuetGenerateJavascriptRequest $postBody, $optParams = [])
   {
-    $params = ['parent' => $parent];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('list', [$params], GoogleCloudIntegrationsV1alphaListIntegrationsResponse::class);
+    return $this->call('generateJavascript', [$params], GoogleCloudIntegrationsV2DuetGenerateJavascriptResponse::class);
   }
   /**
-   * Schedules an integration for execution by passing the trigger id and the
-   * scheduled time in the request body. (integrations.schedule)
+   * Recommends tasks to replace a selected task. (integrations.recommendTasks)
    *
-   * @param string $name The integration resource name.
-   * @param GoogleCloudIntegrationsV1alphaScheduleIntegrationsRequest $postBody
+   * @param string $parent Required. Format:
+   * `projects/{project}/locations/{location}/integrations/{integration}`
+   * @param GoogleCloudIntegrationsV2DuetRecommendTasksRequest $postBody
    * @param array $optParams Optional parameters.
-   * @return GoogleCloudIntegrationsV1alphaScheduleIntegrationsResponse
+   * @return GoogleCloudIntegrationsV2DuetRecommendTasksResponse
    * @throws \Google\Service\Exception
    */
-  public function schedule($name, GoogleCloudIntegrationsV1alphaScheduleIntegrationsRequest $postBody, $optParams = [])
+  public function recommendTasks($parent, GoogleCloudIntegrationsV2DuetRecommendTasksRequest $postBody, $optParams = [])
   {
-    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('schedule', [$params], GoogleCloudIntegrationsV1alphaScheduleIntegrationsResponse::class);
+    return $this->call('recommendTasks', [$params], GoogleCloudIntegrationsV2DuetRecommendTasksResponse::class);
   }
   /**
-   * Searches and returns the list of integrations in the specified project.
-   * (integrations.search)
+   * Schedules an integration for execution. (integrations.schedule)
    *
-   * @param string $parent Required. Project and location from which the
-   * integrations should be listed. Format:
-   * projects/locations/resources/integrations
+   * @param string $parent Required. The integration resource name.
+   * @param ScheduleRequestContent $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool enableNaturalLanguageQueryUnderstanding Optional. Whether to
-   * enable natural language query understanding.
-   * @opt_param string filter Optional. The pre-filter to be applied to the
-   * search. This should follow the expressions defined in
-   * https://cloud.google.com/generative-ai-app-builder/docs/filter-search-
-   * metadata. For example, "status:ANY("ACTIVE")" will return all the resources
-   * whose status contains the "ACTIVE".
-   * @opt_param int pageSize Optional. The maximum number of results to return.
-   * The service may return fewer than this value. If unspecified, at most 10
-   * results will be returned. The maximum value is 100; values above 100 will be
-   * coerced to 100.
-   * @opt_param string pageToken Optional. A page token, received from a previous
-   * `SearchIntegrations` call. Provide this to retrieve the subsequent page. When
-   * paginating, all other parameters provided to `SearchIntegrations` must match
-   * the call that provided the page token.
-   * @opt_param string query Required. The user query
-   * @return GoogleCloudIntegrationsV1alphaSearchIntegrationsResponse
+   * @opt_param string requestId Optional. This is used to de-dup incoming
+   * request: if the duplicate request was detected, the response from the
+   * previous execution is returned.
+   * @opt_param string scheduleTime Optional. The time that the integration should
+   * be executed. If the time is less or equal to the current time, the
+   * integration is executed immediately.
+   * @opt_param string triggerId Required. The API trigger id associated with the
+   * integration. An integration can have multiple trigger_id. This field is
+   * required to disambiguate which trigger should be invoked
+   * @return GoogleApiHttpBody
    * @throws \Google\Service\Exception
    */
-  public function search($parent, $optParams = [])
+  public function schedule($parent, ScheduleRequestContent $postBody, $optParams = [])
   {
-    $params = ['parent' => $parent];
+    $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
-    return $this->call('search', [$params], GoogleCloudIntegrationsV1alphaSearchIntegrationsResponse::class);
-  }
-  /**
-   * Execute the integration in draft state (integrations.test)
-   *
-   * @param string $name Output only. Auto-generated primary key.
-   * @param GoogleCloudIntegrationsV1alphaTestIntegrationsRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return GoogleCloudIntegrationsV1alphaTestIntegrationsResponse
-   * @throws \Google\Service\Exception
-   */
-  public function test($name, GoogleCloudIntegrationsV1alphaTestIntegrationsRequest $postBody, $optParams = [])
-  {
-    $params = ['name' => $name, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('test', [$params], GoogleCloudIntegrationsV1alphaTestIntegrationsResponse::class);
+    return $this->call('schedule', [$params], GoogleApiHttpBody::class);
   }
 }
 

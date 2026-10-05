@@ -32,13 +32,13 @@ class ParameterVersion extends \Google\Model
    */
   public const CHECKSUM_SOURCE_USER_SPECIFIED = 'USER_SPECIFIED';
   /**
-   * Optional. Output only. [Output only] The source of the checksum.
+   * Optional. Output only. The source of the checksum.
    *
    * @var string
    */
   public $checksumSource;
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. Create time stamp
    *
    * @var string
    */
@@ -54,17 +54,16 @@ class ParameterVersion extends \Google\Model
    */
   public $disabled;
   /**
-   * Optional. Output only. [Output only] The resource name of the KMS key
-   * version used to encrypt the ParameterVersion payload. This field is
-   * populated only if the Parameter resource has customer managed encryption
-   * key (CMEK) configured.
+   * Optional. Output only. The resource name of the KMS key version used to
+   * encrypt the ParameterVersion payload. This field is populated only if the
+   * Parameter resource has customer managed encryption key (CMEK) configured.
    *
    * @var string
    */
   public $kmsKeyVersion;
   /**
-   * Identifier. [Output only] The resource name of the ParameterVersion in the
-   * format `projects/locations/parameters/versions`.
+   * Identifier. The resource name of the ParameterVersion in the format
+   * `projects/locations/parameters/versions`.
    *
    * @var string
    */
@@ -72,14 +71,14 @@ class ParameterVersion extends \Google\Model
   protected $payloadType = ParameterVersionPayload::class;
   protected $payloadDataType = '';
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. Update time stamp
    *
    * @var string
    */
   public $updateTime;
 
   /**
-   * Optional. Output only. [Output only] The source of the checksum.
+   * Optional. Output only. The source of the checksum.
    *
    * Accepted values: CHECKSUM_SOURCE_UNSPECIFIED, SERVER_GENERATED,
    * USER_SPECIFIED
@@ -98,7 +97,7 @@ class ParameterVersion extends \Google\Model
     return $this->checksumSource;
   }
   /**
-   * Output only. [Output only] Create time stamp
+   * Output only. Create time stamp
    *
    * @param string $createTime
    */
@@ -134,10 +133,9 @@ class ParameterVersion extends \Google\Model
     return $this->disabled;
   }
   /**
-   * Optional. Output only. [Output only] The resource name of the KMS key
-   * version used to encrypt the ParameterVersion payload. This field is
-   * populated only if the Parameter resource has customer managed encryption
-   * key (CMEK) configured.
+   * Optional. Output only. The resource name of the KMS key version used to
+   * encrypt the ParameterVersion payload. This field is populated only if the
+   * Parameter resource has customer managed encryption key (CMEK) configured.
    *
    * @param string $kmsKeyVersion
    */
@@ -153,8 +151,8 @@ class ParameterVersion extends \Google\Model
     return $this->kmsKeyVersion;
   }
   /**
-   * Identifier. [Output only] The resource name of the ParameterVersion in the
-   * format `projects/locations/parameters/versions`.
+   * Identifier. The resource name of the ParameterVersion in the format
+   * `projects/locations/parameters/versions`.
    *
    * @param string $name
    */
@@ -188,7 +186,7 @@ class ParameterVersion extends \Google\Model
     return $this->payload;
   }
   /**
-   * Output only. [Output only] Update time stamp
+   * Output only. Update time stamp
    *
    * @param string $updateTime
    */

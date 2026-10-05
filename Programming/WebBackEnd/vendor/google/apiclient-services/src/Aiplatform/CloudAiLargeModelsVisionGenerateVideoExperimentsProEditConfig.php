@@ -34,10 +34,10 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig extends \Goo
    */
   public $fromOperationId;
   /**
-   * A JSON object containing the user's modified URF. The URF Editing Preamble
+   * A JSON string containing the user's modified URF. The URF Editing Preamble
    * will diff this against the original URF to determine what changed.
    *
-   * @var array[]
+   * @var string
    */
   public $structuredPrompt;
 
@@ -76,17 +76,17 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig extends \Goo
     return $this->fromOperationId;
   }
   /**
-   * A JSON object containing the user's modified URF. The URF Editing Preamble
+   * A JSON string containing the user's modified URF. The URF Editing Preamble
    * will diff this against the original URF to determine what changed.
    *
-   * @param array[] $structuredPrompt
+   * @param string $structuredPrompt
    */
   public function setStructuredPrompt($structuredPrompt)
   {
     $this->structuredPrompt = $structuredPrompt;
   }
   /**
-   * @return array[]
+   * @return string
    */
   public function getStructuredPrompt()
   {

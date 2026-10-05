@@ -61,6 +61,11 @@ class MigrationJob extends \Google\Model
    */
   public const PHASE_READY_FOR_PROMOTE = 'READY_FOR_PROMOTE';
   /**
+   * The migration job is in the failback phase. This phase is currently used
+   * only for SQL Server Distributed Availability Group (DAG) migrations.
+   */
+  public const PHASE_PHASE_FAILBACK = 'PHASE_FAILBACK';
+  /**
    * Unknown purpose. Will be defaulted to MIGRATE.
    */
   public const PURPOSE_PURPOSE_UNSPECIFIED = 'PURPOSE_UNSPECIFIED';
@@ -678,7 +683,8 @@ class MigrationJob extends \Google\Model
    * Output only. The current migration job phase.
    *
    * Accepted values: PHASE_UNSPECIFIED, FULL_DUMP, CDC, PROMOTE_IN_PROGRESS,
-   * WAITING_FOR_SOURCE_WRITES_TO_STOP, PREPARING_THE_DUMP, READY_FOR_PROMOTE
+   * WAITING_FOR_SOURCE_WRITES_TO_STOP, PREPARING_THE_DUMP, READY_FOR_PROMOTE,
+   * PHASE_FAILBACK
    *
    * @param self::PHASE_* $phase
    */
