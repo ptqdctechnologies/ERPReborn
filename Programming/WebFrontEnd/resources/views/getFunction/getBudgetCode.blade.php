@@ -6,7 +6,8 @@
     <div class="col-5 d-flex">
         <div>
             <span id="budget_container" class="input-group-text form-control" data-toggle="modal"
-                data-target="#budget_code_modal" style="border-radius:0;cursor:pointer;">
+                data-target="<?= isset($budget['preview']) ? '' : '#budget_code_modal'; ?>"
+                style="border-radius: 0; cursor: <?= isset($budget['preview']) ? 'not-allowed' : 'pointer'; ?>;">
                 <i id="budget_icon" class="fas fa-gift"></i>
 
                 <div id="budget_loading" class="spinner-border spinner-border-sm" role="status" style="display: none;">
@@ -17,10 +18,15 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="budget_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="budget_id" name="budget_id" />
-                <input type="hidden" class="form-control" id="budget_name" name="budget_name" />
-                <input type="hidden" class="form-control" id="budget_code" name="budget_code" />
+                    value="<?= isset($budget['preview']) ? $budget['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($budget['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="budget_id" name="budget_id"
+                    value="<?= isset($budget['id']) ? $budget['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="budget_name" name="budget_name"
+                    value="<?= isset($budget['name']) ? $budget['name'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="budget_code" name="budget_code"
+                    value="<?= isset($budget['code']) ? $budget['code'] : ''; ?>" />
             </div>
         </div>
     </div>
