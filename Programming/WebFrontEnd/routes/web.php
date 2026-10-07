@@ -469,9 +469,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
         Route::post('Journal/report/store', 'ReportPaymentJournalStore')
             ->name('Journal.ReportPaymentJournalStore');
-
-        Route::post('Journal/revision', 'RevisionJournal')
-            ->name('Journal.RevisionJournal');
     });
     Route::resource('Journal', JournalController::class);
 

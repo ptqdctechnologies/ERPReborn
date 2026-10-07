@@ -23,7 +23,7 @@
                                 </li>
                                 <li class="nav-item">
                                     <a id="revision_journal" href="javascript:;" class="nav-link" data-toggle="modal"
-                                        data-target="#" style="color:white;padding-bottom:10px;">
+                                        data-target="#journalRevisionModal" style="color:white;padding-bottom:10px;">
                                         <i class="far fa-file nav-icon-sm"> Revision Journal</i>
                                     </a>
                                 </li>

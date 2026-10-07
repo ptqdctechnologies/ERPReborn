@@ -64,6 +64,7 @@ class JournalController extends Controller
 
     public function edit($id)
     {
+        return view('Finance.Journal.Transactions.revision');
     }
 
     public function update(Request $request, $id)
@@ -99,11 +100,6 @@ class JournalController extends Controller
 
             return response()->json($compact);
         }
-    }
-
-    public function RevisionJournal(Request $request)
-    {
-        return view('Finance.Journal.Transactions.RevisionJournal');
     }
 
     public function ReportPaymentJournal(Request $request)

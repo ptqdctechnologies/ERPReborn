@@ -2,6 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getJournal')
+    @include('Finance.Journal.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
