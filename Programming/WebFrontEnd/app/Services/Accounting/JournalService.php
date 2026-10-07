@@ -25,6 +25,29 @@ class JournalService
         );
     }
 
+    public function detail($id): mixed
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.accounting.getJournalDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'journal_RefID' => (int) $id
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
+                ]
+            ]
+        );
+    }
+
     public function detailTransaction($documentType, $referenceId)
     {
         $token = Session::get('SessionLogin');

@@ -64,7 +64,34 @@ class JournalController extends Controller
 
     public function edit($id)
     {
-        return view('Finance.Journal.Transactions.revision');
+        try {
+            $response = $this->journalService->detail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Journal');
+            }
+
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Journal Revision Form');
+
+            $data = $response['data']['data'] ? $response['data']['data'][0] : [];
+
+            $compact = [
+                'token' => $token,
+                'documentTypeRefID' => $documentTypeRefID,
+            ];
+
+            return view('Finance.Journal.Transactions.revision', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Detail Journal Error', [
+                'message' => $th->getMessage(),
+                'journalRefId' => $id
+            ]);
+
+            return redirect()
+                ->route('Journal.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
     }
 
     public function update(Request $request, $id)
@@ -217,8 +244,8 @@ class JournalController extends Controller
 
         if ($key === "Advance Form") {
             $unpaidValue =
-                (float) ($dataTransaction['totalTransactions'] ?? 0) -
-                (float) ($dataTransaction['totalPayment'] ?? 0);
+                (float) ($value['totalTransactions'] ?? 0) -
+                (float) ($value['totalPayment'] ?? 0);
 
             $data = [
                 'business_document_id' => $value['businessDocument_RefID'],
@@ -237,8 +264,8 @@ class JournalController extends Controller
             ];
         } else if ($key === "Person Business Trip Form") {
             $unpaidValue =
-                (float) ($dataTransaction['TotalTransactions'] ?? 0) -
-                (float) ($dataTransaction['TotalPayment'] ?? 0);
+                (float) ($value['TotalTransactions'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
 
             $data = [
                 'business_document_id' => $value['BusinessDocument_RefID'],
@@ -253,6 +280,46 @@ class JournalController extends Controller
                 'budget_code' => $value['CombinedBudgetCode'],
                 'budget_name' => $value['CombinedBudgetName'],
                 'trans_value' => $value['TotalTransactions'],
+                'unpaid_value' => $unpaidValue
+            ];
+        } else if ($key === "Loan Form") {
+            $unpaidValue =
+                (float) ($value['TotalLoan'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['BusinessDocument_RefID'],
+                'trans_number_preview' => $value['BusinessDocumentNumber'],
+                'trans_number_id' => $value['Loan_RefID'],
+                'trans_number_quantity_unit_id' => 73000000000001,
+                'trans_number_quantity' => 1,
+                'trans_number_currency_id' => $value['Currency_RefID'],
+                'trans_number_currency_rate' => $value['CurrencyExchangeRate'],
+                'budget_preview' => $value['CombinedBudgetCode'] . ' - ' . $value['CombinedBudgetName'],
+                'budget_id' => $value['CombinedBudget_RefID'],
+                'budget_code' => $value['CombinedBudgetCode'],
+                'budget_name' => $value['CombinedBudgetName'],
+                'trans_value' => $value['TotalLoan'],
+                'unpaid_value' => $unpaidValue
+            ];
+        } else if ($key === "Reimbursement Form") {
+            $unpaidValue =
+                (float) ($value['TotalDebitNote'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['BusinessDocument_RefID'],
+                'trans_number_preview' => $value['BusinessDocumentNumber'],
+                'trans_number_id' => $value['Sys_ID_Header'],
+                'trans_number_quantity_unit_id' => $value['QuantityUnit_RefID'],
+                'trans_number_quantity' => $value['Quantity'],
+                'trans_number_currency_id' => $value['ProductUnitPriceCurrency_RefID'],
+                'trans_number_currency_rate' => $value['ProductUnitPriceCurrencyExchangeRate'],
+                'budget_preview' => $value['CombinedBudgetCode'] . ' - ' . $value['CombinedBudgetName'],
+                'budget_id' => $value['CombinedBudget_RefID'],
+                'budget_code' => $value['CombinedBudgetCode'],
+                'budget_name' => $value['CombinedBudgetName'],
+                'trans_value' => $value['TotalDebitNote'],
                 'unpaid_value' => $unpaidValue
             ];
         }

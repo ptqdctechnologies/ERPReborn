@@ -657,7 +657,11 @@
     function checkTransactionId(key, value) {
         let referenceId = null;
 
-        if (key === "Advance Form") {
+        if (
+            key === "Advance Form" ||
+            key === "Loan Form" ||
+            key === "Reimbursement Form"
+        ) {
             referenceId = value.sys_ID;
         } else if (key === "Person Business Trip Form") {
             referenceId = value.recordID;
