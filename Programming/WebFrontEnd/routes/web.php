@@ -2,12 +2,17 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Accounting\JournalController;
+
 use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Budget\BudgetProgressController;
+
 use App\Http\Controllers\Function\FunctionController;
 use App\Http\Controllers\Finance\AccountPayableController;
+
 use App\Http\Controllers\Purchase\PurchaseOrderController;
 use App\Http\Controllers\Purchase\PurchaseRequisitionController;
+
 use App\Http\Controllers\Process\Advance\AdvanceRequestController;
 use App\Http\Controllers\Process\Advance\AdvanceSettlementController;
 use App\Http\Controllers\Process\BusinessTrip\BusinessTripRequestController;
@@ -270,6 +275,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::get('render-file-upload', 'renderFileUpload')
             ->name('renderFileUpload');
 
+        Route::get('banks-with-coa', 'getBanksWithCoA')
+            ->name('getBanksWithCoA');
+
         Route::post('getQuantityUnit', 'getQuantityUnit')
             ->name('getQuantityUnit');
 
@@ -449,12 +457,23 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('FinancialReport', 'Finance\FinancialReportController');
 
     // JOURNAL
-    Route::get('Journal/detail-transactions', 'Accounting\JournalController@detailTransactions')->name('Journal.detailTransactions');
-    Route::get('Journal/picklist', 'Accounting\JournalController@DataPickList')->name('Journal.DataPickList');
-    Route::get('ReportPaymentJournal', 'Accounting\JournalController@ReportPaymentJournal')->name('Journal.ReportPaymentJournal');
-    Route::post('Journal/report/store', 'Accounting\JournalController@ReportPaymentJournalStore')->name('Journal.ReportPaymentJournalStore');
-    Route::post('Journal/revision', 'Accounting\JournalController@RevisionJournal')->name('Journal.RevisionJournal');
-    Route::resource('Journal', 'Accounting\JournalController')->only(['index', 'store']);
+    Route::controller(JournalController::class)->group(function () {
+        Route::get('Journal/detail-transactions', 'detailTransactions')
+            ->name('Journal.detailTransactions');
+
+        Route::get('Journal/picklist', 'DataPickList')
+            ->name('Journal.DataPickList');
+
+        Route::get('ReportPaymentJournal', 'ReportPaymentJournal')
+            ->name('Journal.ReportPaymentJournal');
+
+        Route::post('Journal/report/store', 'ReportPaymentJournalStore')
+            ->name('Journal.ReportPaymentJournalStore');
+
+        Route::post('Journal/revision', 'RevisionJournal')
+            ->name('Journal.RevisionJournal');
+    });
+    Route::resource('Journal', JournalController::class);
 
     // GENERAL JOURNAL
     Route::get('ReportGeneralJournalSummary', 'Accounting\GeneralJournalController@ReportGeneralJournalSummary')->name('GeneralJournal.ReportGeneralJournalSummary');
