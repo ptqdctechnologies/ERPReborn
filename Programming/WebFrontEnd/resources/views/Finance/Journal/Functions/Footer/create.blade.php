@@ -278,7 +278,7 @@
             filteredData.push({
                 documentDateTimeTZ: `${year}-${month}-${day}`,
                 businessDocument_RefID: parseInt(detail.business_document_id),
-                bankAccount_RefID: 167000000000004, // parseInt(accountNumberID.value),
+                bankAccount_RefID: parseInt(accountNumberID.value), // 167000000000004
                 combinedBudget_RefID: parseInt(detail.budget_id),
                 journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
                 additionalData: {

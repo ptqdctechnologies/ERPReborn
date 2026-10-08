@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Register\PrivilegeMenu;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -13,16 +12,13 @@ use Illuminate\Support\Facades\Log;
 
 class PrivilegeMenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        // dd(Session::get("PrivilageMenu"));
-
         return view('Register.PrivilegeMenu.Transactions.index');
+    }
+
+    public function create()
+    {
     }
 
     public function store(StorePrivilegeMenu $request)
@@ -58,6 +54,22 @@ class PrivilegeMenuController extends Controller
 
             return response()->json(["status" => 500]);
         }
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy($id)
+    {
     }
 
     public function DataListPrivilegeMenu(Request $request)

@@ -13,6 +13,8 @@ use App\Http\Controllers\Finance\AccountPayableController;
 use App\Http\Controllers\Purchase\PurchaseOrderController;
 use App\Http\Controllers\Purchase\PurchaseRequisitionController;
 
+use App\Http\Controllers\Register\PrivilegeMenu\PrivilegeMenuController;
+
 use App\Http\Controllers\Process\Advance\AdvanceRequestController;
 use App\Http\Controllers\Process\Advance\AdvanceSettlementController;
 use App\Http\Controllers\Process\BusinessTrip\BusinessTripRequestController;
@@ -257,11 +259,16 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BudgetType', 'BudgetTypeController');
     // CodeOfBudgeting
     Route::resource('CodeOfBudgeting', 'CodeOfBudgetingController');
-    // PrivilegeMenu
-    Route::get('DataListPrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController@DataListPrivilegeMenu')->name('PrivilegeMenu.DataListPrivilegeMenu');
-    // MenuManagement
-    Route::get('MenuManagement', 'Register\PrivilegeMenu\PrivilegeMenuController@MenuManagement')->name('PrivilegeMenu.MenuManagement');
-    Route::resource('PrivilegeMenu', 'Register\PrivilegeMenu\PrivilegeMenuController');
+
+    // PRIVILEGE MENU
+    Route::controller(PrivilegeMenuController::class)->group(function () {
+        Route::get('DataListPrivilegeMenu', 'DataListPrivilegeMenu')
+            ->name('PrivilegeMenu.DataListPrivilegeMenu');
+
+        Route::get('MenuManagement', 'MenuManagement')
+            ->name('PrivilegeMenu.MenuManagement');
+    });
+    Route::resource('PrivilegeMenu', PrivilegeMenuController::class);
 
     // BUDGET PROGRESS
     Route::controller(BudgetProgressController::class)->group(function () {
