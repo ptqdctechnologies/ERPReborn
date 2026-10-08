@@ -19,13 +19,20 @@ class JournalController extends Controller
 
     public function index(Request $request)
     {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
+        return view('Finance.Journal.Transactions.index');
+    }
 
-        return view('Finance.Journal.Transactions.CreateJournal', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken
-        ]);
+    public function create()
+    {
+        $token = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Journal Form');
+
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Finance.Journal.Transactions.create', $compact);
     }
 
     public function store(Request $request)
@@ -49,6 +56,50 @@ class JournalController extends Controller
 
             return response()->json(["status" => 500]);
         }
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+        try {
+            $response = $this->journalService->detail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Journal');
+            }
+
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Journal Revision Form');
+
+            $data = $response['data']['data'] ? $response['data']['data'][0] : [];
+
+            $compact = [
+                'token' => $token,
+                'documentTypeRefID' => $documentTypeRefID,
+            ];
+
+            return view('Finance.Journal.Transactions.revision', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Detail Journal Error', [
+                'message' => $th->getMessage(),
+                'journalRefId' => $id
+            ]);
+
+            return redirect()
+                ->route('Journal.index', ['var' => 1])
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy($id)
+    {
     }
 
     public function DataPickList(Request $request)
@@ -76,11 +127,6 @@ class JournalController extends Controller
 
             return response()->json($compact);
         }
-    }
-
-    public function RevisionJournal(Request $request)
-    {
-        return view('Finance.Journal.Transactions.RevisionJournal');
     }
 
     public function ReportPaymentJournal(Request $request)
@@ -192,6 +238,95 @@ class JournalController extends Controller
         }
     }
 
+    private function filteredResponse($key, $value)
+    {
+        $data = [];
+
+        if ($key === "Advance Form") {
+            $unpaidValue =
+                (float) ($value['totalTransactions'] ?? 0) -
+                (float) ($value['totalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['businessDocument_RefID'],
+                'trans_number_preview' => $value['businessDocumentNumber'],
+                'trans_number_id' => $value['advance_RefID'],
+                'trans_number_quantity_unit_id' => $value['quantityUnit_RefID'],
+                'trans_number_quantity' => $value['quantity'],
+                'trans_number_currency_id' => $value['productUnitPriceCurrency_RefID'],
+                'trans_number_currency_rate' => $value['productUnitPriceCurrencyExchangeRate'],
+                'budget_preview' => $value['combinedBudgetCode'] . ' - ' . $value['combinedBudgetName'],
+                'budget_id' => $value['combinedBudget_RefID'],
+                'budget_code' => $value['combinedBudgetCode'],
+                'budget_name' => $value['combinedBudgetName'],
+                'trans_value' => $value['totalTransactions'],
+                'unpaid_value' => $unpaidValue
+            ];
+        } else if ($key === "Person Business Trip Form") {
+            $unpaidValue =
+                (float) ($value['TotalTransactions'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['BusinessDocument_RefID'],
+                'trans_number_preview' => $value['DocumentNumber'],
+                'trans_number_id' => $value['PersonBusinessTrip_RefID'],
+                'trans_number_quantity_unit_id' => 73000000000001,
+                'trans_number_quantity' => 1,
+                'trans_number_currency_id' => $value['AmountCurrency_RefID'],
+                'trans_number_currency_rate' => $value['AmountCurrencyExchangeRate'],
+                'budget_preview' => $value['CombinedBudgetCode'] . ' - ' . $value['CombinedBudgetName'],
+                'budget_id' => $value['CombinedBudget_RefID'],
+                'budget_code' => $value['CombinedBudgetCode'],
+                'budget_name' => $value['CombinedBudgetName'],
+                'trans_value' => $value['TotalTransactions'],
+                'unpaid_value' => $unpaidValue
+            ];
+        } else if ($key === "Loan Form") {
+            $unpaidValue =
+                (float) ($value['TotalLoan'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['BusinessDocument_RefID'],
+                'trans_number_preview' => $value['BusinessDocumentNumber'],
+                'trans_number_id' => $value['Loan_RefID'],
+                'trans_number_quantity_unit_id' => 73000000000001,
+                'trans_number_quantity' => 1,
+                'trans_number_currency_id' => $value['Currency_RefID'],
+                'trans_number_currency_rate' => $value['CurrencyExchangeRate'],
+                'budget_preview' => $value['CombinedBudgetCode'] . ' - ' . $value['CombinedBudgetName'],
+                'budget_id' => $value['CombinedBudget_RefID'],
+                'budget_code' => $value['CombinedBudgetCode'],
+                'budget_name' => $value['CombinedBudgetName'],
+                'trans_value' => $value['TotalLoan'],
+                'unpaid_value' => $unpaidValue
+            ];
+        } else if ($key === "Reimbursement Form") {
+            $unpaidValue =
+                (float) ($value['TotalDebitNote'] ?? 0) -
+                (float) ($value['TotalPayment'] ?? 0);
+
+            $data = [
+                'business_document_id' => $value['BusinessDocument_RefID'],
+                'trans_number_preview' => $value['BusinessDocumentNumber'],
+                'trans_number_id' => $value['Sys_ID_Header'],
+                'trans_number_quantity_unit_id' => $value['QuantityUnit_RefID'],
+                'trans_number_quantity' => $value['Quantity'],
+                'trans_number_currency_id' => $value['ProductUnitPriceCurrency_RefID'],
+                'trans_number_currency_rate' => $value['ProductUnitPriceCurrencyExchangeRate'],
+                'budget_preview' => $value['CombinedBudgetCode'] . ' - ' . $value['CombinedBudgetName'],
+                'budget_id' => $value['CombinedBudget_RefID'],
+                'budget_code' => $value['CombinedBudgetCode'],
+                'budget_name' => $value['CombinedBudgetName'],
+                'trans_value' => $value['TotalDebitNote'],
+                'unpaid_value' => $unpaidValue
+            ];
+        }
+
+        return $data;
+    }
+
     public function detailTransactions(Request $request)
     {
         try {
@@ -204,9 +339,11 @@ class JournalController extends Controller
                 throw new \Exception('Failed to fetch Detail Transaction');
             }
 
+            $data = isset($response['data']['data']) ? $response['data']['data'] : $response['data'];
+            $result = $this->filteredResponse($documentType, $data[0]);
+
             $compact = [
-                "data" => isset($response['data']['data']) ? $response['data']['data'] : $response['data'],
-                "documentTypeName" => $documentType,
+                "data" => $result,
                 "status" => $response['metadata']['HTTPStatusCode'],
             ];
 

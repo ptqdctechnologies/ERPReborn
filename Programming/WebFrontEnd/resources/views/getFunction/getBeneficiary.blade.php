@@ -14,9 +14,13 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="beneficiary_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="beneficiary_id" name="beneficiary_id" />
-                <input type="hidden" class="form-control" id="beneficiary_name" name="beneficiary_name" />
+                    value="<?= isset($beneficiary['preview']) ? $beneficiary['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($beneficiary['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="beneficiary_id" name="beneficiary_id"
+                    value="<?= isset($beneficiary['id']) ? $beneficiary['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="beneficiary_name" name="beneficiary_name"
+                    value="<?= isset($beneficiary['name']) ? $beneficiary['name'] : ''; ?>" />
             </div>
         </div>
     </div>

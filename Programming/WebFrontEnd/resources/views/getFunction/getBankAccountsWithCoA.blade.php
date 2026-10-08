@@ -5,40 +5,33 @@
     </label>
     <div class="col-5 d-flex">
         <div>
-            <!-- data-toggle="modal" data-target="#account_number_modal" -->
-            <span id="account_number_container" class="input-group-text form-control"
-                style="border-radius:0;cursor:not-allowed;">
-                <i id="account_number_icon" class="fas fa-gift"></i>
+            <span id="bank_coa_container" class="input-group-text form-control" data-toggle="modal"
+                data-target="#banks_coa_modal" style="border-radius: 0; cursor: pointer;">
+                <i id="bank_coa_icon" class="fas fa-gift"></i>
             </span>
         </div>
         <div style="flex: 100%;">
             <div class="input-group">
-                <input type="text" id="account_number_preview" class="form-control"
-                    value="<?= isset($account_number['preview']) ? $account_number['preview'] : ''; ?>"
-                    style="border-radius:0; background-color: <?= isset($account_number['preview']) ? '#e9ecef' : '#fff' ?>;"
-                    readonly />
-                <input type="hidden" class="form-control" id="account_number_id" name="account_number_id"
-                    value="<?= isset($account_number['id']) ? $account_number['id'] : ''; ?>" />
-                <input type="hidden" class="form-control" id="account_number_name" name="account_number_name"
-                    value="<?= isset($account_number['name']) ? $account_number['name'] : ''; ?>" />
-                <input type="hidden" class="form-control" id="account_number_code" name="account_number_code"
-                    value="<?= isset($account_number['code']) ? $account_number['code'] : ''; ?>" />
+                <input type="text" id="bank_coa_preview" class="form-control"
+                    style="border-radius:0; background-color: #fff;" readonly />
+                <input type="hidden" class="form-control" id="bank_coa_id" name="bank_coa_id" />
+                <input type="hidden" class="form-control" id="bank_coa_name" name="bank_coa_name" />
+                <input type="hidden" class="form-control" id="bank_coa_code" name="bank_coa_code" />
             </div>
         </div>
     </div>
 </div>
-<div class="row" id="account_number_message" style="margin-top: .3rem; display: none;">
+<div class="row" id="bank_coa_message" style="margin-top: .3rem; display: none;">
     <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-    <div class="col text-red" id="account_number_message_text"></div>
+    <div class="col text-red" id="bank_coa_message_text"></div>
 </div>
 
 <!-- MODAL -->
-<div class="modal fade" id="account_number_modal" tabindex="-1" aria-labelledby="account_number_modal_label"
-    aria-hidden="true">
+<div class="modal fade" id="banks_coa_modal" tabindex="-1" aria-labelledby="banks_coa_modal_label" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="account_number_modal_label"
+                <h5 class="modal-title" id="banks_coa_modal_label"
                     style="font-size: 15px; font-weight:bold; text-align: center;">
                     Choose Account Number
                 </h5>
@@ -51,17 +44,17 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body table-responsive p-0">
-                                <table class="table table-head-fixed w-100" id="account_number_list_table">
+                                <table class="table table-head-fixed w-100" id="banks_coa_list_table">
                                     <thead>
                                         <tr>
                                             <th>No</th>
-                                            <th>Bank Name</th>
-                                            <th>Account Number</th>
+                                            <th>Code</th>
+                                            <th>Name</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
                                     <tfoot>
-                                        <tr id="account_number_list_loading_table">
+                                        <tr id="banks_coa_list_loading_table">
                                             <td colspan="3" class="p-0" style="height: 22rem;">
                                                 <div
                                                     class="d-flex flex-column justify-content-center align-items-center py-3">
@@ -86,8 +79,8 @@
 </div>
 
 <script>
-    function getBankAccounts(bankName, accountNumber) {
-        let table = $('#account_number_list_table').DataTable({
+    function getBanksWithCoA() {
+        let table = $('#banks_coa_list_table').DataTable({
             processing: true,
             serverSide: true,
             destroy: true,
@@ -97,73 +90,47 @@
             lengthChange: true,
             pageLength: 10,
             ajax: {
-                url: '{!! route("Bank.Account.picklist") !!}',
+                url: '{!! route("getBanksWithCoA") !!}',
                 type: 'GET',
-                data: function (d) {
-                    d.bank_name = bankName;
-                    d.account_number = accountNumber;
-
-                    return d;
-                },
-                dataSrc: function (json) {
-
-                    // simpan seluruh response
-                    if (json.data.length === 1) {
-                        $('#account_number_preview').val(json.data[0].sys_Text);
-                        $('#account_number_id').val(json.data[0].sys_ID);
-                        $('#account_number_code').val(json.data[0].additionalData.bankName);
-                        $('#account_number_name').val(json.data[0].sys_Text);
-
-                        $('#account_number_preview').css("background-color", "#e9ecef");
-                    }
-
-                    // wajib return data untuk DataTable
-                    return json.data;
-                },
                 beforeSend: function () {
-                    $('#account_number_list_table tbody').empty();
-                    $("#account_number_list_loading_table").show();
+                    $('#banks_coa_list_table tbody').empty();
+                    $("#banks_coa_list_loading_table").show();
                 },
                 complete: function () {
-                    $("#account_number_list_loading_table").hide();
+                    $("#banks_coa_list_loading_table").hide();
                 },
                 error: function (xhr, error, thrown) {
-                    $("#account_number_list_loading_table").hide();
+                    $("#banks_coa_list_loading_table").hide();
                 }
             },
             columns: [
                 {
                     data: null,
                     render: function (data, type, row, meta) {
-                        return '<input id="sys_id_bank_account' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account" type="hidden">' +
-                            (meta.row + meta.settings._iDisplayStart + 1)
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
                 },
                 {
                     data: null,
                     defaultContent: '-',
-                    className: "align-middle text-wrap",
+                    className: "align-middle text-nowrap",
                     render: function (data, type, row, meta) {
-                        return '<span style="line-height: normal;">' +
-                            data.additionalData.bankName +
-                            '</span>';
+                        return data.additionalData.code
                     }
                 },
                 {
-                    data: "sys_Text",
+                    data: null,
                     defaultContent: '-',
-                    className: "align-middle text-wrap",
+                    className: "align-middle text-nowrap",
                     render: function (data, type, row, meta) {
-                        return '<span style="line-height: normal;">' +
-                            data +
-                            '</span>';
+                        return data.additionalData.name
                     }
                 }
             ],
             initComplete: function () {
                 let api = this.api();
 
-                let $filter = $('#account_number_list_table_filter');
+                let $filter = $('#banks_coa_list_table_filter');
                 let $searchLabel = $filter.find('label');
                 let $searchInput = $filter.find('input');
 
@@ -177,19 +144,20 @@
                         }
                     });
 
-                if ($('#searchHintBankAccount').length === 0) {
+                if ($('#searchHintBankCoA').length === 0) {
                     $filter.append(
-                        '<small id="searchHintBankAccount" class="form-text text-muted" style="margin-bottom: .5rem;">' +
+                        '<small id="searchHintBankCoA" class="form-text text-muted" style="margin-bottom: .5rem;">' +
                         'Press <strong>Enter</strong> to start searching.' +
                         '</small>'
                     );
                 }
+
             }
         });
     }
 
     $(document).ready(function () {
-        $('#account_number_modal').on('hide.bs.modal', function () {
+        $('#banks_coa_modal').on('hide.bs.modal', function () {
             if (document.activeElement && this.contains(document.activeElement)) {
                 document.activeElement.blur();
             }

@@ -1,6 +1,11 @@
 <script>
     let indexProduct = null;
+    const combinedBudgetRefID = document.getElementById('budget_id');
+    const combinedBudgetName = document.getElementById('budget_name');
+    const combinedBudgetCode = document.getElementById('budget_code');
+    const combinedBudgetSectionRefID = document.getElementById('sub_budget_id');
     const documentTypeRefID = {!! json_encode($documentTypeRefID ?? '') !!};
+    const dataBudgetDetails = {!! json_encode($details ?? []) !!};
     const formList = {
         budget_id: {
             component: '#budget_preview',
@@ -203,13 +208,15 @@
                 }
 
                 $.each(data, function (key, value) {
+                    const findData = dataBudgetDetails.find(val => val.combinedBudgetSectionDetail_RefID == value.sys_ID);
+
                     let isUnspecified = '';
-                    let balanced = currencyTotal(value.quantityRemaining);
+                    let balanced = findData ? value.quantityRemaining - findData.quantity : currencyTotal(value.quantityRemaining);
                     let totalBudget = value.quantity * value.priceBaseCurrencyValue;
 
                     let productColumn = `
                         <td style="text-align: center;">
-                            -
+                            ${findData ? `${findData.workCode} - ${findData.workName}` : '-'}
                         </td>
                         
                         <td data-field="product" style="text-align: left;">
@@ -222,12 +229,21 @@
                         balanced = '-';
                         productColumn = `
                             <td style="text-align: center;">
-                                -
+                                ${findData ? `${findData.productCode} - ${findData.productName}` : '-'}
                             </td>
 
                             <td style="padding: 8px;">
                                 <div class="input-group">
-                                    <input type="text" id="product_preview${key}" data-field="product" class="form-control" style="border-radius:0;width:130px;background-color:white;" readonly />
+                                    <input 
+                                        type="text" 
+                                        id="product_preview${key}" 
+                                        data-field="product" 
+                                        class="form-control" 
+                                        style="border-radius:0;width:130px;background-color:white;" 
+                                        value="${findData ? findData.sys_ID : ''}"
+                                        readonly 
+                                    />
+
                                     <div class="input-group-append">
                                         <span id="product_container${key}" class="input-group-text form-control" data-toggle="modal" data-target="#myProductss" style="border-radius:0;cursor:pointer;" onclick="pickProduct(${key})">
                                             <i id="product_icon${key}" class="fas fa-gift"></i>
@@ -242,51 +258,58 @@
                         <tr>
                             <input
                                 type="hidden"
+                                id="recordID${key}"
+                                name="additionalData[${key}][recordID]"
+                                value="${findData ? findData.sys_ID : ''}"
+                            />
+
+                            <input
+                                type="hidden"
                                 id="workStructure_RefID${key}"
                                 name="additionalData[${key}][workStructure_RefID]"
-                                value="302000000000001"
+                                value="${findData ? findData.workStructure_RefID : '302000000000001'}"
                             />
 
                             <input
                                 type="hidden"
                                 id="combinedBudgetSectionDetail_RefID${key}"
                                 name="additionalData[${key}][combinedBudgetSectionDetail_RefID]"
-                                value="${value.sys_ID}"
+                                value="${findData ? findData.combinedBudgetSectionDetail_RefID : value.sys_ID}"
                             />
 
                             <input
                                 type="hidden"
                                 id="product_RefID${key}"
                                 name="additionalData[${key}][product_RefID]"
-                                value="${value.product_RefID}"
+                                value="${findData ? findData.product_RefID : value.product_RefID}"
                             />
 
                             <input
                                 type="hidden"
                                 id="quantityUnit_RefID${key}"
                                 name="additionalData[${key}][quantityUnit_RefID]"
-                                value="${value.quantityUnit_RefID}"
+                                value="${findData ? findData.quantityUnit_RefID : value.quantityUnit_RefID}"
                             />
 
                             <input
                                 type="hidden"
                                 id="productUnitPriceCurrency_RefID${key}"
                                 name="additionalData[${key}][productUnitPriceCurrency_RefID]"
-                                value="${value.unitPriceCurrency_RefID}"
+                                value="${findData ? findData.productUnitPriceCurrency_RefID : value.unitPriceCurrency_RefID}"
                             />
 
                             <input
                                 type="hidden"
                                 id="productUnitPriceCurrencyExchangeRate${key}"
                                 name="additionalData[${key}][productUnitPriceCurrencyExchangeRate]"
-                                value="1"
+                                value="${findData ? findData.productUnitPriceCurrencyExchangeRate : '1'}"
                             />
 
                             <input
                                 type="hidden"
                                 id="remarks${key}"
                                 name="additionalData[${key}][remarks]"
-                                value=""
+                                value="${findData ? findData.notes : ''}"
                             />
 
                             <input
@@ -324,6 +347,10 @@
                             </td>
 
                             <td style="text-align: center;">
+                                -
+                            </td>
+
+                            <td style="text-align: center;">
                                 ${value.priceBaseCurrencyISOCode}
                             </td>
                             
@@ -336,6 +363,7 @@
                                     name="additionalData[${key}][quantity]"
                                     style="border-radius:0px;" 
                                     oninput="calculateTotalLine(${key})" 
+                                    value="${findData ? Utils.formatCurrency(findData.quantity) : ''}"
                                     ${isUnspecified} 
                                 />
                             </td>
@@ -349,6 +377,7 @@
                                     name="additionalData[${key}][productUnitPriceCurrencyValue]"
                                     style="border-radius:0px;" 
                                     oninput="calculateTotalLine(${key})" 
+                                    value="${findData ? Utils.formatCurrency(findData.productUnitPriceCurrencyValue) : ''}"
                                     ${isUnspecified} 
                                 />
                             </td>
@@ -360,6 +389,7 @@
                                     class="form-control number-without-negative" 
                                     autocomplete="off" 
                                     style="border-radius:0px;" 
+                                    value="${findData ? Utils.formatCurrency(findData.priceCurrencyValue) : ''}"
                                     readonly 
                                 />
                             </td>
@@ -383,6 +413,8 @@
                 });
 
                 getProductss();
+
+                calculateTotal();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
@@ -391,48 +423,6 @@
                 $('#budget_details_loading_table').hide();
                 $('#budget_details_message_container_table').show();
                 $('#budget_details_message_table').text(jqXHR.responseJSON);
-            }
-        });
-    }
-
-    function getBudgetProgress(budgetCodeID, budgetCode, budgetName) {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
-            data: {
-                record_id: budgetCodeID
-            },
-            success: function (response) {
-                if (response.status === 200 && response.isAvailable) {
-                    getSiteCode(budgetCodeID);
-
-                    $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
-                    $("#budget_id").val(budgetCodeID);
-                    $("#budget_name").val(budgetName);
-                    $("#budget_code").val(budgetCode);
-
-                    $("#budget_preview").css("background-color", "#e9ecef");
-                    $("#sub_budget_container").css({ "cursor": "pointer" });
-
-                    $('#sub_budget_container').attr({
-                        'data-toggle': 'modal',
-                        'data-target': '#sub_budget_code_modal'
-                    });
-                } else {
-                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
-                }
-
-                $("#budget_loading").css({ "display": "none" });
-                $("#budget_icon").css({ "display": "block" });
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.log(jqXHR.responseJSON);
             }
         });
     }
@@ -451,17 +441,23 @@
                 businessDocumentType_RefID: documentTypeRefID,
                 combinedBudget_RefID: budgetCodeID
             },
+            beforeSend: function () {
+                $("#budget_loading").css({ "display": "block" });
+                $("#budget_icon").css({ "display": "none" });
+            },
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
-                    getBudgetProgress(budgetCodeID, budgetCode, budgetName);
-
                     $("#workflow_path_id").val(response.data[0].workFlowPath_RefIDArray[0]);
-                } else {
-                    $("#budget_loading").css({ "display": "none" });
-                    $("#budget_icon").css({ "display": "block" });
 
-                    Swal.fire("Error", "You are not included in this budget", "error");
+                    getBudgetDetails(combinedBudgetSectionRefID.value);
+                } else {
+                    Swal.fire("Error", "You don't have access", "error").then((res) => {
+                        Utils.cancelForm('{{ route('AdvanceRequest.index', ['var' => 1]) }}');
+                    });
                 }
+
+                $("#budget_loading").css({ "display": "none" });
+                $("#budget_icon").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
@@ -516,14 +512,16 @@
         });
 
         $.ajax({
-            type: 'POST',
-            url: '{!! route("AdvanceRequest.store") !!}',
+            type: 'PUT',
+            url: '{!! route("AdvanceRequest.update", $advance_id) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
             },
             success: function (response) {
                 Utils.hideLoading();
+
+                console.log('response', response);
 
                 if (response.status == 200) {
                     const swalWithBootstrapButtons = Swal.mixin({
@@ -547,7 +545,7 @@
                         cancelForm("{{ route('AdvanceRequest.index', ['var' => 1]) }}");
                     });
                 } else {
-                    ErrorNotif("Create Advance Request Failed");
+                    ErrorNotif("Revision Advance Request Failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -568,192 +566,6 @@
                 }
             }
         });
-    });
-
-    $('#budget_code_list_table').on('click', 'tbody tr', function () {
-        const table = $('#budget_code_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.sys_ID;
-            const code = dataRow.code;
-            const name = dataRow.name;
-
-            $("#budget_preview").val("");
-            $("#budget_id").val("");
-            $("#budget_name").val("");
-            $("#budget_code").val("");
-
-            $("#budget_loading").css({ "display": "block" });
-            $("#budget_icon").css({ "display": "none" });
-
-            getWorkflow(id, code, name);
-
-            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
-        }
-
-        $("#budget_code_modal").modal('toggle');
-    });
-
-    $('#sub_budget_code_list_table').on('click', 'tbody tr', function () {
-        const table = $('#sub_budget_code_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.Sys_ID;
-            const code = dataRow.Code;
-            const name = dataRow.Name;
-
-            $("#sub_budget_preview").val(`${code} - ${name}`);
-            $("#sub_budget_id").val(id);
-            $("#sub_budget_name").val(name);
-            $("#sub_budget_code").val(code);
-
-            $("#sub_budget_preview").css("background-color", "#e9ecef");
-
-            ErrorHandler.hideErrorInputMessage("#sub_budget_preview", "#sub_budget_message");
-            ErrorHandler.hideErrorInputMessage("", "#budget_details_message");
-
-            $("#requester_container").css({ "cursor": "pointer" });
-            $('#requester_container').attr({
-                'data-toggle': 'modal',
-                'data-target': '#requester_modal'
-            });
-
-            $("#beneficiary_container").css({ "cursor": "pointer" });
-            $('#beneficiary_container').attr({
-                'data-toggle': 'modal',
-                'data-target': '#beneficiary_modal'
-            });
-
-            getBudgetDetails(id);
-            getRequester();
-            getBeneficiary();
-        }
-
-        $("#sub_budget_code_modal").modal('toggle');
-    });
-
-    $('#requester_list_table').on('click', 'tbody tr', function () {
-        const table = $('#requester_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.sys_ID;
-            const name = dataRow.personName;
-
-            $("#requester_preview").val(name);
-            $("#requester_id").val(id);
-            $("#requester_name").val(name);
-
-            $("#requester_preview").css("background-color", "#e9ecef");
-
-            ErrorHandler.hideErrorInputMessage("#requester_preview", "#requester_message");
-        }
-
-        $("#requester_modal").modal('toggle');
-    });
-
-    $('#beneficiary_list_table').on('click', 'tbody tr', function () {
-        const table = $('#beneficiary_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.sys_ID;
-            const name = dataRow.personName;
-            const personRefID = dataRow.person_RefID;
-
-            $("#beneficiary_preview").val(name);
-            $("#beneficiary_id").val(id);
-            $("#beneficiary_name").val(name);
-
-            $("#beneficiary_preview").css("background-color", "#e9ecef");
-
-            ErrorHandler.hideErrorInputMessage("#beneficiary_preview", "#beneficiary_message");
-
-            $('#bank_preview').val('');
-            $('#bank_id').val('');
-            $('#bank_code').val('');
-            $('#bank_name').val('');
-
-            $('#bank_preview').css("background-color", "#fff");
-            $("#bank_container").css({ "cursor": "pointer" });
-
-            ErrorHandler.hideErrorInputMessage("#bank_preview", "#bank_message");
-
-            $('#bank_container').attr({
-                'data-toggle': 'modal',
-                'data-target': '#bank_modal'
-            });
-
-            $('#account_number_preview').val('');
-            $('#account_number_id').val('');
-            $('#account_number_code').val('');
-            $('#account_number_name').val('');
-
-            $('#account_number_preview').css("background-color", "#fff");
-
-            ErrorHandler.hideErrorInputMessage("#account_number_preview", "#account_number_message");
-
-            getBank(personRefID);
-        }
-
-        $("#beneficiary_modal").modal('toggle');
-    });
-
-    $('#bank_list_table').on('click', 'tbody tr', function () {
-        const table = $('#bank_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.Bank_RefID;
-            const code = dataRow.BankAcronym;
-            const name = dataRow.BankName;
-            const accountName = dataRow.AccountName;
-
-            $('#bank_preview').val(`${code} - ${name}`);
-            $('#bank_id').val(id);
-            $('#bank_code').val(code);
-            $('#bank_name').val(name);
-
-            $('#bank_preview').css("background-color", "#e9ecef");
-
-            ErrorHandler.hideErrorInputMessage("#bank_preview", "#bank_message");
-
-            $("#account_number_container").css({ "cursor": "pointer" });
-            $('#account_number_container').attr({
-                'data-toggle': 'modal',
-                'data-target': '#account_number_modal'
-            });
-
-            ErrorHandler.hideErrorInputMessage("#account_number_preview", "#account_number_message");
-
-            getBankAccounts(code, accountName);
-        }
-
-        $("#bank_modal").modal('toggle');
-    });
-
-    $('#account_number_list_table').on('click', 'tbody tr', function () {
-        const table = $('#account_number_list_table').DataTable();
-        const dataRow = table.row(this).data();
-
-        if (dataRow) {
-            const id = dataRow.sys_ID;
-            const code = dataRow.additionalData.bankName;
-            const name = dataRow.sys_Text;
-
-            $('#account_number_preview').val(name);
-            $('#account_number_id').val(id);
-            $('#account_number_code').val(code);
-            $('#account_number_name').val(name);
-
-            $('#account_number_preview').css("background-color", "#e9ecef");
-
-            ErrorHandler.hideErrorInputMessage("#account_number_preview", "#account_number_message");
-        }
-
-        $("#account_number_modal").modal('toggle');
     });
 
     $('#tableGetProductss').on('click', 'tbody tr', function () {
@@ -783,6 +595,12 @@
     });
 
     $(document).ready(function () {
+        getWorkflow(
+            combinedBudgetRefID.value,
+            combinedBudgetCode.value,
+            combinedBudgetName.value
+        );
+
         $('#advance_summary_modal').on('hide.bs.modal', function () {
             if (document.activeElement && this.contains(document.activeElement)) {
                 document.activeElement.blur();

@@ -53,7 +53,7 @@ class KeyMenuComposer
         }
 
         $view->with([
-            'privilageMenu' => json_decode($cachedData, true) ?? []
+            'privilegeMenu' => json_decode($cachedData, true) ?? []
         ]);
     }
 }

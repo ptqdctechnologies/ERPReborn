@@ -101,7 +101,56 @@ class AdvanceRequestController extends Controller
                 throw new \Exception('Failed to fetch Detail Advance Request');
             }
 
-            return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $response);
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
+
+            $data = $response['data']['data'] ? $response['data']['data'][0] : [];
+
+            $compact = [
+                'token' => $token,
+                'documentTypeRefID' => $documentTypeRefID,
+                'advance_id' => $data['advance_RefID'] ?? '',
+                'advance_attachment' => $data['log_FileUpload_Pointer_RefID'] ?? NULL,
+                'remark' => $data['remarks'] ?? '',
+                'total_payment' => $data['totalPayment'] ?? 0.00,
+                'details' => $response['data']['data'] ?? [],
+                'budget' => [
+                    'preview' => $data['combinedBudgetCode'] . ' - ' . $data['combinedBudgetName'],
+                    'id' => $data['combinedBudget_RefID'],
+                    'code' => $data['combinedBudgetCode'],
+                    'name' => $data['combinedBudgetName']
+                ],
+                'sub_budget' => [
+                    'preview' => $data['combinedBudgetSectionCode'] . ' - ' . $data['combinedBudgetSectionName'],
+                    'id' => $data['combinedBudgetSection_RefID'],
+                    'code' => $data['combinedBudgetSectionCode'],
+                    'name' => $data['combinedBudgetSectionName']
+                ],
+                'requester' => [
+                    'preview' => $data['requesterWorkerName'],
+                    'id' => $data['requesterWorkerJobsPosition_RefID'],
+                    'name' => $data['requesterWorkerName']
+                ],
+                'beneficiary' => [
+                    'preview' => $data['beneficiaryWorkerName'],
+                    'id' => $data['beneficiaryWorkerJobsPosition_RefID'],
+                    'name' => $data['beneficiaryWorkerName']
+                ],
+                'bank' => [
+                    'preview' => $data['beneficiaryBankAcronym'] . ' - ' . $data['beneficiaryBankName'],
+                    'id' => $data['beneficiaryBank_RefID'],
+                    'name' => $data['beneficiaryBankName'],
+                    'code' => $data['beneficiaryBankAcronym']
+                ],
+                'account_number' => [
+                    'preview' => $data['beneficiaryBankName'] . ' (' . $data['beneficiaryBankAcronym'] . ') ' . $data['beneficiaryBankAccountNumber'] . ' a.n ' . $data['beneficiaryBankAccountName'],
+                    'id' => $data['beneficiaryBankAccount_RefID'],
+                    'name' => $data['beneficiaryBankName'] . ' (' . $data['beneficiaryBankAcronym'] . ') ',
+                    'code' => '(' . $data['beneficiaryBankAcronym'] . ') ' . $data['beneficiaryBankAccountNumber'] . ' a.n ' . $data['beneficiaryBankAccountName']
+                ]
+            ];
+
+            return view('Process.Advance.AdvanceRequest.Transactions.revision', $compact);
         } catch (\Throwable $th) {
             Log::error('Detail Advance Request Error', [
                 'message' => $th->getMessage(),
@@ -114,87 +163,25 @@ class AdvanceRequestController extends Controller
         }
     }
 
-    // REVISION FUNCTION FOR SHOW LIST DATA FILTER BY ID 
-    public function RevisionAdvanceIndex(Request $request)
+    public function update(StoreAdvanceRequest $request, $id)
     {
         try {
-            $varAPIWebToken = Session::get('SessionLogin');
-            $advance_RefID = $request->input('modal_advance_id');
-            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
-
-            $response = $this->advanceRequestService->detail($advance_RefID);
+            $response = $this->advanceRequestService->update($request, $id);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Detail Advance Request');
+                throw new \Exception('Failed to fetch Update Advance Request => ' . $response['data']['message']);
             }
 
-            $details = $response['data']['data'] ?? [];
-            $header = $details[0] ?? [];
-
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'documentTypeRefID' => $documentTypeRefID,
-                'advance_RefID' => $header['advance_RefID'] ?? '',
-                'headerAdvanceRevision' => [
-                    'budgetCode' => $header['combinedBudgetCode'] ?? '',
-                    'budgetCodeId' => $header['combinedBudget_RefID'] ?? '',
-                    'budgetCodeName' => $header['combinedBudgetName'] ?? '',
-                    'subBudgetCode' => $header['combinedBudgetSectionCode'] ?? '',
-                    'subBudgetCodeId' => $header['combinedBudgetSection_RefID'] ?? '',
-                    'subBudgetCodeName' => $header['combinedBudgetSectionName'] ?? '',
-                ],
-                'headerAdvanceRequestDetail' => [
-                    'requesterPosition' => $header['requesterWorkerJobPositionName'] ?? '',
-                    'requesterId' => $header['requesterWorkerJobsPosition_RefID'] ?? '',
-                    'requesterName' => $header['requesterWorkerName'] ?? '',
-                    'beneficiaryPosition' => $header['beneficiaryWorkerJobsPositionName'] ?? '',
-                    'beneficiaryId' => $header['beneficiaryWorkerJobsPosition_RefID'] ?? '',
-                    'beneficiaryName' => $header['beneficiaryWorkerName'] ?? '',
-                    'person_RefId' => $header['person_RefID'] ?? '',
-                    'bankAcronym' => $header['beneficiaryBankAcronym'] ?? '',
-                    'bankId' => $header['beneficiaryBank_RefID'] ?? '',
-                    'bankName' => $header['beneficiaryBankName'] ?? '',
-                    'bankAccountNumber' => $header['beneficiaryBankAccountNumber'] ?? '',
-                    'bankAccountId' => $header['beneficiaryBankAccount_RefID'] ?? '',
-                    'bankAccountName' => $header['beneficiaryBankAccountName'] ?? '',
-                    'totalPayment' => $header['totalPayment'] ?? '',
-                ],
-                'dataAdvanceList' => $details,
-                'fileAttachment' => $header['log_FileUpload_Pointer_RefID'] ?? null,
-                'remark' => $header['remarks'] ?? ''
-            ];
-
-            return view('Process.Advance.AdvanceRequest.Transactions.RevisionAdvanceRequest', $compact);
-        } catch (\Throwable $th) {
-            Log::error('Revision Advance Index Error', [
-                'message' => $th->getMessage(),
-                'advanceRefId' => $request->input('modal_advance_id')
-            ]);
-
-            return redirect()
-                ->route('AdvanceRequest.index', ['var' => 1])
-                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
-        }
-    }
-
-    // UPDATE FUNCTION
-    public function UpdatesAdvanceRequest(Request $request)
-    {
-        try {
-            $response = $this->advanceRequestService->updates($request);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Update Advance Request');
-            }
+            $workflowComment = $request->input('workflow_comment');
 
             $responseWorkflow = $this->workflowService->resubmit(
                 $response['data'][0]['businessDocument']['businessDocument_RefID'],
-                $request->comment,
-                $request->approverEntity,
+                $workflowComment,
+                null
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Update Advance Request');
+                throw new \Exception('Failed to fetch Resubmit Workflow Update Advance Request');
             }
 
             $compact = [
@@ -204,7 +191,7 @@ class AdvanceRequestController extends Controller
 
             return response()->json($compact);
         } catch (\Throwable $th) {
-            Log::error("Updates Advance Request Function Error: " . $th->getMessage());
+            Log::error("Update Advance Request Function Error: " . $th->getMessage());
 
             return response()->json(["status" => 500]);
         }

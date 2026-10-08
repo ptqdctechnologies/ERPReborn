@@ -622,6 +622,45 @@
         });
     }
 
+    function getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
+            data: {
+                record_id: combinedBudgetRefID
+            },
+            success: function (response) {
+                if (response.status === 200 && response.isAvailable) {
+                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
+                    $("#project_id_second").val(combinedBudgetRefID);
+                    $("#project_code_second").val(combinedBudgetCode);
+                    $("#project_name_second").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name_second").css({ "background-color": "#e9ecef" });
+                    $("#myProjectSecondTrigger").prop("disabled", true);
+                    $("#myProjectSecondTrigger").css({ "cursor": "not-allowed" });
+                    $("#mySiteCodeSecondTrigger").prop("disabled", false);
+
+                    getSites(combinedBudgetRefID);
+                    getWarehouseList();
+                } else {
+                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
+                }
+
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+            }
+        });
+    }
+
     function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
         $.ajax({
             type: 'GET',
@@ -631,31 +670,19 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     // totalNextApprover = response.data[0].nextApproverPath.length;
                     dataWorkflow.workFlowPathRefID = response.data[0].workFlowPath_RefIDArray[0];
                     // dataWorkflow.workFlowPathRefID = response.data[0].sys_ID;
                     // dataWorkflow.approverEntityRefID = response.data[0].submitterEntity_RefID;
 
-                    // getWorkflows(response.data[0].nextApproverPath);
-
-                    $("#var_combinedBudget_RefID").val(combinedBudgetRefID);
-                    $("#project_id_second").val(combinedBudgetRefID);
-                    $("#project_code_second").val(combinedBudgetCode);
-                    $("#project_name_second").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#project_name_second").css({ "background-color": "#e9ecef" });
-                    $("#myProjectSecondTrigger").prop("disabled", true);
-                    $("#myProjectSecondTrigger").css({ "cursor": "not-allowed" });
-
-                    getSites(combinedBudgetRefID);
-                    getWarehouseList();
-                    $("#mySiteCodeSecondTrigger").prop("disabled", false);
+                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
                 } else {
+                    $("#loadingBudget").css({ "display": "none" });
+                    $("#myProjectSecondTrigger").css({ "display": "block" });
+
                     Swal.fire("Error", "Workflow Error", "error");
                 }
-
-                $("#loadingBudget").css({ "display": "none" });
-                $("#myProjectSecondTrigger").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);

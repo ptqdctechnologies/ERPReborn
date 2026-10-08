@@ -19,6 +19,7 @@
 
                 <form id="privilege_menu_form">
                     @csrf
+
                     <!-- CONTENT -->
                     <div class="card">
                         <!-- ROLE -->
@@ -110,7 +111,7 @@
                             </div>
                         </div>
 
-                        <!-- PRIVILAGES -->
+                        <!-- PRIVILEGE -->
                         <div class="tab-content px-3 pb-2" id="nav-tabContent">
                             <div class="row">
                                 <div class="col-12">
@@ -118,7 +119,7 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Privilages
+                                                Privilege
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
