@@ -550,7 +550,7 @@ class BudgetController extends Controller
         $response = Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
             $token,
-            'dataPickList.project.getProject',
+            'dataPickList.budgeting.getCombinedBudget',
             'latest',
             ['parameter' => null],
             false
