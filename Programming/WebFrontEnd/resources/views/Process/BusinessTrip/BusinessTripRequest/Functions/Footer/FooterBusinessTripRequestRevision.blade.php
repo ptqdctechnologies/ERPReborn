@@ -644,7 +644,7 @@
   }
 
   function validationForm() {
-    const testing = sumTravelFares();
+    const travel = sumTravelFares();
     const accommodation = document.getElementById("accommodation");
     const entertainment = document.getElementById("entertainment");
     const other = document.getElementById("other");
@@ -653,11 +653,11 @@
     $('#businessTripRequestFormModal').modal('show');
 
     if (isSectionValid()) {
-      $("#travel_fares_modal_summary").text(decimalFormat(testing));
-      $("#allowance_modal_summary").text(accommodation.value || 0.00);
-      $("#entertainment_modal_summary").text(entertainment.value || 0.00);
-      $("#other_modal_summary").text(other.value || 0.00);
-      $("#total_brf_modal_summary").text(totalBRF.value || 0.00);
+      $("#travel_fares_modal_summary").text(decimalFormat(travel));
+      $("#allowance_modal_summary").text(accommodation.value ? Utils.formatCurrency(accommodation.value) : 0.00);
+      $("#entertainment_modal_summary").text(entertainment.value ? Utils.formatCurrency(entertainment.value) : 0.00);
+      $("#other_modal_summary").text(other.value ? Utils.formatCurrency(other.value) : 0.00);
+      $("#total_brf_modal_summary").text(totalBRF.value ? Utils.formatCurrency(totalBRF.value) : 0.00);
 
       $('#businessTripRequestFormModal').modal('show');
     } else {
@@ -914,7 +914,7 @@
 
   function commentWorkflow() {
     if (Utils.parseFloatSafe(Utils.removeCommas(validation.sectionFour.totalBusinessTrips.value)) < Utils.parseFloatSafe(Utils.removeCommas(totalJournalPayment.value))) {
-      ErrorNotif("BRF Total can't be less than BRF Payment Total!");
+      ErrorNotif(`BRF Total can't be less than BRF Payment Total! ${totalJournalPayment.value}`);
       return;
     }
 
