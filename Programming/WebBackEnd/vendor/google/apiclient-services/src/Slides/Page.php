@@ -68,8 +68,7 @@ class Page extends \Google\Collection
   /**
    * Output only. The comments view mode applied to the page. Only populated if
    * the page was fetched via a GetPageRequest with a populated
-   * comments_view_mode. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * comments_view_mode.
    *
    * @var string
    */
@@ -117,8 +116,7 @@ class Page extends \Google\Collection
   protected $slidePropertiesDataType = '';
 
   /**
-   * Output only. The comment anchors present on the page. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comment anchors present on the page.
    *
    * @param CommentAnchor[] $commentAnchors
    */
@@ -137,8 +135,7 @@ class Page extends \Google\Collection
    * Output only. The comment threads associated with the page. Only populated
    * if the page was fetched via a GetPageRequest with a populated
    * comments_view_mode. Otherwise, comments are returned in the Presentation
-   * via the GetPresentationRequest. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * via the GetPresentationRequest.
    *
    * @param CommentThread[] $comments
    */
@@ -156,8 +153,7 @@ class Page extends \Google\Collection
   /**
    * Output only. The comments view mode applied to the page. Only populated if
    * the page was fetched via a GetPageRequest with a populated
-   * comments_view_mode. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * comments_view_mode.
    *
    * Accepted values: COMMENTS_VIEW_MODE_UNSPECIFIED,
    * COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS, COMMENTS_VIEW_MODE_OMITTED,

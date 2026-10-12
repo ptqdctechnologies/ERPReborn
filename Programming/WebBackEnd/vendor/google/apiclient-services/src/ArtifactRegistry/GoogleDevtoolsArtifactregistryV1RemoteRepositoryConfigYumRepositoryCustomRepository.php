@@ -20,7 +20,7 @@ namespace Google\Service\ArtifactRegistry;
 class GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomRepository extends \Google\Model
 {
   /**
-   * An http/https uri reference to the upstream remote repository, for ex:
+   * An https uri reference to the upstream remote repository, for ex:
    * "https://my.yum.registry/".
    *
    * @var string
@@ -28,7 +28,7 @@ class GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigYumRepositoryCustomR
   public $uri;
 
   /**
-   * An http/https uri reference to the upstream remote repository, for ex:
+   * An https uri reference to the upstream remote repository, for ex:
    * "https://my.yum.registry/".
    *
    * @param string $uri

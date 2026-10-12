@@ -22,7 +22,7 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
   protected $collection_key = 'mcpTools';
   /**
    * Required. The name of the agent in Agent Registry that is affected by this
-   * policy.
+   * policy. Format: `projects/{project}/locations/{location}/agents/{agent}`
    *
    * @var string
    */
@@ -102,7 +102,7 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicy extends \Google\Collection
 
   /**
    * Required. The name of the agent in Agent Registry that is affected by this
-   * policy.
+   * policy. Format: `projects/{project}/locations/{location}/agents/{agent}`
    *
    * @param string $agent
    */

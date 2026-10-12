@@ -20,6 +20,17 @@ namespace Google\Service\Aiplatform;
 class GoogleCloudAiplatformV1EvaluationRunEvaluationConfig extends \Google\Collection
 {
   protected $collection_key = 'rubricConfigs';
+  /**
+   * Optional. Allows the evaluation run to use cross region models. When this
+   * flag is set, the service may route traffic to other regions if a model is
+   * unavailable in the current region (e.g., to a `global` endpoint). If a
+   * fully-qualified model endpoint resource name with a different region than
+   * the run location is provided elsewhere in the run config, this flag must be
+   * set to true or the request will fail.
+   *
+   * @var bool
+   */
+  public $allowCrossRegionModel;
   protected $autoraterConfigType = GoogleCloudAiplatformV1EvaluationRunEvaluationConfigAutoraterConfig::class;
   protected $autoraterConfigDataType = '';
   protected $cloudLoggingConfigType = GoogleCloudAiplatformV1CloudLoggingConfig::class;
@@ -37,6 +48,27 @@ class GoogleCloudAiplatformV1EvaluationRunEvaluationConfig extends \Google\Colle
   protected $rubricConfigsType = GoogleCloudAiplatformV1EvaluationRubricConfig::class;
   protected $rubricConfigsDataType = 'array';
 
+  /**
+   * Optional. Allows the evaluation run to use cross region models. When this
+   * flag is set, the service may route traffic to other regions if a model is
+   * unavailable in the current region (e.g., to a `global` endpoint). If a
+   * fully-qualified model endpoint resource name with a different region than
+   * the run location is provided elsewhere in the run config, this flag must be
+   * set to true or the request will fail.
+   *
+   * @param bool $allowCrossRegionModel
+   */
+  public function setAllowCrossRegionModel($allowCrossRegionModel)
+  {
+    $this->allowCrossRegionModel = $allowCrossRegionModel;
+  }
+  /**
+   * @return bool
+   */
+  public function getAllowCrossRegionModel()
+  {
+    return $this->allowCrossRegionModel;
+  }
   /**
    * Optional. The autorater config for the evaluation run.
    *

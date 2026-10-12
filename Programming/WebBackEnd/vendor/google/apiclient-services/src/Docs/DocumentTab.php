@@ -67,8 +67,7 @@ class DocumentTab extends \Google\Model
   /**
    * The comment anchors in a document tab, keyed by anchor ID. Only populated
    * if the commentsViewMode parameter is set to require comments (such as
-   * `COMMENTS_VIEW_MODE_INCLUDED`). [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * `COMMENTS_VIEW_MODE_INCLUDED`).
    *
    * @param CommentAnchor[] $commentAnchors
    */

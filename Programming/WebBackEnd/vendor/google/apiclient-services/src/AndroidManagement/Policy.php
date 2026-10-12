@@ -650,7 +650,9 @@ class Policy extends \Google\Collection
    */
   public $microphoneAccess;
   /**
-   * The minimum allowed Android API level.
+   * The minimum allowed Android API level. A NonComplianceDetail with
+   * OS_NOT_PERMITTED is reported if the Android API level of the device is
+   * lower than this value.
    *
    * @var int
    */
@@ -1816,7 +1818,7 @@ class Policy extends \Google\Collection
   /**
    * Optional. Settings controlling the behavior of a device in kiosk mode. To
    * enable kiosk mode, set kioskCustomLauncherEnabled to true or specify an app
-   * in the policy with installType KIOSK.
+   * in the policy with the KIOSK role.
    *
    * @param KioskCustomization $kioskCustomization
    */
@@ -1907,7 +1909,9 @@ class Policy extends \Google\Collection
     return $this->microphoneAccess;
   }
   /**
-   * The minimum allowed Android API level.
+   * The minimum allowed Android API level. A NonComplianceDetail with
+   * OS_NOT_PERMITTED is reported if the Android API level of the device is
+   * lower than this value.
    *
    * @param int $minimumApiLevel
    */

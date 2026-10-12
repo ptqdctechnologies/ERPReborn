@@ -86,7 +86,6 @@ class Presentations extends \Google\Service\Resource
    * @opt_param string commentsViewMode The comments view mode to apply to the
    * presentation. This allows viewing the presentation with comments omitted or
    * included. If one is not specified, COMMENTS_VIEW_MODE_OMITTED is used.
-   * [Developer Preview](https://developers.google.com/workspace/preview).
    * @return Presentation
    * @throws \Google\Service\Exception
    */

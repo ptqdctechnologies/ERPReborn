@@ -24,6 +24,8 @@ class PolicyAlternativeNameServerConfig extends \Google\Collection
    * @var string
    */
   public $kind;
+  protected $outboundEndpointsType = PolicyAlternativeNameServerConfigOutboundEndpoint::class;
+  protected $outboundEndpointsDataType = 'array';
   protected $targetNameServersType = PolicyAlternativeNameServerConfigTargetNameServer::class;
   protected $targetNameServersDataType = 'array';
 
@@ -40,6 +42,22 @@ class PolicyAlternativeNameServerConfig extends \Google\Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * The list of outbound endpoints to use for queries.
+   *
+   * @param PolicyAlternativeNameServerConfigOutboundEndpoint[] $outboundEndpoints
+   */
+  public function setOutboundEndpoints($outboundEndpoints)
+  {
+    $this->outboundEndpoints = $outboundEndpoints;
+  }
+  /**
+   * @return PolicyAlternativeNameServerConfigOutboundEndpoint[]
+   */
+  public function getOutboundEndpoints()
+  {
+    return $this->outboundEndpoints;
   }
   /**
    * Sets an alternative name server for the associated networks. When

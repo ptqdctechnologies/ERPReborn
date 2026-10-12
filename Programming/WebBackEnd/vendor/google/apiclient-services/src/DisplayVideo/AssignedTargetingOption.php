@@ -938,7 +938,8 @@ class AssignedTargetingOption extends \Google\Model
   }
   /**
    * Inventory source details. This field will be populated when the
-   * targeting_type is `TARGETING_TYPE_INVENTORY_SOURCE`.
+   * targeting_type is `TARGETING_TYPE_INVENTORY_SOURCE` or
+   * `TARGETING_TYPE_INVENTORY_SOURCE_DEAL`.
    *
    * @param InventorySourceAssignedTargetingOptionDetails $inventorySourceDetails
    */

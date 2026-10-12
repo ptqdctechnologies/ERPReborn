@@ -21,6 +21,18 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfo extends 
 {
   protected $collection_key = 'resolvedModels';
   /**
+   * Output only. The `model_id` a client must send when the end-user picks the
+   * "Auto" entry (the empty `model_id`). Populated only for surfaces known to
+   * have no true "Auto" mode, where leaving the model unset would fall back to
+   * a platform default rather than a backend-chosen model. Empty on every other
+   * surface, where "Auto" is resolved server-side, and when none of the
+   * surface's ranked models is available. When set, it is always one of the
+   * non-empty `model_id`s present in `resolved_models`.
+   *
+   * @var string
+   */
+  public $autoModelId;
+  /**
    * Output only. The `model_id` of the model that should be selected by default
    * in the model selector when the end-user has not made an explicit choice.
    * The value is always one of the `model_id`s present in `resolved_models`.
@@ -31,6 +43,28 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfo extends 
   protected $resolvedModelsType = GoogleCloudDiscoveryengineV1WidgetConfigUiSettingsModelConfigInfoResolvedModel::class;
   protected $resolvedModelsDataType = 'array';
 
+  /**
+   * Output only. The `model_id` a client must send when the end-user picks the
+   * "Auto" entry (the empty `model_id`). Populated only for surfaces known to
+   * have no true "Auto" mode, where leaving the model unset would fall back to
+   * a platform default rather than a backend-chosen model. Empty on every other
+   * surface, where "Auto" is resolved server-side, and when none of the
+   * surface's ranked models is available. When set, it is always one of the
+   * non-empty `model_id`s present in `resolved_models`.
+   *
+   * @param string $autoModelId
+   */
+  public function setAutoModelId($autoModelId)
+  {
+    $this->autoModelId = $autoModelId;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoModelId()
+  {
+    return $this->autoModelId;
+  }
   /**
    * Output only. The `model_id` of the model that should be selected by default
    * in the model selector when the end-user has not made an explicit choice.

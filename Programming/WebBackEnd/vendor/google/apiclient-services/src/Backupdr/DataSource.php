@@ -33,6 +33,10 @@ class DataSource extends \Google\Model
    */
   public const CONFIG_STATE_PASSIVE = 'PASSIVE';
   /**
+   * The data source has been created but backups are paused
+   */
+  public const CONFIG_STATE_PAUSED = 'PAUSED';
+  /**
    * State not set.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -178,7 +182,7 @@ class DataSource extends \Google\Model
   /**
    * Output only. The backup configuration state.
    *
-   * Accepted values: BACKUP_CONFIG_STATE_UNSPECIFIED, ACTIVE, PASSIVE
+   * Accepted values: BACKUP_CONFIG_STATE_UNSPECIFIED, ACTIVE, PASSIVE, PAUSED
    *
    * @param self::CONFIG_STATE_* $configState
    */

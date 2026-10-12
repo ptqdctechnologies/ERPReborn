@@ -20,7 +20,8 @@ namespace Google\Service\CloudRun;
 class GoogleDevtoolsCloudbuildV1GenericArtifactDependency extends \Google\Model
 {
   /**
-   * Required. Where the artifact files should be placed on the worker.
+   * Optional. Where the artifact files should be placed on the worker. Required
+   * when specified in `Build.dependencies`.
    *
    * @var string
    */
@@ -34,7 +35,8 @@ class GoogleDevtoolsCloudbuildV1GenericArtifactDependency extends \Google\Model
   public $resource;
 
   /**
-   * Required. Where the artifact files should be placed on the worker.
+   * Optional. Where the artifact files should be placed on the worker. Required
+   * when specified in `Build.dependencies`.
    *
    * @param string $destPath
    */

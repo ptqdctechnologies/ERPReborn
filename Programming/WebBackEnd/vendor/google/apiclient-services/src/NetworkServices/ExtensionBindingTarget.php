@@ -21,8 +21,11 @@ class ExtensionBindingTarget extends \Google\Collection
 {
   protected $collection_key = 'resources';
   /**
-   * Optional. The reference to the target resource, to which this binding
-   * should attach. Exactly one of `resources` or `scope` must be set.
+   * Optional. The references to the target resources to which this binding
+   * should attach. Exactly one of `resources` or `scope` must be set. For AI
+   * Application resources, specify the full resource name in the format:
+   * `projects/{project}/locations/{location}/applications/{application}`.
+   * Limited to 1 resource.
    *
    * @var string[]
    */
@@ -31,8 +34,11 @@ class ExtensionBindingTarget extends \Google\Collection
   protected $scopeDataType = '';
 
   /**
-   * Optional. The reference to the target resource, to which this binding
-   * should attach. Exactly one of `resources` or `scope` must be set.
+   * Optional. The references to the target resources to which this binding
+   * should attach. Exactly one of `resources` or `scope` must be set. For AI
+   * Application resources, specify the full resource name in the format:
+   * `projects/{project}/locations/{location}/applications/{application}`.
+   * Limited to 1 resource.
    *
    * @param string[] $resources
    */

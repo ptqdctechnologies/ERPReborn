@@ -43,6 +43,10 @@ class BackupPlanAssociation extends \Google\Collection
    * The resource is being updated.
    */
   public const STATE_UPDATING = 'UPDATING';
+  /**
+   * The resource has been created but backups are paused.
+   */
+  public const STATE_PAUSED = 'PAUSED';
   protected $collection_key = 'rulesConfigInfo';
   protected $alloydbClusterBackupPlanAssociationPropertiesType = AlloyDBClusterBackupPlanAssociationProperties::class;
   protected $alloydbClusterBackupPlanAssociationPropertiesDataType = '';
@@ -337,7 +341,7 @@ class BackupPlanAssociation extends \Google\Collection
    * Output only. The BackupPlanAssociation resource state.
    *
    * Accepted values: STATE_UNSPECIFIED, CREATING, ACTIVE, DELETING, INACTIVE,
-   * UPDATING
+   * UPDATING, PAUSED
    *
    * @param self::STATE_* $state
    */

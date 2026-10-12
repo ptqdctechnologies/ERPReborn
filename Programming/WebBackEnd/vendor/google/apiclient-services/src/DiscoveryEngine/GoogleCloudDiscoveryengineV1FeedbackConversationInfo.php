@@ -45,6 +45,14 @@ class GoogleCloudDiscoveryengineV1FeedbackConversationInfo extends \Google\Model
    * @var string
    */
   public $session;
+  /**
+   * Optional. The full resource name of the Sobi task if the conversation was
+   * handled by a long-running agent task. Format:
+   * projects/{project}/locations/{location}/tasks/{task_id}
+   *
+   * @var string
+   */
+  public $taskName;
 
   /**
    * Optional. The token which could be used to fetch the answer log.
@@ -125,6 +133,24 @@ class GoogleCloudDiscoveryengineV1FeedbackConversationInfo extends \Google\Model
   public function getSession()
   {
     return $this->session;
+  }
+  /**
+   * Optional. The full resource name of the Sobi task if the conversation was
+   * handled by a long-running agent task. Format:
+   * projects/{project}/locations/{location}/tasks/{task_id}
+   *
+   * @param string $taskName
+   */
+  public function setTaskName($taskName)
+  {
+    $this->taskName = $taskName;
+  }
+  /**
+   * @return string
+   */
+  public function getTaskName()
+  {
+    return $this->taskName;
   }
 }
 

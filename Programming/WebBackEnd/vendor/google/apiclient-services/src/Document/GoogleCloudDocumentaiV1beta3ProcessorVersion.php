@@ -91,6 +91,8 @@ class GoogleCloudDocumentaiV1beta3ProcessorVersion extends \Google\Model
    * @var bool
    */
   public $googleManaged;
+  protected $groundingSettingsType = GoogleCloudDocumentaiV1beta3GroundingSettings::class;
+  protected $groundingSettingsDataType = '';
   /**
    * Output only. The KMS key name used for encryption.
    *
@@ -235,6 +237,24 @@ class GoogleCloudDocumentaiV1beta3ProcessorVersion extends \Google\Model
   public function getGoogleManaged()
   {
     return $this->googleManaged;
+  }
+  /**
+   * Output only. The grounding settings of the processor version. This can only
+   * be set using TrainProcessorVersionRequest to override the default grounding
+   * settings.
+   *
+   * @param GoogleCloudDocumentaiV1beta3GroundingSettings $groundingSettings
+   */
+  public function setGroundingSettings(GoogleCloudDocumentaiV1beta3GroundingSettings $groundingSettings)
+  {
+    $this->groundingSettings = $groundingSettings;
+  }
+  /**
+   * @return GoogleCloudDocumentaiV1beta3GroundingSettings
+   */
+  public function getGroundingSettings()
+  {
+    return $this->groundingSettings;
   }
   /**
    * Output only. The KMS key name used for encryption.

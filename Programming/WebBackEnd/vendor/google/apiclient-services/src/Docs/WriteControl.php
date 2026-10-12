@@ -28,8 +28,7 @@ class WriteControl extends \Google\Model
    */
   public const WRITE_MODE_EDIT = 'EDIT';
   /**
-   * Apply all updates as suggestions. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Apply all updates as suggestions.
    */
   public const WRITE_MODE_SUGGEST = 'SUGGEST';
   /**
@@ -63,8 +62,7 @@ class WriteControl extends \Google\Model
   public $targetRevisionId;
   /**
    * How the request updates should be applied to the document. If unspecified,
-   * the request updates will be applied as normal edits. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * the request updates will be applied as normal edits.
    *
    * @var string
    */
@@ -121,8 +119,7 @@ class WriteControl extends \Google\Model
   }
   /**
    * How the request updates should be applied to the document. If unspecified,
-   * the request updates will be applied as normal edits. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * the request updates will be applied as normal edits.
    *
    * Accepted values: WRITE_MODE_UNSPECIFIED, EDIT, SUGGEST
    *

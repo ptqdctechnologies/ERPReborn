@@ -21,14 +21,12 @@ class KaclsKeyMetadata extends \Google\Model
 {
   /**
    * Opaque data generated and used by the key access control list service.
-   * Maximum size: 8 KiB.
    *
    * @var string
    */
   public $kaclsData;
   /**
-   * The URI of the key access control list service that manages the private
-   * key.
+   * The URI of the key access control list service that manages the key.
    *
    * @var string
    */
@@ -36,7 +34,6 @@ class KaclsKeyMetadata extends \Google\Model
 
   /**
    * Opaque data generated and used by the key access control list service.
-   * Maximum size: 8 KiB.
    *
    * @param string $kaclsData
    */
@@ -52,8 +49,7 @@ class KaclsKeyMetadata extends \Google\Model
     return $this->kaclsData;
   }
   /**
-   * The URI of the key access control list service that manages the private
-   * key.
+   * The URI of the key access control list service that manages the key.
    *
    * @param string $kaclsUri
    */

@@ -20,6 +20,10 @@ namespace Google\Service\SecurityCommandCenter;
 class NotificationConfig extends \Google\Model
 {
   /**
+   * @var bool
+   */
+  public $deletionNotificationsEnabled;
+  /**
    * @var string
    */
   public $description;
@@ -38,6 +42,20 @@ class NotificationConfig extends \Google\Model
   protected $streamingConfigType = StreamingConfig::class;
   protected $streamingConfigDataType = '';
 
+  /**
+   * @param bool $deletionNotificationsEnabled
+   */
+  public function setDeletionNotificationsEnabled($deletionNotificationsEnabled)
+  {
+    $this->deletionNotificationsEnabled = $deletionNotificationsEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getDeletionNotificationsEnabled()
+  {
+    return $this->deletionNotificationsEnabled;
+  }
   /**
    * @param string $description
    */
