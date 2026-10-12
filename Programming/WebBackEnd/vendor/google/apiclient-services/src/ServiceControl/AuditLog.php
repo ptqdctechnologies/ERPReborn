@@ -33,6 +33,8 @@ class AuditLog extends \Google\Collection
   protected $authenticationInfoDataType = '';
   protected $authorizationInfoType = AuthorizationInfo::class;
   protected $authorizationInfoDataType = 'array';
+  protected $callerAgentType = CallerAgent::class;
+  protected $callerAgentDataType = '';
   /**
    * Other service-specific data about the request, response, and other
    * information associated with the current audited event.
@@ -172,6 +174,22 @@ class AuditLog extends \Google\Collection
   public function getAuthorizationInfo()
   {
     return $this->authorizationInfo;
+  }
+  /**
+   * Information set when the caller is an agent.
+   *
+   * @param CallerAgent $callerAgent
+   */
+  public function setCallerAgent(CallerAgent $callerAgent)
+  {
+    $this->callerAgent = $callerAgent;
+  }
+  /**
+   * @return CallerAgent
+   */
+  public function getCallerAgent()
+  {
+    return $this->callerAgent;
   }
   /**
    * Other service-specific data about the request, response, and other

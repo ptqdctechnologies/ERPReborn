@@ -41,7 +41,7 @@ class McpServerSpec extends \Google\Model
    */
   public $content;
   /**
-   * Required. The type of the MCP Server spec content.
+   * Required. Immutable. The type of the MCP Server spec content.
    *
    * @var string
    */
@@ -66,7 +66,7 @@ class McpServerSpec extends \Google\Model
     return $this->content;
   }
   /**
-   * Required. The type of the MCP Server spec content.
+   * Required. Immutable. The type of the MCP Server spec content.
    *
    * Accepted values: TYPE_UNSPECIFIED, NO_SPEC, TOOL_SPEC
    *

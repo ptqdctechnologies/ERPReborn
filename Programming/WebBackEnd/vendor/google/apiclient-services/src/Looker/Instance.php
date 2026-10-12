@@ -155,6 +155,8 @@ class Instance extends \Google\Model
   public $acceleratedSecurityPatchEnabled;
   protected $adminSettingsType = AdminSettings::class;
   protected $adminSettingsDataType = '';
+  protected $authTypeType = AuthType::class;
+  protected $authTypeDataType = '';
   /**
    * Optional. Indicates whether catalog integration is disabled for the Looker
    * instance.
@@ -379,6 +381,22 @@ class Instance extends \Google\Model
   public function getAdminSettings()
   {
     return $this->adminSettings;
+  }
+  /**
+   * Optional. Auth type for the Looker instance.
+   *
+   * @param AuthType $authType
+   */
+  public function setAuthType(AuthType $authType)
+  {
+    $this->authType = $authType;
+  }
+  /**
+   * @return AuthType
+   */
+  public function getAuthType()
+  {
+    return $this->authType;
   }
   /**
    * Optional. Indicates whether catalog integration is disabled for the Looker

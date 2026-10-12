@@ -49,8 +49,7 @@ class Response extends \Google\Model
   protected $replaceAllTextDataType = '';
 
   /**
-   * The result of creating a reply. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The result of creating a reply.
    *
    * @param AddCommentReplyResponse $addCommentReply
    */
@@ -210,8 +209,7 @@ class Response extends \Google\Model
     return $this->groupObjects;
   }
   /**
-   * The result of creating a comment. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The result of creating a comment.
    *
    * @param InsertCommentResponse $insertComment
    */

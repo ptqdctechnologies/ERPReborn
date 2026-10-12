@@ -104,6 +104,18 @@ class Quota extends \Google\Collection
    */
   public $networksPerResponsePolicy;
   /**
+   * Maximum allowed number of outbound endpoints per managed zone.
+   *
+   * @var int
+   */
+  public $outboundEndpointsPerManagedZone;
+  /**
+   * Maximum allowed number of outbound endpoints per policy.
+   *
+   * @var int
+   */
+  public $outboundEndpointsPerPolicy;
+  /**
    * Maximum allowed number of consumer peering zones per target network owned
    * by this producer project
    *
@@ -397,6 +409,38 @@ class Quota extends \Google\Collection
   public function getNetworksPerResponsePolicy()
   {
     return $this->networksPerResponsePolicy;
+  }
+  /**
+   * Maximum allowed number of outbound endpoints per managed zone.
+   *
+   * @param int $outboundEndpointsPerManagedZone
+   */
+  public function setOutboundEndpointsPerManagedZone($outboundEndpointsPerManagedZone)
+  {
+    $this->outboundEndpointsPerManagedZone = $outboundEndpointsPerManagedZone;
+  }
+  /**
+   * @return int
+   */
+  public function getOutboundEndpointsPerManagedZone()
+  {
+    return $this->outboundEndpointsPerManagedZone;
+  }
+  /**
+   * Maximum allowed number of outbound endpoints per policy.
+   *
+   * @param int $outboundEndpointsPerPolicy
+   */
+  public function setOutboundEndpointsPerPolicy($outboundEndpointsPerPolicy)
+  {
+    $this->outboundEndpointsPerPolicy = $outboundEndpointsPerPolicy;
+  }
+  /**
+   * @return int
+   */
+  public function getOutboundEndpointsPerPolicy()
+  {
+    return $this->outboundEndpointsPerPolicy;
   }
   /**
    * Maximum allowed number of consumer peering zones per target network owned

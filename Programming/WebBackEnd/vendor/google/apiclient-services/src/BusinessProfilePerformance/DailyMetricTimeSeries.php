@@ -48,6 +48,8 @@ class DailyMetricTimeSeries extends \Google\Model
   public const DAILY_METRIC_BUSINESS_IMPRESSIONS_MOBILE_SEARCH = 'BUSINESS_IMPRESSIONS_MOBILE_SEARCH';
   /**
    * The number of message conversations received on the business profile.
+   *
+   * @deprecated
    */
   public const DAILY_METRIC_BUSINESS_CONVERSATIONS = 'BUSINESS_CONVERSATIONS';
   /**

@@ -56,7 +56,7 @@ class Filter extends \Google\Model
     return $this->betweenFilter;
   }
   /**
-   * A filter for empty values such as "(not set)" and "" values.
+   * A filter for empty values such as `(not set)` and `""` values.
    *
    * @param EmptyFilter $emptyFilter
    */

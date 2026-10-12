@@ -211,7 +211,7 @@ class Trigger extends \Google\Collection
     return $this->eventDataContentType;
   }
   /**
-   * Required. Unordered list. The list of filters that applies to event
+   * Optional. Unordered list. The list of filters that applies to event
    * attributes. Only events that match all the provided filters are sent to the
    * destination.
    *

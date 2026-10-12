@@ -20,55 +20,54 @@ namespace Google\Service\Aiplatform;
 class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
 {
   /**
-   * Defaults to browser.
+   * The environment is unspecified.
    */
   public const ENVIRONMENT_ENVIRONMENT_UNSPECIFIED = 'ENVIRONMENT_UNSPECIFIED';
   /**
-   * Operates in a web browser.
+   * The tool operates in a web browser.
    */
   public const ENVIRONMENT_ENVIRONMENT_BROWSER = 'ENVIRONMENT_BROWSER';
   /**
-   * Operates in a mobile environment.
+   * The tool operates in a mobile environment.
    */
   public const ENVIRONMENT_ENVIRONMENT_MOBILE = 'ENVIRONMENT_MOBILE';
   /**
-   * Operates in a desktop environment.
+   * The tool operates in a desktop environment.
    */
   public const ENVIRONMENT_ENVIRONMENT_DESKTOP = 'ENVIRONMENT_DESKTOP';
   protected $collection_key = 'excludedPredefinedFunctions';
   /**
-   * Optional. Disabled safety policies for computer use.
+   * Optional. A list of safety policies to disable for the computer use tool.
    *
    * @var string[]
    */
   public $disabledSafetyPolicies;
   /**
-   * Optional. Enables the prompt injection detection check on computer-use
-   * request.
+   * Optional. Whether to enable the prompt injection detection check on the
+   * computer use request.
    *
    * @var bool
    */
   public $enablePromptInjectionDetection;
   /**
-   * Required. The environment being operated.
+   * Required. The target environment where the computer use tool operates.
    *
    * @var string
    */
   public $environment;
   /**
-   * Optional. By default, [predefined
+   * Optional. A list of predefined functions to explicitly exclude from the
+   * model call. By default, [predefined
    * functions](https://cloud.google.com/vertex-ai/generative-ai/docs/computer-
-   * use#supported-actions) are included in the final model call. Some of them
-   * can be explicitly excluded from being automatically included. This can
-   * serve two purposes: 1. Using a more restricted / different action space. 2.
-   * Improving the definitions / instructions of predefined functions.
+   * use#supported-actions) are included. Excluding functions allows for a more
+   * restricted action space or custom definitions for predefined functions.
    *
    * @var string[]
    */
   public $excludedPredefinedFunctions;
 
   /**
-   * Optional. Disabled safety policies for computer use.
+   * Optional. A list of safety policies to disable for the computer use tool.
    *
    * @param string[] $disabledSafetyPolicies
    */
@@ -84,8 +83,8 @@ class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
     return $this->disabledSafetyPolicies;
   }
   /**
-   * Optional. Enables the prompt injection detection check on computer-use
-   * request.
+   * Optional. Whether to enable the prompt injection detection check on the
+   * computer use request.
    *
    * @param bool $enablePromptInjectionDetection
    */
@@ -101,7 +100,7 @@ class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
     return $this->enablePromptInjectionDetection;
   }
   /**
-   * Required. The environment being operated.
+   * Required. The target environment where the computer use tool operates.
    *
    * Accepted values: ENVIRONMENT_UNSPECIFIED, ENVIRONMENT_BROWSER,
    * ENVIRONMENT_MOBILE, ENVIRONMENT_DESKTOP
@@ -120,12 +119,11 @@ class GoogleCloudAiplatformV1ToolComputerUse extends \Google\Collection
     return $this->environment;
   }
   /**
-   * Optional. By default, [predefined
+   * Optional. A list of predefined functions to explicitly exclude from the
+   * model call. By default, [predefined
    * functions](https://cloud.google.com/vertex-ai/generative-ai/docs/computer-
-   * use#supported-actions) are included in the final model call. Some of them
-   * can be explicitly excluded from being automatically included. This can
-   * serve two purposes: 1. Using a more restricted / different action space. 2.
-   * Improving the definitions / instructions of predefined functions.
+   * use#supported-actions) are included. Excluding functions allows for a more
+   * restricted action space or custom definitions for predefined functions.
    *
    * @param string[] $excludedPredefinedFunctions
    */

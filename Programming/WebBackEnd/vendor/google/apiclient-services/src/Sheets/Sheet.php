@@ -117,8 +117,7 @@ class Sheet extends \Google\Collection
     return $this->columnGroups;
   }
   /**
-   * The comment anchors on this sheet. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The comment anchors on this sheet.
    *
    * @param CommentAnchor[] $commentAnchors
    */

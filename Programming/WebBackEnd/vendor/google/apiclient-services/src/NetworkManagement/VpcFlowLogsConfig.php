@@ -48,6 +48,18 @@ class VpcFlowLogsConfig extends \Google\Collection
    */
   public const AGGREGATION_INTERVAL_INTERVAL_15_MIN = 'INTERVAL_15_MIN';
   /**
+   * If not specified, will default to CONNECTION_LOGGING_DISABLED.
+   */
+  public const CONNECTION_LOGGING_CONNECTION_LOGGING_UNSPECIFIED = 'CONNECTION_LOGGING_UNSPECIFIED';
+  /**
+   * Include connection logs.
+   */
+  public const CONNECTION_LOGGING_CONNECTION_LOGGING_ENABLED = 'CONNECTION_LOGGING_ENABLED';
+  /**
+   * Do not include connection logs.
+   */
+  public const CONNECTION_LOGGING_CONNECTION_LOGGING_DISABLED = 'CONNECTION_LOGGING_DISABLED';
+  /**
    * If not specified, the default is CROSS_PROJECT_METADATA_ENABLED.
    */
   public const CROSS_PROJECT_METADATA_CROSS_PROJECT_METADATA_UNSPECIFIED = 'CROSS_PROJECT_METADATA_UNSPECIFIED';
@@ -109,6 +121,13 @@ class VpcFlowLogsConfig extends \Google\Collection
    * @var string
    */
   public $aggregationInterval;
+  /**
+   * Optional. Configures whether connection logging is enabled for VPC Flow
+   * Logs.
+   *
+   * @var string
+   */
+  public $connectionLogging;
   /**
    * Output only. The time the config was created.
    *
@@ -247,6 +266,26 @@ class VpcFlowLogsConfig extends \Google\Collection
   public function getAggregationInterval()
   {
     return $this->aggregationInterval;
+  }
+  /**
+   * Optional. Configures whether connection logging is enabled for VPC Flow
+   * Logs.
+   *
+   * Accepted values: CONNECTION_LOGGING_UNSPECIFIED,
+   * CONNECTION_LOGGING_ENABLED, CONNECTION_LOGGING_DISABLED
+   *
+   * @param self::CONNECTION_LOGGING_* $connectionLogging
+   */
+  public function setConnectionLogging($connectionLogging)
+  {
+    $this->connectionLogging = $connectionLogging;
+  }
+  /**
+   * @return self::CONNECTION_LOGGING_*
+   */
+  public function getConnectionLogging()
+  {
+    return $this->connectionLogging;
   }
   /**
    * Output only. The time the config was created.

@@ -45,8 +45,7 @@ class Response extends \Google\Model
   protected $replaceAllTextDataType = '';
 
   /**
-   * The result of adding a reply to a comment or suggestion. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The result of adding a reply to a comment or suggestion.
    *
    * @param AddCommentReplyResponse $addCommentReply
    */
@@ -158,8 +157,7 @@ class Response extends \Google\Model
     return $this->createNamedRange;
   }
   /**
-   * The result of inserting a comment. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The result of inserting a comment.
    *
    * @param InsertCommentResponse $insertComment
    */

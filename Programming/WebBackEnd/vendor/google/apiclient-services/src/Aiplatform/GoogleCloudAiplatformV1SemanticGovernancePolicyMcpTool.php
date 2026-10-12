@@ -29,9 +29,8 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicyMcpTool extends \Google\Col
    */
   public $mcpServer;
   /**
-   * Optional. The resource names of the McpTools used by the Agent that is
-   * affected by this policy. If not specified, the policy applies to all
-   * McpTools in the McpServer.
+   * Required. The resource names of the tools used by the Agent that is
+   * affected by this policy. Currently, exactly one tool must be specified.
    *
    * @var string[]
    */
@@ -56,9 +55,8 @@ class GoogleCloudAiplatformV1SemanticGovernancePolicyMcpTool extends \Google\Col
     return $this->mcpServer;
   }
   /**
-   * Optional. The resource names of the McpTools used by the Agent that is
-   * affected by this policy. If not specified, the policy applies to all
-   * McpTools in the McpServer.
+   * Required. The resource names of the tools used by the Agent that is
+   * affected by this policy. Currently, exactly one tool must be specified.
    *
    * @param string[] $tools
    */

@@ -21,8 +21,10 @@ class GoogleDevicesandservicesHealthV4betaDataType extends \Google\Model
 {
   /**
    * Identifier. The resource name of the data type. Format:
-   * `users/{user}/dataTypes/{data_type}` See DataPoint.name for examples and
-   * possible values.
+   * `users/{user}/dataTypes/{data_type}`, e.g.: - `users/me/dataTypes/steps` -
+   * `users/1234567890/dataTypes/steps` The `{user}` can be either the alias
+   * `me` or the authenticated user's numeric Health User ID (retrieved via
+   * GetIdentity). See DataPoint.name for examples and possible values.
    *
    * @var string
    */
@@ -30,8 +32,10 @@ class GoogleDevicesandservicesHealthV4betaDataType extends \Google\Model
 
   /**
    * Identifier. The resource name of the data type. Format:
-   * `users/{user}/dataTypes/{data_type}` See DataPoint.name for examples and
-   * possible values.
+   * `users/{user}/dataTypes/{data_type}`, e.g.: - `users/me/dataTypes/steps` -
+   * `users/1234567890/dataTypes/steps` The `{user}` can be either the alias
+   * `me` or the authenticated user's numeric Health User ID (retrieved via
+   * GetIdentity). See DataPoint.name for examples and possible values.
    *
    * @param string $name
    */

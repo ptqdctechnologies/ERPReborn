@@ -28,6 +28,10 @@ class GoogleCloudSecuritycenterV1BigQueryExport extends \Google\Model
    */
   public $dataset;
   /**
+   * @var bool
+   */
+  public $deletionNotificationsEnabled;
+  /**
    * @var string
    */
   public $description;
@@ -79,6 +83,20 @@ class GoogleCloudSecuritycenterV1BigQueryExport extends \Google\Model
   public function getDataset()
   {
     return $this->dataset;
+  }
+  /**
+   * @param bool $deletionNotificationsEnabled
+   */
+  public function setDeletionNotificationsEnabled($deletionNotificationsEnabled)
+  {
+    $this->deletionNotificationsEnabled = $deletionNotificationsEnabled;
+  }
+  /**
+   * @return bool
+   */
+  public function getDeletionNotificationsEnabled()
+  {
+    return $this->deletionNotificationsEnabled;
   }
   /**
    * @param string $description

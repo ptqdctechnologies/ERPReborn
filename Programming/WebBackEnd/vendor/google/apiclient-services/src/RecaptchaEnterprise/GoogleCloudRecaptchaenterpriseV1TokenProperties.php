@@ -79,9 +79,11 @@ class GoogleCloudRecaptchaenterpriseV1TokenProperties extends \Google\Model
    * @var string
    */
   public $androidPackageName;
+  protected $clientPropertiesType = GoogleCloudRecaptchaenterpriseV1TokenPropertiesClientProperties::class;
+  protected $clientPropertiesDataType = '';
   /**
    * Output only. Indicates a failure collecting reCAPTCHA signals at token
-   * generation. This might be a transient condition, or persistent for a user’s
+   * generation. This might be a transient condition, or persistent for a user's
    * environment.
    *
    * @var bool
@@ -156,8 +158,25 @@ class GoogleCloudRecaptchaenterpriseV1TokenProperties extends \Google\Model
     return $this->androidPackageName;
   }
   /**
+   * Output only. Information collected by the reCAPTCHA Enterprise client-side
+   * integration when the token is generated.
+   *
+   * @param GoogleCloudRecaptchaenterpriseV1TokenPropertiesClientProperties $clientProperties
+   */
+  public function setClientProperties(GoogleCloudRecaptchaenterpriseV1TokenPropertiesClientProperties $clientProperties)
+  {
+    $this->clientProperties = $clientProperties;
+  }
+  /**
+   * @return GoogleCloudRecaptchaenterpriseV1TokenPropertiesClientProperties
+   */
+  public function getClientProperties()
+  {
+    return $this->clientProperties;
+  }
+  /**
    * Output only. Indicates a failure collecting reCAPTCHA signals at token
-   * generation. This might be a transient condition, or persistent for a user’s
+   * generation. This might be a transient condition, or persistent for a user's
    * environment.
    *
    * @param bool $clientSignalsFailed

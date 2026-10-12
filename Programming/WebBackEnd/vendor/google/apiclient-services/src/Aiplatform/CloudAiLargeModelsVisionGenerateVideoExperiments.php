@@ -72,6 +72,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public $exrColorSpaceOverride;
   protected $humanPoseType = CloudAiLargeModelsVisionHumanPose::class;
   protected $humanPoseDataType = '';
+  protected $loraConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfig::class;
+  protected $loraConfigDataType = '';
   /**
    * Optional. BNS override for model backend. Enabled only for local and
    * autopush environments by the flag `lvm_allow_model_zoo_bns_override`.
@@ -124,6 +126,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   protected $seamlessDataType = '';
   protected $spatialAlignmentType = CloudAiLargeModelsVisionGenerateVideoExperimentsSpatialAlignmentConfig::class;
   protected $spatialAlignmentDataType = '';
+  protected $superResConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig::class;
+  protected $superResConfigDataType = '';
   /**
    * If true (default), truncate input videos that exceed the model's maximum
    * frame count by applying a frame_selection_config to __video_file__ inputs.
@@ -317,6 +321,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getHumanPose()
   {
     return $this->humanPose;
+  }
+  /**
+   * Optional. LoRA configuration for Omni editing/stylization models.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfig $loraConfig
+   */
+  public function setLoraConfig(CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfig $loraConfig)
+  {
+    $this->loraConfig = $loraConfig;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfig
+   */
+  public function getLoraConfig()
+  {
+    return $this->loraConfig;
   }
   /**
    * Optional. BNS override for model backend. Enabled only for local and
@@ -519,6 +539,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getSpatialAlignment()
   {
     return $this->spatialAlignment;
+  }
+  /**
+   * Config for the Pro Super Res upsampling task.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig $superResConfig
+   */
+  public function setSuperResConfig(CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig $superResConfig)
+  {
+    $this->superResConfig = $superResConfig;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig
+   */
+  public function getSuperResConfig()
+  {
+    return $this->superResConfig;
   }
   /**
    * If true (default), truncate input videos that exceed the model's maximum

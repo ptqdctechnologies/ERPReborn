@@ -20,48 +20,47 @@ namespace Google\Service\NetworkServices;
 class ExtensionBindingMatchConditionStringMatch extends \Google\Model
 {
   /**
-   * Optional. The input string must have the substring specified here. Note:
-   * empty contains match is not allowed, please use regex instead. Examples: *
-   * ``abc`` matches the value ``xyz.abc.def``
+   * Optional. The input string must contain the substring specified here. An
+   * empty substring is not allowed. Examples: * `abc` matches the value
+   * `xyz.abc.def`.
    *
    * @var string
    */
   public $contains;
   /**
    * Optional. The input string must match exactly the string specified here.
-   * Examples: * ``abc`` only matches the value ``abc``.
+   * Examples: * `abc` only matches the value `abc`.
    *
    * @var string
    */
   public $exact;
   /**
-   * Optional. If true, indicates the exact/prefix/suffix/contains matching
-   * should be case insensitive. For example, the matcher ``data`` will match
-   * both input string ``Data`` and ``data`` if set to true.
+   * Optional. If true, the `exact`, `prefix`, `suffix`, or `contains` match is
+   * case insensitive. For example, the matcher `data` matches both `Data` and
+   * `data` when set to true.
    *
    * @var bool
    */
   public $ignoreCase;
   /**
-   * Optional. The input string must have the prefix specified here. Note: empty
-   * prefix is not allowed. Examples: * ``abc`` matches the value ``abc.xyz``
+   * Optional. The input string must have the prefix specified here. An empty
+   * prefix is not allowed. Examples: * `abc` matches the value `abc.xyz`.
    *
    * @var string
    */
   public $prefix;
   /**
-   * Optional. The input string must have the suffix specified here. Note: empty
-   * prefix is not allowed, please use regex instead. Examples: * ``abc``
-   * matches the value ``xyz.abc``
+   * Optional. The input string must have the suffix specified here. An empty
+   * suffix is not allowed. Examples: * `abc` matches the value `xyz.abc`.
    *
    * @var string
    */
   public $suffix;
 
   /**
-   * Optional. The input string must have the substring specified here. Note:
-   * empty contains match is not allowed, please use regex instead. Examples: *
-   * ``abc`` matches the value ``xyz.abc.def``
+   * Optional. The input string must contain the substring specified here. An
+   * empty substring is not allowed. Examples: * `abc` matches the value
+   * `xyz.abc.def`.
    *
    * @param string $contains
    */
@@ -78,7 +77,7 @@ class ExtensionBindingMatchConditionStringMatch extends \Google\Model
   }
   /**
    * Optional. The input string must match exactly the string specified here.
-   * Examples: * ``abc`` only matches the value ``abc``.
+   * Examples: * `abc` only matches the value `abc`.
    *
    * @param string $exact
    */
@@ -94,9 +93,9 @@ class ExtensionBindingMatchConditionStringMatch extends \Google\Model
     return $this->exact;
   }
   /**
-   * Optional. If true, indicates the exact/prefix/suffix/contains matching
-   * should be case insensitive. For example, the matcher ``data`` will match
-   * both input string ``Data`` and ``data`` if set to true.
+   * Optional. If true, the `exact`, `prefix`, `suffix`, or `contains` match is
+   * case insensitive. For example, the matcher `data` matches both `Data` and
+   * `data` when set to true.
    *
    * @param bool $ignoreCase
    */
@@ -112,8 +111,8 @@ class ExtensionBindingMatchConditionStringMatch extends \Google\Model
     return $this->ignoreCase;
   }
   /**
-   * Optional. The input string must have the prefix specified here. Note: empty
-   * prefix is not allowed. Examples: * ``abc`` matches the value ``abc.xyz``
+   * Optional. The input string must have the prefix specified here. An empty
+   * prefix is not allowed. Examples: * `abc` matches the value `abc.xyz`.
    *
    * @param string $prefix
    */
@@ -129,9 +128,8 @@ class ExtensionBindingMatchConditionStringMatch extends \Google\Model
     return $this->prefix;
   }
   /**
-   * Optional. The input string must have the suffix specified here. Note: empty
-   * prefix is not allowed, please use regex instead. Examples: * ``abc``
-   * matches the value ``xyz.abc``
+   * Optional. The input string must have the suffix specified here. An empty
+   * suffix is not allowed. Examples: * `abc` matches the value `xyz.abc`.
    *
    * @param string $suffix
    */

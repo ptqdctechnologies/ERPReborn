@@ -44,8 +44,7 @@ class Spreadsheet extends \Google\Collection
   protected $commentsType = CommentThread::class;
   protected $commentsDataType = 'array';
   /**
-   * Output only. The comments view mode applied to the spreadsheet. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the spreadsheet.
    *
    * @var string
    */
@@ -76,8 +75,7 @@ class Spreadsheet extends \Google\Collection
   public $spreadsheetUrl;
 
   /**
-   * The comment threads associated with the spreadsheet. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * The comment threads associated with the spreadsheet.
    *
    * @param CommentThread[] $comments
    */
@@ -93,8 +91,7 @@ class Spreadsheet extends \Google\Collection
     return $this->comments;
   }
   /**
-   * Output only. The comments view mode applied to the spreadsheet. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the spreadsheet.
    *
    * Accepted values: COMMENTS_VIEW_MODE_UNSPECIFIED,
    * COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS, COMMENTS_VIEW_MODE_OMITTED,

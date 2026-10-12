@@ -146,6 +146,13 @@ class MediationReportSpecSortCondition extends \Google\Model
    */
   public const METRIC_OBSERVED_ECPM = 'OBSERVED_ECPM';
   /**
+   * The ad load latency is the total time it takes for an ad to load measured
+   * in seconds. It starts when the ad is requested and ends when a response is
+   * received. See https://support.google.com/admob/answer/12571120 for
+   * additional information.
+   */
+  public const METRIC_AD_LOAD_LATENCY = 'AD_LOAD_LATENCY';
+  /**
    * Default value for an unset field. Do not use.
    */
   public const ORDER_SORT_ORDER_UNSPECIFIED = 'SORT_ORDER_UNSPECIFIED';
@@ -202,7 +209,7 @@ class MediationReportSpecSortCondition extends \Google\Model
    *
    * Accepted values: METRIC_UNSPECIFIED, AD_REQUESTS, CLICKS,
    * ESTIMATED_EARNINGS, IMPRESSIONS, IMPRESSION_CTR, MATCHED_REQUESTS,
-   * MATCH_RATE, OBSERVED_ECPM
+   * MATCH_RATE, OBSERVED_ECPM, AD_LOAD_LATENCY
    *
    * @param self::METRIC_* $metric
    */
