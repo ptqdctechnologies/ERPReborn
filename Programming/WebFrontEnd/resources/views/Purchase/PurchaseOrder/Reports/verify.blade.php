@@ -418,6 +418,222 @@
                 gap: 12px 10px;
             }
         }
+
+        /* ── CAPTCHA Modal ── */
+        .captcha-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(21, 34, 56, 0.45);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            place-items: center;
+            animation: captchaFadeIn 0.2s ease;
+        }
+
+        .captcha-overlay.active {
+            display: grid;
+        }
+
+        @keyframes captchaFadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes captchaSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(12px) scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .captcha-modal {
+            width: 340px;
+            max-width: calc(100vw - 32px);
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 8px 32px rgba(21, 34, 56, 0.18), 0 1px 4px rgba(21, 34, 56, 0.06);
+            overflow: hidden;
+            animation: captchaSlideUp 0.25s ease;
+        }
+
+        .captcha-header {
+            padding: 16px 20px 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .captcha-header h3 {
+            margin: 0 0 2px;
+            font-size: 15px;
+            font-weight: 750;
+            color: #172437;
+            letter-spacing: -0.2px;
+        }
+
+        .captcha-header p {
+            margin: 0;
+            font-size: 11px;
+            color: #687384;
+            line-height: 15px;
+        }
+
+        .captcha-body {
+            padding: 16px 20px;
+        }
+
+        .captcha-challenge {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .captcha-canvas-wrap {
+            flex: 1;
+            min-width: 0;
+            height: 46px;
+            border-radius: 7px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: #f3f1ec;
+        }
+
+        .captcha-canvas-wrap canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .captcha-refresh {
+            width: 36px;
+            height: 36px;
+            flex: 0 0 36px;
+            display: grid;
+            place-items: center;
+            border: 1px solid var(--border);
+            border-radius: 7px;
+            background: #fff;
+            cursor: pointer;
+            color: #687384;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .captcha-refresh:hover {
+            background: #f3f1ec;
+            color: #172437;
+        }
+
+        .captcha-refresh svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .captcha-input {
+            width: 100%;
+            height: 34px;
+            padding: 0 11px;
+            border: 1px solid var(--input-border);
+            border-radius: 7px;
+            outline: none;
+            background: #fff;
+            color: #1d2a3c;
+            font: 500 13px/1 Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.015);
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+
+        .captcha-input::placeholder {
+            color: #a3a7ad;
+            font-weight: 400;
+        }
+
+        .captcha-input:focus {
+            border-color: #9baedc;
+            box-shadow: 0 0 0 2px rgba(36, 69, 147, 0.08);
+        }
+
+        .captcha-input.shake {
+            animation: captchaShake 0.4s ease;
+            border-color: var(--error);
+        }
+
+        @keyframes captchaShake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20% {
+                transform: translateX(-6px);
+            }
+
+            40% {
+                transform: translateX(6px);
+            }
+
+            60% {
+                transform: translateX(-4px);
+            }
+
+            80% {
+                transform: translateX(4px);
+            }
+        }
+
+        .captcha-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+            padding: 12px 20px 16px;
+        }
+
+        .captcha-btn {
+            height: 34px;
+            padding: 0 18px;
+            border: 0;
+            border-radius: 7px;
+            font: 600 12px/1 Inter, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            cursor: pointer;
+            transition: filter 0.15s, background 0.15s;
+        }
+
+        .captcha-btn-cancel {
+            background: #f3f1ec;
+            color: #4a5260;
+        }
+
+        .captcha-btn-cancel:hover {
+            background: #e7e5df;
+        }
+
+        .captcha-btn-submit {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .captcha-btn-submit:hover {
+            filter: brightness(0.94);
+        }
+
+        .captcha-btn-submit:disabled {
+            opacity: 0.55;
+            cursor: not-allowed;
+            filter: none;
+        }
     </style>
 </head>
 
@@ -518,6 +734,40 @@
         </div>
     </main>
 
+    <!-- CAPTCHA Modal -->
+    <div class="captcha-overlay" id="captcha-overlay">
+        <div class="captcha-modal" role="dialog" aria-labelledby="captcha-title" aria-modal="true">
+            <div class="captcha-header">
+                <h3 id="captcha-title">Security Verification</h3>
+                <p>Solve the math problem below to continue.</p>
+            </div>
+
+            <div class="captcha-body">
+                <div class="captcha-challenge">
+                    <div class="captcha-canvas-wrap">
+                        <canvas id="captcha-canvas" width="520" height="92"></canvas>
+                    </div>
+
+                    <button type="button" class="captcha-refresh" id="captcha-refresh" title="New challenge">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                            stroke-linecap="round" stroke-linejoin="round">
+                            <polyline points="23 4 23 10 17 10"></polyline>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                        </svg>
+                    </button>
+                </div>
+
+                <input type="text" class="captcha-input" id="captcha-answer" placeholder="Enter your answer"
+                    autocomplete="off">
+            </div>
+
+            <div class="captcha-footer">
+                <button type="button" class="captcha-btn captcha-btn-cancel" id="captcha-cancel">Cancel</button>
+                <button type="button" class="captcha-btn captcha-btn-submit" id="captcha-submit">Confirm</button>
+            </div>
+        </div>
+    </div>
+
     <script src="{{ asset('AdminLTE-master/dist/js/sweetalert2.min.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -526,17 +776,153 @@
             const successResult = document.getElementById('result-success');
             const errorResult = document.getElementById('result-error');
 
-            form.addEventListener('submit', async function (event) {
-                event.preventDefault();
+            // ── CAPTCHA elements ──
+            const captchaOverlay = document.getElementById('captcha-overlay');
+            const captchaCanvas = document.getElementById('captcha-canvas');
+            const captchaAnswer = document.getElementById('captcha-answer');
+            const captchaRefresh = document.getElementById('captcha-refresh');
+            const captchaCancel = document.getElementById('captcha-cancel');
+            const captchaSubmit = document.getElementById('captcha-submit');
+            let captchaExpected = null;
+            let pendingUniqueCode = null;
 
-                const uniqueCode = input.value.trim().toUpperCase();
+            // ── Generate random math challenge ──
+            function generateCaptcha() {
+                const operators = ['+', '−', '×'];
+                const op = operators[Math.floor(Math.random() * operators.length)];
+                let a, b, answer;
 
-                if (!uniqueCode) {
-                    Swal.fire("Error", "The Unique code field is required", "error");
+                switch (op) {
+                    case '+':
+                        a = Math.floor(Math.random() * 50) + 10;
+                        b = Math.floor(Math.random() * 40) + 5;
+                        answer = a + b;
+                        break;
+                    case '−':
+                        a = Math.floor(Math.random() * 50) + 20;
+                        b = Math.floor(Math.random() * (a - 1)) + 1;
+                        answer = a - b;
+                        break;
+                    case '×':
+                        a = Math.floor(Math.random() * 12) + 2;
+                        b = Math.floor(Math.random() * 9) + 2;
+                        answer = a * b;
+                        break;
+                }
+
+                captchaExpected = answer;
+                drawCaptcha(a + ' ' + op + ' ' + b + ' = ?');
+            }
+
+            // ── Render challenge text on canvas with noise ──
+            function drawCaptcha(text) {
+                const ctx = captchaCanvas.getContext('2d');
+                const w = captchaCanvas.width;
+                const h = captchaCanvas.height;
+
+                // Background
+                ctx.fillStyle = '#f3f1ec';
+                ctx.fillRect(0, 0, w, h);
+
+                // Noise dots
+                for (let i = 0; i < 90; i++) {
+                    ctx.beginPath();
+                    ctx.arc(
+                        Math.random() * w,
+                        Math.random() * h,
+                        Math.random() * 2 + 0.5,
+                        0, Math.PI * 2
+                    );
+                    ctx.fillStyle = `rgba(${100 + Math.random() * 100}, ${100 + Math.random() * 100}, ${120 + Math.random() * 80}, ${0.25 + Math.random() * 0.25})`;
+                    ctx.fill();
+                }
+
+                // Noise lines
+                for (let i = 0; i < 4; i++) {
+                    ctx.beginPath();
+                    ctx.moveTo(Math.random() * w, Math.random() * h);
+                    ctx.lineTo(Math.random() * w, Math.random() * h);
+                    ctx.strokeStyle = `rgba(${80 + Math.random() * 100}, ${80 + Math.random() * 100}, ${100 + Math.random() * 80}, ${0.18 + Math.random() * 0.15})`;
+                    ctx.lineWidth = 1;
+                    ctx.stroke();
+                }
+
+                // Text
+                ctx.font = 'bold 32px Inter, -apple-system, BlinkMacSystemFont, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+
+                // Slight random rotation per character
+                const startX = w / 2 - (text.length * 10);
+                for (let i = 0; i < text.length; i++) {
+                    ctx.save();
+                    const x = startX + i * 20;
+                    const y = h / 2 + (Math.random() * 6 - 3);
+                    const angle = (Math.random() - 0.5) * 0.18;
+                    ctx.translate(x, y);
+                    ctx.rotate(angle);
+                    ctx.fillStyle = `hsl(${220 + Math.random() * 20}, ${40 + Math.random() * 20}%, ${22 + Math.random() * 15}%)`;
+                    ctx.fillText(text[i], 0, 0);
+                    ctx.restore();
+                }
+            }
+
+            // ── Show CAPTCHA modal ──
+            function showCaptcha() {
+                captchaAnswer.value = '';
+                captchaAnswer.classList.remove('shake');
+                captchaSubmit.disabled = false;
+                generateCaptcha();
+                captchaOverlay.classList.add('active');
+                setTimeout(() => captchaAnswer.focus(), 200);
+            }
+
+            // ── Hide CAPTCHA modal ──
+            function hideCaptcha() {
+                captchaOverlay.classList.remove('active');
+                captchaExpected = null;
+                pendingUniqueCode = null;
+            }
+
+            // ── Validate CAPTCHA and proceed ──
+            async function validateCaptchaAndSubmit() {
+                const userAnswer = captchaAnswer.value.trim();
+
+                if (!userAnswer || isNaN(userAnswer)) {
+                    captchaAnswer.classList.add('shake');
+                    setTimeout(() => captchaAnswer.classList.remove('shake'), 450);
+                    captchaAnswer.focus();
                     return;
                 }
 
+                if (parseInt(userAnswer, 10) !== captchaExpected) {
+                    captchaAnswer.classList.add('shake');
+                    setTimeout(() => captchaAnswer.classList.remove('shake'), 450);
+                    captchaAnswer.value = '';
+                    captchaAnswer.focus();
+                    generateCaptcha();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Incorrect',
+                        text: 'CAPTCHA answer is wrong. Please try again.',
+                        timer: 2500,
+                        showConfirmButton: false
+                    });
+                    return;
+                }
+
+                // CAPTCHA passed – proceed with the actual verification
+                hideCaptcha();
+
                 try {
+                    Swal.fire({
+                        title: 'Verifying…',
+                        text: 'Please wait while we verify your code.',
+                        allowOutsideClick: false,
+                        allowEscapeKey: false,
+                        didOpen: () => Swal.showLoading()
+                    });
+
                     const response = await fetch(
                         "{{ route('VerifyStorePurchaseOrder') }}",
                         {
@@ -546,12 +932,16 @@
                                 'Accept': 'application/json'
                             },
                             body: JSON.stringify({
-                                unique_code: uniqueCode
+                                unique_code: input.value
                             })
                         }
                     );
 
                     const result = await response.json();
+
+                    console.log('result', result);
+
+                    Swal.close();
 
                     if (result.success) {
                         successResult.style.display = "block";
@@ -561,7 +951,58 @@
                         errorResult.style.display = "block";
                     }
                 } catch (error) {
+                    Swal.close();
                     console.error('Verification error:', error);
+                    Swal.fire('Error', 'Something went wrong. Please try again.', 'error');
+                }
+            }
+
+            // ── Form submit → open CAPTCHA instead of calling API directly ──
+            form.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                const uniqueCode = input.value.trim().toUpperCase();
+
+                if (!uniqueCode) {
+                    Swal.fire("Error", "The Unique code field is required", "error");
+                    return;
+                }
+
+                pendingUniqueCode = uniqueCode;
+                showCaptcha();
+            });
+
+            // ── CAPTCHA button handlers ──
+            captchaSubmit.addEventListener('click', validateCaptchaAndSubmit);
+
+            captchaCancel.addEventListener('click', hideCaptcha);
+
+            captchaRefresh.addEventListener('click', function () {
+                captchaAnswer.value = '';
+                captchaAnswer.classList.remove('shake');
+                generateCaptcha();
+                captchaAnswer.focus();
+            });
+
+            // Allow Enter key inside CAPTCHA input
+            captchaAnswer.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    validateCaptchaAndSubmit();
+                }
+            });
+
+            // Close modal on overlay click (outside modal)
+            captchaOverlay.addEventListener('click', function (e) {
+                if (e.target === captchaOverlay) {
+                    hideCaptcha();
+                }
+            });
+
+            // Close modal on Escape key
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && captchaOverlay.classList.contains('active')) {
+                    hideCaptcha();
                 }
             });
         });
