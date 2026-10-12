@@ -7,7 +7,6 @@
   @include('getFunction.getRequesters')
   @include('getFunction.getBeneficiaries')
   @include('getFunction.getBank')
-  @include('getFunction.getBanks')
   @include('getFunction.getBankLists')
   @include('getFunction.getBankAccount')
   @include('getFunction.getBusinessTripRequests')
@@ -32,6 +31,7 @@
           <form id="businessTripRequestForm">
             @csrf
             <input hidden id="budgetDetailsData" />
+            <input hidden id="totalJournalPayment" value="<?= $totalJournalPayment; ?>" />
             <input hidden id="product_RefID" name="product_RefID" value="<?= $product_RefID; ?>" />
             <input hidden id="workStructure_RefID" name="workStructure_RefID" value="<?= $workStructure_RefID; ?>" />
             <input hidden id="DocumentTypeID" name="DocumentTypeID" value="<?= $documentType_RefID; ?>">
@@ -191,7 +191,7 @@
                   </button>
 
                   <button type="button" class="btn btn-default btn-sm float-right button-submit"
-                    onclick="cancelForm('{{ route('BusinessTripRequest.index') }}')"
+                    onclick="cancelForm('{{ route('BusinessTripRequest.index', ['var' => 1]) }}')"
                     style="background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
                     <div>Cancel</div>

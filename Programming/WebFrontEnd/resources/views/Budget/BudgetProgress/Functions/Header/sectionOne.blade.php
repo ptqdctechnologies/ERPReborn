@@ -48,7 +48,8 @@
                                 <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
                             </span>
                         </div>
-                        <input readonly type="text" class="form-control" style="height: 21.8px;border-radius:0;"
+                        <input readonly type="text" class="form-control"
+                            style="height: 21.8px; border-radius:0; background-color: <?= isset($budgetProgressRefID) ? '#e9ecef' : '#fff';?>;"
                             id="budget_progress_date_range" name="budget_progress_date_range" />
                     </div>
                 </div>

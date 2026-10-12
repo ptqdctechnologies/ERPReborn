@@ -548,6 +548,10 @@
     });
   }
 
+  $(document).on('input', '.number-without-characters', function () {
+    allowNumbersWithoutCharacter(this);
+  });
+
   document.querySelectorAll('.number-without-characters').forEach(function (input) {
     allowNumbersWithoutCharacter(input);
   });
@@ -568,6 +572,10 @@
       }
     });
   }
+
+  $(document).on('input', '.number-only', function () {
+    allowNumbersOnly(this);
+  });
 
   document.querySelectorAll('.number-only').forEach(function (input) {
     allowNumbersOnly(input);
@@ -618,9 +626,9 @@
     allowNumbersWithoutNegative(this);
   });
 
-  // document.querySelectorAll('.number-without-negative').forEach(function(input) {
-  //   allowNumbersWithoutNegative(input);
-  // });
+  document.querySelectorAll('.number-without-negative').forEach(function (input) {
+    allowNumbersWithoutNegative(input);
+  });
 
   // OUTPUT 412393 = 412,393.00
   function numberFormatPHPCustom(number, decimals = 0, decPoint = '.', thousandsSep = ',') {

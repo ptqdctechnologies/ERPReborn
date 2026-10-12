@@ -31,7 +31,8 @@
                     <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel-summary"
                         title="Cancel Summary" /> No, cancel
                 </button>
-                <button type="button" id="submit_summary" class="btn btn-default btn-sm" onclick="commentWorkflow()"
+                <button type="button" id="submit_summary" class="btn btn-default btn-sm" data-dismiss="modal"
+                    onclick="commentWorkflow()"
                     style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit-summary"
                         title="Save Summary" />

@@ -44,6 +44,28 @@
         }
     };
 
+    function showHideLoading(displayIcon, displayLoading) {
+        $("#budget_icon").css({ "display": displayIcon });
+        $("#budget_loading").css({ "display": displayLoading });
+    }
+
+    function fillSite(budgetCodeID, budgetCode, budgetName) {
+        getSiteCode(budgetCodeID);
+
+        $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
+        $("#budget_id").val(budgetCodeID);
+        $("#budget_name").val(budgetName);
+        $("#budget_code").val(budgetCode);
+
+        $("#budget_preview").css("background-color", "#e9ecef");
+        $("#sub_budget_container").css({ "cursor": "pointer" });
+
+        $('#sub_budget_container').attr({
+            'data-toggle': 'modal',
+            'data-target': '#sub_budget_code_modal'
+        });
+    }
+
     function pickProduct(index) {
         indexProduct = index;
     }
@@ -51,7 +73,7 @@
     function calculateTotal() {
         let total = 0;
 
-        document.querySelectorAll('input[id^="total"]').forEach(function (input) {
+        document.querySelectorAll('input[data-field="total"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
 
             if (!isNaN(value)) {
@@ -79,11 +101,16 @@
 
         if (indexProduct !== index && qty > qtyAvailable) {
             $(`#quantity${index}`).val('');
-            $(`#balance${index}`).val(Utils.formatCurrency(qtyAvailable));
+            $(`#total${index}`).val('');
+            $(`#balance${index}`).val(currency(qtyAvailable));
             ErrorNotif("Qty Req is over budget !");
+
+            calculateTotal();
+
+            return;
         } else {
             $(`#balance${index}`).val(
-                Utils.formatCurrency(qtyAvailable - qty)
+                currency(qtyAvailable - qty)
             );
         }
 
@@ -92,11 +119,16 @@
 
         if (price > priceAvailable) {
             $(`#price${index}`).val('');
+            $(`#total${index}`).val('');
             ErrorNotif("Price Req is over budget !");
+
+            calculateTotal();
+
+            return;
         }
 
         $(`#total${index}`).val(
-            Utils.formatCurrency(qty * price)
+            currency(qty * price)
         );
 
         calculateTotal();
@@ -304,11 +336,11 @@
                             ${productColumn}
 
                             <td style="text-align: center;">
-                                ${Utils.formatCurrency(value.quantity)}
+                                ${currency(value.quantity)}
                             </td>
                             
                             <td style="text-align: center;">
-                                ${value.productName === "Unspecified Product" ? '-' : Utils.formatCurrency(value.quantityRemaining)}
+                                ${value.productName === "Unspecified Product" ? '-' : currency(value.quantityRemaining)}
                             </td>
                             
                             <td data-field="uom" style="text-align: center;">
@@ -316,11 +348,11 @@
                             </td>
                             
                             <td style="text-align: center;">
-                                ${Utils.formatCurrency(value.priceBaseCurrencyValue)}
+                                ${currency(value.priceBaseCurrencyValue)}
                             </td>
 
                             <td style="text-align: center;">
-                                ${Utils.formatCurrency(totalBudget)}
+                                ${currency(totalBudget)}
                             </td>
 
                             <td style="text-align: center;">
@@ -410,29 +442,17 @@
             },
             success: function (response) {
                 if (response.status === 200 && response.isAvailable) {
-                    getSiteCode(budgetCodeID);
-
-                    $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
-                    $("#budget_id").val(budgetCodeID);
-                    $("#budget_name").val(budgetName);
-                    $("#budget_code").val(budgetCode);
-
-                    $("#budget_preview").css("background-color", "#e9ecef");
-                    $("#sub_budget_container").css({ "cursor": "pointer" });
-
-                    $('#sub_budget_container').attr({
-                        'data-toggle': 'modal',
-                        'data-target': '#sub_budget_code_modal'
-                    });
+                    fillSite(budgetCodeID, budgetCode, budgetName);
                 } else {
                     Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
                 }
 
-                $("#budget_loading").css({ "display": "none" });
-                $("#budget_icon").css({ "display": "block" });
+                showHideLoading("block", "none");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
+
+                showHideLoading("block", "none");
             }
         });
     }
@@ -453,12 +473,17 @@
             },
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
-                    getBudgetProgress(budgetCodeID, budgetCode, budgetName);
+                    if (String(budgetCodeID).startsWith('103', 0)) {
+                        fillSite(budgetCodeID, budgetCode, budgetName);
+
+                        showHideLoading("block", "none");
+                    } else {
+                        getBudgetProgress(budgetCodeID, budgetCode, budgetName);
+                    }
 
                     $("#workflow_path_id").val(response.data[0].workFlowPath_RefIDArray[0]);
                 } else {
-                    $("#budget_loading").css({ "display": "none" });
-                    $("#budget_icon").css({ "display": "block" });
+                    showHideLoading("block", "none");
 
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
@@ -466,8 +491,7 @@
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
 
-                $("#budget_loading").css({ "display": "none" });
-                $("#budget_icon").css({ "display": "block" });
+                showHideLoading("block", "none");
             }
         });
     }
@@ -584,8 +608,7 @@
             $("#budget_name").val("");
             $("#budget_code").val("");
 
-            $("#budget_loading").css({ "display": "block" });
-            $("#budget_icon").css({ "display": "none" });
+            showHideLoading("none", "block");
 
             getWorkflow(id, code, name);
 

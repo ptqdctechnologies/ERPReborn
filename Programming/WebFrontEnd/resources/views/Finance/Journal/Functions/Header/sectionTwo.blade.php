@@ -24,7 +24,7 @@
                     Payment
                 </th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
-                    Variance
+                    Variance (+/-)
                 </th>
                 <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
                     Balance

@@ -13,6 +13,7 @@
   const date = new Date();
   const today = new Date(date.setMonth(date.getMonth() - 3));
   const subBudgetID = document.getElementById('site_id');
+  const totalJournalPayment = document.getElementById('totalJournalPayment');
   const searchBudgetBtn = document.getElementById('budget_detail_search');
   const combinedBudgetSectionDetailID = document.getElementById('combinedBudgetSectionDetail_RefID');
   const workStructureID = document.getElementById('workStructure_RefID');
@@ -643,7 +644,7 @@
   }
 
   function validationForm() {
-    const testing = sumTravelFares();
+    const travel = sumTravelFares();
     const accommodation = document.getElementById("accommodation");
     const entertainment = document.getElementById("entertainment");
     const other = document.getElementById("other");
@@ -652,11 +653,11 @@
     $('#businessTripRequestFormModal').modal('show');
 
     if (isSectionValid()) {
-      $("#travel_fares_modal_summary").text(decimalFormat(testing));
-      $("#allowance_modal_summary").text(accommodation.value || 0.00);
-      $("#entertainment_modal_summary").text(entertainment.value || 0.00);
-      $("#other_modal_summary").text(other.value || 0.00);
-      $("#total_brf_modal_summary").text(totalBRF.value || 0.00);
+      $("#travel_fares_modal_summary").text(decimalFormat(travel));
+      $("#allowance_modal_summary").text(accommodation.value ? Utils.formatCurrency(accommodation.value) : 0.00);
+      $("#entertainment_modal_summary").text(entertainment.value ? Utils.formatCurrency(entertainment.value) : 0.00);
+      $("#other_modal_summary").text(other.value ? Utils.formatCurrency(other.value) : 0.00);
+      $("#total_brf_modal_summary").text(totalBRF.value ? Utils.formatCurrency(totalBRF.value) : 0.00);
 
       $('#businessTripRequestFormModal').modal('show');
     } else {
@@ -912,6 +913,11 @@
   }
 
   function commentWorkflow() {
+    if (Utils.parseFloatSafe(Utils.removeCommas(validation.sectionFour.totalBusinessTrips.value)) < Utils.parseFloatSafe(Utils.removeCommas(totalJournalPayment.value))) {
+      ErrorNotif(`BRF Total can't be less than BRF Payment Total! ${totalJournalPayment.value}`);
+      return;
+    }
+
     const swalWithBootstrapButtons = Swal.mixin({
       confirmButtonClass: 'btn btn-success btn-sm',
       cancelButtonClass: 'btn btn-danger btn-sm',
