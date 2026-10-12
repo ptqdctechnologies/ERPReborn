@@ -59,9 +59,9 @@
 
         let result = totalEndingBalance - parseFloat(total);
 
-        document.getElementById('nominal_variance').textContent = `IDR ${currencyTotal(total)}`;
+        document.getElementById('nominal_variance').textContent = `IDR ${Utils.formatCurrency(total)}`;
 
-        document.getElementById('nominal_ending_balance').textContent = `IDR ${currencyTotal(result)}`;
+        document.getElementById('nominal_ending_balance').textContent = `IDR ${Utils.formatCurrency(result)}`;
     }
 
     function totalPayments() {
@@ -88,17 +88,15 @@
 
         totalEndingBalance = parseFloat(dummyBeginningBalance) - parseFloat(totalCashOut) + parseFloat(totalCashIn);
 
-        console.log('totalEndingBalance', totalEndingBalance);
-
         // if (isTypeNotEmpty) {
-        // document.getElementById('nominal_ending_balance').textContent = `IDR ${currencyTotal(totalEndingBalance)}`;
+        // document.getElementById('nominal_ending_balance').textContent = `IDR ${Utils.formatCurrency(totalEndingBalance)}`;
         // } else {
         // document.getElementById('nominal_ending_balance').textContent = `IDR 0.00`;
         // }
 
-        document.getElementById('nominal_ending_balance').textContent = `IDR ${currencyTotal(totalEndingBalance)}`;
-        document.getElementById('nominal_cash_out').textContent = `IDR ${currencyTotal(totalCashOut)}`;
-        document.getElementById('nominal_cash_in').textContent = `IDR ${currencyTotal(totalCashIn)}`;
+        document.getElementById('nominal_ending_balance').textContent = `IDR ${Utils.formatCurrency(totalEndingBalance)}`;
+        document.getElementById('nominal_cash_out').textContent = `IDR ${Utils.formatCurrency(totalCashOut)}`;
+        document.getElementById('nominal_cash_in').textContent = `IDR ${Utils.formatCurrency(totalCashIn)}`;
     }
 
     function updateDebitCredit(index, value) {
@@ -565,7 +563,7 @@
                             readonly 
                             type="text"
                             class="form-control number-without-negative" 
-                            value="${row.trans_value ? currency(row.trans_value) : row.trans_value}"
+                            value="${row.trans_value ? Utils.formatCurrency(row.trans_value) : row.trans_value}"
                         />
                     </td>
                     <td>
@@ -574,7 +572,7 @@
                             readonly 
                             type="text"
                             class="form-control number-without-negative" 
-                            value="${row.unpaid_value ? currency(row.unpaid_value) : row.unpaid_value}"
+                            value="${row.unpaid_value ? Utils.formatCurrency(row.unpaid_value) : row.unpaid_value}"
                         />
                     </td>
                     <td>
@@ -583,7 +581,7 @@
                             type="text"
                             class="form-control number-without-negative" 
                             autocomplete="off"
-                            value="${row.payment_value ? currency(row.payment_value) : row.payment_value}"
+                            value="${row.payment_value ? Utils.formatCurrency(row.payment_value) : row.payment_value}"
                             oninput="validatePaymentInput(${index})"
                             onkeyup="totalPayments()"
                         />
@@ -592,9 +590,9 @@
                         <input 
                             id="variance_value${index}"
                             type="text"
-                            class="form-control number-without-negative" 
+                            class="form-control number-only" 
                             autocomplete="off"
-                            value="${row.variance_value ? currency(row.variance_value) : row.variance_value}"
+                            value="${row.variance_value ? Utils.formatCurrency(row.variance_value) : row.variance_value}"
                             oninput="updateField(${index}, 'variance_value', parseFloat(this.value.replace(/,/g, '')))"
                             onkeyup="totalVariance()"
                         />
@@ -605,7 +603,7 @@
                             readonly 
                             type="text"
                             class="form-control number-without-negative" 
-                            value="${row.balance_value ? currency(row.balance_value) : row.balance_value}"
+                            value="${row.balance_value ? Utils.formatCurrency(row.balance_value) : row.balance_value}"
                         />
                     </td>
                     <td>
