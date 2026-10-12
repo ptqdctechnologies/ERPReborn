@@ -34,7 +34,7 @@ class EndpointSpec extends \Google\Model
    */
   public $content;
   /**
-   * Required. The type of the endpoint spec content.
+   * Required. Immutable. The type of the endpoint spec content.
    *
    * @var string
    */
@@ -57,7 +57,7 @@ class EndpointSpec extends \Google\Model
     return $this->content;
   }
   /**
-   * Required. The type of the endpoint spec content.
+   * Required. Immutable. The type of the endpoint spec content.
    *
    * Accepted values: TYPE_UNSPECIFIED, NO_SPEC
    *

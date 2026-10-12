@@ -72,8 +72,7 @@ class Document extends \Google\Collection
   protected $commentsType = CommentThread::class;
   protected $commentsDataType = 'array';
   /**
-   * Output only. The comments view mode applied to the document. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the document.
    *
    * @var string
    */
@@ -164,8 +163,7 @@ class Document extends \Google\Collection
   /**
    * Output only. The comments associated with the document. Only populated if
    * the commentsViewMode parameter is set to require comments (such as
-   * `COMMENTS_VIEW_MODE_INCLUDED`). [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * `COMMENTS_VIEW_MODE_INCLUDED`).
    *
    * @param CommentThread[] $comments
    */
@@ -181,8 +179,7 @@ class Document extends \Google\Collection
     return $this->comments;
   }
   /**
-   * Output only. The comments view mode applied to the document. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the document.
    *
    * Accepted values: COMMENTS_VIEW_MODE_UNSPECIFIED,
    * COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS, COMMENTS_VIEW_MODE_OMITTED,
@@ -468,8 +465,7 @@ class Document extends \Google\Collection
   /**
    * Output only. The suggestions associated with the document. Only populated
    * if the commentsViewMode parameter is set to require comments (such as
-   * `COMMENTS_VIEW_MODE_INCLUDED`). [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * `COMMENTS_VIEW_MODE_INCLUDED`).
    *
    * @param SuggestionThread[] $suggestions
    */

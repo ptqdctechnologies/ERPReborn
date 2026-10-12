@@ -201,8 +201,7 @@ class Request extends \Google\Model
     return $this->addChart;
   }
   /**
-   * Adds a reply to a CommentThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Adds a reply to a CommentThread.
    *
    * @param AddCommentReplyRequest $addCommentReply
    */
@@ -523,8 +522,7 @@ class Request extends \Google\Model
     return $this->deleteBanding;
   }
   /**
-   * Deletes a CommentThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Deletes a CommentThread.
    *
    * @param DeleteCommentRequest $deleteComment
    */
@@ -540,8 +538,7 @@ class Request extends \Google\Model
     return $this->deleteComment;
   }
   /**
-   * Deletes a reply Post from a CommentThread [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Deletes a reply Post from a CommentThread
    *
    * @param DeleteCommentReplyRequest $deleteCommentReply
    */
@@ -814,8 +811,7 @@ class Request extends \Google\Model
     return $this->findReplace;
   }
   /**
-   * Inserts a CommentThread into the spreadsheet. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Inserts a CommentThread into the spreadsheet.
    *
    * @param InsertCommentRequest $insertComment
    */
@@ -1120,7 +1116,6 @@ class Request extends \Google\Model
   }
   /**
    * Updates an existing post (head post or reply) of a CommentThread.
-   * [Developer Preview](https://developers.google.com/workspace/preview).
    *
    * @param UpdateCommentPostRequest $updateCommentPost
    */

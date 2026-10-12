@@ -25,11 +25,12 @@ class ExtensionBindingMatchConditionTo extends \Google\Model
   protected $notDestinationDataType = '';
 
   /**
-   * Optional. Describes properties of destination of a request. Within a
-   * destination, the match follows AND semantics across fields and OR semantics
-   * within a field, i.e. a match occurs when ANY path matches AND ANY header
-   * matches and ANY method matches. At least one of destination or
-   * not_destination must be specified.
+   * Optional. Describes properties of the destination of a request. A request
+   * matches the destination only if it matches every field that is set. Fields
+   * that are not set are always considered a match. For example, if only
+   * `hosts` and `paths` are set, a request matches when any host matches and
+   * any path matches. At least one of `destination` or `not_destination` must
+   * be specified.
    *
    * @param ExtensionBindingMatchConditionToDestination $destination
    */

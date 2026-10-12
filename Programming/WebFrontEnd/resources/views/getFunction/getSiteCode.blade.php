@@ -14,10 +14,15 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="sub_budget_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="sub_budget_id" name="sub_budget_id" />
-                <input type="hidden" class="form-control" id="sub_budget_name" name="sub_budget_name" />
-                <input type="hidden" class="form-control" id="sub_budget_code" name="sub_budget_code" />
+                    value="<?= isset($sub_budget['preview']) ? $sub_budget['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($sub_budget['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="sub_budget_id" name="sub_budget_id"
+                    value="<?= isset($sub_budget['id']) ? $sub_budget['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="sub_budget_name" name="sub_budget_name"
+                    value="<?= isset($sub_budget['name']) ? $sub_budget['name'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="sub_budget_code" name="sub_budget_code"
+                    value="<?= isset($sub_budget['code']) ? $sub_budget['code'] : ''; ?>" />
             </div>
         </div>
     </div>

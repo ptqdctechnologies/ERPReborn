@@ -2,8 +2,6 @@
 
 namespace App\Services\Accounting;
 
-use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -22,6 +20,29 @@ class JournalService
             'latest',
             [
                 'parameter' => [
+                ]
+            ]
+        );
+    }
+
+    public function detail($id): mixed
+    {
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.accounting.getJournalDetail',
+            'latest',
+            [
+                'parameter' => [
+                    'journal_RefID' => (int) $id
+                ],
+                'SQLStatement' => [
+                    'pick' => null,
+                    'sort' => null,
+                    'filter' => null,
+                    'paging' => null
                 ]
             ]
         );
@@ -51,36 +72,20 @@ class JournalService
         );
     }
 
-    public function create(Request $request)
+    public function create($request): mixed
     {
-        $sessionToken = Session::get('SessionLogin');
-        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $token = Session::get('SessionLogin');
 
-        $data = $request->storeData;
-        $journalDetail = json_decode($data['journalDetail'], true);
-        // $cashDisbursementItemList   = json_decode($data['cashDisbursementItemList'], true);
-        // $cashReceiptItemList        = json_decode($data['cashReceiptItemList'], true);
+        $journalDetails = $request->input('journal_details');
+        $entities = json_decode($journalDetails, true);
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.create.accounting.setJournal',
             'latest',
             [
-                'entities' => $journalDetail
-                // 'entities' => [
-                //     'additionalData'    => [
-                //         'itemList'      => [
-                //             'items'     => $journalDetail
-                //             ],
-                //         "cashDisbursementItemList"  => [
-                //             "items"                 => $cashDisbursementItemList
-                //             ],
-                //         "cashReceiptItemList"   => [
-                //             "items"             => $cashReceiptItemList
-                //             ]
-                //         ]
-                //     ]
+                'entities' => $entities
             ]
         );
     }

@@ -20,7 +20,7 @@ namespace Google\Service\ArtifactRegistry;
 class GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCustomRepository extends \Google\Model
 {
   /**
-   * An http/https uri reference to the upstream remote repository, for ex:
+   * An https uri reference to the upstream remote repository, for ex:
    * "https://my.maven.registry/".
    *
    * @var string
@@ -28,7 +28,7 @@ class GoogleDevtoolsArtifactregistryV1RemoteRepositoryConfigMavenRepositoryCusto
   public $uri;
 
   /**
-   * An http/https uri reference to the upstream remote repository, for ex:
+   * An https uri reference to the upstream remote repository, for ex:
    * "https://my.maven.registry/".
    *
    * @param string $uri

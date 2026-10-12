@@ -14,10 +14,15 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="account_number_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="account_number_id" name="account_number_id" />
-                <input type="hidden" class="form-control" id="account_number_name" name="account_number_name" />
-                <input type="hidden" class="form-control" id="account_number_code" name="account_number_code" />
+                    value="<?= isset($account_number['preview']) ? $account_number['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($account_number['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="account_number_id" name="account_number_id"
+                    value="<?= isset($account_number['id']) ? $account_number['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="account_number_name" name="account_number_name"
+                    value="<?= isset($account_number['name']) ? $account_number['name'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="account_number_code" name="account_number_code"
+                    value="<?= isset($account_number['code']) ? $account_number['code'] : ''; ?>" />
             </div>
         </div>
     </div>

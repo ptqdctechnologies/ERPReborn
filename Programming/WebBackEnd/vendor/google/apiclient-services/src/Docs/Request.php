@@ -127,8 +127,7 @@ class Request extends \Google\Model
   protected $updateTextStyleDataType = '';
 
   /**
-   * Accepts a suggestion. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Accepts a suggestion.
    *
    * @param AcceptSuggestionRequest $acceptSuggestion
    */
@@ -144,8 +143,7 @@ class Request extends \Google\Model
     return $this->acceptSuggestion;
   }
   /**
-   * Adds a reply to a CommentThread or SuggestionThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Adds a reply to a CommentThread or SuggestionThread.
    *
    * @param AddCommentReplyRequest $addCommentReply
    */
@@ -273,8 +271,7 @@ class Request extends \Google\Model
     return $this->createParagraphBullets;
   }
   /**
-   * Deletes a CommentThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Deletes a CommentThread.
    *
    * @param DeleteCommentRequest $deleteComment
    */
@@ -290,8 +287,7 @@ class Request extends \Google\Model
     return $this->deleteComment;
   }
   /**
-   * Deletes a reply Post from a CommentThread or SuggestionThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Deletes a reply Post from a CommentThread or SuggestionThread.
    *
    * @param DeleteCommentReplyRequest $deleteCommentReply
    */
@@ -419,8 +415,7 @@ class Request extends \Google\Model
     return $this->deletePositionedObject;
   }
   /**
-   * Deletes a suggestion. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Deletes a suggestion.
    *
    * @param DeleteSuggestionRequest $deleteSuggestion
    */
@@ -484,8 +479,7 @@ class Request extends \Google\Model
     return $this->deleteTableRow;
   }
   /**
-   * Inserts a CommentThread into the document. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Inserts a CommentThread into the document.
    *
    * @param InsertCommentRequest $insertComment
    */
@@ -709,8 +703,7 @@ class Request extends \Google\Model
     return $this->pinTableHeaderRows;
   }
   /**
-   * Rejects a suggestion. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Rejects a suggestion.
    *
    * @param RejectSuggestionRequest $rejectSuggestion
    */
@@ -791,8 +784,7 @@ class Request extends \Google\Model
   }
   /**
    * Updates an existing post (head post or reply) of a CommentThread or
-   * SuggestionThread. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * SuggestionThread.
    *
    * @param UpdateCommentPostRequest $updateCommentPost
    */

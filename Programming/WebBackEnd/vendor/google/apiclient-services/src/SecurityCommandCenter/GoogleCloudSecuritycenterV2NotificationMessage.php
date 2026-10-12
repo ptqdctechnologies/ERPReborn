@@ -19,6 +19,10 @@ namespace Google\Service\SecurityCommandCenter;
 
 class GoogleCloudSecuritycenterV2NotificationMessage extends \Google\Model
 {
+  /**
+   * @var bool
+   */
+  public $deletedFinding;
   protected $findingType = GoogleCloudSecuritycenterV2Finding::class;
   protected $findingDataType = '';
   /**
@@ -28,6 +32,20 @@ class GoogleCloudSecuritycenterV2NotificationMessage extends \Google\Model
   protected $resourceType = GoogleCloudSecuritycenterV2Resource::class;
   protected $resourceDataType = '';
 
+  /**
+   * @param bool $deletedFinding
+   */
+  public function setDeletedFinding($deletedFinding)
+  {
+    $this->deletedFinding = $deletedFinding;
+  }
+  /**
+   * @return bool
+   */
+  public function getDeletedFinding()
+  {
+    return $this->deletedFinding;
+  }
   /**
    * @param GoogleCloudSecuritycenterV2Finding $finding
    */

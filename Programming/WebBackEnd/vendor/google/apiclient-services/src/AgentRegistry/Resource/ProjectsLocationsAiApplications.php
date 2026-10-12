@@ -17,10 +17,12 @@
 
 namespace Google\Service\AgentRegistry\Resource;
 
+use Google\Service\AgentRegistry\AiApplication;
 use Google\Service\AgentRegistry\GoogleIamV1Policy;
 use Google\Service\AgentRegistry\GoogleIamV1SetIamPolicyRequest;
 use Google\Service\AgentRegistry\GoogleIamV1TestIamPermissionsRequest;
 use Google\Service\AgentRegistry\GoogleIamV1TestIamPermissionsResponse;
+use Google\Service\AgentRegistry\ListAiApplicationsResponse;
 
 /**
  * The "aiApplications" collection of methods.
@@ -32,6 +34,21 @@ use Google\Service\AgentRegistry\GoogleIamV1TestIamPermissionsResponse;
  */
 class ProjectsLocationsAiApplications extends \Google\Service\Resource
 {
+  /**
+   * Gets details of a single AI Application. (aiApplications.get)
+   *
+   * @param string $name Required. Target AI Application resource name. Format:
+   * `projects/{project}/locations/{location}/aiApplications/{ai_application}`
+   * @param array $optParams Optional parameters.
+   * @return AiApplication
+   * @throws \Google\Service\Exception
+   */
+  public function get($name, $optParams = [])
+  {
+    $params = ['name' => $name];
+    $params = array_merge($params, $optParams);
+    return $this->call('get', [$params], AiApplication::class);
+  }
   /**
    * Gets the access control policy for a resource. Returns an empty policy if the
    * resource exists and does not have a policy set. (aiApplications.getIamPolicy)
@@ -62,6 +79,30 @@ class ProjectsLocationsAiApplications extends \Google\Service\Resource
     $params = ['resource' => $resource];
     $params = array_merge($params, $optParams);
     return $this->call('getIamPolicy', [$params], GoogleIamV1Policy::class);
+  }
+  /**
+   * Lists AI Applications in a given project and location.
+   * (aiApplications.listProjectsLocationsAiApplications)
+   *
+   * @param string $parent Required. Parent project and location to query. Format:
+   * `projects/{project}/locations/{location}`
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string filter Optional. Filtering results.
+   * @opt_param string orderBy Optional. Hint for how to order the results.
+   * @opt_param int pageSize Optional. Requested page size. Server may return
+   * fewer items than requested. If unspecified, server will pick an appropriate
+   * default.
+   * @opt_param string pageToken Optional. A token identifying a page of results
+   * the server should return.
+   * @return ListAiApplicationsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function listProjectsLocationsAiApplications($parent, $optParams = [])
+  {
+    $params = ['parent' => $parent];
+    $params = array_merge($params, $optParams);
+    return $this->call('list', [$params], ListAiApplicationsResponse::class);
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any

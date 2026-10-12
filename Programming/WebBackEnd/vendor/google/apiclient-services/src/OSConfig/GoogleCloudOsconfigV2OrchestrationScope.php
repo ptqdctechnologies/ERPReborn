@@ -24,7 +24,10 @@ class GoogleCloudOsconfigV2OrchestrationScope extends \Google\Collection
   protected $selectorsDataType = 'array';
 
   /**
-   * Optional. Selectors of the orchestration scope. There is a logical AND
+   * Optional. Selectors of the orchestration scope. Each `Selector` entry can
+   * specify either a `ResourceHierarchySelector` or a `LocationSelector`, but
+   * not both. To filter by both resource hierarchy and location, specify
+   * separate `Selector` entries for each selector type. There is a logical AND
    * between each selector defined. When there is no explicit
    * `ResourceHierarchySelector` selector specified, the scope is by default
    * bounded to the parent of the policy orchestrator resource.

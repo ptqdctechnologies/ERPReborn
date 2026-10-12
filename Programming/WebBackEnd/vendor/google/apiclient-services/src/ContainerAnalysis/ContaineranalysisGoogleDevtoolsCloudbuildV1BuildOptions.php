@@ -116,6 +116,11 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildOptions extends \Google\Co
    */
   public const REQUESTED_VERIFY_OPTION_VERIFIED = 'VERIFIED';
   /**
+   * Build verification is best effort. If provenance generation fails, the
+   * build will still succeed.
+   */
+  public const REQUESTED_VERIFY_OPTION_BEST_EFFORT = 'BEST_EFFORT';
+  /**
    * Fails the build if error in substitutions checks, like missing a
    * substitution in the template or in the map.
    */
@@ -461,7 +466,7 @@ class ContaineranalysisGoogleDevtoolsCloudbuildV1BuildOptions extends \Google\Co
   /**
    * Requested verifiability options.
    *
-   * Accepted values: NOT_VERIFIED, VERIFIED
+   * Accepted values: NOT_VERIFIED, VERIFIED, BEST_EFFORT
    *
    * @param self::REQUESTED_VERIFY_OPTION_* $requestedVerifyOption
    */

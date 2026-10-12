@@ -44,8 +44,7 @@ class Presentation extends \Google\Collection
   protected $commentsType = CommentThread::class;
   protected $commentsDataType = 'array';
   /**
-   * Output only. The comments view mode applied to the presentation. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the presentation.
    *
    * @var string
    */
@@ -97,7 +96,6 @@ class Presentation extends \Google\Collection
 
   /**
    * Output only. The comment threads associated with the presentation.
-   * [Developer Preview](https://developers.google.com/workspace/preview).
    *
    * @param CommentThread[] $comments
    */
@@ -113,8 +111,7 @@ class Presentation extends \Google\Collection
     return $this->comments;
   }
   /**
-   * Output only. The comments view mode applied to the presentation. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Output only. The comments view mode applied to the presentation.
    *
    * Accepted values: COMMENTS_VIEW_MODE_UNSPECIFIED,
    * COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS, COMMENTS_VIEW_MODE_OMITTED,

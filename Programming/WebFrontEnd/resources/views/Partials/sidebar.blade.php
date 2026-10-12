@@ -16,7 +16,7 @@
 
         <nav class="mt-3">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @foreach($privilageMenu as $group)
+                @foreach($privilegeMenu as $group)
                     @php
                         $groupEntity = $group['entities'];
 
@@ -68,9 +68,9 @@
                                             }
 
                                             // Hanya tampilkan menu yang diizinkan
-                                            // if (!$entity['signAllowedAccess']) {
-                                            //     continue;
-                                            // }
+                                            if (!$entity['signAllowedAccess']) {
+                                                continue;
+                                            }
 
                                             $url = $entity['menuURLPath'] ?? null;
 
@@ -146,9 +146,9 @@
                                                             }
 
                                                             // Hanya tampilkan menu yang diizinkan
-                                                            // if (!$entity['signAllowedAccess']) {
-                                                            //     continue;
-                                                            // }
+                                                            if (!$entity['signAllowedAccess']) {
+                                                                continue;
+                                                            }
 
                                                             $url = $entity['menuURLPath'] ?? null;
 

@@ -113,4 +113,15 @@ class BudgetProgressController extends Controller
     public function destroy($id)
     {
     }
+
+    public function lastWeekAvailable(Request $request)
+    {
+        $recordID = $request->input('record_id');
+        $response = $this->budgetProgressService->lastWeekAvailable($recordID);
+
+        return [
+            'isAvailable' => $response['data']['status'],
+            'status' => $response['metadata']['HTTPStatusCode'],
+        ];
+    }
 }

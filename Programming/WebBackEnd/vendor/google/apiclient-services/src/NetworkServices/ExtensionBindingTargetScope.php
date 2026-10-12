@@ -21,23 +21,31 @@ class ExtensionBindingTargetScope extends \Google\Collection
 {
   protected $collection_key = 'resourceTypes';
   /**
-   * Required. Parent resource name specification, in the format:
-   * `projects/{project_number}`.
+   * Required. The parent resource that defines the scope, in the format
+   * `projects/{project_number}`. When the scope is a project, the binding
+   * applies to the resources that meet all of the following conditions: * The
+   * resource belongs to the specified project. * The resource is in the same
+   * location as the `ExtensionBinding`. * The resource type is listed in
+   * `resource_types`.
    *
    * @var string
    */
   public $parent;
   /**
-   * Required. Type of the resource to which the binding should attach. Limited
-   * to 1 resource type.
+   * Required. The types of resources to which the binding should attach.
+   * Limited to 1 resource type.
    *
    * @var string[]
    */
   public $resourceTypes;
 
   /**
-   * Required. Parent resource name specification, in the format:
-   * `projects/{project_number}`.
+   * Required. The parent resource that defines the scope, in the format
+   * `projects/{project_number}`. When the scope is a project, the binding
+   * applies to the resources that meet all of the following conditions: * The
+   * resource belongs to the specified project. * The resource is in the same
+   * location as the `ExtensionBinding`. * The resource type is listed in
+   * `resource_types`.
    *
    * @param string $parent
    */
@@ -53,8 +61,8 @@ class ExtensionBindingTargetScope extends \Google\Collection
     return $this->parent;
   }
   /**
-   * Required. Type of the resource to which the binding should attach. Limited
-   * to 1 resource type.
+   * Required. The types of resources to which the binding should attach.
+   * Limited to 1 resource type.
    *
    * @param string[] $resourceTypes
    */

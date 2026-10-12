@@ -33,6 +33,10 @@ class SetInternalStatusRequest extends \Google\Model
    */
   public const BACKUP_CONFIG_STATE_PASSIVE = 'PASSIVE';
   /**
+   * The data source has been created but backups are paused
+   */
+  public const BACKUP_CONFIG_STATE_PAUSED = 'PAUSED';
+  /**
    * Required. Output only. The new BackupConfigState to set for the DataSource.
    *
    * @var string
@@ -64,7 +68,7 @@ class SetInternalStatusRequest extends \Google\Model
   /**
    * Required. Output only. The new BackupConfigState to set for the DataSource.
    *
-   * Accepted values: BACKUP_CONFIG_STATE_UNSPECIFIED, ACTIVE, PASSIVE
+   * Accepted values: BACKUP_CONFIG_STATE_UNSPECIFIED, ACTIVE, PASSIVE, PAUSED
    *
    * @param self::BACKUP_CONFIG_STATE_* $backupConfigState
    */

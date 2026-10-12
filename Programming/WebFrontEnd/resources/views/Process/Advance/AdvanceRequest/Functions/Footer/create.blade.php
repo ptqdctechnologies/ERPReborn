@@ -395,6 +395,48 @@
         });
     }
 
+    function getBudgetProgress(budgetCodeID, budgetCode, budgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
+            data: {
+                record_id: budgetCodeID
+            },
+            success: function (response) {
+                if (response.status === 200 && response.isAvailable) {
+                    getSiteCode(budgetCodeID);
+
+                    $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
+                    $("#budget_id").val(budgetCodeID);
+                    $("#budget_name").val(budgetName);
+                    $("#budget_code").val(budgetCode);
+
+                    $("#budget_preview").css("background-color", "#e9ecef");
+                    $("#sub_budget_container").css({ "cursor": "pointer" });
+
+                    $('#sub_budget_container').attr({
+                        'data-toggle': 'modal',
+                        'data-target': '#sub_budget_code_modal'
+                    });
+                } else {
+                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
+                }
+
+                $("#budget_loading").css({ "display": "none" });
+                $("#budget_icon").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+            }
+        });
+    }
+
     function getWorkflow(budgetCodeID, budgetCode, budgetName) {
         $.ajaxSetup({
             headers: {
@@ -411,28 +453,15 @@
             },
             success: function (response) {
                 if (response.status === 200 && response.data[0].signAccess) {
-                    getSiteCode(budgetCodeID);
+                    getBudgetProgress(budgetCodeID, budgetCode, budgetName);
 
                     $("#workflow_path_id").val(response.data[0].workFlowPath_RefIDArray[0]);
-
-                    $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
-                    $("#budget_id").val(budgetCodeID);
-                    $("#budget_name").val(budgetName);
-                    $("#budget_code").val(budgetCode);
-
-                    $("#budget_preview").css("background-color", "#e9ecef");
-                    $("#sub_budget_container").css({ "cursor": "pointer" });
-
-                    $('#sub_budget_container').attr({
-                        'data-toggle': 'modal',
-                        'data-target': '#sub_budget_code_modal'
-                    });
                 } else {
+                    $("#budget_loading").css({ "display": "none" });
+                    $("#budget_icon").css({ "display": "block" });
+
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
-
-                $("#budget_loading").css({ "display": "none" });
-                $("#budget_icon").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);

@@ -509,47 +509,103 @@
         });
     }
 
+    function getBudgetProgress(budgetCodeID, budgetCode, budgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
+            data: {
+                record_id: budgetCodeID
+            },
+            success: function (response) {
+                if (response.status === 200 && response.isAvailable) {
+                    getSites(budgetCodeID);
+
+                    $("#project_id_second").val(budgetCodeID);
+                    $("#project_code_second").val(budgetCode);
+                    $("#project_name_second").val(`${budgetCode} - ${budgetName}`);
+                    $("#myProjectSecondTrigger").prop("disabled", true);
+                    $("#myProjectSecondTrigger").css("cursor", "not-allowed");
+
+                    $("#project_code_second").css("border", "1px solid #ced4da");
+                    $("#project_name_second").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
+                } else {
+                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
+                }
+
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+            }
+        });
+    }
+
+    function getWorkflow(budgetCodeID, budgetCode, budgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            data: {
+                businessDocumentType_RefID: '77000000000057',
+                combinedBudget_RefID: budgetCodeID
+            },
+            success: function (response) {
+                if (response.status === 200 && !response.data[0].signAccess) {
+                    getBudgetProgress(budgetCodeID, budgetCode, budgetName);
+
+                    // $("#workflow_path_id").val(response.data[0].workFlowPath_RefIDArray[0]);
+                } else {
+                    $("#loadingBudget").css({ "display": "none" });
+                    $("#myProjectSecondTrigger").css({ "display": "block" });
+
+                    Swal.fire("Error", "You are not included in this budget", "error");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+
+                $("#loadingBudget").css({ "display": "none" });
+                $("#myProjectSecondTrigger").css({ "display": "block" });
+            }
+        });
+    }
+
     $('#tableProjects').on('click', 'tbody tr', async function () {
-        let sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        let projectCode = $(this).find('td:nth-child(2)').text();
-        let projectName = $(this).find('td:nth-child(3)').text();
-        let documentTypeID = $("#DocumentTypeID").val();
+        const table = $('#tableProjects').DataTable();
+        const dataRow = table.row(this).data();
 
-        $("#project_id_second").val("");
-        $("#project_code_second").val("");
-        $("#project_name_second").val("");
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-        // $("#loadingBudget").css({"display":"block"});
-        // $("#myProjectSecondTrigger").css({"display":"none"});
+            $("#project_id_second").val("");
+            $("#project_code_second").val("");
+            $("#project_name_second").val("");
 
-        $('#myProjects').modal('hide');
+            $("#var_combinedBudget_RefID").val(id);
 
-        // try {
-        //     let checkWorkFlow = await checkingWorkflow(sysId, documentTypeID);
+            $("#loadingBudget").css({ "display": "block" });
+            $("#myProjectSecondTrigger").css({ "display": "none" });
 
-        //     if (!checkWorkFlow) {
-        $("#project_id_second").val(sysId);
-        $("#project_code_second").val(projectCode);
-        $("#project_name_second").val(`${projectCode} - ${projectName}`);
-        $("#myProjectSecondTrigger").prop("disabled", true);
-        $("#myProjectSecondTrigger").css("cursor", "not-allowed");
-        $("#project_code_second").css("border", "1px solid #ced4da");
-        $("#project_name_second").css({ "border": "1px solid #ced4da", "background-color": "#e9ecef" });
-        $("#budgetMessage").hide();
+            getWorkflow(id, code, name);
 
-        $("#var_combinedBudget_RefID").val(sysId);
+            console.log('dataRow', dataRow);
+        }
 
-        getSites(sysId);
-        $("#mySiteCodeSecondTrigger").prop("disabled", false);
-        //     }
-
-        //     $("#loadingBudget").css({"display":"none"});
-        //     $("#myProjectSecondTrigger").css({"display":"block"});
-        // } catch (error) {
-        //     console.error('Error checking workflow:', error);
-
-        //     Swal.fire("Error", "Error Checking Workflow", "error");
-        // }
+        $('#myProjects').modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {

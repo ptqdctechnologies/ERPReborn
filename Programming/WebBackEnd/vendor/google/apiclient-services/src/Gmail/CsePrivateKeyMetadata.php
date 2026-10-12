@@ -48,7 +48,7 @@ class CsePrivateKeyMetadata extends \Google\Model
   }
   /**
    * Metadata for a private key instance managed by an external key access
-   * control list service.
+   * control list service. The maximum size of the KACLS data field is 8 KiB.
    *
    * @param KaclsKeyMetadata $kaclsKeyMetadata
    */

@@ -1664,4 +1664,53 @@ class FunctionController extends Controller
         ]);
     }
 
+    public function getBanksWithCoA(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+
+        $start = $request->input('start', 0);
+        $length = $request->input('length', 10);
+        $offset = floor($start / $length) + 1;
+        $limit = $length;
+
+        $searchValue = $request->input('search.value');
+
+        $response = Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'report.form.dataPickList.accounting.chartOfAccount.getNonHeaderCashAndCashEquivalents',
+            'latest',
+            [
+                'parameter' => [
+                    'effectiveDate' => date('Y-m-d'),
+                    'pagination' => [
+                        'pageSize' => (int) $limit,
+                        'pageShow' => (int) $offset
+                    ],
+                    'dataFilter' => [
+                        'fullCode' => $searchValue,
+                        'fullName' => NULL
+                    ]
+                ]
+            ]
+        );
+
+        if ($response['metadata']['HTTPStatusCode'] !== 200) {
+            return response()->json([
+                'draw' => intval($request->input('draw')),
+                'recordsTotal' => 0,
+                'recordsFiltered' => 0,
+                'data' => []
+            ]);
+        }
+
+        $data = $response['data']['data'];
+
+        return response()->json([
+            'draw' => intval($request->input('draw')),
+            'recordsTotal' => $data['header']['dataCount'],
+            'recordsFiltered' => $data['header']['dataCount'],
+            'data' => $data['content']['itemList']
+        ]);
+    }
 }

@@ -45,8 +45,7 @@ class BatchUpdateSpreadsheetRequest extends \Google\Collection
    * The comments view mode to apply to the spreadsheet. This allows viewing the
    * spreadsheet with comments omitted or included. If one is not specified,
    * COMMENTS_VIEW_MODE_OMITTED is used. Meaningful only if
-   * include_spreadsheet_in_response is 'true'. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * include_spreadsheet_in_response is 'true'.
    *
    * @var string
    */
@@ -79,8 +78,7 @@ class BatchUpdateSpreadsheetRequest extends \Google\Collection
    * The comments view mode to apply to the spreadsheet. This allows viewing the
    * spreadsheet with comments omitted or included. If one is not specified,
    * COMMENTS_VIEW_MODE_OMITTED is used. Meaningful only if
-   * include_spreadsheet_in_response is 'true'. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * include_spreadsheet_in_response is 'true'.
    *
    * Accepted values: COMMENTS_VIEW_MODE_UNSPECIFIED,
    * COMMENTS_VIEW_MODE_DEFAULT_FOR_CURRENT_ACCESS, COMMENTS_VIEW_MODE_OMITTED,

@@ -978,16 +978,21 @@
             });
     }
 
-    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+    function getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
         $.ajax({
             type: 'GET',
+            url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
             data: {
-                businessDocumentType_RefID: '77000000000057',
-                combinedBudget_RefID: combinedBudgetRefID
+                record_id: combinedBudgetRefID
             },
-            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && !response.data[0].signAccess) {
+                if (response.status === 200 && response.isAvailable) {
                     getCustomSites(combinedBudgetRefID);
 
                     $("#project_id").val(combinedBudgetRefID);
@@ -999,11 +1004,35 @@
                     $("#myProjectsTrigger").prop("disabled", true);
                     $("#myProjectsTrigger").css("cursor", "not-allowed");
                 } else {
-                    Swal.fire("Error", "You are not included in this budget", "error");
+                    Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
                 }
 
                 $("#project_loading").css({ "display": "none" });
                 $("#myProjectsTrigger").css({ "display": "block" });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+            }
+        });
+    }
+
+    function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+        $.ajax({
+            type: 'GET',
+            data: {
+                businessDocumentType_RefID: '77000000000057',
+                combinedBudget_RefID: combinedBudgetRefID
+            },
+            url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
+            success: function (response) {
+                if (response.status === 200 && !response.data[0].signAccess) {
+                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
+                } else {
+                    $("#project_loading").css({ "display": "none" });
+                    $("#myProjectsTrigger").css({ "display": "block" });
+
+                    Swal.fire("Error", "You are not included in this budget", "error");
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);

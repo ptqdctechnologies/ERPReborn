@@ -14,9 +14,13 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="requester_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="requester_id" name="requester_id" />
-                <input type="hidden" class="form-control" id="requester_name" name="requester_name" />
+                    value="<?= isset($requester['preview']) ? $requester['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($requester['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="requester_id" name="requester_id"
+                    value="<?= isset($requester['id']) ? $requester['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="requester_name" name="requester_name"
+                    value="<?= isset($requester['name']) ? $requester['name'] : ''; ?>" />
             </div>
         </div>
     </div>

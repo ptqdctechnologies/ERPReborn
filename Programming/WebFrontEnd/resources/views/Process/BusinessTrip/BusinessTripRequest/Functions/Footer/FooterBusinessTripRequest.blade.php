@@ -472,6 +472,45 @@
     });
   }
 
+  function getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
+    $.ajaxSetup({
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
+    });
+
+    $.ajax({
+      type: 'GET',
+      url: '{!! route("BudgetProgress.lastWeekAvailable") !!}',
+      data: {
+        record_id: combinedBudgetRefID
+      },
+      success: function (response) {
+        if (response.status === 200 && response.isAvailable) {
+          getSites(combinedBudgetRefID);
+
+          $("#project_id").val(combinedBudgetRefID);
+          $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+          $("#myProjectsTrigger").prop("disabled", true);
+          $("#myProjectsTrigger").css("cursor", "not-allowed");
+          $("#mySitesTrigger").prop("disabled", false);
+          $("#mySitesTrigger").css("cursor", "pointer");
+
+          ErrorHandler.hideErrorInputMessage("#project_name", "#budgetMessage");
+          $("#project_name").css({ "background-color": "#e9ecef" });
+        } else {
+          Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
+        }
+
+        $("#loadingBudget").hide();
+        $("#iconBudget").show();
+      },
+      error: function (jqXHR, textStatus, errorThrown) {
+        console.log(jqXHR.responseJSON);
+      }
+    });
+  }
+
   function getWorkflow(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName) {
     $.ajaxSetup({
       headers: {
@@ -488,23 +527,13 @@
       url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
       success: function (response) {
         if (response.status === 200 && !response.data[0].signAccess) {
-          getSites(combinedBudgetRefID);
-
-          $("#project_id").val(combinedBudgetRefID);
-          $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-          $("#myProjectsTrigger").prop("disabled", true);
-          $("#myProjectsTrigger").css("cursor", "not-allowed");
-          $("#mySitesTrigger").prop("disabled", false);
-          $("#mySitesTrigger").css("cursor", "pointer");
-
-          ErrorHandler.hideErrorInputMessage("#project_name", "#budgetMessage");
-          $("#project_name").css({ "background-color": "#e9ecef" });
+          getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
         } else {
+          $("#loadingBudget").hide();
+          $("#iconBudget").show();
+
           Swal.fire("Error", "You are not included in this budget", "error");
         }
-
-        $("#loadingBudget").hide();
-        $("#iconBudget").show();
       },
       error: function (jqXHR, textStatus, errorThrown) {
         console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);

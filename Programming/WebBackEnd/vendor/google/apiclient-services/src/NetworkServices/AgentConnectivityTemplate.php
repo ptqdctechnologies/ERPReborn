@@ -48,6 +48,10 @@ class AgentConnectivityTemplate extends \Google\Collection
    */
   public const AGENT_COMPUTE_BORG = 'BORG';
   /**
+   * Google Compute Engine VM.
+   */
+  public const AGENT_COMPUTE_GCE_VM = 'GCE_VM';
+  /**
    * Unspecified deployment model.
    */
   public const DEPLOYMENT_MODEL_DEPLOYMENT_MODEL_UNSPECIFIED = 'DEPLOYMENT_MODEL_UNSPECIFIED';
@@ -176,7 +180,7 @@ class AgentConnectivityTemplate extends \Google\Collection
    * Optional. The compute environment where the agent is hosted. Exactly one
    * type of compute must be chosen.
    *
-   * Accepted values: AGENT_COMPUTE_UNSPECIFIED, GKE, CLOUD_RUN, BORG
+   * Accepted values: AGENT_COMPUTE_UNSPECIFIED, GKE, CLOUD_RUN, BORG, GCE_VM
    *
    * @param self::AGENT_COMPUTE_* $agentCompute
    */

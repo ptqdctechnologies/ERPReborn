@@ -104,6 +104,10 @@ class ThirdPartyVendorConfig extends \Google\Model
    */
   public const VENDOR_THIRD_PARTY_VENDOR_VIDEO_RESEARCH = 'THIRD_PARTY_VENDOR_VIDEO_RESEARCH';
   /**
+   * Aquila.
+   */
+  public const VENDOR_THIRD_PARTY_VENDOR_AQUILA = 'THIRD_PARTY_VENDOR_AQUILA';
+  /**
    * The ID used by the platform of the third-party vendor to identify the line
    * item.
    *
@@ -147,7 +151,7 @@ class ThirdPartyVendorConfig extends \Google\Model
    * THIRD_PARTY_VENDOR_MEDIA_SCOPE, THIRD_PARTY_VENDOR_AUDIENCE_PROJECT,
    * THIRD_PARTY_VENDOR_VIDEO_AMP, THIRD_PARTY_VENDOR_ISPOT_TV,
    * THIRD_PARTY_VENDOR_INTAGE, THIRD_PARTY_VENDOR_MACROMILL,
-   * THIRD_PARTY_VENDOR_VIDEO_RESEARCH
+   * THIRD_PARTY_VENDOR_VIDEO_RESEARCH, THIRD_PARTY_VENDOR_AQUILA
    *
    * @param self::VENDOR_* $vendor
    */

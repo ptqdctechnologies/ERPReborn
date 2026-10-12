@@ -108,9 +108,16 @@
             }
         })
             .done(function (response, textStatus, jqXHR) {
-                workflowState = response.data[0].nextApproverPath || [];
+                // workflowState = response.data[0].nextApproverPath || [];
+                workflowState = [
+                    {
+                        entities: {
+                            approverEntityName: 'Fikri'
+                        }
+                    }
+                ];
 
-                $('#workflow_detail_start').val(response.data[0].submitterEntityName || '');
+                $('#workflow_detail_start').val('Wardah');
 
                 renderWorkflow();
             })

@@ -13,10 +13,15 @@
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="bank_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="bank_id" name="bank_id" />
-                <input type="hidden" class="form-control" id="bank_name" name="bank_name" />
-                <input type="hidden" class="form-control" id="bank_code" name="bank_code" />
+                    value="<?= isset($bank['preview']) ? $bank['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($bank['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="bank_id" name="bank_id"
+                    value="<?= isset($bank['id']) ? $bank['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="bank_name" name="bank_name"
+                    value="<?= isset($bank['name']) ? $bank['name'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="bank_code" name="bank_code"
+                    value="<?= isset($bank['code']) ? $bank['code'] : ''; ?>" />
             </div>
         </div>
     </div>

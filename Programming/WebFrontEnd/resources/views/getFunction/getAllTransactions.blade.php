@@ -64,8 +64,8 @@
 
 <script>
     function getAllTransactions(businessDocumentTypeRefID) {
-        const selectDocumentType = document.getElementById("DocumentType");
-        const selectedDocumentTypeText = selectDocumentType.options[selectDocumentType.selectedIndex].text;
+        // const selectDocumentType = document.getElementById("DocumentType");
+        // const selectedDocumentTypeText = selectDocumentType.options[selectDocumentType.selectedIndex].text;
 
         let table = $('#tableAllTransactions').DataTable({
             processing: true,
@@ -104,41 +104,59 @@
                     $('#tableAllTransactions tbody').empty();
                     $(".loadingAllTransactions").hide();
                     $(".errorAllTransactionsMessageContainer").show();
-                    $("#errorAllTransactionsMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
+                    // $("#errorAllTransactionsMessage").text(`[${textStatus.status}] ${textStatus.responseJSON.message}`);
                 }
             },
             columns: [
                 {
                     data: null,
                     render: function (data, type, row, meta) {
-                        return (
-                            '<input id="sys_id_transaction' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_transaction" type="hidden">' +
-                            '<input id="sys_id_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.additionalData.combinedBudget_RefID + '" data-trigger="sys_id_budget" type="hidden">' +
-                            '<input id="selected_document_type_id' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + businessDocumentTypeRefID + '" data-trigger="selected_document_type_id" type="hidden">' +
-                            '<input id="selected_document_type_name' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + selectedDocumentTypeText + '" data-trigger="selected_document_type_name" type="hidden">' +
-                            (meta.row + meta.settings._iDisplayStart + 1)
-                        )
-                    }
-                },
-                {
-                    data: 'sys_Text',
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap"
-                },
-                {
-                    data: null,
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap text-center",
-                    render: function (data, type, row, meta) {
-                        return `${data.additionalData.combinedBudgetCode || '-'}`
+                        return (meta.row + meta.settings._iDisplayStart + 1);
                     }
                 },
                 {
                     data: null,
-                    defaultContent: '-',
+                    className: "align-middle text-nowrap",
+                    render: function (data, type, row, meta) {
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.documentNumber;
+                        } else if (data.additionalData) {
+                            result = data.sys_Text;
+                        }
+
+                        return result;
+                    }
+                },
+                {
+                    data: null,
                     className: "align-middle text-nowrap text-center",
                     render: function (data, type, row, meta) {
-                        return `${data.additionalData.combinedBudgetSectionCode || '-'}`
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.combinedBudgetCodeArray[0];
+                        } else if (data.additionalData) {
+                            result = data.additionalData.combinedBudgetCode;
+                        }
+
+                        return result;
+                    }
+                },
+                {
+                    data: null,
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.combinedBudgetSectionCodeArray[0];
+                        } else if (data.additionalData) {
+                            result = data.additionalData.combinedBudgetSectionCode;
+                        }
+
+                        return result;
                     }
                 }
             ],
@@ -199,5 +217,11 @@
 
     $(document).ready(function () {
         getAllDocumentType();
+
+        $('#myAllTransactions').on('hide.bs.modal', function () {
+            if (document.activeElement && this.contains(document.activeElement)) {
+                document.activeElement.blur();
+            }
+        });
     });
 </script>

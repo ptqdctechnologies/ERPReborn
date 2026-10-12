@@ -748,9 +748,9 @@ class CheckDocumentController extends Controller
 
         return response()->json([
             'draw' => intval($request->input('draw')),
-            'recordsTotal' => $documentData['header']['dataCount'] ?? 100,
-            'recordsFiltered' => $documentData['header']['dataCount'] ?? 100,
-            'data' => $documentData['content']['itemList'] ?? $documentData,
+            'recordsTotal' => isset($documentData['document']) ? $documentData['document']['header']['dataCount'] : $documentData['header']['dataCount'],
+            'recordsFiltered' => isset($documentData['document']) ? $documentData['document']['header']['dataCount'] : $documentData['header']['dataCount'],
+            'data' => isset($documentData['document']) ? $documentData['document']['content']['itemList']['ungrouped'] : $documentData['content']['itemList'],
             "DocumentTypeName" => $DocumentTypeName
         ]);
     }

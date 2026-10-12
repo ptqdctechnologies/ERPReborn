@@ -41,7 +41,7 @@ class AgentSpec extends \Google\Model
    */
   public $content;
   /**
-   * Required. The type of the agent spec content.
+   * Required. Immutable. The type of the agent spec content.
    *
    * @var string
    */
@@ -66,7 +66,7 @@ class AgentSpec extends \Google\Model
     return $this->content;
   }
   /**
-   * Required. The type of the agent spec content.
+   * Required. Immutable. The type of the agent spec content.
    *
    * Accepted values: TYPE_UNSPECIFIED, NO_SPEC, A2A_AGENT_CARD
    *

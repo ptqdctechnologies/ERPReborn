@@ -71,6 +71,8 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
    * @var string[]
    */
   public $metadata;
+  protected $modelConfigType = GoogleCloudAiplatformV1AgentModelConfig::class;
+  protected $modelConfigDataType = '';
   /**
    * Identifier. The resource name of the agent. Format:
    * `projects/{project}/locations/{location}/agents/{agent}`.
@@ -208,6 +210,24 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
   public function getMetadata()
   {
     return $this->metadata;
+  }
+  /**
+   * Optional. Model configuration for the agent. When set, tasks running under
+   * this agent default to this model configuration if they do not specify their
+   * own.
+   *
+   * @param GoogleCloudAiplatformV1AgentModelConfig $modelConfig
+   */
+  public function setModelConfig(GoogleCloudAiplatformV1AgentModelConfig $modelConfig)
+  {
+    $this->modelConfig = $modelConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1AgentModelConfig
+   */
+  public function getModelConfig()
+  {
+    return $this->modelConfig;
   }
   /**
    * Identifier. The resource name of the agent. Format:

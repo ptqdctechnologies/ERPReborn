@@ -143,7 +143,7 @@ class Binding extends \Google\Model
     return $this->name;
   }
   /**
-   * Required. The target Agent of the Binding.
+   * Optional. The source Agent of the Binding.
    *
    * @param Source $source
    */

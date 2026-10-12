@@ -37,8 +37,7 @@ class BatchUpdateDocumentResponse extends \Google\Collection
   public const COMMENT_UPDATE_STATE_ALL_FAILED_UNKNOWN_REASON = 'ALL_FAILED_UNKNOWN_REASON';
   protected $collection_key = 'suggestionResponses';
   /**
-   * Whether comment updates were applied in the batch request. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Whether comment updates were applied in the batch request.
    *
    * @var string
    */
@@ -57,8 +56,7 @@ class BatchUpdateDocumentResponse extends \Google\Collection
   protected $writeControlDataType = '';
 
   /**
-   * Whether comment updates were applied in the batch request. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * Whether comment updates were applied in the batch request.
    *
    * Accepted values: COMMENT_UPDATE_STATE_UNSPECIFIED, NO_UPDATES_REQUESTED,
    * ALL_SAVED, ALL_FAILED_UNKNOWN_REASON
@@ -111,8 +109,7 @@ class BatchUpdateDocumentResponse extends \Google\Collection
   }
   /**
    * The suggestions which were affected by each update. This maps 1:1 with the
-   * updates. [Developer
-   * Preview](https://developers.google.com/workspace/preview).
+   * updates.
    *
    * @param SuggestionResponse[] $suggestionResponses
    */
