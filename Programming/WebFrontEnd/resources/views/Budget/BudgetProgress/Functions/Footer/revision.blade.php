@@ -38,7 +38,7 @@
                 tbody.empty();
 
                 $.each(data, function (key, value) {
-                    const findData = dataBudgetDetails.find(val => val.sub_budget_id == value.Sys_ID);
+                    const findData = dataBudgetDetails.find(val => val.projectSectionItem_RefID == value.Sys_ID);
 
                     let row = `
                         <tr>
@@ -46,7 +46,7 @@
                                 type="hidden"
                                 id="recordID${key}"
                                 name="additionalData[${key}][entities][recordID]"
-                                value="${findData ? findData.record_id : ''}"
+                                value="${findData ? findData.sys_ID : ''}"
                             />
                             
                             <input
@@ -81,13 +81,13 @@
                             <td>
                                 <div class="progress-group" style="margin-top: .5rem;">
                                     <span class="float-right" style="margin-left: .5rem;">
-                                        <b>78.00%</b>
+                                        <b>${findData ? (findData.progressCompletion * 100) : 0}%</b>
                                     </span>
 
                                     <div class="progress progress-sm">
                                         <div
                                             class="progress-bar bg-primary"
-                                            style="width: 80%">
+                                            style="width: ${findData ? (findData.progressCompletion * 100) : 0}%;">
                                         </div>
                                     </div>
                                 </div>
@@ -104,7 +104,7 @@
                                     autocomplete="off"
                                     style="border-radius:0px; max-width: 30%;"
                                     name="additionalData[${key}][entities][progressCompletion]"
-                                    value="${findData ? findData.progressCompletion : ''}"
+                                    value="${findData ? (findData.progressCompletion * 100) : ''}"
                                 /> %
                             </td>
                         </tr>
@@ -130,7 +130,7 @@
 
         $.ajax({
             type: 'PUT',
-            url: '{!! route("BudgetProgress.update", $sys_id) !!}',
+            url: '{!! route("BudgetProgress.update", $budgetProgressRefID) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
@@ -196,8 +196,8 @@
     });
 
     $(document).ready(function () {
-        const startDate = moment(<?= json_encode($start_date) ?>);
-        const endDate = moment(<?= json_encode($end_date) ?>);
+        const startDate = moment(<?= json_encode($startDate) ?>);
+        const endDate = moment(<?= json_encode($endDate) ?>);
 
         getSites(combinedBudgetRefID.value);
 

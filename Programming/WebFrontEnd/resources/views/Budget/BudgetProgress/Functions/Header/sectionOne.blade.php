@@ -49,7 +49,7 @@
                             </span>
                         </div>
                         <input readonly type="text" class="form-control"
-                            style="height: 21.8px; border-radius:0; background-color: #fff;"
+                            style="height: 21.8px; border-radius:0; background-color: <?= isset($budgetProgressRefID) ? '#e9ecef' : '#fff';?>;"
                             id="budget_progress_date_range" name="budget_progress_date_range" />
                     </div>
                 </div>

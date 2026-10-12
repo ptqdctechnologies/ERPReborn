@@ -11,25 +11,19 @@ class BudgetProgressService
 {
     public function detail($id): mixed
     {
-        $compact = [
-            'sys_id' => 309000000000008,
-            'combinedBudgetRefID' => 46000000000033,
-            'combinedBudgetCode' => 'Q000062',
-            'combinedBudgetName' => 'XL Microcell 2007',
-            'start_date' => '2026-09-29 00:00:00+07',
-            'end_date' => '2026-09-29 00:00:00+07',
-            'details' => [
-                [
-                    'record_id' => 310000000000013,
-                    'projectProgress_RefID' => 309000000000008,
-                    'sub_budget_id' => 143000000000305,
-                    'progressCompletion' => 8,
-                    'annotation' => null
+        $token = Session::get('SessionLogin');
+
+        return Helper_APICall::setCallAPIGateway(
+            Helper_Environment::getUserSessionID_System(),
+            $token,
+            'transaction.read.dataList.project.getProjectProgress',
+            'latest',
+            [
+                'parameter' => [
+                    'projectProgress_RefID' => (int) $id,
                 ]
             ]
-        ];
-
-        return $compact;
+        );
     }
 
     public function lastWeekAvailable($recordID): mixed
@@ -68,7 +62,8 @@ class BudgetProgressService
                     'entities' => [
                         'projectProgress_RefID' => $entity['entities']['projectProgress_RefID'] ? (int) $entity['entities']['projectProgress_RefID'] : null,
                         'projectSectionItem_RefID' => (int) $entity['entities']['projectSectionItem_RefID'],
-                        'progressCompletion' => (float) number_format($entity['entities']['progressCompletion'], 2),
+                        // 'progressCompletion' => (float) number_format($entity['entities']['progressCompletion'], 2),
+                        'progressCompletion' => (float) $entity['entities']['progressCompletion'] / 100,
                         'annotation' => $entity['entities']['annotation'] ?? null,
                     ]
                 ];
@@ -117,7 +112,8 @@ class BudgetProgressService
                     'entities' => [
                         'projectProgress_RefID' => $entity['entities']['projectProgress_RefID'] ? (int) $entity['entities']['projectProgress_RefID'] : null,
                         'projectSectionItem_RefID' => (int) $entity['entities']['projectSectionItem_RefID'],
-                        'progressCompletion' => (float) number_format($entity['entities']['progressCompletion'], 2),
+                        // 'progressCompletion' => (float) number_format($entity['entities']['progressCompletion'], 2),
+                        'progressCompletion' => (float) $entity['entities']['progressCompletion'] / 100,
                         'annotation' => $entity['entities']['annotation'] ?? null,
                     ]
                 ];
