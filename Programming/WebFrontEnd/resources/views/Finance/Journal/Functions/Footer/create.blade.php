@@ -34,7 +34,7 @@
                 totalCredit++;
             }
 
-            if (detail.variance_value > 0) {
+            if (detail.variance_value) {
                 totalVariance++;
             }
         }
