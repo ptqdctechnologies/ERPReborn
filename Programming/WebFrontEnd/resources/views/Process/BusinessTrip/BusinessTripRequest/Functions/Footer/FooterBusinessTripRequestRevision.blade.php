@@ -914,7 +914,7 @@
 
   function commentWorkflow() {
     if (Utils.parseFloatSafe(Utils.removeCommas(validation.sectionFour.totalBusinessTrips.value)) < Utils.parseFloatSafe(Utils.removeCommas(totalJournalPayment.value))) {
-      ErrorNotif(`BRF Total can't be less than BRF Payment Total! ${totalJournalPayment.value}`);
+      ErrorNotif(`BRF Total can't be less than BRF Payment Total! Please ensure that BRF Total is greater than or equal to BRF Payment Total. ${totalJournalPayment.value}`);
       return;
     }
 
