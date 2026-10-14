@@ -169,6 +169,13 @@
         padding: 0 4px;
     }
 
+    /* Add-person footer row */
+    .wf-person-add-row {
+        padding: 6px 0 2px 0;
+        border-top: 1px dashed #dee2e6;
+        margin-top: 4px;
+    }
+
     /* Responsive */
     @media (max-width: 576px) {
         .wf-person-id { display: none; }
@@ -179,6 +186,8 @@
     /* ============================================================
        WORKFLOW BUILDER — DATA & LOGIC
        ============================================================ */
+
+    let currentUidPerson = null;
 
     /* --- Unique ID generator --- */
     let _uidCounter = 100;
@@ -191,38 +200,39 @@
             id: 0,
             type: 'start',
             person: [
-                { uid: genUid(), id: 0, person_id: '', person_name: 'wisnu' },
-                { uid: genUid(), id: 1, person_id: '', person_name: 'trenggono' },
+                // { uid: genUid(), id: 0, person_id: '', person_name: '' },
+                // { uid: genUid(), id: 1, person_id: '', person_name: '' },
             ]
         },
-        {
-            uid: genUid(),
-            id: 1,
-            type: 'approver1',
-            person: [
-                { uid: genUid(), id: 0, person_id: '', person_name: '' },
-                { uid: genUid(), id: 1, person_id: '', person_name: '' }
-            ]
-        },
-        {
-            uid: genUid(),
-            id: 2,
-            type: 'approver2',
-            person: [
-                { uid: genUid(), id: 0, person_id: '', person_name: '' },
-                { uid: genUid(), id: 1, person_id: '', person_name: '' }
-            ]
-        },
+        // {
+        //     uid: genUid(),
+        //     id: 1,
+        //     type: 'approver1',
+        //     person: [
+        //         { uid: genUid(), id: 0, person_id: '', person_name: 'wisnu' },
+        //         { uid: genUid(), id: 1, person_id: '', person_name: 'trenggono' }
+        //     ]
+        // },
+        // {
+        //     uid: genUid(),
+        //     id: 2,
+        //     type: 'approver2',
+        //     person: [
+        //         { uid: genUid(), id: 0, person_id: '', person_name: 'caca' },
+        //         { uid: genUid(), id: 1, person_id: '', person_name: 'handika' }
+        //     ]
+        // },
         {
             uid: genUid(),
             id: 3,
             type: 'finalApprover',
-            person: [
-                { uid: genUid(), id: 0, person_id: '', person_name: '' },
-                { uid: genUid(), id: 1, person_id: '', person_name: '' }
-            ]
+            person: []
         }
     ];
+
+    function pickPerson(id) {
+        currentUidPerson = id;
+    }
 
     /* ============================================================
        HELPER – renumber approver types & level ids
@@ -307,15 +317,20 @@
 
             /* --- Person rows --- */
             var personRowsHtml = '';
+            var personCount = level.person.length;
             level.person.forEach(function (p, pIdx) {
-                var pUpDisabled   = (pIdx === 0)                    ? 'disabled' : '';
-                var pDownDisabled = (pIdx === level.person.length - 1) ? 'disabled' : '';
+                var pUpDisabled     = (pIdx === 0)              ? 'disabled' : '';
+                var pDownDisabled   = (pIdx === personCount - 1) ? 'disabled' : '';
+                var pDeleteDisabled = (personCount <= 1)         ? 'disabled' : '';
 
                 personRowsHtml +=
                     '<div class="wf-person-item" data-person-uid="' + p.uid + '">' +
                         '<span class="wf-person-seq">' + (pIdx + 1) + '</span>' +
-                        '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
-                        '<span class="wf-person-name" title="Person Name">' + escapeHtml(p.person_name || '(kosong)') + '</span>' +
+                        // '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
+                        '<span id="requester_container' + (p.uid) +'" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" onclick="pickPerson(' + (p.uid) + ')" style="border-radius: 0; cursor: pointer; width: auto;">' + 
+                            '<i id="requester_icon' + (p.uid) + '" class="fas fa-gift"></i>' +
+                        '</span>' +
+                        '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
                         '<div class="wf-person-actions">' +
                             '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
                                 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
@@ -327,9 +342,23 @@
                                 (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
                                 '<i class="fas fa-chevron-down"></i>' +
                             '</button>' +
+                            '<button type="button" class="wf-btn wf-btn-danger btn-delete-person ' + pDeleteDisabled + '" ' +
+                                'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                                (pDeleteDisabled ? 'disabled' : '') + ' title="Hapus Person">' +
+                                '<i class="fas fa-times"></i>' +
+                            '</button>' +
                         '</div>' +
                     '</div>';
             });
+
+            /* --- Add person footer --- */
+            var addPersonFooterHtml =
+                '<div class="wf-person-add-row">' +
+                    '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+                        'data-level-uid="' + level.uid + '">' +
+                        '<i class="fas fa-plus mr-1"></i> Tambah Person' +
+                    '</button>' +
+                '</div>';
 
             /* --- Full card HTML --- */
             var cardHtml =
@@ -349,6 +378,7 @@
                         '</div>' +
                         '<div class="wf-person-list">' +
                             (personRowsHtml || '<div class="text-muted" style="font-size:12px;padding:4px 0">Tidak ada person.</div>') +
+                            addPersonFooterHtml +
                         '</div>' +
                     '</div>' +
                 '</div>';
@@ -384,7 +414,7 @@
             type:   'approver' + (approverCount + 1),
             person: [
                 { uid: genUid(), id: 0, person_id: '', person_name: '' },
-                { uid: genUid(), id: 1, person_id: '', person_name: '' }
+                // { uid: genUid(), id: 1, person_id: '', person_name: '' }
             ]
         };
 
@@ -455,6 +485,40 @@
     }
 
     /* ============================================================
+       ADD PERSON
+       ============================================================ */
+    function addPerson(levelUid) {
+        var level = dummyData.find(function (l) { return l.uid === levelUid; });
+        if (!level) return;
+
+        level.person.push({
+            uid:         genUid(),
+            id:          level.person.length,
+            person_id:   '',
+            person_name: ''
+        });
+
+        showDetail();
+    }
+
+    /* ============================================================
+       DELETE PERSON
+       ============================================================ */
+    function deletePerson(levelUid, personUid) {
+        var level = dummyData.find(function (l) { return l.uid === levelUid; });
+        if (!level) return;
+
+        /* Guard: minimal harus ada 1 person per level */
+        if (level.person.length <= 1) return;
+
+        var pIdx = level.person.findIndex(function (p) { return p.uid === personUid; });
+        if (pIdx === -1) return;
+
+        level.person.splice(pIdx, 1);
+        showDetail();
+    }
+
+    /* ============================================================
        UTILITY – escape HTML to prevent XSS
        ============================================================ */
     function escapeHtml(str) {
@@ -506,6 +570,19 @@
         movePerson(levelUid, personUid, 'down');
     });
 
+    /* Add person */
+    $('#section_two_container').on('click', '.btn-add-person', function () {
+        var levelUid = parseInt($(this).data('level-uid'), 10);
+        addPerson(levelUid);
+    });
+
+    /* Delete person */
+    $('#section_two_container').on('click', '.btn-delete-person', function () {
+        var levelUid  = parseInt($(this).data('level-uid'), 10);
+        var personUid = parseInt($(this).data('person-uid'), 10);
+        deletePerson(levelUid, personUid);
+    });
+
     /* ============================================================
        EXISTING HANDLERS — preserved unchanged
        ============================================================ */
@@ -555,10 +632,31 @@
 
             $('#transaction_type_preview').css("background-color", "#e9ecef");
 
+            showDetail();
+            getRequesters();
+
             ErrorHandler.hideErrorInputMessage("#transaction_type_preview", "#transaction_type_message");
         }
 
         $("#transaction_type_modal").modal('toggle');
+    });
+
+    $('#tableRequesters').on('click', 'tbody tr', function () {
+        const table = $('#tableRequesters').DataTable();
+        const dataRow = table.row(this).data();
+
+        if (dataRow) {
+            const result = dummyData
+                .flatMap(item => item.person)
+                .find(person => person.uid === currentUidPerson);
+
+            result.person_id = dataRow.sys_ID || '';
+            result.person_name = dataRow.personName || '';
+
+            showDetail();
+        }
+
+        $("#myRequesters").modal('toggle');
     });
 
     $(document).ready(function () {
@@ -570,8 +668,5 @@
             'data-toggle': 'modal',
             'data-target': '#'
         });
-
-        /* Initial render of workflow builder */
-        showDetail();
     });
 </script>
