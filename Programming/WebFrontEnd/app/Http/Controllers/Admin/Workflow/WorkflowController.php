@@ -12,15 +12,12 @@ class WorkflowController extends Controller
 {
     public function index(Request $request)
     {
-        $var = $request->query('var', 0);
-
-        return view('Admin.Workflow.Transactions.CreateWorkflow', [
-            'var' => $var
-        ]);
+        return view('Admin.Workflow.Transactions.index');
     }
 
     public function create()
     {
+        return view('Admin.Workflow.Transactions.create');
     }
 
     public function store(Request $request)
