@@ -74,7 +74,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null, string $varDeliveryDestinationManualAddress = null, string $varPaymentNotes = null, string $varInternalNotes = null, int $varDownPayment = null, int $varTermOfPayment_RefID = null, int $varVatRatio = null,
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varSupplier_RefID = null, string $varDeliveryDateTimeTZ = null, int $varDeliveryDestination_RefID = null, int $varSupplierInvoiceBillingPurpose_RefID = null, string $varRemarks = null, string $varDeliveryDestinationManualAddress = null, string $varPaymentNotes = null, string $varInternalNotes = null, int $varDownPayment = null, int $varTermOfPayment_RefID = null, int $varVatRatio = null, int $varCurrency_RefID = null, float $varExchangeRateValue = 0, 
             array $varAdditionalData = []
             )
             {
@@ -109,6 +109,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain
                             [$varDownPayment, 'bigint'],
                             [$varTermOfPayment_RefID, 'bigint'],
                             [$varVatRatio, 'bigint'],
+                            [$varCurrency_RefID, 'bigint'],
+                            [$varExchangeRateValue, 'numeric'],
 
                             [
                                 ((count($varAdditionalData) === 0)
