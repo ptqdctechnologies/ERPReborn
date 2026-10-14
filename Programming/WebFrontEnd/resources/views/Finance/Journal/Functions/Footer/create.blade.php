@@ -34,7 +34,7 @@
                 totalCredit++;
             }
 
-            if (detail.variance_value > 0) {
+            if (detail.variance_value) {
                 totalVariance++;
             }
         }
@@ -349,8 +349,7 @@
                 {
                     title: "Trans. Number",
                     data: 'trans_number_preview',
-                    defaultContent: '-',
-                    className: "align-middle"
+                    defaultContent: '-'
                 },
                 {
                     title: "DB/CR",
@@ -363,20 +362,28 @@
                 {
                     title: "Budget",
                     data: 'budget_preview',
-                    defaultContent: '-',
-                    className: "align-middle"
+                    defaultContent: '-'
                 },
                 {
                     title: "Payment",
-                    data: 'payment_value',
+                    data: null,
                     defaultContent: '-',
-                    className: "align-middle"
+                    render: function (data, type, row, meta) {
+                        return Utils.formatCurrency(data.payment_value);
+                    }
+                },
+                {
+                    title: "Variance",
+                    data: null,
+                    defaultContent: '-',
+                    render: function (data, type, row, meta) {
+                        return Utils.formatCurrency(data.variance_value);
+                    }
                 },
                 {
                     title: "COA",
                     data: 'coa_preview',
-                    defaultContent: '-',
-                    className: "align-middle"
+                    defaultContent: '-'
                 }
             ]
         });
