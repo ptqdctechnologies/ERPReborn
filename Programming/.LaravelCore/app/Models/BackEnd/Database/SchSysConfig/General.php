@@ -1209,6 +1209,60 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_Resume_WorkFlowTree                                                                   |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-12                                                                                           |
+        | ▪ Creation Date   : 2026-10-12                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Resume - Work FLow Tree                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ▪ (int)    varSysID ► Record ID                                                                                     |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_Resume_WorkFlowTree(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varSysID)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetReport_Resume_WorkFlowTree',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+                                [$varSysID, 'bigint']
+                            ]
+                            )
+                        );
+
+
+                $varReturn['data'] = 
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_Resume_WorkFlowTree']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserRolePrivilege                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
