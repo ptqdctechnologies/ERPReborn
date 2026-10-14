@@ -370,7 +370,7 @@
                                     '<i class="fas ' + (isStart ? 'fa-play-circle' : (isFinal ? 'fa-flag-checkered' : 'fa-user-check')) + '"></i>' +
                                     typeLabel(level.type) +
                                 '</span>' +
-                                '<span class="wf-level-seq">Level ' + (idx + 1) + '</span>' +
+                                // '<span class="wf-level-seq">Level ' + (idx + 1) + '</span>' +
                             '</div>' +
                             '<div class="wf-level-actions">' +
                                 levelActionsHtml +
