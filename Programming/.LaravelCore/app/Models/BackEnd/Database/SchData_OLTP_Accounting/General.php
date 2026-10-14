@@ -226,6 +226,80 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             )
                         );
 
+                // Extract the result data from the database query response
+                $resultArray = $varReturn['data'];
+                $varReturn['data'] = [];
+
+                // Initialize variables for data restructuring
+                $sys_ID = null;
+                $idxArray1 = 0;
+                $idxArray2 = 0;
+
+                // Iterate through the result array to group data by Sys_ID
+                foreach ($resultArray as $key => $value) {
+                    // Check if this is a new supplier (different Sys_ID)
+                    if ($sys_ID != $value["Journal_RefID"]) {
+                        // Reset nested index
+                        $idxArray2 = 0;
+                        // Populate Journal Detail information
+                        $varReturn['data'][$idxArray1]['sys_ID'] = $value["Journal_RefID"];
+                        $varReturn['data'][$idxArray1]['bankAccount_RefID'] = $value["BankAccount_RefID"];
+                        $varReturn['data'][$idxArray1]['bankAcronym'] = $value["BankAcronym"];
+                        $varReturn['data'][$idxArray1]['bankAccountNumber'] = $value["BankAccountNumber"];
+                        $varReturn['data'][$idxArray1]['bankAccountName'] = $value["BankAccountName"];
+                        $varReturn['data'][$idxArray1]['journalDateTimeTZ'] = $value["JournalDateTimeTZ"];
+                        $varReturn['data'][$idxArray1]['coa_Code'] = $value["COA_Code"];
+                        $varReturn['data'][$idxArray1]['coa_Name'] = $value["COA_Name"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccountCode'] = $value["ChartOfAccountCode"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccountName'] = $value["ChartOfAccountName"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['amountCurrency_RefID'] = $value["AmountCurrency_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['amountCurrencyValue'] = $value["AmountCurrencyValue"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['amountCurrencyExchangeRate'] = $value["AmountCurrencyExchangeRate"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['quantity'] = $value["Quantity"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['accountingEntryRecordType_RefID'] = $value["AccountingEntryRecordType_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['businessDocumentNumber'] = $value["BusinessDocumentNumber"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccount_RefID'] = $value["BeneficiaryOrSenderBankAccount_RefID"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountAcronym'] = $value["BeneficiaryOrSenderBankAccountAcronym"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountNumber'] = $value["BeneficiaryOrSenderBankAccountNumber"];
+                        $varReturn['data'][$idxArray1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountName'] = $value["BeneficiaryOrSenderBankAccountName"];
+
+                        // Update current Sys_ID for the next iteration
+                        $sys_ID = $value["Journal_RefID"];
+
+                        // Increment main array index for the next Journal
+                        $idxArray1++;
+                    } else {
+                        // Journal Detail berbeda: buat entry entities baru
+                        $idxArray2++;
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['sys_ID'] = $value["Sys_ID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['chartOfAccountCode'] = $value["ChartOfAccountCode"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['chartOfAccountName'] = $value["ChartOfAccountName"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['amountCurrency_RefID'] = $value["AmountCurrency_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['amountCurrencyValue'] = $value["AmountCurrencyValue"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['amountCurrencyExchangeRate'] = $value["AmountCurrencyExchangeRate"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['combinedBudget_RefID'] = $value["CombinedBudget_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['combinedBudgetCode'] = $value["CombinedBudgetCode"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['combinedBudgetName'] = $value["CombinedBudgetName"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['quantityUnit_RefID'] = $value["QuantityUnit_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['quantity'] = $value["Quantity"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['accountingEntryRecordType_RefID'] = $value["AccountingEntryRecordType_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['businessDocument_RefID'] = $value["BusinessDocument_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['businessDocumentNumber'] = $value["BusinessDocumentNumber"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccount_RefID'] = $value["BeneficiaryOrSenderBankAccount_RefID"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountAcronym'] = $value["BeneficiaryOrSenderBankAccountAcronym"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountNumber'] = $value["BeneficiaryOrSenderBankAccountNumber"];
+                        $varReturn['data'][$idxArray1 - 1]['entities'][$idxArray2]['beneficiaryOrSenderBankAccountName'] = $value["BeneficiaryOrSenderBankAccountName"];
+                    }
+                }
+
                 return
                     $varReturn;
                 }
