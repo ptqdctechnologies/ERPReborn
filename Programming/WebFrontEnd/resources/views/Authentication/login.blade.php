@@ -211,6 +211,7 @@
                 success: function (response) {
                     if (response.statusCode === 500) {
                         HideLoading();
+                        isSubmitting = false;
                         $('.submit_button').prop('disabled', false);
                         Swal.fire("Error", response.message, "error");
                     } else {
