@@ -3,6 +3,7 @@ namespace Aws\DynamoDbStreams;
 
 use Aws\AwsClient;
 use Aws\DynamoDb\DynamoDbClient;
+use Aws\Retry\V3\OptIn as NewRetriesOptIn;
 
 /**
  * This client is used to interact with the **Amazon DynamoDb Streams** service.
@@ -31,16 +32,18 @@ use Aws\DynamoDb\DynamoDbClient;
  * @phpstan-method \Aws\Result getShardIterator(array{
  *     StreamArn?: string,
  *     ShardId?: string,
- *     ShardIteratorType?: 'AFTER_SEQUENCE_NUMBER'|'AT_SEQUENCE_NUMBER'|'LATEST'|'TRIM_HORIZON',
+ *     ShardIteratorType?: 'AFTER_SEQUENCE_NUMBER'|'AT_SEQUENCE_NUMBER'|'AT_TIMESTAMP'|'LATEST'|'TRIM_HORIZON',
  *     SequenceNumber?: string,
+ *     Timestamp?: int|string|\DateTimeInterface,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise getShardIteratorAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getShardIteratorAsync(array{
  *     StreamArn?: string,
  *     ShardId?: string,
- *     ShardIteratorType?: 'AFTER_SEQUENCE_NUMBER'|'AT_SEQUENCE_NUMBER'|'LATEST'|'TRIM_HORIZON',
+ *     ShardIteratorType?: 'AFTER_SEQUENCE_NUMBER'|'AT_SEQUENCE_NUMBER'|'AT_TIMESTAMP'|'LATEST'|'TRIM_HORIZON',
  *     SequenceNumber?: string,
+ *     Timestamp?: int|string|\DateTimeInterface,
  *     ...,
  * } $args = [])
  * @method \Aws\Result listStreams(array $args = [])
@@ -53,7 +56,9 @@ class DynamoDbStreamsClient extends AwsClient
     public static function getArguments()
     {
         $args = parent::getArguments();
-        $args['retries']['default'] = 11;
+        $args['retries']['default'] = NewRetriesOptIn::isEnabled()
+            ? [DynamoDbClient::class, '_defaultRetries']
+            : 11;
         $args['retries']['fn'] = [DynamoDbClient::class, '_applyRetryConfig'];
 
         return $args;

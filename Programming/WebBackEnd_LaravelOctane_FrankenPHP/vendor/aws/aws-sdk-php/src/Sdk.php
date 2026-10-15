@@ -732,6 +732,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerMetrics(array $args = [])
  * @method \Aws\SageMakerRuntime\SageMakerRuntimeClient createSageMakerRuntime(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerRuntime(array $args = [])
+ * @method \Aws\SageMakerTrainingSessionRuntime\SageMakerTrainingSessionRuntimeClient createSageMakerTrainingSessionRuntime(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSageMakerTrainingSessionRuntime(array $args = [])
  * @method \Aws\SagemakerEdgeManager\SagemakerEdgeManagerClient createSagemakerEdgeManager(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSagemakerEdgeManager(array $args = [])
  * @method \Aws\SagemakerJobRuntime\SagemakerJobRuntimeClient createSagemakerJobRuntime(array $args = [])
@@ -877,7 +879,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.400.1';
+    const VERSION = '3.401.2';
 
     /** @var array Arguments for creating clients */
     private $args;
