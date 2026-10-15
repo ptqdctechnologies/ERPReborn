@@ -80,7 +80,28 @@ class BudgetProgressController extends Controller
         try {
             $response = $this->budgetProgressService->detail($id);
 
-            return view('Budget.BudgetProgress.Transactions.revision', $response);
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Budget Progress');
+            }
+
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Revision Form');
+
+            $data = $response['data']['data'] ?? [];
+
+            $compact = [
+                'token' => $token,
+                'documentTypeRefID' => $documentTypeRefID,
+                'budgetProgressRefID' => $data['sys_ID'] ?? '',
+                'combinedBudgetRefID' => $data['project_RefID'] ?? '',
+                'combinedBudgetCode' => $data['projectCode'] ?? '',
+                'combinedBudgetName' => $data['projectName'] ?? '',
+                'startDate' => $data['startDate'] ?? '',
+                'endDate' => $data['endDate'] ?? '',
+                'details' => $data['details'] ?? []
+            ];
+
+            return view('Budget.BudgetProgress.Transactions.revision', $compact);
         } catch (\Throwable $th) {
             Log::error("Detail Budget Progress Function Error: " . $th->getMessage());
 

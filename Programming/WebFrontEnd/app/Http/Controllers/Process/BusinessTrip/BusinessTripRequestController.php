@@ -223,6 +223,7 @@ class BusinessTripRequestController extends Controller
                 'reasonTravel' => $header['ReasonToTravel'],
                 'fileID' => $header['Log_FileUpload_Pointer_RefID'],
                 'dataTripBudgetDetails' => $dataTripSequenceDetail,
+                'totalJournalPayment' => $header['TotalPayment'],
                 'budget' => [
                     'id' => $header['CombinedBudget_RefID'],
                     'code' => $header['CombinedBudgetCode'],
