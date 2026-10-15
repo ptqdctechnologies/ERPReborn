@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.update.supplyChain.setPurchaseOrder.v1_throughAPIGateway             |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-03-16                                                                                           |
+        | ▪ Last Update     : 2026-10-15                                                                                           |
         | ▪ Creation Date   : 2022-07-27                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -57,6 +57,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "downPayment" => 20,
                             "termOfPayment_RefID" => 174000000000001,
                             "vatRatio" => 11,
+                            "currency_RefID" => 62000000000001,
+                            "exchangeRateValue" => 1,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
