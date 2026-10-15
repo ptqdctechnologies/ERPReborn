@@ -102,6 +102,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                     $varData['entities']['downPayment'],
                                     $varData['entities']['termOfPayment_RefID'],
                                     $varData['entities']['vatRatio'],
+                                    $varData['entities']['currency_RefID'],
+                                    $varData['entities']['exchangeRateValue'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
