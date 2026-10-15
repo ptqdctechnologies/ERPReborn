@@ -14,7 +14,7 @@
         border: 1px solid #dee2e6;
         border-radius: 6px;
         margin-bottom: 0;
-        box-shadow: 0 1px 3px rgba(0,0,0,.06);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
         overflow: hidden;
         width: 100%;
     }
@@ -42,9 +42,18 @@
         border-radius: 4px;
         color: #fff;
     }
-    .wf-badge-start        { background-color: #17a2b8; }
-    .wf-badge-approver     { background-color: #007bff; }
-    .wf-badge-final        { background-color: #28a745; }
+
+    .wf-badge-start {
+        background-color: #17a2b8;
+    }
+
+    .wf-badge-approver {
+        background-color: #007bff;
+    }
+
+    .wf-badge-final {
+        background-color: #28a745;
+    }
 
     /* Level sequence number */
     .wf-level-seq {
@@ -85,25 +94,46 @@
         transition: background-color .15s, border-color .15s;
         white-space: nowrap;
     }
+
     .wf-btn:hover:not(:disabled) {
         background-color: #d4d8db;
         border-color: #b1b7bc;
     }
+
     .wf-btn:disabled,
     .wf-btn.disabled {
         opacity: .4;
         cursor: not-allowed;
         pointer-events: none;
     }
-    .wf-btn-danger { background-color: #fff0f0; border-color: #f5c6cb; color: #721c24; }
-    .wf-btn-danger:hover:not(:disabled) { background-color: #f8d7da; border-color: #f1b0b7; }
-    .wf-btn-add    { background-color: #e8f4fd; border-color: #b8d9f5; color: #004085; }
-    .wf-btn-add:hover:not(:disabled) { background-color: #cce5ff; border-color: #9acffa; }
+
+    .wf-btn-danger {
+        background-color: #fff0f0;
+        border-color: #f5c6cb;
+        color: #721c24;
+    }
+
+    .wf-btn-danger:hover:not(:disabled) {
+        background-color: #f8d7da;
+        border-color: #f1b0b7;
+    }
+
+    .wf-btn-add {
+        background-color: #e8f4fd;
+        border-color: #b8d9f5;
+        color: #004085;
+    }
+
+    .wf-btn-add:hover:not(:disabled) {
+        background-color: #cce5ff;
+        border-color: #9acffa;
+    }
 
     /* Person list */
     .wf-person-list {
         padding: 8px 12px;
     }
+
     .wf-person-item {
         display: flex;
         align-items: center;
@@ -111,7 +141,10 @@
         padding: 5px 0;
         border-bottom: 1px solid #f1f3f5;
     }
-    .wf-person-item:last-child { border-bottom: none; }
+
+    .wf-person-item:last-child {
+        border-bottom: none;
+    }
 
     .wf-person-seq {
         font-size: 11px;
@@ -120,6 +153,7 @@
         min-width: 22px;
         text-align: center;
     }
+
     .wf-person-id,
     .wf-person-name {
         flex: 1;
@@ -134,7 +168,10 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
-    .wf-person-id { max-width: 90px; }
+
+    .wf-person-id {
+        max-width: 90px;
+    }
 
     .wf-person-actions {
         display: flex;
@@ -151,17 +188,19 @@
         font-size: 16px;
         position: relative;
     }
+
     .wf-connector::before {
         content: '';
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
         width: 1px;
         height: 26px;
         background: #dee2e6;
         z-index: 0;
     }
+
     .wf-connector i {
         position: relative;
         z-index: 1;
@@ -178,7 +217,9 @@
 
     /* Responsive */
     @media (max-width: 576px) {
-        .wf-person-id { display: none; }
+        .wf-person-id {
+            display: none;
+        }
     }
 </style>
 
@@ -200,7 +241,7 @@
             id: 0,
             type: 'start',
             person: [
-                // { uid: genUid(), id: 0, person_id: '', person_name: '' },
+                { uid: genUid(), id: 0, person_id: '', person_name: '' }
                 // { uid: genUid(), id: 1, person_id: '', person_name: '' },
             ]
         },
@@ -226,7 +267,9 @@
             uid: genUid(),
             id: 3,
             type: 'finalApprover',
-            person: []
+            person: [
+                { uid: genUid(), id: 0, person_id: '', person_name: '' }
+            ]
         }
     ];
 
@@ -246,7 +289,7 @@
             }
             approverCount++;
             level.type = 'approver' + approverCount;
-            level.id   = idx;
+            level.id = idx;
         });
     }
 
@@ -254,11 +297,11 @@
        HELPER – build label text from type
        ============================================================ */
     function typeLabel(type, seqInArray) {
-        if (type === 'start')        return 'Start';
-        if (type === 'finalApprover') return 'Final Approver';
+        if (type === 'start') return 'Start';
+        if (type === 'finalApprover') return 'End';
         /* approverX → extract number for nice label */
         var match = type.match(/^approver(\d+)$/);
-        if (match) return 'Approver ' + match[1];
+        if (match) return 'Next ' + match[1];
         return type;
     }
 
@@ -272,13 +315,13 @@
         var totalLevels = dummyData.length;
 
         dummyData.forEach(function (level, idx) {
-            var isStart        = level.type === 'start';
-            var isFinal        = level.type === 'finalApprover';
-            var isApprover     = !isStart && !isFinal;
+            var isStart = level.type === 'start';
+            var isFinal = level.type === 'finalApprover';
+            var isApprover = !isStart && !isFinal;
 
             /* --- determine approver index for button disable rules --- */
             /* index after start = index 1. The one just before final = totalLevels-2 */
-            var isDirectlyAfterStart  = (idx === 1);
+            var isDirectlyAfterStart = (idx === 1);
             var isDirectlyBeforeFinal = (idx === totalLevels - 2);
 
             /* --- Badge class --- */
@@ -290,28 +333,28 @@
             if (isStart) {
                 /* Only "add approver" button on start level */
                 levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
-                    '<i class="fas fa-plus mr-1"></i> Tambah Approver' +
+                    '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
                     '</button>';
             }
 
             if (isApprover) {
-                var upDisabled   = isDirectlyAfterStart  ? 'disabled' : '';
+                var upDisabled = isDirectlyAfterStart ? 'disabled' : '';
                 var downDisabled = isDirectlyBeforeFinal ? 'disabled' : '';
 
                 levelActionsHtml +=
                     '<button type="button" class="wf-btn btn-move-level-up ' + upDisabled + '" ' +
-                        'data-level-uid="' + level.uid + '" ' +
-                        (upDisabled ? 'disabled' : '') + ' title="Naik">' +
-                        '<i class="fas fa-chevron-up"></i>' +
+                    'data-level-uid="' + level.uid + '" ' +
+                    (upDisabled ? 'disabled' : '') + ' title="Naik">' +
+                    '<i class="fas fa-chevron-up"></i>' +
                     '</button>' +
                     '<button type="button" class="wf-btn btn-move-level-down ' + downDisabled + '" ' +
-                        'data-level-uid="' + level.uid + '" ' +
-                        (downDisabled ? 'disabled' : '') + ' title="Turun">' +
-                        '<i class="fas fa-chevron-down"></i>' +
+                    'data-level-uid="' + level.uid + '" ' +
+                    (downDisabled ? 'disabled' : '') + ' title="Turun">' +
+                    '<i class="fas fa-chevron-down"></i>' +
                     '</button>' +
                     '<button type="button" class="wf-btn wf-btn-danger btn-delete-level" ' +
-                        'data-level-uid="' + level.uid + '" title="Hapus Level">' +
-                        '<i class="fas fa-trash-alt"></i>' +
+                    'data-level-uid="' + level.uid + '" title="Hapus Level">' +
+                    '<i class="fas fa-trash-alt"></i>' +
                     '</button>';
             }
 
@@ -319,68 +362,68 @@
             var personRowsHtml = '';
             var personCount = level.person.length;
             level.person.forEach(function (p, pIdx) {
-                var pUpDisabled     = (pIdx === 0)              ? 'disabled' : '';
-                var pDownDisabled   = (pIdx === personCount - 1) ? 'disabled' : '';
-                var pDeleteDisabled = (personCount <= 1)         ? 'disabled' : '';
+                var pUpDisabled = (pIdx === 0) ? 'disabled' : '';
+                var pDownDisabled = (pIdx === personCount - 1) ? 'disabled' : '';
+                var pDeleteDisabled = (personCount <= 1) ? 'disabled' : '';
 
                 personRowsHtml +=
                     '<div class="wf-person-item" data-person-uid="' + p.uid + '">' +
-                        '<span class="wf-person-seq">' + (pIdx + 1) + '</span>' +
-                        // '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
-                        '<span id="requester_container' + (p.uid) +'" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" onclick="pickPerson(' + (p.uid) + ')" style="border-radius: 0; cursor: pointer; width: auto;">' + 
-                            '<i id="requester_icon' + (p.uid) + '" class="fas fa-gift"></i>' +
-                        '</span>' +
-                        '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
-                        '<div class="wf-person-actions">' +
-                            '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
-                                'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                                (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
-                                '<i class="fas fa-chevron-up"></i>' +
-                            '</button>' +
-                            '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
-                                'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                                (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
-                                '<i class="fas fa-chevron-down"></i>' +
-                            '</button>' +
-                            '<button type="button" class="wf-btn wf-btn-danger btn-delete-person ' + pDeleteDisabled + '" ' +
-                                'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                                (pDeleteDisabled ? 'disabled' : '') + ' title="Hapus Person">' +
-                                '<i class="fas fa-times"></i>' +
-                            '</button>' +
-                        '</div>' +
+                    '<span class="wf-person-seq">' + (pIdx + 1) + '</span>' +
+                    // '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
+                    '<span id="requester_container' + (p.uid) + '" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" onclick="pickPerson(' + (p.uid) + ')" style="border-radius: 0; cursor: pointer; width: auto;">' +
+                    '<i id="requester_icon' + (p.uid) + '" class="fas fa-gift"></i>' +
+                    '</span>' +
+                    '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
+                    '<div class="wf-person-actions">' +
+                    '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
+                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
+                    '<i class="fas fa-chevron-up"></i>' +
+                    '</button>' +
+                    '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
+                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
+                    '<i class="fas fa-chevron-down"></i>' +
+                    '</button>' +
+                    '<button type="button" class="wf-btn wf-btn-danger btn-delete-person ' + pDeleteDisabled + '" ' +
+                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    (pDeleteDisabled ? 'disabled' : '') + ' title="Hapus Person">' +
+                    '<i class="fas fa-times"></i>' +
+                    '</button>' +
+                    '</div>' +
                     '</div>';
             });
 
             /* --- Add person footer --- */
             var addPersonFooterHtml =
                 '<div class="wf-person-add-row">' +
-                    '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
-                        'data-level-uid="' + level.uid + '">' +
-                        '<i class="fas fa-plus mr-1"></i> Tambah Person' +
-                    '</button>' +
+                '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+                'data-level-uid="' + level.uid + '">' +
+                '<i class="fas fa-plus mr-1"></i> Add Person' +
+                '</button>' +
                 '</div>';
 
             /* --- Full card HTML --- */
             var cardHtml =
                 '<div class="col-12 wf-level-wrapper" data-level-uid="' + level.uid + '">' +
-                    '<div class="wf-level-card">' +
-                        '<div class="wf-level-header">' +
-                            '<div class="wf-level-header-left">' +
-                                '<span class="wf-badge ' + badgeClass + '">' +
-                                    '<i class="fas ' + (isStart ? 'fa-play-circle' : (isFinal ? 'fa-flag-checkered' : 'fa-user-check')) + '"></i>' +
-                                    typeLabel(level.type) +
-                                '</span>' +
-                                // '<span class="wf-level-seq">Level ' + (idx + 1) + '</span>' +
-                            '</div>' +
-                            '<div class="wf-level-actions">' +
-                                levelActionsHtml +
-                            '</div>' +
-                        '</div>' +
-                        '<div class="wf-person-list">' +
-                            (personRowsHtml || '<div class="text-muted" style="font-size:12px;padding:4px 0">Tidak ada person.</div>') +
-                            addPersonFooterHtml +
-                        '</div>' +
-                    '</div>' +
+                '<div class="wf-level-card">' +
+                '<div class="wf-level-header">' +
+                '<div class="wf-level-header-left">' +
+                '<span class="wf-badge ' + badgeClass + '">' +
+                '<i class="fas ' + (isStart ? 'fa-play-circle' : (isFinal ? 'fa-flag-checkered' : 'fa-user-check')) + '"></i>' +
+                typeLabel(level.type) +
+                '</span>' +
+                // '<span class="wf-level-seq">Level ' + (idx + 1) + '</span>' +
+                '</div>' +
+                '<div class="wf-level-actions">' +
+                levelActionsHtml +
+                '</div>' +
+                '</div>' +
+                '<div class="wf-person-list">' +
+                (personRowsHtml || '<div class="text-muted" style="font-size:12px;padding:4px 0"></div>') +
+                (!isFinal ? addPersonFooterHtml : '') +
+                '</div>' +
+                '</div>' +
                 '</div>';
 
             /* Append card */
@@ -409,9 +452,9 @@
         }).length;
 
         var newLevel = {
-            uid:    genUid(),
-            id:     0,                          /* normalizeData will fix */
-            type:   'approver' + (approverCount + 1),
+            uid: genUid(),
+            id: 0,                          /* normalizeData will fix */
+            type: 'approver' + (approverCount + 1),
             person: [
                 { uid: genUid(), id: 0, person_id: '', person_name: '' },
                 // { uid: genUid(), id: 1, person_id: '', person_name: '' }
@@ -455,9 +498,9 @@
         if (dummyData[targetIdx].type === 'start' || dummyData[targetIdx].type === 'finalApprover') return;
 
         /* Swap */
-        var temp           = dummyData[targetIdx];
+        var temp = dummyData[targetIdx];
         dummyData[targetIdx] = dummyData[idx];
-        dummyData[idx]       = temp;
+        dummyData[idx] = temp;
 
         normalizeData();
         showDetail();
@@ -477,9 +520,9 @@
         if (targetPIdx < 0 || targetPIdx >= level.person.length) return;
 
         /* Swap, keeping uid+data intact */
-        var temp              = level.person[targetPIdx];
+        var temp = level.person[targetPIdx];
         level.person[targetPIdx] = level.person[pIdx];
-        level.person[pIdx]       = temp;
+        level.person[pIdx] = temp;
 
         showDetail();
     }
@@ -492,9 +535,9 @@
         if (!level) return;
 
         level.person.push({
-            uid:         genUid(),
-            id:          level.person.length,
-            person_id:   '',
+            uid: genUid(),
+            id: level.person.length,
+            person_id: '',
             person_name: ''
         });
 
@@ -558,14 +601,14 @@
 
     /* Move person up */
     $('#section_two_container').on('click', '.btn-move-person-up', function () {
-        var levelUid  = parseInt($(this).data('level-uid'), 10);
+        var levelUid = parseInt($(this).data('level-uid'), 10);
         var personUid = parseInt($(this).data('person-uid'), 10);
         movePerson(levelUid, personUid, 'up');
     });
 
     /* Move person down */
     $('#section_two_container').on('click', '.btn-move-person-down', function () {
-        var levelUid  = parseInt($(this).data('level-uid'), 10);
+        var levelUid = parseInt($(this).data('level-uid'), 10);
         var personUid = parseInt($(this).data('person-uid'), 10);
         movePerson(levelUid, personUid, 'down');
     });
@@ -578,7 +621,7 @@
 
     /* Delete person */
     $('#section_two_container').on('click', '.btn-delete-person', function () {
-        var levelUid  = parseInt($(this).data('level-uid'), 10);
+        var levelUid = parseInt($(this).data('level-uid'), 10);
         var personUid = parseInt($(this).data('person-uid'), 10);
         deletePerson(levelUid, personUid);
     });
@@ -599,7 +642,7 @@
         const dataRow = table.row(this).data();
 
         if (dataRow) {
-            const id   = dataRow.sys_ID;
+            const id = dataRow.sys_ID;
             const code = dataRow.code;
             const name = dataRow.name;
 
@@ -623,7 +666,7 @@
         const dataRow = table.row(this).data();
 
         if (dataRow) {
-            const id   = dataRow.sys_ID;
+            const id = dataRow.sys_ID;
             const name = dataRow.name;
 
             $('#transaction_type_preview').val(name);

@@ -53,7 +53,7 @@
                     <!-- TITLE -->
                     <div class="card-header">
                       <label class="card-title">
-                        Approval Workflow
+                        Detail
                       </label>
                       <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse"
