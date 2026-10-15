@@ -3,6 +3,7 @@
   @include('Partials.navbar')
   @include('Partials.sidebar')
   @include('getFunction.getRequesters')
+  @include('Admin.Workflow.Functions.PopUp.summary')
 
   <div class="content-wrapper">
     <section class="content">
@@ -19,6 +20,11 @@
         @include('Admin.Workflow.Functions.Menu.index')
 
         <form id="workflowForm">
+          @csrf
+
+          <input type="hidden" id="workflow_comment" name="workflow_comment" />
+          <input type="hidden" id="workflow_detail_data" name="workflow_detail_data" />
+
           <div class="card">
             <!-- HEADER -->
             <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -75,7 +81,7 @@
               <div class="row">
                 <div class="col">
                   <button type="button" id="workflow_submit_button" class="btn btn-default btn-sm float-right"
-                    data-toggle="modal" data-target="#"
+                    data-toggle="modal" data-target="#workflow_summary_modal"
                     style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
                     <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit"
                       title="Submit to Workflow" />

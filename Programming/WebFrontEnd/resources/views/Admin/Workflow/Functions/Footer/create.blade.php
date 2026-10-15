@@ -573,6 +573,44 @@
             .replace(/'/g, '&#39;');
     }
 
+    function commentWorkflow() {
+        const currentComment = document.getElementById('workflow_comment').value || "";
+        const detailData = dummyData.map(item =>
+            item.person.map(person => person.person_id)
+        );
+
+        const swalWithBootstrapButtons = Swal.mixin({
+            confirmButtonClass: 'btn btn-success btn-sm',
+            cancelButtonClass: 'btn btn-danger btn-sm',
+            buttonsStyling: true,
+        });
+
+        swalWithBootstrapButtons.fire({
+            title: 'Comment',
+            text: "Please write your comment here",
+            type: 'question',
+            input: 'textarea',
+            inputValue: currentComment,
+            showCloseButton: false,
+            showCancelButton: true,
+            focusConfirm: false,
+            cancelButtonText: '<span style="color:black;"> Cancel </span>',
+            confirmButtonText: '<span style="color:black;"> OK </span>',
+            cancelButtonColor: '#DDDAD0',
+            confirmButtonColor: '#DDDAD0',
+            reverseButtons: true
+        }).then((result) => {
+            if ('value' in result) {
+                $("#workflow_comment").val(result.value);
+                $("#workflow_detail_data").val(JSON.stringify(detailData));
+
+                document.getElementById('workflowForm').requestSubmit();
+            }
+        });
+
+        $("#workflow_summary_modal").modal('toggle');
+    }
+
     /* ============================================================
        DELEGATED EVENT HANDLERS
        ============================================================ */
@@ -700,6 +738,70 @@
         }
 
         $("#myRequesters").modal('toggle');
+    });
+
+    $('#workflowForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Workflow.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            },
+            success: function (response) {
+                Utils.hideLoading();
+
+                if (response.status == 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved. Your transaction number is ' + '<span style="color:#0046FF;font-weight:bold;">' + response.documentNumber + '</span>',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('Workflow.index') }}");
+                    });
+                } else {
+                    ErrorNotif("Create Workflow Failed");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+
+                Utils.hideLoading();
+
+                // if (jqXHR.status === 422) {
+                //     let errors = jqXHR.responseJSON.errors;
+
+                //     $.each(errors, function (key, value) {
+                //         // console.log(key + ': ' + value[0]);
+
+                //         if (formList[key]) {
+                //             ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                //         }
+                //     });
+                // }
+            }
+        });
     });
 
     $(document).ready(function () {

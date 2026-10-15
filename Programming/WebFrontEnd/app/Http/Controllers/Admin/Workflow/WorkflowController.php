@@ -7,9 +7,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
+use Illuminate\Support\Facades\Log;
+use App\Services\WorkflowService;
 
 class WorkflowController extends Controller
 {
+    protected $workflowService;
+
+    public function __construct(WorkflowService $workflowService)
+    {
+        $this->workflowService = $workflowService;
+    }
+
     public function index(Request $request)
     {
         return view('Admin.Workflow.Transactions.index');
@@ -22,6 +31,24 @@ class WorkflowController extends Controller
 
     public function store(Request $request)
     {
+        try {
+            $response = $this->workflowService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Workflow => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                "documentNumber" => $response['data']['businessDocument']['documentNumber'] ?? '',
+                "status" => $response['metadata']['HTTPStatusCode'] // $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Workflow Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function show($id)
