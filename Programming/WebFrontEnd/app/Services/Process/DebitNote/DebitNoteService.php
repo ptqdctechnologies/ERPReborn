@@ -9,22 +9,23 @@ use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
 
 class DebitNoteService
-{
-    public function dataPickList()
     {
+    public function dataPickList()
+        {
         $sessionToken = Session::get('SessionLogin');
 
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'dataPickList.finance.getDebitNote',
-            'latest',
-            [
+        return
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'dataPickList.finance.getDebitNote',
+                'latest',
+                [
                 'parameter' => []
-            ],
-            false
-        );
-    }
+                ],
+                false
+                );
+        }
 
     public function getDetail($debitNoteRefID)
     {
@@ -83,19 +84,20 @@ class DebitNoteService
     }
 
     public function create(Request $request)
-    {
+        {
         $sessionToken = Session::get('SessionLogin');
 
         $data = $request->storeData;
         $detailItems = json_decode($data['debit_note_details'], true);
         $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'transaction.create.finance.setDebitNote',
-            'latest',
-            [
+        return
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'transaction.create.finance.setDebitNote',
+                'latest',
+                [
                 'entities' => [
                     "documentDateTimeTZ" => date('Y-m-d'),
                     "partner_RefID" => (int) $data['debit_note_partner_id'],
@@ -104,15 +106,15 @@ class DebitNoteService
                     "additionalData" => [
                         "itemList" => [
                             "items" => $detailItems
+                            ]
                         ]
                     ]
                 ]
-            ]
-        );
-    }
+                );
+        }
 
     public function update(Request $request)
-    {
+        {
         $sessionToken = Session::get('SessionLogin');
         $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
 
@@ -120,12 +122,13 @@ class DebitNoteService
         $detailItems = json_decode($data['debit_note_details'], true);
         $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
 
-        return Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
-            'transaction.update.finance.setDebitNote',
-            'latest',
-            [
+        return
+            Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $sessionToken,
+                'transaction.update.finance.setDebitNote',
+                'latest',
+                [
                 'recordID' => (int) $data['debit_note_id'],
                 'entities' => [
                     "documentDateTimeTZ" => date('Y-m-d'),
@@ -134,10 +137,11 @@ class DebitNoteService
                     "additionalData" => [
                         "itemList" => [
                             "items" => $detailItems
+                            ]
                         ]
                     ]
                 ]
-            ]
-        );
+                );
+        }
+
     }
-}

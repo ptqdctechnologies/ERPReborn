@@ -79,7 +79,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -160,7 +160,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
