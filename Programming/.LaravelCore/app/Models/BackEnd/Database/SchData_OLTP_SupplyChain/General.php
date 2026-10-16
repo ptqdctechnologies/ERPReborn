@@ -1217,6 +1217,10 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                     $varReturn['data'][$idxArray]['workCode'] = $value["WorkCode"];
                     $varReturn['data'][$idxArray]['workName'] = $value["WorkName"];
                     $varReturn['data'][$idxArray]['ap_Value'] = $value["AP_Value"];
+                    $varReturn['data'][$idxArray]['currency_RefID'] = $value["Currency_RefID"];
+                    $varReturn['data'][$idxArray]['currencyCode'] = $value["CurrencyCode"];
+                    $varReturn['data'][$idxArray]['currencyName'] = $value["CurrencyName"];
+                    $varReturn['data'][$idxArray]['exchangeRateValue'] = $value["ExchangeRateValue"];
                     $idxArray++;
                 }
 
