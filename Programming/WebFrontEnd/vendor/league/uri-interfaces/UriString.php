@@ -274,25 +274,58 @@ final class UriString
     public static function parseNormalized(Stringable|string $uri): array
     {
         $components = self::parse($uri);
+
         if (null !== $components['scheme']) {
             $components['scheme'] = strtolower($components['scheme']);
         }
 
         $components['host'] = self::normalizeHost($components['host']);
+
         $path = $components['path'];
         $authority = self::buildAuthority($components);
-        //dot segment only happens when:
-        // - the path is absolute
-        // - the scheme and/or the authority are defined
-        if ('/' === ($path[0] ?? '') || '' !== $components['scheme'].$authority) {
-            $path = self::removeDotSegments($path);
+        $absolutePath = str_starts_with($path, '/');
+
+        // A leading `/.` is used internally to protect a path starting with
+        // `//` from being interpreted as an authority.
+        if (null === $authority && str_starts_with($path, '/.//')) {
+            $path = substr($path, 2);
         }
 
-        // if there is an authority, the path must be absolute
-        if ('' !== $path && '/' !== $path[0]) {
-            if (null !== $authority) {
-                $path = '/'.$path;
-            }
+        // Dot-segment removal applies to:
+        // - absolute paths
+        // - paths with a scheme or authority
+        // - relative paths containing dot segments
+        if (
+            '/' === ($path[0] ?? '')
+            || null !== $components['scheme']
+            || null !== $authority
+        ) {
+            $path = self::removeDotSegments(
+                strtr($path, ['%2E' => '.', '%2e' => '.'])
+            );
+        }
+
+        // A path starting with `//` would be interpreted as an authority when
+        // serialized after a scheme (or as a network-path reference otherwise).
+        if (null === $authority && str_starts_with($path, '//')) {
+            $path = ($absolutePath ? '/.' : './').$path;
+        }
+
+        // If there is an authority, the path must be absolute.
+        if ('' !== $path && '/' !== $path[0] && null !== $authority) {
+            $path = '/'.$path;
+        }
+
+        // A relative path whose first segment contains ':' must be
+        // prefixed with './' to remain a path-noscheme.
+        if (
+            null === $components['scheme']
+            && null === $authority
+            && '' !== $path
+            && '/' !== $path[0]
+            && str_contains(explode('/', $path, 2)[0], ':')
+        ) {
+            $path = './'.$path;
         }
 
         $components['path'] = (string) Encoder::normalizePath($path);
@@ -423,6 +456,12 @@ final class UriString
         $newPath = implode('/', array_reduce($oldSegments, $reducer(...), []));
         if (isset(self::DOT_SEGMENTS[$oldSegments[array_key_last($oldSegments)]])) {
             $newPath .= '/';
+        }
+
+        // A ".." overshooting the root must not turn an absolute path into a
+        // rootless one; RFC3986 §5.2.4 keeps the leading slash (as BaseUri does).
+        if (str_starts_with($path, '/') && !str_starts_with($newPath, '/')) {
+            return '/'.$newPath;
         }
 
         return $newPath;
@@ -557,7 +596,7 @@ final class UriString
         preg_match(self::REGEXP_URI_PARTS, $uri, $parts);
         $parts += ['query' => '', 'fragment' => ''];
 
-        if (':' === ($parts['scheme']  ?? null) || 1 !== preg_match(self::REGEXP_URI_SCHEME, $parts['scontent'] ?? '')) {
+        if (':' === ($parts['scheme'] ?? null) || 1 !== preg_match(self::REGEXP_URI_SCHEME, $parts['scontent'] ?? '')) {
             throw new SyntaxError(sprintf('The uri `%s` contains an invalid scheme', $uri));
         }
 
@@ -602,10 +641,7 @@ final class UriString
             return;
         }
 
-        if (str_starts_with($path, '//')) {
-            throw new SyntaxError('If there is no authority the path `'.$path.'` cannot start with a `//`.');
-        }
-
+        !str_starts_with($path, '//') || throw new SyntaxError('If there is no authority the path `'.$path.'` cannot start with a `//`.');
         if (null !== $scheme || false === ($pos = strpos($path, ':'))) {
             return;
         }

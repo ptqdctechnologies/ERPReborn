@@ -20,6 +20,8 @@ namespace Google\Service\OnDemandScanning;
 class LayerDetails extends \Google\Collection
 {
   protected $collection_key = 'baseImages';
+  protected $attributesType = LayerAttribute::class;
+  protected $attributesDataType = 'array';
   protected $baseImagesType = BaseImage::class;
   protected $baseImagesDataType = 'array';
   /**
@@ -50,6 +52,22 @@ class LayerDetails extends \Google\Collection
    */
   public $index;
 
+  /**
+   * Attributes attached to this layer by plugins.
+   *
+   * @param LayerAttribute[] $attributes
+   */
+  public function setAttributes($attributes)
+  {
+    $this->attributes = $attributes;
+  }
+  /**
+   * @return LayerAttribute[]
+   */
+  public function getAttributes()
+  {
+    return $this->attributes;
+  }
   /**
    * The base images the layer is found within.
    *

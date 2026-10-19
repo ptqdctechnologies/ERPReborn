@@ -49,8 +49,9 @@ class GoogleCloudDataplexV1AspectTypeMetadataTemplateAnnotations extends \Google
   /**
    * Optional. You can use String Type annotations to specify special meaning to
    * string fields. The following values are supported: richText: The field must
-   * be interpreted as a rich text field. url: A fully qualified URL link.
-   * resource: A service qualified resource reference.
+   * be interpreted as a rich text field. markdown: The field must be
+   * interpreted as a markdown field. url: A fully qualified URL link. resource:
+   * A service qualified resource reference.
    *
    * @var string
    */
@@ -132,8 +133,9 @@ class GoogleCloudDataplexV1AspectTypeMetadataTemplateAnnotations extends \Google
   /**
    * Optional. You can use String Type annotations to specify special meaning to
    * string fields. The following values are supported: richText: The field must
-   * be interpreted as a rich text field. url: A fully qualified URL link.
-   * resource: A service qualified resource reference.
+   * be interpreted as a rich text field. markdown: The field must be
+   * interpreted as a markdown field. url: A fully qualified URL link. resource:
+   * A service qualified resource reference.
    *
    * @param string $stringType
    */

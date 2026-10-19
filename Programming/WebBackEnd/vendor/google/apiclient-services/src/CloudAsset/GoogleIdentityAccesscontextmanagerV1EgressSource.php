@@ -37,9 +37,10 @@ class GoogleIdentityAccesscontextmanagerV1EgressSource extends \Google\Model
   protected $pscEndpointDataType = '';
   /**
    * A Google Cloud resource from the service perimeter that you want to allow
-   * to access data outside the perimeter. This field supports only projects.
-   * The project format is `projects/{project_number}`. You can't use `*` in
-   * this field to allow all Google Cloud resources.
+   * to access data outside the perimeter. This field supports projects,
+   * folders, and organizations in the form `projects/`, `folders/`, and
+   * `organizations/`. You can't use `*` in this field to allow all Google Cloud
+   * resources.
    *
    * @var string
    */
@@ -89,9 +90,10 @@ class GoogleIdentityAccesscontextmanagerV1EgressSource extends \Google\Model
   }
   /**
    * A Google Cloud resource from the service perimeter that you want to allow
-   * to access data outside the perimeter. This field supports only projects.
-   * The project format is `projects/{project_number}`. You can't use `*` in
-   * this field to allow all Google Cloud resources.
+   * to access data outside the perimeter. This field supports projects,
+   * folders, and organizations in the form `projects/`, `folders/`, and
+   * `organizations/`. You can't use `*` in this field to allow all Google Cloud
+   * resources.
    *
    * @param string $resource
    */

@@ -213,6 +213,13 @@ class Instance extends \Google\Collection
    */
   public $state;
   /**
+   * Optional. Tag keys/values directly bound to this resource. For example:
+   * "123/environment": "prod", "123/costCenter": "marketing"
+   *
+   * @var string[]
+   */
+  public $tags;
+  /**
    * Output only. The time at which the instance was most recently updated.
    *
    * @var string
@@ -524,6 +531,23 @@ class Instance extends \Google\Collection
   public function getState()
   {
     return $this->state;
+  }
+  /**
+   * Optional. Tag keys/values directly bound to this resource. For example:
+   * "123/environment": "prod", "123/costCenter": "marketing"
+   *
+   * @param string[] $tags
+   */
+  public function setTags($tags)
+  {
+    $this->tags = $tags;
+  }
+  /**
+   * @return string[]
+   */
+  public function getTags()
+  {
+    return $this->tags;
   }
   /**
    * Output only. The time at which the instance was most recently updated.

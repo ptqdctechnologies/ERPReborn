@@ -29,7 +29,7 @@ class DelimitedKey extends \Google\Collection
    */
   public $delimiter;
   /**
-   * Optional. The key fields to construct from the row key. The fields must be
+   * Required. The key fields to construct from the row key. The fields must be
    * present in the message as a top-level field, i.e. JSON path expressions
    * will not traverse into nested objects.
    *
@@ -56,7 +56,7 @@ class DelimitedKey extends \Google\Collection
     return $this->delimiter;
   }
   /**
-   * Optional. The key fields to construct from the row key. The fields must be
+   * Required. The key fields to construct from the row key. The fields must be
    * present in the message as a top-level field, i.e. JSON path expressions
    * will not traverse into nested objects.
    *

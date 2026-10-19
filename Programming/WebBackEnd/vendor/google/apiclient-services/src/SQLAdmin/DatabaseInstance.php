@@ -38,6 +38,19 @@ class DatabaseInstance extends \Google\Collection
    */
   public const BACKEND_TYPE_EXTERNAL = 'EXTERNAL';
   /**
+   * Default value. The integration state is unspecified. When unspecified,
+   * Database Center integration is enabled by default.
+   */
+  public const DATABASE_CENTER_INTEGRATION_DATABASE_CENTER_INTEGRATION_UNSPECIFIED = 'DATABASE_CENTER_INTEGRATION_UNSPECIFIED';
+  /**
+   * Database Center integration is enabled.
+   */
+  public const DATABASE_CENTER_INTEGRATION_ENABLED = 'ENABLED';
+  /**
+   * Database Center integration is disabled.
+   */
+  public const DATABASE_CENTER_INTEGRATION_DISABLED = 'DISABLED';
+  /**
    * This is an unknown database version.
    */
   public const DATABASE_VERSION_SQL_DATABASE_VERSION_UNSPECIFIED = 'SQL_DATABASE_VERSION_UNSPECIFIED';
@@ -385,6 +398,13 @@ class DatabaseInstance extends \Google\Collection
    */
   public $currentDiskSize;
   /**
+   * Optional. State of the Database Center integration for this instance. When
+   * unspecified, Database Center integration is enabled by default.
+   *
+   * @var string
+   */
+  public $databaseCenterIntegration;
+  /**
    * Optional. If true, instance metadata is sent to the Database Center. If
    * false, instance metadata is not sent to the Database Center.
    *
@@ -596,6 +616,13 @@ class DatabaseInstance extends \Google\Collection
   protected $settingsType = Settings::class;
   protected $settingsDataType = '';
   /**
+   * Optional. Input only. Determines whether the precheck step is skipped
+   * during a major version upgrade.
+   *
+   * @var bool
+   */
+  public $skipPrecheck;
+  /**
    * @var string
    */
   public $sqlNetworkArchitecture;
@@ -731,6 +758,25 @@ class DatabaseInstance extends \Google\Collection
   public function getCurrentDiskSize()
   {
     return $this->currentDiskSize;
+  }
+  /**
+   * Optional. State of the Database Center integration for this instance. When
+   * unspecified, Database Center integration is enabled by default.
+   *
+   * Accepted values: DATABASE_CENTER_INTEGRATION_UNSPECIFIED, ENABLED, DISABLED
+   *
+   * @param self::DATABASE_CENTER_INTEGRATION_* $databaseCenterIntegration
+   */
+  public function setDatabaseCenterIntegration($databaseCenterIntegration)
+  {
+    $this->databaseCenterIntegration = $databaseCenterIntegration;
+  }
+  /**
+   * @return self::DATABASE_CENTER_INTEGRATION_*
+   */
+  public function getDatabaseCenterIntegration()
+  {
+    return $this->databaseCenterIntegration;
   }
   /**
    * Optional. If true, instance metadata is sent to the Database Center. If
@@ -1441,6 +1487,23 @@ class DatabaseInstance extends \Google\Collection
   public function getSettings()
   {
     return $this->settings;
+  }
+  /**
+   * Optional. Input only. Determines whether the precheck step is skipped
+   * during a major version upgrade.
+   *
+   * @param bool $skipPrecheck
+   */
+  public function setSkipPrecheck($skipPrecheck)
+  {
+    $this->skipPrecheck = $skipPrecheck;
+  }
+  /**
+   * @return bool
+   */
+  public function getSkipPrecheck()
+  {
+    return $this->skipPrecheck;
   }
   /**
    * @param self::SQL_NETWORK_ARCHITECTURE_* $sqlNetworkArchitecture

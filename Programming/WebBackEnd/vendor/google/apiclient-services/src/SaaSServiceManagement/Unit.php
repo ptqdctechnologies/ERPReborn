@@ -89,6 +89,14 @@ class Unit extends \Google\Collection
    * @var string[]
    */
   public $annotations;
+  /**
+   * Optional. Reference to the AppHub Application this unit belongs to. All
+   * resources deployed in this Unit will be associated with the specified
+   * Application.
+   *
+   * @var string
+   */
+  public $application;
   protected $conditionsType = UnitCondition::class;
   protected $conditionsDataType = 'array';
   /**
@@ -109,12 +117,6 @@ class Unit extends \Google\Collection
    * @var string
    */
   public $etag;
-  /**
-   * Optional. Output only. Flag revisions used by this Unit.
-   *
-   * @var string[]
-   */
-  public $flagRevisions;
   protected $inputVariablesType = UnitVariable::class;
   protected $inputVariablesDataType = 'array';
   /**
@@ -256,6 +258,24 @@ class Unit extends \Google\Collection
     return $this->annotations;
   }
   /**
+   * Optional. Reference to the AppHub Application this unit belongs to. All
+   * resources deployed in this Unit will be associated with the specified
+   * Application.
+   *
+   * @param string $application
+   */
+  public function setApplication($application)
+  {
+    $this->application = $application;
+  }
+  /**
+   * @return string
+   */
+  public function getApplication()
+  {
+    return $this->application;
+  }
+  /**
    * Optional. Output only. A set of conditions which indicate the various
    * conditions this resource can have.
    *
@@ -338,22 +358,6 @@ class Unit extends \Google\Collection
   public function getEtag()
   {
     return $this->etag;
-  }
-  /**
-   * Optional. Output only. Flag revisions used by this Unit.
-   *
-   * @param string[] $flagRevisions
-   */
-  public function setFlagRevisions($flagRevisions)
-  {
-    $this->flagRevisions = $flagRevisions;
-  }
-  /**
-   * @return string[]
-   */
-  public function getFlagRevisions()
-  {
-    return $this->flagRevisions;
   }
   /**
    * Optional. Output only. Indicates the current input variables deployed by

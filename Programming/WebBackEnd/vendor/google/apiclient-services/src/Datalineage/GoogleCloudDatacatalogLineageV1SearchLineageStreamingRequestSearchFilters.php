@@ -28,7 +28,7 @@ class GoogleCloudDatacatalogLineageV1SearchLineageStreamingRequestSearchFilters 
    * `field` field set are not returned.
    */
   public const ENTITY_SET_ENTITIES = 'ENTITIES';
-  protected $collection_key = 'dependencyTypes';
+  protected $collection_key = 'projects';
   /**
    * Optional. Types of dependencies between entities to retrieve. If
    * unspecified, all dependency types are returned.
@@ -43,6 +43,15 @@ class GoogleCloudDatacatalogLineageV1SearchLineageStreamingRequestSearchFilters 
    * @var string
    */
   public $entitySet;
+  /**
+   * Optional. Projects to restrict lineage links to. Callers can provide
+   * project IDs (for example, `projects/my-project`) or project numbers (for
+   * example, `projects/123456789`). If unspecified, lineage is returned from
+   * all projects.
+   *
+   * @var string[]
+   */
+  public $projects;
   protected $timeRangeType = GoogleTypeInterval::class;
   protected $timeRangeDataType = '';
 
@@ -81,6 +90,25 @@ class GoogleCloudDatacatalogLineageV1SearchLineageStreamingRequestSearchFilters 
   public function getEntitySet()
   {
     return $this->entitySet;
+  }
+  /**
+   * Optional. Projects to restrict lineage links to. Callers can provide
+   * project IDs (for example, `projects/my-project`) or project numbers (for
+   * example, `projects/123456789`). If unspecified, lineage is returned from
+   * all projects.
+   *
+   * @param string[] $projects
+   */
+  public function setProjects($projects)
+  {
+    $this->projects = $projects;
+  }
+  /**
+   * @return string[]
+   */
+  public function getProjects()
+  {
+    return $this->projects;
   }
   /**
    * Optional. Time interval to search for lineage. If unspecified, all lineage

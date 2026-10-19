@@ -192,7 +192,7 @@ class GoogleCloudDiscoveryengineV1betaEngine extends \Google\Collection
    * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
    * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
    * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
-   * `in-app-notifications`
+   * `in-app-notifications` * `code-extraction`
    *
    * @var string[]
    */
@@ -506,7 +506,7 @@ class GoogleCloudDiscoveryengineV1betaEngine extends \Google\Collection
    * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
    * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
    * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
-   * `in-app-notifications`
+   * `in-app-notifications` * `code-extraction`
    *
    * @param string[] $features
    */

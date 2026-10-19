@@ -39,8 +39,9 @@ class GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig extends \Google
   protected $ingressPoliciesDataType = 'array';
   /**
    * A list of Google Cloud resources that are inside of the service perimeter.
-   * Currently only projects and VPCs are allowed. Project format:
-   * `projects/{project_number}` VPC network format:
+   * Currently projects, folders, and VPCs are allowed. Project format:
+   * `projects/{project_number}` Folder format: `folders/{folder_id}` VPC
+   * network format:
    * `//compute.googleapis.com/projects/{PROJECT_ID}/global/networks/{NAME}`.
    *
    * @var string[]
@@ -121,8 +122,9 @@ class GoogleIdentityAccesscontextmanagerV1ServicePerimeterConfig extends \Google
   }
   /**
    * A list of Google Cloud resources that are inside of the service perimeter.
-   * Currently only projects and VPCs are allowed. Project format:
-   * `projects/{project_number}` VPC network format:
+   * Currently projects, folders, and VPCs are allowed. Project format:
+   * `projects/{project_number}` Folder format: `folders/{folder_id}` VPC
+   * network format:
    * `//compute.googleapis.com/projects/{PROJECT_ID}/global/networks/{NAME}`.
    *
    * @param string[] $resources

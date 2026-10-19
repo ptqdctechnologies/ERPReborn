@@ -22,6 +22,8 @@ class GoogleCloudAiplatformV1SchemaPromptSpecStructuredPrompt extends \Google\Co
   protected $collection_key = 'predictionInputs';
   protected $appBuilderDataType = GoogleCloudAiplatformV1SchemaPromptSpecAppBuilderData::class;
   protected $appBuilderDataDataType = '';
+  protected $contentMetadataType = GoogleCloudAiplatformV1SchemaPromptSpecContentMetadata::class;
+  protected $contentMetadataDataType = 'array';
   protected $contextType = GoogleCloudAiplatformV1Content::class;
   protected $contextDataType = '';
   protected $examplesType = GoogleCloudAiplatformV1SchemaPromptSpecPartList::class;
@@ -72,6 +74,25 @@ class GoogleCloudAiplatformV1SchemaPromptSpecStructuredPrompt extends \Google\Co
   public function getAppBuilderData()
   {
     return $this->appBuilderData;
+  }
+  /**
+   * Optional. Metadata the model returned with each of
+   * `prompt_message.contents`, such as citations and grounding sources. This
+   * maps 1:1 to PromptMessage.contents; an entry is empty when its content has
+   * no metadata.
+   *
+   * @param GoogleCloudAiplatformV1SchemaPromptSpecContentMetadata[] $contentMetadata
+   */
+  public function setContentMetadata($contentMetadata)
+  {
+    $this->contentMetadata = $contentMetadata;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1SchemaPromptSpecContentMetadata[]
+   */
+  public function getContentMetadata()
+  {
+    return $this->contentMetadata;
   }
   /**
    * Preamble: The context of the prompt.

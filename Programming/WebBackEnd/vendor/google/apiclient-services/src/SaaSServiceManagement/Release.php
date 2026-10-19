@@ -29,6 +29,8 @@ class Release extends \Google\Collection
    * @var string[]
    */
   public $annotations;
+  protected $applicationTemplateComponentType = ComponentRef::class;
+  protected $applicationTemplateComponentDataType = '';
   protected $blueprintType = Blueprint::class;
   protected $blueprintDataType = '';
   /**
@@ -112,6 +114,23 @@ class Release extends \Google\Collection
   public function getAnnotations()
   {
     return $this->annotations;
+  }
+  /**
+   * Output only. Reference to component and revision in a composite
+   * ApplicationTemplate.
+   *
+   * @param ComponentRef $applicationTemplateComponent
+   */
+  public function setApplicationTemplateComponent(ComponentRef $applicationTemplateComponent)
+  {
+    $this->applicationTemplateComponent = $applicationTemplateComponent;
+  }
+  /**
+   * @return ComponentRef
+   */
+  public function getApplicationTemplateComponent()
+  {
+    return $this->applicationTemplateComponent;
   }
   /**
    * Optional. Blueprints are OCI Images that contain all of the artifacts

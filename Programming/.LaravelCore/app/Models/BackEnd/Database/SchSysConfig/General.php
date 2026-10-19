@@ -311,6 +311,72 @@ namespace App\Models\Database\SchSysConfig
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getReport_Form_DataPickList_WorkFlowByBusinessDocumentTypeIDAndCombinedBudgetID                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-19                                                                                           |
+        | ▪ Creation Date   : 2026-10-19                                                                                           |
+        | ▪ Description     : Mendapatkan Laporan Form - Daftar Pilihan Work Flow Melaalui ID Jenis Dokumen Bisnis dan ID Anggatan |
+        |                     Gabungan                                                                                             |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varBusinessDocumentType_RefID ► Business Document Type ID                                                |
+        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget ID                                                             |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getReport_Form_DataPickList_WorkFlowByBusinessDocumentTypeIDAndCombinedBudgetID(
+            $varUserSession, int $varSysBranch_RefID,
+            int $varBusinessDocumentType_RefID = null, int $varCombinedBudget_RefID = null,
+            int $varPagination_PageSize = null, int $varPagination_PageShow = null)
+            {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchSysConfig.Func_GetReport_DataPickList_WorkFlow_ByBusDocTypeCmbBdgID',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varBusinessDocumentType_RefID, 'bigint'],
+                                [$varCombinedBudget_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint']
+                            ]
+                            )
+                        );
+
+                $varReturn['data'] =
+                    \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
+                        $varUserSession,
+                        $varReturn['data'][0]['Func_GetReport_DataPickList_WorkFlow_ByBusDocTypeCmbBdgID']
+                        );
+
+                return
+                     $varReturn;
+                }
+
+            catch (\Exception $ex) {
+                return
+                    [];
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getUserPrivilege_CombinedBudget                                                                      |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |

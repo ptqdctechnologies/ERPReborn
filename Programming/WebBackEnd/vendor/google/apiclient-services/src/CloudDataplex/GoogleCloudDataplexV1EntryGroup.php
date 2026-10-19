@@ -35,6 +35,8 @@ class GoogleCloudDataplexV1EntryGroup extends \Google\Model
    * resource can only be updated from Dataplex API.
    */
   public const TRANSFER_STATUS_TRANSFER_STATUS_TRANSFERRED = 'TRANSFER_STATUS_TRANSFERRED';
+  protected $changeRequestConfigType = GoogleCloudDataplexV1EntryGroupChangeRequestConfig::class;
+  protected $changeRequestConfigDataType = '';
   /**
    * Output only. The time when the EntryGroup was created.
    *
@@ -97,6 +99,23 @@ class GoogleCloudDataplexV1EntryGroup extends \Google\Model
    */
   public $updateTime;
 
+  /**
+   * Optional. Specifies the configuration for requesting changes in the
+   * metadata belonging to the Entry Group.
+   *
+   * @param GoogleCloudDataplexV1EntryGroupChangeRequestConfig $changeRequestConfig
+   */
+  public function setChangeRequestConfig(GoogleCloudDataplexV1EntryGroupChangeRequestConfig $changeRequestConfig)
+  {
+    $this->changeRequestConfig = $changeRequestConfig;
+  }
+  /**
+   * @return GoogleCloudDataplexV1EntryGroupChangeRequestConfig
+   */
+  public function getChangeRequestConfig()
+  {
+    return $this->changeRequestConfig;
+  }
   /**
    * Output only. The time when the EntryGroup was created.
    *

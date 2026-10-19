@@ -22,6 +22,8 @@ class ReportGroup extends \Google\Collection
   protected $collection_key = 'subgroups';
   protected $browserType = Browser::class;
   protected $browserDataType = '';
+  protected $customAttributeType = CustomAttribute::class;
+  protected $customAttributeDataType = '';
   protected $deviceType = Device::class;
   protected $deviceDataType = '';
   protected $issueType = Issue::class;
@@ -54,6 +56,22 @@ class ReportGroup extends \Google\Collection
   public function getBrowser()
   {
     return $this->browser;
+  }
+  /**
+   * Custom attribute metrics group.
+   *
+   * @param CustomAttribute $customAttribute
+   */
+  public function setCustomAttribute(CustomAttribute $customAttribute)
+  {
+    $this->customAttribute = $customAttribute;
+  }
+  /**
+   * @return CustomAttribute
+   */
+  public function getCustomAttribute()
+  {
+    return $this->customAttribute;
   }
   /**
    * Device metrics group.

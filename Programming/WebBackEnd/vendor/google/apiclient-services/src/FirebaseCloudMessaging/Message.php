@@ -21,6 +21,8 @@ class Message extends \Google\Model
 {
   protected $androidType = AndroidConfig::class;
   protected $androidDataType = '';
+  protected $androidV2Type = AndroidConfigV2::class;
+  protected $androidV2DataType = '';
   protected $apnsType = ApnsConfig::class;
   protected $apnsDataType = '';
   /**
@@ -93,6 +95,24 @@ class Message extends \Google\Model
   public function getAndroid()
   {
     return $this->android;
+  }
+  /**
+   * Optional. Input only. Android specific V2 options for messages sent through
+   * FCM connection server. Mutually exclusive with `android`. Requests with
+   * both `AndroidConfig` and `AndroidConfigV2` will be rejected.
+   *
+   * @param AndroidConfigV2 $androidV2
+   */
+  public function setAndroidV2(AndroidConfigV2 $androidV2)
+  {
+    $this->androidV2 = $androidV2;
+  }
+  /**
+   * @return AndroidConfigV2
+   */
+  public function getAndroidV2()
+  {
+    return $this->androidV2;
   }
   /**
    * Input only. [Apple Push Notification Service](https://goo.gl/MXRTPa)

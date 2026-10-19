@@ -21,7 +21,8 @@ class VideoPerformanceAd extends \Google\Collection
 {
   protected $collection_key = 'videos';
   /**
-   * Optional. The list of text assets shown on the call-to-action button.
+   * Optional. The list of text assets shown on the call-to-action button. Must
+   * be set if headlines is set.
    *
    * @var string[]
    */
@@ -36,7 +37,10 @@ class VideoPerformanceAd extends \Google\Collection
    */
   public $customParameters;
   /**
-   * Optional. The list of descriptions shown on the call-to-action banner.
+   * Optional. The list of descriptions shown on the call-to-action banner. Must
+   * be set unless the parent line item's lineItemType is
+   * `LINE_ITEM_TYPE_YOUTUBE_AND_PARTNERS_NON_SKIPPABLE`, in which case this
+   * field cannot be set.
    *
    * @var string[]
    */
@@ -48,7 +52,8 @@ class VideoPerformanceAd extends \Google\Collection
    */
   public $displayUrlBreadcrumb1;
   /**
-   * Optional. The second piece after the domain in the display URL.
+   * Optional. The second piece after the domain in the display URL. Can only be
+   * set if displayUrlBreadcrumb1 is also set.
    *
    * @var string
    */
@@ -74,13 +79,18 @@ class VideoPerformanceAd extends \Google\Collection
   public $headlines;
   /**
    * Optional. The list of long headlines shown on the call-to-action banner.
+   * Must be set unless the parent line item's lineItemType is
+   * `LINE_ITEM_TYPE_YOUTUBE_AND_PARTNERS_NON_SKIPPABLE`, in which case this
+   * field cannot be set.
    *
    * @var string[]
    */
   public $longHeadlines;
   /**
    * Output only. The URL address loaded in the background for tracking
-   * purposes.
+   * purposes. In v4 and earlier, this field represents the tracking URL
+   * specified by the user manually. This can be found at
+   * userSpecifiedTrackingUrl in v5.
    *
    * @var string
    */
@@ -89,7 +99,8 @@ class VideoPerformanceAd extends \Google\Collection
   protected $videosDataType = 'array';
 
   /**
-   * Optional. The list of text assets shown on the call-to-action button.
+   * Optional. The list of text assets shown on the call-to-action button. Must
+   * be set if headlines is set.
    *
    * @param string[] $actionButtonLabels
    */
@@ -138,7 +149,10 @@ class VideoPerformanceAd extends \Google\Collection
     return $this->customParameters;
   }
   /**
-   * Optional. The list of descriptions shown on the call-to-action banner.
+   * Optional. The list of descriptions shown on the call-to-action banner. Must
+   * be set unless the parent line item's lineItemType is
+   * `LINE_ITEM_TYPE_YOUTUBE_AND_PARTNERS_NON_SKIPPABLE`, in which case this
+   * field cannot be set.
    *
    * @param string[] $descriptions
    */
@@ -170,7 +184,8 @@ class VideoPerformanceAd extends \Google\Collection
     return $this->displayUrlBreadcrumb1;
   }
   /**
-   * Optional. The second piece after the domain in the display URL.
+   * Optional. The second piece after the domain in the display URL. Can only be
+   * set if displayUrlBreadcrumb1 is also set.
    *
    * @param string $displayUrlBreadcrumb2
    */
@@ -236,6 +251,9 @@ class VideoPerformanceAd extends \Google\Collection
   }
   /**
    * Optional. The list of long headlines shown on the call-to-action banner.
+   * Must be set unless the parent line item's lineItemType is
+   * `LINE_ITEM_TYPE_YOUTUBE_AND_PARTNERS_NON_SKIPPABLE`, in which case this
+   * field cannot be set.
    *
    * @param string[] $longHeadlines
    */
@@ -252,7 +270,9 @@ class VideoPerformanceAd extends \Google\Collection
   }
   /**
    * Output only. The URL address loaded in the background for tracking
-   * purposes.
+   * purposes. In v4 and earlier, this field represents the tracking URL
+   * specified by the user manually. This can be found at
+   * userSpecifiedTrackingUrl in v5.
    *
    * @param string $trackingUrl
    */

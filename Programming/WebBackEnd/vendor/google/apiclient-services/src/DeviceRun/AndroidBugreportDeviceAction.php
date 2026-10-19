@@ -20,18 +20,18 @@ namespace Google\Service\DeviceRun;
 class AndroidBugreportDeviceAction extends \Google\Model
 {
   /**
-   * Optional. Whether to deliver the bugreport when the test passes. If false,
-   * the bugreport is skipped on pass to save time (default behavior). If true,
-   * the bugreport is always delivered.
+   * Optional. Whether to deliver the bugreport when the test passes. If
+   * `false`, the bugreport is skipped on pass to save time (default behavior).
+   * If `true`, the bugreport is always delivered.
    *
    * @var bool
    */
   public $collectOnPass;
 
   /**
-   * Optional. Whether to deliver the bugreport when the test passes. If false,
-   * the bugreport is skipped on pass to save time (default behavior). If true,
-   * the bugreport is always delivered.
+   * Optional. Whether to deliver the bugreport when the test passes. If
+   * `false`, the bugreport is skipped on pass to save time (default behavior).
+   * If `true`, the bugreport is always delivered.
    *
    * @param bool $collectOnPass
    */

@@ -41,6 +41,10 @@ class AutonomousDbVersion extends \Google\Model
    */
   public const DB_WORKLOAD_APEX = 'APEX';
   /**
+   * Autonomous Database with the Lakehouse workload type.
+   */
+  public const DB_WORKLOAD_LH = 'LH';
+  /**
    * Output only. The Autonomous Database workload type.
    *
    * @var string
@@ -71,7 +75,7 @@ class AutonomousDbVersion extends \Google\Model
   /**
    * Output only. The Autonomous Database workload type.
    *
-   * Accepted values: DB_WORKLOAD_UNSPECIFIED, OLTP, DW, AJD, APEX
+   * Accepted values: DB_WORKLOAD_UNSPECIFIED, OLTP, DW, AJD, APEX, LH
    *
    * @param self::DB_WORKLOAD_* $dbWorkload
    */

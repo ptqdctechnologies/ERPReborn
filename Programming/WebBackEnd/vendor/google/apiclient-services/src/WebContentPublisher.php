@@ -91,6 +91,20 @@ class WebContentPublisher extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'getSurveyQuestionCatalog' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'languageCode' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],'list' => [
               'path' => 'v1/{+parent}/publications',
               'httpMethod' => 'GET',

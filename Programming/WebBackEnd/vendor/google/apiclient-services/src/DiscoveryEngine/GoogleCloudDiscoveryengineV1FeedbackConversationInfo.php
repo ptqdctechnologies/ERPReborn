@@ -46,13 +46,29 @@ class GoogleCloudDiscoveryengineV1FeedbackConversationInfo extends \Google\Model
    */
   public $session;
   /**
+   * Optional. The `TaskServerEvent.seq_num` of the step that opened the rated
+   * agent task reply.
+   *
+   * @var string
+   */
+  public $stepSeqNum;
+  /**
    * Optional. The full resource name of the Sobi task if the conversation was
-   * handled by a long-running agent task. Format:
-   * projects/{project}/locations/{location}/tasks/{task_id}
+   * handled by a long-running agent task. Format (canonical, or the short alias
+   * the Task API also accepts):
+   * projects/{project}/locations/{location}/agents/{agent}/tasks/{task}
+   * projects/{project}/locations/{location}/tasks/{task}
    *
    * @var string
    */
   public $taskName;
+  /**
+   * Optional. The runtime trajectory id of the rated agent task turn, as set on
+   * `TaskServerEvent.trajectory_id`. Shared by all steps of the turn.
+   *
+   * @var string
+   */
+  public $trajectoryId;
 
   /**
    * Optional. The token which could be used to fetch the answer log.
@@ -135,9 +151,28 @@ class GoogleCloudDiscoveryengineV1FeedbackConversationInfo extends \Google\Model
     return $this->session;
   }
   /**
+   * Optional. The `TaskServerEvent.seq_num` of the step that opened the rated
+   * agent task reply.
+   *
+   * @param string $stepSeqNum
+   */
+  public function setStepSeqNum($stepSeqNum)
+  {
+    $this->stepSeqNum = $stepSeqNum;
+  }
+  /**
+   * @return string
+   */
+  public function getStepSeqNum()
+  {
+    return $this->stepSeqNum;
+  }
+  /**
    * Optional. The full resource name of the Sobi task if the conversation was
-   * handled by a long-running agent task. Format:
-   * projects/{project}/locations/{location}/tasks/{task_id}
+   * handled by a long-running agent task. Format (canonical, or the short alias
+   * the Task API also accepts):
+   * projects/{project}/locations/{location}/agents/{agent}/tasks/{task}
+   * projects/{project}/locations/{location}/tasks/{task}
    *
    * @param string $taskName
    */
@@ -151,6 +186,23 @@ class GoogleCloudDiscoveryengineV1FeedbackConversationInfo extends \Google\Model
   public function getTaskName()
   {
     return $this->taskName;
+  }
+  /**
+   * Optional. The runtime trajectory id of the rated agent task turn, as set on
+   * `TaskServerEvent.trajectory_id`. Shared by all steps of the turn.
+   *
+   * @param string $trajectoryId
+   */
+  public function setTrajectoryId($trajectoryId)
+  {
+    $this->trajectoryId = $trajectoryId;
+  }
+  /**
+   * @return string
+   */
+  public function getTrajectoryId()
+  {
+    return $this->trajectoryId;
   }
 }
 

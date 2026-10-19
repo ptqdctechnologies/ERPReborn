@@ -49,6 +49,8 @@ class Service extends \Google\Collection
    * @var string
    */
   public $etag;
+  protected $graphqlSourceType = Source::class;
+  protected $graphqlSourceDataType = '';
   /**
    * Optional. Labels as key value pairs.
    *
@@ -76,6 +78,8 @@ class Service extends \Google\Collection
   protected $schemasDataType = 'array';
   protected $sourceType = Source::class;
   protected $sourceDataType = '';
+  protected $sqlSourceType = Source::class;
+  protected $sqlSourceDataType = '';
   /**
    * Output only. System-assigned, unique identifier.
    *
@@ -173,6 +177,23 @@ class Service extends \Google\Collection
     return $this->etag;
   }
   /**
+   * Optional. Input only. The GraphQL source files like `dataconnect.yaml` and
+   * `*.gql`.
+   *
+   * @param Source $graphqlSource
+   */
+  public function setGraphqlSource(Source $graphqlSource)
+  {
+    $this->graphqlSource = $graphqlSource;
+  }
+  /**
+   * @return Source
+   */
+  public function getGraphqlSource()
+  {
+    return $this->graphqlSource;
+  }
+  /**
    * Optional. Labels as key value pairs.
    *
    * @param string[] $labels
@@ -226,7 +247,7 @@ class Service extends \Google\Collection
     return $this->reconciling;
   }
   /**
-   * Output only. The list of schemas in this service.
+   * Optional. The list of schemas in this service.
    *
    * @param Schema[] $schemas
    */
@@ -242,9 +263,10 @@ class Service extends \Google\Collection
     return $this->schemas;
   }
   /**
-   * Optional. Input only. The source files for service, schemas, and
-   * connectors.
+   * Optional. Input only. Deprecated: Use `sql_source` or `graphql_source`
+   * instead. The source files for service, schemas, and connectors.
    *
+   * @deprecated
    * @param Source $source
    */
   public function setSource(Source $source)
@@ -252,11 +274,29 @@ class Service extends \Google\Collection
     $this->source = $source;
   }
   /**
+   * @deprecated
    * @return Source
    */
   public function getSource()
   {
     return $this->source;
+  }
+  /**
+   * Optional. Input only. The SQL source files like `*.sql` for deploying a
+   * PostgREST service.
+   *
+   * @param Source $sqlSource
+   */
+  public function setSqlSource(Source $sqlSource)
+  {
+    $this->sqlSource = $sqlSource;
+  }
+  /**
+   * @return Source
+   */
+  public function getSqlSource()
+  {
+    return $this->sqlSource;
   }
   /**
    * Output only. System-assigned, unique identifier.

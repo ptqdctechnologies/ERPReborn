@@ -230,8 +230,8 @@ class AdGroupAd extends \Google\Collection
     return $this->bumperAd;
   }
   /**
-   * Optional. The DCM tracking ad info. Only valid for Demand Gen ads. To
-   * remove the DCM tracking ad info, please leave this field empty.
+   * Optional. The DCM tracking ad info. To remove the DCM tracking ad info,
+   * please leave this field empty.
    *
    * @param DcmTrackingInfo $dcmTrackingInfo
    */

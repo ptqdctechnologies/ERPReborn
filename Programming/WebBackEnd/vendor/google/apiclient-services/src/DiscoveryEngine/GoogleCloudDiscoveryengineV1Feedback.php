@@ -40,6 +40,10 @@ class GoogleCloudDiscoveryengineV1Feedback extends \Google\Collection
    */
   public const FEEDBACK_SOURCE_GOOGLE_AGENTSPACE_MOBILE = 'GOOGLE_AGENTSPACE_MOBILE';
   /**
+   * Feedback source is Google AgentSpace Desktop app.
+   */
+  public const FEEDBACK_SOURCE_GOOGLE_AGENTSPACE_DESKTOP = 'GOOGLE_AGENTSPACE_DESKTOP';
+  /**
    * Unspecified feedback type.
    */
   public const FEEDBACK_TYPE_FEEDBACK_TYPE_UNSPECIFIED = 'FEEDBACK_TYPE_UNSPECIFIED';
@@ -171,7 +175,8 @@ class GoogleCloudDiscoveryengineV1Feedback extends \Google\Collection
    * GOOGLE_CONSOLE, GOOGLE_WIDGET, GOOGLE_WEBAPP.
    *
    * Accepted values: FEEDBACK_SOURCE_UNSPECIFIED, GOOGLE_CONSOLE,
-   * GOOGLE_WIDGET, GOOGLE_WEBAPP, GOOGLE_AGENTSPACE_MOBILE
+   * GOOGLE_WIDGET, GOOGLE_WEBAPP, GOOGLE_AGENTSPACE_MOBILE,
+   * GOOGLE_AGENTSPACE_DESKTOP
    *
    * @param self::FEEDBACK_SOURCE_* $feedbackSource
    */

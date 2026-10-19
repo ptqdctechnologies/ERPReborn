@@ -23,10 +23,12 @@ class IngressTo extends \Google\Collection
   protected $operationsType = ApiOperation::class;
   protected $operationsDataType = 'array';
   /**
-   * A list of resources, currently only projects in the form `projects/`,
-   * protected by this ServicePerimeter that are allowed to be accessed by
-   * sources defined in the corresponding IngressFrom. If a single `*` is
-   * specified, then access to all resources inside the perimeter are allowed.
+   * A list of resources, currently projects, folders, and organizations in the
+   * form `projects/{project_number}`, `folders/{folder_id}`, and
+   * `organizations/{organization_id}`, protected by this ServicePerimeter that
+   * are allowed to be accessed by sources defined in the corresponding
+   * IngressFrom. If a single `*` is specified, then access to all resources
+   * inside the perimeter are allowed.
    *
    * @var string[]
    */
@@ -58,10 +60,12 @@ class IngressTo extends \Google\Collection
     return $this->operations;
   }
   /**
-   * A list of resources, currently only projects in the form `projects/`,
-   * protected by this ServicePerimeter that are allowed to be accessed by
-   * sources defined in the corresponding IngressFrom. If a single `*` is
-   * specified, then access to all resources inside the perimeter are allowed.
+   * A list of resources, currently projects, folders, and organizations in the
+   * form `projects/{project_number}`, `folders/{folder_id}`, and
+   * `organizations/{organization_id}`, protected by this ServicePerimeter that
+   * are allowed to be accessed by sources defined in the corresponding
+   * IngressFrom. If a single `*` is specified, then access to all resources
+   * inside the perimeter are allowed.
    *
    * @param string[] $resources
    */

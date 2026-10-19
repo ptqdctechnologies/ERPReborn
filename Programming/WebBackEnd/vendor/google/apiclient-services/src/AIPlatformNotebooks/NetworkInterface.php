@@ -35,6 +35,15 @@ class NetworkInterface extends \Google\Collection
   protected $accessConfigsType = AccessConfig::class;
   protected $accessConfigsDataType = 'array';
   /**
+   * Optional. An internal IP address associated with this instance. Specify an
+   * unused static internal IP address available to the subnet this instance is
+   * in, or leave this field undefined to use an IP from the subnet's ephemeral
+   * range.
+   *
+   * @var string
+   */
+  public $internalIp;
+  /**
    * Optional. The name of the VPC that this VM instance is in. Format:
    * `projects/{project_id}/global/networks/{network_id}`
    *
@@ -74,6 +83,25 @@ class NetworkInterface extends \Google\Collection
   public function getAccessConfigs()
   {
     return $this->accessConfigs;
+  }
+  /**
+   * Optional. An internal IP address associated with this instance. Specify an
+   * unused static internal IP address available to the subnet this instance is
+   * in, or leave this field undefined to use an IP from the subnet's ephemeral
+   * range.
+   *
+   * @param string $internalIp
+   */
+  public function setInternalIp($internalIp)
+  {
+    $this->internalIp = $internalIp;
+  }
+  /**
+   * @return string
+   */
+  public function getInternalIp()
+  {
+    return $this->internalIp;
   }
   /**
    * Optional. The name of the VPC that this VM instance is in. Format:

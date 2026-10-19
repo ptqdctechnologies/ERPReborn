@@ -38,8 +38,9 @@ class OutboundEndpoint extends \Google\Model
    */
   public $description;
   /**
-   * Required. Immutable. User provided IP address to use for outbound DNS
-   * forwarding. This address must be a free address on the subnetwork.
+   * Optional. Immutable. User provided IP address to use for outbound DNS
+   * forwarding. This address must be a free address on the subnetwork. If
+   * omitted, a free IP address from the subnetwork is automatically allocated.
    *
    * @var string
    */
@@ -133,8 +134,9 @@ class OutboundEndpoint extends \Google\Model
     return $this->description;
   }
   /**
-   * Required. Immutable. User provided IP address to use for outbound DNS
-   * forwarding. This address must be a free address on the subnetwork.
+   * Optional. Immutable. User provided IP address to use for outbound DNS
+   * forwarding. This address must be a free address on the subnetwork. If
+   * omitted, a free IP address from the subnetwork is automatically allocated.
    *
    * @param string $endpointIp
    */

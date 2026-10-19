@@ -13,8 +13,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : setAppObject_WorkFlow_TreeStyle                                                                                        |
-    | ▪ Description : Menangani API transaction.update.sysConfig.setAppObject_WorkFlow_TreeStyle Version 1                                   |
+    | ▪ Class Name  : setAppObject_WorkFlow_TreeStyle                                                                              |
+    | ▪ Description : Menangani API transaction.update.sysConfig.setAppObject_WorkFlow_TreeStyle Version 1                         |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class setAppObject_WorkFlow_TreeStyle extends \App\Http\Controllers\Controller
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Update WorkFlow Data (version 1)'
+                        'Update WorkFlow Tree Style Data (version 1)'
                         );
 
                 try {
@@ -94,8 +94,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                         )
                                     ),
 
+                                    $varData['entities']['remarks'],
                                     $varData['entities']['JSONDataInitGraph'],
-                                    $varData['entities']['remarks']
+                                    $varData['entities']['JSONDataMapper']
                                     )
                                 )
                             ))

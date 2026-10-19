@@ -41,6 +41,10 @@ class UnitKind extends \Google\Collection
    * @var string[]
    */
   public $annotations;
+  protected $appParamsType = AppParams::class;
+  protected $appParamsDataType = '';
+  protected $applicationTemplateComponentType = ComponentRef::class;
+  protected $applicationTemplateComponentDataType = '';
   /**
    * Optional. Output only. BoundaryType describes the type of boundary the Unit
    * Kind represents.
@@ -54,13 +58,6 @@ class UnitKind extends \Google\Collection
    * @var string
    */
   public $createTime;
-  /**
-   * Optional. Default revisions of flags for this UnitKind. Newly created units
-   * will use the flag default_flag_revisions present at the time of creation.
-   *
-   * @var string[]
-   */
-  public $defaultFlagRevisions;
   /**
    * Optional. A reference to the Release object to use as default for creating
    * new units of this UnitKind (optional). If not specified, a new unit must
@@ -153,6 +150,40 @@ class UnitKind extends \Google\Collection
     return $this->annotations;
   }
   /**
+   * Optional. AppParams contains the parameters for creating an AppHub
+   * Application.
+   *
+   * @param AppParams $appParams
+   */
+  public function setAppParams(AppParams $appParams)
+  {
+    $this->appParams = $appParams;
+  }
+  /**
+   * @return AppParams
+   */
+  public function getAppParams()
+  {
+    return $this->appParams;
+  }
+  /**
+   * Optional. Reference to component and revision in a composite
+   * ApplicationTemplate.
+   *
+   * @param ComponentRef $applicationTemplateComponent
+   */
+  public function setApplicationTemplateComponent(ComponentRef $applicationTemplateComponent)
+  {
+    $this->applicationTemplateComponent = $applicationTemplateComponent;
+  }
+  /**
+   * @return ComponentRef
+   */
+  public function getApplicationTemplateComponent()
+  {
+    return $this->applicationTemplateComponent;
+  }
+  /**
    * Optional. Output only. BoundaryType describes the type of boundary the Unit
    * Kind represents.
    *
@@ -187,23 +218,6 @@ class UnitKind extends \Google\Collection
   public function getCreateTime()
   {
     return $this->createTime;
-  }
-  /**
-   * Optional. Default revisions of flags for this UnitKind. Newly created units
-   * will use the flag default_flag_revisions present at the time of creation.
-   *
-   * @param string[] $defaultFlagRevisions
-   */
-  public function setDefaultFlagRevisions($defaultFlagRevisions)
-  {
-    $this->defaultFlagRevisions = $defaultFlagRevisions;
-  }
-  /**
-   * @return string[]
-   */
-  public function getDefaultFlagRevisions()
-  {
-    return $this->defaultFlagRevisions;
   }
   /**
    * Optional. A reference to the Release object to use as default for creating

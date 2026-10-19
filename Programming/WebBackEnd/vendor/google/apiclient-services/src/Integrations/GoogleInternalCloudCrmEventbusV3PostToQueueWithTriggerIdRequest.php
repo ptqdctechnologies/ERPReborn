@@ -132,10 +132,10 @@ class GoogleInternalCloudCrmEventbusV3PostToQueueWithTriggerIdRequest extends \G
    */
   public $userGeneratedExecutionId;
   /**
-   * Optional. Pins the enqueue to this exact version rather than the ACTIVE one
-   * on the trigger, so an unpublished draft can be tested. Requires client_id,
-   * and the version is validated before it is enqueued; see
-   * integrationplatform/api/executionsservice/README.md.
+   * Optional. Pins the enqueue to this exact version. Requires client_id, and
+   * only an ACTIVE version is accepted: the drain re-resolves by trigger id, so
+   * nothing else could run. Unset by every caller today; draft support is
+   * b/570602030. See integrationplatform/api/executionsservice/README.md.
    *
    * @var string
    */
@@ -350,10 +350,10 @@ class GoogleInternalCloudCrmEventbusV3PostToQueueWithTriggerIdRequest extends \G
     return $this->userGeneratedExecutionId;
   }
   /**
-   * Optional. Pins the enqueue to this exact version rather than the ACTIVE one
-   * on the trigger, so an unpublished draft can be tested. Requires client_id,
-   * and the version is validated before it is enqueued; see
-   * integrationplatform/api/executionsservice/README.md.
+   * Optional. Pins the enqueue to this exact version. Requires client_id, and
+   * only an ACTIVE version is accepted: the drain re-resolves by trigger id, so
+   * nothing else could run. Unset by every caller today; draft support is
+   * b/570602030. See integrationplatform/api/executionsservice/README.md.
    *
    * @param string $workflowId
    */

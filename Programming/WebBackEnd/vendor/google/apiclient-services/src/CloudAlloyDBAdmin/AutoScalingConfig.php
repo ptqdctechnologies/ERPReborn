@@ -26,7 +26,9 @@ class AutoScalingConfig extends \Google\Collection
   protected $schedulesDataType = 'array';
 
   /**
-   * @param Policy
+   * Policy for the MIG autoscaler.
+   *
+   * @param Policy $policy
    */
   public function setPolicy(Policy $policy)
   {
@@ -40,7 +42,10 @@ class AutoScalingConfig extends \Google\Collection
     return $this->policy;
   }
   /**
-   * @param Schedule[]
+   * Optional list of schedules for the MIG autoscaler. If not set, no schedules
+   * are created.
+   *
+   * @param Schedule[] $schedules
    */
   public function setSchedules($schedules)
   {

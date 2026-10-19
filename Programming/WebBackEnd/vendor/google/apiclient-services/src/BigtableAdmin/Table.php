@@ -49,6 +49,8 @@ class Table extends \Google\Model
    * @var bool
    */
   public $deletionProtection;
+  protected $effectiveAutomatedBackupPolicyType = AutomatedBackupPolicy::class;
+  protected $effectiveAutomatedBackupPolicyDataType = '';
   /**
    * Immutable. The granularity at which timestamps are stored in this table.
    * Timestamps not matching the granularity will be rejected. If unspecified at
@@ -164,6 +166,25 @@ class Table extends \Google\Model
   public function getDeletionProtection()
   {
     return $this->deletionProtection;
+  }
+  /**
+   * Output only. The effective automated backup policy applied to the table.
+   * This represents the policy actually in effect, which may be a system-
+   * default policy if the user has not explicitly configured one. Views:
+   * `SCHEMA_VIEW`, `FULL`.
+   *
+   * @param AutomatedBackupPolicy $effectiveAutomatedBackupPolicy
+   */
+  public function setEffectiveAutomatedBackupPolicy(AutomatedBackupPolicy $effectiveAutomatedBackupPolicy)
+  {
+    $this->effectiveAutomatedBackupPolicy = $effectiveAutomatedBackupPolicy;
+  }
+  /**
+   * @return AutomatedBackupPolicy
+   */
+  public function getEffectiveAutomatedBackupPolicy()
+  {
+    return $this->effectiveAutomatedBackupPolicy;
   }
   /**
    * Immutable. The granularity at which timestamps are stored in this table.

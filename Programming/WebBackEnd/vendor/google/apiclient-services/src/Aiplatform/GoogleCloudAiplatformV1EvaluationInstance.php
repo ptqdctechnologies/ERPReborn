@@ -21,6 +21,8 @@ class GoogleCloudAiplatformV1EvaluationInstance extends \Google\Model
 {
   protected $agentDataType = GoogleCloudAiplatformV1EvaluationInstanceDeprecatedAgentData::class;
   protected $agentDataDataType = '';
+  protected $agentEvalDataType = GoogleCloudAiplatformV1AgentData::class;
+  protected $agentEvalDataDataType = '';
   protected $interactionsDataSourceType = GoogleCloudAiplatformV1EvaluationInstanceInteractionsDataSource::class;
   protected $interactionsDataSourceDataType = '';
   protected $otherDataType = GoogleCloudAiplatformV1EvaluationInstanceMapInstance::class;
@@ -52,6 +54,22 @@ class GoogleCloudAiplatformV1EvaluationInstance extends \Google\Model
   public function getAgentData()
   {
     return $this->agentData;
+  }
+  /**
+   * Optional. Data used for agent evaluation.
+   *
+   * @param GoogleCloudAiplatformV1AgentData $agentEvalData
+   */
+  public function setAgentEvalData(GoogleCloudAiplatformV1AgentData $agentEvalData)
+  {
+    $this->agentEvalData = $agentEvalData;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1AgentData
+   */
+  public function getAgentEvalData()
+  {
+    return $this->agentEvalData;
   }
   /**
    * Optional. Source for populating `AgentData` from an Interactions API

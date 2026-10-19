@@ -166,6 +166,10 @@ class GoogleCloudRetailV2Product extends \Google\Collection
    */
   public $description;
   /**
+   * The timestamp when this product becomes unavailable for
+   * SearchService.Search. If it is set, the Product is not available for
+   * SearchService.Search after expire_time. However, the product can still be
+   * retrieved by ProductService.GetProduct and ProductService.ListProducts.
    * Note that this field is applied in the following ways: * If the Product is
    * already expired when it is uploaded, this product is not indexed for
    * search. * If the Product is not expired when it is uploaded, only the
@@ -636,6 +640,10 @@ class GoogleCloudRetailV2Product extends \Google\Collection
     return $this->description;
   }
   /**
+   * The timestamp when this product becomes unavailable for
+   * SearchService.Search. If it is set, the Product is not available for
+   * SearchService.Search after expire_time. However, the product can still be
+   * retrieved by ProductService.GetProduct and ProductService.ListProducts.
    * Note that this field is applied in the following ways: * If the Product is
    * already expired when it is uploaded, this product is not indexed for
    * search. * If the Product is not expired when it is uploaded, only the

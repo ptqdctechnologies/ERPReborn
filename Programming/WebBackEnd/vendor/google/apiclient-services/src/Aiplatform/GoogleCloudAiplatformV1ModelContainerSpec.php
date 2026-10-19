@@ -312,7 +312,9 @@ class GoogleCloudAiplatformV1ModelContainerSpec extends \Google\Collection
    * occur. This field corresponds to the `env` field of the Kubernetes
    * Containers [v1 core
    * API](https://kubernetes.io/docs/reference/generated/kubernetes-
-   * api/v1.23/#container-v1-core).
+   * api/v1.23/#container-v1-core). At most 200 environment variables can be
+   * specified. Each variable (`NAME=value`) must be smaller than 128 KiB, and
+   * the total size of all variables must not exceed 512 KiB.
    *
    * @param GoogleCloudAiplatformV1EnvVar[] $env
    */

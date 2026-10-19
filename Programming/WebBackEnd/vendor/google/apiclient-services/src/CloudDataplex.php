@@ -1560,7 +1560,17 @@ class CloudDataplex extends \Google\Service
         'entryGroups',
         [
           'methods' => [
-            'create' => [
+            'batchChangeMetadata' => [
+              'path' => 'v1/{+name}:batchChangeMetadata',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'create' => [
               'path' => 'v1/{+parent}/entryGroups',
               'httpMethod' => 'POST',
               'parameters' => [
@@ -1658,6 +1668,16 @@ class CloudDataplex extends \Google\Service
                 'validateOnly' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+              ],
+            ],'requestBatchMetadataChange' => [
+              'path' => 'v1/{+name}:requestBatchMetadataChange',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
                 ],
               ],
             ],'setIamPolicy' => [

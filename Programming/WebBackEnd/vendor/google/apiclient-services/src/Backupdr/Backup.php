@@ -172,6 +172,8 @@ class Backup extends \Google\Collection
    * @var string
    */
   public $name;
+  protected $netappVolumeBackupPropertiesType = NetAppVolumeBackupProperties::class;
+  protected $netappVolumeBackupPropertiesDataType = '';
   /**
    * Output only. source resource size in bytes at the time of the backup.
    *
@@ -539,6 +541,22 @@ class Backup extends \Google\Collection
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Output only. NetApp Volume specific backup properties.
+   *
+   * @param NetAppVolumeBackupProperties $netappVolumeBackupProperties
+   */
+  public function setNetappVolumeBackupProperties(NetAppVolumeBackupProperties $netappVolumeBackupProperties)
+  {
+    $this->netappVolumeBackupProperties = $netappVolumeBackupProperties;
+  }
+  /**
+   * @return NetAppVolumeBackupProperties
+   */
+  public function getNetappVolumeBackupProperties()
+  {
+    return $this->netappVolumeBackupProperties;
   }
   /**
    * Output only. source resource size in bytes at the time of the backup.

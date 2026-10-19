@@ -20,36 +20,57 @@ namespace Google\Service\CloudAlloyDBAdmin;
 class Schedule extends \Google\Model
 {
   /**
+   * Cron expression for the triggering the schedule. See
+   * https://cloud.google.com/compute/docs/autoscaler/scaling-
+   * schedules#cron_expressions for the syntax.
+   *
    * @var string
    */
   public $cronExpression;
   /**
+   * Description of the schedule.
+   *
    * @var string
    */
   public $description;
   /**
+   * If true, the schedule is disabled.
+   *
    * @var bool
    */
   public $disabled;
   /**
+   * Duration of the schedule.
+   *
    * @var string
    */
   public $durationSec;
   /**
+   * Minimum number of nodes in while the schedule is active.
+   *
    * @var string
    */
   public $minNodeCount;
   /**
+   * Name of the schedule.
+   *
    * @var string
    */
   public $name;
   /**
+   * The location-based IANA time zone for interpreting the schedule's start
+   * time. If no time zone is provided, UTC is used by default.
+   *
    * @var string
    */
   public $timeZone;
 
   /**
-   * @param string
+   * Cron expression for the triggering the schedule. See
+   * https://cloud.google.com/compute/docs/autoscaler/scaling-
+   * schedules#cron_expressions for the syntax.
+   *
+   * @param string $cronExpression
    */
   public function setCronExpression($cronExpression)
   {
@@ -63,7 +84,9 @@ class Schedule extends \Google\Model
     return $this->cronExpression;
   }
   /**
-   * @param string
+   * Description of the schedule.
+   *
+   * @param string $description
    */
   public function setDescription($description)
   {
@@ -77,7 +100,9 @@ class Schedule extends \Google\Model
     return $this->description;
   }
   /**
-   * @param bool
+   * If true, the schedule is disabled.
+   *
+   * @param bool $disabled
    */
   public function setDisabled($disabled)
   {
@@ -91,7 +116,9 @@ class Schedule extends \Google\Model
     return $this->disabled;
   }
   /**
-   * @param string
+   * Duration of the schedule.
+   *
+   * @param string $durationSec
    */
   public function setDurationSec($durationSec)
   {
@@ -105,7 +132,9 @@ class Schedule extends \Google\Model
     return $this->durationSec;
   }
   /**
-   * @param string
+   * Minimum number of nodes in while the schedule is active.
+   *
+   * @param string $minNodeCount
    */
   public function setMinNodeCount($minNodeCount)
   {
@@ -119,7 +148,9 @@ class Schedule extends \Google\Model
     return $this->minNodeCount;
   }
   /**
-   * @param string
+   * Name of the schedule.
+   *
+   * @param string $name
    */
   public function setName($name)
   {
@@ -133,7 +164,10 @@ class Schedule extends \Google\Model
     return $this->name;
   }
   /**
-   * @param string
+   * The location-based IANA time zone for interpreting the schedule's start
+   * time. If no time zone is provided, UTC is used by default.
+   *
+   * @param string $timeZone
    */
   public function setTimeZone($timeZone)
   {

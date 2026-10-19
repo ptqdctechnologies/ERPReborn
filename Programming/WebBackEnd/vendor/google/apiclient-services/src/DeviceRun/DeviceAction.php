@@ -278,7 +278,7 @@ class DeviceAction extends \Google\Model
     return $this->iosPushFiles;
   }
   /**
-   * Records a video of the iOS device screen during the run.
+   * Records videos of the iOS device screen, one per UI test case.
    *
    * @param IosRecordVideoDeviceAction $iosRecordVideo
    */

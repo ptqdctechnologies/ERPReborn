@@ -160,8 +160,8 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setTreeStyleDataInsert                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-10-13                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-15                                                                                           |
         | ▪ Creation Date   : 2026-10-13                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -174,8 +174,9 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varJSONDataInitGraph ► JSON Data Init Graph                                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (string) varJSONDataInitGraph ► JSON Data Init Graph                                                              |
+        |      ▪ (string) varJSONDataMapper ► JSON Data Mapper                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -183,7 +184,7 @@ namespace App\Models\Database\SchSysConfig
         public function setTreeStyleDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varJSONDataInitGraph = null, string $varRemarks = null
+            string $varRemarks = null, string $varJSONDataInitGraph = null, string $varJSONDataMapper = null
             )
             {
             $varReturn = 
@@ -204,7 +205,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varRemarks, 'varchar'],
-                            [$varJSONDataInitGraph, 'json']
+                            [$varJSONDataInitGraph, 'json'],
+                            [$varJSONDataMapper, 'json']
                         ]
                         )
                     );
@@ -218,8 +220,8 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setTreeStyleDataUpdate                                                                               |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-10-13                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-15                                                                                           |
         | ▪ Creation Date   : 2026-10-13                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -233,8 +235,9 @@ namespace App\Models\Database\SchSysConfig
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
-        |      ▪ (string) varJSONDataInitGraph ► JSON Data Init Graph                                                              |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
+        |      ▪ (string) varJSONDataInitGraph ► JSON Data Init Graph                                                              |
+        |      ▪ (string) varJSONDataMapper ► JSON Data Mapper                                                                     |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -243,7 +246,7 @@ namespace App\Models\Database\SchSysConfig
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varJSONDataInitGraph = null, string $varRemarks = null
+            string $varRemarks = null, string $varJSONDataInitGraph = null, string $varJSONDataMapper = null
             )
             {
             $varReturn = 
@@ -264,7 +267,8 @@ namespace App\Models\Database\SchSysConfig
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
                             [$varRemarks, 'varchar'],
-                            [$varJSONDataInitGraph, 'json']
+                            [$varJSONDataInitGraph, 'json'],
+                            [$varJSONDataMapper, 'json']
                         ]
                         )
                     );

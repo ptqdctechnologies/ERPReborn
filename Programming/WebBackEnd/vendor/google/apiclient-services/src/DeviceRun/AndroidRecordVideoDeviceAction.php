@@ -21,7 +21,7 @@ class AndroidRecordVideoDeviceAction extends \Google\Model
 {
   /**
    * Optional. Whether to discard and not upload the recording when the test
-   * passes. Default is false.
+   * passes. Default is `false`.
    *
    * @var bool
    */
@@ -29,7 +29,7 @@ class AndroidRecordVideoDeviceAction extends \Google\Model
 
   /**
    * Optional. Whether to discard and not upload the recording when the test
-   * passes. Default is false.
+   * passes. Default is `false`.
    *
    * @param bool $discardOnPass
    */

@@ -36,6 +36,14 @@ class VmImage extends \Google\Model
    */
   public $imageDescription;
   /**
+   * Output only. The ID of the specific Compute Engine VM image the instance is
+   * currently running (for example, "workbench-
+   * instances-2603-20260918-2130-rc0").
+   *
+   * @var string
+   */
+  public $imageId;
+  /**
    * Optional. Use VM image name to find the image.
    *
    * @var string
@@ -84,6 +92,24 @@ class VmImage extends \Google\Model
   public function getImageDescription()
   {
     return $this->imageDescription;
+  }
+  /**
+   * Output only. The ID of the specific Compute Engine VM image the instance is
+   * currently running (for example, "workbench-
+   * instances-2603-20260918-2130-rc0").
+   *
+   * @param string $imageId
+   */
+  public function setImageId($imageId)
+  {
+    $this->imageId = $imageId;
+  }
+  /**
+   * @return string
+   */
+  public function getImageId()
+  {
+    return $this->imageId;
   }
   /**
    * Optional. Use VM image name to find the image.

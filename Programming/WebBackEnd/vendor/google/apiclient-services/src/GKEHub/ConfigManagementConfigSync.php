@@ -63,8 +63,8 @@ class ConfigManagementConfigSync extends \Google\Collection
    */
   public $preventDrift;
   /**
-   * Optional. Specifies whether the Config Sync repo is in `hierarchical` or
-   * `unstructured` mode. Defaults to `hierarchical`. See
+   * Optional. Specifies whether the Config Sync repo is in `hierarchy` or
+   * `unstructured` mode. Defaults to `hierarchy`. See
    * https://docs.cloud.google.com/kubernetes-engine/config-
    * sync/docs/concepts/configs#organize-configs for an explanation.
    *
@@ -201,8 +201,8 @@ class ConfigManagementConfigSync extends \Google\Collection
     return $this->preventDrift;
   }
   /**
-   * Optional. Specifies whether the Config Sync repo is in `hierarchical` or
-   * `unstructured` mode. Defaults to `hierarchical`. See
+   * Optional. Specifies whether the Config Sync repo is in `hierarchy` or
+   * `unstructured` mode. Defaults to `hierarchy`. See
    * https://docs.cloud.google.com/kubernetes-engine/config-
    * sync/docs/concepts/configs#organize-configs for an explanation.
    *

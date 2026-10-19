@@ -17,8 +17,11 @@
 
 namespace Google\Service\CloudDataplex\Resource;
 
+use Google\Service\CloudDataplex\GoogleCloudDataplexV1BatchChangeMetadataRequest;
 use Google\Service\CloudDataplex\GoogleCloudDataplexV1EntryGroup;
 use Google\Service\CloudDataplex\GoogleCloudDataplexV1ListEntryGroupsResponse;
+use Google\Service\CloudDataplex\GoogleCloudDataplexV1RequestBatchMetadataChangeRequest;
+use Google\Service\CloudDataplex\GoogleCloudDataplexV1RequestBatchMetadataChangeResponse;
 use Google\Service\CloudDataplex\GoogleIamV1Policy;
 use Google\Service\CloudDataplex\GoogleIamV1SetIamPolicyRequest;
 use Google\Service\CloudDataplex\GoogleIamV1TestIamPermissionsRequest;
@@ -35,6 +38,24 @@ use Google\Service\CloudDataplex\GoogleLongrunningOperation;
  */
 class ProjectsLocationsEntryGroups extends \Google\Service\Resource
 {
+  /**
+   * Batch changes metadata within an EntryGroup.
+   * (entryGroups.batchChangeMetadata)
+   *
+   * @param string $name Required. The resource name of the EntryGroup on which
+   * the batch change applies. Format: projects/{project_number_or_id}/locations/{
+   * location_id}/entryGroups/{entry_group_id}
+   * @param GoogleCloudDataplexV1BatchChangeMetadataRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleLongrunningOperation
+   * @throws \Google\Service\Exception
+   */
+  public function batchChangeMetadata($name, GoogleCloudDataplexV1BatchChangeMetadataRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('batchChangeMetadata', [$params], GoogleLongrunningOperation::class);
+  }
   /**
    * Creates an EntryGroup. (entryGroups.create)
    *
@@ -168,6 +189,26 @@ class ProjectsLocationsEntryGroups extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], GoogleLongrunningOperation::class);
+  }
+  /**
+   * Submits a catalog change request for multiple resources within an EntryGroup.
+   * This method creates a ChangeRequest resource that must be reviewed and
+   * approved before the proposed changes are applied.
+   * (entryGroups.requestBatchMetadataChange)
+   *
+   * @param string $name Required. The resource name of the Entry Group on which
+   * the change applies. Format:
+   * projects/{project}/locations/{location}/entryGroups/{entry_group}
+   * @param GoogleCloudDataplexV1RequestBatchMetadataChangeRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleCloudDataplexV1RequestBatchMetadataChangeResponse
+   * @throws \Google\Service\Exception
+   */
+  public function requestBatchMetadataChange($name, GoogleCloudDataplexV1RequestBatchMetadataChangeRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('requestBatchMetadataChange', [$params], GoogleCloudDataplexV1RequestBatchMetadataChangeResponse::class);
   }
   /**
    * Sets the access control policy on the specified resource. Replaces any

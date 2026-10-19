@@ -55,9 +55,11 @@ class GoogleCloudBillingBudgetsV1SpendCap extends \Google\Model
    * Required. The desired state specified by the user. Valid values for
    * mutation: - `CONFIGURED`: Must be set when creating a spend cap
    * (`CreateBudget`). Also valid when updating (`UpdateBudget`) to activate the
-   * spend cap. - `AWAITING_NEXT_PERIOD`: Valid only when updating
-   * (`UpdateBudget`) to explicitly lift an enforced cap. Supplying any other
-   * value will result in an INVALID_ARGUMENT error.
+   * spend cap. If the spend cap is in state `AWAITING_NEXT_PERIOD`,
+   * `input_state` must be set to `CONFIGURED`. - `AWAITING_NEXT_PERIOD`: Valid
+   * only when updating (`UpdateBudget`) to explicitly lift an enforced cap. Not
+   * allowed if the spend cap is in state `AWAITING_NEXT_PERIOD`. Supplying any
+   * other value will result in an INVALID_ARGUMENT error.
    *
    * @var string
    */
@@ -80,9 +82,11 @@ class GoogleCloudBillingBudgetsV1SpendCap extends \Google\Model
    * Required. The desired state specified by the user. Valid values for
    * mutation: - `CONFIGURED`: Must be set when creating a spend cap
    * (`CreateBudget`). Also valid when updating (`UpdateBudget`) to activate the
-   * spend cap. - `AWAITING_NEXT_PERIOD`: Valid only when updating
-   * (`UpdateBudget`) to explicitly lift an enforced cap. Supplying any other
-   * value will result in an INVALID_ARGUMENT error.
+   * spend cap. If the spend cap is in state `AWAITING_NEXT_PERIOD`,
+   * `input_state` must be set to `CONFIGURED`. - `AWAITING_NEXT_PERIOD`: Valid
+   * only when updating (`UpdateBudget`) to explicitly lift an enforced cap. Not
+   * allowed if the spend cap is in state `AWAITING_NEXT_PERIOD`. Supplying any
+   * other value will result in an INVALID_ARGUMENT error.
    *
    * Accepted values: STATE_UNSPECIFIED, CONFIGURED, ENFORCED,
    * AWAITING_NEXT_PERIOD

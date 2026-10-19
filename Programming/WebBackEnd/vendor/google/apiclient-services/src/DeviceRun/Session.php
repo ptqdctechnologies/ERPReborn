@@ -20,6 +20,12 @@ namespace Google\Service\DeviceRun;
 class Session extends \Google\Model
 {
   /**
+   * Output only. The time when the session was created.
+   *
+   * @var string
+   */
+  public $createTime;
+  /**
    * Identifier. The resource name of the session. Format:
    * `projects/{project}/locations/{location}/sessions/{session}`.
    *
@@ -31,6 +37,22 @@ class Session extends \Google\Model
   protected $sessionReportType = SessionReport::class;
   protected $sessionReportDataType = '';
 
+  /**
+   * Output only. The time when the session was created.
+   *
+   * @param string $createTime
+   */
+  public function setCreateTime($createTime)
+  {
+    $this->createTime = $createTime;
+  }
+  /**
+   * @return string
+   */
+  public function getCreateTime()
+  {
+    return $this->createTime;
+  }
   /**
    * Identifier. The resource name of the session. Format:
    * `projects/{project}/locations/{location}/sessions/{session}`.
