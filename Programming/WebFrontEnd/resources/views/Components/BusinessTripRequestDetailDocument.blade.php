@@ -49,6 +49,7 @@
         </div>
     </div>
 
+    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- PRODUCT -->
     <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
@@ -63,6 +64,17 @@
     <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
             Currency
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+    <?php } ?>
+
+    <!-- FILE ATTACHMENT -->
+    <div class="row">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            File Attachment
         </div>
         <div class="col-sm-8 col-md-8 p-0">
             : -
@@ -91,6 +103,29 @@
         </div>
     </div>
 
+    <?php if ($dataHeader['dateUpdate']) { ?>
+    <!-- PRODUCT -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Product
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+
+    <!-- CURRENCY -->
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            Currency
+        </div>
+        <div class="col-sm-8 col-md-8 p-0">
+            : -
+        </div>
+    </div>
+    <?php } ?>
+
+    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- DATE COMMENCE TRAVEL -->
     <div class="row" style="margin-bottom: 1rem;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
@@ -131,13 +166,14 @@
         </div>
     </div>
 
-    <!-- DESCRIPTION -->
+    <!-- REASON TO TRAVEL -->
     <div class="row" style="line-height: 16px;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
-            Description
+            Reason to Travel
         </div>
         <div class="col-sm-8 col-md-8 p-0">
             : <?= $dataHeader['description']; ?>
         </div>
     </div>
+    <?php } ?>
 </div>

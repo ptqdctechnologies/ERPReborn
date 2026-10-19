@@ -560,8 +560,8 @@ class DocumentTypeMapper
                     'dateCommenceTravel' => $dataDetail['StartDateTimeTZ'] ?? '-',
                     'dateEndTravel' => $dataDetail['FinishDateTimeTZ'] ?? '-',
                     'brfDate' => $dataDetail['DocumentDateTimeTZ'] ?? '-',
-                    'dateUpdate' => null,
-                    'date' => null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
+                    'date' => $dataDetail['DocumentDateTimeTZ'] ?? null,
                     'fileID' => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
                     'contactPhone' => $dataDetail['RequesterWorkerContact'] ?? null,
                     'bankAccount' => '-',
@@ -580,15 +580,13 @@ class DocumentTypeMapper
                     'other' => '100000.00',
                     'totalBRF' => '3890000.00'
                 ],
-                'textAreaFields' => [
-                    'title' => 'Reason to Travel',
-                    'text' => $dataDetail['ReasonToTravel'] ?? '-',
-                ],
                 'components' => [
                     'detail' => 'Components.BusinessTripRequestDetailDocument',
-                    'table' => 'Components.BusinessTripRequestDetailDocumentTable',
-                    'additional' => 'Components.BusinessTripRequestCostDetailDocument',
-                    'information' => 'Components.BusinessTripRequestInformationDetailDocument'
+                    'additional_two' => 'Components.BusinessTripRequestCostDetailDocument',
+                    'information_two' => 'Components.BusinessTripRequestInformationDetailDocument',
+                    'headerRevision' => 'Components.BusinessTripRequestDetailDocumentHeaderRevision',
+                    'revision' => 'Components.BusinessTripRequestDetailDocumentRevision',
+                    'information_revision' => 'Components.BusinessTripRequestDetailDocumentInformationRevision'
                 ],
                 'resubmit' => [
                     'url' => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
@@ -1011,6 +1009,7 @@ class DocumentTypeMapper
             'Delivery Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
             'Journal Form' => 'Documents.Transactions.LogTransaction.LogTransactionJournal',
             'Payment Instruction Form' => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
+            'Person Business Trip Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Purchase Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form' => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
