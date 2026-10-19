@@ -4,23 +4,23 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category    : Example - API Call Controller                                                                                    |
 | ▪ Name Space  : \App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\sysConfig                 |
-|                 \getUserRolePrivilegesMenuAccess\v1                                                                              |
-| ▪ API Key     : report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess                                                     |
+|                 \userRolePrivilegesMenuAccess\getAll\v1                                                                          |
+| ▪ API Key     : report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll                                                 |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2023 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\sysConfig\getUserRolePrivilegesMenuAccess\v1
+namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\report\form\resume\sysConfig\userRolePrivilegesMenuAccess\getAll\v1
     {
     class example extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess.v1_throughAPIGateway                    |
+        |                     report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll.v1_throughAPIGateway                |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess.v1_throughAPIGateway                  |
+        |                       report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll.v1_throughAPIGateway              |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2023-06-20                                                                                           |
@@ -41,14 +41,14 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                     //-----[ METADATA ]-----( START )-----
                         \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
                         $varAPIWebToken, 
-                        'report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess', 
+                        'report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll', 
                         'latest',
                     //-----[ METADATA ]-----(  END  )-----
 
                     //-----[ DATA ]---------( START )---
                         [
                         'parameter' => [
-                            'recordID' => 4000000000399    
+                            'recordID' => 95000000000001    
                             ]
                         ]
                     //-----[ DATA ]---------(  END  )-----
@@ -62,9 +62,9 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Call URL        : http(s)://<HOST>/                                                                                    |
-        |                     report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess.v1_throughAPIGatewayJQuery     |
+        |                     report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll.v1_throughAPIGatewayJQuery          |
         |                     ► http://172.28.0.4/                                                                                 |
-        |                       report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess.v1_throughAPIGatewayJQuery   |
+        |                       report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll.v1_throughAPIGatewayJQuery        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
         | ▪ Last Update     : 2025-01-09                                                                                           |
@@ -91,7 +91,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGatewayJQuery(
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(), 
                     $varAPIWebToken, 
-                    'report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess', 
+                    'report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll', 
                     'latest', 
                     '{'.
                         '"parameter" : {'.

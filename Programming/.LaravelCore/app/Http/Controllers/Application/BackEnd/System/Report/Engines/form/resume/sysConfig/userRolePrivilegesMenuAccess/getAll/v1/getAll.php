@@ -4,21 +4,21 @@
 +----------------------------------------------------------------------------------------------------------------------------------+
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\sysConfig                             |
-|                \getUserRolePrivilegesMenuAccess\v1                                                                               |
+|                \userRolePrivilegesMenuAccess\getAll\v1                                                                           |
 |                                                                                                                                  |
 | ▪ Copyleft 🄯 2026 Zheta (teguhpjs@gmail.com)                                                                                     |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 
-namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\sysConfig\getUserRolePrivilegesMenuAccess\v1
+namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\resume\sysConfig\userRolePrivilegesMenuAccess\getAll\v1
     {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
-    | ▪ Class Name  : getUserRolePrivilegesMenuAccess                                                                              |
-    | ▪ Description : Menangani API report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess Version 1                         |
+    | ▪ Class Name  : getAll                                                                                                       |
+    | ▪ Description : Menangani API report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll Version 1                     |
     +------------------------------------------------------------------------------------------------------------------------------+
     */
-    class getUserRolePrivilegesMenuAccess extends \App\Http\Controllers\Controller
+    class getAll extends \App\Http\Controllers\Controller
         {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -63,7 +63,7 @@ namespace App\Http\Controllers\Application\BackEnd\System\Report\Engines\form\re
             try {
                 $varSysDataProcess =
                     \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodProcessHeader($varUserSession, __CLASS__, __FUNCTION__,
-                        'Get Report Form - Resume - Business Document Issuance Disposition Count Form (version 1)'
+                        'Get Report Form - Resume - User Role Privileges Menu Access Form - All (version 1)'
                         );
 
                 try {

@@ -1237,7 +1237,7 @@ namespace App\Models\Database\SchSysConfig
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_UserRolePrivilegesMenuAccess(
-            $varUserSession, int $varSysBranch_RefID,
+            mixed $varUserSession, int $varSysBranch_RefID,
             int $varSysID)
             {
             try {
