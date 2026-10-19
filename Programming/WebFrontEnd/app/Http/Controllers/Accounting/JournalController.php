@@ -79,7 +79,18 @@ class JournalController extends Controller
             $compact = [
                 'token' => $token,
                 'documentTypeRefID' => $documentTypeRefID,
+                'journal_id' => $data['sys_ID'] ?? '',
+                'journal_date' => $data['journalDateTimeTZ'] ?? '',
+                'details' => $response['data']['data'] ?? [],
+                'bank_coa' => [
+                    'preview' => '(' . $data['bankAccountNumber'] . ')' . $data['bankAcronym'] . ' - ' . $data['bankAccountName'],
+                    'id' => $data['bankAccount_RefID'],
+                    'code' => $data['bankAccountNumber'],
+                    'name' => $data['bankAcronym'] . ' - ' . $data['bankAccountName']
+                ],
             ];
+
+            dump($compact);
 
             return view('Finance.Journal.Transactions.revision', $compact);
         } catch (\Throwable $th) {
@@ -89,7 +100,7 @@ class JournalController extends Controller
             ]);
 
             return redirect()
-                ->route('Journal.index', ['var' => 1])
+                ->route('Journal.index')
                 ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
