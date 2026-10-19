@@ -38,6 +38,12 @@ class IssueSummary extends \Google\Model
    */
   public $message;
   /**
+   * Output only. Additional metadata about the issue.
+   *
+   * @var string[]
+   */
+  public $metadata;
+  /**
    * Output only. The reason of the issue. This is a constant value that
    * identifies the proximate cause of the issue. This should be at most 63
    * characters and match a regular expression of `A-Z*[A-Z0-9]`, which
@@ -68,6 +74,22 @@ class IssueSummary extends \Google\Model
   public function getMessage()
   {
     return $this->message;
+  }
+  /**
+   * Output only. Additional metadata about the issue.
+   *
+   * @param string[] $metadata
+   */
+  public function setMetadata($metadata)
+  {
+    $this->metadata = $metadata;
+  }
+  /**
+   * @return string[]
+   */
+  public function getMetadata()
+  {
+    return $this->metadata;
   }
   /**
    * Output only. The reason of the issue. This is a constant value that

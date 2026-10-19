@@ -287,9 +287,11 @@ class Instance extends \Google\Collection
   protected $pscInstanceInfoType = PscInstanceInfo::class;
   protected $pscInstanceInfoDataType = '';
   /**
-   * Output only. The public IP addresses for the Instance. This is available
-   * ONLY when enable_public_ip is set. This is the connection endpoint for an
-   * end-user application.
+   * Output only. The public IP address for the Instance. This is available ONLY
+   * when `enable_public_ip` is set or when you have upgraded from an Express
+   * Instance that has public DNS enabled. This field is not available for
+   * Express Instances. This is the connection endpoint for an end-user
+   * application.
    *
    * @var string
    */
@@ -795,9 +797,11 @@ class Instance extends \Google\Collection
     return $this->pscInstanceInfo;
   }
   /**
-   * Output only. The public IP addresses for the Instance. This is available
-   * ONLY when enable_public_ip is set. This is the connection endpoint for an
-   * end-user application.
+   * Output only. The public IP address for the Instance. This is available ONLY
+   * when `enable_public_ip` is set or when you have upgraded from an Express
+   * Instance that has public DNS enabled. This field is not available for
+   * Express Instances. This is the connection endpoint for an end-user
+   * application.
    *
    * @param string $publicIpAddress
    */

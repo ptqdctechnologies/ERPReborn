@@ -21,6 +21,8 @@ class GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityTraceScopePredicat
 {
   protected $durationType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate::class;
   protected $durationDataType = '';
+  protected $serviceVersionType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate::class;
+  protected $serviceVersionDataType = '';
   protected $totalTokenUsageType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate::class;
   protected $totalTokenUsageDataType = '';
 
@@ -39,6 +41,24 @@ class GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityTraceScopePredicat
   public function getDuration()
   {
     return $this->duration;
+  }
+  /**
+   * Filter on the version that served a trace (`service.version` OTel resource
+   * attribute). At most one is allowed. On Vertex AI Agent Engine, this is the
+   * runtime revision id, currently set only for agents created via v1beta1.
+   *
+   * @param GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate $serviceVersion
+   */
+  public function setServiceVersion(GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate $serviceVersion)
+  {
+    $this->serviceVersion = $serviceVersion;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate
+   */
+  public function getServiceVersion()
+  {
+    return $this->serviceVersion;
   }
   /**
    * Filter on the total token usage within a trace.

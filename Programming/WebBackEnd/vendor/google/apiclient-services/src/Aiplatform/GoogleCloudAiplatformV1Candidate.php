@@ -96,6 +96,16 @@ class GoogleCloudAiplatformV1Candidate extends \Google\Collection
    * The model was expected to generate an image, but didn't.
    */
   public const FINISH_REASON_NO_IMAGE = 'NO_IMAGE';
+  /**
+   * Finishes due to malformed response.
+   */
+  public const FINISH_REASON_MALFORMED_RESPONSE = 'MALFORMED_RESPONSE';
+  /**
+   * Token generation was stopped because the response reached the per-request
+   * token limit, but generation is not yet complete. The model response can be
+   * continued via a subsequent request using the returned `continuation_token`.
+   */
+  public const FINISH_REASON_CONTINUATION = 'CONTINUATION';
   protected $collection_key = 'safetyRatings';
   /**
    * Output only. The average log probability of the tokens in this candidate.
@@ -110,6 +120,14 @@ class GoogleCloudAiplatformV1Candidate extends \Google\Collection
   protected $citationMetadataDataType = '';
   protected $contentType = GoogleCloudAiplatformV1Content::class;
   protected $contentDataType = '';
+  /**
+   * Output only. An optional opaque continuation token returned when
+   * `finish_reason` is `CONTINUATION`. Clients can pass this token in a
+   * subsequent `GenerateContentRequest` to continue generation.
+   *
+   * @var string
+   */
+  public $continuationToken;
   /**
    * Output only. Describes the reason the model stopped generating tokens in
    * more detail. This field is returned only when `finish_reason` is set.
@@ -182,6 +200,24 @@ class GoogleCloudAiplatformV1Candidate extends \Google\Collection
     return $this->content;
   }
   /**
+   * Output only. An optional opaque continuation token returned when
+   * `finish_reason` is `CONTINUATION`. Clients can pass this token in a
+   * subsequent `GenerateContentRequest` to continue generation.
+   *
+   * @param string $continuationToken
+   */
+  public function setContinuationToken($continuationToken)
+  {
+    $this->continuationToken = $continuationToken;
+  }
+  /**
+   * @return string
+   */
+  public function getContinuationToken()
+  {
+    return $this->continuationToken;
+  }
+  /**
    * Output only. Describes the reason the model stopped generating tokens in
    * more detail. This field is returned only when `finish_reason` is set.
    *
@@ -206,7 +242,7 @@ class GoogleCloudAiplatformV1Candidate extends \Google\Collection
    * RECITATION, OTHER, BLOCKLIST, PROHIBITED_CONTENT, SPII,
    * MALFORMED_FUNCTION_CALL, MODEL_ARMOR, IMAGE_SAFETY,
    * IMAGE_PROHIBITED_CONTENT, IMAGE_RECITATION, IMAGE_OTHER,
-   * UNEXPECTED_TOOL_CALL, NO_IMAGE
+   * UNEXPECTED_TOOL_CALL, NO_IMAGE, MALFORMED_RESPONSE, CONTINUATION
    *
    * @param self::FINISH_REASON_* $finishReason
    */

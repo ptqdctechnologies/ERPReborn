@@ -93,8 +93,9 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         )
                                     ),
 
+                                    $varData['entities']['remarks'],
                                     $varData['entities']['JSONDataInitGraph'],
-                                    $varData['entities']['remarks']
+                                    $varData['entities']['JSONDataMapper']
                                     )
                                 )
                             ))

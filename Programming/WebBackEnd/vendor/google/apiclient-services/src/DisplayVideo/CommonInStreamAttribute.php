@@ -20,7 +20,8 @@ namespace Google\Service\DisplayVideo;
 class CommonInStreamAttribute extends \Google\Model
 {
   /**
-   * Optional. The text on the call-to-action button.
+   * Optional. The text on the call-to-action button. Must be set if
+   * actionHeadline is set.
    *
    * @var string
    */
@@ -48,7 +49,9 @@ class CommonInStreamAttribute extends \Google\Model
   public $finalUrl;
   /**
    * Output only. The URL address loaded in the background for tracking
-   * purposes.
+   * purposes. In v4 and earlier, this field represents the tracking URL
+   * specified by the user manually. This can be found at
+   * userSpecifiedTrackingUrl in v5.
    *
    * @var string
    */
@@ -57,7 +60,8 @@ class CommonInStreamAttribute extends \Google\Model
   protected $videoDataType = '';
 
   /**
-   * Optional. The text on the call-to-action button.
+   * Optional. The text on the call-to-action button. Must be set if
+   * actionHeadline is set.
    *
    * @param string $actionButtonLabel
    */
@@ -139,7 +143,9 @@ class CommonInStreamAttribute extends \Google\Model
   }
   /**
    * Output only. The URL address loaded in the background for tracking
-   * purposes.
+   * purposes. In v4 and earlier, this field represents the tracking URL
+   * specified by the user manually. This can be found at
+   * userSpecifiedTrackingUrl in v5.
    *
    * @param string $trackingUrl
    */

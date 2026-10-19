@@ -88,6 +88,13 @@ class Instance extends \Google\Collection
    * The instance is suspended.
    */
   public const STATE_SUSPENDED = 'SUSPENDED';
+  /**
+   * The instance has no VM. An upgrade removed the original and could not
+   * create its replacement; the data disk and any snapshots are intact. Retry
+   * the upgrade to finish it, or roll the instance back to the snapshot taken
+   * before it started.
+   */
+  public const STATE_ORPHANED = 'ORPHANED';
   protected $collection_key = 'upgradeHistory';
   /**
    * Output only. Instance creation time.
@@ -493,7 +500,8 @@ class Instance extends \Google\Collection
    * Output only. The state of this instance.
    *
    * Accepted values: STATE_UNSPECIFIED, STARTING, PROVISIONING, ACTIVE,
-   * STOPPING, STOPPED, DELETED, UPGRADING, INITIALIZING, SUSPENDING, SUSPENDED
+   * STOPPING, STOPPED, DELETED, UPGRADING, INITIALIZING, SUSPENDING, SUSPENDED,
+   * ORPHANED
    *
    * @param self::STATE_* $state
    */

@@ -20,16 +20,16 @@ namespace Google\Service\DeviceRun;
 class IosRecordVideoDeviceAction extends \Google\Model
 {
   /**
-   * Optional. Whether to discard the video if the test passes. If not
-   * specified, the default is false (always keep the video).
+   * Optional. Whether to discard the video of a test case when it passes. If
+   * not specified, the default is `false` (videos of all test cases are kept).
    *
    * @var bool
    */
   public $discardOnPass;
 
   /**
-   * Optional. Whether to discard the video if the test passes. If not
-   * specified, the default is false (always keep the video).
+   * Optional. Whether to discard the video of a test case when it passes. If
+   * not specified, the default is `false` (videos of all test cases are kept).
    *
    * @param bool $discardOnPass
    */

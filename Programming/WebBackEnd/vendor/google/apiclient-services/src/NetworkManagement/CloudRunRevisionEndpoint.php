@@ -35,15 +35,6 @@ class CloudRunRevisionEndpoint extends \Google\Model
    * @var string
    */
   public $uri;
-  /**
-   * Output only. The URI of the worker pool that the revision belongs to. The
-   * format is:
-   * projects/{project}/locations/{location}/workerPools/{workerPool}. Mutually
-   * exclusive with service_uri.
-   *
-   * @var string
-   */
-  public $workerPoolUri;
 
   /**
    * Output only. The URI of the Cloud Run service that the revision belongs to.
@@ -80,25 +71,6 @@ class CloudRunRevisionEndpoint extends \Google\Model
   public function getUri()
   {
     return $this->uri;
-  }
-  /**
-   * Output only. The URI of the worker pool that the revision belongs to. The
-   * format is:
-   * projects/{project}/locations/{location}/workerPools/{workerPool}. Mutually
-   * exclusive with service_uri.
-   *
-   * @param string $workerPoolUri
-   */
-  public function setWorkerPoolUri($workerPoolUri)
-  {
-    $this->workerPoolUri = $workerPoolUri;
-  }
-  /**
-   * @return string
-   */
-  public function getWorkerPoolUri()
-  {
-    return $this->workerPoolUri;
   }
 }
 

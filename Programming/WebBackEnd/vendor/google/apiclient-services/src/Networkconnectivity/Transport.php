@@ -125,6 +125,11 @@ class Transport extends \Google\Collection
    * PENDING_KEY state.
    */
   public const STATE_DEPROVISIONED = 'DEPROVISIONED';
+  /**
+   * The Transport is suspended due to an Abuse suspension or Wipeout Hide
+   * event. Underlying connectivity is administratively disabled.
+   */
+  public const STATE_SUSPENDED = 'SUSPENDED';
   protected $collection_key = 'advertisedRoutes';
   /**
    * Optional. List of IP Prefixes that will be advertised to the remote
@@ -571,7 +576,7 @@ class Transport extends \Google\Collection
    * Output only. State of the underlying connectivity.
    *
    * Accepted values: STATE_UNSPECIFIED, CREATING, PENDING_CONFIG, PENDING_KEY,
-   * ACTIVE, DELETING, DEPROVISIONED
+   * ACTIVE, DELETING, DEPROVISIONED, SUSPENDED
    *
    * @param self::STATE_* $state
    */

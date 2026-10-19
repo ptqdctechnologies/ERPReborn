@@ -105,8 +105,8 @@ class InvocationConfig extends \Google\Collection
   public $transitiveDependentsIncluded;
 
   /**
-   * Optional. Configuration for end user authentication. Note that this should
-   * not be set when `service_account` is used.
+   * Optional. Configuration for end user authentication. Do not set if
+   * `service_account` is used.
    *
    * @param EndUserAuthenticationConfig $endUserAuthConfig
    */

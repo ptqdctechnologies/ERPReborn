@@ -256,6 +256,12 @@ class PreCheckMajorVersionUpgradeContext extends \Google\Collection
    * @var string
    */
   public $kind;
+  /**
+   * Optional. The maximum allowed runtime for the precheck operation.
+   *
+   * @var string
+   */
+  public $maxRuntime;
   protected $preCheckResponseType = PreCheckResponse::class;
   protected $preCheckResponseDataType = 'array';
   /**
@@ -280,6 +286,22 @@ class PreCheckMajorVersionUpgradeContext extends \Google\Collection
   public function getKind()
   {
     return $this->kind;
+  }
+  /**
+   * Optional. The maximum allowed runtime for the precheck operation.
+   *
+   * @param string $maxRuntime
+   */
+  public function setMaxRuntime($maxRuntime)
+  {
+    $this->maxRuntime = $maxRuntime;
+  }
+  /**
+   * @return string
+   */
+  public function getMaxRuntime()
+  {
+    return $this->maxRuntime;
   }
   /**
    * Output only. The responses from the precheck operation.

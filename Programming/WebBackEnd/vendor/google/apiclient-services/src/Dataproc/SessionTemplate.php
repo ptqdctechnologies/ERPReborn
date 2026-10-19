@@ -37,6 +37,13 @@ class SessionTemplate extends \Google\Model
    * @var string
    */
   public $description;
+  /**
+   * Optional. User-friendly display name for the session template. Can be up to
+   * 63 characters.
+   *
+   * @var string
+   */
+  public $displayName;
   protected $environmentConfigType = EnvironmentConfig::class;
   protected $environmentConfigDataType = '';
   protected $jupyterSessionType = JupyterConfig::class;
@@ -123,6 +130,23 @@ class SessionTemplate extends \Google\Model
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * Optional. User-friendly display name for the session template. Can be up to
+   * 63 characters.
+   *
+   * @param string $displayName
+   */
+  public function setDisplayName($displayName)
+  {
+    $this->displayName = $displayName;
+  }
+  /**
+   * @return string
+   */
+  public function getDisplayName()
+  {
+    return $this->displayName;
   }
   /**
    * Optional. Environment configuration for session execution.

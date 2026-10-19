@@ -17,8 +17,20 @@
 
 namespace Google\Service\DiscoveryEngine;
 
-class GoogleCloudDiscoveryengineV1DataStoreFederatedSearchConfigNotebooklmConfig extends \Google\Model
+class GoogleCloudDiscoveryengineV1DataStoreFederatedSearchConfigNotebooklmConfig extends \Google\Collection
 {
+  protected $collection_key = 'notebooks';
+  /**
+   * Optional. Restricts this data store to the given notebooks. When empty, the
+   * data store covers every notebook the querying user can access, which is the
+   * existing behaviour. Each entry is a full notebook resource name, such as
+   * `projects/locations/notebooks`. Scoping is enforced on results as well as
+   * requested upstream, so a notebook outside this list cannot appear in a
+   * search response through this data store even if the backend returns one.
+   *
+   * @var string[]
+   */
+  public $notebooks;
   /**
    * Required. Search config name. Format:
    * projects/locations/global/notebookLmSearchConfigs
@@ -27,6 +39,27 @@ class GoogleCloudDiscoveryengineV1DataStoreFederatedSearchConfigNotebooklmConfig
    */
   public $searchConfig;
 
+  /**
+   * Optional. Restricts this data store to the given notebooks. When empty, the
+   * data store covers every notebook the querying user can access, which is the
+   * existing behaviour. Each entry is a full notebook resource name, such as
+   * `projects/locations/notebooks`. Scoping is enforced on results as well as
+   * requested upstream, so a notebook outside this list cannot appear in a
+   * search response through this data store even if the backend returns one.
+   *
+   * @param string[] $notebooks
+   */
+  public function setNotebooks($notebooks)
+  {
+    $this->notebooks = $notebooks;
+  }
+  /**
+   * @return string[]
+   */
+  public function getNotebooks()
+  {
+    return $this->notebooks;
+  }
   /**
    * Required. Search config name. Format:
    * projects/locations/global/notebookLmSearchConfigs

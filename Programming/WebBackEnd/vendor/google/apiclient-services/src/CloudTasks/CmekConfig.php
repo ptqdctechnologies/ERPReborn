@@ -31,7 +31,7 @@ class CmekConfig extends \Google\Model
   /**
    * Output only. The config resource name which includes the project and
    * location and must end in 'cmekConfig', in the format
-   * projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
+   * `projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
    *
    * @var string
    */
@@ -59,7 +59,7 @@ class CmekConfig extends \Google\Model
   /**
    * Output only. The config resource name which includes the project and
    * location and must end in 'cmekConfig', in the format
-   * projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
+   * `projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
    *
    * @param string $name
    */

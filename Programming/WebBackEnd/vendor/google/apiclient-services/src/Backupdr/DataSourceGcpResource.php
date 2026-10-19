@@ -42,6 +42,8 @@ class DataSourceGcpResource extends \Google\Model
    * @var string
    */
   public $location;
+  protected $netappVolumeDatasourcePropertiesType = NetAppVolumeDataSourceProperties::class;
+  protected $netappVolumeDatasourcePropertiesDataType = '';
   /**
    * The type of the Google Cloud resource. Use the Unified Resource Type, eg.
    * compute.googleapis.com/Instance.
@@ -169,6 +171,23 @@ class DataSourceGcpResource extends \Google\Model
   public function getLocation()
   {
     return $this->location;
+  }
+  /**
+   * Output only. NetAppVolumeDataSourceProperties has a subset of NetApp Volume
+   * properties that are useful at the Datasource level.
+   *
+   * @param NetAppVolumeDataSourceProperties $netappVolumeDatasourceProperties
+   */
+  public function setNetappVolumeDatasourceProperties(NetAppVolumeDataSourceProperties $netappVolumeDatasourceProperties)
+  {
+    $this->netappVolumeDatasourceProperties = $netappVolumeDatasourceProperties;
+  }
+  /**
+   * @return NetAppVolumeDataSourceProperties
+   */
+  public function getNetappVolumeDatasourceProperties()
+  {
+    return $this->netappVolumeDatasourceProperties;
   }
   /**
    * The type of the Google Cloud resource. Use the Unified Resource Type, eg.

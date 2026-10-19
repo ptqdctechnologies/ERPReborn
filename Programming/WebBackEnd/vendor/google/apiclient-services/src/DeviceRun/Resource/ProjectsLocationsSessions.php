@@ -148,7 +148,7 @@ class ProjectsLocationsSessions extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string view Optional. The view of the session to return. If not
-   * set, the default BASIC view will be returned.
+   * set, the `FULL` view will be returned.
    * @return Session
    * @throws \Google\Service\Exception
    */
@@ -185,7 +185,7 @@ class ProjectsLocationsSessions extends \Google\Service\Resource
    * paginating, all other parameters provided to `ListSessions` must match the
    * call that provided the page token.
    * @opt_param string view Optional. The view of the sessions to return. If not
-   * set, the `BASIC` view will be returned.
+   * set, the `FULL` view will be returned.
    * @return ListSessionsResponse
    * @throws \Google\Service\Exception
    */

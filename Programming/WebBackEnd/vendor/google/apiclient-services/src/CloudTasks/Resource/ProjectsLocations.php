@@ -47,11 +47,11 @@ class ProjectsLocations extends \Google\Service\Resource
   }
   /**
    * Gets the CMEK config. Gets the Customer Managed Encryption Key configured
-   * with the Cloud Tasks lcoation. By default there is no kms_key configured.
+   * with the Cloud Tasks location. By default there is no `kms_key` configured.
    * (locations.getCmekConfig)
    *
    * @param string $name Required. The config. For example:
-   * projects/PROJECT_ID/locations/LOCATION_ID/CmekConfig`
+   * `projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
    * @param array $optParams Optional parameters.
    * @return CmekConfig
    * @throws \Google\Service\Exception
@@ -105,7 +105,7 @@ class ProjectsLocations extends \Google\Service\Resource
    *
    * @param string $name Output only. The config resource name which includes the
    * project and location and must end in 'cmekConfig', in the format
-   * projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
+   * `projects/PROJECT_ID/locations/LOCATION_ID/cmekConfig`
    * @param CmekConfig $postBody
    * @param array $optParams Optional parameters.
    *

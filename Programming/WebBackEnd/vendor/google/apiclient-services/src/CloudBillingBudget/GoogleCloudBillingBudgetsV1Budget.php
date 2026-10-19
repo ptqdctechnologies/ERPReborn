@@ -211,7 +211,12 @@ class GoogleCloudBillingBudgetsV1Budget extends \Google\Collection
    * is `ENFORCED`, only `spend_cap.input_state` can be modified in an
    * `UpdateBudget` request (e.g., setting `input_state` to
    * `AWAITING_NEXT_PERIOD` to lift the cap); modifying any other budget field
-   * while enforced will fail with `FAILED_PRECONDITION`.
+   * while enforced will fail with `FAILED_PRECONDITION`. If the existing
+   * resource is a spend cap and an `update_mask` is supplied in an
+   * `UpdateBudget` request, `spend_cap` or `spend_cap.input_state` must be
+   * specified in the update mask. To convert a spend cap budget to a regular
+   * budget, specify `spend_cap` in the `update_mask` and omit `spend_cap` from
+   * the budget in the request.
    *
    * @param GoogleCloudBillingBudgetsV1SpendCap $spendCap
    */

@@ -84,6 +84,10 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    */
   public const CHANGE_TYPE_REQUEST_DATA_PRODUCT_ACCESS = 'REQUEST_DATA_PRODUCT_ACCESS';
   /**
+   * Request to execute a batch of catalog changes.
+   */
+  public const CHANGE_TYPE_BATCH_CHANGE_METADATA = 'BATCH_CHANGE_METADATA';
+  /**
    * State unspecified.
    */
   public const STATE_STATE_UNSPECIFIED = 'STATE_UNSPECIFIED';
@@ -108,6 +112,15 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    */
   public const STATE_REVOKED = 'REVOKED';
   /**
+   * The change request has been approved and changes are currently being
+   * applied.
+   */
+  public const STATE_APPLYING = 'APPLYING';
+  /**
+   * The change request execution failed.
+   */
+  public const STATE_FAILED = 'FAILED';
+  /**
    * Output only. The email address of the user who approved/rejected the
    * ChangeRequest.
    *
@@ -120,6 +133,10 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    * @var string
    */
   public $author;
+  protected $batchChangeMetadataRequestType = GoogleCloudDataplexV1BatchChangeMetadataRequest::class;
+  protected $batchChangeMetadataRequestDataType = '';
+  protected $batchChangeMetadataResponseType = GoogleCloudDataplexV1BatchChangeMetadataResponse::class;
+  protected $batchChangeMetadataResponseDataType = '';
   /**
    * Output only. The type of change represented by the change_payload. This
    * field is derived from the populated field in the change_payload oneof.
@@ -266,6 +283,38 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
     return $this->author;
   }
   /**
+   * Payload for executing a batch of catalog changes.
+   *
+   * @param GoogleCloudDataplexV1BatchChangeMetadataRequest $batchChangeMetadataRequest
+   */
+  public function setBatchChangeMetadataRequest(GoogleCloudDataplexV1BatchChangeMetadataRequest $batchChangeMetadataRequest)
+  {
+    $this->batchChangeMetadataRequest = $batchChangeMetadataRequest;
+  }
+  /**
+   * @return GoogleCloudDataplexV1BatchChangeMetadataRequest
+   */
+  public function getBatchChangeMetadataRequest()
+  {
+    return $this->batchChangeMetadataRequest;
+  }
+  /**
+   * Output only. Result of applying a batch change metadata request.
+   *
+   * @param GoogleCloudDataplexV1BatchChangeMetadataResponse $batchChangeMetadataResponse
+   */
+  public function setBatchChangeMetadataResponse(GoogleCloudDataplexV1BatchChangeMetadataResponse $batchChangeMetadataResponse)
+  {
+    $this->batchChangeMetadataResponse = $batchChangeMetadataResponse;
+  }
+  /**
+   * @return GoogleCloudDataplexV1BatchChangeMetadataResponse
+   */
+  public function getBatchChangeMetadataResponse()
+  {
+    return $this->batchChangeMetadataResponse;
+  }
+  /**
    * Output only. The type of change represented by the change_payload. This
    * field is derived from the populated field in the change_payload oneof.
    *
@@ -273,7 +322,8 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    * DELETE_ENTRY, CREATE_ENTRY_LINK, DELETE_ENTRY_LINK, CREATE_GLOSSARY,
    * UPDATE_GLOSSARY, DELETE_GLOSSARY, CREATE_GLOSSARY_CATEGORY,
    * UPDATE_GLOSSARY_CATEGORY, DELETE_GLOSSARY_CATEGORY, CREATE_GLOSSARY_TERM,
-   * UPDATE_GLOSSARY_TERM, DELETE_GLOSSARY_TERM, REQUEST_DATA_PRODUCT_ACCESS
+   * UPDATE_GLOSSARY_TERM, DELETE_GLOSSARY_TERM, REQUEST_DATA_PRODUCT_ACCESS,
+   * BATCH_CHANGE_METADATA
    *
    * @param self::CHANGE_TYPE_* $changeType
    */
@@ -604,7 +654,7 @@ class GoogleCloudDataplexV1ChangeRequest extends \Google\Model
    * Output only. The current state of the ChangeRequest.
    *
    * Accepted values: STATE_UNSPECIFIED, NEW, APPROVED, REJECTED, EXPIRED,
-   * REVOKED
+   * REVOKED, APPLYING, FAILED
    *
    * @param self::STATE_* $state
    */

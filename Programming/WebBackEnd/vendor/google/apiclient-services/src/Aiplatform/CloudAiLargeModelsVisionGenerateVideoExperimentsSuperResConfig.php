@@ -38,6 +38,12 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig extends \Go
    * @var string
    */
   public $mode;
+  /**
+   * Smooths the seams between the tiles the model upscales separately.
+   *
+   * @var bool
+   */
+  public $tileSmoothing;
 
   /**
    * Super Res mode. Required.
@@ -56,6 +62,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig extends \Go
   public function getMode()
   {
     return $this->mode;
+  }
+  /**
+   * Smooths the seams between the tiles the model upscales separately.
+   *
+   * @param bool $tileSmoothing
+   */
+  public function setTileSmoothing($tileSmoothing)
+  {
+    $this->tileSmoothing = $tileSmoothing;
+  }
+  /**
+   * @return bool
+   */
+  public function getTileSmoothing()
+  {
+    return $this->tileSmoothing;
   }
 }
 

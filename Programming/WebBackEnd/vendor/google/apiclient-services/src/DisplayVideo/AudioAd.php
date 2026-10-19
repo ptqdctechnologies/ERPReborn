@@ -32,7 +32,9 @@ class AudioAd extends \Google\Model
    */
   public $finalUrl;
   /**
-   * The URL address loaded in the background for tracking purposes.
+   * The URL address loaded in the background for tracking purposes. In v4 and
+   * earlier, this field represents the tracking URL specified by the user
+   * manually. This can be found at userSpecifiedTrackingUrl in v5.
    *
    * @var string
    */
@@ -73,7 +75,9 @@ class AudioAd extends \Google\Model
     return $this->finalUrl;
   }
   /**
-   * The URL address loaded in the background for tracking purposes.
+   * The URL address loaded in the background for tracking purposes. In v4 and
+   * earlier, this field represents the tracking URL specified by the user
+   * manually. This can be found at userSpecifiedTrackingUrl in v5.
    *
    * @param string $trackingUrl
    */

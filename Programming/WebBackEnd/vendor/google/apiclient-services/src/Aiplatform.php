@@ -68,6 +68,7 @@ class Aiplatform extends \Google\Service
   public $hyperparameterTuningJobs_operations;
   public $indexEndpoints_operations;
   public $indexes_operations;
+  public $interactions;
   public $media;
   public $memoryBanks_memories_operations;
   public $memoryBanks_operations;
@@ -141,6 +142,8 @@ class Aiplatform extends \Google\Service
   public $projects_locations_indexEndpoints_operations;
   public $projects_locations_indexes;
   public $projects_locations_indexes_operations;
+  public $projects_locations_interactions;
+  public $projects_locations_interactionsHttp;
   public $projects_locations_memoryBanks;
   public $projects_locations_memoryBanks_memories;
   public $projects_locations_memoryBanks_memories_operations;
@@ -2091,6 +2094,62 @@ class Aiplatform extends \Google\Service
                 'timeout' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->interactions = new Aiplatform\Resource\Interactions(
+        $this,
+        $this->serviceName,
+        'interactions',
+        [
+          'methods' => [
+            'cancel' => [
+              'path' => 'v1/{+name}:cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'getPoll' => [
+              'path' => 'v1/{+name}:poll',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'lastEventId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'stream' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
+              ],
+            ],'getStream' => [
+              'path' => 'v1/{+name}:stream',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'lastEventId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'stream' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ],
               ],
             ],
@@ -8264,6 +8323,104 @@ class Aiplatform extends \Google\Service
                 'timeout' => [
                   'location' => 'query',
                   'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_interactions = new Aiplatform\Resource\ProjectsLocationsInteractions(
+        $this,
+        $this->serviceName,
+        'interactions',
+        [
+          'methods' => [
+            'create' => [
+              'path' => 'v1/projects/{projectsId}/locations/{locationsId}/interactions:create',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'projectsId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'locationsId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'createStream' => [
+              'path' => 'v1/projects/{projectsId}/locations/{locationsId}/interactions:createStream',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'projectsId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'locationsId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_interactionsHttp = new Aiplatform\Resource\ProjectsLocationsInteractionsHttp(
+        $this,
+        $this->serviceName,
+        'interactionsHttp',
+        [
+          'methods' => [
+            'cancel' => [
+              'path' => 'v1/{+name}/cancel',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'create' => [
+              'path' => 'v1/{+parent}/interactionsHttp',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'lastEventId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'stream' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
                 ],
               ],
             ],

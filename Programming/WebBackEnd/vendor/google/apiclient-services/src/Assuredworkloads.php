@@ -38,7 +38,6 @@ class Assuredworkloads extends \Google\Service
   const CLOUD_PLATFORM =
       "https://www.googleapis.com/auth/cloud-platform";
 
-  public $assuredworkloads;
   public $folders_locations_dbFindingSummaries;
   public $folders_locations_dbFrameworkComplianceReports;
   public $folders_locations_dbFrameworkComplianceReports_dbControlComplianceSummaries;
@@ -74,24 +73,6 @@ class Assuredworkloads extends \Google\Service
     $this->version = 'v1';
     $this->serviceName = 'assuredworkloads';
 
-    $this->assuredworkloads = new Assuredworkloads\Resource\Assuredworkloads(
-        $this,
-        $this->serviceName,
-        'assuredworkloads',
-        [
-          'methods' => [
-            'archiveResourceEvents' => [
-              'path' => 'v1/assuredworkloads:archiveResourceEvents',
-              'httpMethod' => 'POST',
-              'parameters' => [],
-            ],'revertArchivedResourceEvents' => [
-              'path' => 'v1/assuredworkloads:revertArchivedResourceEvents',
-              'httpMethod' => 'POST',
-              'parameters' => [],
-            ],
-          ]
-        ]
-    );
     $this->folders_locations_dbFindingSummaries = new Assuredworkloads\Resource\FoldersLocationsDbFindingSummaries(
         $this,
         $this->serviceName,

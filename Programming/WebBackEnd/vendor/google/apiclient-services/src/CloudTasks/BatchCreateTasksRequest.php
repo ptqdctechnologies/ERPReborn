@@ -54,7 +54,7 @@ class BatchCreateTasksRequest extends \Google\Collection
    * parent field of each CreateTaskRequest will be the same. This validation
    * happens on the client side as well as in the handler.
    * BatchCreateTasksRequest.parent will also be the same value as the
-   * individual CreateTaskRequest.parent . The maximum number of requests is
+   * individual `CreateTaskRequest.parent`. The maximum number of requests is
    * 100.
    *
    * @param CreateTaskRequest[] $requests

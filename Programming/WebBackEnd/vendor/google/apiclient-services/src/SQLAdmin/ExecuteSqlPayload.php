@@ -51,7 +51,8 @@ class ExecuteSqlPayload extends \Google\Model
    */
   public $autoIamAuthn;
   /**
-   * Optional. Name of the database on which the statement will be executed.
+   * Optional. Name of the database on which the statement will be executed. For
+   * Postgres and SQL Server it's required, for MySQL it's optional.
    *
    * @var string
    */
@@ -135,7 +136,8 @@ class ExecuteSqlPayload extends \Google\Model
     return $this->autoIamAuthn;
   }
   /**
-   * Optional. Name of the database on which the statement will be executed.
+   * Optional. Name of the database on which the statement will be executed. For
+   * Postgres and SQL Server it's required, for MySQL it's optional.
    *
    * @param string $database
    */

@@ -46,6 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----------------------------------------------------( START )-----
                         [
                         'entities' => [
+                            "remarks" => null,
                             "JSONDataInitGraph" => 
                                 \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                     \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
@@ -67,7 +68,17 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         ]
                                     ]
                                     ),
-                            "remarks" => null
+                            "JSONDataMapper" => 
+                                \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
+                                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+
+                                    [
+                                        [
+                                        'businessDocumentType_RefID' => 77000000000005,
+					'combinedBudget_RefID' => 103000000000001
+                                        ]
+                                    ]
+                                    )
                             ]
                         ]
                     //-----[ DATA ]-----------------------------------------------------(  END  )-----

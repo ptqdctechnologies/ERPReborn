@@ -87,14 +87,14 @@ class CustomersChromeBrowsers extends \Google\Service\Resource
    * functions is supported with AND operator. String type, Integer type fields
    * and enum type fields support `=` and `:` operators. The timestamp type fields
    * support `=`, `<=` and `>=` operators. Timestamps expect an RFC-3339 formatted
-   * string (e.g. 2012-04-21T11:30:00-04:00). Wildcard `*` is only supported for
-   * `machine_name`, `annotated_asset_id`, and `browser_version`. In addition,
-   * global string literal filtering without a field name is supported: a single
-   * term (e.g., `ABC`) matches if any indexed string field contains `ABC`, and
-   * multiple terms joined by `AND` or whitespace (e.g., `machine AND 73` or
-   * `machine 73`) match browsers where every term appears in at least one indexed
-   * string field (whereas a single quoted phrase like `"machine 73"` matches the
-   * contiguous phrase within a single field).
+   * string enclosed in double quotes (e.g., `"2012-04-21T11:30:00-04:00"`).
+   * Wildcard `*` is only supported for `machine_name`, `annotated_asset_id`, and
+   * `browser_version`. In addition, global string literal filtering without a
+   * field name is supported: a single term (e.g., `ABC`) matches if any indexed
+   * string field contains `ABC`, and multiple terms joined by `AND` or whitespace
+   * (e.g., `machine AND 73` or `machine 73`) match browsers where every term
+   * appears in at least one indexed string field (whereas a single quoted phrase
+   * like `"machine 73"` matches the contiguous phrase within a single field).
    * @opt_param string orderBy Optional. The fields used to specify the ordering
    * of the results. The supported fields are: * `browser_permanent_id` *
    * `last_sync` * `annotated_user` * `annotated_location` * `annotated_asset_id`

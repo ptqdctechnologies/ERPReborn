@@ -99,6 +99,8 @@ class BackupPlanAssociation extends \Google\Collection
    * @var string
    */
   public $name;
+  protected $netappVolumeBackupPlanAssociationPropertiesType = NetAppVolumeBackupPlanAssociationProperties::class;
+  protected $netappVolumeBackupPlanAssociationPropertiesDataType = '';
   /**
    * Required. Immutable. Resource name of workload on which the backup plan is
    * applied. The format can either be the resource name (e.g., "projects/my-
@@ -283,6 +285,22 @@ class BackupPlanAssociation extends \Google\Collection
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Output only. NetApp volume backup plan association properties.
+   *
+   * @param NetAppVolumeBackupPlanAssociationProperties $netappVolumeBackupPlanAssociationProperties
+   */
+  public function setNetappVolumeBackupPlanAssociationProperties(NetAppVolumeBackupPlanAssociationProperties $netappVolumeBackupPlanAssociationProperties)
+  {
+    $this->netappVolumeBackupPlanAssociationProperties = $netappVolumeBackupPlanAssociationProperties;
+  }
+  /**
+   * @return NetAppVolumeBackupPlanAssociationProperties
+   */
+  public function getNetappVolumeBackupPlanAssociationProperties()
+  {
+    return $this->netappVolumeBackupPlanAssociationProperties;
   }
   /**
    * Required. Immutable. Resource name of workload on which the backup plan is

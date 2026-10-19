@@ -105,6 +105,10 @@ class AutonomousDatabaseProperties extends \Google\Collection
    */
   public const DB_WORKLOAD_APEX = 'APEX';
   /**
+   * Autonomous Database with the Lakehouse workload type.
+   */
+  public const DB_WORKLOAD_LH = 'LH';
+  /**
    * Unspecified
    */
   public const LICENSE_TYPE_LICENSE_TYPE_UNSPECIFIED = 'LICENSE_TYPE_UNSPECIFIED';
@@ -1109,7 +1113,7 @@ class AutonomousDatabaseProperties extends \Google\Collection
   /**
    * Required. Immutable. The workload type of the Autonomous Database.
    *
-   * Accepted values: DB_WORKLOAD_UNSPECIFIED, OLTP, DW, AJD, APEX
+   * Accepted values: DB_WORKLOAD_UNSPECIFIED, OLTP, DW, AJD, APEX, LH
    *
    * @param self::DB_WORKLOAD_* $dbWorkload
    */

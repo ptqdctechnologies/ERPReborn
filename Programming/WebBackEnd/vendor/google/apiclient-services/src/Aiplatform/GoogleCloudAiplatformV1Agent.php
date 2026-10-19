@@ -57,6 +57,12 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
    */
   public $description;
   /**
+   * Output only. The resolved Agent Identity (SPIFFE principal) of the agent.
+   *
+   * @var string
+   */
+  public $effectiveIdentity;
+  /**
    * Immutable. The user-specified ID for the agent. This ID becomes the final
    * component of the agent resource name. If not provided, Vertex AI will
    * generate a value for this ID. The ID can be up to 63 characters and must
@@ -175,6 +181,22 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
   public function getDescription()
   {
     return $this->description;
+  }
+  /**
+   * Output only. The resolved Agent Identity (SPIFFE principal) of the agent.
+   *
+   * @param string $effectiveIdentity
+   */
+  public function setEffectiveIdentity($effectiveIdentity)
+  {
+    $this->effectiveIdentity = $effectiveIdentity;
+  }
+  /**
+   * @return string
+   */
+  public function getEffectiveIdentity()
+  {
+    return $this->effectiveIdentity;
   }
   /**
    * Immutable. The user-specified ID for the agent. This ID becomes the final

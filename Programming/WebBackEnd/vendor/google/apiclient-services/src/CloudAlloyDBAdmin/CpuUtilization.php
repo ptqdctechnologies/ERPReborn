@@ -20,12 +20,16 @@ namespace Google\Service\CloudAlloyDBAdmin;
 class CpuUtilization extends \Google\Model
 {
   /**
+   * Target CPU utilization as a float between 0 and 1.
+   *
    * @var float
    */
   public $utilizationTarget;
 
   /**
-   * @param float
+   * Target CPU utilization as a float between 0 and 1.
+   *
+   * @param float $utilizationTarget
    */
   public function setUtilizationTarget($utilizationTarget)
   {

@@ -35,11 +35,12 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   protected $operationsType = GoogleIdentityAccesscontextmanagerV1ApiOperation::class;
   protected $operationsDataType = 'array';
   /**
-   * A list of resources, currently only projects in the form `projects/`, that
-   * are allowed to be accessed by sources defined in the corresponding
-   * EgressFrom. A request matches if it contains a resource in this list. If
-   * `*` is specified for `resources`, then this EgressTo rule will authorize
-   * access to all resources outside the perimeter.
+   * A list of resources, currently projects, folders, and organizations in the
+   * form `projects/`, `folders/`, and `organizations/`, that are allowed to be
+   * accessed by sources defined in the corresponding EgressFrom. A request
+   * matches if it contains a resource in this list. If `*` is specified for
+   * `resources`, then this EgressTo rule will authorize access to all resources
+   * outside the perimeter.
    *
    * @var string[]
    */
@@ -94,11 +95,12 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
     return $this->operations;
   }
   /**
-   * A list of resources, currently only projects in the form `projects/`, that
-   * are allowed to be accessed by sources defined in the corresponding
-   * EgressFrom. A request matches if it contains a resource in this list. If
-   * `*` is specified for `resources`, then this EgressTo rule will authorize
-   * access to all resources outside the perimeter.
+   * A list of resources, currently projects, folders, and organizations in the
+   * form `projects/`, `folders/`, and `organizations/`, that are allowed to be
+   * accessed by sources defined in the corresponding EgressFrom. A request
+   * matches if it contains a resource in this list. If `*` is specified for
+   * `resources`, then this EgressTo rule will authorize access to all resources
+   * outside the perimeter.
    *
    * @param string[] $resources
    */

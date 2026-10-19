@@ -25,6 +25,8 @@ class GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilitySessionScopePredic
   protected $modelCallErrorsDataType = '';
   protected $modelCallsType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate::class;
   protected $modelCallsDataType = '';
+  protected $serviceVersionType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate::class;
+  protected $serviceVersionDataType = '';
   protected $toolCallErrorsType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate::class;
   protected $toolCallErrorsDataType = '';
   protected $toolCallsType = GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityNumericPredicate::class;
@@ -81,6 +83,25 @@ class GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilitySessionScopePredic
   public function getModelCalls()
   {
     return $this->modelCalls;
+  }
+  /**
+   * Filter on the versions that served a session (`service.version` OTel
+   * resource attribute); matches if any of them is listed. At most one is
+   * allowed. On Vertex AI Agent Engine, this is the runtime revision id,
+   * currently set only for agents created via v1beta1.
+   *
+   * @param GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate $serviceVersion
+   */
+  public function setServiceVersion(GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate $serviceVersion)
+  {
+    $this->serviceVersion = $serviceVersion;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1OnlineEvaluatorCloudObservabilityStringPredicate
+   */
+  public function getServiceVersion()
+  {
+    return $this->serviceVersion;
   }
   /**
    * Filter on the number of tool call errors within a session.

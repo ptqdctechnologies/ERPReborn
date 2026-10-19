@@ -21,7 +21,8 @@ class ConfigManagementOciConfig extends \Google\Model
 {
   /**
    * Optional. The Google Cloud Service Account Email used for auth when
-   * secret_type is `gcpserviceaccount`.
+   * secret_type is `gcpserviceaccount`. Annotates the `RootSync` or `RepoSync`
+   * controller's Kubernetes Service Account.
    *
    * @var string
    */
@@ -57,7 +58,8 @@ class ConfigManagementOciConfig extends \Google\Model
 
   /**
    * Optional. The Google Cloud Service Account Email used for auth when
-   * secret_type is `gcpserviceaccount`.
+   * secret_type is `gcpserviceaccount`. Annotates the `RootSync` or `RepoSync`
+   * controller's Kubernetes Service Account.
    *
    * @param string $gcpServiceAccountEmail
    */

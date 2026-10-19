@@ -20,8 +20,8 @@ namespace Google\Service\DeviceRun;
 class AndroidDumpsysDeviceAction extends \Google\Model
 {
   /**
-   * Optional. Whether to deliver the dumpsys when the test passes. If false,
-   * the dumpsys is skipped on pass to save time (default behavior). If true,
+   * Optional. Whether to deliver the dumpsys when the test passes. If `false`,
+   * the dumpsys is skipped on pass to save time (default behavior). If `true`,
    * the dumpsys is always delivered.
    *
    * @var bool
@@ -29,8 +29,8 @@ class AndroidDumpsysDeviceAction extends \Google\Model
   public $collectOnPass;
 
   /**
-   * Optional. Whether to deliver the dumpsys when the test passes. If false,
-   * the dumpsys is skipped on pass to save time (default behavior). If true,
+   * Optional. Whether to deliver the dumpsys when the test passes. If `false`,
+   * the dumpsys is skipped on pass to save time (default behavior). If `true`,
    * the dumpsys is always delivered.
    *
    * @param bool $collectOnPass

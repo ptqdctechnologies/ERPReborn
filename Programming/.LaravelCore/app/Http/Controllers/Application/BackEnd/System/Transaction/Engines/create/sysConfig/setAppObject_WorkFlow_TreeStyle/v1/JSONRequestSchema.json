@@ -35,20 +35,23 @@
             "entities" : {
                 "type": "object",
                 "properties": {
-                    "JSONDataInitGraph": {
-                        "type": [ "string", "null"  ],
-                        "format": "string",
-                        "pattern": "^(([{](((\"[a-zA-Z0-9]{1,}\":((null)|(([0-9]{1,})((.)([0-9]{1,})){0,1})|(\".{1,}\")|([[].*[]])|([{]\"[a-zA-Z0-9]{1,}\":(.*)[}]))),){0,}(\"[a-zA-Z0-9]{1,}\":((null)|([0-9]{1,})|(\"[a-zA-Z0-9]{1,}\")|([[].*[]])|([{]\"[a-zA-Z0-9]{1,}\":(.*)[}]))){0,})[}])|([[]((((null)|(([0-9]{1,})((.)([0-9]{1,})){0,1})|(\".{1,}\")|([[].*[]])|([{]\"[a-zA-Z0-9]{1,}\":(.*)[}])),){0,}((null)|(([0-9]{1,})((.)([0-9]{1,})){0,1})|(\".{1,}\")|([[].*[]])|([{]\"[a-zA-Z0-9]{1,}\":(.*)[}])))[]]))$"
-                        },
                     "remarks": {
                         "type": [ "string", "null"  ],
                         "minLength": 1,
                         "maxLength": 512
+                        },
+                    "JSONDataInitGraph": {
+                        "type": [ "string", "null"  ],
+                        "contentMediaType": "application/json"
+                        },
+                    "JSONDataMapper": {
+                        "type": [ "string", "null"  ],
+                        "contentMediaType": "application/json"
                         }
                     },
-                "required": [ 
-                    "JSONDataInitGraph", 
-                    "remarks"
+                "required": [
+                    "remarks",
+                    "JSONDataInitGraph"
                     ]
                 }
             },

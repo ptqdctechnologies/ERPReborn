@@ -17,7 +17,7 @@
 
 namespace Google\Service\CloudComposer;
 
-class SoftwareConfig extends \Google\Model
+class SoftwareConfig extends \Google\Collection
 {
   /**
    * The user's choice of logs replication mode is unspecified.
@@ -43,6 +43,7 @@ class SoftwareConfig extends \Google\Model
    * Web server plugins are supported.
    */
   public const WEB_SERVER_PLUGINS_MODE_PLUGINS_ENABLED = 'PLUGINS_ENABLED';
+  protected $collection_key = 'imageVersionRollbackTargets';
   /**
    * Optional. Apache Airflow configuration properties to override. Property
    * keys contain the section and property names, separated by a hyphen, for
@@ -108,6 +109,8 @@ class SoftwareConfig extends \Google\Model
    * @var string
    */
   public $imageVersion;
+  protected $imageVersionRollbackTargetsType = ImageVersionRollbackTarget::class;
+  protected $imageVersionRollbackTargetsDataType = 'array';
   /**
    * Optional. Custom Python Package Index (PyPI) packages to be installed in
    * the environment. Keys refer to the lowercase package name such as "numpy"
@@ -268,6 +271,25 @@ class SoftwareConfig extends \Google\Model
   public function getImageVersion()
   {
     return $this->imageVersion;
+  }
+  /**
+   * Output only. The list of image versions the environment can be rolled back
+   * to, sorted by last_active_time in descending order (most recent first).
+   * This field is supported for Cloud Composer environments in versions
+   * composer-3-airflow-*.*.*-build.* and newer.
+   *
+   * @param ImageVersionRollbackTarget[] $imageVersionRollbackTargets
+   */
+  public function setImageVersionRollbackTargets($imageVersionRollbackTargets)
+  {
+    $this->imageVersionRollbackTargets = $imageVersionRollbackTargets;
+  }
+  /**
+   * @return ImageVersionRollbackTarget[]
+   */
+  public function getImageVersionRollbackTargets()
+  {
+    return $this->imageVersionRollbackTargets;
   }
   /**
    * Optional. Custom Python Package Index (PyPI) packages to be installed in

@@ -128,8 +128,6 @@ class UnitOperation extends \Google\Collection
    * @var string
    */
   public $etag;
-  protected $flagUpdateType = FlagUpdate::class;
-  protected $flagUpdateDataType = '';
   /**
    * Optional. The labels on the resource, which can be used for categorization.
    * similar to Kubernetes resource labels.
@@ -357,22 +355,6 @@ class UnitOperation extends \Google\Collection
   public function getEtag()
   {
     return $this->etag;
-  }
-  /**
-   * Optional. Flag update operation.
-   *
-   * @param FlagUpdate $flagUpdate
-   */
-  public function setFlagUpdate(FlagUpdate $flagUpdate)
-  {
-    $this->flagUpdate = $flagUpdate;
-  }
-  /**
-   * @return FlagUpdate
-   */
-  public function getFlagUpdate()
-  {
-    return $this->flagUpdate;
   }
   /**
    * Optional. The labels on the resource, which can be used for categorization.

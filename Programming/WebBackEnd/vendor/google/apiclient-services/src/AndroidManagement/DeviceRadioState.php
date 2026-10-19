@@ -102,8 +102,16 @@ class DeviceRadioState extends \Google\Model
    */
   public const USER_INITIATED_ADD_ESIM_SETTINGS_USER_INITIATED_ADD_ESIM_ALLOWED = 'USER_INITIATED_ADD_ESIM_ALLOWED';
   /**
-   * Supported only on company-owned devices. A NonComplianceDetail with
-   * MANAGEMENT_MODE is reported for personally-owned devices.
+   * Prevents the user from adding any new eSIM profiles. Note the following
+   * behaviors: * Admin-provisioned eSIMs: This setting does not block adding or
+   * managing eSIMs programmatically using commands like ADD_ESIM. * Existing
+   * eSIMs: Any eSIM profiles already present on the device before this
+   * restriction is applied, will remain and are not removed. To view existing
+   * eSIMs, refer to the data reported in TelephonyInfo.Supported on Android 15
+   * and higher. A NonComplianceDetail with API_LEVEL is reported if the Android
+   * version is less than 15.Supported only on company-owned devices. A
+   * NonComplianceDetail with MANAGEMENT_MODE is reported for personally-owned
+   * devices.
    */
   public const USER_INITIATED_ADD_ESIM_SETTINGS_USER_INITIATED_ADD_ESIM_DISALLOWED = 'USER_INITIATED_ADD_ESIM_DISALLOWED';
   /**

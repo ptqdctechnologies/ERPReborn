@@ -28,13 +28,26 @@ class WorkloadCapture extends \Google\Model
    */
   public const WORKLOAD_CAPTURE_STATE_RUNNING = 'RUNNING';
   /**
-   * Workload capture completed successfully.
+   * Workload capture completed successfully. This state is set when the user
+   * explicitly stops the capture.
    */
   public const WORKLOAD_CAPTURE_STATE_COMPLETED = 'COMPLETED';
   /**
    * Workload capture failed.
    */
   public const WORKLOAD_CAPTURE_STATE_FAILED = 'FAILED';
+  /**
+   * Workload capture was terminated automatically. This state is set when Cloud
+   * SQL automatically stops the capture due to a conflicting operation or when
+   * the maximum duration is reached.
+   */
+  public const WORKLOAD_CAPTURE_STATE_TERMINATED = 'TERMINATED';
+  /**
+   * Output only. The base backup ID associated with the workload capture.
+   *
+   * @var string
+   */
+  public $backupId;
   /**
    * Output only. The end time of the workload capture.
    *
@@ -78,6 +91,22 @@ class WorkloadCapture extends \Google\Model
    */
   public $workloadId;
 
+  /**
+   * Output only. The base backup ID associated with the workload capture.
+   *
+   * @param string $backupId
+   */
+  public function setBackupId($backupId)
+  {
+    $this->backupId = $backupId;
+  }
+  /**
+   * @return string
+   */
+  public function getBackupId()
+  {
+    return $this->backupId;
+  }
   /**
    * Output only. The end time of the workload capture.
    *
@@ -161,7 +190,7 @@ class WorkloadCapture extends \Google\Model
   /**
    * Output only. The state of the workload capture.
    *
-   * Accepted values: STATE_UNSPECIFIED, RUNNING, COMPLETED, FAILED
+   * Accepted values: STATE_UNSPECIFIED, RUNNING, COMPLETED, FAILED, TERMINATED
    *
    * @param self::WORKLOAD_CAPTURE_STATE_* $workloadCaptureState
    */

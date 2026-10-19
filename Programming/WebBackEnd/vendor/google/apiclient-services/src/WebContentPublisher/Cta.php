@@ -40,6 +40,10 @@ class Cta extends \Google\Model
    */
   public const TYPE_NEWSLETTER_SIGNUP = 'NEWSLETTER_SIGNUP';
   /**
+   * CTA for reader surveys.
+   */
+  public const TYPE_SURVEY = 'SURVEY';
+  /**
    * Required. The user-visible display name of the CTA.
    *
    * @var string
@@ -60,6 +64,8 @@ class Cta extends \Google\Model
    * @var string
    */
   public $state;
+  protected $surveyConfigType = SurveyConfig::class;
+  protected $surveyConfigDataType = '';
   /**
    * Required. The type of this CTA.
    *
@@ -136,9 +142,26 @@ class Cta extends \Google\Model
     return $this->state;
   }
   /**
+   * Optional. Configuration specific to survey CTAs. Only populated if type is
+   * `SURVEY`.
+   *
+   * @param SurveyConfig $surveyConfig
+   */
+  public function setSurveyConfig(SurveyConfig $surveyConfig)
+  {
+    $this->surveyConfig = $surveyConfig;
+  }
+  /**
+   * @return SurveyConfig
+   */
+  public function getSurveyConfig()
+  {
+    return $this->surveyConfig;
+  }
+  /**
    * Required. The type of this CTA.
    *
-   * Accepted values: TYPE_UNSPECIFIED, NEWSLETTER_SIGNUP
+   * Accepted values: TYPE_UNSPECIFIED, NEWSLETTER_SIGNUP, SURVEY
    *
    * @param self::TYPE_* $type
    */
