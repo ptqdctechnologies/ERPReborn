@@ -5,7 +5,7 @@
             <!-- PAYMENT INSTRUCTION -->
             <div class="row">
                 <div class="col-sm-4 col-md-5 p-0 text-bold">
-                    PAYMENT INSTRUCTION
+                    Payment Instruction
                 </div>
                 <div class="col-sm-8 col-md-7 p-0" style="line-height: normal;"></div>
             </div>
