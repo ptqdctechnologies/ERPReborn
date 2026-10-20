@@ -104,9 +104,8 @@ class DocumentTypeMapper
                 'parameter' => ['personBusinessTrip_RefID' => (int) $referenceId],
             ],
             'Person Business Trip Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key' => 'transaction.read.dataList.humanResource.getPersonBusinessTripSettlementDetail',
+                'parameter' => ['personBusinessTrip_RefID' => (int) $referenceId]
             ],
             'Product Form' => [
                 'key' => '',
@@ -598,26 +597,27 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Settlement Form' => [
                 'dataHeader' => [
-                    'btNumber' => 'BTStl/QDC/2025/000008',
-                    'budgetCode' => 'Q000196',
-                    'budgetName' => 'XL Microcell 2007',
-                    'subBudgetCode' => '235',
-                    'subBudgetName' => 'Ampang Kuranji - Padang',
-                    'fileID' => null,
+                    'btNumber' => $dataDetail['DocumentNumber'] ?? '-',
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? '-',
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? '-',
+                    'subBudgetCode' => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName' => $dataDetail['CombinedBudgetSectionName'] ?? '-',
+                    'fileID' => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
                     'description' => '820005-0000 (Travel & Fares/Business Trip)',
-                    'dateCommenceTravel' => '2025-12-18',
-                    'dateEndTravel' => '2025-12-20',
-                    'brfDate' => '2025-12-12',
+                    'dateCommenceTravel' => '-',
+                    'dateEndTravel' => '-',
+                    'brfDate' => '-',
                     'contactPhone' => '0896734873',
-                    'date' => '2025-06-04 10:47:11.993084+07',
-                    'dateUpdate' => null,
-                    'bankAccount' => 'PT QDC Technologies',
-                    'bankName' => 'BCA',
-                    'accountNumber' => '0063032911',
-                    'requesterName' => 'Abdollah Syani Siregar',
-                    'beneficiaryName' => 'Abdul Rachman',
-                    'departingFrom' => 'Jakarta',
-                    'destinationTo' => 'Batam',
+                    'date' => $dataDetail['DocumentDateTimeTZ'] ?? null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
+                    'bankAccount' => '-',
+                    'bankName' => '-',
+                    'accountNumber' => '-',
+                    'requesterName' => $dataDetail['RequesterWorkerName'] ?? '-',
+                    'beneficiaryName' => '-',
+                    'departingFrom' => '-',
+                    'destinationTo' => '-',
+                    'reasonToTravel' => '-'
                 ],
                 'dataAdditional' => [
                     'allowance' => '240000.00',
@@ -627,22 +627,19 @@ class DocumentTypeMapper
                     'other' => '100000.00',
                     'totalBRF' => '3890000.00'
                 ],
-                'textAreaFields' => [
-                    'title' => 'Reason to Travel',
-                    'text' => '-',
-                ],
                 'components' => [
                     'detail' => 'Components.BusinessTripSettlementDetailDocument',
-                    'table' => 'Components.BusinessTripSettlementDetailDocumentTable',
-                    'additional' => 'Components.BusinessTripSettlementCostDetailDocument'
+                    'additional_two' => 'Components.BusinessTripSettlementCostDetailDocument',
+                    'headerRevision' => 'Components.BusinessTripSettlementDetailDocumentHeaderRevision',
+                    'revision' => 'Components.BusinessTripSettlementDetailDocumentRevision'
                 ],
                 'resubmit' => [
-                    'url' => '',
-                    'name' => '',
-                    'value' => ''
+                    'url' => 'BusinessTripSettlement.RevisionBusinessTripSettlementIndex',
+                    'name' => 'modal_business_trip_settlement_id',
+                    'value' => $dataDetail['PersonBusinessTripSettlement_RefID'] ?? '-'
                 ],
                 'transactionType' => 'BUSINESS TRIP SETTLEMENT',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Product Form' => [
                 'dataHeader' => [
@@ -1010,6 +1007,7 @@ class DocumentTypeMapper
             'Journal Form' => 'Documents.Transactions.LogTransaction.LogTransactionJournal',
             'Payment Instruction Form' => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Person Business Trip Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Person Business Trip Settlement Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Purchase Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form' => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',

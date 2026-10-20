@@ -30,7 +30,7 @@
     </div>
 
     <!-- DESCRIPTION -->
-    <div class="row" style="line-height: 16px;">
+    <div class="row" style="margin-bottom: 1rem; line-height: 16px;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
             Description
         </div>
@@ -38,12 +38,37 @@
             : <?= $dataHeader['description']; ?>
         </div>
     </div>
+
+    <!-- FILE ATTACHMENT -->
+    <div class="row">
+        <div class="col-sm-4 col-md-4 p-0 text-bold">
+            File Attachment
+        </div>
+        <div class="col-sm-8 col-md-8 p-0 d-flex" style="gap: .2rem;">
+            <div>
+                :
+            </div>
+            <?php if ($dataHeader['fileID']) { ?>
+            <input type="text" id="dataInput_Log_FileUpload_1" name="dataInput_Log_FileUpload_1" style="display:none">
+            <?php    echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken,
+        'dataInput_Log_FileUpload',
+        $dataHeader['fileID']
+    ) .
+        ''; ?>
+            <?php } else { ?>
+            <div>-</div>
+            <?php } ?>
+        </div>
+    </div>
 </div>
 
 <div class="col-sm-12 col-md-4">
+    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- DATE COMMENCE TRAVEL -->
     <div class="row" style="margin-bottom: 1rem;">
-        <div class="col-sm-4 col-md-6 p-0 text-bold">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
             Date Commence Travel
         </div>
         <div class="col-sm-8 col-md-6 p-0">
@@ -53,7 +78,7 @@
 
     <!-- DATE END TRAVEL -->
     <div class="row" style="margin-bottom: 1rem;">
-        <div class="col-sm-4 col-md-6 p-0 text-bold">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
             Date End Travel
         </div>
         <div class="col-sm-8 col-md-6 p-0">
@@ -63,17 +88,30 @@
 
     <!-- BRF DATE -->
     <div class="row" style="margin-bottom: 1rem;">
-        <div class="col-sm-4 col-md-6 p-0 text-bold">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
             BRF Date
         </div>
         <div class="col-sm-8 col-md-6 p-0">
             : <?= $dataHeader['brfDate']; ?>
         </div>
     </div>
+    <?php } ?>
+
+    <?php if ($dataHeader['dateUpdate']) { ?>
+    <!-- REQUESTER -->
+    <div class="row" style="margin-bottom: 1rem;">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
+            Requester
+        </div>
+        <div class="col-sm-8 col-md-6 p-0">
+            : <?= $dataHeader['requesterName']; ?>
+        </div>
+    </div>
+    <?php } ?>
 
     <!-- CONTACT PHONE -->
     <div class="row" style="margin-bottom: 1rem;">
-        <div class="col-sm-4 col-md-6 p-0 text-bold">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
             Contact Phone
         </div>
         <div class="col-sm-8 col-md-6 p-0">
@@ -83,16 +121,18 @@
 
     <!-- BANK ACCOUNT -->
     <div class="row">
-        <div class="col-sm-4 col-md-6 p-0 text-bold">
+        <div class="col-sm-4 col-md-5 p-0 text-bold">
             Bank Account
         </div>
         <div class="col-sm-8 col-md-6 p-0" style="line-height: 16px;">
-            : (<?= $dataHeader['bankName']; ?>) <?= $dataHeader['accountNumber'] . ' - ' . $dataHeader['bankAccount']; ?>
+            : (<?= $dataHeader['bankName']; ?>)
+            <?= $dataHeader['accountNumber'] . ' - ' . $dataHeader['bankAccount']; ?>
         </div>
     </div>
 </div>
 
 <div class="col-sm-12 col-md-3">
+    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- REQUESTER -->
     <div class="row" style="margin-bottom: 1rem;">
         <div class="col-sm-4 col-md-6 p-0 text-bold">
@@ -124,7 +164,7 @@
     </div>
 
     <!-- DESTINATION TO -->
-    <div class="row">
+    <div class="row" style="margin-bottom: 1rem;">
         <div class="col-sm-4 col-md-6 p-0 text-bold">
             Destination To
         </div>
@@ -132,4 +172,15 @@
             : <?= $dataHeader['destinationTo']; ?>
         </div>
     </div>
+
+    <!-- REASON TO TRAVEL -->
+    <div class="row">
+        <div class="col-sm-4 col-md-6 p-0 text-bold">
+            Reason To Travel
+        </div>
+        <div class="col-sm-8 col-md-6 p-0">
+            : <?= $dataHeader['reasonToTravel']; ?>
+        </div>
+    </div>
+    <?php } ?>
 </div>

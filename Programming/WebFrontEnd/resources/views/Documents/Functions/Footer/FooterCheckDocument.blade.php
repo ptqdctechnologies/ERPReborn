@@ -191,7 +191,7 @@
             error: function (response) {
                 console.log('error: ', response);
 
-                ErrorNotif("Error getDocumentType!");
+                // ErrorNotif("Error getDocumentType!");
             }
         });
     }
