@@ -29,24 +29,175 @@
                     @endfor
                 @endif
             </tr>
-            @if(sizeof($dataHeaderTransactionHistory))
+            <!-- @if(sizeof($dataHeaderTransactionHistory))
                 <tr>
                     <th class="text-center"
-                        style="vertical-align: middle; left: 0px; z-index: 10;position: sticky; background-color: white;text-wrap-mode: nowrap;">
-                        Remarks</th>
+                        style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 0px; z-index: 10;position: sticky; background-color: white;text-wrap-mode: nowrap;">
+                        Date Commence Travel</th>
+                    <th class="text-center"
+                        style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 125px; z-index: 10;position: sticky; background-color: white;text-wrap-mode: nowrap;">
+                        Date End Travel</th>
+                    <th class="text-center"
+                        style="vertical-align: middle; width: 70px; min-width: 70px; max-width: 70px; left: 250px; z-index: 10;position: sticky; background-color: white;">
+                        Departing From</th>
+                    <th class="text-center"
+                        style="vertical-align: middle; width: 50px; min-width: 50px; max-width: 50px; left: 320px; z-index: 10;position: sticky; background-color: white;">
+                        Destination To</th>
+                    <th class="text-center"
+                        style="vertical-align: middle; width: 125px; min-width: 125px; max-width: 125px; left: 370px; z-index: 10;position: sticky; background-color: white;">
+                        Reason to Travel</th>
 
                     @for($i = 1; $i < 2; $i++)
                         <th class="text-center"
                             style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">
-                            Remarks</th>
+                            Date Commence Travel</th>
+                        <th class="text-center"
+                            style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">
+                            Date End Travel</th>
+                        <th class="text-center"
+                            style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">
+                            Departing From</th>
+                        <th class="text-center"
+                            style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">
+                            Destination To</th>
+                        <th class="text-center"
+                            style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">
+                            Reason to Travel</th>
                     @endfor
                 </tr>
-            @endif
+            @endif -->
         </thead>
         <tbody>
             <tr style="height: 40px;">
-                <td style="padding: 8px; position: sticky; background-color: white; left: 0px; z-index: 10;">
-                    -
+                <td class="bg-white">
+                    <!-- TOTAL ALLOWANCE -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Allowance
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['allowance'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL TRANSPORT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Transport
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['transport'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL ENTERTAINMENT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Entertainment
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['entertainment'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL ACCOMMODATION -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Accommodation
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['accommodation'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL OTHER -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Other
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['other'], 2); ?>
+                        </div>
+                    </div>
+
+                    <div class="row m-0">
+                        <hr class="m-0" style="width: 100%;" />
+                    </div>
+
+                    <!-- TOTAL BUSINESS SETTLEMENT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem; margin-top: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Business Trip Settlement
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['totalBRF'], 2); ?>
+                        </div>
+                    </div>
+                </td>
+                <td class="bg-white">
+                    <!-- TOTAL ALLOWANCE -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Allowance
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['allowance'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL TRANSPORT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Transport
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['transport'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL ENTERTAINMENT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Entertainment
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['entertainment'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL ACCOMMODATION -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Accommodation
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['accommodation'], 2); ?>
+                        </div>
+                    </div>
+
+                    <!-- TOTAL OTHER -->
+                    <div class="row ml-0" style="margin-bottom: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Other
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['other'], 2); ?>
+                        </div>
+                    </div>
+
+                    <div class="row m-0">
+                        <hr class="m-0" style="width: 100%;" />
+                    </div>
+
+                    <!-- TOTAL BUSINESS SETTLEMENT -->
+                    <div class="row ml-0" style="margin-bottom: 1rem; margin-top: 1rem;">
+                        <div class="col-sm-4 col-md-5 p-0 text-bold">
+                            Total Business Trip Settlement
+                        </div>
+                        <div class="col-sm-8 col-md-7 p-0">
+                            : <?= number_format($dataAdditional['totalBRF'], 2); ?>
+                        </div>
+                    </div>
                 </td>
             </tr>
         </tbody>
