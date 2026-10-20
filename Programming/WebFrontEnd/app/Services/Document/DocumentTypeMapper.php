@@ -617,7 +617,8 @@ class DocumentTypeMapper
                     'beneficiaryName' => '-',
                     'departingFrom' => '-',
                     'destinationTo' => '-',
-                    'reasonToTravel' => '-'
+                    'reasonToTravel' => '-',
+                    'remark' => $dataDetail['Remarks'] ?? '-'
                 ],
                 'dataAdditional' => [
                     'allowance' => '240000.00',

@@ -65,7 +65,6 @@
 </div>
 
 <div class="col-sm-12 col-md-4">
-    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- DATE COMMENCE TRAVEL -->
     <div class="row" style="margin-bottom: 1rem;">
         <div class="col-sm-4 col-md-5 p-0 text-bold">
@@ -95,19 +94,6 @@
             : <?= $dataHeader['brfDate']; ?>
         </div>
     </div>
-    <?php } ?>
-
-    <?php if ($dataHeader['dateUpdate']) { ?>
-    <!-- REQUESTER -->
-    <div class="row" style="margin-bottom: 1rem;">
-        <div class="col-sm-4 col-md-5 p-0 text-bold">
-            Requester
-        </div>
-        <div class="col-sm-8 col-md-6 p-0">
-            : <?= $dataHeader['requesterName']; ?>
-        </div>
-    </div>
-    <?php } ?>
 
     <!-- CONTACT PHONE -->
     <div class="row" style="margin-bottom: 1rem;">
@@ -132,7 +118,6 @@
 </div>
 
 <div class="col-sm-12 col-md-3">
-    <?php if (!$dataHeader['dateUpdate']) { ?>
     <!-- REQUESTER -->
     <div class="row" style="margin-bottom: 1rem;">
         <div class="col-sm-4 col-md-6 p-0 text-bold">
@@ -182,5 +167,4 @@
             : <?= $dataHeader['reasonToTravel']; ?>
         </div>
     </div>
-    <?php } ?>
 </div>
