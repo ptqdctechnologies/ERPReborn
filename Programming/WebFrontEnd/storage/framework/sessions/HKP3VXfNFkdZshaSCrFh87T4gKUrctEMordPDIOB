@@ -1,1 +1,1 @@
-a:3:{s:6:"_token";s:40:"OjGVJUC1s0K8QfbT0eWLIbngxpU4NGJNyF5NVj1L";s:9:"_previous";a:2:{s:3:"url";s:103:"http://172.28.0.4/report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll.v1_throughAPIGateway";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}
+a:3:{s:6:"_token";s:40:"dIQ1nUx8U8R0ZEbMPRusNqPQ8ReveHQ8GJwyrUrp";s:9:"_previous";a:2:{s:3:"url";s:76:"http://172.28.0.4/transaction.update.project.setProject.v1_throughAPIGateway";s:5:"route";N;}s:6:"_flash";a:2:{s:3:"old";a:0:{}s:3:"new";a:0:{}}}

@@ -43,8 +43,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000001                                                                                       |
-        | ▪ Last Update     : 2025-02-04                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-21                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -57,6 +57,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
         |      ▪ (string) varName ► Project Name                                                                                   |
         |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
@@ -70,7 +73,7 @@ namespace App\Models\Database\SchData_OLTP_Project
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null
             )
             {
             $varReturn =
@@ -90,6 +93,9 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varValidStartDateTimeTZ, 'timestamptz'],
@@ -142,8 +148,8 @@ namespace App\Models\Database\SchData_OLTP_Project
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0001.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-10                                                                                           |
+        | ▪ Version         : 1.0002.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-21                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -157,6 +163,9 @@ namespace App\Models\Database\SchData_OLTP_Project
         |      ▪ (int)    varSysBranch_RefID ► System Branch Reference ID                                                          |
         |      ▪ (int)    varSysBaseCurrency_RefID ► System Base Currency Reference ID                                             |
         |        ----------------------------------------                                                                          |
+        |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
+        |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
+        |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
         |      ▪ (string) varName ► Project Name                                                                                   |
         |      ▪ (int)    varMaterialProductAssembly_RefID ► Material Product Assembly Reference ID                                |
         |      ▪ (string) varValidStartDateTimeTZ ► Project Start Date Time TZ                                                     |
@@ -171,7 +180,7 @@ namespace App\Models\Database\SchData_OLTP_Project
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null
+             string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varName = null, $varMaterialProductAssembly_RefID = null, string $varValidStartDateTimeTZ = null, $varvalidFinishDateTimeTZ = null, string $varCode = null
             )
             {
             $varReturn =
@@ -191,6 +200,9 @@ namespace App\Models\Database\SchData_OLTP_Project
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
 
+                            [$varDocumentDateTimeTZ, 'timestamptz'],
+                            [$varLog_FileUpload_Pointer_RefID, 'bigint'],
+                            [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
                             [$varName, 'varchar'],
                             [$varMaterialProductAssembly_RefID, 'bigint'],
                             [$varValidStartDateTimeTZ, 'timestamptz'],

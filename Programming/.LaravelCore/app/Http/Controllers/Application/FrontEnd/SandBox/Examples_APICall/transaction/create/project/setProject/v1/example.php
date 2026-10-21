@@ -7,7 +7,7 @@
 | ▪ API Key     : transaction.create.project.setProject                                                                            |
 | ▪ API Version : 1                                                                                                                |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2024 Zheta (teguhpjs@gmail.com)                                                                                     |
+| ▪ Copyleft 🄯 2024 - 2026 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\transaction\create\project\setProject\v1
@@ -19,35 +19,48 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         | ▪ Call URL        : http(s)://<HOST>/transaction.create.project.setProject.v1_throughAPIGateway                          |
         |                     ► http://172.28.0.4/transaction.create.project.setProject.v1_throughAPIGateway                       |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2024-05-14                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-21                                                                                           |
         | ▪ Creation Date   : 2024-05-14                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
-                $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
+                $varAPIWebToken =
+                    \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
-            //---Core---
+
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.create.project.setProject', 
-                    'latest', 
-                    [
-                    'entities' => [
-                        "name" => 'Project XYZ',
-                        "materialProductAssembly_RefID" => null,
-                        "validStartDateTimeTZ" => '2024-05-01',
-                        "validFinishDateTimeTZ" => null,
-                        "code" => 'Qxxxxx'
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken,
+                        'transaction.create.project.setProject',
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'entities' => [
+                            "documentDateTimeTZ" => '2022-03-07',
+                            "log_FileUpload_Pointer_RefID" => 91000000000001,
+                            "requesterWorkerJobsPosition_RefID" => 164000000000497,
+                            "name" => 'Project XYZ',
+                            "materialProductAssembly_RefID" => null,
+                            "validStartDateTimeTZ" => '2024-05-01',
+                            "validFinishDateTimeTZ" => null,
+                            "code" => 'Qxxxxx'
+                            ]
                         ]
-                    ]                    
+                    //-----[ DATA ]---------(  END  )-----
                     );
-            var_dump($varData);
+
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 
