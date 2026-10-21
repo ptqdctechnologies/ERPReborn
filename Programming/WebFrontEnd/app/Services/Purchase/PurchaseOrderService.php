@@ -181,6 +181,8 @@ class PurchaseOrderService
                     "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
                     "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
                     "vatRatio" => $vatRatio,
+                    "currency_RefID" => (int) $data['currency_id'],
+                    "exchangeRateValue" => (float) str_replace(',', '', $data['exchange_rate']),
                     "additionalData" => [
                         "itemList" => [
                             "items" => $purchaseOrderDetail
@@ -250,6 +252,8 @@ class PurchaseOrderService
                     "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
                     "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
                     "vatRatio" => $vatRatio,
+                    "currency_RefID" => (int) $data['currency_id'],
+                    "exchangeRateValue" => (float) str_replace(',', '', $data['exchange_rate']),
                     'additionalData' => [
                         'itemList' => [
                             'items' => $detailItems

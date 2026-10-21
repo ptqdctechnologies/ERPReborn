@@ -8,6 +8,8 @@
     };
     let triggerButtonModal = null;
     let vat = document.getElementById("vatOption");
+    const exchangeRate = document.getElementById("exchange_rate");
+    const currencyID = document.getElementById("currency_id");
     const documentTypeID = document.getElementById("DocumentTypeID");
     const budgetID = document.getElementById("var_combinedBudget_RefID");
     const deliveryToIDs = document.getElementById("delivery_to_id");
@@ -432,6 +434,8 @@
                 approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
+                    exchange_rate: exchangeRate.value,
+                    currency_id: currencyID.value,
                     supplier_id: supplierID.value,
                     dateOfDelivery: dateOfDelivery.value,
                     purchaseOrderRecord_RefID: purchaseOrderRecordRefID.value,
@@ -802,6 +806,31 @@
             }
         });
     }
+
+    $('#tableCurrencies tbody').on('click', 'tr', function () {
+        const table = $('#tableCurrencies').DataTable();
+        const dataRow = table.row(this).data();
+
+        if (dataRow) {
+            const currencyRefID = dataRow.sys_ID;
+            const currencyExchangeRate = dataRow.exchangeRate;
+            const currencyISOCode = dataRow.ISOCode;
+            const currencyName = dataRow.name;
+
+            if (!currencyExchangeRate) {
+                Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
+
+                return;
+            }
+
+            $("#currency_id").val(currencyRefID);
+            $("#currency_name").val(`${currencyISOCode} - ${currencyName}`);
+            $("#currency_name").css('background-color', '#e9ecef');
+            $("#exchange_rate").val(Utils.formatCurrency(currencyExchangeRate));
+
+            $("#myCurrencies").modal('toggle');
+        }
+    });
 
     $('#delivery_to').on('input', function (e) {
         if (e.target.value == deliveryToAddress) {

@@ -12,6 +12,8 @@
         comment: null
     };
     let triggerButtonModal = null;
+    const exchangeRate = document.getElementById("exchange_rate");
+    const currencyID = document.getElementById("currency_id");
     const fileID = document.getElementById("dataInput_Log_FileUpload");
     const documentTypeID = document.getElementById("DocumentTypeID");
     const remarkPO = document.getElementById("remarkPO");
@@ -702,6 +704,8 @@
                 approverEntity: dataWorkflow.approverEntityRefID,
                 comment: dataWorkflow.comment,
                 storeData: {
+                    exchange_rate: exchangeRate.value,
+                    currency_id: currencyID.value,
                     supplier_id: supplierID.value,
                     dateOfDelivery: dateOfDelivery.value,
                     remarkPO: remarkPO.value,

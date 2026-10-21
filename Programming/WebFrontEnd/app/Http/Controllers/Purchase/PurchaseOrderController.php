@@ -123,7 +123,11 @@ class PurchaseOrderController extends Controller
                     'vatValue' => $dataPODetail[0]['vatRatio'] ?? null,
                     'isVATSelected' => $dataPODetail[0]['vatRatio'] != "0.00" ? 'selected' : '',
                     'transactionTaxDetailRefID' => $dataPODetail[0]['transactionTaxDetail_RefID'] ?? '',
-                    'isHaveAPValue' => $dataPODetail[0]['ap_Value'] > 0 ? true : false
+                    'isHaveAPValue' => $dataPODetail[0]['ap_Value'] > 0 ? true : false,
+                    'currencyRefID' => $dataPODetail[0]['currency_RefID'] ?? '',
+                    'currencyCode' => $dataPODetail[0]['currencyCode'] ?? '',
+                    'currencyName' => $dataPODetail[0]['currencyName'] ?? '',
+                    'exchangeRateValue' => $dataPODetail[0]['exchangeRateValue'] ? number_format($dataPODetail[0]['exchangeRateValue'], 2) : null,
                 ],
                 'detail' => $dataPODetail
             ];

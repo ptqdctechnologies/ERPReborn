@@ -3,6 +3,7 @@
   @include('Partials.navbar')
   @include('Partials.sidebar')
   @include('getFunction.getWorkFlows')
+  @include('getFunction.getCurrencies')
   @include('getFunction.getPurchaseOrder')
   @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPORevision')
   @include('Purchase.PurchaseOrder.Functions.PopUp.PopUpPurchaseOrderSummaryData')
