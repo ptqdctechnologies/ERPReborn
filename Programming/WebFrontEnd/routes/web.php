@@ -784,7 +784,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::post('UpdatePurchaseOrder', 'UpdatePurchaseOrder')
             ->name('PurchaseOrder.UpdatePurchaseOrder');
 
-        Route::post('RevisionPurchaseOrder', 'RevisionPurchaseOrder')
+        Route::post('RevisionPurchaseOrder', 'RevisionPurchaseOrderIndex')
             ->name('PurchaseOrder.RevisionPurchaseOrder');
 
         Route::get('ReportPurchaseOrderSummary', 'ReportPurchaseOrderSummary')
