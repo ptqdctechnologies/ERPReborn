@@ -112,7 +112,6 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                     $varData['entities']['depreciationCOA_RefID'],
                                     $varData['entities']['deduction'],
                                     $varData['entities']['remarks'],
-                                    $varData['entities']['exchangeRateValue'],
 
                                     (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
                                         $varUserSession,
