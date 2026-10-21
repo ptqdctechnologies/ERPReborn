@@ -2,7 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\Accounting\GeneralJournalController;
 use App\Http\Controllers\Accounting\JournalController;
+use App\Http\Controllers\Accounting\TaxReconController;
 
 use App\Http\Controllers\Budget\BudgetController;
 use App\Http\Controllers\Budget\BudgetProgressController;
@@ -14,6 +16,10 @@ use App\Http\Controllers\HumanResource\PieceMealController;
 use App\Http\Controllers\HumanResource\TimesheetController;
 
 use App\Http\Controllers\Inventory\DeliveryOrderRequestController;
+
+use App\Http\Controllers\Master\BankController;
+use App\Http\Controllers\Master\SupplierController;
+use App\Http\Controllers\Master\WarehouseController;
 
 use App\Http\Controllers\Purchase\OrderPickingController;
 use App\Http\Controllers\Purchase\PurchaseOrderController;
@@ -109,22 +115,43 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Dashboard', 'Dashboard\DashboardController')->only(['index']);
 
     // WAREHOUSE
-    Route::get('Warehouse/Type/picklist', 'Master\WarehouseController@type')->name('Warehouse.Type.picklist');
-    Route::get('Warehouse/picklist', 'Master\WarehouseController@picklist')->name('Warehouse.picklist');
-    Route::post('Warehouse/revision', 'Master\WarehouseController@revision')->name('Warehouse.revision');
-    Route::resource('Warehouse', 'Master\WarehouseController');
+    Route::controller(WarehouseController::class)->group(function () {
+        Route::get('Warehouse/Type/picklist', 'type')
+            ->name('Warehouse.Type.picklist');
+
+        Route::get('Warehouse/picklist', 'picklist')
+            ->name('Warehouse.picklist');
+
+        Route::post('Warehouse/revision', 'revision')
+            ->name('Warehouse.revision');
+    });
+    Route::resource('Warehouse', WarehouseController::class);
 
     // BANK
-    Route::get('Bank/picklist', 'Master\BankController@picklist')->name('Bank.picklist');
-    Route::get('Bank/Account/picklist', 'Master\BankController@accountPicklist')->name('Bank.Account.picklist');
-    Route::resource('Bank', 'Master\BankController');
+    Route::controller(BankController::class)->group(function () {
+        Route::get('Bank/picklist', 'picklist')
+            ->name('Bank.picklist');
+
+        Route::get('Bank/Account/picklist', 'accountPicklist')
+            ->name('Bank.Account.picklist');
+    });
+    Route::resource('Bank', BankController::class);
 
     // SUPPLIER
-    Route::post('Supplier/revision', 'Master\SupplierController@revision')->name('Supplier.revision');
-    Route::post('Supplier/picklist', 'Master\SupplierController@picklist')->name('Supplier.picklist');
-    Route::post('Supplier/summary', 'Master\SupplierController@summary')->name('Supplier.summary');
-    Route::post('Supplier/export', 'Master\SupplierController@export')->name('Supplier.export');
-    Route::resource('Supplier', 'Master\SupplierController');
+    Route::controller(SupplierController::class)->group(function () {
+        Route::post('Supplier/revision', 'revision')
+            ->name('Supplier.revision');
+
+        Route::post('Supplier/picklist', 'picklist')
+            ->name('Supplier.picklist');
+
+        Route::post('Supplier/summary', 'summary')
+            ->name('Supplier.summary');
+
+        Route::post('Supplier/export', 'export')
+            ->name('Supplier.export');
+    });
+    Route::resource('Supplier', SupplierController::class);
 
     // CATEGORY SUPPLIER
     Route::get('CategorySupplier/picklist', 'Master\CategorySupplierController@picklist')->name('CategorySupplier.picklist');
@@ -491,15 +518,27 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Journal', JournalController::class);
 
     // GENERAL JOURNAL
-    Route::get('ReportGeneralJournalSummary', 'Accounting\GeneralJournalController@ReportGeneralJournalSummary')->name('GeneralJournal.ReportGeneralJournalSummary');
-    Route::post('GeneralJournal/report/summary/store', 'Accounting\GeneralJournalController@ReportGeneralJournalSummaryStore')->name('GeneralJournal.ReportGeneralJournalSummaryStore');
-    Route::post('GeneralJournal/revision', 'Accounting\GeneralJournalController@revision')->name('GeneralJournal.Revision');
-    Route::resource('GeneralJournal', 'Accounting\GeneralJournalController');
+    Route::controller(GeneralJournalController::class)->group(function () {
+        Route::get('ReportGeneralJournalSummary', 'ReportGeneralJournalSummary')
+            ->name('GeneralJournal.ReportGeneralJournalSummary');
+
+        Route::post('GeneralJournal/report/summary/store', 'ReportGeneralJournalSummaryStore')
+            ->name('GeneralJournal.ReportGeneralJournalSummaryStore');
+
+        Route::post('GeneralJournal/revision', 'revision')
+            ->name('GeneralJournal.Revision');
+    });
+    Route::resource('GeneralJournal', GeneralJournalController::class);
 
     // TAX RECON
-    Route::post('RevisionTaxRecon', 'Accounting\TaxReconController@RevisionTaxRecon')->name('TaxRecon.Revision');
-    Route::get('ReportTaxReconSummary', 'Accounting\TaxReconController@ReportTaxReconSummary')->name('TaxRecon.ReportTaxReconSummary');
-    Route::resource('TaxRecon', 'Accounting\TaxReconController');
+    Route::controller(TaxReconController::class)->group(function () {
+        Route::post('RevisionTaxRecon', 'RevisionTaxRecon')
+            ->name('TaxRecon.Revision');
+
+        Route::get('ReportTaxReconSummary', 'ReportTaxReconSummary')
+            ->name('TaxRecon.ReportTaxReconSummary');
+    });
+    Route::resource('TaxRecon', TaxReconController::class);
 
     // ADVANCE REQUEST
     Route::controller(AdvanceRequestController::class)->group(function () {

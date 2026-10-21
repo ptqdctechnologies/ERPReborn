@@ -110,6 +110,6 @@
     </div>
 
     @include('Finance.Journal.Functions.Footer.index')
-    @include('Finance.Journal.Functions.Footer.create')
+    @include('Finance.Journal.Functions.Footer.revision')
     @include('Partials.footer')
 @endsection

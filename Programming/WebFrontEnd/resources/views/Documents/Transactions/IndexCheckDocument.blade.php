@@ -108,11 +108,38 @@
               </div>
               <?php  } ?>
 
+              <!-- ADDITIONAL TWO -->
+              <?php  if (isset($components['additional_two']) && !$dataHeader['dateUpdate']) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['additional_two'])
+                </div>
+              </div>
+              <?php  } ?>
+
               <!-- INFORMATION -->
               <?php  if (isset($components['information'])) { ?>
               <div class="col-12 ShowDocumentList">
                 <div class="card">
                   @include($components['information'])
+                </div>
+              </div>
+              <?php  } ?>
+
+              <!-- INFORMATION TWO -->
+              <?php  if (isset($components['information_two']) && !$dataHeader['dateUpdate']) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['information_two'])
+                </div>
+              </div>
+              <?php  } ?>
+
+              <!-- INFORMATION REVISION -->
+              <?php  if (isset($components['information_revision']) && $dataHeader['dateUpdate']) { ?>
+              <div class="col-12 ShowDocumentList">
+                <div class="card">
+                  @include($components['information_revision'])
                 </div>
               </div>
               <?php  } ?>

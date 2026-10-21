@@ -74,35 +74,57 @@
                         const combinedBudgetRefID = data.additionalData ? data.additionalData.combinedBudget_RefID : '';
 
                         return (
-                            '<input id="sys_id_check_document' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' +
+                            // '<input id="sys_id_check_document' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_check_document" type="hidden">' +
                             '<input id="sys_document_type_name' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + DocumentTypeName + '" data-trigger="sys_document_type_name" type="hidden">' +
-                            '<input id="sys_id_combined_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' +
-                            '<input id="sys_id_document_type' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + combinedBudgetRefID + '" data-trigger="sys_id_document_type" type="hidden">' +
+                            // '<input id="sys_id_combined_budget' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + params.value + '" data-trigger="sys_id_combined_budget" type="hidden">' +
+                            // '<input id="sys_id_document_type' + (meta.row + meta.settings._iDisplayStart + 1) + '" value="' + combinedBudgetRefID + '" data-trigger="sys_id_document_type" type="hidden">' +
                             (meta.row + meta.settings._iDisplayStart + 1)
                         )
                     }
                 },
                 {
-                    data: 'sys_Text',
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap"
-                },
-                {
                     data: null,
-                    defaultContent: '-',
-                    className: "align-middle text-nowrap text-center",
+                    className: "align-middle text-nowrap",
                     render: function (data, type, row, meta) {
-                        return `${data.combinedBudgetCode || data.additionalData.combinedBudgetCode || '-'}`
-                        // return `${data.additionalData.combinedBudgetCode} - ${data.additionalData.combinedBudgetName}`
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.documentNumber;
+                        } else if (data.additionalData) {
+                            result = data.sys_Text;
+                        }
+
+                        return result;
                     }
                 },
                 {
                     data: null,
-                    defaultContent: '-',
                     className: "align-middle text-nowrap text-center",
                     render: function (data, type, row, meta) {
-                        return `${data.combinedBudgetSectionCode || data.additionalData.combinedBudgetSectionCode || '-'}`
-                        // return `${data.additionalData.combinedBudgetSectionCode} - ${data.additionalData.combinedBudgetSectionName}`
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.combinedBudgetCodeArray[0];
+                        } else if (data.additionalData) {
+                            result = data.additionalData.combinedBudgetCode;
+                        }
+
+                        return result;
+                    }
+                },
+                {
+                    data: null,
+                    className: "align-middle text-nowrap text-center",
+                    render: function (data, type, row, meta) {
+                        let result = '-';
+
+                        if (data.entities) {
+                            result = data.entities.combinedBudgetSectionCodeArray[0];
+                        } else if (data.additionalData) {
+                            result = data.additionalData.combinedBudgetSectionCode;
+                        }
+
+                        return result;
                     }
                 }
             ],
@@ -169,7 +191,7 @@
             error: function (response) {
                 console.log('error: ', response);
 
-                ErrorNotif("Error getDocumentType!");
+                // ErrorNotif("Error getDocumentType!");
             }
         });
     }
@@ -183,6 +205,9 @@
 
         $('#mySearchCheckDocument').modal('hide');
 
+        const table = $('#TableCheckDocument').DataTable();
+        const dataRow = table.row(this).data();
+
         if (sysIdDocumentType != "null" && sysIdCombinedBudget != "null") {
             // $('#loadingDocTracking').show();
             // $('.mySearchCheckDocument').hide();
@@ -195,17 +220,17 @@
             $('.mySearchCheckDocument').show();
             $('#loadingDocTracking').hide();
 
-            $("#businessDocument_RefID").val(sysId);
+            $("#businessDocument_RefID").val(dataRow.recordID ? dataRow.recordID : dataRow.sys_ID);
             $("#businessDocumentType_Name").val(docTypeName);
-            $("#businessDocumentNumber").val(trano);
+            $("#businessDocumentNumber").val(dataRow.entities ? dataRow.entities.fullDocumentNumber : dataRow.sys_Text);
             // } else {
             //     $('.mySearchCheckDocument').show();
             //     $('#loadingDocTracking').hide();
             // }
         } else {
-            $("#businessDocument_RefID").val(sysId);
+            $("#businessDocument_RefID").val(dataRow.recordID ? dataRow.recordID : dataRow.sys_ID);
             $("#businessDocumentType_Name").val(docTypeName);
-            $("#businessDocumentNumber").val(trano);
+            $("#businessDocumentNumber").val(dataRow.entities ? dataRow.entities.fullDocumentNumber : dataRow.sys_Text);
         }
     });
 
