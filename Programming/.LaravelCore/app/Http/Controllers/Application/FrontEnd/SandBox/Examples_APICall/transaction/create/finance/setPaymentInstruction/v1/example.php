@@ -68,7 +68,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "depreciationCOA_RefID" => 65000000000005,
                             "deduction" => 0,
                             "remarks" => 'My Remarks',
-                            "exchangeRateValue" => 17800,
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
