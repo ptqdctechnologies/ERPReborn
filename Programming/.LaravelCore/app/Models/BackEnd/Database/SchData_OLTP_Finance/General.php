@@ -2149,7 +2149,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                         $varReturn['data'][$idxArray]['combinedBudgetName'] = $value["CombinedBudgetName"];
                         $varReturn['data'][$idxArray]['combinedBudgetSectionCode'] = $value["CombinedBudgetSectionCode"];
                         $varReturn['data'][$idxArray]['combinedBudgetSectionName'] = $value["CombinedBudgetSectionName"];
-                        $varReturn['data'][$idxArray]['exchangeRateValue'] = $value["ExchangeRateValue"];
                         $idxArray++;
                     }
 
