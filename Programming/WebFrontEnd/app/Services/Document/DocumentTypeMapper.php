@@ -407,33 +407,41 @@ class DocumentTypeMapper
             ],
             'Loan Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => null,
-                    'loanNumber' => 'LN/QDC/2025/000001',
-                    'loanType' => '-',
-                    'creditors' => 'Ajeng Supratna',
-                    'debtor' => 'Timothy Fajar',
-                    'bankName' => 'BCA',
-                    'bankAccount' => '32382231293',
-                    'principalLoan' => 'Dadang Surana',
-                    'landingRate' => 20000.32,
-                    'totalRate' => 30233.94,
-                    'loanTerm' => '-',
-                    'COA' => '100021 - Bank',
+                    'loanNumber' => $dataDetail['BusinessDocumentNumber'] ?? '',
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? '',
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? '',
+                    'loanType' => $dataDetail['LoanType'] ?? '',
+                    'creditors' => $dataDetail['CreditorName'] ?? '',
+                    'debitor' => $dataDetail['DebitorName'] ?? '',
+                    'currency' => $dataDetail['CurrencyName'] ?? '',
+                    'bankName' => $dataDetail['BankCode'] ?? '',
+                    'bankAccount' => $dataDetail['BankAccountNumber'] ?? '',
+                    'loanDate' => $dataDetail['LoanDate'] ?? '',
+                    'coaCode' => $dataDetail['COA_Code'] ?? '',
+                    'coaName' => $dataDetail['COA_Name'] ?? '',
+                    'principalLoan' => $dataDetail['PrincipleLoan'] ?? 0,
+                    'lendingRate' => $dataDetail['LendingRate'] ?? 0,
+                    'loanTerm' => $dataDetail['LoanTerm'] ?? 0,
+                    'loanTotal' => $dataDetail['TotalLoan'] ?? 0,
+                    'date' => $dataDetail['Date'] ?? null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null
                 ],
                 'textAreaFields' => [
-                    'title' => 'Notes',
-                    'text' => '-',
+                    'title' => 'Remark',
+                    'text' => $dataDetail['Notes'] ?? '',
                 ],
                 'components' => [
                     'detail' => 'Components.LoanDetailDocument',
+                    'headerRevision' => 'Components.LoanDetailDocumentHeaderRevision',
+                    'revision' => 'Components.LoanDetailDocumentRevision'
                 ],
                 'resubmit' => [
-                    'url' => '',
-                    'name' => '',
-                    'value' => ''
+                    'url' => 'Loan.RevisionLoan',
+                    'name' => 'modal_loan_id',
+                    'value' => $dataDetail['Loan_RefID'] ?? ''
                 ],
                 'transactionType' => 'LOAN',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Loan Settlement Form' => [
                 'dataHeader' => [
@@ -1006,6 +1014,7 @@ class DocumentTypeMapper
             'Debit Note Form' => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
             'Journal Form' => 'Documents.Transactions.LogTransaction.LogTransactionJournal',
+            'Loan Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Payment Instruction Form' => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
             'Person Business Trip Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Person Business Trip Settlement Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',

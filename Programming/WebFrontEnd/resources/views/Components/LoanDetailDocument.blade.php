@@ -11,6 +11,16 @@
             </div>
         </div>
 
+        <!-- BUDGET CODE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Budget Code
+            </div>
+            <div class="col">
+                : <?= $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName']; ?>
+            </div>
+        </div>
+
         <!-- LOAN TYPE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
@@ -21,33 +31,43 @@
             </div>
         </div>
 
-        <!-- LOAN TERM -->
+        <!-- CREDITOR -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Term Loan
-            </div>
-            <div class="col">
-                : <?= $dataHeader['loanTerm']; ?>
-            </div>
-        </div>
-
-        <!-- CREDITORS -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Creditors
+                Creditor
             </div>
             <div class="col">
                 : <?= $dataHeader['creditors']; ?>
             </div>
         </div>
 
-        <!-- DEBITORS -->
-        <div class="row">
+        <!-- DEBITOR -->
+        <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Debitors
+                Debitor
             </div>
             <div class="col">
-                : <?= $dataHeader['debtor']; ?>
+                : <?= $dataHeader['debitor']; ?>
+            </div>
+        </div>
+
+        <!-- CURRENCY -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Currency
+            </div>
+            <div class="col">
+                : <?= $dataHeader['currency']; ?>
+            </div>
+        </div>
+
+        <!-- ACCOUNT NUMBER -->
+        <div class="row">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Account Number
+            </div>
+            <div class="col">
+                : <?= $dataHeader['bankName'] . ' - ' . $dataHeader['bankAccount']; ?>
             </div>
         </div>
     </div>
@@ -56,54 +76,75 @@
 <!-- RIGHT COLUMN -->
 <div class="col-12 col-md-5 col-lg-5">
     <div class="form-group">
-        <!-- BANK -->
+        <!-- LOAN DATE -->
         <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Bank
+                Loan Date
             </div>
             <div class="col">
-                : <?= $dataHeader['bankName'] . ' - ' . $dataHeader['bankAccount']; ?> 
+                : <?= $dataHeader['loanDate']; ?>
             </div>
         </div>
-
-        <!-- PRINCIPAL LOAN -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Loan Amount
-            </div>
-            <div class="col">
-                : 10,233.94
-            </div>
-        </div>
-
-        <!-- LANDING RATE -->
-        <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Landing Rate
-            </div>
-            <div class="col">
-                : <?= number_format($dataHeader['landingRate'], 2); ?>
-            </div>
-        </div>
-
-        <!-- TOTAL RATE -->
-        <!-- DIHAPUS -->
-        {{-- <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
-                Total Loan
-            </div>
-            <div class="col">
-                : <?php number_format($dataHeader['totalRate'], 2); ?>
-            </div>
-        </div> --}}
 
         <!-- COA -->
-        <div class="row">
+        <div class="row" style="margin-bottom: 1rem;">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
                 COA
             </div>
             <div class="col">
-                : <?= $dataHeader['COA']; ?>
+                : <?= $dataHeader['coaCode'] . ' - ' . $dataHeader['coaName']; ?>
+            </div>
+        </div>
+
+        <?php if (!$dataHeader['dateUpdate']) { ?>
+        <!-- LOAN PRINCIPAL -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Loan Principal
+            </div>
+            <div class="col">
+                : -
+            </div>
+        </div>
+
+        <!-- LENDING RATE -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Lending Rate
+            </div>
+            <div class="col">
+                : <?= number_format($dataHeader['lendingRate'], 2); ?>
+            </div>
+        </div>
+
+        <!-- LOAN TERM -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Loan Term
+            </div>
+            <div class="col">
+                : <?= $dataHeader['loanTerm']; ?>
+            </div>
+        </div>
+
+        <!-- LOAN TOTAL -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                Loan Total
+            </div>
+            <div class="col">
+                : -
+            </div>
+        </div>
+        <?php } ?>
+
+        <!-- FILE ATTACHMENT -->
+        <div class="row">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                File Attachment
+            </div>
+            <div class="col">
+                : -
             </div>
         </div>
     </div>
