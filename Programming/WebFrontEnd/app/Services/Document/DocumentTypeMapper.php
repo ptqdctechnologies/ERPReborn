@@ -444,7 +444,7 @@ class DocumentTypeMapper
             ],
             'Loan Settlement Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => $dataDetail['DateUpdate'] ?? '-',
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? NULL,
                     'loanSettlementNumber' => $dataDetail['BusinessDocumentNumber'] ?? '-',
                     'loanNumber' => $dataDetail['Reference_Name'] ?? '-',
                     'loanType' => $dataDetail['LoanType'] ?? '-',
@@ -474,7 +474,8 @@ class DocumentTypeMapper
                 ],
                 'components' => [
                     'detail' => 'Components.LoanSettlementDetailDocument',
-                    'table' => 'Components.LoanSettlementDetailDocumentTable'
+                    'headerRevision' => 'Components.LoanSettlementDetailDocumentHeaderRevision',
+                    'table' => 'Components.LoanSettlementDetailDocumentTable',
                 ],
                 'resubmit' => [
                     'url' => 'LoanSettlement.RevisionLoanSettlement',
