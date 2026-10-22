@@ -332,9 +332,11 @@
 
             if (isStart) {
                 /* Only "add approver" button on start level */
-                levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
-                    '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
-                    '</button>';
+                levelActionsHtml += '';
+
+                // levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
+                //     '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
+                //     '</button>';
             }
 
             if (isApprover) {
