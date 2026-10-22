@@ -209,11 +209,11 @@
     }
 
     /* Add-person footer row */
-    .wf-person-add-row {
+    /* .wf-person-add-row {
         padding: 6px 0 2px 0;
         border-top: 1px dashed #dee2e6;
         margin-top: 4px;
-    }
+    } */
 
     /* Responsive */
     @media (max-width: 576px) {
@@ -330,10 +330,16 @@
             /* --- Action buttons (level) --- */
             var levelActionsHtml = '';
 
-            if (isStart) {
-                /* Only "add approver" button on start level */
-                levelActionsHtml += '';
+            if (isStart || isApprover) { // if (isStart) {
+                levelActionsHtml +=
+                    '<div class="wf-person-add-row">' +
+                    '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+                    'data-level-uid="' + level.uid + '">' +
+                    '<i class="fas fa-plus mr-1"></i>' +
+                    '</button>' +
+                    '</div>';
 
+                /* Only "add approver" button on start level */
                 // levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
                 //     '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
                 //     '</button>';
@@ -377,16 +383,16 @@
                     '</span>' +
                     '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
                     '<div class="wf-person-actions">' +
-                    '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
-                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                    (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
-                    '<i class="fas fa-chevron-up"></i>' +
-                    '</button>' +
-                    '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
-                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                    (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
-                    '<i class="fas fa-chevron-down"></i>' +
-                    '</button>' +
+                    // '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
+                    // 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    // (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
+                    // '<i class="fas fa-chevron-up"></i>' +
+                    // '</button>' +
+                    // '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
+                    // 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    // (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
+                    // '<i class="fas fa-chevron-down"></i>' +
+                    // '</button>' +
                     '<button type="button" class="wf-btn wf-btn-danger btn-delete-person ' + pDeleteDisabled + '" ' +
                     'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
                     (pDeleteDisabled ? 'disabled' : '') + ' title="Hapus Person">' +
@@ -397,13 +403,15 @@
             });
 
             /* --- Add person footer --- */
-            var addPersonFooterHtml =
-                '<div class="wf-person-add-row">' +
-                '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
-                'data-level-uid="' + level.uid + '">' +
-                '<i class="fas fa-plus mr-1"></i> Add Person' +
-                '</button>' +
-                '</div>';
+            var addPersonFooterHtml = '';
+
+            // var addPersonFooterHtml =
+            //     '<div class="wf-person-add-row">' +
+            //     '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+            //     'data-level-uid="' + level.uid + '">' +
+            //     '<i class="fas fa-plus mr-1"></i> Add Person' +
+            //     '</button>' +
+            //     '</div>';
 
             /* --- Full card HTML --- */
             var cardHtml =
@@ -438,6 +446,8 @@
                 );
             }
         });
+
+        $('#section_two_button').css('display', 'flex');
     }
 
     /* ============================================================
