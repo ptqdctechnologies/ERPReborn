@@ -48,7 +48,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         'entities' => [
                             "documentDateTimeTZ" => '2025-10-09',
                             "log_FileUpload_Pointer_RefID" => NULL,
-                            "currency_RefID" => 62000000000002,
+                            "currency_RefID" => 62000000000001,
                             "currencySymbol" => 'Rp',
                             "currencyValue" => 15080000.00,
                             "currencyExchangeRate" => 1.00,
