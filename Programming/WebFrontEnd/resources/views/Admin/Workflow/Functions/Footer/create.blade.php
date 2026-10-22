@@ -189,7 +189,7 @@
         position: relative;
     }
 
-    .wf-connector::before {
+    /* .wf-connector::before {
         content: '';
         position: absolute;
         top: 50%;
@@ -199,7 +199,7 @@
         height: 26px;
         background: #dee2e6;
         z-index: 0;
-    }
+    } */
 
     .wf-connector i {
         position: relative;
@@ -432,7 +432,7 @@
             /* Append connector arrow (not after last) */
             if (idx < totalLevels - 1) {
                 $container.append(
-                    '<div class="col-12 wf-connector"><i class="fas fa-chevron-down"></i></div>'
+                    '<div class="col-12 wf-connector"></div>' // '<div class="col-12 wf-connector"><i class="fas fa-chevron-down"></i></div>'
                 );
             }
         });
