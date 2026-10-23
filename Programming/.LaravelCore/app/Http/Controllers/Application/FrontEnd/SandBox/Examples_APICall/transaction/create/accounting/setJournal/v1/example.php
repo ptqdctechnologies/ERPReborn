@@ -46,6 +46,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 76000000000947,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -96,6 +97,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 83000000000257,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -145,6 +147,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 85000000000205,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -194,6 +197,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
                                     "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 76000000000942,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
