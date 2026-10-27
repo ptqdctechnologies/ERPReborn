@@ -31,17 +31,22 @@ class PurchaseOrderController extends Controller
     // |                                        TRANSACTIONS                                                                      |
     // +--------------------------------------------------------------------------------------------------------------------------+
 
-    public function index(Request $request)
+    public function index()
     {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
+        return view('Purchase.PurchaseOrder.Transactions.index');
+    }
+
+    public function create()
+    {
+        $token = Session::get('SessionLogin');
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Form');
 
-        return view('Purchase.PurchaseOrder.Transactions.CreatePurchaseOrder', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'documentType_RefID' => $documentTypeRefID
-        ]);
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Purchase.PurchaseOrder.Transactions.create', $compact);
     }
 
     public function store(Request $request)
@@ -50,23 +55,26 @@ class PurchaseOrderController extends Controller
             $response = $this->purchaseOrderService->create($request);
 
             if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Create Purchase Order');
+                throw new \Exception('Failed to fetch Create Purchase Order => ' . $response['data']['message']);
             }
+
+            $workflowPathID = $request->input('workflow_path_id');
+            $workflowComment = $request->input('workflow_comment');
 
             $responseWorkflow = $this->workflowService->submit(
                 $response['data']['businessDocument']['businessDocument_RefID'],
-                $request->workFlowPath_RefID,
-                $request->comment,
-                $request->approverEntity,
+                $workflowPathID,
+                $workflowComment,
+                null
             );
 
             if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order');
+                throw new \Exception('Failed to fetch Submit Workflow Create Purchase Order => ' . $responseWorkflow['data']['message']);
             }
 
             $compact = [
                 "documentNumber" => $response['data']['businessDocument']['documentNumber'],
-                "status" => $response['metadata']['HTTPStatusCode'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
             ];
 
             return response()->json($compact);

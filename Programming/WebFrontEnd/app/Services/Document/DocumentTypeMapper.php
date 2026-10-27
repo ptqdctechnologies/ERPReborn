@@ -444,7 +444,7 @@ class DocumentTypeMapper
             ],
             'Loan Settlement Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => $dataDetail['DateUpdate'] ?? NULL,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
                     'loanSettlementNumber' => $dataDetail['BusinessDocumentNumber'] ?? '-',
                     'loanNumber' => $dataDetail['Reference_Name'] ?? '-',
                     'loanType' => $dataDetail['LoanType'] ?? '-',

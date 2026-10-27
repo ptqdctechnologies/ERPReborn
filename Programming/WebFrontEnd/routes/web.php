@@ -832,7 +832,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::post('PrintExportReportCFS', 'PrintExportReportCFS')
             ->name('PurchaseOrder.PrintExportReportCFS');
     });
-    Route::resource('PurchaseOrder', PurchaseOrderController::class)->only(['index', 'store', 'update']);
+    Route::resource('PurchaseOrder', PurchaseOrderController::class);
 
     // LOAN
     Route::controller(LoanController::class)->group(function () {

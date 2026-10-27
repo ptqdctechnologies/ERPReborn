@@ -285,12 +285,26 @@
     max-width: 125px;
     right: 420px;
   }
-  
+
   .sixth-col-po {
     width: 100px;
     min-width: 100px;
     max-width: 100px;
     right: 545px;
+  }
+
+  .seventh-col-po {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    right: 645px;
+  }
+
+  .eighth-col-po {
+    width: 100px;
+    min-width: 100px;
+    max-width: 100px;
+    right: 745px;
   }
 
   /* PR */
@@ -329,7 +343,7 @@
     max-width: 125px;
     right: 420px;
   }
-  
+
   .sixth-col-pr {
     width: 100px;
     min-width: 100px;
