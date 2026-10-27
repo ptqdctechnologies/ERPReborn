@@ -2,6 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
+    @include('getFunction.getPurchaseOrder')
     @include('Purchase.PurchaseOrder.Functions.PopUp.revision')
 
     <div class="content-wrapper">
@@ -21,5 +22,6 @@
         </section>
     </div>
 
+    @include('Purchase.PurchaseOrder.Functions.Footer.index')
     @include('Partials.footer')
 @endsection

@@ -4,6 +4,7 @@
     @include('Partials.sidebar')
     @include('getFunction.getSuppliers')
     @include('getFunction.getCurrencies')
+    @include('getFunction.getPurchaseOrder')
     @include('getFunction.getPurchaseRequisition')
     @include('Purchase.PurchaseOrder.Functions.PopUp.revision')
     @include('Purchase.PurchaseOrder.Functions.PopUp.summary')
@@ -176,6 +177,7 @@
         </section>
     </div>
 
+    @include('Purchase.PurchaseOrder.Functions.Footer.index')
     @include('Purchase.PurchaseOrder.Functions.Footer.create')
     @include('Partials.footer')
 @endsection
