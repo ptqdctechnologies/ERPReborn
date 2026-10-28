@@ -13,7 +13,8 @@
         </div>
         <div style="flex: 100%;">
             <input type="text" class="form-control datetimepicker-input" name="date_of_delivery" id="date_of_delivery"
-                data-target="#date_of_delivery_picker" autocomplete="off" style="border-radius: unset;" />
+                data-target="#date_of_delivery_picker" autocomplete="off"
+                style="border-radius: unset; background-color: <?= isset($date_of_delivery) ? '#e9ecef' : ''; ?>;" />
         </div>
     </div>
 </div>

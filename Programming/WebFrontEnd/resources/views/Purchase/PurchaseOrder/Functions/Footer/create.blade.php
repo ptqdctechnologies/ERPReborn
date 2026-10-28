@@ -323,6 +323,7 @@
             <td class="sticky-col fifth-col-po"
                 style="border:1px solid #e9ecef;background-color:white;">
                 <input
+                    disabled
                     type="text"
                     id="price_req_idr${indexPurchaseOrder}"
                     class="form-control number-without-negative"
@@ -682,7 +683,7 @@
                 record_id: budgetCodeID
             },
             success: function (response) {
-                if (response.status === 200 && !response.isAvailable) {
+                if (response.status === 200 && response.isAvailable) {
                     listBudgetID = budgetCodeID;
 
                     getPurchaseRequisitionDetails();

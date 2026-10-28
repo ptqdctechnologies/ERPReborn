@@ -4,7 +4,8 @@
     </label>
     <div class="col-5 d-flex">
         <div class="input-group">
-            <textarea id="internal_note" class="form-control" rows="3" name="internal_note"></textarea>
+            <textarea id="internal_note" class="form-control" rows="3"
+                name="internal_note"><?= isset($internal_notes) ? $internal_notes : ''; ?></textarea>
         </div>
     </div>
 </div>

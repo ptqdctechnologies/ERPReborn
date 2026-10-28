@@ -5,7 +5,8 @@
     <div class="col-5 d-flex">
         <div class="input-group">
             <input type="text" id="exchange_rate" name="exchange_rate" autocomplete="off"
-                class="form-control number-only" style="border-radius:0;" />
+                class="form-control number-only" style="border-radius:0;"
+                value="<?= isset($exchange_rate) ? number_format($exchange_rate, 2, '.', ',') : ''; ?>" />
         </div>
     </div>
 </div>

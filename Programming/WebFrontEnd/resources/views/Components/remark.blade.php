@@ -5,7 +5,7 @@
     <div class="col-5 d-flex">
         <div class="input-group">
             <input type="text" id="remark" name="remark" autocomplete="off" class="form-control"
-                style="border-radius:0;" />
+                style="border-radius:0;" value="<?= isset($remark) ? $remark : ''; ?>" />
         </div>
     </div>
 </div>

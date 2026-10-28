@@ -85,9 +85,109 @@ class PurchaseOrderController extends Controller
         }
     }
 
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+        try {
+            $response = $this->purchaseOrderService->getDetail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Purchase Order');
+            }
+
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Purchase Order Revision Form');
+
+            $data = $response['data'] ? $response['data'][0] : [];
+
+            $compact = [
+                'token' => $token,
+                'documentTypeRefID' => $documentTypeRefID,
+                'purchaseOrder_id' => $data['purchaseOrder_RefID'] ?? '',
+                'purchaseOrder_number' => $data['documentNumber'] ?? '',
+                'purchaseOrder_attachment' => $data['log_FileUpload_Pointer_RefID'] ?? NULL,
+                'details' => $response['data'] ?? [],
+                'exchange_rate' => $data['exchangeRateValue'] ?? '',
+                'down_payment' => $data['downPayment'] ?? '',
+                'termOfPayment_id' => $data['termOfPayment_RefID'],
+                'payment_notes' => $data['paymentNotes'] ?? '',
+                'remark' => $data['remarks'] ?? '',
+                'date_of_delivery' => Carbon::parse($data['deliveryDateTimeTZ'])->toDateString(),
+                'delivery_to_id' => $data['deliveryTo_RefID'],
+                'delivery_to' => $data['deliveryTo_NonRefID']['Address'] ?? '',
+                'internal_notes' => $data['internalNotes'] ?? '',
+                'isHaveAccountPayableValue' => $data['ap_Value'] > 0 ? true : false,
+                'ppn_percentage' => $data['vatRatio'] ?? '',
+                'transactionTaxDetail_RefID' => $data['transactionTaxDetail_RefID'] ?? '',
+                'supplier' => [
+                    'preview' => $data['supplierCode'] . ' - ' . $data['supplierName'],
+                    'id' => $data['supplier_RefID'],
+                    'code' => $data['supplierCode'],
+                    'name' => $data['supplierName'],
+                    'address' => $data['supplierAddress']
+                ],
+                'currency' => [
+                    'preview' => $data['currencyCode'] . ' - ' . $data['currencyName'],
+                    'id' => $data['currency_RefID'],
+                    'code' => $data['currencyCode'],
+                    'name' => $data['currencyName']
+                ],
+                'budget' => [
+                    'preview' => $data['combinedBudgetCode'] . ' - ' . $data['combinedBudgetName'],
+                    'id' => $data['combinedBudget_RefID'],
+                    'code' => $data['combinedBudgetCode'],
+                    'name' => $data['combinedBudgetName'],
+                ]
+            ];
+
+            return view('Purchase.PurchaseOrder.Transactions.revision', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Detail Purchase Order Error', [
+                'message' => $th->getMessage(),
+                'purchaseOrderRefId' => $id
+            ]);
+
+            return redirect()
+                ->route('PurchaseOrder.index')
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
+        }
+    }
+
     public function update(Request $request, $id)
     {
-        // 
+        try {
+            $response = $this->purchaseOrderService->update($request, $id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Update Purchase Order => ' . $response['data']['message']);
+            }
+
+            $workflowComment = $request->input('workflow_comment');
+
+            $responseWorkflow = $this->workflowService->resubmit(
+                $response['data'][0]['businessDocument']['businessDocument_RefID'],
+                $workflowComment,
+                null
+            );
+
+            if ($responseWorkflow['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Resubmit Workflow Update Purchase Order');
+            }
+
+            $compact = [
+                "documentNumber" => $response['data'][0]['businessDocument']['documentNumber'],
+                "status" => $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Update Purchase Order Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
     }
 
     public function RevisionPurchaseOrderIndex(Request $request)

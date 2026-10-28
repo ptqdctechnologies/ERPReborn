@@ -203,7 +203,7 @@ class DocumentTypeMapper
                     'table' => 'Components.AdvanceDetailDocumentTable',
                 ],
                 'resubmit' => [
-                    'url' => 'AdvanceRequest.RevisionAdvanceIndex',
+                    'url' => "AdvanceRequest.edit",
                     'name' => 'modal_advance_id',
                     'value' => $dataDetail['advance_RefID'] ?? '-',
                 ],

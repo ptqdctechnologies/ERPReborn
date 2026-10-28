@@ -5,7 +5,8 @@
     <div class="col-5 d-flex">
         <div class="input-group align-items-center" style="gap: .3rem;">
             <input type="number" id="down_payment" name="down_payment" autocomplete="off" class="form-control"
-                style="border-radius:0;" />
+                style="border-radius:0;"
+                value="<?= isset($down_payment) ? rtrim(rtrim($down_payment, '0'), '.') : ''; ?>" />
             <label class="mb-0 text-bold">%</label>
         </div>
     </div>

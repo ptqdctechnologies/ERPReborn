@@ -2,8 +2,13 @@
     <div class="row py-3" style="gap: 1rem;">
         <!-- LEFT SIDE -->
         <div class="col-md-12 col-lg-5" style="display: flex; flex-direction: column; gap: 1rem;">
+            <?php if (isset($purchaseOrder_id)) { ?>
+            <!-- PO NUMBER -->
+            @include('Components.purchaseOrder')
+            <?php } else { ?>
             <!-- PR NUMBER -->
             @include('Components.purchaseRequisition')
+            <?php } ?>
 
             <!-- BUDGET CODE -->
             @include('Components.budgetCode')
@@ -11,6 +16,7 @@
 
         <!-- RIGHT SIDE -->
         <div class="col-md-12 col-lg-5" style="display: flex; flex-direction: column; gap: 1rem;">
+            <?php if (!isset($purchaseOrder_id)) { ?>
             <!-- PR DELIVERY DATE -->
             <div class="row">
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">
@@ -34,6 +40,7 @@
                     </div>
                 </div>
             </div>
+            <?php } ?>
         </div>
     </div>
 </div>

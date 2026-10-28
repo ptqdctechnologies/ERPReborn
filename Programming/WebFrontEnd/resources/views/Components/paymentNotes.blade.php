@@ -5,7 +5,7 @@
     <div class="col-5 d-flex">
         <div class="input-group">
             <input type="text" id="payment_notes" name="payment_notes" autocomplete="off" class="form-control"
-                style="border-radius:0;" />
+                style="border-radius:0;" value="<?= isset($payment_notes) ? $payment_notes : ''; ?>" />
         </div>
     </div>
 </div>
