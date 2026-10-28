@@ -160,7 +160,7 @@
         font-size: 12px;
         padding: 3px 6px;
         border: 1px solid #dee2e6;
-        border-radius: 3px;
+        border-radius: 0px;
         background: #f8f9fa;
         color: #495057;
         min-width: 0;
@@ -378,10 +378,12 @@
                     '<div class="wf-person-item" data-person-uid="' + p.uid + '">' +
                     '<span class="wf-person-seq">' + (pIdx + 1) + '</span>' +
                     // '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
+                    '<div class="d-flex" style="width: 100%;">' +
                     '<span id="requester_container' + (p.uid) + '" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" onclick="pickPerson(' + (p.uid) + ')" style="border-radius: 0; cursor: pointer; width: auto;">' +
                     '<i id="requester_icon' + (p.uid) + '" class="fas fa-gift"></i>' +
                     '</span>' +
                     '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
+                    '</div>' +
                     '<div class="wf-person-actions">' +
                     // '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
                     // 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
@@ -415,7 +417,7 @@
 
             /* --- Full card HTML --- */
             var cardHtml =
-                '<div class="col-12 wf-level-wrapper" data-level-uid="' + level.uid + '">' +
+                '<div class="col-3 wf-level-wrapper" data-level-uid="' + level.uid + '">' +
                 '<div class="wf-level-card">' +
                 '<div class="wf-level-header">' +
                 '<div class="wf-level-header-left">' +
