@@ -3,7 +3,6 @@
 namespace App\Services\Purchase;
 
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall;
 use App\Helpers\ZhtHelper\System\Helper_Environment;
@@ -149,41 +148,80 @@ class PurchaseOrderService
         );
     }
 
-    public function create(Request $request): array
+    public function create($request): mixed
     {
-        $sessionToken = Session::get('SessionLogin');
-        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $token = Session::get('SessionLogin');
+        $requesterWorkerJobsPositionID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data = $request->storeData;
-        $deliveryToRefID = isset($data['deliveryTo_RefID']) ? (int) $data['deliveryTo_RefID'] : null;
-        $vatRatio = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
-        $purchaseOrderDetail = json_decode($data['purchaseOrderDetail'], true);
-        $fileID = $data['dataInput_Log_FileUpload_1'] ? (int) $data['dataInput_Log_FileUpload_1'] : null;
+        $fileID = $request->input('purchase_order_attachment');
+        $supplierID = $request->input('supplier_id');
+        $deliveryDate = $request->input('date_of_delivery');
+        $deliveryDestinationID = $request->input('delivery_to_id');
+        $remarks = $request->input('remark');
+        $deliveryDestinationManualAddress = $request->input('delivery_to');
+        $paymentNotes = $request->input('payment_notes');
+        $internalNotes = $request->input('internal_note');
+        $downPayment = $request->input('down_payment');
+        $termOfPaymentID = $request->input('term_of_payment_value');
+        $ppnPercentage = $request->input('ppn_percentage_value');
+        $currencyID = $request->input('currency_id');
+        $exchangeRate = $request->input('exchange_rate');
+        $tariffCurrencyValue = $request->input('tariff_currency_value');
+
+        $purchaseRequisitionDetails = $request->input('additionalData', []);
+        $items = collect($purchaseRequisitionDetails)
+            ->filter(
+                fn($entity) =>
+                    filled($entity['productUnitPriceCurrencyValue'] ?? null) &&
+                    filled($entity['quantity'] ?? null)
+            )
+            ->map(function ($entity) {
+                return [
+                    'entities' => [
+                        'purchaseRequisitionDetail_RefID' => (int) $entity['purchaseRequisitionDetail_RefID'],
+                        'workStructure_RefID' => (int) $entity['workStructure_RefID'],
+                        'quantity' => (float) str_replace(',', '', $entity['quantity']),
+                        'quantityUnit_RefID' => (int) $entity['quantityUnit_RefID'],
+                        'productUnitPriceCurrency_RefID' => (int) $entity['productUnitPriceCurrency_RefID'],
+                        'productUnitPriceCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
+                        'productUnitPriceCurrencyExchangeRate' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyExchangeRate']),
+                        'productUnitPriceDiscountCurrency_RefID' => (int) $entity['productUnitPriceDiscountCurrency_RefID'],
+                        'productUnitPriceDiscountCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceDiscountCurrencyValue']),
+                        'productUnitPriceDiscountCurrencyExchangeRate' => (float) str_replace(',', '', $entity['productUnitPriceDiscountCurrencyExchangeRate']),
+                        'remarks' => $entity['remarks'] ?? NULL,
+                        'asset' => (int) $entity['asset']
+                    ]
+                ];
+            })
+            ->values()
+            ->all();
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.create.supplyChain.setPurchaseOrder',
             'latest',
             [
                 'entities' => [
                     "documentDateTimeTZ" => date('Y-m-d'),
                     "log_FileUpload_Pointer_RefID" => $fileID,
-                    "requesterWorkerJobsPosition_RefID" => (int) $careerRefID,
-                    "supplier_RefID" => (int) $data['supplier_id'],
-                    "deliveryDateTimeTZ" => Carbon::createFromFormat('m/d/Y', $data['dateOfDelivery'])->format('Y-m-d'),
-                    "deliveryDestination_RefID" => $deliveryToRefID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $requesterWorkerJobsPositionID,
+                    "supplier_RefID" => (int) $supplierID,
+                    "deliveryDateTimeTZ" => Carbon::createFromFormat('m/d/Y', $deliveryDate)->format('Y-m-d'),
+                    "deliveryDestination_RefID" => $deliveryDestinationID ? (int) $deliveryDestinationID : NULL,
                     "supplierInvoiceBillingPurpose_RefID" => null,
-                    "remarks" => $data['remarkPO'],
-                    "deliveryDestinationManualAddress" => $data['delivery_to'],
-                    "paymentNotes" => $data['paymentNotes'],
-                    "internalNotes" => $data['internalNote'],
-                    "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
-                    "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
-                    "vatRatio" => $vatRatio,
+                    "remarks" => preg_replace('/[^\p{L}\p{N}\s.,\-\/()]/u', '', $remarks),
+                    "deliveryDestinationManualAddress" => $deliveryDestinationManualAddress,
+                    "paymentNotes" => $paymentNotes,
+                    "internalNotes" => $internalNotes,
+                    "downPayment" => (float) str_replace(',', '', $downPayment),
+                    "termOfPayment_RefID" => (int) $termOfPaymentID,
+                    "vatRatio" => isset($ppnPercentage) && $ppnPercentage != "Select a VAT" ? $ppnPercentage : 0,
+                    "currency_RefID" => (int) $currencyID,
+                    "exchangeRateValue" => (float) str_replace(',', '', $exchangeRate),
                     "additionalData" => [
                         "itemList" => [
-                            "items" => $purchaseOrderDetail
+                            "items" => $items
                         ],
                         "transactionTaxItemList" => [
                             "items" => [
@@ -191,7 +229,7 @@ class PurchaseOrderService
                                     "entities" => [
                                         "taxType_RefID" => null,
                                         "tariffCurrency_RefID" => null,
-                                        "tariffCurrencyValue" => (float) str_replace(',', '', $data['tariffCurrencyValue'] ?? 0),
+                                        "tariffCurrencyValue" => (float) str_replace(',', '', $tariffCurrencyValue ?? 0),
                                         "tariffCurrencyExchangeRate" => null,
                                         "remarks" => null
                                     ]
@@ -217,72 +255,113 @@ class PurchaseOrderService
         );
     }
 
-    public function updates(Request $request): array
+    public function update($request, $id): mixed
     {
-        $sessionToken = Session::get('SessionLogin');
-        $careerRefID = Session::get('SessionWorkerCareerInternal_RefID');
+        $token = Session::get('SessionLogin');
+        $requesterWorkerJobsPositionID = Session::get('SessionWorkerCareerInternal_RefID');
 
-        $data = $request->storeData;
-        $detailItems = json_decode($data['purchaseOrderDetail'], true);
-        $vatRatio = $data['vatValue'] && $data['vatValue'] != "Select a VAT" ? $data['vatValue'] : 0;
-        $fileID = isset($data['dataInput_Log_FileUpload_1']) ? (int) $data['dataInput_Log_FileUpload_1'] : null;
-        $deliveryDestinationRefID = isset($data['delivery_to_id']) && $data['delivery_to_id'] ? (int) $data['delivery_to_id'] : null;
+        $fileID = $request->input('purchase_order_attachment');
+        $supplierID = $request->input('supplier_id');
+        $deliveryDate = $request->input('date_of_delivery');
+        $deliveryDestinationID = $request->input('delivery_to_id');
+        $remarks = $request->input('remark');
+        $deliveryDestinationManualAddress = $request->input('delivery_to');
+        $paymentNotes = $request->input('payment_notes');
+        $internalNotes = $request->input('internal_note');
+        $downPayment = $request->input('down_payment');
+        $termOfPaymentID = $request->input('term_of_payment_value');
+        $ppnPercentage = $request->input('ppn_percentage_value');
+        $currencyID = $request->input('currency_id');
+        $exchangeRate = $request->input('exchange_rate');
+        $tariffCurrencyValue = $request->input('tariff_currency_value');
+        $transactionTaxId = $request->input('transaction_tax_id');
+
+        $purchaseRequisitionDetails = $request->input('additionalData', []);
+        $items = collect($purchaseRequisitionDetails)
+            ->filter(
+                fn($entity) =>
+                    filled($entity['productUnitPriceCurrencyValue'] ?? null) &&
+                    filled($entity['quantity'] ?? null)
+            )
+            ->map(function ($entity) {
+                return [
+                    'recordID' => (int) $entity['recordID'],
+                    'entities' => [
+                        'purchaseRequisitionDetail_RefID' => (int) $entity['purchaseRequisitionDetail_RefID'],
+                        'workStructure_RefID' => (int) $entity['workStructure_RefID'],
+                        'quantity' => (float) str_replace(',', '', $entity['quantity']),
+                        'quantityUnit_RefID' => (int) $entity['quantityUnit_RefID'],
+                        'productUnitPriceCurrency_RefID' => (int) $entity['productUnitPriceCurrency_RefID'],
+                        'productUnitPriceCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyValue']),
+                        'productUnitPriceCurrencyExchangeRate' => (float) str_replace(',', '', $entity['productUnitPriceCurrencyExchangeRate']),
+                        'productUnitPriceDiscountCurrency_RefID' => (int) $entity['productUnitPriceDiscountCurrency_RefID'],
+                        'productUnitPriceDiscountCurrencyValue' => (float) str_replace(',', '', $entity['productUnitPriceDiscountCurrencyValue']),
+                        'productUnitPriceDiscountCurrencyExchangeRate' => (float) str_replace(',', '', $entity['productUnitPriceDiscountCurrencyExchangeRate']),
+                        'remarks' => $entity['remarks'] ?? NULL,
+                        'asset' => (int) $entity['asset']
+                    ]
+                ];
+            })
+            ->values()
+            ->all();
 
         return Helper_APICall::setCallAPIGateway(
             Helper_Environment::getUserSessionID_System(),
-            $sessionToken,
+            $token,
             'transaction.update.supplyChain.setPurchaseOrder',
             'latest',
             [
-                'recordID' => (int) $data['purchaseOrderRecord_RefID'],
+                'recordID' => (int) $id,
                 'entities' => [
-                    'documentDateTimeTZ' => date('Y-m-d'),
-                    'log_FileUpload_Pointer_RefID' => $fileID,
-                    'requesterWorkerJobsPosition_RefID' => (int) $careerRefID,
-                    'supplier_RefID' => (int) $data['supplier_id'],
-                    "deliveryDateTimeTZ" => $data['dateOfDelivery'],
-                    "deliveryDestination_RefID" => $deliveryDestinationRefID,
+                    "documentDateTimeTZ" => date('Y-m-d'),
+                    "log_FileUpload_Pointer_RefID" => $fileID,
+                    "requesterWorkerJobsPosition_RefID" => (int) $requesterWorkerJobsPositionID,
+                    "supplier_RefID" => (int) $supplierID,
+                    "deliveryDateTimeTZ" => Carbon::createFromFormat('Y-m-d', $deliveryDate)->format('Y-m-d'),
+                    "deliveryDestination_RefID" => $deliveryDestinationID ? (int) $deliveryDestinationID : NULL,
                     "supplierInvoiceBillingPurpose_RefID" => null,
-                    "remarks" => $data['remarkPO'],
-                    "deliveryDestinationManualAddress" => $data['delivery_to'],
-                    "paymentNotes" => $data['paymentNotes'],
-                    "internalNotes" => $data['internalNote'],
-                    "downPayment" => (float) str_replace(',', '', $data['downPaymentValue']),
-                    "termOfPayment_RefID" => (int) $data['termOfPaymentValue'],
-                    "vatRatio" => $vatRatio,
-                    'additionalData' => [
-                        'itemList' => [
-                            'items' => $detailItems
-                        ]
-                    ],
-                    "transactionTaxItemList" => [
-                        "items" => [
-                            [
-                                "recordID" => (int) $data['transactionTaxDetail_RefID'],
-                                "entities" => [
-                                    "taxType_RefID" => null,
-                                    "tariffCurrency_RefID" => null,
-                                    "tariffCurrencyValue" => (float) str_replace(',', '', $data['tariffCurrencyValue']),
-                                    "tariffCurrencyExchangeRate" => null,
-                                    "remarks" => null
+                    "remarks" => preg_replace('/[^\p{L}\p{N}\s.,\-\/()]/u', '', $remarks),
+                    "deliveryDestinationManualAddress" => $deliveryDestinationManualAddress,
+                    "paymentNotes" => $paymentNotes,
+                    "internalNotes" => $internalNotes,
+                    "downPayment" => (float) str_replace(',', '', $downPayment),
+                    "termOfPayment_RefID" => (int) $termOfPaymentID,
+                    "vatRatio" => isset($ppnPercentage) && $ppnPercentage != "Select a VAT" ? $ppnPercentage : 0,
+                    "currency_RefID" => (int) $currencyID,
+                    "exchangeRateValue" => (float) str_replace(',', '', $exchangeRate),
+                    "additionalData" => [
+                        "itemList" => [
+                            "items" => $items
+                        ],
+                        "transactionTaxItemList" => [
+                            "items" => [
+                                [
+                                    "recordID" => (int) $transactionTaxId,
+                                    "entities" => [
+                                        "taxType_RefID" => null,
+                                        "tariffCurrency_RefID" => null,
+                                        "tariffCurrencyValue" => (float) str_replace(',', '', $tariffCurrencyValue ?? 0),
+                                        "tariffCurrencyExchangeRate" => null,
+                                        "remarks" => null
+                                    ]
                                 ]
-                            ],
-                        ]
-                    ],
-                    "additionalCostItemList" => [
-                        "items" => [
-                            [
-                                "recordID" => null,
-                                "entities" => [
-                                    "purchaseOrderAdditionalCostType_RefID" => null,
-                                    "priceCurrency_RefID" => null,
-                                    "priceCurrencyValue" => null,
-                                    "priceCurrencyExchangeRate" => null,
-                                    "remarks" => null
+                            ]
+                        ],
+                        "additionalCostItemList" => [
+                            "items" => [
+                                [
+                                    "recordID" => null,
+                                    "entities" => [
+                                        "purchaseOrderAdditionalCostType_RefID" => null,
+                                        "priceCurrency_RefID" => null,
+                                        "priceCurrencyValue" => null,
+                                        "priceCurrencyExchangeRate" => null,
+                                        "remarks" => null
+                                    ]
                                 ]
                             ]
                         ]
-                    ],
+                    ]
                 ]
             ]
         );

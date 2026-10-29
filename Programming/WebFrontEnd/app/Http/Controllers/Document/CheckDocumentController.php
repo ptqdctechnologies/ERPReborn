@@ -72,7 +72,6 @@ class CheckDocumentController extends Controller
                 $documentType === 'Budget Form' ||
                 $documentType === 'General Journal Form' ||
                 $documentType === 'Journal Form' ||
-                $documentType === 'Loan Settlement Form' ||
                 $documentType === 'Modify Budget Form' ||
                 $documentType === 'Product Form' ||
                 $documentType === 'Sales Invoice Form' ||
