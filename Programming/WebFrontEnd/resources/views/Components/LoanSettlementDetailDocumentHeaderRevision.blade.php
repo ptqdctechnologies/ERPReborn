@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 @if(sizeof($dataHeaderTransactionHistory))
-                    @for($i = 2; $i >= 1; $i--)
+                    @for($i = 0; $i >= 1; $i--)
                                 <?php        $entryDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Entry_DateTimeTZ'];
                         $editDateTime = $dataHeaderTransactionHistory[$i]['content']['sys_Data_Edit_DateTimeTZ']; ?>
 
@@ -34,30 +34,36 @@
                 <tr>
                     <th class="text-center"
                         style="vertical-align: middle; left: 0px; z-index: 10;position: sticky; background-color: white;text-wrap-mode: nowrap;">
-                        Loan Principal</th>
+                        Settlement Value</th>
                     <th class="text-center"
                         style="vertical-align: middle; left: 125px; z-index: 10;position: sticky; background-color: white;text-wrap-mode: nowrap;">
-                        Lending Rate</th>
+                        Penalty Value</th>
                     <th class="text-center"
                         style="vertical-align: middle; left: 250px; z-index: 10;position: sticky; background-color: white;">
-                        Loan Term</th>
+                        Interest Value</th>
                     <th class="text-center"
                         style="vertical-align: middle; left: 320px; z-index: 10;position: sticky; background-color: white;">
-                        Loan Total</th>
+                        COA Penalty</th>
+                    <th class="text-center"
+                        style="vertical-align: middle; left: 390px; z-index: 10;position: sticky; background-color: white;">
+                        COA Interest</th>
 
                     @for($i = 1; $i < 2; $i++)
                         <th class="text-center"
                             style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">
-                            Loan Principal</th>
+                            Settlement Value</th>
                         <th class="text-center"
                             style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;text-wrap-mode: nowrap;">
-                            Lending Rate</th>
+                            Penalty Value</th>
                         <th class="text-center"
                             style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">
-                            Loan Term</th>
+                            Interest Value</th>
                         <th class="text-center"
                             style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">
-                            Loan Total</th>
+                            COA Penalty</th>
+                        <th class="text-center"
+                            style="background-color:#4B586A;color:white;border-right:1px solid #e9ecef;vertical-align: middle;">
+                            COA Interest</th>
                     @endfor
                 </tr>
             @endif
@@ -76,6 +82,9 @@
                 <td style="padding: 8px; position: sticky; background-color: white; left: 320px; z-index: 10;">
                     -
                 </td>
+                <td style="padding: 8px; position: sticky; background-color: white; left: 390px; z-index: 10;">
+                    -
+                </td>
 
                 @for($i = 1; $i < 2; $i++)
                     <td style="padding: 8px; position: sticky; background-color: white; left: 0px; z-index: 10;">
@@ -88,6 +97,9 @@
                         -
                     </td>
                     <td style="padding: 8px; position: sticky; background-color: white; left: 320px; z-index: 10;">
+                        -
+                    </td>
+                    <td style="padding: 8px; position: sticky; background-color: white; left: 390px; z-index: 10;">
                         -
                     </td>
                 @endfor

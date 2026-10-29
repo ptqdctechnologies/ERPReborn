@@ -475,7 +475,8 @@ class DocumentTypeMapper
                 'components' => [
                     'detail' => 'Components.LoanSettlementDetailDocument',
                     'headerRevision' => 'Components.LoanSettlementDetailDocumentHeaderRevision',
-                    'table' => 'Components.LoanSettlementDetailDocumentTable',
+                    'additional_two' => 'Components.LoanSettlementDetailDocumentTable',
+                    'revision' => 'Components.LoanSettlementDetailDocumentRevision'
                 ],
                 'resubmit' => [
                     'url' => 'LoanSettlement.RevisionLoanSettlement',
