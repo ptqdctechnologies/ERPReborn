@@ -781,12 +781,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::get('PurchaseOrder/picklist', 'picklist')
             ->name('PurchaseOrder.picklist');
 
-        Route::post('UpdatePurchaseOrder', 'UpdatePurchaseOrder')
-            ->name('PurchaseOrder.UpdatePurchaseOrder');
-
-        Route::post('RevisionPurchaseOrder', 'RevisionPurchaseOrderIndex')
-            ->name('PurchaseOrder.RevisionPurchaseOrder');
-
         Route::get('ReportPurchaseOrderSummary', 'ReportPurchaseOrderSummary')
             ->name('PurchaseOrder.ReportPurchaseOrderSummary');
 
