@@ -2,6 +2,7 @@
     const budgetRefID = document.getElementById('budget_id');
     const currencyRefID = document.getElementById('currency_id');
     const currencyCode = document.getElementById('currency_code');
+    const exchangeRate = document.getElementById('exchange_rate');
     const purchaseOrderDetails = {!! json_encode($details ?? []) !!};
     const dateOfDelivery = {!! json_encode($date_of_delivery ?? '') !!};
     const purchaseOrderNumber = {!! json_encode($purchaseOrder_number ?? '') !!};
@@ -197,10 +198,10 @@
             ) {
                 modifyColumnInput = renderIDRColumns(data, indexPurchaseOrder);
             } else {
-                modifyColumnInput = renderForeignCurrencyColumns(indexPurchaseOrder);
+                modifyColumnInput = renderForeignCurrencyColumns(data, indexPurchaseOrder);
             }
         } else {
-            modifyColumnInput = renderForeignCurrencyColumns(indexPurchaseOrder);
+            modifyColumnInput = renderForeignCurrencyColumns(data, indexPurchaseOrder);
         }
 
         return modifyColumnInput;
@@ -265,7 +266,10 @@
         `;
     }
 
-    function renderForeignCurrencyColumns(indexPurchaseOrder) {
+    function renderForeignCurrencyColumns(data, indexPurchaseOrder) {
+        const rate = Utils.parseFloatSafe(Utils.removeCommas(exchangeRate.value));
+        const total = data.quantity * data.productUnitPriceCurrencyValue;
+
         $("#eighth-col-po-cont").show();
         $("#seventh-col-po-cont").show();
         $("#sixth-col-po-cont").show();
@@ -287,6 +291,10 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    data-field="qty_req"
+                    name="additionalData[${indexPurchaseOrder}][quantity]"
+                    oninput="calculateTotalNonIDRColumnsLine(${indexPurchaseOrder})"
+                    value="${Utils.formatCurrency(data.quantity)}"
                 />
             </td>
 
@@ -298,6 +306,10 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    data-field="price_req"
+                    oninput="calculateTotalNonIDRColumnsLine(${indexPurchaseOrder})"
+                    name="additionalData[${indexPurchaseOrder}][productUnitPriceCurrencyValue]"
+                    value="${Utils.formatCurrency(data.productUnitPriceCurrencyValue)}"
                 />
             </td>
 
@@ -305,11 +317,13 @@
                 style="border:1px solid #e9ecef;background-color:white;">
                 <input
                     disabled
+                    data-field="total_req"
                     type="text"
                     id="total_req${indexPurchaseOrder}"
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    value="${Utils.formatCurrency(total)}"
                 />
             </td>
 
@@ -322,6 +336,7 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    value="${Utils.formatCurrency(data.productUnitPriceCurrencyValue * rate)}"
                 />
             </td>
 
@@ -334,6 +349,7 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    value="${Utils.formatCurrency(total * rate)}"
                 />
             </td>
         `;
@@ -400,6 +416,80 @@
         );
 
         calculateTotalIDRColumns();
+    }
+
+    function calculateTotalNonIDRColumns() {
+        let total = 0;
+        const ppnPercentageOption = document.getElementById('ppn_percentage_option');
+
+        document.querySelectorAll('input[data-field="total_req"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.getElementById('purchase_order_total_request').textContent = currency(total);
+
+        const totalVat = ppnPercentageOption.value === 'Select a VAT' ? 0.00 : (total * ppnPercentageOption.value) / 100;
+
+        document.getElementById('purchase_order_total_vat').textContent = currency(totalVat);
+
+        document.getElementById('purchase_order_total_request_vat').textContent = currency(total + totalVat);
+    }
+
+    function calculateTotalNonIDRColumnsLine(index) {
+        const getValue = (field) =>
+            Utils.parseFloatSafe(Utils.removeCommas($(`#${field}${index}`).val()));
+
+        const qty = getValue('qty_req');
+        const qtyAvailable = getValue('quantityAvailable');
+
+        if (qty > qtyAvailable) {
+            $(`#qty_req${index}`).val('');
+            $(`#total_req${index}`).val('');
+            $(`#balance_qty${index}`).val(currency(qtyAvailable));
+            ErrorNotif("Qty Req is over budget !");
+
+            calculateTotalNonIDRColumns();
+
+            return;
+        } else {
+            $(`#balance_qty${index}`).val(
+                currency(qtyAvailable - qty)
+            );
+        }
+
+        const price = getValue('price_req');
+        const priceAvailable = getValue('priceAvailable');
+
+        if (price > priceAvailable) {
+            $(`#price_req${index}`).val('');
+            $(`#total_req${index}`).val('');
+            ErrorNotif("Price Req is over budget !");
+
+            calculateTotalNonIDRColumns();
+
+            return;
+        }
+
+        const rate = Utils.parseFloatSafe(Utils.removeCommas(exchangeRate.value));
+        const total = qty * price;
+
+        $(`#total_req${index}`).val(
+            currency(qty * price)
+        );
+
+        $(`#price_req_idr${index}`).val(
+            currency(price * rate)
+        );
+
+        $(`#total_req_idr${index}`).val(
+            currency(total * rate)
+        );
+
+        calculateTotalNonIDRColumns();
     }
 
     function showPurchaseOrderDetails() {
@@ -587,7 +677,11 @@
             $('#purchase_order_details_table tbody').append(row);
         });
 
-        calculateTotalIDRColumns();
+        if (currencyCode.value == "IDR") {
+            calculateTotalIDRColumns();
+        } else {
+            calculateTotalNonIDRColumns();
+        }
     }
 
     function getBudgetProgress(budgetCodeID) {

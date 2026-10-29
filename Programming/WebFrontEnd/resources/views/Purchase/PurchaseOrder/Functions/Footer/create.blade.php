@@ -4,6 +4,7 @@
     let listPurchaseRequestID = [];
     const currencyRefID = document.getElementById('currency_id');
     const currencyCode = document.getElementById('currency_code');
+    const exchangeRate = document.getElementById('exchange_rate');
     const documentTypeRefID = {!! json_encode($documentTypeRefID ?? '') !!};
     const termOfPaymentOption = document.getElementById('term_of_payment_option');
     const purchaseRequisitionRefID = document.getElementById('purchase_requisition_id');
@@ -266,7 +267,6 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
-                    oninput="calculateTotalIDRColumnsLine(${indexPurchaseOrder})"
                 />
             </td>
         `;
@@ -294,6 +294,9 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    data-field="qty_req"
+                    name="additionalData[${indexPurchaseOrder}][quantity]"
+                    oninput="calculateTotalNonIDRColumnsLine(${indexPurchaseOrder})"
                 />
             </td>
 
@@ -305,6 +308,9 @@
                     class="form-control number-without-negative"
                     autocomplete="off"
                     style="border-radius:0px;"
+                    data-field="price_req"
+                    oninput="calculateTotalNonIDRColumnsLine(${indexPurchaseOrder})"
+                    name="additionalData[${indexPurchaseOrder}][productUnitPriceCurrencyValue]"
                 />
             </td>
 
@@ -312,6 +318,7 @@
                 style="border:1px solid #e9ecef;background-color:white;">
                 <input
                     disabled
+                    data-field="total_req"
                     type="text"
                     id="total_req${indexPurchaseOrder}"
                     class="form-control number-without-negative"
@@ -407,6 +414,80 @@
         );
 
         calculateTotalIDRColumns();
+    }
+
+    function calculateTotalNonIDRColumns() {
+        let total = 0;
+        const ppnPercentageOption = document.getElementById('ppn_percentage_option');
+
+        document.querySelectorAll('input[data-field="total_req"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+            if (!isNaN(value)) {
+                total += value;
+            }
+        });
+
+        document.getElementById('purchase_order_total_request').textContent = currency(total);
+
+        const totalVat = ppnPercentageOption.value === 'Select a VAT' ? 0.00 : (total * ppnPercentageOption.value) / 100;
+
+        document.getElementById('purchase_order_total_vat').textContent = currency(totalVat);
+
+        document.getElementById('purchase_order_total_request_vat').textContent = currency(total + totalVat);
+    }
+
+    function calculateTotalNonIDRColumnsLine(index) {
+        const getValue = (field) =>
+            Utils.parseFloatSafe(Utils.removeCommas($(`#${field}${index}`).val()));
+
+        const qty = getValue('qty_req');
+        const qtyAvailable = getValue('quantityAvailable');
+
+        if (qty > qtyAvailable) {
+            $(`#qty_req${index}`).val('');
+            $(`#total_req${index}`).val('');
+            $(`#balance_qty${index}`).val(currency(qtyAvailable));
+            ErrorNotif("Qty Req is over budget !");
+
+            calculateTotalNonIDRColumns();
+
+            return;
+        } else {
+            $(`#balance_qty${index}`).val(
+                currency(qtyAvailable - qty)
+            );
+        }
+
+        const price = getValue('price_req');
+        const priceAvailable = getValue('priceAvailable');
+
+        if (price > priceAvailable) {
+            $(`#price_req${index}`).val('');
+            $(`#total_req${index}`).val('');
+            ErrorNotif("Price Req is over budget !");
+
+            calculateTotalNonIDRColumns();
+
+            return;
+        }
+
+        const rate = Utils.parseFloatSafe(Utils.removeCommas(exchangeRate.value));
+        const total = qty * price;
+
+        $(`#total_req${index}`).val(
+            currency(qty * price)
+        );
+
+        $(`#price_req_idr${index}`).val(
+            currency(price * rate)
+        );
+
+        $(`#total_req_idr${index}`).val(
+            currency(total * rate)
+        );
+
+        calculateTotalNonIDRColumns();
     }
 
     function getPurchaseRequisitionDetails() {
