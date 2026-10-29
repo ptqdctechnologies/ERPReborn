@@ -711,7 +711,7 @@ class DocumentTypeMapper
                     'revision' => 'Components.PurchaseOrderDetailDocumentRevision',
                 ],
                 'resubmit' => [
-                    'url' => 'PurchaseOrder.RevisionPurchaseOrder',
+                    'url' => 'PurchaseOrder.edit',
                     'name' => 'purchaseOrder_RefID',
                     'value' => $dataDetail['purchaseOrder_RefID'] ?? ''
                 ],
