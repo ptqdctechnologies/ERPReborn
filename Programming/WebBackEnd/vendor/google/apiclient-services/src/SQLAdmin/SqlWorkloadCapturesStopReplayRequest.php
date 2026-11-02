@@ -23,7 +23,8 @@ class SqlWorkloadCapturesStopReplayRequest extends \Google\Model
   protected $stopWorkloadReplayContextDataType = '';
 
   /**
-   * Required. Contains details about the stop workload replay operation.
+   * Optional. Contains details about the stop workload replay operation. If
+   * omitted, default values are used.
    *
    * @param StopWorkloadReplayContext $stopWorkloadReplayContext
    */

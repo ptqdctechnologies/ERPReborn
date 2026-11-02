@@ -26,7 +26,7 @@ class KeyMenuComposer
             $response = Helper_APICall::setCallAPIGateway(
                 $redisKey,
                 $token,
-                'report.form.resume.sysConfig.getUserRolePrivilegesMenuAccess',
+                'report.form.resume.sysConfig.userRolePrivilegesMenuAccess.getAll',
                 'latest',
                 [
                     'parameter' => [

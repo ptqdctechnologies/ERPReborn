@@ -45,8 +45,8 @@ class Topic extends \Google\Collection
    */
   public $kmsKeyName;
   /**
-   * Optional. See [Creating and managing labels]
-   * (https://cloud.google.com/pubsub/docs/labels).
+   * Optional. See [Creating and managing labels](
+   * https://cloud.google.com/pubsub/docs/labels).
    *
    * @var string[]
    */
@@ -141,8 +141,8 @@ class Topic extends \Google\Collection
     return $this->kmsKeyName;
   }
   /**
-   * Optional. See [Creating and managing labels]
-   * (https://cloud.google.com/pubsub/docs/labels).
+   * Optional. See [Creating and managing labels](
+   * https://cloud.google.com/pubsub/docs/labels).
    *
    * @param string[] $labels
    */

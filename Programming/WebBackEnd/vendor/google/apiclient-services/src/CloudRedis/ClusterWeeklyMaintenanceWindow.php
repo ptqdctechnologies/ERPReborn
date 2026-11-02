@@ -52,7 +52,8 @@ class ClusterWeeklyMaintenanceWindow extends \Google\Model
    */
   public const DAY_SUNDAY = 'SUNDAY';
   /**
-   * Optional. Allows to define schedule that runs specified day of the week.
+   * Optional. The day of the week for the maintenance window. This field is
+   * required. You can't use `DAY_OF_WEEK_UNSPECIFIED`.
    *
    * @var string
    */
@@ -61,7 +62,8 @@ class ClusterWeeklyMaintenanceWindow extends \Google\Model
   protected $startTimeDataType = '';
 
   /**
-   * Optional. Allows to define schedule that runs specified day of the week.
+   * Optional. The day of the week for the maintenance window. This field is
+   * required. You can't use `DAY_OF_WEEK_UNSPECIFIED`.
    *
    * Accepted values: DAY_OF_WEEK_UNSPECIFIED, MONDAY, TUESDAY, WEDNESDAY,
    * THURSDAY, FRIDAY, SATURDAY, SUNDAY
@@ -80,7 +82,8 @@ class ClusterWeeklyMaintenanceWindow extends \Google\Model
     return $this->day;
   }
   /**
-   * Optional. Start time of the window in UTC.
+   * Optional. The start time of the maintenance window in UTC. When you specify
+   * a maintenance window, `start_time` is required.
    *
    * @param TimeOfDay $startTime
    */

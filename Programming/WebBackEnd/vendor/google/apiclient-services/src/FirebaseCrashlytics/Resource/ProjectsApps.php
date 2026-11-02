@@ -17,6 +17,9 @@
 
 namespace Google\Service\FirebaseCrashlytics\Resource;
 
+use Google\Service\FirebaseCrashlytics\GenerateAlertPolicyRequest;
+use Google\Service\FirebaseCrashlytics\GenerateAlertPolicyResponse;
+
 /**
  * The "apps" collection of methods.
  * Typical usage is:
@@ -27,6 +30,24 @@ namespace Google\Service\FirebaseCrashlytics\Resource;
  */
 class ProjectsApps extends \Google\Service\Resource
 {
+  /**
+   * Creates a Cloud Monitoring AlertPolicy for the requested Crashlytics Web
+   * alert type and returns the created resource reference.
+   * (apps.generateAlertPolicy)
+   *
+   * @param string $name Required. The firebase application. Format:
+   * "projects/{project}/apps/{app_id}".
+   * @param GenerateAlertPolicyRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GenerateAlertPolicyResponse
+   * @throws \Google\Service\Exception
+   */
+  public function generateAlertPolicy($name, GenerateAlertPolicyRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('generateAlertPolicy', [$params], GenerateAlertPolicyResponse::class);
+  }
 }
 
 // Adding a class alias for backwards compatibility with the previous class name.

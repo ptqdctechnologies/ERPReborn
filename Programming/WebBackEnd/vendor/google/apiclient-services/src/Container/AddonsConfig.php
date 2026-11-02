@@ -61,6 +61,8 @@ class AddonsConfig extends \Google\Model
   protected $slurmOperatorConfigDataType = '';
   protected $statefulHaConfigType = StatefulHAConfig::class;
   protected $statefulHaConfigDataType = '';
+  protected $wizSensorConfigType = WizSensorConfig::class;
+  protected $wizSensorConfigDataType = '';
 
   /**
    * Optional. Configuration for the AgentSandbox addon.
@@ -413,6 +415,22 @@ class AddonsConfig extends \Google\Model
   public function getStatefulHaConfig()
   {
     return $this->statefulHaConfig;
+  }
+  /**
+   * Optional. Configuration for the Wiz Sensor add-on.
+   *
+   * @param WizSensorConfig $wizSensorConfig
+   */
+  public function setWizSensorConfig(WizSensorConfig $wizSensorConfig)
+  {
+    $this->wizSensorConfig = $wizSensorConfig;
+  }
+  /**
+   * @return WizSensorConfig
+   */
+  public function getWizSensorConfig()
+  {
+    return $this->wizSensorConfig;
   }
 }
 

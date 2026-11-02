@@ -38,9 +38,9 @@ class EgressSource extends \Google\Model
   /**
    * A Google Cloud resource from the service perimeter that you want to allow
    * to access data outside the perimeter. This field supports projects,
-   * folders, and organizations in the form `projects/`, `folders/`, and
-   * `organizations/`. You can't use `*` in this field to allow all Google Cloud
-   * resources.
+   * folders, and organizations in the form `projects/{project_number}`,
+   * `folders/{folder_id}`, and `organizations/{organization_id}`. You can't use
+   * `*` in this field to allow all Google Cloud resources.
    *
    * @var string
    */
@@ -91,9 +91,9 @@ class EgressSource extends \Google\Model
   /**
    * A Google Cloud resource from the service perimeter that you want to allow
    * to access data outside the perimeter. This field supports projects,
-   * folders, and organizations in the form `projects/`, `folders/`, and
-   * `organizations/`. You can't use `*` in this field to allow all Google Cloud
-   * resources.
+   * folders, and organizations in the form `projects/{project_number}`,
+   * `folders/{folder_id}`, and `organizations/{organization_id}`. You can't use
+   * `*` in this field to allow all Google Cloud resources.
    *
    * @param string $resource
    */

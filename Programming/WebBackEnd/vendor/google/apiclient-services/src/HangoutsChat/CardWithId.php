@@ -28,6 +28,8 @@ class CardWithId extends \Google\Model
    * @var string
    */
   public $cardId;
+  protected $ownerUserType = User::class;
+  protected $ownerUserDataType = '';
 
   /**
    * A card. Maximum size is 32 KB.
@@ -61,6 +63,22 @@ class CardWithId extends \Google\Model
   public function getCardId()
   {
     return $this->cardId;
+  }
+  /**
+   * Output only. The app that owns the card.
+   *
+   * @param User $ownerUser
+   */
+  public function setOwnerUser(User $ownerUser)
+  {
+    $this->ownerUser = $ownerUser;
+  }
+  /**
+   * @return User
+   */
+  public function getOwnerUser()
+  {
+    return $this->ownerUser;
   }
 }
 

@@ -166,7 +166,8 @@ class GoogleAppsCardV1Section extends \Google\Collection
     return $this->uncollapsibleWidgetsCount;
   }
   /**
-   * All the widgets in the section. Must contain at least one widget.
+   * All the widgets in the section. Must contain at least one widget. A card
+   * supports up to 100 widgets across all sections.
    *
    * @param GoogleAppsCardV1Widget[] $widgets
    */

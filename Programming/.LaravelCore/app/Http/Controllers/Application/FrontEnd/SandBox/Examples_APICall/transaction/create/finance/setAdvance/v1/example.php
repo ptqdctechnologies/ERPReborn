@@ -26,13 +26,13 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken =
                     \App\Helpers\ZhtHelper\System\Helper_Environment::getAPIWebToken_System();
                 }
 
-            //---Core---
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
                     //-----[ METADATA ]-----( START )-----
@@ -89,6 +89,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]---------(  END  )-----
                     );
 
+            //-----[ DATA RETURN ]-----
             return
                 $varData;
             }

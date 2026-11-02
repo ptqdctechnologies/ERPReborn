@@ -34,7 +34,7 @@ class AccessPoliciesAuthorizedOrgsDescs extends \Google\Service\Resource
   /**
    * Creates an authorized orgs desc. The long-running operation from this RPC has
    * a successful status after the authorized orgs desc propagates to long-lasting
-   * storage. If a authorized orgs desc contains errors, an error response is
+   * storage. If an authorized orgs desc contains errors, an error response is
    * returned for the first error encountered. The name of this
    * `AuthorizedOrgsDesc` will be assigned during creation.
    * (authorizedOrgsDescs.create)
@@ -59,7 +59,7 @@ class AccessPoliciesAuthorizedOrgsDescs extends \Google\Service\Resource
    *
    * @param string $name Required. Resource name for the Authorized Orgs Desc.
    * Format:
-   * `accessPolicies/{policy_id}/authorizedOrgsDesc/{authorized_orgs_desc_id}`
+   * `accessPolicies/{policy_id}/authorizedOrgsDescs/{authorized_orgs_desc_id}`
    * @param array $optParams Optional parameters.
    * @return Operation
    * @throws \Google\Service\Exception
@@ -76,7 +76,7 @@ class AccessPoliciesAuthorizedOrgsDescs extends \Google\Service\Resource
    *
    * @param string $name Required. Resource name for the Authorized Orgs Desc.
    * Format:
-   * `accessPolicies/{policy_id}/authorizedOrgsDescs/{authorized_orgs_descs_id}`
+   * `accessPolicies/{policy_id}/authorizedOrgsDescs/{authorized_orgs_desc_id}`
    * @param array $optParams Optional parameters.
    * @return AuthorizedOrgsDesc
    * @throws \Google\Service\Exception
@@ -111,10 +111,11 @@ class AccessPoliciesAuthorizedOrgsDescs extends \Google\Service\Resource
   /**
    * Updates an authorized orgs desc. The long-running operation from this RPC has
    * a successful status after the authorized orgs desc propagates to long-lasting
-   * storage. If a authorized orgs desc contains errors, an error response is
+   * storage. If an authorized orgs desc contains errors, an error response is
    * returned for the first error encountered. Only the organization list in
-   * `AuthorizedOrgsDesc` can be updated. The name, authorization_type, asset_type
-   * and authorization_direction cannot be updated. (authorizedOrgsDescs.patch)
+   * `AuthorizedOrgsDesc` can be updated. The `name`, `authorization_type`,
+   * `asset_type`, and `authorization_direction` cannot be updated.
+   * (authorizedOrgsDescs.patch)
    *
    * @param string $name Identifier. Resource name for the `AuthorizedOrgsDesc`.
    * Format:

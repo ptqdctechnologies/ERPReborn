@@ -30,21 +30,27 @@ use Google\Service\Assuredworkloads\GoogleCloudAssuredworkloadsV1ListDbFindingSu
 class ProjectsLocationsDbFindingSummaries extends \Google\Service\Resource
 {
   /**
-   * Lists the finding summary by category for a given scope.
-   * (dbFindingSummaries.listProjectsLocationsDbFindingSummaries)
+   * Lists summaries of the active findings in a Data Boundary scope (an
+   * organization, folder, or project), with one summary for each finding
+   * category. (dbFindingSummaries.listProjectsLocationsDbFindingSummaries)
    *
-   * @param string $parent Required. The parent scope for the framework overview
-   * page. Formats: - projects/{project}/locations/{location} -
-   * folders/{folder}/locations/{location} -
-   * organizations/{organization}/locations/{location}
+   * @param string $parent Required. The parent scope to list finding summaries
+   * for. Formats: * `organizations/{organization}/locations/{location}` *
+   * `folders/{folder}/locations/{location}` *
+   * `projects/{project}/locations/{location}`
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. The filtering results.
+   * @opt_param string filter Optional. A filter expression that restricts the
+   * framework deployments whose findings are summarized. The syntax follows
+   * [AIP-160](https://google.aip.dev/160). Supported fields are
+   * `framework_deployment`, `framework_name`, and `framework_revision` (the major
+   * revision ID of the framework).
    * @opt_param int pageSize Optional. The requested page size. The server might
    * return fewer items than requested. If unspecified, the server picks an
    * appropriate default.
    * @opt_param string pageToken Optional. A token that identifies the page of
-   * results that the server should return.
+   * results that the server should return. Pass the `next_page_token` value from
+   * a previous result.
    * @return GoogleCloudAssuredworkloadsV1ListDbFindingSummariesResponse
    * @throws \Google\Service\Exception
    */

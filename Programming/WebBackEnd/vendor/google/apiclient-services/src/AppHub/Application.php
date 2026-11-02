@@ -35,6 +35,10 @@ class Application extends \Google\Model
    * The Application is being deleted.
    */
   public const STATE_DELETING = 'DELETING';
+  protected $applicationPropertiesType = ApplicationProperties::class;
+  protected $applicationPropertiesDataType = '';
+  protected $applicationTypeType = ApplicationType::class;
+  protected $applicationTypeDataType = '';
   protected $attributesType = Attributes::class;
   protected $attributesDataType = '';
   /**
@@ -86,6 +90,39 @@ class Application extends \Google\Model
    */
   public $updateTime;
 
+  /**
+   * Output only. Properties of an underlying cloud resource that can comprise
+   * an Application.
+   *
+   * @param ApplicationProperties $applicationProperties
+   */
+  public function setApplicationProperties(ApplicationProperties $applicationProperties)
+  {
+    $this->applicationProperties = $applicationProperties;
+  }
+  /**
+   * @return ApplicationProperties
+   */
+  public function getApplicationProperties()
+  {
+    return $this->applicationProperties;
+  }
+  /**
+   * Output only. Application type.
+   *
+   * @param ApplicationType $applicationType
+   */
+  public function setApplicationType(ApplicationType $applicationType)
+  {
+    $this->applicationType = $applicationType;
+  }
+  /**
+   * @return ApplicationType
+   */
+  public function getApplicationType()
+  {
+    return $this->applicationType;
+  }
   /**
    * Optional. Consumer provided attributes.
    *

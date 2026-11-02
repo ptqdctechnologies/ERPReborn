@@ -35,6 +35,13 @@ class ZoneDistributionConfig extends \Google\Collection
   public const MODE_SINGLE_ZONE = 'SINGLE_ZONE';
   protected $collection_key = 'zones';
   /**
+   * Output only. The exact list of zones where the cluster currently has active
+   * VMs.
+   *
+   * @var string[]
+   */
+  public $activeZones;
+  /**
    * Optional. The mode of zone distribution. Defaults to MULTI_ZONE, when not
    * specified.
    *
@@ -57,6 +64,23 @@ class ZoneDistributionConfig extends \Google\Collection
    */
   public $zones;
 
+  /**
+   * Output only. The exact list of zones where the cluster currently has active
+   * VMs.
+   *
+   * @param string[] $activeZones
+   */
+  public function setActiveZones($activeZones)
+  {
+    $this->activeZones = $activeZones;
+  }
+  /**
+   * @return string[]
+   */
+  public function getActiveZones()
+  {
+    return $this->activeZones;
+  }
   /**
    * Optional. The mode of zone distribution. Defaults to MULTI_ZONE, when not
    * specified.

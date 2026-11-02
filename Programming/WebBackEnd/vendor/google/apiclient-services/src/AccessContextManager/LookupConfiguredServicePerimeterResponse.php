@@ -20,15 +20,15 @@ namespace Google\Service\AccessContextManager;
 class LookupConfiguredServicePerimeterResponse extends \Google\Model
 {
   /**
-   * The resource (e.g. "projects/123", "folders/456") that directly owns/is
-   * restricted by the enforced perimeter.
+   * The resource (for example, `projects/123` or `folders/456`) that directly
+   * owns or is restricted by the enforced perimeter.
    *
    * @var string
    */
   public $restrictedResource;
   /**
-   * The resource (e.g. "projects/123", "folders/456") that directly owns/is
-   * restricted by the dry-run perimeter.
+   * The resource (for example, `projects/123` or `folders/456`) that directly
+   * owns or is restricted by the dry-run perimeter.
    *
    * @var string
    */
@@ -51,8 +51,8 @@ class LookupConfiguredServicePerimeterResponse extends \Google\Model
   public $servicePerimeterDryRun;
 
   /**
-   * The resource (e.g. "projects/123", "folders/456") that directly owns/is
-   * restricted by the enforced perimeter.
+   * The resource (for example, `projects/123` or `folders/456`) that directly
+   * owns or is restricted by the enforced perimeter.
    *
    * @param string $restrictedResource
    */
@@ -68,8 +68,8 @@ class LookupConfiguredServicePerimeterResponse extends \Google\Model
     return $this->restrictedResource;
   }
   /**
-   * The resource (e.g. "projects/123", "folders/456") that directly owns/is
-   * restricted by the dry-run perimeter.
+   * The resource (for example, `projects/123` or `folders/456`) that directly
+   * owns or is restricted by the dry-run perimeter.
    *
    * @param string $restrictedResourceDryRun
    */

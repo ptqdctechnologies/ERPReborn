@@ -20,21 +20,20 @@ namespace Google\Service\CloudRun;
 class GoogleCloudRunV2SandboxConfiguration extends \Google\Collection
 {
   protected $collection_key = 'templates';
-  protected $templatesType = GoogleCloudRunV2Container::class;
+  protected $templatesType = GoogleCloudRunV2SandboxTemplate::class;
   protected $templatesDataType = 'array';
 
   /**
-   * Required. Container templates that can be launched through the `sandbox`
-   * CLI.
+   * Required. Sandbox templates that can be launched through the `sandbox` CLI.
    *
-   * @param GoogleCloudRunV2Container[] $templates
+   * @param GoogleCloudRunV2SandboxTemplate[] $templates
    */
   public function setTemplates($templates)
   {
     $this->templates = $templates;
   }
   /**
-   * @return GoogleCloudRunV2Container[]
+   * @return GoogleCloudRunV2SandboxTemplate[]
    */
   public function getTemplates()
   {

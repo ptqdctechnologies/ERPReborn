@@ -39,8 +39,8 @@ use Google\Service\Pubsub\UpdateTopicRequest;
 class ProjectsTopics extends \Google\Service\Resource
 {
   /**
-   * Creates the given topic with the given name. See the [resource name rules]
-   * (https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names).
+   * Creates the given topic with the given name. See the [resource name rules](
+   * https://cloud.google.com/pubsub/docs/pubsub-basics#resource_names).
    * (topics.create)
    *
    * @param string $name Required. Identifier. The name of the topic. It must have

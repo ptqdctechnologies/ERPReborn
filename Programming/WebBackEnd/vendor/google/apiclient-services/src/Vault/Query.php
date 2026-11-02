@@ -48,9 +48,13 @@ class Query extends \Google\Model
    */
   public const CORPUS_CALENDAR = 'CALENDAR';
   /**
-   * Gemini.
+   * Gemini app.
    */
   public const CORPUS_GEMINI = 'GEMINI';
+  /**
+   * Gemini in Workspace.
+   */
+  public const CORPUS_GEMINI_IN_WORKSPACE = 'GEMINI_IN_WORKSPACE';
   /**
    * No data source specified.
    */
@@ -192,6 +196,8 @@ class Query extends \Google\Model
    * @var string
    */
   public $endTime;
+  protected $geminiInWorkspaceOptionsType = GeminiInWorkspaceOptions::class;
+  protected $geminiInWorkspaceOptionsDataType = '';
   protected $geminiOptionsType = GeminiOptions::class;
   protected $geminiOptionsDataType = '';
   protected $hangoutsChatInfoType = HangoutsChatInfo::class;
@@ -287,7 +293,7 @@ class Query extends \Google\Model
    * The Google Workspace service to search.
    *
    * Accepted values: CORPUS_TYPE_UNSPECIFIED, DRIVE, MAIL, GROUPS,
-   * HANGOUTS_CHAT, VOICE, CALENDAR, GEMINI
+   * HANGOUTS_CHAT, VOICE, CALENDAR, GEMINI, GEMINI_IN_WORKSPACE
    *
    * @param self::CORPUS_* $corpus
    */
@@ -371,7 +377,23 @@ class Query extends \Google\Model
     return $this->endTime;
   }
   /**
-   * Set Gemini search-specific options.
+   * Set Gemini in Workspace search-specific options.
+   *
+   * @param GeminiInWorkspaceOptions $geminiInWorkspaceOptions
+   */
+  public function setGeminiInWorkspaceOptions(GeminiInWorkspaceOptions $geminiInWorkspaceOptions)
+  {
+    $this->geminiInWorkspaceOptions = $geminiInWorkspaceOptions;
+  }
+  /**
+   * @return GeminiInWorkspaceOptions
+   */
+  public function getGeminiInWorkspaceOptions()
+  {
+    return $this->geminiInWorkspaceOptions;
+  }
+  /**
+   * Set Gemini app search-specific options.
    *
    * @param GeminiOptions $geminiOptions
    */

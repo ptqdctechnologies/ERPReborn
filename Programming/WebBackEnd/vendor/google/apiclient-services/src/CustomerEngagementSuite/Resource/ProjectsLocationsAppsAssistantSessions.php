@@ -53,7 +53,7 @@ class ProjectsLocationsAppsAssistantSessions extends \Google\Service\Resource
     return $this->call('cancelAssistantTurn', [$params], CancelAssistantTurnResponse::class);
   }
   /**
-   * Runs the Chat AI assistant agent for the specified assistant session in a
+   * Runs Arc, the AI assistant, for the specified assistant session in a
    * streaming fashion. (assistantSessions.streamChatAiAssistant)
    *
    * @param string $name Required. The assistant session to be used to run the

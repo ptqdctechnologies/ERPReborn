@@ -71,7 +71,7 @@ class EgressFrom extends \Google\Collection
   public $identityType;
   /**
    * Whether to enforce traffic restrictions based on `sources` field. If the
-   * `sources` fields is non-empty, then this field must be set to
+   * `sources` field is not empty, then this field must be set to
    * `SOURCE_RESTRICTION_ENABLED`.
    *
    * @var string
@@ -123,7 +123,7 @@ class EgressFrom extends \Google\Collection
   }
   /**
    * Whether to enforce traffic restrictions based on `sources` field. If the
-   * `sources` fields is non-empty, then this field must be set to
+   * `sources` field is not empty, then this field must be set to
    * `SOURCE_RESTRICTION_ENABLED`.
    *
    * Accepted values: SOURCE_RESTRICTION_UNSPECIFIED,

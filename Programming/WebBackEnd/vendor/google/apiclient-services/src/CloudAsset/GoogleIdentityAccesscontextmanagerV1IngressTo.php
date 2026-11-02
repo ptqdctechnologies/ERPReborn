@@ -28,7 +28,7 @@ class GoogleIdentityAccesscontextmanagerV1IngressTo extends \Google\Collection
    * `organizations/{organization_id}`, protected by this ServicePerimeter that
    * are allowed to be accessed by sources defined in the corresponding
    * IngressFrom. If a single `*` is specified, then access to all resources
-   * inside the perimeter are allowed.
+   * inside the perimeter is allowed.
    *
    * @var string[]
    */
@@ -65,7 +65,7 @@ class GoogleIdentityAccesscontextmanagerV1IngressTo extends \Google\Collection
    * `organizations/{organization_id}`, protected by this ServicePerimeter that
    * are allowed to be accessed by sources defined in the corresponding
    * IngressFrom. If a single `*` is specified, then access to all resources
-   * inside the perimeter are allowed.
+   * inside the perimeter is allowed.
    *
    * @param string[] $resources
    */

@@ -23,14 +23,15 @@ class GoogleCloudAssuredworkloadsV1ListDbFindingSummariesResponse extends \Googl
   protected $dbFindingSummariesType = GoogleCloudAssuredworkloadsV1DbFindingSummary::class;
   protected $dbFindingSummariesDataType = 'array';
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @var string
    */
   public $nextPageToken;
 
   /**
-   * List of finding summary by category.
+   * The list of finding summaries, one for each finding category.
    *
    * @param GoogleCloudAssuredworkloadsV1DbFindingSummary[] $dbFindingSummaries
    */
@@ -46,7 +47,8 @@ class GoogleCloudAssuredworkloadsV1ListDbFindingSummariesResponse extends \Googl
     return $this->dbFindingSummaries;
   }
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @param string $nextPageToken
    */

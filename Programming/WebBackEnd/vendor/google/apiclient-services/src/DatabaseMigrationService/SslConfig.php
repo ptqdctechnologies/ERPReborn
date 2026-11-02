@@ -68,8 +68,9 @@ class SslConfig extends \Google\Model
   /**
    * Optional. SSL flags used for establishing SSL connection to the source
    * database. Only source specific flags are supported. An object containing a
-   * list of "key": "value" pairs. Example: { "server_certificate_hostname":
-   * "server.com"}.
+   * list of "key": "value" pairs. Examples: { "server_certificate_dn":
+   * "CN=server.com,OU=RDS,O=Amazon.com,C=US"} or {
+   * "server_certificate_hostname": "server.com"}.
    *
    * @var string[]
    */
@@ -139,8 +140,9 @@ class SslConfig extends \Google\Model
   /**
    * Optional. SSL flags used for establishing SSL connection to the source
    * database. Only source specific flags are supported. An object containing a
-   * list of "key": "value" pairs. Example: { "server_certificate_hostname":
-   * "server.com"}.
+   * list of "key": "value" pairs. Examples: { "server_certificate_dn":
+   * "CN=server.com,OU=RDS,O=Amazon.com,C=US"} or {
+   * "server_certificate_hostname": "server.com"}.
    *
    * @param string[] $sslFlags
    */

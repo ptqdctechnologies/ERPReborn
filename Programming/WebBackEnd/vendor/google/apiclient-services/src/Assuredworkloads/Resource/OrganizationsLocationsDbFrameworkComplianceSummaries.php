@@ -30,23 +30,26 @@ use Google\Service\Assuredworkloads\GoogleCloudAssuredworkloadsV1ListDbFramework
 class OrganizationsLocationsDbFrameworkComplianceSummaries extends \Google\Service\Resource
 {
   /**
-   * Lists the framework compliance summary for a given scope. (dbFrameworkComplia
-   * nceSummaries.listOrganizationsLocationsDbFrameworkComplianceSummaries)
+   * Lists the compliance summaries of the frameworks that are deployed in a Data
+   * Boundary scope (an organization, folder, or project). (dbFrameworkComplianceS
+   * ummaries.listOrganizationsLocationsDbFrameworkComplianceSummaries)
    *
-   * @param string $parent Required. The parent scope for the framework compliance
-   * summary. Format: organizations/{organization}/locations/{location}
-   * folders/{folder}/locations/{location} projects/{project}/locations/{location}
+   * @param string $parent Required. The parent scope to list framework compliance
+   * summaries for. Formats: * `organizations/{organization}/locations/{location}`
+   * * `folders/{folder}/locations/{location}` *
+   * `projects/{project}/locations/{location}`
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Optional. The filtering results.
+   * @opt_param string filter Optional. A filter expression that restricts the
+   * results. Reserved for future use.
    * @opt_param int pageSize Optional. The requested page size. The server might
    * return fewer items than requested. If unspecified, the default page size is
    * 50. The maximum value is 1000.
    * @opt_param string pageToken Optional. A token that identifies the page of
-   * results that the server should return. Pass the next_page_token value from a
-   * previous result.
-   * @opt_param string view Optional. Specifies the level of detail to return in
-   * the response.
+   * results that the server should return. Pass the `next_page_token` value from
+   * a previous result.
+   * @opt_param string view Optional. The level of detail to return for each
+   * summary. If not specified, `FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_BASIC` is used.
    * @return GoogleCloudAssuredworkloadsV1ListDbFrameworkComplianceSummariesResponse
    * @throws \Google\Service\Exception
    */

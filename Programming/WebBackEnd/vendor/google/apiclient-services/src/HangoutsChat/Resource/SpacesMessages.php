@@ -20,6 +20,8 @@ namespace Google\Service\HangoutsChat\Resource;
 use Google\Service\HangoutsChat\ChatEmpty;
 use Google\Service\HangoutsChat\ListMessagesResponse;
 use Google\Service\HangoutsChat\Message;
+use Google\Service\HangoutsChat\ReplaceMessageCardsRequest;
+use Google\Service\HangoutsChat\ReplaceMessageCardsResponse;
 use Google\Service\HangoutsChat\SearchMessagesRequest;
 use Google\Service\HangoutsChat\SearchMessagesResponse;
 
@@ -327,6 +329,31 @@ class SpacesMessages extends \Google\Service\Resource
     $params = ['name' => $name, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('patch', [$params], Message::class);
+  }
+  /**
+   * Replaces the cards included in a message. A Chat app can only replace cards
+   * on a human-created message if the message already contains cards, and the
+   * cards were created by the app. If the app replaces the cards with an empty
+   * list, the cards are removed. After removing the cards, the app cannot add
+   * cards back to the message. Requires [app
+   * authentication](https://developers.google.com/workspace/chat/authenticate-
+   * authorize-chat-app) with the [authorization
+   * scope](https://developers.google.com/workspace/chat/authenticate-
+   * authorize#chat-api-scopes): - `https://www.googleapis.com/auth/chat.bot`
+   * (messages.replaceCards)
+   *
+   * @param string $name Required. The resource name of the message. Format:
+   * `spaces/{space}/messages/{message}`
+   * @param ReplaceMessageCardsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return ReplaceMessageCardsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function replaceCards($name, ReplaceMessageCardsRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('replaceCards', [$params], ReplaceMessageCardsResponse::class);
   }
   /**
    * Searches for messages in Google Chat that the calling user has access to.

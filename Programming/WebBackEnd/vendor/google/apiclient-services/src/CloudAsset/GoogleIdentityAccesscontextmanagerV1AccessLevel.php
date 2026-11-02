@@ -40,7 +40,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessLevel extends \Google\Model
    */
   public $name;
   /**
-   * Human readable title. Must be unique within the Policy.
+   * Human-readable title. Must be unique within the policy.
    *
    * @var string
    */
@@ -115,7 +115,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessLevel extends \Google\Model
     return $this->name;
   }
   /**
-   * Human readable title. Must be unique within the Policy.
+   * Human-readable title. Must be unique within the policy.
    *
    * @param string $title
    */

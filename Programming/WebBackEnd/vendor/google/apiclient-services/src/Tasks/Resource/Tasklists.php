@@ -33,9 +33,11 @@ class Tasklists extends \Google\Service\Resource
   /**
    * Deletes the authenticated user's specified task list. If the list contains
    * assigned tasks, both the assigned tasks and the original tasks in the
-   * assignment surface (Docs, Chat Spaces) are deleted. (tasklists.delete)
+   * assignment surface (Docs, Chat Spaces) are deleted. The user's default task
+   * list cannot be deleted. (tasklists.delete)
    *
-   * @param string $tasklist Task list identifier.
+   * @param string $tasklist Task list identifier. The default task list cannot be
+   * deleted.
    * @param array $optParams Optional parameters.
    * @throws \Google\Service\Exception
    */
@@ -48,7 +50,8 @@ class Tasklists extends \Google\Service\Resource
   /**
    * Returns the authenticated user's specified task list. (tasklists.get)
    *
-   * @param string $tasklist Task list identifier.
+   * @param string $tasklist Task list identifier. Use "@default" to get the
+   * authenticated user's default task list.
    * @param array $optParams Optional parameters.
    * @return TaskList
    * @throws \Google\Service\Exception
@@ -80,10 +83,10 @@ class Tasklists extends \Google\Service\Resource
    *
    * @param array $optParams Optional parameters.
    *
-   * @opt_param int maxResults Maximum number of task lists returned on one page.
-   * Optional. The default is 1000 (max allowed: 1000).
-   * @opt_param string pageToken Token specifying the result page to return.
-   * Optional.
+   * @opt_param int maxResults Optional. Maximum number of task lists returned on
+   * one page. The default is 1000 (max allowed: 1000).
+   * @opt_param string pageToken Optional. Token specifying the result page to
+   * return.
    * @return TaskListsModel
    * @throws \Google\Service\Exception
    */

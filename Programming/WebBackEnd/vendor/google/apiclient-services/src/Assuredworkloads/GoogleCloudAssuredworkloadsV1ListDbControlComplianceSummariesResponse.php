@@ -23,14 +23,15 @@ class GoogleCloudAssuredworkloadsV1ListDbControlComplianceSummariesResponse exte
   protected $dbControlComplianceSummariesType = GoogleCloudAssuredworkloadsV1DbControlComplianceSummary::class;
   protected $dbControlComplianceSummariesDataType = 'array';
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @var string
    */
   public $nextPageToken;
 
   /**
-   * The list of control compliance details.
+   * The list of control compliance summaries.
    *
    * @param GoogleCloudAssuredworkloadsV1DbControlComplianceSummary[] $dbControlComplianceSummaries
    */
@@ -46,7 +47,8 @@ class GoogleCloudAssuredworkloadsV1ListDbControlComplianceSummariesResponse exte
     return $this->dbControlComplianceSummaries;
   }
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @param string $nextPageToken
    */

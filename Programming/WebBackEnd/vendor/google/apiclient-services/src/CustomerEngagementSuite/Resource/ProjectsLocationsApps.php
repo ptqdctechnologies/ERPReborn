@@ -112,11 +112,11 @@ class ProjectsLocationsApps extends \Google\Service\Resource
     return $this->call('exportApp', [$params], Operation::class);
   }
   /**
-   * Generates personalized onboarding suggestions for the AI assistant zero
-   * state: classifies the requesting user (new / exploring / returning) from
-   * their assistant-session history in the app and returns suggestion chips
-   * (resume a session, continue work, or start something new) to render before
-   * any message is sent. (apps.generateOnboardingSuggestions)
+   * Generates personalized onboarding suggestions for the Arc zero state:
+   * classifies the requesting user (new / exploring / returning) from their
+   * assistant-session history in the app and returns suggestion chips (resume a
+   * session, continue work, or start something new) to render before any message
+   * is sent. (apps.generateOnboardingSuggestions)
    *
    * @param string $name Required. The app whose zero state is being rendered.
    * Format: `projects/{project}/locations/{location}/apps/{app}`

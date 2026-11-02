@@ -24,7 +24,7 @@ class BatchDeleteOneTimeProductOffersRequest extends \Google\Collection
   protected $requestsDataType = 'array';
 
   /**
-   * Required. A list of update requests of up to 100 elements. All requests
+   * Required. A list of delete requests of up to 100 elements. All requests
    * must correspond to different offers.
    *
    * @param DeleteOneTimeProductOfferRequest[] $requests

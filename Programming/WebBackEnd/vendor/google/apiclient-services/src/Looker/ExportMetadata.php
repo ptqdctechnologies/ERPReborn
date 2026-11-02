@@ -37,6 +37,15 @@ class ExportMetadata extends \Google\Collection
   public const SOURCE_LOOKER_SELF_HOSTED = 'LOOKER_SELF_HOSTED';
   protected $collection_key = 'filePaths';
   /**
+   * Opaque capability token for O2C Elite System Activity (ESA) direct dataset
+   * migration. It is minted by the exporter together with the cloned source
+   * dataset and presented back to Looker Original when the import requests
+   * access to that dataset.
+   *
+   * @var string
+   */
+  public $esaMigrationToken;
+  /**
    * Source BigQuery dataset (formatted as `project_id:dataset_id`) for O2C
    * Elite System Activity (ESA) direct dataset migration.
    *
@@ -47,6 +56,14 @@ class ExportMetadata extends \Google\Collection
   protected $exportEncryptionKeyDataType = '';
   protected $exportMetricsType = ExportMetrics::class;
   protected $exportMetricsDataType = '';
+  /**
+   * A string of digits representing the number of microseconds since the Unix
+   * epoch when the export was created. Used to identify the cloned source Elite
+   * System Activity (ESA) BigQuery dataset for O2C direct dataset migration.
+   *
+   * @var string
+   */
+  public $exportTime;
   /**
    * List of files created as part of export artifact (excluding the metadata).
    * The paths are relative to the folder containing the metadata.
@@ -88,6 +105,25 @@ class ExportMetadata extends \Google\Collection
    */
   public $source;
 
+  /**
+   * Opaque capability token for O2C Elite System Activity (ESA) direct dataset
+   * migration. It is minted by the exporter together with the cloned source
+   * dataset and presented back to Looker Original when the import requests
+   * access to that dataset.
+   *
+   * @param string $esaMigrationToken
+   */
+  public function setEsaMigrationToken($esaMigrationToken)
+  {
+    $this->esaMigrationToken = $esaMigrationToken;
+  }
+  /**
+   * @return string
+   */
+  public function getEsaMigrationToken()
+  {
+    return $this->esaMigrationToken;
+  }
   /**
    * Source BigQuery dataset (formatted as `project_id:dataset_id`) for O2C
    * Elite System Activity (ESA) direct dataset migration.
@@ -136,6 +172,24 @@ class ExportMetadata extends \Google\Collection
   public function getExportMetrics()
   {
     return $this->exportMetrics;
+  }
+  /**
+   * A string of digits representing the number of microseconds since the Unix
+   * epoch when the export was created. Used to identify the cloned source Elite
+   * System Activity (ESA) BigQuery dataset for O2C direct dataset migration.
+   *
+   * @param string $exportTime
+   */
+  public function setExportTime($exportTime)
+  {
+    $this->exportTime = $exportTime;
+  }
+  /**
+   * @return string
+   */
+  public function getExportTime()
+  {
+    return $this->exportTime;
   }
   /**
    * List of files created as part of export artifact (excluding the metadata).

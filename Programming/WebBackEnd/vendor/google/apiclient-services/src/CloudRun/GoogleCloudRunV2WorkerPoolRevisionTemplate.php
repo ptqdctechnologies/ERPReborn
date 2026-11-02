@@ -110,6 +110,8 @@ class GoogleCloudRunV2WorkerPoolRevisionTemplate extends \Google\Collection
    * @var string
    */
   public $revision;
+  protected $sandboxesType = GoogleCloudRunV2SandboxConfiguration::class;
+  protected $sandboxesDataType = '';
   /**
    * Optional. Email address of the IAM service account associated with the
    * revision of the service. The service account represents the identity of the
@@ -325,6 +327,22 @@ class GoogleCloudRunV2WorkerPoolRevisionTemplate extends \Google\Collection
   public function getRevision()
   {
     return $this->revision;
+  }
+  /**
+   * Optional. Configuration for sandboxes.
+   *
+   * @param GoogleCloudRunV2SandboxConfiguration $sandboxes
+   */
+  public function setSandboxes(GoogleCloudRunV2SandboxConfiguration $sandboxes)
+  {
+    $this->sandboxes = $sandboxes;
+  }
+  /**
+   * @return GoogleCloudRunV2SandboxConfiguration
+   */
+  public function getSandboxes()
+  {
+    return $this->sandboxes;
   }
   /**
    * Optional. Email address of the IAM service account associated with the

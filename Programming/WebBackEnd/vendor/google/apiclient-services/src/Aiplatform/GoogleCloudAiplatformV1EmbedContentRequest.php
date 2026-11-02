@@ -69,6 +69,14 @@ class GoogleCloudAiplatformV1EmbedContentRequest extends \Google\Model
   protected $embedContentConfigType = GoogleCloudAiplatformV1EmbedContentRequestEmbedContentConfig::class;
   protected $embedContentConfigDataType = '';
   /**
+   * Required. The name of the publisher model requested to serve the
+   * prediction. Format:
+   * `projects/{project}/locations/{location}/publishers/models`
+   *
+   * @var string
+   */
+  public $model;
+  /**
    * Optional. Deprecated: Please use EmbedContentConfig.output_dimensionality
    * instead. Reduced dimension for the output embedding. If set, excessive
    * values in the output embedding are truncated from the end.
@@ -145,6 +153,24 @@ class GoogleCloudAiplatformV1EmbedContentRequest extends \Google\Model
   public function getEmbedContentConfig()
   {
     return $this->embedContentConfig;
+  }
+  /**
+   * Required. The name of the publisher model requested to serve the
+   * prediction. Format:
+   * `projects/{project}/locations/{location}/publishers/models`
+   *
+   * @param string $model
+   */
+  public function setModel($model)
+  {
+    $this->model = $model;
+  }
+  /**
+   * @return string
+   */
+  public function getModel()
+  {
+    return $this->model;
   }
   /**
    * Optional. Deprecated: Please use EmbedContentConfig.output_dimensionality

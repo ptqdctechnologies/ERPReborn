@@ -23,7 +23,8 @@ class GoogleCloudAssuredworkloadsV1ListDbFrameworkComplianceSummariesResponse ex
   protected $dbFrameworkComplianceSummariesType = GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary::class;
   protected $dbFrameworkComplianceSummariesDataType = 'array';
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @var string
    */
@@ -46,7 +47,8 @@ class GoogleCloudAssuredworkloadsV1ListDbFrameworkComplianceSummariesResponse ex
     return $this->dbFrameworkComplianceSummaries;
   }
   /**
-   * Output only. The token to retrieve the next page of results.
+   * Output only. A token that can be sent as `page_token` to retrieve the next
+   * page. If this field is empty, there are no subsequent pages.
    *
    * @param string $nextPageToken
    */

@@ -44,8 +44,8 @@ class AccessPoliciesServicePerimeters extends \Google\Service\Resource
    * after the dry-run specifications for all the service perimeters have been
    * committed. If a commit fails, it causes the long-running operation to return
    * an error response and the entire commit operation is cancelled. When
-   * successful, the Operation.response field contains
-   * CommitServicePerimetersResponse. The `dry_run` and the `spec` fields are
+   * successful, the `Operation.response` field contains
+   * `CommitServicePerimetersResponse`. The `dry_run` and the `spec` fields are
    * cleared after a successful commit operation. (servicePerimeters.commit)
    *
    * @param string $parent Required. Resource name for the parent Access Policy
@@ -102,8 +102,7 @@ class AccessPoliciesServicePerimeters extends \Google\Service\Resource
    * Gets a service perimeter based on the resource name. (servicePerimeters.get)
    *
    * @param string $name Required. Resource name for the Service Perimeter.
-   * Format:
-   * `accessPolicies/{policy_id}/servicePerimeters/{service_perimeters_id}`
+   * Format: `accessPolicies/{policy_id}/servicePerimeters/{service_perimeter_id}`
    * @param array $optParams Optional parameters.
    *
    * @opt_param string deletedPrincipalSyntax Optional. If true, the response will
@@ -170,13 +169,13 @@ class AccessPoliciesServicePerimeters extends \Google\Service\Resource
     return $this->call('patch', [$params], Operation::class);
   }
   /**
-   * Replace all existing service perimeters in an access policy with the service
+   * Replaces all existing service perimeters in an access policy with the service
    * perimeters provided. This is done atomically. The long-running operation from
    * this RPC has a successful status after all replacements propagate to long-
    * lasting storage. Replacements containing errors result in an error response
    * for the first error encountered. Upon an error, replacements are cancelled
-   * and existing service perimeters are not affected. The Operation.response
-   * field contains ReplaceServicePerimetersResponse.
+   * and existing service perimeters are not affected. The `Operation.response`
+   * field contains `ReplaceServicePerimetersResponse`.
    * (servicePerimeters.replaceAll)
    *
    * @param string $parent Required. Resource name for the access policy which

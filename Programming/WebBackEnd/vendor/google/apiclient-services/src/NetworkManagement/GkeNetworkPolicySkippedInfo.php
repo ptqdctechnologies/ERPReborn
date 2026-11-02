@@ -43,8 +43,8 @@ class GkeNetworkPolicySkippedInfo extends \Google\Model
    */
   public const REASON_NETWORK_POLICY_NOT_APPLIED_TO_RESPONSE_TRAFFIC = 'NETWORK_POLICY_NOT_APPLIED_TO_RESPONSE_TRAFFIC';
   /**
-   * Network Policy evaluation is currently not supported for clusters with FQDN
-   * Network Policies enabled.
+   * Network Policy evaluation is currently not supported for Pods selected by
+   * an FQDN Network Policy.
    */
   public const REASON_NETWORK_POLICY_ANALYSIS_UNSUPPORTED = 'NETWORK_POLICY_ANALYSIS_UNSUPPORTED';
   /**

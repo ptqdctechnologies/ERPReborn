@@ -60,7 +60,7 @@ class AccessPolicies extends \Google\Service\Resource
    * long-lasting storage. (accessPolicies.delete)
    *
    * @param string $name Required. Resource name for the access policy to delete.
-   * Format `accessPolicies/{policy_id}`
+   * Format: `accessPolicies/{policy_id}`
    * @param array $optParams Optional parameters.
    * @return Operation
    * @throws \Google\Service\Exception
@@ -75,7 +75,7 @@ class AccessPolicies extends \Google\Service\Resource
    * Returns an access policy based on the name. (accessPolicies.get)
    *
    * @param string $name Required. Resource name for the access policy to get.
-   * Format `accessPolicies/{policy_id}`
+   * Format: `accessPolicies/{policy_id}`
    * @param array $optParams Optional parameters.
    * @return AccessPolicy
    * @throws \Google\Service\Exception

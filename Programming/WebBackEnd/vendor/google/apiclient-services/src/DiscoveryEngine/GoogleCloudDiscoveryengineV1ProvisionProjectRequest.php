@@ -36,6 +36,8 @@ class GoogleCloudDiscoveryengineV1ProvisionProjectRequest extends \Google\Model
    * @var string
    */
   public $dataUseTermsVersion;
+  protected $idpConfigType = GoogleCloudDiscoveryengineV1IdpConfig::class;
+  protected $idpConfigDataType = '';
   protected $saasParamsType = GoogleCloudDiscoveryengineV1ProvisionProjectRequestSaasParams::class;
   protected $saasParamsDataType = '';
 
@@ -75,6 +77,23 @@ class GoogleCloudDiscoveryengineV1ProvisionProjectRequest extends \Google\Model
   public function getDataUseTermsVersion()
   {
     return $this->dataUseTermsVersion;
+  }
+  /**
+   * Optional. The identity provider for this location. When provided, the
+   * location's AclConfig is set from it as part of provisioning.
+   *
+   * @param GoogleCloudDiscoveryengineV1IdpConfig $idpConfig
+   */
+  public function setIdpConfig(GoogleCloudDiscoveryengineV1IdpConfig $idpConfig)
+  {
+    $this->idpConfig = $idpConfig;
+  }
+  /**
+   * @return GoogleCloudDiscoveryengineV1IdpConfig
+   */
+  public function getIdpConfig()
+  {
+    return $this->idpConfig;
   }
   /**
    * Optional. Parameters for Agentspace.

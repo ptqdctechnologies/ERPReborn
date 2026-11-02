@@ -182,6 +182,7 @@ class Aiplatform extends \Google\Service
   public $projects_locations_persistentResources_operations;
   public $projects_locations_pipelineJobs;
   public $projects_locations_pipelineJobs_operations;
+  public $projects_locations_publishers_files;
   public $projects_locations_publishers_models;
   public $projects_locations_publishers_models_invoke;
   public $projects_locations_publishers_v1;
@@ -3794,6 +3795,10 @@ class Aiplatform extends \Google\Service
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,
+                ],
+                'idpNonce' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
               ],
             ],'delete' => [
@@ -11665,13 +11670,106 @@ class Aiplatform extends \Google\Service
           ]
         ]
     );
+    $this->projects_locations_publishers_files = new Aiplatform\Resource\ProjectsLocationsPublishersFiles(
+        $this,
+        $this->serviceName,
+        'files',
+        [
+          'methods' => [
+            'delete' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'DELETE',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'download' => [
+              'path' => 'v1/{+name}/content',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'get' => [
+              'path' => 'v1/{+name}',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'list' => [
+              'path' => 'v1/{+parent}/publishers/{publishersId}/files',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'publishersId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'ids' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                  'repeated' => true,
+                ],
+                'limit' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'page' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],'upload' => [
+              'path' => 'v1/{+parent}/publishers/{publishersId}/files',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'publishersId' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->projects_locations_publishers_models = new Aiplatform\Resource\ProjectsLocationsPublishersModels(
         $this,
         $this->serviceName,
         'models',
         [
           'methods' => [
-            'computeTokens' => [
+            'batchEmbedContents' => [
+              'path' => 'v1/{+model}:batchEmbedContents',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'model' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],'computeTokens' => [
               'path' => 'v1/{+endpoint}:computeTokens',
               'httpMethod' => 'POST',
               'parameters' => [

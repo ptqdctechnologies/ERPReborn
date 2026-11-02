@@ -324,6 +324,16 @@ class AgentIdentity extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'resolveAuthorization' => [
+              'path' => 'v1/{+name}:resolveAuthorization',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'revokeAuthorization' => [
               'path' => 'v1/{+name}:revokeAuthorization',
               'httpMethod' => 'POST',

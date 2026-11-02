@@ -33,6 +33,18 @@ class LoggingSettings extends \Google\Model
   protected $metricAnalysisSettingsDataType = '';
   protected $redactionConfigType = RedactionConfig::class;
   protected $redactionConfigDataType = '';
+  /**
+   * Optional. Whether the app has to say what may be recorded before anything
+   * is kept. When true, a session starts with recording off and stays off until
+   * the client sends SessionInput.recording_control, which then decides every
+   * turn from that point on. This covers audio recording as well as
+   * conversation history, BigQuery export and Cloud Logging. When `false`, the
+   * default, the settings above decide on their own and the client does not
+   * have to send anything.
+   *
+   * @var bool
+   */
+  public $requiredRecordingConsent;
   protected $unredactedAudioRecordingConfigType = AudioRecordingConfig::class;
   protected $unredactedAudioRecordingConfigDataType = '';
   protected $unredactedBigqueryExportSettingsType = BigQueryExportSettings::class;
@@ -155,6 +167,28 @@ class LoggingSettings extends \Google\Model
   public function getRedactionConfig()
   {
     return $this->redactionConfig;
+  }
+  /**
+   * Optional. Whether the app has to say what may be recorded before anything
+   * is kept. When true, a session starts with recording off and stays off until
+   * the client sends SessionInput.recording_control, which then decides every
+   * turn from that point on. This covers audio recording as well as
+   * conversation history, BigQuery export and Cloud Logging. When `false`, the
+   * default, the settings above decide on their own and the client does not
+   * have to send anything.
+   *
+   * @param bool $requiredRecordingConsent
+   */
+  public function setRequiredRecordingConsent($requiredRecordingConsent)
+  {
+    $this->requiredRecordingConsent = $requiredRecordingConsent;
+  }
+  /**
+   * @return bool
+   */
+  public function getRequiredRecordingConsent()
+  {
+    return $this->requiredRecordingConsent;
   }
   /**
    * Optional. Configures an additional recording of unredacted audio. This can

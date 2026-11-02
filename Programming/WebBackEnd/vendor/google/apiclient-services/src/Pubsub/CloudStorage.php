@@ -61,8 +61,8 @@ class CloudStorage extends \Google\Model
   protected $avroFormatDataType = '';
   /**
    * Optional. Cloud Storage bucket. The bucket name must be without any prefix
-   * like "gs://". See the [bucket naming requirements]
-   * (https://cloud.google.com/storage/docs/buckets#naming).
+   * like "gs://". See the [bucket naming requirements](
+   * https://cloud.google.com/storage/docs/buckets#naming).
    *
    * @var string
    */
@@ -113,8 +113,8 @@ class CloudStorage extends \Google\Model
   }
   /**
    * Optional. Cloud Storage bucket. The bucket name must be without any prefix
-   * like "gs://". See the [bucket naming requirements]
-   * (https://cloud.google.com/storage/docs/buckets#naming).
+   * like "gs://". See the [bucket naming requirements](
+   * https://cloud.google.com/storage/docs/buckets#naming).
    *
    * @param string $bucket
    */

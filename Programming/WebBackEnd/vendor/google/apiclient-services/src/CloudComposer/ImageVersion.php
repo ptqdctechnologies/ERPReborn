@@ -27,6 +27,13 @@ class ImageVersion extends \Google\Collection
    */
   public $creationDisabled;
   /**
+   * Whether it is possible to create an environment in the `DEVELOPMENT` mode
+   * with the image version.
+   *
+   * @var bool
+   */
+  public $devModeSupported;
+  /**
    * The string identifier of the ImageVersion, in the form:
    * "composer-x.y.z-airflow-a.b.c"
    *
@@ -71,6 +78,23 @@ class ImageVersion extends \Google\Collection
   public function getCreationDisabled()
   {
     return $this->creationDisabled;
+  }
+  /**
+   * Whether it is possible to create an environment in the `DEVELOPMENT` mode
+   * with the image version.
+   *
+   * @param bool $devModeSupported
+   */
+  public function setDevModeSupported($devModeSupported)
+  {
+    $this->devModeSupported = $devModeSupported;
+  }
+  /**
+   * @return bool
+   */
+  public function getDevModeSupported()
+  {
+    return $this->devModeSupported;
   }
   /**
    * The string identifier of the ImageVersion, in the form:

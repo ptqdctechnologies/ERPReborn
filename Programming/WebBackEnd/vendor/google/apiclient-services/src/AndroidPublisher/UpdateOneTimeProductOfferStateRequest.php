@@ -63,7 +63,8 @@ class UpdateOneTimeProductOfferStateRequest extends \Google\Model
   }
   /**
    * Deactivates an offer. Once deactivated, the offer is no longer available to
-   * users. This state transition is specific to discounted offers.
+   * users. This state transition is specific to discounted and game reward
+   * offers.
    *
    * @param DeactivateOneTimeProductOfferRequest $deactivateOneTimeProductOfferRequest
    */

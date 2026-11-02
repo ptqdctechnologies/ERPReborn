@@ -20,6 +20,23 @@ namespace Google\Service\CloudSecurityToken;
 class GoogleIdentityStsV1ExchangeTokenRequest extends \Google\Model
 {
   /**
+   * Optional. A security token that represents the identity of the acting
+   * party. Typically, this is the party that is authorized to use the requested
+   * security token and act on behalf of the subject.
+   *
+   * @var string
+   */
+  public $actorToken;
+  /**
+   * Optional. An identifier that indicates the type of the security token in
+   * the `actor_token` parameter. Required when the `actor_token` parameter is
+   * set. Supported values are `urn:ietf:params:oauth:token-type:jwt`,
+   * `urn:ietf:params:oauth:token-type:id_token`.
+   *
+   * @var string
+   */
+  public $actorTokenType;
+  /**
    * The full resource name of the identity provider; for example: `//iam.google
    * apis.com/projects//locations/global/workloadIdentityPools//providers/` for
    * workload identity pool providers, or
@@ -171,6 +188,43 @@ class GoogleIdentityStsV1ExchangeTokenRequest extends \Google\Model
    */
   public $subjectTokenType;
 
+  /**
+   * Optional. A security token that represents the identity of the acting
+   * party. Typically, this is the party that is authorized to use the requested
+   * security token and act on behalf of the subject.
+   *
+   * @param string $actorToken
+   */
+  public function setActorToken($actorToken)
+  {
+    $this->actorToken = $actorToken;
+  }
+  /**
+   * @return string
+   */
+  public function getActorToken()
+  {
+    return $this->actorToken;
+  }
+  /**
+   * Optional. An identifier that indicates the type of the security token in
+   * the `actor_token` parameter. Required when the `actor_token` parameter is
+   * set. Supported values are `urn:ietf:params:oauth:token-type:jwt`,
+   * `urn:ietf:params:oauth:token-type:id_token`.
+   *
+   * @param string $actorTokenType
+   */
+  public function setActorTokenType($actorTokenType)
+  {
+    $this->actorTokenType = $actorTokenType;
+  }
+  /**
+   * @return string
+   */
+  public function getActorTokenType()
+  {
+    return $this->actorTokenType;
+  }
   /**
    * The full resource name of the identity provider; for example: `//iam.google
    * apis.com/projects//locations/global/workloadIdentityPools//providers/` for

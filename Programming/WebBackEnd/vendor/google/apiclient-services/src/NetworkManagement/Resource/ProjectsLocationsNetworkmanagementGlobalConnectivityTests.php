@@ -44,7 +44,7 @@ class ProjectsLocationsNetworkmanagementGlobalConnectivityTests extends \Google\
    * resources in the network, or you don't have read permissions to the network
    * configurations of listed projects), then the reachability result returns a
    * value of `UNKNOWN`. If the endpoint specifications in `ConnectivityTest` are
-   * incomplete, the reachability result returns a value of AMBIGUOUS. For more
+   * incomplete, the reachability result returns a value of `AMBIGUOUS`. For more
    * information, see the Connectivity Test documentation.
    * (connectivityTests.create)
    *
@@ -137,20 +137,20 @@ class ProjectsLocationsNetworkmanagementGlobalConnectivityTests extends \Google\
    * Tests: `projects/{project_id}/locations/global`
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string filter Lists the `ConnectivityTests` that match the filter
-   * expression. A filter expression filters the resources listed in the response.
-   * The expression must be of the form ` ` where operators: `<`, `>`, `<=`, `>=`,
-   * `!=`, `=`, `:` are supported (colon `:` represents a HAS operator which is
-   * roughly synonymous with equality). can refer to a proto or JSON field, or a
-   * synthetic field. Field names can be camelCase or snake_case. Examples: -
-   * Filter by name: name =
+   * @opt_param string filter Optional. Lists the `ConnectivityTests` that match
+   * the filter expression. A filter expression filters the resources listed in
+   * the response. The expression must be of the form ` ` where operators: `<`,
+   * `>`, `<=`, `>=`, `!=`, `=`, `:` are supported (colon `:` represents a HAS
+   * operator which is roughly synonymous with equality). can refer to a proto or
+   * JSON field, or a synthetic field. Field names can be camelCase or snake_case.
+   * Examples: - Filter by name: name =
    * "projects/proj-1/locations/global/connectivityTests/test-1 - Filter by
    * labels: - Resources that have a key called `foo` labels.foo:* - Resources
    * that have a key called `foo` whose value is `bar` labels.foo = bar
-   * @opt_param string orderBy Field to use to sort the list.
-   * @opt_param int pageSize Number of `ConnectivityTests` to return.
-   * @opt_param string pageToken Page token from an earlier query, as returned in
-   * `next_page_token`.
+   * @opt_param string orderBy Optional. Field to use to sort the list.
+   * @opt_param int pageSize Optional. Number of `ConnectivityTests` to return.
+   * @opt_param string pageToken Optional. Page token from an earlier query, as
+   * returned in `next_page_token`.
    * @return ListConnectivityTestsResponse
    * @throws \Google\Service\Exception
    */
@@ -168,7 +168,7 @@ class ProjectsLocationsNetworkmanagementGlobalConnectivityTests extends \Google\
    * specifications in `ConnectivityTest` are invalid (for example, they contain
    * non-existent resources in the network, or the user does not have read
    * permissions to the network configurations of listed projects), then the
-   * reachability result returns a value of UNKNOWN. If the endpoint
+   * reachability result returns a value of `UNKNOWN`. If the endpoint
    * specifications in `ConnectivityTest` are incomplete, the reachability result
    * returns a value of `AMBIGUOUS`. See the documentation in `ConnectivityTest`
    * for more details. (connectivityTests.patch)

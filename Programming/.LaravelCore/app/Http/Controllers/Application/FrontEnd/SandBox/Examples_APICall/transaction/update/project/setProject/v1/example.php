@@ -26,29 +26,41 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         */
         public function throughAPIGateway($varAPIWebToken)
             {
-            //---Parameter Set---
+            //-----[ PARAMETER SET ]-----
             if (!$varAPIWebToken) {
                 $varAPIWebToken = \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System();
                 }
-            //---Core---
+
+            //-----[ CORE ]-----
             $varData =
                 \App\Helpers\ZhtHelper\System\FrontEnd\Helper_APICall::setCallAPIGateway(
-                    \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                    $varAPIWebToken, 
-                    'transaction.update.project.setProject', 
-                    'latest', 
-                    [
-                    'recordID' => 46000000000034,
-                    'entities' => [
-                        "name" => 'Project XYZ',
-                        "materialProductAssembly_RefID" => null,
-                        "validStartDateTimeTZ" => '2024-05-01',
-                        "validFinishDateTimeTZ" => null,
-                        "code" => 'Qxxxxx'
+                    //-----[ METADATA ]-----( START )-----
+                        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                        $varAPIWebToken, 
+                        'transaction.update.project.setProject', 
+                        'latest',
+                    //-----[ METADATA ]-----(  END  )-----
+
+                    //-----[ DATA ]---------( START )-----
+                        [
+                        'recordID' => 46000000000044,
+                        'entities' => [
+                            'documentDateTimeTZ' => '2022-03-07',
+                            'log_FileUpload_Pointer_RefID' => 91000000000001,
+                            'requesterWorkerJobsPosition_RefID' => 164000000000497,
+                            "name" => 'Project XYZ',
+                            "materialProductAssembly_RefID" => null,
+                            "validStartDateTimeTZ" => '2024-05-01',
+                            "validFinishDateTimeTZ" => null,
+                            "code" => 'Qxxxxx'
+                            ]
                         ]
-                    ]
+                    //-----[ DATA ]---------(  END  )-----
                     );
-            var_dump($varData);
+
+            //-----[ DATA RETURN ]-----
+            return
+                $varData;
             }
 
 

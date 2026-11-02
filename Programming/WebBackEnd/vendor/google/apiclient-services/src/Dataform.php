@@ -608,6 +608,16 @@ class Dataform extends \Google\Service
                   'required' => true,
                 ],
               ],
+            ],'createLongRunning' => [
+              'path' => 'v1/{+parent}/compilationResults:createLongRunning',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
             ],'get' => [
               'path' => 'v1/{+name}',
               'httpMethod' => 'GET',

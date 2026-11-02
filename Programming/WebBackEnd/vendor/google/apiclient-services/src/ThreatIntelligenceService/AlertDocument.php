@@ -37,6 +37,8 @@ class AlertDocument extends \Google\Model
    * @var string
    */
   public $collectionTime;
+  protected $communicationContextType = CommunicationContext::class;
+  protected $communicationContextDataType = '';
   /**
    * Output only. The content of the document.
    *
@@ -143,6 +145,22 @@ class AlertDocument extends \Google\Model
   public function getCollectionTime()
   {
     return $this->collectionTime;
+  }
+  /**
+   * Output only. Platform identifiers of the message, thread and channel.
+   *
+   * @param CommunicationContext $communicationContext
+   */
+  public function setCommunicationContext(CommunicationContext $communicationContext)
+  {
+    $this->communicationContext = $communicationContext;
+  }
+  /**
+   * @return CommunicationContext
+   */
+  public function getCommunicationContext()
+  {
+    return $this->communicationContext;
   }
   /**
    * Output only. The content of the document.

@@ -93,7 +93,9 @@ class AndroidConfigV2 extends \Google\Model
   public $ttl;
 
   /**
-   * Optional. Non-urgent background sync message to send to android devices.
+   * Optional. Non-urgent background sync message to send to Android devices.
+   * Delivery of these messages may be delayed or batched to optimize for
+   * battery.
    *
    * @param AndroidBackgroundSyncMessage $backgroundSync
    */
@@ -198,7 +200,9 @@ class AndroidConfigV2 extends \Google\Model
     return $this->fcmOptions;
   }
   /**
-   * Optional. User-facing notification to send to android devices.
+   * Optional. User-facing notification to send to Android devices. These
+   * messages are delivered immediately and are not delayed by battery
+   * optimizations.
    *
    * @param AndroidRemoteNotification $remoteNotification
    */

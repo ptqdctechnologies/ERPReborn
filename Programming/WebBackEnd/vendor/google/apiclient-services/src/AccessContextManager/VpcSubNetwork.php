@@ -34,9 +34,9 @@ class VpcSubNetwork extends \Google\Collection
    * CIDR block IP subnetwork specification. The IP address must be an IPv4
    * address and can be a public or private IP address. Note that for a CIDR IP
    * address block, the specified IP address portion must be properly truncated
-   * (i.e. all the host bits must be zero) or the input is considered malformed.
-   * For example, "192.0.2.0/24" is accepted but "192.0.2.1/24" is not. If
-   * empty, all IP addresses are allowed.
+   * (that is, all the host bits must be zero) or the input is considered
+   * malformed. For example, `"192.0.2.0/24"` is accepted, but `"192.0.2.1/24"`
+   * is not. If empty, all IP addresses are allowed.
    *
    * @var string[]
    */
@@ -66,9 +66,9 @@ class VpcSubNetwork extends \Google\Collection
    * CIDR block IP subnetwork specification. The IP address must be an IPv4
    * address and can be a public or private IP address. Note that for a CIDR IP
    * address block, the specified IP address portion must be properly truncated
-   * (i.e. all the host bits must be zero) or the input is considered malformed.
-   * For example, "192.0.2.0/24" is accepted but "192.0.2.1/24" is not. If
-   * empty, all IP addresses are allowed.
+   * (that is, all the host bits must be zero) or the input is considered
+   * malformed. For example, `"192.0.2.0/24"` is accepted, but `"192.0.2.1/24"`
+   * is not. If empty, all IP addresses are allowed.
    *
    * @param string[] $vpcIpSubnetworks
    */

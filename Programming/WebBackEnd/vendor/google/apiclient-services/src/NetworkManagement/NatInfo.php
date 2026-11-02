@@ -150,7 +150,8 @@ class NatInfo extends \Google\Model
    */
   public $routerUri;
   /**
-   * The number of the NAT rule that was matched.
+   * The number of the NAT rule that was matched. Only valid when `type` is
+   * CLOUD_NAT.
    *
    * @var int
    */
@@ -378,7 +379,8 @@ class NatInfo extends \Google\Model
     return $this->routerUri;
   }
   /**
-   * The number of the NAT rule that was matched.
+   * The number of the NAT rule that was matched. Only valid when `type` is
+   * CLOUD_NAT.
    *
    * @param int $ruleNumber
    */

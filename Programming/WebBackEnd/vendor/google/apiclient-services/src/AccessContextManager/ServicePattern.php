@@ -23,9 +23,9 @@ class ServicePattern extends \Google\Collection
   protected $modifiersType = Modifier::class;
   protected $modifiersDataType = 'array';
   /**
-   * URL pattern to allow. Only patterns of ".googleapis.com",
-   * "www.googleapis.com/" and "*.appspot.com forms are supported, where should
-   * be an alphanumeric name.
+   * URL pattern to allow. Only patterns of `".googleapis.com"`,
+   * `"www.googleapis.com/"`, and `"*.appspot.com"` forms are supported, where
+   * `` should be an alphanumeric name.
    *
    * @var string
    */
@@ -54,9 +54,9 @@ class ServicePattern extends \Google\Collection
     return $this->modifiers;
   }
   /**
-   * URL pattern to allow. Only patterns of ".googleapis.com",
-   * "www.googleapis.com/" and "*.appspot.com forms are supported, where should
-   * be an alphanumeric name.
+   * URL pattern to allow. Only patterns of `".googleapis.com"`,
+   * `"www.googleapis.com/"`, and `"*.appspot.com"` forms are supported, where
+   * `` should be an alphanumeric name.
    *
    * @param string $pattern
    */

@@ -96,6 +96,20 @@ class GoogleCloudContactcenterinsightsV1ConversationQualityMetadataAgentInfo ext
    */
   public $location;
   /**
+   * The study arm ID associated with the conversation. Only applicable to
+   * automated agents.
+   *
+   * @var string
+   */
+  public $studyArmId;
+  /**
+   * The study ID associated with the conversation. Only applicable to automated
+   * agents.
+   *
+   * @var string
+   */
+  public $studyId;
+  /**
    * A user-specified string representing the agent's team. Deprecated in favor
    * of the `teams` field.
    *
@@ -269,6 +283,40 @@ class GoogleCloudContactcenterinsightsV1ConversationQualityMetadataAgentInfo ext
   public function getLocation()
   {
     return $this->location;
+  }
+  /**
+   * The study arm ID associated with the conversation. Only applicable to
+   * automated agents.
+   *
+   * @param string $studyArmId
+   */
+  public function setStudyArmId($studyArmId)
+  {
+    $this->studyArmId = $studyArmId;
+  }
+  /**
+   * @return string
+   */
+  public function getStudyArmId()
+  {
+    return $this->studyArmId;
+  }
+  /**
+   * The study ID associated with the conversation. Only applicable to automated
+   * agents.
+   *
+   * @param string $studyId
+   */
+  public function setStudyId($studyId)
+  {
+    $this->studyId = $studyId;
+  }
+  /**
+   * @return string
+   */
+  public function getStudyId()
+  {
+    return $this->studyId;
   }
   /**
    * A user-specified string representing the agent's team. Deprecated in favor

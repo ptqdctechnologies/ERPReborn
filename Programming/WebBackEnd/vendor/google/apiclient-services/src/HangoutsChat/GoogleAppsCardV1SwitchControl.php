@@ -39,8 +39,9 @@ class GoogleAppsCardV1SwitchControl extends \Google\Model
    */
   public $controlType;
   /**
-   * The name by which the switch widget is identified in a form input event.
-   * For details about working with form inputs, see [Receive form
+   * The name by which the switch widget is identified in a form input event (as
+   * the key in `CommonEventObject.form_inputs`). For details about working with
+   * form inputs, see [Receive form
    * data](https://developers.google.com/workspace/chat/read-form-data).
    *
    * @var string
@@ -49,15 +50,20 @@ class GoogleAppsCardV1SwitchControl extends \Google\Model
   protected $onChangeActionType = GoogleAppsCardV1Action::class;
   protected $onChangeActionDataType = '';
   /**
-   * When `true`, the switch is selected.
+   * When `true`, the switch is selected, and its `value` is included in
+   * `CommonEventObject.form_inputs[name].string_inputs.value`.
    *
    * @var bool
    */
   public $selected;
   /**
-   * The value entered by a user, returned as part of a form input event. For
-   * details about working with form inputs, see [Receive form
-   * data](https://developers.google.com/workspace/chat/read-form-data).
+   * The value returned in `CommonEventObject.form_inputs[name].string_inputs`
+   * when the switch is selected (`selected` is `true`). If `selected` is `true`
+   * and `value` is unset, an empty string (`""`) is returned in
+   * `string_inputs.value`. When `selected` is `false`, this value is omitted
+   * from `string_inputs.value`. For details about working with form inputs, see
+   * [Receive form data](https://developers.google.com/workspace/chat/read-form-
+   * data).
    *
    * @var string
    */
@@ -83,8 +89,9 @@ class GoogleAppsCardV1SwitchControl extends \Google\Model
     return $this->controlType;
   }
   /**
-   * The name by which the switch widget is identified in a form input event.
-   * For details about working with form inputs, see [Receive form
+   * The name by which the switch widget is identified in a form input event (as
+   * the key in `CommonEventObject.form_inputs`). For details about working with
+   * form inputs, see [Receive form
    * data](https://developers.google.com/workspace/chat/read-form-data).
    *
    * @param string $name
@@ -118,7 +125,8 @@ class GoogleAppsCardV1SwitchControl extends \Google\Model
     return $this->onChangeAction;
   }
   /**
-   * When `true`, the switch is selected.
+   * When `true`, the switch is selected, and its `value` is included in
+   * `CommonEventObject.form_inputs[name].string_inputs.value`.
    *
    * @param bool $selected
    */
@@ -134,9 +142,13 @@ class GoogleAppsCardV1SwitchControl extends \Google\Model
     return $this->selected;
   }
   /**
-   * The value entered by a user, returned as part of a form input event. For
-   * details about working with form inputs, see [Receive form
-   * data](https://developers.google.com/workspace/chat/read-form-data).
+   * The value returned in `CommonEventObject.form_inputs[name].string_inputs`
+   * when the switch is selected (`selected` is `true`). If `selected` is `true`
+   * and `value` is unset, an empty string (`""`) is returned in
+   * `string_inputs.value`. When `selected` is `false`, this value is omitted
+   * from `string_inputs.value`. For details about working with form inputs, see
+   * [Receive form data](https://developers.google.com/workspace/chat/read-form-
+   * data).
    *
    * @param string $value
    */

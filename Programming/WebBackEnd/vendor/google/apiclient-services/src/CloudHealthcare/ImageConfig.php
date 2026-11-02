@@ -17,7 +17,7 @@
 
 namespace Google\Service\CloudHealthcare;
 
-class ImageConfig extends \Google\Model
+class ImageConfig extends \Google\Collection
 {
   /**
    * No text redaction specified. Same as REDACT_NO_TEXT.
@@ -37,6 +37,9 @@ class ImageConfig extends \Google\Model
    * Do not redact text.
    */
   public const TEXT_REDACTION_MODE_REDACT_NO_TEXT = 'REDACT_NO_TEXT';
+  protected $collection_key = 'customRegexes';
+  protected $customRegexesType = CustomRegex::class;
+  protected $customRegexesDataType = 'array';
   /**
    * Optional. Determines how to redact text from image.
    *
@@ -44,6 +47,22 @@ class ImageConfig extends \Google\Model
    */
   public $textRedactionMode;
 
+  /**
+   * Optional. Custom regex patterns to redact from the image.
+   *
+   * @param CustomRegex[] $customRegexes
+   */
+  public function setCustomRegexes($customRegexes)
+  {
+    $this->customRegexes = $customRegexes;
+  }
+  /**
+   * @return CustomRegex[]
+   */
+  public function getCustomRegexes()
+  {
+    return $this->customRegexes;
+  }
   /**
    * Optional. Determines how to redact text from image.
    *

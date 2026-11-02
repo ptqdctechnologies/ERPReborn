@@ -38,8 +38,8 @@ class OneTimeProductOffer extends \Google\Collection
    */
   public const STATE_CANCELLED = 'CANCELLED';
   /**
-   * This state is specific to discounted offers. The offer is no longer
-   * available to users.
+   * This state is specific to discounted and game reward offers. The offer is
+   * no longer available to users.
    */
   public const STATE_INACTIVE = 'INACTIVE';
   protected $collection_key = 'regionalPricingAndAvailabilityConfigs';

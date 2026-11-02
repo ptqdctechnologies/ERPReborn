@@ -82,6 +82,8 @@ class Finding extends \Google\Collection
   protected $cloudDlpDataProfileDataType = '';
   protected $cloudDlpInspectionType = CloudDlpInspection::class;
   protected $cloudDlpInspectionDataType = '';
+  protected $cloudRunType = CloudRun::class;
+  protected $cloudRunDataType = '';
   protected $complianceDetailsType = ComplianceDetails::class;
   protected $complianceDetailsDataType = '';
   protected $compliancesType = Compliance::class;
@@ -464,6 +466,20 @@ class Finding extends \Google\Collection
   public function getCloudDlpInspection()
   {
     return $this->cloudDlpInspection;
+  }
+  /**
+   * @param CloudRun $cloudRun
+   */
+  public function setCloudRun(CloudRun $cloudRun)
+  {
+    $this->cloudRun = $cloudRun;
+  }
+  /**
+   * @return CloudRun
+   */
+  public function getCloudRun()
+  {
+    return $this->cloudRun;
   }
   /**
    * @param ComplianceDetails $complianceDetails

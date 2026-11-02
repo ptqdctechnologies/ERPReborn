@@ -55,6 +55,10 @@ use Aws\AwsClient;
  *     TagList?: list<array{Key?: string, Value?: string, ...}>,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result addReplicationPeer(array $args = [])
+ * @phpstan-method \Aws\Result addReplicationPeer(array{DomainName?: string, PeerDomainArn?: string, DryRun?: bool, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise addReplicationPeerAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise addReplicationPeerAsync(array{DomainName?: string, PeerDomainArn?: string, DryRun?: bool, ...} $args = [])
  * @method \Aws\Result addTags(array $args = [])
  * @phpstan-method \Aws\Result addTags(array{ARN?: string, TagList?: list<array{Key?: string, Value?: string, ...}>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise addTagsAsync(array $args = [])
@@ -129,6 +133,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result cancelServiceSoftwareUpdate(array{DomainName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise cancelServiceSoftwareUpdateAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise cancelServiceSoftwareUpdateAsync(array{DomainName?: string, ...} $args = [])
+ * @method \Aws\Result compareDomainConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result compareDomainConfiguration(array{SourceDomainArn?: string, TargetDomainArn?: string, Categories?: list<string>, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise compareDomainConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise compareDomainConfigurationAsync(array{SourceDomainArn?: string, TargetDomainArn?: string, Categories?: list<string>, ...} $args = [])
  * @method \Aws\Result createApplication(array $args = [])
  * @phpstan-method \Aws\Result createApplication(array{
  *     clientToken?: string,
@@ -208,7 +216,7 @@ use Aws\AwsClient;
  *     LogPublishingOptions?: array<string, array{CloudWatchLogsLogGroupArn?: string, Enabled?: bool, ...}>,
  *     DomainEndpointOptions?: array{
  *         EnforceHTTPS?: bool,
- *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
+ *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-FIPS-PQ-2026-10'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
  *         CustomEndpointEnabled?: bool,
  *         CustomEndpoint?: string,
  *         CustomEndpointCertificateArn?: string,
@@ -296,7 +304,7 @@ use Aws\AwsClient;
  *     LogPublishingOptions?: array<string, array{CloudWatchLogsLogGroupArn?: string, Enabled?: bool, ...}>,
  *     DomainEndpointOptions?: array{
  *         EnforceHTTPS?: bool,
- *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
+ *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-FIPS-PQ-2026-10'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
  *         CustomEndpointEnabled?: bool,
  *         CustomEndpoint?: string,
  *         CustomEndpointCertificateArn?: string,
@@ -485,6 +493,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result describeDomainNodes(array{DomainName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDomainNodesAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeDomainNodesAsync(array{DomainName?: string, ...} $args = [])
+ * @method \Aws\Result describeDomainReplication(array $args = [])
+ * @phpstan-method \Aws\Result describeDomainReplication(array{DomainName?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise describeDomainReplicationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeDomainReplicationAsync(array{DomainName?: string, ...} $args = [])
  * @method \Aws\Result describeDomains(array $args = [])
  * @phpstan-method \Aws\Result describeDomains(array{DomainNames?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDomainsAsync(array $args = [])
@@ -595,6 +607,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result dissociatePackages(array{PackageList?: list<string>, DomainName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise dissociatePackagesAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise dissociatePackagesAsync(array{PackageList?: list<string>, DomainName?: string, ...} $args = [])
+ * @method \Aws\Result failoverReplication(array $args = [])
+ * @phpstan-method \Aws\Result failoverReplication(array{DomainName?: string, PeerDomainArn?: string, AllowDataLoss?: bool, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise failoverReplicationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise failoverReplicationAsync(array{DomainName?: string, PeerDomainArn?: string, AllowDataLoss?: bool, ...} $args = [])
  * @method \Aws\Result getApplication(array $args = [])
  * @phpstan-method \Aws\Result getApplication(array{id?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getApplicationAsync(array $args = [])
@@ -797,6 +813,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result rejectInboundConnection(array{ConnectionId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise rejectInboundConnectionAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise rejectInboundConnectionAsync(array{ConnectionId?: string, ...} $args = [])
+ * @method \Aws\Result removeReplicationPeer(array $args = [])
+ * @phpstan-method \Aws\Result removeReplicationPeer(array{DomainName?: string, PeerDomainArn?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise removeReplicationPeerAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise removeReplicationPeerAsync(array{DomainName?: string, PeerDomainArn?: string, ...} $args = [])
  * @method \Aws\Result removeTags(array $args = [])
  * @phpstan-method \Aws\Result removeTags(array{ARN?: string, TagKeys?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise removeTagsAsync(array $args = [])
@@ -865,6 +885,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result startServiceSoftwareUpdate(array{DomainName?: string, ScheduleAt?: 'NOW'|'OFF_PEAK_WINDOW'|'TIMESTAMP', DesiredStartTime?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise startServiceSoftwareUpdateAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise startServiceSoftwareUpdateAsync(array{DomainName?: string, ScheduleAt?: 'NOW'|'OFF_PEAK_WINDOW'|'TIMESTAMP', DesiredStartTime?: int, ...} $args = [])
+ * @method \Aws\Result switchoverReplication(array $args = [])
+ * @phpstan-method \Aws\Result switchoverReplication(array{DomainName?: string, PeerDomainArn?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise switchoverReplicationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise switchoverReplicationAsync(array{DomainName?: string, PeerDomainArn?: string, ...} $args = [])
  * @method \Aws\Result updateApplication(array $args = [])
  * @phpstan-method \Aws\Result updateApplication(array{
  *     id?: string,
@@ -982,7 +1006,7 @@ use Aws\AwsClient;
  *     EncryptionAtRestOptions?: array{Enabled?: bool, KmsKeyId?: string, EncryptionMode?: 'DISK'|'NATIVE', ...},
  *     DomainEndpointOptions?: array{
  *         EnforceHTTPS?: bool,
- *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
+ *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-FIPS-PQ-2026-10'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
  *         CustomEndpointEnabled?: bool,
  *         CustomEndpoint?: string,
  *         CustomEndpointCertificateArn?: string,
@@ -1077,7 +1101,7 @@ use Aws\AwsClient;
  *     EncryptionAtRestOptions?: array{Enabled?: bool, KmsKeyId?: string, EncryptionMode?: 'DISK'|'NATIVE', ...},
  *     DomainEndpointOptions?: array{
  *         EnforceHTTPS?: bool,
- *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
+ *         TLSSecurityPolicy?: 'Policy-Min-TLS-1-0-2019-07'|'Policy-Min-TLS-1-2-2019-07'|'Policy-Min-TLS-1-2-FIPS-PQ-2026-10'|'Policy-Min-TLS-1-2-PFS-2023-10'|'Policy-Min-TLS-1-2-RFC9151-FIPS-2024-08',
  *         CustomEndpointEnabled?: bool,
  *         CustomEndpoint?: string,
  *         CustomEndpointCertificateArn?: string,

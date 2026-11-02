@@ -37,41 +37,6 @@ use Google\Service\BeyondCorp\GoogleLongrunningOperation;
 class ProjectsLocationsAppConnections extends \Google\Service\Resource
 {
   /**
-   * Creates a new AppConnection in a given project and location.
-   * (appConnections.create)
-   *
-   * @param string $parent Required. The resource project name of the
-   * AppConnection location using the form:
-   * `projects/{project_id}/locations/{location_id}`
-   * @param GoogleCloudBeyondcorpAppconnectionsV1AppConnection $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string appConnectionId Optional. User-settable AppConnection
-   * resource ID. * Must start with a letter. * Must contain between 4-63
-   * characters from `/a-z-/`. * Must end with a number or a letter.
-   * @opt_param string requestId Optional. An optional request ID to identify
-   * requests. Specify a unique request ID so that if you must retry your request,
-   * the server will know to ignore the request if it has already been completed.
-   * The server will guarantee that for at least 60 minutes since the first
-   * request. For example, consider a situation where you make an initial request
-   * and the request times out. If you make the request again with the same
-   * request ID, the server can check if the original operation with the same
-   * request ID was received, and if so, will ignore the second request. This
-   * prevents clients from accidentally creating duplicate commitments. The
-   * request ID must be a valid UUID with the exception that zero UUID is not
-   * supported (00000000-0000-0000-0000-000000000000).
-   * @opt_param bool validateOnly Optional. If set, validates request by executing
-   * a dry-run which would not alter the resource in any way.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function create($parent, GoogleCloudBeyondcorpAppconnectionsV1AppConnection $postBody, $optParams = [])
-  {
-    $params = ['parent' => $parent, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('create', [$params], GoogleLongrunningOperation::class);
-  }
-  /**
    * Deletes a single AppConnection. (appConnections.delete)
    *
    * @param string $name Required. BeyondCorp Connector name using the form: `proj
@@ -176,42 +141,6 @@ class ProjectsLocationsAppConnections extends \Google\Service\Resource
     $params = ['parent' => $parent];
     $params = array_merge($params, $optParams);
     return $this->call('list', [$params], GoogleCloudBeyondcorpAppconnectionsV1ListAppConnectionsResponse::class);
-  }
-  /**
-   * Updates the parameters of a single AppConnection. (appConnections.patch)
-   *
-   * @param string $name Required. Unique resource name of the AppConnection. The
-   * name is ignored when creating a AppConnection.
-   * @param GoogleCloudBeyondcorpAppconnectionsV1AppConnection $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param bool allowMissing Optional. If set as true, will create the
-   * resource if it is not found.
-   * @opt_param string requestId Optional. An optional request ID to identify
-   * requests. Specify a unique request ID so that if you must retry your request,
-   * the server will know to ignore the request if it has already been completed.
-   * The server will guarantee that for at least 60 minutes since the first
-   * request. For example, consider a situation where you make an initial request
-   * and the request times out. If you make the request again with the same
-   * request ID, the server can check if the original operation with the same
-   * request ID was received, and if so, will ignore the second request. This
-   * prevents clients from accidentally creating duplicate commitments. The
-   * request ID must be a valid UUID with the exception that zero UUID is not
-   * supported (00000000-0000-0000-0000-000000000000).
-   * @opt_param string updateMask Required. Mask of fields to update. At least one
-   * path must be supplied in this field. The elements of the repeated paths field
-   * may only include these fields from [BeyondCorp.AppConnection]: * `labels` *
-   * `display_name` * `application_endpoint` * `connectors`
-   * @opt_param bool validateOnly Optional. If set, validates request by executing
-   * a dry-run which would not alter the resource in any way.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function patch($name, GoogleCloudBeyondcorpAppconnectionsV1AppConnection $postBody, $optParams = [])
-  {
-    $params = ['name' => $name, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', [$params], GoogleLongrunningOperation::class);
   }
   /**
    * Resolves AppConnections details for a given AppConnector. An internal method

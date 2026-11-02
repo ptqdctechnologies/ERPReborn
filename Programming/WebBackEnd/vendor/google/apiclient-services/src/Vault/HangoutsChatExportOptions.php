@@ -37,11 +37,11 @@ class HangoutsChatExportOptions extends \Google\Model
    */
   public const EXPORT_FORMAT_ICS = 'ICS';
   /**
-   * Export as XML. Only available for Gemini.
+   * Export as XML. Only available for Gemini app.
    */
   public const EXPORT_FORMAT_XML = 'XML';
   /**
-   * Export as JSON. Only available for Gemini in Workpace.
+   * Export as JSON. Only available for Gemini in Workspace.
    */
   public const EXPORT_FORMAT_JSON = 'JSON';
   /**

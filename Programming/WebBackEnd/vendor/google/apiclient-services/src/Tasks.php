@@ -184,6 +184,10 @@ class Tasks extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'hidden' => [
+                  'location' => 'query',
+                  'type' => 'boolean',
+                ],
                 'parent' => [
                   'location' => 'query',
                   'type' => 'string',

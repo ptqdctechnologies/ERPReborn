@@ -1803,7 +1803,7 @@ class SQLAdmin extends \Google\Service
                 ],
               ],
             ],'stopReplay' => [
-              'path' => 'v1/projects/{project}/instances/{instance}/workloadCaptures/{workloadId}:stopReplay',
+              'path' => 'v1/projects/{project}/instances/{instance}/workloadCaptures:stopReplay',
               'httpMethod' => 'POST',
               'parameters' => [
                 'project' => [
@@ -1812,11 +1812,6 @@ class SQLAdmin extends \Google\Service
                   'required' => true,
                 ],
                 'instance' => [
-                  'location' => 'path',
-                  'type' => 'string',
-                  'required' => true,
-                ],
-                'workloadId' => [
                   'location' => 'path',
                   'type' => 'string',
                   'required' => true,

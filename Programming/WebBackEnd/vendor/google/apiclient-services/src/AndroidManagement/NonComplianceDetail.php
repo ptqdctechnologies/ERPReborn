@@ -243,6 +243,11 @@ class NonComplianceDetail extends \Google\Model
    */
   public const SPECIFIC_NON_COMPLIANCE_REASON_PRIVATE_DNS_HOST_NOT_SERVING = 'PRIVATE_DNS_HOST_NOT_SERVING';
   /**
+   * The user's device is not unlocked (in direct boot mode), preventing the
+   * application of the policy. nonComplianceReason is set to PENDING.
+   */
+  public const SPECIFIC_NON_COMPLIANCE_REASON_USER_NOT_UNLOCKED = 'USER_NOT_UNLOCKED';
+  /**
    * If the policy setting could not be applied, the current value of the
    * setting on the device.
    *
@@ -448,7 +453,8 @@ class NonComplianceDetail extends \Google\Model
    * PERMISSIBLE_USAGE_RESTRICTION, REQUIRED_ACCOUNT_NOT_IN_ENTERPRISE,
    * NEW_ACCOUNT_NOT_IN_ENTERPRISE,
    * DEFAULT_APPLICATION_SETTING_UNSUPPORTED_SCOPES,
-   * DEFAULT_APPLICATION_SETTING_FAILED_FOR_SCOPE, PRIVATE_DNS_HOST_NOT_SERVING
+   * DEFAULT_APPLICATION_SETTING_FAILED_FOR_SCOPE, PRIVATE_DNS_HOST_NOT_SERVING,
+   * USER_NOT_UNLOCKED
    *
    * @param self::SPECIFIC_NON_COMPLIANCE_REASON_* $specificNonComplianceReason
    */

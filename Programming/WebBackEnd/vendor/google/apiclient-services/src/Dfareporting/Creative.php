@@ -53,6 +53,8 @@ class Creative extends \Google\Collection
   public const AUTHORING_SOURCE_CREATIVE_AUTHORING_SOURCE_GWD = 'CREATIVE_AUTHORING_SOURCE_GWD';
   /**
    * ACS-UI used to author the creative.
+   *
+   * @deprecated
    */
   public const AUTHORING_SOURCE_CREATIVE_AUTHORING_SOURCE_ACS = 'CREATIVE_AUTHORING_SOURCE_ACS';
   /**
@@ -150,6 +152,8 @@ class Creative extends \Google\Collection
    * @var string[]
    */
   public $adTagKeys;
+  protected $additionalAssetType = AdditionalAsset::class;
+  protected $additionalAssetDataType = '';
   protected $additionalSizesType = Size::class;
   protected $additionalSizesDataType = 'array';
   /**
@@ -598,6 +602,24 @@ class Creative extends \Google\Collection
   public function getAdTagKeys()
   {
     return $this->adTagKeys;
+  }
+  /**
+   * Optional. Additional asset for the creative. This field captures additional
+   * assets that are associated with the creative and used in the context of the
+   * social/native and YouTube platforms.
+   *
+   * @param AdditionalAsset $additionalAsset
+   */
+  public function setAdditionalAsset(AdditionalAsset $additionalAsset)
+  {
+    $this->additionalAsset = $additionalAsset;
+  }
+  /**
+   * @return AdditionalAsset
+   */
+  public function getAdditionalAsset()
+  {
+    return $this->additionalAsset;
   }
   /**
    * Additional sizes associated with a responsive creative. When inserting or

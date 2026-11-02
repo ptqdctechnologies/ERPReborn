@@ -246,6 +246,8 @@ class Version extends \Google\Collection
    * @var bool
    */
   public $vm;
+  protected $vpcAccessType = VpcAccess::class;
+  protected $vpcAccessDataType = '';
   protected $vpcAccessConnectorType = VpcAccessConnector::class;
   protected $vpcAccessConnectorDataType = '';
   /**
@@ -968,6 +970,22 @@ class Version extends \Google\Collection
   public function getVm()
   {
     return $this->vm;
+  }
+  /**
+   * Enables VPC access connectivity for standard apps.
+   *
+   * @param VpcAccess $vpcAccess
+   */
+  public function setVpcAccess(VpcAccess $vpcAccess)
+  {
+    $this->vpcAccess = $vpcAccess;
+  }
+  /**
+   * @return VpcAccess
+   */
+  public function getVpcAccess()
+  {
+    return $this->vpcAccess;
   }
   /**
    * Enables VPC connectivity for standard apps.

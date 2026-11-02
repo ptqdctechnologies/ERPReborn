@@ -56,6 +56,24 @@ class NodeKubeletConfig extends \Google\Collection
    */
   public $containerLogMaxSize;
   /**
+   * Optional. Defines the maximum number of concurrent workers to rotate
+   * container log files. See https://kubernetes.io/docs/concepts/cluster-
+   * administration/logging/#log-rotation The value must be an integer between 1
+   * and 10, inclusive. The default value is 1 if unspecified.
+   *
+   * @var int
+   */
+  public $containerLogMaxWorkers;
+  /**
+   * Optional. Specifies the interval at which the container logs are monitored
+   * for performing the log rotate operation. The value must be a positive
+   * interval between 3s and 300s, inclusive. The default value is "10s" if
+   * unspecified.
+   *
+   * @var string
+   */
+  public $containerLogMonitorInterval;
+  /**
    * Enable CPU CFS quota enforcement for containers that specify CPU limits.
    * This option is enabled by default which makes kubelet use CFS quota
    * (https://www.kernel.org/doc/Documentation/scheduler/sched-bwc.txt) to
@@ -178,6 +196,14 @@ class NodeKubeletConfig extends \Google\Collection
   protected $reservedResourcesConfigType = ReservedResourcesConfig::class;
   protected $reservedResourcesConfigDataType = '';
   /**
+   * Optional. The reserved_system_cpus option specifies the CPU list reserved
+   * for the host system services. Format: a list of CPU IDs (e.g. "0-3", "0,1")
+   * that can be parsed as a cpuset.
+   *
+   * @var string
+   */
+  public $reservedSystemCpus;
+  /**
    * Optional. shutdown_grace_period_critical_pods_seconds is the maximum
    * allowed grace period (in seconds) used to terminate critical pods during a
    * node shutdown. This value should be <= shutdown_grace_period_seconds, and
@@ -276,6 +302,44 @@ class NodeKubeletConfig extends \Google\Collection
   public function getContainerLogMaxSize()
   {
     return $this->containerLogMaxSize;
+  }
+  /**
+   * Optional. Defines the maximum number of concurrent workers to rotate
+   * container log files. See https://kubernetes.io/docs/concepts/cluster-
+   * administration/logging/#log-rotation The value must be an integer between 1
+   * and 10, inclusive. The default value is 1 if unspecified.
+   *
+   * @param int $containerLogMaxWorkers
+   */
+  public function setContainerLogMaxWorkers($containerLogMaxWorkers)
+  {
+    $this->containerLogMaxWorkers = $containerLogMaxWorkers;
+  }
+  /**
+   * @return int
+   */
+  public function getContainerLogMaxWorkers()
+  {
+    return $this->containerLogMaxWorkers;
+  }
+  /**
+   * Optional. Specifies the interval at which the container logs are monitored
+   * for performing the log rotate operation. The value must be a positive
+   * interval between 3s and 300s, inclusive. The default value is "10s" if
+   * unspecified.
+   *
+   * @param string $containerLogMonitorInterval
+   */
+  public function setContainerLogMonitorInterval($containerLogMonitorInterval)
+  {
+    $this->containerLogMonitorInterval = $containerLogMonitorInterval;
+  }
+  /**
+   * @return string
+   */
+  public function getContainerLogMonitorInterval()
+  {
+    return $this->containerLogMonitorInterval;
   }
   /**
    * Enable CPU CFS quota enforcement for containers that specify CPU limits.
@@ -604,6 +668,24 @@ class NodeKubeletConfig extends \Google\Collection
   public function getReservedResourcesConfig()
   {
     return $this->reservedResourcesConfig;
+  }
+  /**
+   * Optional. The reserved_system_cpus option specifies the CPU list reserved
+   * for the host system services. Format: a list of CPU IDs (e.g. "0-3", "0,1")
+   * that can be parsed as a cpuset.
+   *
+   * @param string $reservedSystemCpus
+   */
+  public function setReservedSystemCpus($reservedSystemCpus)
+  {
+    $this->reservedSystemCpus = $reservedSystemCpus;
+  }
+  /**
+   * @return string
+   */
+  public function getReservedSystemCpus()
+  {
+    return $this->reservedSystemCpus;
   }
   /**
    * Optional. shutdown_grace_period_critical_pods_seconds is the maximum

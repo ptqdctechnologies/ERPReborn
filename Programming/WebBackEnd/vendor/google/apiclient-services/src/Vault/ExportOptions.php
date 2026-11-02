@@ -39,6 +39,8 @@ class ExportOptions extends \Google\Model
   protected $calendarOptionsDataType = '';
   protected $driveOptionsType = DriveExportOptions::class;
   protected $driveOptionsDataType = '';
+  protected $geminiInWorkspaceOptionsType = GeminiInWorkspaceExportOptions::class;
+  protected $geminiInWorkspaceOptionsDataType = '';
   protected $geminiOptionsType = GeminiExportOptions::class;
   protected $geminiOptionsDataType = '';
   protected $groupsOptionsType = GroupsExportOptions::class;
@@ -89,7 +91,23 @@ class ExportOptions extends \Google\Model
     return $this->driveOptions;
   }
   /**
-   * Option available for Gemini export.
+   * Option available for Gemini in Workspace export.
+   *
+   * @param GeminiInWorkspaceExportOptions $geminiInWorkspaceOptions
+   */
+  public function setGeminiInWorkspaceOptions(GeminiInWorkspaceExportOptions $geminiInWorkspaceOptions)
+  {
+    $this->geminiInWorkspaceOptions = $geminiInWorkspaceOptions;
+  }
+  /**
+   * @return GeminiInWorkspaceExportOptions
+   */
+  public function getGeminiInWorkspaceOptions()
+  {
+    return $this->geminiInWorkspaceOptions;
+  }
+  /**
+   * Option available for Gemini app export.
    *
    * @param GeminiExportOptions $geminiOptions
    */

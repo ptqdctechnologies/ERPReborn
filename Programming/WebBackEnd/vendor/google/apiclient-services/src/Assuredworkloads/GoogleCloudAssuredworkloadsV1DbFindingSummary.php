@@ -112,63 +112,64 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
   public const SEVERITY_LOW = 'LOW';
   protected $collection_key = 'relatedFrameworks';
   /**
-   * Output only. The category of the finding.
+   * Output only. The category of the findings that are summarized.
    *
    * @var string
    */
   public $findingCategory;
   /**
-   * Output only. The class of the finding.
+   * Output only. The class of the findings.
    *
    * @var string
    */
   public $findingClass;
   /**
-   * Output only. The count of the finding.
+   * Output only. The total number of active findings in the category.
    *
    * @var string
    */
   public $findingCount;
   /**
-   * Identifier. The name of the finding summary.
+   * Identifier. The resource name of the finding summary.
    *
    * @var string
    */
   public $name;
   /**
-   * Output only. Number of active organization policy findings for this
+   * Output only. The number of active organization policy findings in the
    * category.
    *
    * @var string
    */
   public $organizationPolicyFindingCount;
   /**
-   * Optional. The list of compliance frameworks that the finding belongs to.
+   * Optional. The display names of the compliance frameworks that the findings
+   * are related to.
    *
    * @var string[]
    */
   public $relatedFrameworks;
   /**
-   * Output only. Number of active resource findings for this category.
+   * Output only. The number of active resource findings in the category.
    *
    * @var string
    */
   public $resourceFindingCount;
   /**
-   * Output only. The severity of the finding.
+   * Output only. The severity of the findings.
    *
    * @var string
    */
   public $severity;
   /**
-   * Output only. The last updated time of the finding.
+   * Output only. The time when the findings in the category were last updated.
    *
    * @var string
    */
   public $updateTime;
 
   /**
-   * Output only. The category of the finding.
+   * Output only. The category of the findings that are summarized.
    *
    * @param string $findingCategory
    */
@@ -184,7 +185,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->findingCategory;
   }
   /**
-   * Output only. The class of the finding.
+   * Output only. The class of the findings.
    *
    * Accepted values: FINDING_CLASS_UNSPECIFIED, THREAT, VULNERABILITY,
    * MISCONFIGURATION, OBSERVATION, SCC_ERROR, POSTURE_VIOLATION,
@@ -204,7 +205,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->findingClass;
   }
   /**
-   * Output only. The count of the finding.
+   * Output only. The total number of active findings in the category.
    *
    * @param string $findingCount
    */
@@ -220,7 +221,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->findingCount;
   }
   /**
-   * Identifier. The name of the finding summary.
+   * Identifier. The resource name of the finding summary.
    *
    * @param string $name
    */
@@ -236,7 +237,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->name;
   }
   /**
-   * Output only. Number of active organization policy findings for this
+   * Output only. The number of active organization policy findings in the
    * category.
    *
    * @param string $organizationPolicyFindingCount
@@ -253,7 +254,8 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->organizationPolicyFindingCount;
   }
   /**
-   * Optional. The list of compliance frameworks that the finding belongs to.
+   * Optional. The display names of the compliance frameworks that the findings
+   * are related to.
    *
    * @param string[] $relatedFrameworks
    */
@@ -269,7 +271,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->relatedFrameworks;
   }
   /**
-   * Output only. Number of active resource findings for this category.
+   * Output only. The number of active resource findings in the category.
    *
    * @param string $resourceFindingCount
    */
@@ -285,7 +287,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->resourceFindingCount;
   }
   /**
-   * Output only. The severity of the finding.
+   * Output only. The severity of the findings.
    *
    * Accepted values: SEVERITY_UNSPECIFIED, CRITICAL, HIGH, MEDIUM, LOW
    *
@@ -303,7 +305,7 @@ class GoogleCloudAssuredworkloadsV1DbFindingSummary extends \Google\Collection
     return $this->severity;
   }
   /**
-   * Output only. The last updated time of the finding.
+   * Output only. The time when the findings in the category were last updated.
    *
    * @param string $updateTime
    */

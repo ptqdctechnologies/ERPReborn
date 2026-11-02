@@ -21,12 +21,16 @@ class AuthProviderTypeParams extends \Google\Model
 {
   protected $apiKeyType = ApiKeyParams::class;
   protected $apiKeyDataType = '';
+  protected $connectorReferenceAuthProviderType = ConnectorReferenceAuthProvider::class;
+  protected $connectorReferenceAuthProviderDataType = '';
   protected $geAuthProviderType = GeminiEnterpriseAuthProviderParams::class;
   protected $geAuthProviderDataType = '';
   protected $threeLeggedOauthType = ThreeLeggedOAuth::class;
   protected $threeLeggedOauthDataType = '';
   protected $twoLeggedOauthType = TwoLeggedOAuth::class;
   protected $twoLeggedOauthDataType = '';
+  protected $xaaAuthProviderType = CrossAppAccessAuthProvider::class;
+  protected $xaaAuthProviderDataType = '';
 
   /**
    * Parameters for API key authentication.
@@ -43,6 +47,22 @@ class AuthProviderTypeParams extends \Google\Model
   public function getApiKey()
   {
     return $this->apiKey;
+  }
+  /**
+   * Parameters for Connector Reference authentication.
+   *
+   * @param ConnectorReferenceAuthProvider $connectorReferenceAuthProvider
+   */
+  public function setConnectorReferenceAuthProvider(ConnectorReferenceAuthProvider $connectorReferenceAuthProvider)
+  {
+    $this->connectorReferenceAuthProvider = $connectorReferenceAuthProvider;
+  }
+  /**
+   * @return ConnectorReferenceAuthProvider
+   */
+  public function getConnectorReferenceAuthProvider()
+  {
+    return $this->connectorReferenceAuthProvider;
   }
   /**
    * Parameters for Gemini Enterprise authentication.
@@ -91,6 +111,22 @@ class AuthProviderTypeParams extends \Google\Model
   public function getTwoLeggedOauth()
   {
     return $this->twoLeggedOauth;
+  }
+  /**
+   * Parameters for Cross-App Access authentication.
+   *
+   * @param CrossAppAccessAuthProvider $xaaAuthProvider
+   */
+  public function setXaaAuthProvider(CrossAppAccessAuthProvider $xaaAuthProvider)
+  {
+    $this->xaaAuthProvider = $xaaAuthProvider;
+  }
+  /**
+   * @return CrossAppAccessAuthProvider
+   */
+  public function getXaaAuthProvider()
+  {
+    return $this->xaaAuthProvider;
   }
 }
 

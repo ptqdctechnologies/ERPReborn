@@ -81,6 +81,15 @@ class OdbNetwork extends \Google\Model
    */
   public $network;
   /**
+   * Output only. Indicates whether the OdbNetwork is currently reconciling
+   * changes.
+   *
+   * @var bool
+   */
+  public $reconciling;
+  protected $serviceConnectivityConfigType = ServiceConnectivityConfig::class;
+  protected $serviceConnectivityConfigDataType = '';
+  /**
    * Output only. State of the ODB Network.
    *
    * @var string
@@ -187,6 +196,44 @@ class OdbNetwork extends \Google\Model
   public function getNetwork()
   {
     return $this->network;
+  }
+  /**
+   * Output only. Indicates whether the OdbNetwork is currently reconciling
+   * changes.
+   *
+   * @param bool $reconciling
+   */
+  public function setReconciling($reconciling)
+  {
+    $this->reconciling = $reconciling;
+  }
+  /**
+   * @return bool
+   */
+  public function getReconciling()
+  {
+    return $this->reconciling;
+  }
+  /**
+   * Optional. Configuration to enable the service (Oracledatabase@Google Cloud)
+   * to establish connectivity to the database. This should be specified if you
+   * intend to associate this OdbNetwork with a DatabaseConnection resource to
+   * `ExecuteSQL` on the database, or to create a ServiceIntegration with the
+   * Database. Please don't specify it otherwise to avoid complicating the
+   * network setup.
+   *
+   * @param ServiceConnectivityConfig $serviceConnectivityConfig
+   */
+  public function setServiceConnectivityConfig(ServiceConnectivityConfig $serviceConnectivityConfig)
+  {
+    $this->serviceConnectivityConfig = $serviceConnectivityConfig;
+  }
+  /**
+   * @return ServiceConnectivityConfig
+   */
+  public function getServiceConnectivityConfig()
+  {
+    return $this->serviceConnectivityConfig;
   }
   /**
    * Output only. State of the ODB Network.

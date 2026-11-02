@@ -20,7 +20,7 @@ namespace Google\Service\HomeGraphService;
 class EventData extends \Google\Model
 {
   /**
-   * Required. The actual event payload.
+   * Optional. The actual event payload.
    *
    * @var array[]
    */
@@ -37,9 +37,11 @@ class EventData extends \Google\Model
    * @var string
    */
   public $eventTime;
+  protected $jsonTraitEventType = JsonTraitEvent::class;
+  protected $jsonTraitEventDataType = '';
 
   /**
-   * Required. The actual event payload.
+   * Optional. The actual event payload.
    *
    * @param array[] $event
    */
@@ -85,6 +87,22 @@ class EventData extends \Google\Model
   public function getEventTime()
   {
     return $this->eventTime;
+  }
+  /**
+   * Optional. Contains the dynamic JSON trait event payload.
+   *
+   * @param JsonTraitEvent $jsonTraitEvent
+   */
+  public function setJsonTraitEvent(JsonTraitEvent $jsonTraitEvent)
+  {
+    $this->jsonTraitEvent = $jsonTraitEvent;
+  }
+  /**
+   * @return JsonTraitEvent
+   */
+  public function getJsonTraitEvent()
+  {
+    return $this->jsonTraitEvent;
   }
 }
 

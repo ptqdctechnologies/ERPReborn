@@ -37,31 +37,33 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
   protected $controlsPassingTrendType = GoogleCloudAssuredworkloadsV1Trend::class;
   protected $controlsPassingTrendDataType = '';
   /**
-   * Output only. The count of the findings generated against the framework.
+   * Output only. The number of findings that were generated against the
+   * framework. This field is only populated when using
+   * `FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_FULL`.
    *
    * @var string
    */
   public $findingCount;
   /**
-   * The name of the framework.
+   * The resource name of the compliance framework.
    *
    * @var string
    */
   public $framework;
   /**
-   * The list of framework categories supported by the framework.
+   * The categories of the framework.
    *
    * @var string[]
    */
   public $frameworkCategories;
   /**
-   * Optional. The display name for the framework.
+   * Optional. The display name of the framework.
    *
    * @var string
    */
   public $frameworkDisplayName;
   /**
-   * The type of framework.
+   * The type of the framework.
    *
    * @var string
    */
@@ -79,13 +81,13 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
    */
   public $minorRevisionId;
   /**
-   * Identifier. The name of the framework compliance summary.
+   * Identifier. The resource name of the framework compliance summary.
    *
    * @var string
    */
   public $name;
   /**
-   * The list of cloud providers supported by the framework.
+   * The cloud providers that are supported by the framework.
    *
    * @var string[]
    */
@@ -94,7 +96,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
   protected $targetResourceDetailsDataType = 'array';
 
   /**
-   * The control assessment details of the framework.
+   * The number of passing, failing, and not assessed controls in the framework.
    *
    * @param GoogleCloudAssuredworkloadsV1ControlAssessmentDetails $controlAssessmentDetails
    */
@@ -110,7 +112,9 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->controlAssessmentDetails;
   }
   /**
-   * Output only. The trend of controls that are passing for the given duration.
+   * Output only. The trend of passing controls over the trend duration. This
+   * field is only populated when using
+   * `FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_FULL`.
    *
    * @param GoogleCloudAssuredworkloadsV1Trend $controlsPassingTrend
    */
@@ -126,7 +130,9 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->controlsPassingTrend;
   }
   /**
-   * Output only. The count of the findings generated against the framework.
+   * Output only. The number of findings that were generated against the
+   * framework. This field is only populated when using
+   * `FRAMEWORK_COMPLIANCE_SUMMARY_VIEW_FULL`.
    *
    * @param string $findingCount
    */
@@ -142,7 +148,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->findingCount;
   }
   /**
-   * The name of the framework.
+   * The resource name of the compliance framework.
    *
    * @param string $framework
    */
@@ -158,7 +164,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->framework;
   }
   /**
-   * The list of framework categories supported by the framework.
+   * The categories of the framework.
    *
    * @param string[] $frameworkCategories
    */
@@ -174,7 +180,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->frameworkCategories;
   }
   /**
-   * Optional. The display name for the framework.
+   * Optional. The display name of the framework.
    *
    * @param string $frameworkDisplayName
    */
@@ -190,7 +196,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->frameworkDisplayName;
   }
   /**
-   * The type of framework.
+   * The type of the framework.
    *
    * Accepted values: FRAMEWORK_TYPE_UNSPECIFIED, BUILT_IN, CUSTOM
    *
@@ -240,7 +246,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->minorRevisionId;
   }
   /**
-   * Identifier. The name of the framework compliance summary.
+   * Identifier. The resource name of the framework compliance summary.
    *
    * @param string $name
    */
@@ -256,7 +262,7 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->name;
   }
   /**
-   * The list of cloud providers supported by the framework.
+   * The cloud providers that are supported by the framework.
    *
    * @param string[] $supportedCloudProviders
    */
@@ -272,7 +278,8 @@ class GoogleCloudAssuredworkloadsV1DbFrameworkComplianceSummary extends \Google\
     return $this->supportedCloudProviders;
   }
   /**
-   * The target resource details for the framework.
+   * The details of the target resources (organizations, folders, or projects)
+   * that the framework is deployed on.
    *
    * @param GoogleCloudAssuredworkloadsV1TargetResourceDetails[] $targetResourceDetails
    */

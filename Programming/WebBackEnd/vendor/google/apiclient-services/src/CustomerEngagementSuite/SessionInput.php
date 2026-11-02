@@ -20,6 +20,19 @@ namespace Google\Service\CustomerEngagementSuite;
 class SessionInput extends \Google\Model
 {
   /**
+   * The app is not controlling recording. The app's logging settings decide, as
+   * they do for every session that never sets this field.
+   */
+  public const RECORDING_CONTROL_RECORDING_CONTROL_UNSPECIFIED = 'RECORDING_CONTROL_UNSPECIFIED';
+  /**
+   * The conversation may be recorded and logged from here on.
+   */
+  public const RECORDING_CONTROL_RECORDING_ENABLED = 'RECORDING_ENABLED';
+  /**
+   * The conversation may not be recorded or logged from here on.
+   */
+  public const RECORDING_CONTROL_RECORDING_DISABLED = 'RECORDING_DISABLED';
+  /**
    * Optional. Audio data from the end user.
    *
    * @var string
@@ -37,6 +50,23 @@ class SessionInput extends \Google\Model
   protected $eventDataType = '';
   protected $imageType = Image::class;
   protected $imageDataType = '';
+  /**
+   * Optional. Whether the conversation may be recorded and logged from here on.
+   * Use this when the app, rather than the agent, decides what may be kept: for
+   * example when the end user has to consent to being recorded before anything
+   * about the call can be stored. The value stays in effect until the client
+   * sends a different one, so it only needs to be sent when the answer changes.
+   * Whatever is in effect when a turn completes decides that turn, both whether
+   * its audio reaches the recording bucket and whether its transcript reaches
+   * conversation history, BigQuery and Cloud Logging. It covers the agent's
+   * side of the turn as well as the end user's. Turns that complete before the
+   * client first sends this are recorded according to the app's logging
+   * settings, as though the field did not exist. If more than one input in the
+   * same request sets it, the last one wins.
+   *
+   * @var string
+   */
+  public $recordingControl;
   /**
    * Optional. Text data from the end user.
    *
@@ -145,6 +175,36 @@ class SessionInput extends \Google\Model
   public function getImage()
   {
     return $this->image;
+  }
+  /**
+   * Optional. Whether the conversation may be recorded and logged from here on.
+   * Use this when the app, rather than the agent, decides what may be kept: for
+   * example when the end user has to consent to being recorded before anything
+   * about the call can be stored. The value stays in effect until the client
+   * sends a different one, so it only needs to be sent when the answer changes.
+   * Whatever is in effect when a turn completes decides that turn, both whether
+   * its audio reaches the recording bucket and whether its transcript reaches
+   * conversation history, BigQuery and Cloud Logging. It covers the agent's
+   * side of the turn as well as the end user's. Turns that complete before the
+   * client first sends this are recorded according to the app's logging
+   * settings, as though the field did not exist. If more than one input in the
+   * same request sets it, the last one wins.
+   *
+   * Accepted values: RECORDING_CONTROL_UNSPECIFIED, RECORDING_ENABLED,
+   * RECORDING_DISABLED
+   *
+   * @param self::RECORDING_CONTROL_* $recordingControl
+   */
+  public function setRecordingControl($recordingControl)
+  {
+    $this->recordingControl = $recordingControl;
+  }
+  /**
+   * @return self::RECORDING_CONTROL_*
+   */
+  public function getRecordingControl()
+  {
+    return $this->recordingControl;
   }
   /**
    * Optional. Text data from the end user.

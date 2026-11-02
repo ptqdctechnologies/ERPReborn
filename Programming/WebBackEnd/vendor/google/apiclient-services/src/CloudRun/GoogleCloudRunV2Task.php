@@ -183,6 +183,8 @@ class GoogleCloudRunV2Task extends \Google\Collection
    * @var int
    */
   public $retried;
+  protected $sandboxesType = GoogleCloudRunV2SandboxConfiguration::class;
+  protected $sandboxesDataType = '';
   /**
    * Output only. Reserved for future use.
    *
@@ -653,6 +655,22 @@ class GoogleCloudRunV2Task extends \Google\Collection
   public function getRetried()
   {
     return $this->retried;
+  }
+  /**
+   * Configuration for sandboxes.
+   *
+   * @param GoogleCloudRunV2SandboxConfiguration $sandboxes
+   */
+  public function setSandboxes(GoogleCloudRunV2SandboxConfiguration $sandboxes)
+  {
+    $this->sandboxes = $sandboxes;
+  }
+  /**
+   * @return GoogleCloudRunV2SandboxConfiguration
+   */
+  public function getSandboxes()
+  {
+    return $this->sandboxes;
   }
   /**
    * Output only. Reserved for future use.

@@ -69,8 +69,8 @@ class CorpusQuery extends \Google\Model
     return $this->driveQuery;
   }
   /**
-   * Service-specific options for Gemini holds. If set, **CorpusType** must be
-   * **GEMINI**.
+   * Service-specific options for Gemini app holds. If set, **CorpusType** must
+   * be **GEMINI**.
    *
    * @param HeldGeminiQuery $geminiQuery
    */

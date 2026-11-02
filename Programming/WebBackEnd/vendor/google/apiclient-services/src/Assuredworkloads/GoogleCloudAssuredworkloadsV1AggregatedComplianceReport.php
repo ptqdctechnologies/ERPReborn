@@ -22,14 +22,15 @@ class GoogleCloudAssuredworkloadsV1AggregatedComplianceReport extends \Google\Mo
   protected $controlAssessmentDetailsType = GoogleCloudAssuredworkloadsV1ControlAssessmentDetails::class;
   protected $controlAssessmentDetailsDataType = '';
   /**
-   * The report time of the aggregated compliance report.
+   * The time that the compliance report represents.
    *
    * @var string
    */
   public $reportTime;
 
   /**
-   * The control assessment details of the framework.
+   * The number of passing, failing, and not assessed controls in the framework
+   * at `report_time`.
    *
    * @param GoogleCloudAssuredworkloadsV1ControlAssessmentDetails $controlAssessmentDetails
    */
@@ -45,7 +46,7 @@ class GoogleCloudAssuredworkloadsV1AggregatedComplianceReport extends \Google\Mo
     return $this->controlAssessmentDetails;
   }
   /**
-   * The report time of the aggregated compliance report.
+   * The time that the compliance report represents.
    *
    * @param string $reportTime
    */

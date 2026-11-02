@@ -72,7 +72,9 @@ class GuardrailLlmPolicy extends \Google\Model
    */
   public $policyScope;
   /**
-   * Required. Policy prompt.
+   * Required. Policy prompt. Supports session variable placeholders (`{var}`)
+   * as well as `{agent_system_instruction}` to inject the agent's resolved
+   * system instructions.
    *
    * @var string
    */
@@ -169,7 +171,9 @@ class GuardrailLlmPolicy extends \Google\Model
     return $this->policyScope;
   }
   /**
-   * Required. Policy prompt.
+   * Required. Policy prompt. Supports session variable placeholders (`{var}`)
+   * as well as `{agent_system_instruction}` to inject the agent's resolved
+   * system instructions.
    *
    * @param string $prompt
    */

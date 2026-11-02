@@ -32,7 +32,7 @@ class EncryptionConfig extends \Google\Model
    */
   public const KMS_KEY_STATE_REVOKED = 'REVOKED';
   /**
-   * Name of the CMEK key in KMS (input parameter).
+   * Optional. Immutable. Name of the CMEK key in KMS (input parameter).
    *
    * @var string
    */
@@ -54,7 +54,7 @@ class EncryptionConfig extends \Google\Model
   public $kmsKeyState;
 
   /**
-   * Name of the CMEK key in KMS (input parameter).
+   * Optional. Immutable. Name of the CMEK key in KMS (input parameter).
    *
    * @param string $kmsKeyName
    */

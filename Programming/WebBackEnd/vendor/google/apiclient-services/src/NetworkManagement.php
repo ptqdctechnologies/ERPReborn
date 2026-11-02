@@ -620,6 +620,10 @@ class NetworkManagement extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                 ],
+                'cloudDeploymentType' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'hostname' => [
                   'location' => 'query',
                   'type' => 'string',

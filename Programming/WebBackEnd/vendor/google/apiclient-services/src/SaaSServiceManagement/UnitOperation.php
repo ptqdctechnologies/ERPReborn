@@ -106,6 +106,8 @@ class UnitOperation extends \Google\Collection
   public $deleteTime;
   protected $deprovisionType = Deprovision::class;
   protected $deprovisionDataType = '';
+  protected $durationLimitsType = DurationLimits::class;
+  protected $durationLimitsDataType = '';
   /**
    * Optional. Output only. The engine state for on-going deployment engine
    * operation(s). This field is opaque for external usage.
@@ -300,6 +302,26 @@ class UnitOperation extends \Google\Collection
   public function getDeprovision()
   {
     return $this->deprovision;
+  }
+  /**
+   * Optional. Defines the duration limits for this specific UnitOperation
+   * instance. These settings override any default duration limits set on the
+   * UnitKind. See the DurationLimits message definition for details on the
+   * constraints like minimum, maximum, and system default values for
+   * unit_operation_timeout.
+   *
+   * @param DurationLimits $durationLimits
+   */
+  public function setDurationLimits(DurationLimits $durationLimits)
+  {
+    $this->durationLimits = $durationLimits;
+  }
+  /**
+   * @return DurationLimits
+   */
+  public function getDurationLimits()
+  {
+    return $this->durationLimits;
   }
   /**
    * Optional. Output only. The engine state for on-going deployment engine

@@ -36,7 +36,14 @@ class GuardrailContentFilter extends \Google\Collection
    * Content is matched using regular expression syntax.
    */
   public const MATCH_TYPE_REGEXP_MATCH = 'REGEXP_MATCH';
-  protected $collection_key = 'bannedContentsInUserInput';
+  /**
+   * Content is matched against a system-managed list of sensitive words and
+   * phrases. Attaching a guardrail with this match type to an app or agent
+   * replaces the default sensitive words filter for the affected agents;
+   * disable the guardrail to opt out of the default filter.
+   */
+  public const MATCH_TYPE_SENSITIVE_WORDS = 'SENSITIVE_WORDS';
+  protected $collection_key = 'sensitiveWordsExemptions';
   /**
    * Optional. List of banned phrases. Applies to both user inputs and agent
    * responses.
@@ -68,6 +75,16 @@ class GuardrailContentFilter extends \Google\Collection
    * @var string
    */
   public $matchType;
+  /**
+   * Optional. Entries of the sensitive words list that this guardrail allows.
+   * Only valid when match_type is SENSITIVE_WORDS. Each value must equal a list
+   * entry (case-insensitive, surrounding whitespace ignored); other values have
+   * no effect. Applies to this guardrail only. At most 1000 entries of up to
+   * 256 characters each.
+   *
+   * @var string[]
+   */
+  public $sensitiveWordsExemptions;
 
   /**
    * Optional. List of banned phrases. Applies to both user inputs and agent
@@ -138,7 +155,7 @@ class GuardrailContentFilter extends \Google\Collection
    * Required. Match type for the content filter.
    *
    * Accepted values: MATCH_TYPE_UNSPECIFIED, SIMPLE_STRING_MATCH,
-   * WORD_BOUNDARY_STRING_MATCH, REGEXP_MATCH
+   * WORD_BOUNDARY_STRING_MATCH, REGEXP_MATCH, SENSITIVE_WORDS
    *
    * @param self::MATCH_TYPE_* $matchType
    */
@@ -152,6 +169,26 @@ class GuardrailContentFilter extends \Google\Collection
   public function getMatchType()
   {
     return $this->matchType;
+  }
+  /**
+   * Optional. Entries of the sensitive words list that this guardrail allows.
+   * Only valid when match_type is SENSITIVE_WORDS. Each value must equal a list
+   * entry (case-insensitive, surrounding whitespace ignored); other values have
+   * no effect. Applies to this guardrail only. At most 1000 entries of up to
+   * 256 characters each.
+   *
+   * @param string[] $sensitiveWordsExemptions
+   */
+  public function setSensitiveWordsExemptions($sensitiveWordsExemptions)
+  {
+    $this->sensitiveWordsExemptions = $sensitiveWordsExemptions;
+  }
+  /**
+   * @return string[]
+   */
+  public function getSensitiveWordsExemptions()
+  {
+    return $this->sensitiveWordsExemptions;
   }
 }
 

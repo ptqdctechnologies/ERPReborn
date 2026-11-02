@@ -79,9 +79,9 @@ class AccessPoliciesAccessLevels extends \Google\Service\Resource
    *
    * @opt_param string accessLevelFormat Whether to return `BasicLevels` in the
    * Cloud Common Expression Language rather than as `BasicLevels`. Defaults to
-   * AS_DEFINED, where Access Levels are returned as `BasicLevels` or
-   * `CustomLevels` based on how they were created. If set to CEL, all Access
-   * Levels are returned as `CustomLevels`. In the CEL case, `BasicLevels` are
+   * `AS_DEFINED`, where Access Levels are returned as `BasicLevels` or
+   * `CustomLevels` based on how they were created. If set to `CEL`, all Access
+   * Levels are returned as `CustomLevels`. In the `CEL` case, `BasicLevels` are
    * translated to equivalent `CustomLevels`.
    * @return AccessLevel
    * @throws \Google\Service\Exception
@@ -101,7 +101,7 @@ class AccessPoliciesAccessLevels extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param string accessLevelFormat Whether to return `BasicLevels` in the
-   * Cloud Common Expression language, as `CustomLevels`, rather than as
+   * Cloud Common Expression Language, as `CustomLevels`, rather than as
    * `BasicLevels`. Defaults to returning `AccessLevels` in the format they were
    * defined.
    * @opt_param int pageSize Number of Access Levels to include in the list.
@@ -149,8 +149,8 @@ class AccessPoliciesAccessLevels extends \Google\Service\Resource
    * lasting storage. If the replacement contains errors, an error response is
    * returned for the first error encountered. Upon error, the replacement is
    * cancelled, and existing access levels are not affected. The
-   * Operation.response field contains ReplaceAccessLevelsResponse. Removing
-   * access levels contained in existing service perimeters result in an error.
+   * `Operation.response` field contains `ReplaceAccessLevelsResponse`. Removing
+   * access levels contained in existing service perimeters results in an error.
    * (accessLevels.replaceAll)
    *
    * @param string $parent Required. Resource name for the access policy which

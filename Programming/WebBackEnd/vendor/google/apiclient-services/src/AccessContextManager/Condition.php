@@ -25,12 +25,12 @@ class Condition extends \Google\Collection
   /**
    * CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
    * a CIDR IP address block, the specified IP address portion must be properly
-   * truncated (i.e. all the host bits must be zero) or the input is considered
-   * malformed. For example, "192.0.2.0/24" is accepted but "192.0.2.1/24" is
-   * not. Similarly, for IPv6, "2001:db8::/32" is accepted whereas
-   * "2001:db8::1/32" is not. The originating IP of a request must be in one of
-   * the listed subnets in order for this Condition to be true. If empty, all IP
-   * addresses are allowed.
+   * truncated (that is, all the host bits must be zero) or the input is
+   * considered malformed. For example, `"192.0.2.0/24"` is accepted, but
+   * `"192.0.2.1/24"` is not. Similarly, for IPv6, `"2001:db8::/32"` is
+   * accepted, whereas `"2001:db8::1/32"` is not. The originating IP of a
+   * request must be in one of the listed subnets in order for this `Condition`
+   * to be true. If empty, all IP addresses are allowed.
    *
    * @var string[]
    */
@@ -45,9 +45,10 @@ class Condition extends \Google\Collection
    */
   public $members;
   /**
-   * Whether to negate the Condition. If true, the Condition becomes a NAND over
-   * its non-empty fields. Any non-empty field criteria evaluating to false will
-   * result in the Condition to be satisfied. Defaults to false.
+   * Whether to negate the `Condition`. If `true`, the `Condition` becomes a
+   * NAND over its non-empty fields. Any non-empty field criteria evaluating to
+   * `false` will result in the `Condition` being satisfied. Defaults to
+   * `false`.
    *
    * @var bool
    */
@@ -61,9 +62,9 @@ class Condition extends \Google\Collection
   public $regions;
   /**
    * A list of other access levels defined in the same `Policy`, referenced by
-   * resource name. Referencing an `AccessLevel` which does not exist is an
-   * error. All access levels listed must be granted for the Condition to be
-   * true. Example: "`accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
+   * resource name. Referencing an `AccessLevel` that does not exist is an
+   * error. All access levels listed must be granted for the `Condition` to be
+   * true. Example: `"accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
    *
    * @var string[]
    */
@@ -72,8 +73,8 @@ class Condition extends \Google\Collection
   protected $vpcNetworkSourcesDataType = 'array';
 
   /**
-   * Device specific restrictions, all restrictions must hold for the Condition
-   * to be true. If not specified, all devices are allowed.
+   * Device-specific restrictions. All restrictions must hold for the
+   * `Condition` to be true. If not specified, all devices are allowed.
    *
    * @param DevicePolicy $devicePolicy
    */
@@ -91,12 +92,12 @@ class Condition extends \Google\Collection
   /**
    * CIDR block IP subnetwork specification. May be IPv4 or IPv6. Note that for
    * a CIDR IP address block, the specified IP address portion must be properly
-   * truncated (i.e. all the host bits must be zero) or the input is considered
-   * malformed. For example, "192.0.2.0/24" is accepted but "192.0.2.1/24" is
-   * not. Similarly, for IPv6, "2001:db8::/32" is accepted whereas
-   * "2001:db8::1/32" is not. The originating IP of a request must be in one of
-   * the listed subnets in order for this Condition to be true. If empty, all IP
-   * addresses are allowed.
+   * truncated (that is, all the host bits must be zero) or the input is
+   * considered malformed. For example, `"192.0.2.0/24"` is accepted, but
+   * `"192.0.2.1/24"` is not. Similarly, for IPv6, `"2001:db8::/32"` is
+   * accepted, whereas `"2001:db8::1/32"` is not. The originating IP of a
+   * request must be in one of the listed subnets in order for this `Condition`
+   * to be true. If empty, all IP addresses are allowed.
    *
    * @param string[] $ipSubnetworks
    */
@@ -131,9 +132,10 @@ class Condition extends \Google\Collection
     return $this->members;
   }
   /**
-   * Whether to negate the Condition. If true, the Condition becomes a NAND over
-   * its non-empty fields. Any non-empty field criteria evaluating to false will
-   * result in the Condition to be satisfied. Defaults to false.
+   * Whether to negate the `Condition`. If `true`, the `Condition` becomes a
+   * NAND over its non-empty fields. Any non-empty field criteria evaluating to
+   * `false` will result in the `Condition` being satisfied. Defaults to
+   * `false`.
    *
    * @param bool $negate
    */
@@ -167,9 +169,9 @@ class Condition extends \Google\Collection
   }
   /**
    * A list of other access levels defined in the same `Policy`, referenced by
-   * resource name. Referencing an `AccessLevel` which does not exist is an
-   * error. All access levels listed must be granted for the Condition to be
-   * true. Example: "`accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
+   * resource name. Referencing an `AccessLevel` that does not exist is an
+   * error. All access levels listed must be granted for the `Condition` to be
+   * true. Example: `"accessPolicies/MY_POLICY/accessLevels/LEVEL_NAME"`
    *
    * @param string[] $requiredAccessLevels
    */

@@ -871,6 +871,8 @@ class Policy extends \Google\Collection
    * @var bool
    */
   public $tetheringConfigDisabled;
+  protected $unifiedUpdatePolicyType = UnifiedUpdatePolicy::class;
+  protected $unifiedUpdatePolicyDataType = '';
   /**
    * Whether user uninstallation of applications is disabled. This prevents apps
    * from being uninstalled, even those removed using applications
@@ -1553,8 +1555,8 @@ class Policy extends \Google\Collection
     return $this->defaultPermissionPolicy;
   }
   /**
-   * Covers controls for device connectivity such as Wi-Fi, USB data access,
-   * keyboard/mouse connections, and more.
+   * Optional. Covers controls for device connectivity such as Wi-Fi, USB data
+   * access, keyboard/mouse connections, and more.
    *
    * @param DeviceConnectivityManagement $deviceConnectivityManagement
    */
@@ -1570,7 +1572,7 @@ class Policy extends \Google\Collection
     return $this->deviceConnectivityManagement;
   }
   /**
-   * The device owner information to be shown on the lock screen.
+   * Optional. The device owner information to be shown on the lock screen.
    *
    * @param UserFacingMessage $deviceOwnerLockScreenInfo
    */
@@ -2587,7 +2589,9 @@ class Policy extends \Google\Collection
    * Mainline updates) are automatically downloaded and require a device reboot
    * to be installed. Refer to the mainline section in Manage system updates
    * (https://developer.android.com/work/dpc/system-updates#mainline) for
-   * further details.
+   * further details.If this policy is set, it takes precedence over
+   * unifiedUpdatePolicy for OEM OS updates. For more information, see
+   * unifiedUpdatePolicy.
    *
    * @param SystemUpdate $systemUpdate
    */
@@ -2621,6 +2625,29 @@ class Policy extends \Google\Collection
   public function getTetheringConfigDisabled()
   {
     return $this->tetheringConfigDisabled;
+  }
+  /**
+   * Optional. The Unified Update Control policy, for controlling updates of
+   * software components on the device. Supported only on company-owned
+   * devices.The targets OS_UPDATE_WITH_API_LEVEL_CHANGE and
+   * OS_UPDATE_WITHOUT_API_LEVEL_CHANGE are supported only on devices where the
+   * OEM has integrated with Unified Update Controls, and are ignored otherwise.
+   * If systemUpdate is set, then that policy takes precedence and the targets
+   * OS_UPDATE_WITH_API_LEVEL_CHANGE and OS_UPDATE_WITHOUT_API_LEVEL_CHANGE are
+   * ignored here.
+   *
+   * @param UnifiedUpdatePolicy $unifiedUpdatePolicy
+   */
+  public function setUnifiedUpdatePolicy(UnifiedUpdatePolicy $unifiedUpdatePolicy)
+  {
+    $this->unifiedUpdatePolicy = $unifiedUpdatePolicy;
+  }
+  /**
+   * @return UnifiedUpdatePolicy
+   */
+  public function getUnifiedUpdatePolicy()
+  {
+    return $this->unifiedUpdatePolicy;
   }
   /**
    * Whether user uninstallation of applications is disabled. This prevents apps

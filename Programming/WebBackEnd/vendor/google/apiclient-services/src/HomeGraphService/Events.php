@@ -22,8 +22,8 @@ class Events extends \Google\Collection
   protected $collection_key = 'events';
   /**
    * Optional. The ID of the provider component if the events are associated
-   * with a specific component. Optional for WHDM events, required for UDDM
-   * events.
+   * with a specific component. Optional for WHDM events, required for UDDM and
+   * JSON events.
    *
    * @var string
    */
@@ -33,8 +33,8 @@ class Events extends \Google\Collection
 
   /**
    * Optional. The ID of the provider component if the events are associated
-   * with a specific component. Optional for WHDM events, required for UDDM
-   * events.
+   * with a specific component. Optional for WHDM events, required for UDDM and
+   * JSON events.
    *
    * @param string $componentId
    */

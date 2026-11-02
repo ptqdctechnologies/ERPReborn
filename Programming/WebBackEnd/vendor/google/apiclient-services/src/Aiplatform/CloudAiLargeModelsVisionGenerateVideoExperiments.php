@@ -106,6 +106,8 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public $originalRequestJson;
   protected $outpaintConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsOutpaintConfig::class;
   protected $outpaintConfigDataType = '';
+  protected $perfEstimationConfigType = CloudAiLargeModelsVisionGenerateVideoExperimentsPerfEstimationConfig::class;
+  protected $perfEstimationConfigDataType = '';
   protected $proEditType = CloudAiLargeModelsVisionGenerateVideoExperimentsProEditConfig::class;
   protected $proEditDataType = '';
   protected $promptInputsType = CloudAiLargeModelsVisionPromptInputs::class;
@@ -437,6 +439,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperiments extends \Google\Collectio
   public function getOutpaintConfig()
   {
     return $this->outpaintConfig;
+  }
+  /**
+   * Optional. Omni Perf 3D estimation configuration.
+   *
+   * @param CloudAiLargeModelsVisionGenerateVideoExperimentsPerfEstimationConfig $perfEstimationConfig
+   */
+  public function setPerfEstimationConfig(CloudAiLargeModelsVisionGenerateVideoExperimentsPerfEstimationConfig $perfEstimationConfig)
+  {
+    $this->perfEstimationConfig = $perfEstimationConfig;
+  }
+  /**
+   * @return CloudAiLargeModelsVisionGenerateVideoExperimentsPerfEstimationConfig
+   */
+  public function getPerfEstimationConfig()
+  {
+    return $this->perfEstimationConfig;
   }
   /**
    * Configuration for Pro Edit.

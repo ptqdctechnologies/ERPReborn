@@ -67,6 +67,8 @@ class PackageIssue extends \Google\Collection
    * @var string
    */
   public $effectiveSeverity;
+  protected $exploitabilityType = Exploitability::class;
+  protected $exploitabilityDataType = '';
   protected $fileLocationType = GrafeasV1FileLocation::class;
   protected $fileLocationDataType = 'array';
   /**
@@ -168,6 +170,22 @@ class PackageIssue extends \Google\Collection
   public function getEffectiveSeverity()
   {
     return $this->effectiveSeverity;
+  }
+  /**
+   * Output only. Exploitability signals and summary for this package issue.
+   *
+   * @param Exploitability $exploitability
+   */
+  public function setExploitability(Exploitability $exploitability)
+  {
+    $this->exploitability = $exploitability;
+  }
+  /**
+   * @return Exploitability
+   */
+  public function getExploitability()
+  {
+    return $this->exploitability;
   }
   /**
    * The location at which this package was found.

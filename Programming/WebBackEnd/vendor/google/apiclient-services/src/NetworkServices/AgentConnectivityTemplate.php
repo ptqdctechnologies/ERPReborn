@@ -65,7 +65,7 @@ class AgentConnectivityTemplate extends \Google\Collection
   public const DEPLOYMENT_MODEL_AMBIENT = 'AMBIENT';
   protected $collection_key = 'accessTypes';
   /**
-   * Required. Immutable. The path of the access. Maps roughly to
+   * Optional. Immutable. The path of the access. Maps roughly to
    * ingress/egress, though we keep CLIENT_TO_AGENT and AGENT_TO_ANYWHERE as
    * carryovers from Agent Gateway's original resource model. The path is
    * immutable once set. Exactly one path can be set.
@@ -94,7 +94,7 @@ class AgentConnectivityTemplate extends \Google\Collection
    */
   public $createTime;
   /**
-   * Required. The deployment model for the gateway.
+   * Optional. The deployment model for the gateway.
    *
    * @var string
    */
@@ -138,7 +138,7 @@ class AgentConnectivityTemplate extends \Google\Collection
   public $updateTime;
 
   /**
-   * Required. Immutable. The path of the access. Maps roughly to
+   * Optional. Immutable. The path of the access. Maps roughly to
    * ingress/egress, though we keep CLIENT_TO_AGENT and AGENT_TO_ANYWHERE as
    * carryovers from Agent Gateway's original resource model. The path is
    * immutable once set. Exactly one path can be set.
@@ -212,7 +212,7 @@ class AgentConnectivityTemplate extends \Google\Collection
     return $this->createTime;
   }
   /**
-   * Required. The deployment model for the gateway.
+   * Optional. The deployment model for the gateway.
    *
    * Accepted values: DEPLOYMENT_MODEL_UNSPECIFIED, CENTRALIZED, AMBIENT
    *

@@ -116,8 +116,8 @@ class PushConfig extends \Google\Model
   }
   /**
    * Optional. When set, the payload to the push endpoint is in the form of the
-   * JSON representation of a PubsubMessage (https://cloud.google.com/pubsub/doc
-   * s/reference/rpc/google.pubsub.v1#pubsubmessage).
+   * JSON representation of a [PubsubMessage]( https://cloud.google.com/pubsub/d
+   * ocs/reference/rpc/google.pubsub.v1#pubsubmessage).
    *
    * @param PubsubWrapper $pubsubWrapper
    */

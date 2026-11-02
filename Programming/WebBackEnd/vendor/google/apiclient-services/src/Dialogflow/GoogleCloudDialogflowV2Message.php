@@ -17,12 +17,13 @@
 
 namespace Google\Service\Dialogflow;
 
-class GoogleCloudDialogflowV2Message extends \Google\Model
+class GoogleCloudDialogflowV2Message extends \Google\Collection
 {
   public const PARTICIPANT_ROLE_ROLE_UNSPECIFIED = 'ROLE_UNSPECIFIED';
   public const PARTICIPANT_ROLE_HUMAN_AGENT = 'HUMAN_AGENT';
   public const PARTICIPANT_ROLE_AUTOMATED_AGENT = 'AUTOMATED_AGENT';
   public const PARTICIPANT_ROLE_END_USER = 'END_USER';
+  protected $collection_key = 'responseMessages';
   /**
    * @var string
    */
@@ -49,6 +50,8 @@ class GoogleCloudDialogflowV2Message extends \Google\Model
    * @var string
    */
   public $participantRole;
+  protected $responseMessagesType = GoogleCloudDialogflowV2ResponseMessage::class;
+  protected $responseMessagesDataType = 'array';
   /**
    * @var string
    */
@@ -153,6 +156,20 @@ class GoogleCloudDialogflowV2Message extends \Google\Model
   public function getParticipantRole()
   {
     return $this->participantRole;
+  }
+  /**
+   * @param GoogleCloudDialogflowV2ResponseMessage[] $responseMessages
+   */
+  public function setResponseMessages($responseMessages)
+  {
+    $this->responseMessages = $responseMessages;
+  }
+  /**
+   * @return GoogleCloudDialogflowV2ResponseMessage[]
+   */
+  public function getResponseMessages()
+  {
+    return $this->responseMessages;
   }
   /**
    * @param string $sendTime

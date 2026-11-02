@@ -66,7 +66,7 @@ class DailyMetricTimeSeries extends \Google\Model
    */
   public const DAILY_METRIC_WEBSITE_CLICKS = 'WEBSITE_CLICKS';
   /**
-   * The number of times the business profile messaging (e.g. Whatsapp) button
+   * The number of times the business profile messaging (e.g. WhatsApp) button
    * was clicked.
    */
   public const DAILY_METRIC_MESSAGING_CLICKS = 'MESSAGING_CLICKS';

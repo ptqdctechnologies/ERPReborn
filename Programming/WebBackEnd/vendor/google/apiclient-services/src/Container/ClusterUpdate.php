@@ -34,6 +34,14 @@ class ClusterUpdate extends \Google\Collection
    */
   public const DESIRED_DATAPATH_PROVIDER_ADVANCED_DATAPATH = 'ADVANCED_DATAPATH';
   /**
+   * Cluster has some existing nodes but new nodes should use ADVANCED_DATAPATH.
+   */
+  public const DESIRED_DATAPATH_PROVIDER_MIGRATE_TO_ADVANCED_DATAPATH = 'MIGRATE_TO_ADVANCED_DATAPATH';
+  /**
+   * Cluster has some existing nodes but new nodes should use LEGACY_DATAPATH.
+   */
+  public const DESIRED_DATAPATH_PROVIDER_MIGRATE_TO_LEGACY_DATAPATH = 'MIGRATE_TO_LEGACY_DATAPATH';
+  /**
    * Unspecified, will be inferred as default -
    * IN_TRANSIT_ENCRYPTION_UNSPECIFIED.
    */
@@ -81,6 +89,8 @@ class ClusterUpdate extends \Google\Collection
   protected $desiredAdditionalIpRangesConfigDataType = '';
   protected $desiredAddonsConfigType = AddonsConfig::class;
   protected $desiredAddonsConfigDataType = '';
+  protected $desiredAmbientNetworkingConfigType = AmbientNetworkingConfig::class;
+  protected $desiredAmbientNetworkingConfigDataType = '';
   protected $desiredAnonymousAuthenticationConfigType = AnonymousAuthenticationConfig::class;
   protected $desiredAnonymousAuthenticationConfigDataType = '';
   protected $desiredAuthenticatorGroupsConfigType = AuthenticatorGroupsConfig::class;
@@ -427,6 +437,22 @@ class ClusterUpdate extends \Google\Collection
     return $this->desiredAddonsConfig;
   }
   /**
+   * Optional. The desired ambient networking configuration.
+   *
+   * @param AmbientNetworkingConfig $desiredAmbientNetworkingConfig
+   */
+  public function setDesiredAmbientNetworkingConfig(AmbientNetworkingConfig $desiredAmbientNetworkingConfig)
+  {
+    $this->desiredAmbientNetworkingConfig = $desiredAmbientNetworkingConfig;
+  }
+  /**
+   * @return AmbientNetworkingConfig
+   */
+  public function getDesiredAmbientNetworkingConfig()
+  {
+    return $this->desiredAmbientNetworkingConfig;
+  }
+  /**
    * Configuration for limiting anonymous access to all endpoints except the
    * health checks.
    *
@@ -644,7 +670,7 @@ class ClusterUpdate extends \Google\Collection
    * The desired datapath provider for the cluster.
    *
    * Accepted values: DATAPATH_PROVIDER_UNSPECIFIED, LEGACY_DATAPATH,
-   * ADVANCED_DATAPATH
+   * ADVANCED_DATAPATH, MIGRATE_TO_ADVANCED_DATAPATH, MIGRATE_TO_LEGACY_DATAPATH
    *
    * @param self::DESIRED_DATAPATH_PROVIDER_* $desiredDatapathProvider
    */

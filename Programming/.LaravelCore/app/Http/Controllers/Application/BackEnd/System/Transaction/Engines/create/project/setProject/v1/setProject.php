@@ -5,7 +5,7 @@
 | ▪ Category   : API Engine Controller                                                                                             |
 | ▪ Name Space : \App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\project\setProject\v1                 |
 |                                                                                                                                  |
-| ▪ Copyleft 🄯 2021 - 2025 Zheta (teguhpjs@gmail.com)                                                                              |
+| ▪ Copyleft 🄯 2021 - 2026 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
 namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\create\project\setProject\v1
@@ -42,8 +42,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : main                                                                                                 |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000002                                                                                       |
-        | ▪ Last Update     : 2025-02-04                                                                                           |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
+        | ▪ Last Update     : 2026-10-21                                                                                           |
         | ▪ Creation Date   : 2021-07-07                                                                                           |
         | ▪ Description     : Fungsi Utama Engine                                                                                  |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -90,11 +90,29 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\cr
                                         )
                                     ),
 
+                                    $varData['entities']['documentDateTimeTZ'],
+                                    $varData['entities']['log_FileUpload_Pointer_RefID'],
+                                    $varData['entities']['requesterWorkerJobsPosition_RefID'],
                                     $varData['entities']['name'],
                                     $varData['entities']['materialProductAssembly_RefID'],
                                     $varData['entities']['validStartDateTimeTZ'],
                                     $varData['entities']['validFinishDateTimeTZ'],
-                                    $varData['entities']['code']
+                                    $varData['entities']['code'],
+
+                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                                        $varUserSession,
+                                        'additionalData',
+                                        $varData['entities']
+                                        ) 
+                                        ?   (
+                                                (
+                                                !is_null($varData['entities']['additionalData'])
+                                                ) 
+                                                ? $varData['entities']['additionalData']
+                                                : []
+                                            )
+                                        : []
+                                    )
                                     )
                                 )
                             ))

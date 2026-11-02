@@ -19,6 +19,15 @@ namespace Google\Service\Container;
 
 class UpdateNodePoolRequest extends \Google\Collection
 {
+  /**
+   * Unspecified.
+   */
+  public const NODE_CONFIG_UPDATE_MODE_NODE_CONFIG_UPDATE_MODE_UNSPECIFIED = 'NODE_CONFIG_UPDATE_MODE_UNSPECIFIED';
+  /**
+   * Node updates are applied in-place on the running VM without VM recreation
+   * and without draining workloads/pods.
+   */
+  public const NODE_CONFIG_UPDATE_MODE_LIVE_UPDATE_WITHOUT_DRAIN = 'LIVE_UPDATE_WITHOUT_DRAIN';
   protected $collection_key = 'storagePools';
   protected $acceleratorsType = AcceleratorConfig::class;
   protected $acceleratorsDataType = 'array';
@@ -152,6 +161,14 @@ class UpdateNodePoolRequest extends \Google\Collection
    * @var string
    */
   public $name;
+  /**
+   * Optional. Option to specify the rollout strategy to apply node pool
+   * configuration updates. If unspecified, standard rolling update strategy
+   * with VM recreation is used as the default behavior.
+   *
+   * @var string
+   */
+  public $nodeConfigUpdateMode;
   protected $nodeDrainConfigType = NodeDrainConfig::class;
   protected $nodeDrainConfigDataType = '';
   protected $nodeNetworkConfigType = NodeNetworkConfig::class;
@@ -660,6 +677,27 @@ class UpdateNodePoolRequest extends \Google\Collection
   public function getName()
   {
     return $this->name;
+  }
+  /**
+   * Optional. Option to specify the rollout strategy to apply node pool
+   * configuration updates. If unspecified, standard rolling update strategy
+   * with VM recreation is used as the default behavior.
+   *
+   * Accepted values: NODE_CONFIG_UPDATE_MODE_UNSPECIFIED,
+   * LIVE_UPDATE_WITHOUT_DRAIN
+   *
+   * @param self::NODE_CONFIG_UPDATE_MODE_* $nodeConfigUpdateMode
+   */
+  public function setNodeConfigUpdateMode($nodeConfigUpdateMode)
+  {
+    $this->nodeConfigUpdateMode = $nodeConfigUpdateMode;
+  }
+  /**
+   * @return self::NODE_CONFIG_UPDATE_MODE_*
+   */
+  public function getNodeConfigUpdateMode()
+  {
+    return $this->nodeConfigUpdateMode;
   }
   /**
    * The desired node drain configuration for nodes in the node pool.

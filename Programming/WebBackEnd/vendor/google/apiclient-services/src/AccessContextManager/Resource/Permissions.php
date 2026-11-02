@@ -36,7 +36,7 @@ class Permissions extends \Google\Service\Resource
    * @param array $optParams Optional parameters.
    *
    * @opt_param int pageSize Optional. This flag specifies the maximum number of
-   * services to return per page. Default value is 100.
+   * permissions to return per page. Default value is 100.
    * @opt_param string pageToken Optional. Use this token to retrieve a specific
    * page of results. Default is the first page.
    * @return ListSupportedPermissionsResponse

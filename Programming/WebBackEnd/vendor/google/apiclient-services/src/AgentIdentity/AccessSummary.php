@@ -39,6 +39,14 @@ class AccessSummary extends \Google\Collection
    * Gemini Enterprise auth provider type.
    */
   public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE = 'AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE';
+  /**
+   * Cross-App Access auth provider type.
+   */
+  public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_CROSS_APP_ACCESS = 'AUTH_PROVIDER_TYPE_CROSS_APP_ACCESS';
+  /**
+   * Connector Reference auth provider type.
+   */
+  public const AUTH_PROVIDER_TYPE_AUTH_PROVIDER_TYPE_CONNECTOR_REFERENCE = 'AUTH_PROVIDER_TYPE_CONNECTOR_REFERENCE';
   protected $collection_key = 'scopes';
   /**
    * Output only. The auth provider that this access summary is associated with.
@@ -133,7 +141,8 @@ class AccessSummary extends \Google\Collection
    *
    * Accepted values: AUTH_PROVIDER_TYPE_UNSPECIFIED,
    * AUTH_PROVIDER_TYPE_THREE_LEGGED_OAUTH, AUTH_PROVIDER_TYPE_TWO_LEGGED_OAUTH,
-   * AUTH_PROVIDER_TYPE_API_KEY, AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE
+   * AUTH_PROVIDER_TYPE_API_KEY, AUTH_PROVIDER_TYPE_GEMINI_ENTERPRISE,
+   * AUTH_PROVIDER_TYPE_CROSS_APP_ACCESS, AUTH_PROVIDER_TYPE_CONNECTOR_REFERENCE
    *
    * @param self::AUTH_PROVIDER_TYPE_* $authProviderType
    */

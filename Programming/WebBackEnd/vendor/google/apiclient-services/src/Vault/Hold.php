@@ -48,9 +48,13 @@ class Hold extends \Google\Collection
    */
   public const CORPUS_CALENDAR = 'CALENDAR';
   /**
-   * Gemini.
+   * Gemini app.
    */
   public const CORPUS_GEMINI = 'GEMINI';
+  /**
+   * Gemini in Workspace.
+   */
+  public const CORPUS_GEMINI_IN_WORKSPACE = 'GEMINI_IN_WORKSPACE';
   protected $collection_key = 'accounts';
   protected $accountsType = HeldAccount::class;
   protected $accountsDataType = 'array';
@@ -104,7 +108,7 @@ class Hold extends \Google\Collection
    * The service to be searched.
    *
    * Accepted values: CORPUS_TYPE_UNSPECIFIED, DRIVE, MAIL, GROUPS,
-   * HANGOUTS_CHAT, VOICE, CALENDAR, GEMINI
+   * HANGOUTS_CHAT, VOICE, CALENDAR, GEMINI, GEMINI_IN_WORKSPACE
    *
    * @param self::CORPUS_* $corpus
    */

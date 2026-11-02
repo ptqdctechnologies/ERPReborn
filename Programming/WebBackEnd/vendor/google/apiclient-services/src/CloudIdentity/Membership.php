@@ -72,6 +72,14 @@ class Membership extends \Google\Collection
    */
   public const TYPE_CHROME_OS_DEVICE = 'CHROME_OS_DEVICE';
   /**
+   * Represents a Personal Agent type.
+   */
+  public const TYPE_PERSONAL_AGENT = 'PERSONAL_AGENT';
+  /**
+   * Represents a Coworker Agent type.
+   */
+  public const TYPE_COWORKER_AGENT = 'COWORKER_AGENT';
+  /**
    * Represents other type.
    */
   public const TYPE_OTHER = 'OTHER';
@@ -206,7 +214,8 @@ class Membership extends \Google\Collection
    * Output only. The type of the membership.
    *
    * Accepted values: TYPE_UNSPECIFIED, USER, SERVICE_ACCOUNT, GROUP,
-   * SHARED_DRIVE, CBCM_BROWSER, CHROME_OS_DEVICE, OTHER
+   * SHARED_DRIVE, CBCM_BROWSER, CHROME_OS_DEVICE, PERSONAL_AGENT,
+   * COWORKER_AGENT, OTHER
    *
    * @param self::TYPE_* $type
    */

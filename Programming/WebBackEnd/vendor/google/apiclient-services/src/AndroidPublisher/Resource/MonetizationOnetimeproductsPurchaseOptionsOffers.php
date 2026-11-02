@@ -66,12 +66,12 @@ class MonetizationOnetimeproductsPurchaseOptionsOffers extends \Google\Service\R
    *
    * @param string $packageName Required. The parent app (package name) of the
    * offers to delete. Must be equal to the package_name field on all the
-   * OneTimeProductOffer resources.
+   * requests.
    * @param string $productId Required. The product ID of the parent one-time
    * product, if all offers to delete belong to the same product. If this request
    * spans multiple one-time products, set this field to "-".
    * @param string $purchaseOptionId Required. The parent purchase option (ID) for
-   * which the offers should be deleted. May be specified as '-' to update offers
+   * which the offers should be deleted. May be specified as '-' to delete offers
    * from multiple purchase options.
    * @param BatchDeleteOneTimeProductOffersRequest $postBody
    * @param array $optParams Optional parameters.
@@ -87,14 +87,14 @@ class MonetizationOnetimeproductsPurchaseOptionsOffers extends \Google\Service\R
    * Reads one or more one-time product offers. (offers.batchGet)
    *
    * @param string $packageName Required. The parent app (package name) of the
-   * updated offers. Must be equal to the package_name field on all the updated
-   * OneTimeProductOffer resources.
+   * offers to retrieve. Must be equal to the package_name field on all the
+   * requests.
    * @param string $productId Required. The product ID of the parent one-time
-   * product, if all updated offers belong to the same product. If this request
-   * spans multiple one-time products, set this field to "-".
+   * product, if all offers belong to the same product. If this request spans
+   * multiple one-time products, set this field to "-".
    * @param string $purchaseOptionId Required. The parent purchase option (ID) for
-   * which the offers should be updated. May be specified as '-' to update offers
-   * from multiple purchase options.
+   * which the offers should be retrieved. May be specified as '-' to retrieve
+   * offers from multiple purchase options.
    * @param BatchGetOneTimeProductOffersRequest $postBody
    * @param array $optParams Optional parameters.
    * @return BatchGetOneTimeProductOffersResponse
@@ -214,9 +214,9 @@ class MonetizationOnetimeproductsPurchaseOptionsOffers extends \Google\Service\R
    * will be returned. The maximum value is 1000; values above 1000 will be
    * coerced to 1000.
    * @opt_param string pageToken Optional. A page token, received from a previous
-   * `ListOneTimeProductsOffers` call. Provide this to retrieve the subsequent
+   * `ListOneTimeProductOffers` call. Provide this to retrieve the subsequent
    * page. When paginating, product_id, package_name and purchase_option_id
-   * provided to `ListOneTimeProductsOffersRequest` must match the call that
+   * provided to `ListOneTimeProductOffersRequest` must match the call that
    * provided the page token.
    * @return ListOneTimeProductOffersResponse
    * @throws \Google\Service\Exception

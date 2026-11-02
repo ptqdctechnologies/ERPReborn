@@ -18,6 +18,7 @@
 namespace Google\Service\CurationPartners\Resource;
 
 use Google\Service\CurationPartners\ListMediaPlannersResponse;
+use Google\Service\CurationPartners\SearchMediaPlannersResponse;
 
 /**
  * The "mediaPlanners" collection of methods.
@@ -54,6 +55,29 @@ class MediaPlanners extends \Google\Service\Resource
     $params = [];
     $params = array_merge($params, $optParams);
     return $this->call('list', [$params], ListMediaPlannersResponse::class);
+  }
+  /**
+   * Searches for media planner accounts matching the given DSP seat ID.
+   * (mediaPlanners.search)
+   *
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param string dspSeatId Required. The DSP seat ID to search for. The DSP
+   * seat ID is provided by the media planner.
+   * @opt_param int pageSize Optional. The maximum number of media planners to
+   * return. If unspecified, at most 100 media planners will be returned. The
+   * maximum value is 500; values above 500 will be coerced to 500.
+   * @opt_param string pageToken Optional. A token identifying a page of results
+   * the server should return. This value is received from a previous
+   * `SearchMediaPlanners` call in SearchMediaPlannersResponse.nextPageToken.
+   * @return SearchMediaPlannersResponse
+   * @throws \Google\Service\Exception
+   */
+  public function search($optParams = [])
+  {
+    $params = [];
+    $params = array_merge($params, $optParams);
+    return $this->call('search', [$params], SearchMediaPlannersResponse::class);
   }
 }
 

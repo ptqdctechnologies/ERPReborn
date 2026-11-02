@@ -171,7 +171,7 @@ class AndroidNotificationV2 extends \Google\Collection
   /**
    * Optional. Identifier used to replace existing notifications in the
    * notification drawer. It is used in conjunction with `tag` to form a unique
-   * identifier `(tag, id`)` within the app. If not specified, each request
+   * identifier `(tag, id)` within the app. If not specified, each request
    * creates a new notification. If specified and a notification with the same
    * `(tag, id)` is already being shown, the new notification replaces the
    * existing one in the notification drawer.
@@ -180,9 +180,8 @@ class AndroidNotificationV2 extends \Google\Collection
    */
   public $id;
   /**
-   * Contains the URL of an image that is going to be displayed in a
-   * notification. If present, it will override
-   * google.firebase.fcm.v1.Notification.image.
+   * An HTTPS URL of an image to display in the notification. If present, it
+   * overrides google.firebase.fcm.v1.Notification.image.
    *
    * @var string
    */
@@ -202,7 +201,7 @@ class AndroidNotificationV2 extends \Google\Collection
   public $localOnly;
   /**
    * Sets the number of items this notification represents. May be displayed as
-   * a badge count for launchers that support badging.See [Notification
+   * a badge count for launchers that support badging. See [Notification
    * Badge](https://developer.android.com/training/notify-user/badges). For
    * example, this might be useful if you're using just one notification to
    * represent multiple new messages but you want the count here to represent
@@ -250,7 +249,7 @@ class AndroidNotificationV2 extends \Google\Collection
   /**
    * Identifier used to replace existing notifications in the notification
    * drawer. It is used in conjunction with `id` to form a unique identifier
-   * `(tag, id`)` within the app. If not specified, each request creates a new
+   * `(tag, id)` within the app. If not specified, each request creates a new
    * notification. If specified and a notification with the same `(tag, id)` is
    * already being shown, the new notification replaces the existing one in the
    * notification drawer.
@@ -522,7 +521,7 @@ class AndroidNotificationV2 extends \Google\Collection
   /**
    * Optional. Identifier used to replace existing notifications in the
    * notification drawer. It is used in conjunction with `tag` to form a unique
-   * identifier `(tag, id`)` within the app. If not specified, each request
+   * identifier `(tag, id)` within the app. If not specified, each request
    * creates a new notification. If specified and a notification with the same
    * `(tag, id)` is already being shown, the new notification replaces the
    * existing one in the notification drawer.
@@ -541,9 +540,8 @@ class AndroidNotificationV2 extends \Google\Collection
     return $this->id;
   }
   /**
-   * Contains the URL of an image that is going to be displayed in a
-   * notification. If present, it will override
-   * google.firebase.fcm.v1.Notification.image.
+   * An HTTPS URL of an image to display in the notification. If present, it
+   * overrides google.firebase.fcm.v1.Notification.image.
    *
    * @param string $image
    */
@@ -599,7 +597,7 @@ class AndroidNotificationV2 extends \Google\Collection
   }
   /**
    * Sets the number of items this notification represents. May be displayed as
-   * a badge count for launchers that support badging.See [Notification
+   * a badge count for launchers that support badging. See [Notification
    * Badge](https://developer.android.com/training/notify-user/badges). For
    * example, this might be useful if you're using just one notification to
    * represent multiple new messages but you want the count here to represent
@@ -690,7 +688,7 @@ class AndroidNotificationV2 extends \Google\Collection
   /**
    * Identifier used to replace existing notifications in the notification
    * drawer. It is used in conjunction with `id` to form a unique identifier
-   * `(tag, id`)` within the app. If not specified, each request creates a new
+   * `(tag, id)` within the app. If not specified, each request creates a new
    * notification. If specified and a notification with the same `(tag, id)` is
    * already being shown, the new notification replaces the existing one in the
    * notification drawer.

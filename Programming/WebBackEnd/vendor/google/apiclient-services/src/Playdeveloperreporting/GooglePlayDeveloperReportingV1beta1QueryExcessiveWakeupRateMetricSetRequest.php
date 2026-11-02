@@ -104,8 +104,8 @@ class GooglePlayDeveloperReportingV1beta1QueryExcessiveWakeupRateMetricSetReques
   public $metrics;
   /**
    * Optional. Maximum size of the returned data. If unspecified, at most 1000
-   * rows will be returned. The maximum value is 100000; values above 100000
-   * will be coerced to 100000.
+   * rows will be returned. The maximum value is 10000; values above 10000 will
+   * be coerced to 10000.
    *
    * @var int
    */
@@ -223,8 +223,8 @@ class GooglePlayDeveloperReportingV1beta1QueryExcessiveWakeupRateMetricSetReques
   }
   /**
    * Optional. Maximum size of the returned data. If unspecified, at most 1000
-   * rows will be returned. The maximum value is 100000; values above 100000
-   * will be coerced to 100000.
+   * rows will be returned. The maximum value is 10000; values above 10000 will
+   * be coerced to 10000.
    *
    * @param int $pageSize
    */

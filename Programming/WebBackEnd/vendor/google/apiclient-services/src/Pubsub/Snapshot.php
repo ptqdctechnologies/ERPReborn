@@ -35,8 +35,8 @@ class Snapshot extends \Google\Model
    */
   public $expireTime;
   /**
-   * Optional. See [Creating and managing labels]
-   * (https://cloud.google.com/pubsub/docs/labels).
+   * Optional. See [Creating and managing labels](
+   * https://cloud.google.com/pubsub/docs/labels).
    *
    * @var string[]
    */
@@ -81,8 +81,8 @@ class Snapshot extends \Google\Model
     return $this->expireTime;
   }
   /**
-   * Optional. See [Creating and managing labels]
-   * (https://cloud.google.com/pubsub/docs/labels).
+   * Optional. See [Creating and managing labels](
+   * https://cloud.google.com/pubsub/docs/labels).
    *
    * @param string[] $labels
    */

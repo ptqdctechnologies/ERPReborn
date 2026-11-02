@@ -48,20 +48,20 @@ class CustomDomain extends \Google\Model
    */
   public const STATE_UNKNOWN = 'UNKNOWN';
   /**
-   * Domain name.
+   * Optional. Domain name.
    *
    * @var string
    */
   public $domain;
   /**
-   * Domain state.
+   * Output only. Domain state.
    *
    * @var string
    */
   public $state;
 
   /**
-   * Domain name.
+   * Optional. Domain name.
    *
    * @param string $domain
    */
@@ -77,7 +77,7 @@ class CustomDomain extends \Google\Model
     return $this->domain;
   }
   /**
-   * Domain state.
+   * Output only. Domain state.
    *
    * Accepted values: CUSTOM_DOMAIN_STATE_UNSPECIFIED, UNVERIFIED, VERIFIED,
    * MODIFYING, AVAILABLE, UNAVAILABLE, UNKNOWN

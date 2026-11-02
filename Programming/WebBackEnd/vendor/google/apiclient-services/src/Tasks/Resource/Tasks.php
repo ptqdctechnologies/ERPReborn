@@ -88,13 +88,19 @@ class Tasks extends \Google\Service\Resource
    * @param Task $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string parent Parent task identifier. If the task is created at
-   * the top level, this parameter is omitted. An assigned task cannot be a parent
-   * task, nor can it have a parent. Setting the parent to an assigned task
-   * results in failure of the request. Optional.
-   * @opt_param string previous Previous sibling task identifier. If the task is
-   * created at the first position among its siblings, this parameter is omitted.
-   * Optional.
+   * @opt_param bool hidden Optional. Flag indicating whether the task is created
+   * as 'hidden', as if it had been completed and then cleared from the task list
+   * (see the "clear" method). Hidden tasks are not returned by default when
+   * retrieving all tasks for a task list (see showHidden). Only completed tasks
+   * can be created as hidden, and they can not be nested or positioned, so parent
+   * and previous must be empty.
+   * @opt_param string parent Optional. Parent task identifier. If the task is
+   * created at the top level, this parameter is omitted. An assigned task cannot
+   * be a parent task, nor can it have a parent. Setting the parent to an assigned
+   * task results in failure of the request.
+   * @opt_param string previous Optional. Previous sibling task identifier. If the
+   * task is created at the first position among its siblings, this parameter is
+   * omitted.
    * @return Task
    * @throws \Google\Service\Exception
    */
@@ -112,34 +118,33 @@ class Tasks extends \Google\Service\Resource
    * @param string $tasklist Task list identifier.
    * @param array $optParams Optional parameters.
    *
-   * @opt_param string completedMax Upper bound for a task's completion date (as a
-   * RFC 3339 timestamp) to filter by. Optional. The default is not to filter by
+   * @opt_param string completedMax Optional. Upper bound for a task's completion
+   * date (as a RFC 3339 timestamp) to filter by. The default is not to filter by
    * completion date.
-   * @opt_param string completedMin Lower bound for a task's completion date (as a
-   * RFC 3339 timestamp) to filter by. Optional. The default is not to filter by
+   * @opt_param string completedMin Optional. Lower bound for a task's completion
+   * date (as a RFC 3339 timestamp) to filter by. The default is not to filter by
    * completion date.
-   * @opt_param string dueMax Upper bound for a task's due date (as a RFC 3339
-   * timestamp) to filter by. Optional. The default is not to filter by due date.
-   * @opt_param string dueMin Lower bound for a task's due date (as a RFC 3339
-   * timestamp) to filter by. Optional. The default is not to filter by due date.
-   * @opt_param int maxResults Maximum number of tasks returned on one page.
-   * Optional. The default is 20 (max allowed: 100).
-   * @opt_param string pageToken Token specifying the result page to return.
-   * Optional.
+   * @opt_param string dueMax Optional. Upper bound for a task's due date (as a
+   * RFC 3339 timestamp) to filter by. The default is not to filter by due date.
+   * @opt_param string dueMin Optional. Lower bound for a task's due date (as a
+   * RFC 3339 timestamp) to filter by. The default is not to filter by due date.
+   * @opt_param int maxResults Optional. Maximum number of tasks returned on one
+   * page. The default is 20 (max allowed: 100).
+   * @opt_param string pageToken Optional. Token specifying the result page to
+   * return.
    * @opt_param bool showAssigned Optional. Flag indicating whether tasks assigned
-   * to the current user are returned in the result. Optional. The default is
-   * False.
-   * @opt_param bool showCompleted Flag indicating whether completed tasks are
-   * returned in the result. Note that showHidden must also be True to show tasks
-   * completed in first party clients, such as the web UI and Google's mobile
-   * apps. Optional. The default is True.
-   * @opt_param bool showDeleted Flag indicating whether deleted tasks are
-   * returned in the result. Optional. The default is False.
-   * @opt_param bool showHidden Flag indicating whether hidden tasks are returned
-   * in the result. Optional. The default is False.
-   * @opt_param string updatedMin Lower bound for a task's last modification time
-   * (as a RFC 3339 timestamp) to filter by. Optional. The default is not to
-   * filter by last modification time.
+   * to the current user are returned in the result. The default is False.
+   * @opt_param bool showCompleted Optional. Flag indicating whether completed
+   * tasks are returned in the result. Note that showHidden must also be True to
+   * show tasks completed in first party clients, such as the web UI and Google's
+   * mobile apps. The default is True.
+   * @opt_param bool showDeleted Optional. Flag indicating whether deleted tasks
+   * are returned in the result. The default is False.
+   * @opt_param bool showHidden Optional. Flag indicating whether hidden tasks are
+   * returned in the result. The default is False.
+   * @opt_param string updatedMin Optional. Lower bound for a task's last
+   * modification time (as a RFC 3339 timestamp) to filter by. The default is not
+   * to filter by last modification time.
    * @return TasksModel
    * @throws \Google\Service\Exception
    */
