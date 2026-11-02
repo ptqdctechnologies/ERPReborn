@@ -13,40 +13,41 @@
     const dataJournalDetails = {!! json_encode($details ?? []) !!};
 
     function initialData() {
-        console.log('dataJournalDetails', dataJournalDetails);
-
         for (const detail of dataJournalDetails) {
+            const filterCoa = detail.entities.filter(val => val.accountingEntryRecordType_RefID == detail.transactionType);
+
             journalDetails.push({
                 business_document_id: detail.entities[0].businessDocument_RefID, // 74000000028344,
                 trans_number_preview: detail.entities[0].trans_number_preview || '', // "Adv/QDC/2026/000083",
                 trans_number_id: detail.entities[0].trans_number_id || '', // 76000000000947,
                 trans_number_quantity_unit_id: detail.entities[0].quantityUnit_RefID, // 73000000000008,
-                trans_number_quantity: Utils.formatCurrency(detail.entities[0].quantity || '0.00'), // "0.01",
+                trans_number_quantity: detail.entities[0].quantity, // "0.01",
                 trans_number_currency_id: detail.entities[0].amountCurrency_RefID, // 62000000000001,
-                trans_number_currency_rate: Utils.formatCurrency(detail.entities[0].amountCurrencyExchangeRate || '0.00'), // "1.00",
+                trans_number_currency_rate: detail.entities[0].amountCurrencyExchangeRate, // "1.00",
                 debit_credit_id: detail.entities[0].combinedBudgetCode,
                 budget_preview: `${detail.entities[0].combinedBudgetCode} - ${detail.entities[0].combinedBudgetName}`, // "Q000062 - XL Microcell 2007",
                 budget_id: detail.entities[0].combinedBudget_RefID,
                 budget_code: detail.entities[0].combinedBudgetCode,
                 budget_name: detail.entities[0].combinedBudgetName,
-                trans_value: Utils.formatCurrency(detail.transactionValue || '0.00'),
-                unpaid_value: Utils.formatCurrency(detail.transactionUnpaid || '0.00'),
-                payment_value: Utils.formatCurrency(detail.entities[0].amountCurrencyValue || '0.00'),
-                variance_value: Utils.formatCurrency(detail.variance || '0.00'),
+                trans_value: detail.transactionValue,
+                unpaid_value: detail.transactionUnpaid,
+                payment_value: detail.entities[0].amountCurrencyValue,
+                variance_value: detail.variance,
                 balance_value: detail.transactionValue - detail.entities[0].amountCurrencyValue,
                 from_to_preview: `(${detail.entities[0].beneficiaryOrSenderBankAccountAcronym}) ${detail.entities[0].beneficiaryOrSenderBankAccountNumber} a.n ${detail.entities[0].beneficiaryOrSenderBankAccountName}`, // "Bank Central Asia (BCA) 5750423347 a.n. Agus Salim",
                 from_to_id: detail.entities[0].beneficiaryOrSenderBankAccount_RefID,
                 from_to_code: detail.entities[0].beneficiaryOrSenderBankAccountAcronym,
                 from_to_name: `${detail.entities[0].beneficiaryOrSenderBankAccountNumber} a.n ${detail.entities[0].beneficiaryOrSenderBankAccountName}`,
-                coa_preview: "(1-1103.02) Money In Transfer (USD)",
-                coa_id: 65000000000011,
-                coa_code: "1-1103.02",
-                coa_name: "Money In Transfer (USD)",
-                attachment_value: ""
+                coa_preview: `${filterCoa[0].chartOfAccountCode} - ${filterCoa[0].chartOfAccountName}`,
+                coa_id: filterCoa[0].chartOfAccount_RefID,
+                coa_code: filterCoa[0].chartOfAccountCode,
+                coa_name: filterCoa[0].chartOfAccountName,
+                attachment_value: ''
             });
         }
 
-        detailCashBank();
+        addRow();
+        renderTable();
     }
 
     function pickTransNumber(index) {

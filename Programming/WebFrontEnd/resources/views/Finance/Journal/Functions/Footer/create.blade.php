@@ -792,6 +792,8 @@
 
                     $(".preview-modal").show();
                     $(".summary-modal").hide();
+                } else {
+                    ErrorNotif("Create Cash & Bank Failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {
