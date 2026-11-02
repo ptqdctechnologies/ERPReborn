@@ -769,8 +769,8 @@
         });
 
         $.ajax({
-            type: 'POST',
-            url: '{!! route("Journal.store") !!}',
+            type: 'PUT',
+            url: '{!! route("Journal.update", $journal_id) !!}',
             data: $(this).serialize(),
             beforeSend: function () {
                 Utils.showLoading();
@@ -828,6 +828,8 @@
 
                     $(".preview-modal").show();
                     $(".summary-modal").hide();
+                } else {
+                    ErrorNotif("Revision Journal Failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

@@ -83,7 +83,7 @@ class JournalController extends Controller
                 'journal_date' => $data['journalDateTimeTZ'] ?? '',
                 'details' => $response['data']['data'] ?? [],
                 'bank_coa' => [
-                    'preview' => '(' . $data['bankAccountNumber'] . ')' . $data['bankAcronym'] . ' - ' . $data['bankAccountName'],
+                    'preview' => '(' . $data['bankAccountNumber'] . ') ' . $data['bankAcronym'] . ' - ' . $data['bankAccountName'],
                     'id' => $data['bankAccount_RefID'],
                     'code' => $data['bankAccountNumber'],
                     'name' => $data['bankAcronym'] . ' - ' . $data['bankAccountName']
@@ -107,6 +107,15 @@ class JournalController extends Controller
 
     public function update(Request $request, $id)
     {
+        try {
+            $response = $this->journalService->update($request, $id);
+        } catch (\Throwable $th) {
+            Log::error("Update Journal Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+
+        return response()->json($request->all());
     }
 
     public function destroy($id)
