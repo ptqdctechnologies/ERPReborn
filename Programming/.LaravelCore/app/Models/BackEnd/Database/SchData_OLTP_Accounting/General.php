@@ -248,8 +248,12 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         $varReturn['data'][$idxArray1]['bankAccountNumber'] = $value["BankAccountNumber"];
                         $varReturn['data'][$idxArray1]['bankAccountName'] = $value["BankAccountName"];
                         $varReturn['data'][$idxArray1]['journalDateTimeTZ'] = $value["JournalDateTimeTZ"];
-                        $varReturn['data'][$idxArray1]['coa_Code'] = $value["COA_Code"];
-                        $varReturn['data'][$idxArray1]['coa_Name'] = $value["COA_Name"];
+                        $varReturn['data'][$idxArray1]['businessDocument_RefID'] = $value["BusinessDocumentJournal_RefID"];
+                        $varReturn['data'][$idxArray1]['businessDocumentNumber'] = $value["DocumentNumber"];
+                        $varReturn['data'][$idxArray1]['transaction_RefID'] = $value["Transaction_RefID"];
+                        $varReturn['data'][$idxArray1]['transactionValue'] = $value["TransactionValue"];
+                        $varReturn['data'][$idxArray1]['transactionUnpaid'] = $value["TransactionUnpaid"];
+                        $varReturn['data'][$idxArray1]['variance'] = $value["Variance"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['sys_ID'] = $value["Sys_ID"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccountCode'] = $value["ChartOfAccountCode"];

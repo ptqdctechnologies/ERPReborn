@@ -20,7 +20,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
         |                     ► http://172.28.0.4/transaction.create.accounting.setJournal.v1_throughAPIGateway                    |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-01-22                                                                                           |
+        | ▪ Last Update     : 2026-10-20                                                                                           |
         | ▪ Creation Date   : 2024-05-07                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -45,6 +45,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "bankAccount_RefID" => 237000000000002,
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                    "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 76000000000947,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -57,11 +59,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
                                                                 'beneficiaryBankAccount_RefID' => 167000000000001,
-                                                                'chartOfAccount_RefID' => 65000000000005,
-                                                                'amountCurrency_RefID' => 62000000000001,
-                                                                'amountCurrencyValue' => 50000,
-                                                                'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 1',
                                                                 'additionalData' => [
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -69,8 +66,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrency_RefID' => 62000000000001,
                                                                         'amountCurrencyValue' => 50000,
                                                                         'amountCurrencyExchangeRate' => 1,
-                                                                        'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 10.00,
+                                                                        'quantityUnit_RefID' => NULL,
+                                                                        'quantity' => NULL,
                                                                         'variance' => 0.00
                                                                     ],
                                                                     [
@@ -79,8 +76,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                         'amountCurrency_RefID' => 62000000000001,
                                                                         'amountCurrencyValue' => 50000,
                                                                         'amountCurrencyExchangeRate' => 1,
-                                                                        'quantityUnit_RefID' => 73000000000001,
-                                                                        'quantity' => 10.00,
+                                                                        'quantityUnit_RefID' => NULL,
+                                                                        'quantity' => NULL,
                                                                         'variance' => 0.00
                                                                     ]
 
@@ -99,6 +96,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "bankAccount_RefID" => 237000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                    "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 83000000000257,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -111,11 +110,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
                                                                 'beneficiaryBankAccount_RefID' => 167000000000001,
-                                                                'chartOfAccount_RefID' => 65000000000005,
-                                                                'amountCurrency_RefID' => 62000000000001,
-                                                                'amountCurrencyValue' => 75000,
-                                                                'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 2',
                                                                 'additionalData' => [
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -152,6 +146,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "bankAccount_RefID" => 237000000000062,
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                    "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 85000000000205,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -164,11 +160,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
                                                                 'beneficiaryBankAccount_RefID' => 167000000000001,
-                                                                'chartOfAccount_RefID' => 65000000000005,
-                                                                'amountCurrency_RefID' => 62000000000001,
-                                                                'amountCurrencyValue' => 125000,
-                                                                'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 3',
                                                                 'additionalData' => [
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,
@@ -205,6 +196,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "bankAccount_RefID" => 237000000000004,
                                     "combinedBudget_RefID" => 46000000000001,
                                     'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                    "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                    "transaction_RefID" => 76000000000942,
                                     'additionalData' => [
                                         'itemList' => [
                                             'items' => [
@@ -217,11 +210,6 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                                 'log_FileUpload_Pointer_RefID' => null,
                                                                 "combinedBudget_RefID" => 46000000000003,
                                                                 'beneficiaryBankAccount_RefID' => 167000000000001,
-                                                                'chartOfAccount_RefID' => 65000000000005,
-                                                                'amountCurrency_RefID' => 62000000000001,
-                                                                'amountCurrencyValue' => 230000,
-                                                                'amountCurrencyExchangeRate' => 1,
-                                                                "remarks" => 'Catatan 4',
                                                                 'additionalData' => [
                                                                     [
                                                                         'chartOfAccount_RefID' => 65000000000005,

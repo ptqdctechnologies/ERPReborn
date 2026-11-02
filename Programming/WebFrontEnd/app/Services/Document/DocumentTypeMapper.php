@@ -81,9 +81,8 @@ class DocumentTypeMapper
                 'parameter' => ['loan_RefID' => (int) $referenceId]
             ],
             'Loan Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key' => 'transaction.read.dataList.finance.getLoanSettlementDetail',
+                'parameter' => ['loanSettlement_RefID' => (int) $referenceId],
             ],
             'Modify Budget Form' => [
                 'key' => '',
@@ -104,9 +103,8 @@ class DocumentTypeMapper
                 'parameter' => ['personBusinessTrip_RefID' => (int) $referenceId],
             ],
             'Person Business Trip Settlement Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+                'key' => 'transaction.read.dataList.humanResource.getPersonBusinessTripSettlementDetail',
+                'parameter' => ['personBusinessTrip_RefID' => (int) $referenceId]
             ],
             'Product Form' => [
                 'key' => '',
@@ -205,7 +203,7 @@ class DocumentTypeMapper
                     'table' => 'Components.AdvanceDetailDocumentTable',
                 ],
                 'resubmit' => [
-                    'url' => 'AdvanceRequest.RevisionAdvanceIndex',
+                    'url' => "AdvanceRequest.edit",
                     'name' => 'modal_advance_id',
                     'value' => $dataDetail['advance_RefID'] ?? '-',
                 ],
@@ -408,63 +406,85 @@ class DocumentTypeMapper
             ],
             'Loan Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => null,
-                    'loanNumber' => 'LN/QDC/2025/000001',
-                    'loanType' => '-',
-                    'creditors' => 'Ajeng Supratna',
-                    'debtor' => 'Timothy Fajar',
-                    'bankName' => 'BCA',
-                    'bankAccount' => '32382231293',
-                    'principalLoan' => 'Dadang Surana',
-                    'landingRate' => 20000.32,
-                    'totalRate' => 30233.94,
-                    'loanTerm' => '-',
-                    'COA' => '100021 - Bank',
+                    'loanNumber' => $dataDetail['BusinessDocumentNumber'] ?? '-',
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? '-',
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? '-',
+                    'loanType' => $dataDetail['LoanType'] ?? '-',
+                    'creditors' => $dataDetail['CreditorName'] ?? '-',
+                    'debitor' => $dataDetail['DebitorName'] ?? '-',
+                    'currency' => $dataDetail['CurrencyName'] ?? '-',
+                    'bankName' => $dataDetail['BankCode'] ?? '-',
+                    'bankAccount' => $dataDetail['BankAccountNumber'] ?? '-',
+                    'loanDate' => $dataDetail['LoanDate'] ?? '-',
+                    'coaCode' => $dataDetail['COA_Code'] ?? '-',
+                    'coaName' => $dataDetail['COA_Name'] ?? '-',
+                    'principalLoan' => $dataDetail['PrincipleLoan'] ?? 0,
+                    'lendingRate' => $dataDetail['LendingRate'] ?? 0,
+                    'loanTerm' => $dataDetail['LoanTerm'] ?? 0,
+                    'loanTotal' => $dataDetail['TotalLoan'] ?? 0,
+                    'date' => $dataDetail['Date'] ?? null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null
                 ],
                 'textAreaFields' => [
-                    'title' => 'Notes',
-                    'text' => '-',
+                    'title' => 'Remark',
+                    'text' => $dataDetail['Notes'] ?? '-',
                 ],
                 'components' => [
                     'detail' => 'Components.LoanDetailDocument',
+                    'headerRevision' => 'Components.LoanDetailDocumentHeaderRevision',
+                    'revision' => 'Components.LoanDetailDocumentRevision'
                 ],
                 'resubmit' => [
-                    'url' => '',
-                    'name' => '',
-                    'value' => ''
+                    'url' => 'Loan.RevisionLoan',
+                    'name' => 'modal_loan_id',
+                    'value' => $dataDetail['Loan_RefID'] ?? ''
                 ],
                 'transactionType' => 'LOAN',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Loan Settlement Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => null,
-                    'loanSettlementNumber' => 'LNS/QDC/2025/000001',
-                    'loanNumber' => 'LN/QDC/2025/000007',
-                ],
-                'dataAdditional' => [
-                    'penaltyValue' => 4150000.00,
-                    'penaltyCOA' => 8040000.00,
-                    'interestValue' => 5770000.00,
-                    'interestCOA' => 7370000.00,
-                    'totalSettlement' => 67000000.00
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
+                    'loanSettlementNumber' => $dataDetail['BusinessDocumentNumber'] ?? '-',
+                    'loanNumber' => $dataDetail['Reference_Name'] ?? '-',
+                    'loanType' => $dataDetail['LoanType'] ?? '-',
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? '',
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? '',
+                    'loanPrincipal' => $dataDetail['PrincipleLoan'] ?? 0,
+                    'lendingRate' => $dataDetail['LendingRate'] ?? 0,
+                    'loanTerm' => $dataDetail['LoanTerm'] ?? 0,
+                    'loanTotal' => $dataDetail['LoanTotal'] ?? 0,
+                    'currency' => $dataDetail['ISOCode'] ?? '-',
+                    'creditor' => $dataDetail['CreditorName'] ?? '-',
+                    'debitor' => $dataDetail['DebitorName'] ?? '-',
+                    'bankCode' => $dataDetail['BankCode'] ?? '-',
+                    'accountNumber' => $dataDetail['BankAccountNumber'] ?? '-',
+                    'accountName' => $dataDetail['BankAccountName'] ?? '-',
+                    'settlementValue' => $dataDetail['PrincipleSettlement'] ?? 0,
+                    'penaltyValue' => $dataDetail['PenaltySettlement'] ?? 0,
+                    'interestValue' => $dataDetail['InterestSettlement'] ?? 0,
+                    'coaPenaltyCode' => $dataDetail['COA_Penalty_Code'] ?? '',
+                    'coaPenaltyName' => $dataDetail['COA_Penalty_Name'] ?? '',
+                    'coaInterestCode' => $dataDetail['COA_Interest_Code'] ?? '',
+                    'coaInterestName' => $dataDetail['COA_Interest_Name'] ?? ''
                 ],
                 'textAreaFields' => [
-                    'title' => 'Notes',
-                    'text' => '-',
+                    'title' => 'Remark',
+                    'text' => $dataDetail['Notes'] ?? '-'
                 ],
                 'components' => [
                     'detail' => 'Components.LoanSettlementDetailDocument',
-                    'table' => 'Components.LoanSettlementDetailDocumentTable',
-                    // 'additional'    => 'Components.LoanSettlementAddtionalDocument'
+                    'headerRevision' => 'Components.LoanSettlementDetailDocumentHeaderRevision',
+                    'additional_two' => 'Components.LoanSettlementDetailDocumentTable',
+                    'revision' => 'Components.LoanSettlementDetailDocumentRevision'
                 ],
                 'resubmit' => [
-                    'url' => '',
-                    'name' => '',
-                    'value' => ''
+                    'url' => 'LoanSettlement.RevisionLoanSettlement',
+                    'name' => 'modal_loan_settlement_id',
+                    'value' => $dataDetail['LoanSettlement_RefID'] ?? ''
                 ],
                 'transactionType' => 'LOAN SETTLEMENT',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? ''
             ],
             'Modify Budget Form' => [
                 'components' => [
@@ -560,8 +580,8 @@ class DocumentTypeMapper
                     'dateCommenceTravel' => $dataDetail['StartDateTimeTZ'] ?? '-',
                     'dateEndTravel' => $dataDetail['FinishDateTimeTZ'] ?? '-',
                     'brfDate' => $dataDetail['DocumentDateTimeTZ'] ?? '-',
-                    'dateUpdate' => null,
-                    'date' => null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
+                    'date' => $dataDetail['DocumentDateTimeTZ'] ?? null,
                     'fileID' => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
                     'contactPhone' => $dataDetail['RequesterWorkerContact'] ?? null,
                     'bankAccount' => '-',
@@ -580,15 +600,13 @@ class DocumentTypeMapper
                     'other' => '100000.00',
                     'totalBRF' => '3890000.00'
                 ],
-                'textAreaFields' => [
-                    'title' => 'Reason to Travel',
-                    'text' => $dataDetail['ReasonToTravel'] ?? '-',
-                ],
                 'components' => [
                     'detail' => 'Components.BusinessTripRequestDetailDocument',
-                    'table' => 'Components.BusinessTripRequestDetailDocumentTable',
-                    'additional' => 'Components.BusinessTripRequestCostDetailDocument',
-                    'information' => 'Components.BusinessTripRequestInformationDetailDocument'
+                    'additional_two' => 'Components.BusinessTripRequestCostDetailDocument',
+                    'information_two' => 'Components.BusinessTripRequestInformationDetailDocument',
+                    'headerRevision' => 'Components.BusinessTripRequestDetailDocumentHeaderRevision',
+                    'revision' => 'Components.BusinessTripRequestDetailDocumentRevision',
+                    'information_revision' => 'Components.BusinessTripRequestDetailDocumentInformationRevision'
                 ],
                 'resubmit' => [
                     'url' => 'BusinessTripRequest.RevisionBusinessTripRequestIndex',
@@ -600,26 +618,28 @@ class DocumentTypeMapper
             ],
             'Person Business Trip Settlement Form' => [
                 'dataHeader' => [
-                    'btNumber' => 'BTStl/QDC/2025/000008',
-                    'budgetCode' => 'Q000196',
-                    'budgetName' => 'XL Microcell 2007',
-                    'subBudgetCode' => '235',
-                    'subBudgetName' => 'Ampang Kuranji - Padang',
-                    'fileID' => null,
+                    'btNumber' => $dataDetail['DocumentNumber'] ?? '-',
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? '-',
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? '-',
+                    'subBudgetCode' => $dataDetail['CombinedBudgetSectionCode'] ?? '-',
+                    'subBudgetName' => $dataDetail['CombinedBudgetSectionName'] ?? '-',
+                    'fileID' => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
                     'description' => '820005-0000 (Travel & Fares/Business Trip)',
-                    'dateCommenceTravel' => '2025-12-18',
-                    'dateEndTravel' => '2025-12-20',
-                    'brfDate' => '2025-12-12',
+                    'dateCommenceTravel' => '-',
+                    'dateEndTravel' => '-',
+                    'brfDate' => '-',
                     'contactPhone' => '0896734873',
-                    'date' => '2025-06-04 10:47:11.993084+07',
-                    'dateUpdate' => null,
-                    'bankAccount' => 'PT QDC Technologies',
-                    'bankName' => 'BCA',
-                    'accountNumber' => '0063032911',
-                    'requesterName' => 'Abdollah Syani Siregar',
-                    'beneficiaryName' => 'Abdul Rachman',
-                    'departingFrom' => 'Jakarta',
-                    'destinationTo' => 'Batam',
+                    'date' => $dataDetail['DocumentDateTimeTZ'] ?? null,
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null,
+                    'bankAccount' => '-',
+                    'bankName' => '-',
+                    'accountNumber' => '-',
+                    'requesterName' => $dataDetail['RequesterWorkerName'] ?? '-',
+                    'beneficiaryName' => '-',
+                    'departingFrom' => '-',
+                    'destinationTo' => '-',
+                    'reasonToTravel' => '-',
+                    'remark' => $dataDetail['Remarks'] ?? '-'
                 ],
                 'dataAdditional' => [
                     'allowance' => '240000.00',
@@ -629,22 +649,19 @@ class DocumentTypeMapper
                     'other' => '100000.00',
                     'totalBRF' => '3890000.00'
                 ],
-                'textAreaFields' => [
-                    'title' => 'Reason to Travel',
-                    'text' => '-',
-                ],
                 'components' => [
                     'detail' => 'Components.BusinessTripSettlementDetailDocument',
-                    'table' => 'Components.BusinessTripSettlementDetailDocumentTable',
-                    'additional' => 'Components.BusinessTripSettlementCostDetailDocument'
+                    'additional_two' => 'Components.BusinessTripSettlementCostDetailDocument',
+                    'headerRevision' => 'Components.BusinessTripSettlementDetailDocumentHeaderRevision',
+                    'revision' => 'Components.BusinessTripSettlementDetailDocumentRevision'
                 ],
                 'resubmit' => [
-                    'url' => '',
-                    'name' => '',
-                    'value' => ''
+                    'url' => 'BusinessTripSettlement.RevisionBusinessTripSettlementIndex',
+                    'name' => 'modal_business_trip_settlement_id',
+                    'value' => $dataDetail['PersonBusinessTripSettlement_RefID'] ?? '-'
                 ],
                 'transactionType' => 'BUSINESS TRIP SETTLEMENT',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Product Form' => [
                 'dataHeader' => [
@@ -694,7 +711,7 @@ class DocumentTypeMapper
                     'revision' => 'Components.PurchaseOrderDetailDocumentRevision',
                 ],
                 'resubmit' => [
-                    'url' => 'PurchaseOrder.RevisionPurchaseOrder',
+                    'url' => 'PurchaseOrder.edit',
                     'name' => 'purchaseOrder_RefID',
                     'value' => $dataDetail['purchaseOrder_RefID'] ?? ''
                 ],
@@ -1010,7 +1027,11 @@ class DocumentTypeMapper
             'Debit Note Form' => 'Documents.Transactions.LogTransaction.LogTransactionDebitNote',
             'Delivery Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionDeliveryOrder',
             'Journal Form' => 'Documents.Transactions.LogTransaction.LogTransactionJournal',
+            'Loan Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Loan Settlement Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Payment Instruction Form' => 'Documents.Transactions.LogTransaction.LogTransactionAccountPayable',
+            'Person Business Trip Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Person Business Trip Settlement Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Purchase Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseOrder',
             'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form' => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',

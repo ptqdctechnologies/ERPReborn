@@ -70,7 +70,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, string $varOtherSupplier = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null, float $varExchangeRateValue = 0, 
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, string $varOtherSupplier = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null, 
             array $varAdditionalData = []
             )
             {
@@ -113,7 +113,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varDepreciationCOA_RefID, 'bigint'],
                             [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varExchangeRateValue, 'numeric'],
 
                             [
                                 ((count($varAdditionalData) === 0)
@@ -167,7 +166,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, string $varOtherSupplier = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID  = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null, float $varExchangeRateValue = 0, 
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varCurrency_RefID = null, string $varCurrencySymbol = null, int $varCurrencyValue = null, int $varCurrencyExchangeRate = null, string $varSupplierInvoiceNumber = null, int $varSupplier_RefID = null, string $varOtherSupplier = null, int $varReceiptStatus = null, int $varContractStatus = null, int $varVatStatus = null, float $varVatValue = 0, string $varVatNumber = null, int $varFatPatDoStatus = null, int $varAssetStatus = null, int $varDepreciationAssetCategory_RefID  = null, float $varPeriod = 0, float $varRate = 0, int $varDepreciationCOA_RefID = null, int $varDeduction = null, string $varRemarks = null,
             array $varAdditionalData = []
             )
             {
@@ -210,7 +209,6 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [$varDepreciationCOA_RefID, 'bigint'],
                             [$varDeduction, 'bigint'],
                             [$varRemarks, 'varchar'],
-                            [$varExchangeRateValue, 'numeric'],
 
                             [
                                 ((count($varAdditionalData) === 0)

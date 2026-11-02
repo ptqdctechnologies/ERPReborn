@@ -29,7 +29,8 @@
                     <div style="flex: 100%;">
                         <input type="text" class="form-control datetimepicker-input" name="journal_date"
                             id="journal_date" onkeydown="return false" data-target="#journal_date_picker"
-                            autocomplete="off" style="border-radius: unset;" />
+                            autocomplete="off"
+                            style="border-radius: unset; background-color: <?= isset($journal_date) ? '#e9ecef' : '#fff'; ?>;" />
                     </div>
                 </div>
             </div>

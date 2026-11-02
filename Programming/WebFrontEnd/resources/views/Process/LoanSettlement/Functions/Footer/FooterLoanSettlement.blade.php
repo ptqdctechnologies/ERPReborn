@@ -36,7 +36,7 @@
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
-                if (response.status === 200 && response.data[0].signAccess) {
+                if (response.status === 200 && !response.data[0].signAccess) {
                     dataLoan.combinedBudgetRefID = res[0].CombinedBudget_RefID ? parseInt(res[0].CombinedBudget_RefID) : null;
                     dataLoan.creditorRefID = res[0].Creditor_RefID;
                     dataLoan.debitorRefID = res[0].Debitor_RefID;

@@ -653,144 +653,70 @@ class BudgetController extends Controller
     {
         $dataDummy = [
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '235 Ampang Kuranji Padang',
-                'work_id' => 'W-05 Pondasi',
-                'start_date' => '2026-01-05',
-                'end_date' => '2026-01-18',
+                'number' => 'PRABOQ-2600001',
+                'date' => '2026-06-01',
+                'sub_budget' => 'SB-01 - Material',
+                'work_id' => 'WID-0001',
+                'product' => '1000202 - Cable BCC / NYA 35 mm2',
+                'budget_value' => 50000.00,
+                'realization_value' => 38585.36,
+                'balance_remaining' => 11141.64,
+                'balance_usage' => 77.7
             ],
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '235 Ampang Kuranji Padang',
-                'work_id' => 'W-04 Memasang Semen',
-                'start_date' => '2026-01-19',
-                'end_date' => '2026-02-02',
+                'number' => 'PRABOQ-2600001',
+                'date' => '2026-06-01',
+                'sub_budget' => 'SB-01 - Material',
+                'work_id' => 'WID-0002',
+                'product' => '1000185 - Cable Ladder Outdoor W300',
+                'budget_value' => 2500.00,
+                'realization_value' => 2127.76,
+                'balance_remaining' => 372.24,
+                'balance_usage' => 85.1
             ],
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '248 Bukit Pakis Sby Infill',
-                'work_id' => 'W-01 Memasang Beton',
-                'start_date' => '2026-02-03',
-                'end_date' => '2026-02-17',
+                'number' => 'PRABOQ-2600001',
+                'date' => '2026-06-01',
+                'sub_budget' => 'SB-02 - Service',
+                'work_id' => 'WID-0003',
+                'product' => '2000188 - Install Kabel Grounding BCC 50mm',
+                'budget_value' => 12000.00,
+                'realization_value' => 10250.06,
+                'balance_remaining' => 1749.94,
+                'balance_usage' => 85.4
             ],
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '248 Bukit Pakis Sby Infill',
-                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
-                'start_date' => '2026-02-18',
-                'end_date' => '2026-03-05',
+                'number' => 'PRABOQ-2600001',
+                'date' => '2026-06-01',
+                'sub_budget' => 'SB-02 - Service',
+                'work_id' => 'WID-0004',
+                'product' => '2000219 - Site Preparation',
+                'budget_value' => 1000.00,
+                'realization_value' => 649.92,
+                'balance_remaining' => 350.08,
+                'balance_usage' => 65.0
             ],
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '240 Cendana Andalas',
-                'work_id' => 'W-05 Pondasi',
-                'start_date' => '2026-03-01',
-                'end_date' => '2026-03-14',
+                'number' => 'PRABOQ-2600002',
+                'date' => '2026-08-10',
+                'sub_budget' => 'SB-01 - Material',
+                'work_id' => 'WID-0001',
+                'product' => '1000202 - Cable BCC / NYA 35 mm2',
+                'budget_value' => 10000.00,
+                'realization_value' => 0.00,
+                'balance_remaining' => 10000.00,
+                'balance_usage' => 0.0
             ],
             [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '240 Cendana Andalas',
-                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
-                'start_date' => '2026-03-15',
-                'end_date' => '2026-03-28',
-            ],
-            [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '221 Halat Medan',
-                'work_id' => 'W-04 Memasang Semen',
-                'start_date' => '2026-04-01',
-                'end_date' => '2026-04-15',
-            ],
-            [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '221 Halat Medan',
-                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
-                'start_date' => '2026-04-16',
-                'end_date' => '2026-04-30',
-            ],
-            [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
-                'work_id' => 'W-01 Memasang Beton',
-                'start_date' => '2026-05-04',
-                'end_date' => '2026-05-18',
-            ],
-            [
-                'budget_code' => 'Q000062',
-                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
-                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
-                'start_date' => '2026-05-19',
-                'end_date' => '2026-06-02',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '235 Ampang Kuranji Padang',
-                'work_id' => 'W-01 Memasang Beton',
-                'start_date' => '2026-06-03',
-                'end_date' => '2026-06-17',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '248 Bukit Pakis Sby Infill',
-                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
-                'start_date' => '2026-06-05',
-                'end_date' => '2026-06-19',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '240 Cendana Andalas',
-                'work_id' => 'W-01 Memasang Beton',
-                'start_date' => '2026-06-08',
-                'end_date' => '2026-06-22',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '221 Halat Medan',
-                'work_id' => 'W-05 Pondasi',
-                'start_date' => '2026-06-10',
-                'end_date' => '2026-06-24',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
-                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
-                'start_date' => '2026-06-12',
-                'end_date' => '2026-06-26',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '235 Ampang Kuranji Padang',
-                'work_id' => 'W-03 Pemasangan Jendela dan Pintu',
-                'start_date' => '2026-07-01',
-                'end_date' => '2026-07-15',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '248 Bukit Pakis Sby Infill',
-                'work_id' => 'W-05 Pondasi',
-                'start_date' => '2026-07-03',
-                'end_date' => '2026-07-17',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '240 Cendana Andalas',
-                'work_id' => 'W-02 Instalasi Kabel dan Panel Listrik',
-                'start_date' => '2026-07-06',
-                'end_date' => '2026-07-20',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '221 Halat Medan',
-                'work_id' => 'W-01 Memasang Beton',
-                'start_date' => '2026-07-08',
-                'end_date' => '2026-07-22',
-            ],
-            [
-                'budget_code' => 'Q000055',
-                'sub_budget' => '254 Jatiagung Sidoarjo Infill',
-                'work_id' => 'W-04 Memasang Semen',
-                'start_date' => '2026-07-10',
-                'end_date' => '2026-07-24',
+                'number' => 'PRABOQ-2600002',
+                'date' => '2026-08-10',
+                'sub_budget' => 'SB-02 - Service',
+                'work_id' => 'WID-0003',
+                'product' => '2000188 - Install kabel grounding BCC 50mm',
+                'budget_value' => 3000.00,
+                'realization_value' => 0.00,
+                'balance_remaining' => 3000.00,
+                'balance_usage' => 0.0
             ]
         ];
 
@@ -801,12 +727,22 @@ class BudgetController extends Controller
             $search = $request->input('search.value');
             $budgetCode = $request->input('budget_code');
 
-            // Filter berdasarkan budget_code
-            if (!empty($budgetCode)) {
-                $dataDummy = array_filter($dataDummy, function ($item) use ($budgetCode) {
-                    return $item['budget_code'] === $budgetCode;
-                });
+            $page = (int) ($request->page ?? 1);
+
+            if ($request->limit === 'ALL') {
+                $limit = 'ALL';
+                $offset = 0;
+            } else {
+                $limit = (int) ($request->limit ?? 10);
+                $offset = ($page - 1) * $limit;
             }
+
+            // // Filter berdasarkan budget_code
+            // if (!empty($budgetCode)) {
+            //     $dataDummy = array_filter($dataDummy, function ($item) use ($budgetCode) {
+            //         return $item['budget_code'] === $budgetCode;
+            //     });
+            // }
 
             // Reset index array setelah array_filter
             $dataDummy = array_values($dataDummy);
@@ -817,8 +753,10 @@ class BudgetController extends Controller
                 'status' => 200,
                 'data' => $dataDummy,
                 'draw' => intval($draw),
-                'recordsTotal' => $totalRecords,
-                'recordsFiltered' => $totalRecords
+                'totalRecords' => $totalRecords,
+                'rowCount' => $totalRecords,
+                'page' => $page,
+                'limit' => $limit
             ];
 
             return response()->json($compact);

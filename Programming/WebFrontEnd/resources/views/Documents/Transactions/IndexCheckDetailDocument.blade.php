@@ -17,7 +17,9 @@
         <div class="card">
           <div class="tab-content p-3" id="nav-tabContent">
             <div class="row">
-              <form method="post" action="{{ route($resubmit['url']) }}" id="FormSubmitRevision">
+              <form
+                method="<?= $transactionForm == "Purchase Order Form" || $transactionForm == "Advance Request Form" ? 'GET' : 'POST'; ?>"
+                action="{{ route($resubmit['url'], $resubmit['value']) }}" id="FormSubmitRevision">
                 @csrf
 
                 <input type="hidden" id="refID" name="{{ $resubmit['name'] }}" value="{{ $resubmit['value'] }}"

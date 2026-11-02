@@ -1,7 +1,7 @@
 <div class="row p-1" style="row-gap: 1rem;">
     <div class="col-sm-12 col-md-12 col-lg-3">
         <!-- BUDGET -->
-        <div class="row align-items-center">
+        <div class="row p-0 align-items-center">
             <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0 text-bold">Budget</label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
                 <div>
@@ -26,6 +26,52 @@
             <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0"></label>
             <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
                 Budget cannot be empty.
+            </div>
+        </div>
+
+        <!-- SUB BUDGET -->
+        <div class="row p-0 align-items-center" style="margin-top: 1rem;">
+            <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0 text-bold">Sub Budget</label>
+            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                <div>
+                    <span id="mySitesTrigger" class="input-group-text form-control" data-toggle="modal"
+                        data-target="#mySites" style="border-radius:0;cursor:pointer;">
+                        <i class="fas fa-gift"></i>
+                    </span>
+                </div>
+                <div>
+                    <input type="text" id="sub_budget_number" class="form-control"
+                        style="border-radius:0;background-color:white;" readonly />
+                    <input type="hidden" id="sub_budget_code" name="sub_budget_code" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-12 col-lg-3">
+        <!-- DATE RANGE -->
+        <div class="row p-0 align-items-center">
+            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Date Range</label>
+            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
+                <div>
+                    <div class="input-group" id="budget_date_range_container">
+                        <div class="input-group-prepend"
+                            style="margin-right: 0px; width: 27.78px;cursor: pointer;height: 21.8px;">
+                            <span class="input-group-text" id="budget_date_range_container_icon"
+                                style="border-radius: 0;">
+                                <i class="far fa-calendar-alt" style="width: 13px; height: 13px;"></i>
+                            </span>
+                        </div>
+                        <input readonly type="text" class="form-control"
+                            style="height: 21.8px;border-radius:0;background-color:white;" id="budget_date_range"
+                            name="budget_date_range" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" id="dateRangeMessage" style="margin-top: .3rem;display: none;">
+            <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+            <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
+                Date Range cannot be empty.
             </div>
         </div>
     </div>

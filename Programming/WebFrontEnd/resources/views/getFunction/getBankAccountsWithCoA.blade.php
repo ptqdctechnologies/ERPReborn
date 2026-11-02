@@ -6,17 +6,23 @@
     <div class="col-5 d-flex">
         <div>
             <span id="bank_coa_container" class="input-group-text form-control" data-toggle="modal"
-                data-target="#banks_coa_modal" style="border-radius: 0; cursor: pointer;">
+                data-target="<?= isset($bank_coa['id']) ? '' : '#banks_coa_modal'; ?>"
+                style="border-radius: 0; cursor: <?= isset($bank_coa['id']) ? 'not-allowed' : 'pointer'; ?>;">
                 <i id="bank_coa_icon" class="fas fa-gift"></i>
             </span>
         </div>
         <div style="flex: 100%;">
             <div class="input-group">
                 <input type="text" id="bank_coa_preview" class="form-control"
-                    style="border-radius:0; background-color: #fff;" readonly />
-                <input type="hidden" class="form-control" id="bank_coa_id" name="bank_coa_id" />
-                <input type="hidden" class="form-control" id="bank_coa_name" name="bank_coa_name" />
-                <input type="hidden" class="form-control" id="bank_coa_code" name="bank_coa_code" />
+                    value="<?= isset($bank_coa['preview']) ? $bank_coa['preview'] : ''; ?>"
+                    style="border-radius:0; background-color: <?= isset($bank_coa['preview']) ? '#e9ecef' : '#fff' ?>;"
+                    readonly />
+                <input type="hidden" class="form-control" id="bank_coa_id" name="bank_coa_id"
+                    value="<?= isset($bank_coa['id']) ? $bank_coa['id'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="bank_coa_name" name="bank_coa_name"
+                    value="<?= isset($bank_coa['name']) ? $bank_coa['name'] : ''; ?>" />
+                <input type="hidden" class="form-control" id="bank_coa_code" name="bank_coa_code"
+                    value="<?= isset($bank_coa['code']) ? $bank_coa['code'] : ''; ?>" />
             </div>
         </div>
     </div>
