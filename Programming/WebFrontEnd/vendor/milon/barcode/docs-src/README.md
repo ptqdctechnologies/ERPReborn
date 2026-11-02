@@ -1,60 +1,20 @@
 # milon/barcode documentation site
 
-Source for the [Papyrus](https://github.com/milon/papyrus) multi-page docs site
-(**v1.4+**). The live README still lives at `../readme.md`; chapters here were
-imported from it (`papyrus import-readme`) and can be edited independently.
+Source for the [Papyrus](https://github.com/milon/papyrus) multi-page docs site (**v1.5+**).
 
-## Papyrus features in use
+**Live:** [oss.milon.im/barcode](https://oss.milon.im/barcode/)  
+**Origin:** [milon.github.io/barcode](https://milon.github.io/barcode/) (this repo’s GitHub Pages)
 
-| Feature | Where |
-|---------|--------|
-| Unified home | **Get started** CTA + author + `links` (former `mode: docs` layout) |
-| `site.nav` | Collapsible sidebar groups + Prev/Next order |
-| `site.edit` (`link` / `path` / `branch`) | **Edit this page** icon on chapters |
-| `site.copy_code` | Icon **Copy** on code fences |
-| `site.copy_markdown` / `site.print_page` | **Copy as Markdown** + **Print this page** |
-| `site.page_toc` | **On this page** rail (always shown when enabled) |
-| `site.links` | GitHub / Packagist / Issues + chapter links |
-| `site.banner` + `lead` | Home hero |
-| `site.base_path: /barcode` | Project GitHub Pages |
-| Built-in | Search, sitemap/robots/`404`, image max-width in column |
-| `build:site` asset copy | `assets/examples/*` and banner |
-
-Optional later: `site.versions` (2+ peer deploys) for a version switcher; Mermaid
-(`mermaid.enabled: true` + `mmdc`); `papyrus watch --with-site`.
+`site.base_path` is `/barcode`. `site.cname` is only for sitemap absolutes; CI deletes the generated `CNAME` so Pages does not claim `oss.milon.im` (the Cloudflare Worker in [milon/oss](https://github.com/milon/oss) owns that host).
 
 ## Build
 
-Requires [milon/papyrus](https://github.com/milon/papyrus) **^1.4** (CI pins
-`v1.4.0`).
-
 ```bash
 docs-src/bin/build-site
-# or: PAPYRUS_BIN=/path/to/papyrus docs-src/bin/build-site
-```
-
-Output: `docs/milon-barcode-site/`. Preview (needed for popup search):
-
-```bash
-papyrus serve -d docs-src -e docs
+php papyrus.phar serve -d docs-src -e docs
 # open http://127.0.0.1:8000/barcode/
 ```
 
-Regenerate example PNGs first if needed:
+## CI
 
-```bash
-php docs/generate-examples.php
-```
-
-Refresh chapters from the root README (overwrites `content/`):
-
-```bash
-papyrus import-readme -d docs-src --file readme.md --force
-# then restore site.nav groupings in papyrus.yml
-```
-
-## GitHub Pages
-
-Workflow: `.github/workflows/docs-site.yml` (checks out Papyrus **v1.4.0**).
-Set the Pages source to **GitHub Actions**. The site uses `base_path: /barcode`
-for project Pages at `https://<user>.github.io/barcode/`.
+`.github/workflows/docs-site.yml` builds and deploys to GitHub Pages on push to `master`/`main`.

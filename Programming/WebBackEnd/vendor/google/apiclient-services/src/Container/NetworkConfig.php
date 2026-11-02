@@ -34,6 +34,14 @@ class NetworkConfig extends \Google\Model
    */
   public const DATAPATH_PROVIDER_ADVANCED_DATAPATH = 'ADVANCED_DATAPATH';
   /**
+   * Cluster has some existing nodes but new nodes should use ADVANCED_DATAPATH.
+   */
+  public const DATAPATH_PROVIDER_MIGRATE_TO_ADVANCED_DATAPATH = 'MIGRATE_TO_ADVANCED_DATAPATH';
+  /**
+   * Cluster has some existing nodes but new nodes should use LEGACY_DATAPATH.
+   */
+  public const DATAPATH_PROVIDER_MIGRATE_TO_LEGACY_DATAPATH = 'MIGRATE_TO_LEGACY_DATAPATH';
+  /**
    * Unspecified, will be inferred as default -
    * IN_TRANSIT_ENCRYPTION_UNSPECIFIED.
    */
@@ -62,6 +70,8 @@ class NetworkConfig extends \Google\Model
    * Enables private IPv6 access to and from Google Services
    */
   public const PRIVATE_IPV6_GOOGLE_ACCESS_PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL = 'PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL';
+  protected $ambientNetworkingConfigType = AmbientNetworkingConfig::class;
+  protected $ambientNetworkingConfigDataType = '';
   /**
    * The desired datapath provider for this cluster. By default, uses the
    * IPTables-based kube-proxy implementation.
@@ -162,11 +172,28 @@ class NetworkConfig extends \Google\Model
   public $subnetwork;
 
   /**
+   * Optional. Contains the desired config of Ambient Networking mode on this
+   * cluster.
+   *
+   * @param AmbientNetworkingConfig $ambientNetworkingConfig
+   */
+  public function setAmbientNetworkingConfig(AmbientNetworkingConfig $ambientNetworkingConfig)
+  {
+    $this->ambientNetworkingConfig = $ambientNetworkingConfig;
+  }
+  /**
+   * @return AmbientNetworkingConfig
+   */
+  public function getAmbientNetworkingConfig()
+  {
+    return $this->ambientNetworkingConfig;
+  }
+  /**
    * The desired datapath provider for this cluster. By default, uses the
    * IPTables-based kube-proxy implementation.
    *
    * Accepted values: DATAPATH_PROVIDER_UNSPECIFIED, LEGACY_DATAPATH,
-   * ADVANCED_DATAPATH
+   * ADVANCED_DATAPATH, MIGRATE_TO_ADVANCED_DATAPATH, MIGRATE_TO_LEGACY_DATAPATH
    *
    * @param self::DATAPATH_PROVIDER_* $datapathProvider
    */

@@ -27,8 +27,8 @@ class LanguageSettings extends \Google\Collection
    */
   public $defaultLanguageCode;
   /**
-   * Optional. Enables multilingual support. If true, agents in the app will use
-   * pre-built instructions to improve handling of multilingual input.
+   * Optional. Enables multilingual support. If `true`, agents in the app will
+   * use pre-built instructions to improve handling of multilingual input.
    *
    * @var bool
    */
@@ -72,8 +72,8 @@ class LanguageSettings extends \Google\Collection
     return $this->defaultLanguageCode;
   }
   /**
-   * Optional. Enables multilingual support. If true, agents in the app will use
-   * pre-built instructions to improve handling of multilingual input.
+   * Optional. Enables multilingual support. If `true`, agents in the app will
+   * use pre-built instructions to improve handling of multilingual input.
    *
    * @param bool $enableMultilingualSupport
    */

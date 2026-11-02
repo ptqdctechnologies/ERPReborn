@@ -23,7 +23,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
   /**
    * Output only. An opaque identifier for the current version of the
    * `AccessPolicy`. This will always be a strongly validated etag, meaning that
-   * two Access Policies will be identical if and only if their etags are
+   * two access policies will be identical if and only if their etags are
    * identical. Clients should not expect this to be in any specific format.
    *
    * @var string
@@ -51,7 +51,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
    * ServicePerimeter can only restrict projects within `folders/123`. -
    * ServicePerimeter within policy A can only reference access levels defined
    * within policy A. - Only one policy can include a given scope; thus,
-   * attempting to create a second policy which includes `folders/123` will
+   * attempting to create a second policy that includes `folders/123` will
    * result in an error. If no scopes are provided, then any resource within the
    * organization can be restricted. Scopes cannot be modified after a policy is
    * created. Policies can only have a single scope. Format: list of
@@ -61,7 +61,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
    */
   public $scopes;
   /**
-   * Required. Human readable title. Does not affect behavior.
+   * Required. Human-readable title. Does not affect behavior.
    *
    * @var string
    */
@@ -70,7 +70,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
   /**
    * Output only. An opaque identifier for the current version of the
    * `AccessPolicy`. This will always be a strongly validated etag, meaning that
-   * two Access Policies will be identical if and only if their etags are
+   * two access policies will be identical if and only if their etags are
    * identical. Clients should not expect this to be in any specific format.
    *
    * @param string $etag
@@ -128,7 +128,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
    * ServicePerimeter can only restrict projects within `folders/123`. -
    * ServicePerimeter within policy A can only reference access levels defined
    * within policy A. - Only one policy can include a given scope; thus,
-   * attempting to create a second policy which includes `folders/123` will
+   * attempting to create a second policy that includes `folders/123` will
    * result in an error. If no scopes are provided, then any resource within the
    * organization can be restricted. Scopes cannot be modified after a policy is
    * created. Policies can only have a single scope. Format: list of
@@ -148,7 +148,7 @@ class GoogleIdentityAccesscontextmanagerV1AccessPolicy extends \Google\Collectio
     return $this->scopes;
   }
   /**
-   * Required. Human readable title. Does not affect behavior.
+   * Required. Human-readable title. Does not affect behavior.
    *
    * @param string $title
    */

@@ -398,6 +398,23 @@ class CurationPartners extends \Google\Service
                   'type' => 'string',
                 ],
               ],
+            ],'search' => [
+              'path' => 'v1/mediaPlanners:search',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'dspSeatId' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
             ],
           ]
         ]

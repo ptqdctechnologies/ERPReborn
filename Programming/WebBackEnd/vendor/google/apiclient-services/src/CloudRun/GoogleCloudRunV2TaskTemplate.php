@@ -63,6 +63,8 @@ class GoogleCloudRunV2TaskTemplate extends \Google\Collection
   public $maxRetries;
   protected $nodeSelectorType = GoogleCloudRunV2NodeSelector::class;
   protected $nodeSelectorDataType = '';
+  protected $sandboxesType = GoogleCloudRunV2SandboxConfiguration::class;
+  protected $sandboxesDataType = '';
   /**
    * Optional. Email address of the IAM service account associated with the Task
    * of a Job. The service account represents the identity of the running task,
@@ -190,6 +192,22 @@ class GoogleCloudRunV2TaskTemplate extends \Google\Collection
   public function getNodeSelector()
   {
     return $this->nodeSelector;
+  }
+  /**
+   * Optional. Configuration for sandboxes.
+   *
+   * @param GoogleCloudRunV2SandboxConfiguration $sandboxes
+   */
+  public function setSandboxes(GoogleCloudRunV2SandboxConfiguration $sandboxes)
+  {
+    $this->sandboxes = $sandboxes;
+  }
+  /**
+   * @return GoogleCloudRunV2SandboxConfiguration
+   */
+  public function getSandboxes()
+  {
+    return $this->sandboxes;
   }
   /**
    * Optional. Email address of the IAM service account associated with the Task

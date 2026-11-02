@@ -277,6 +277,14 @@ class Dataflow extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'createTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'createTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'filter' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -300,6 +308,14 @@ class Dataflow extends \Google\Service
                 'regionalFanoutRequested' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'terminationTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'terminationTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'view' => [
                   'location' => 'query',
@@ -383,6 +399,14 @@ class Dataflow extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'createTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'createTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'filter' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -406,6 +430,14 @@ class Dataflow extends \Google\Service
                 'regionalFanoutRequested' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'terminationTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'terminationTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'view' => [
                   'location' => 'query',
@@ -824,6 +856,14 @@ class Dataflow extends \Google\Service
                   'type' => 'string',
                   'required' => true,
                 ],
+                'createTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'createTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
                 'filter' => [
                   'location' => 'query',
                   'type' => 'string',
@@ -843,6 +883,14 @@ class Dataflow extends \Google\Service
                 'regionalFanoutRequested' => [
                   'location' => 'query',
                   'type' => 'boolean',
+                ],
+                'terminationTimeRange.endTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'terminationTimeRange.startTime' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'view' => [
                   'location' => 'query',

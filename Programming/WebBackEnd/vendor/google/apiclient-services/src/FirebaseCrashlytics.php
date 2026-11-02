@@ -42,6 +42,7 @@ class FirebaseCrashlytics extends \Google\Service
   const FIREBASE =
       "https://www.googleapis.com/auth/firebase";
 
+  public $projects_apps;
   public $projects_apps_events;
   public $projects_apps_issues;
   public $projects_apps_issues_notes;
@@ -66,6 +67,26 @@ class FirebaseCrashlytics extends \Google\Service
     $this->version = 'v1alpha';
     $this->serviceName = 'firebasecrashlytics';
 
+    $this->projects_apps = new FirebaseCrashlytics\Resource\ProjectsApps(
+        $this,
+        $this->serviceName,
+        'apps',
+        [
+          'methods' => [
+            'generateAlertPolicy' => [
+              'path' => 'v1alpha/{+name}:generateAlertPolicy',
+              'httpMethod' => 'POST',
+              'parameters' => [
+                'name' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
     $this->projects_apps_events = new FirebaseCrashlytics\Resource\ProjectsAppsEvents(
         $this,
         $this->serviceName,
@@ -355,6 +376,10 @@ class FirebaseCrashlytics extends \Google\Service
                   'location' => 'query',
                   'type' => 'string',
                   'repeated' => true,
+                ],
+                'filterExpression' => [
+                  'location' => 'query',
+                  'type' => 'string',
                 ],
                 'granularity' => [
                   'location' => 'query',

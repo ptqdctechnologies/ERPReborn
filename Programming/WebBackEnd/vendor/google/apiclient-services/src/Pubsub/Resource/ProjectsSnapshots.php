@@ -49,7 +49,7 @@ class ProjectsSnapshots extends \Google\Service\Resource
    * `FAILED_PRECONDITION` is returned. See also the `Snapshot.expire_time` field.
    * If the name is not provided in the request, the server will assign a random
    * name for this snapshot on the same project as the subscription, conforming to
-   * the [resource name format] (https://cloud.google.com/pubsub/docs/pubsub-
+   * the [resource name format]( https://cloud.google.com/pubsub/docs/pubsub-
    * basics#resource_names). The generated name is populated in the returned
    * Snapshot object. Note that for REST API requests, you must specify a name in
    * the request. (snapshots.create)
@@ -72,9 +72,9 @@ class ProjectsSnapshots extends \Google\Service\Resource
     return $this->call('create', [$params], Snapshot::class);
   }
   /**
-   * Removes an existing snapshot. Snapshots are used in [Seek]
-   * (https://cloud.google.com/pubsub/docs/replay-overview) operations, which
-   * allow you to manage message acknowledgments in bulk. That is, you can set the
+   * Removes an existing snapshot. Snapshots are used in [Seek](
+   * https://cloud.google.com/pubsub/docs/replay-overview) operations, which allow
+   * you to manage message acknowledgments in bulk. That is, you can set the
    * acknowledgment state of messages in an existing subscription to the state
    * captured by a snapshot. When the snapshot is deleted, all messages retained
    * in the snapshot are immediately dropped. After a snapshot is deleted, a new

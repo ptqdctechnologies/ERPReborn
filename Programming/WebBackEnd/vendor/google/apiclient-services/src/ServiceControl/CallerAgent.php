@@ -37,6 +37,15 @@ class CallerAgent extends \Google\Model
    * @var string
    */
   public $authority;
+  /**
+   * The agent identifier of the caller agent. This is a globally unique,
+   * immutable name in Uniform Resource Name (URN) format. Example:
+   * 'urn:agent:projects-123456789:projects:123456789:locations:us-
+   * central1:aiplatform:reasoningEngines:987654321'
+   *
+   * @var string
+   */
+  public $id;
 
   /**
    * The type of authority for the caller agent.
@@ -55,6 +64,25 @@ class CallerAgent extends \Google\Model
   public function getAuthority()
   {
     return $this->authority;
+  }
+  /**
+   * The agent identifier of the caller agent. This is a globally unique,
+   * immutable name in Uniform Resource Name (URN) format. Example:
+   * 'urn:agent:projects-123456789:projects:123456789:locations:us-
+   * central1:aiplatform:reasoningEngines:987654321'
+   *
+   * @param string $id
+   */
+  public function setId($id)
+  {
+    $this->id = $id;
+  }
+  /**
+   * @return string
+   */
+  public function getId()
+  {
+    return $this->id;
   }
 }
 

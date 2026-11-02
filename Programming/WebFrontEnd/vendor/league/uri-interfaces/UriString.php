@@ -29,6 +29,7 @@ use function explode;
 use function filter_var;
 use function function_exists;
 use function implode;
+use function ltrim;
 use function preg_match;
 use function sprintf;
 use function str_replace;
@@ -37,6 +38,7 @@ use function strtolower;
 use function substr;
 
 use const FILTER_FLAG_IPV4;
+use const FILTER_VALIDATE_INT;
 use const FILTER_VALIDATE_IP;
 
 /**
@@ -392,6 +394,8 @@ final class UriString
         $uri = (string) $uri;
         if ('' === $uri) {
             $uri = $baseUri ?? throw new SyntaxError("The uri can not be the empty string when there's no base URI.");
+            // RFC3986 §5.2.2: the target fragment always comes from the reference.
+            $uri = explode('#', (string) $uri, 2)[0];
         }
 
         $uriComponents = self::parse($uri);
@@ -699,11 +703,20 @@ final class UriString
      */
     private static function filterPort(string $port): ?int
     {
-        return match (true) {
-            '' === $port => null,
-            1 === preg_match('/^\d*$/', $port) => (int) $port,
-            default => throw new SyntaxError(sprintf('The port `%s` is invalid', $port)),
-        };
+        if ('' === $port) {
+            return null;
+        }
+
+        $filteredPort = ltrim($port, '0');
+        if ('' === $filteredPort) {
+            return 0;
+        }
+
+        $filteredPort = filter_var($filteredPort, FILTER_VALIDATE_INT, ['options' => ['min_range' => 0]]);
+
+        return false !== $filteredPort
+            ? $filteredPort
+            : throw new SyntaxError(sprintf('The port `%s` is invalid', $port));
     }
 
     /**

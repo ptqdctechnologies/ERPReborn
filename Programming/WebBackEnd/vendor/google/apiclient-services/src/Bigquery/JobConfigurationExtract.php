@@ -80,6 +80,8 @@ class JobConfigurationExtract extends \Google\Collection
    * @var bool
    */
   public $printHeader;
+  protected $secureContextType = SecureContext::class;
+  protected $secureContextDataType = '';
   protected $sourceModelType = ModelReference::class;
   protected $sourceModelDataType = '';
   protected $sourceTableType = TableReference::class;
@@ -235,6 +237,25 @@ class JobConfigurationExtract extends \Google\Collection
   public function getPrintHeader()
   {
     return $this->printHeader;
+  }
+  /**
+   * Optional. A set of key-value pairs representing the secure context. This
+   * can be used to pass sensitive or context-specific information. They can be
+   * retrieved via the SECURE_CONTEXT() function and used to modify the run-time
+   * behavior of an extract job on tables with row access policies.
+   *
+   * @param SecureContext $secureContext
+   */
+  public function setSecureContext(SecureContext $secureContext)
+  {
+    $this->secureContext = $secureContext;
+  }
+  /**
+   * @return SecureContext
+   */
+  public function getSecureContext()
+  {
+    return $this->secureContext;
   }
   /**
    * A reference to the model being exported.

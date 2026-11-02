@@ -44,6 +44,8 @@ class GoogleCloudRunV2RevisionTemplate extends \Google\Collection
    */
   public const EXECUTION_ENVIRONMENT_EXECUTION_ENVIRONMENT_GEN2 = 'EXECUTION_ENVIRONMENT_GEN2';
   protected $collection_key = 'volumes';
+  protected $ambientNetworkingType = GoogleCloudRunV2AmbientNetworking::class;
+  protected $ambientNetworkingDataType = '';
   /**
    * Optional. Unstructured key value map that may be set by external tools to
    * store and arbitrary metadata. They are not queryable and should be
@@ -142,6 +144,8 @@ class GoogleCloudRunV2RevisionTemplate extends \Google\Collection
    * @var string
    */
   public $revision;
+  protected $sandboxesType = GoogleCloudRunV2SandboxConfiguration::class;
+  protected $sandboxesDataType = '';
   protected $scalingType = GoogleCloudRunV2RevisionScaling::class;
   protected $scalingDataType = '';
   /**
@@ -174,6 +178,22 @@ class GoogleCloudRunV2RevisionTemplate extends \Google\Collection
   protected $workloadIdentityConfigType = GoogleCloudRunV2WorkloadIdentityConfig::class;
   protected $workloadIdentityConfigDataType = '';
 
+  /**
+   * Optional. The ambient networking configuration for this revision.
+   *
+   * @param GoogleCloudRunV2AmbientNetworking $ambientNetworking
+   */
+  public function setAmbientNetworking(GoogleCloudRunV2AmbientNetworking $ambientNetworking)
+  {
+    $this->ambientNetworking = $ambientNetworking;
+  }
+  /**
+   * @return GoogleCloudRunV2AmbientNetworking
+   */
+  public function getAmbientNetworking()
+  {
+    return $this->ambientNetworking;
+  }
   /**
    * Optional. Unstructured key value map that may be set by external tools to
    * store and arbitrary metadata. They are not queryable and should be
@@ -425,6 +445,22 @@ class GoogleCloudRunV2RevisionTemplate extends \Google\Collection
   public function getRevision()
   {
     return $this->revision;
+  }
+  /**
+   * Optional. Configuration for sandboxes.
+   *
+   * @param GoogleCloudRunV2SandboxConfiguration $sandboxes
+   */
+  public function setSandboxes(GoogleCloudRunV2SandboxConfiguration $sandboxes)
+  {
+    $this->sandboxes = $sandboxes;
+  }
+  /**
+   * @return GoogleCloudRunV2SandboxConfiguration
+   */
+  public function getSandboxes()
+  {
+    return $this->sandboxes;
   }
   /**
    * Optional. Scaling settings for this Revision.

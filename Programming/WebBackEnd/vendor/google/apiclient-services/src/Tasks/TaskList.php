@@ -26,7 +26,8 @@ class TaskList extends \Google\Model
    */
   public $etag;
   /**
-   * Task list identifier.
+   * Task list identifier. In requests, the authenticated user's default task
+   * list can also be referred to as "@default".
    *
    * @var string
    */
@@ -75,7 +76,8 @@ class TaskList extends \Google\Model
     return $this->etag;
   }
   /**
-   * Task list identifier.
+   * Task list identifier. In requests, the authenticated user's default task
+   * list can also be referred to as "@default".
    *
    * @param string $id
    */

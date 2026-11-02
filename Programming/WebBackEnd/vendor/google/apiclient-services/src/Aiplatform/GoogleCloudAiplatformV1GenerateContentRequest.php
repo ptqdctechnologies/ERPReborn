@@ -32,6 +32,14 @@ class GoogleCloudAiplatformV1GenerateContentRequest extends \Google\Collection
   public $cachedContent;
   protected $contentsType = GoogleCloudAiplatformV1Content::class;
   protected $contentsDataType = 'array';
+  /**
+   * Optional. An opaque continuation token used to resume generation from a
+   * previous `GenerateContent` or `StreamGenerateContent` response that stopped
+   * with `finish_reason` set to `CONTINUATION`.
+   *
+   * @var string
+   */
+  public $continuationToken;
   protected $generationConfigType = GoogleCloudAiplatformV1GenerationConfig::class;
   protected $generationConfigDataType = '';
   /**
@@ -46,6 +54,8 @@ class GoogleCloudAiplatformV1GenerateContentRequest extends \Google\Collection
   public $labels;
   protected $modelArmorConfigType = GoogleCloudAiplatformV1ModelArmorConfig::class;
   protected $modelArmorConfigDataType = '';
+  protected $outputConfigType = GoogleCloudAiplatformV1GenerateContentRequestOutputConfig::class;
+  protected $outputConfigDataType = '';
   protected $safetySettingsType = GoogleCloudAiplatformV1SafetySetting::class;
   protected $safetySettingsDataType = 'array';
   protected $systemInstructionType = GoogleCloudAiplatformV1Content::class;
@@ -93,6 +103,24 @@ class GoogleCloudAiplatformV1GenerateContentRequest extends \Google\Collection
   public function getContents()
   {
     return $this->contents;
+  }
+  /**
+   * Optional. An opaque continuation token used to resume generation from a
+   * previous `GenerateContent` or `StreamGenerateContent` response that stopped
+   * with `finish_reason` set to `CONTINUATION`.
+   *
+   * @param string $continuationToken
+   */
+  public function setContinuationToken($continuationToken)
+  {
+    $this->continuationToken = $continuationToken;
+  }
+  /**
+   * @return string
+   */
+  public function getContinuationToken()
+  {
+    return $this->continuationToken;
   }
   /**
    * Optional. Generation config.
@@ -146,6 +174,22 @@ class GoogleCloudAiplatformV1GenerateContentRequest extends \Google\Collection
   public function getModelArmorConfig()
   {
     return $this->modelArmorConfig;
+  }
+  /**
+   * Optional. Configuration for persisting output assets to external storage.
+   *
+   * @param GoogleCloudAiplatformV1GenerateContentRequestOutputConfig $outputConfig
+   */
+  public function setOutputConfig(GoogleCloudAiplatformV1GenerateContentRequestOutputConfig $outputConfig)
+  {
+    $this->outputConfig = $outputConfig;
+  }
+  /**
+   * @return GoogleCloudAiplatformV1GenerateContentRequestOutputConfig
+   */
+  public function getOutputConfig()
+  {
+    return $this->outputConfig;
   }
   /**
    * Optional. Per request settings for blocking unsafe content. Enforced on

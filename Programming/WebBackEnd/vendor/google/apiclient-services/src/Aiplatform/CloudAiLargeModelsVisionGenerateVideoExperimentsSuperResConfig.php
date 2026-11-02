@@ -39,6 +39,12 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig extends \Go
    */
   public $mode;
   /**
+   * Number of diffusion denoising steps (1 or 2).
+   *
+   * @var int
+   */
+  public $steps;
+  /**
    * Smooths the seams between the tiles the model upscales separately.
    *
    * @var bool
@@ -62,6 +68,22 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsSuperResConfig extends \Go
   public function getMode()
   {
     return $this->mode;
+  }
+  /**
+   * Number of diffusion denoising steps (1 or 2).
+   *
+   * @param int $steps
+   */
+  public function setSteps($steps)
+  {
+    $this->steps = $steps;
+  }
+  /**
+   * @return int
+   */
+  public function getSteps()
+  {
+    return $this->steps;
   }
   /**
    * Smooths the seams between the tiles the model upscales separately.

@@ -38,11 +38,11 @@ class Principal extends \Google\Model
   public $federatedPrincipal;
   /**
    * Immutable. Service account email used to assign policies to a specific
-   * service account. If a service account is subject to multiple policies
-   * (e.g., if there is a policy for all service accounts in a project and a
-   * policy for the service account), the closest (i.e. the most specific) dry-
-   * run policy will be used for the dry-run functionality and the closest
-   * enforcement policy will be used for the enforcement.
+   * service account. If a service account is subject to multiple policies (for
+   * example, if there is a policy for all service accounts in a project and a
+   * policy for the service account), the closest (that is, the most specific)
+   * dry-run policy is used for the dry-run functionality and the closest
+   * enforcement policy is used for enforcement.
    *
    * @var string
    */
@@ -84,11 +84,11 @@ class Principal extends \Google\Model
   }
   /**
    * Immutable. Service account email used to assign policies to a specific
-   * service account. If a service account is subject to multiple policies
-   * (e.g., if there is a policy for all service accounts in a project and a
-   * policy for the service account), the closest (i.e. the most specific) dry-
-   * run policy will be used for the dry-run functionality and the closest
-   * enforcement policy will be used for the enforcement.
+   * service account. If a service account is subject to multiple policies (for
+   * example, if there is a policy for all service accounts in a project and a
+   * policy for the service account), the closest (that is, the most specific)
+   * dry-run policy is used for the dry-run functionality and the closest
+   * enforcement policy is used for enforcement.
    *
    * @param string $serviceAccount
    */

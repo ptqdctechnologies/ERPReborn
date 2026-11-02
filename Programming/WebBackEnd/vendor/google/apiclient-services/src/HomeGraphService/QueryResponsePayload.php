@@ -67,9 +67,9 @@ class QueryResponsePayload extends \Google\Model
     return $this->devices;
   }
   /**
-   * Map of device IDs to their Unified Device Data Model (UDDM) trait payloads.
-   * This field is populated when `device_view` is set to HOME_TRAIT_ONLY or
-   * HOME_TRAIT_AND_SMART_HOME_TRAIT.
+   * Map of device IDs to their Unified Device Data Model (UDDM) or JSON trait
+   * payloads. This field is populated when `device_view` is set to
+   * `HOME_TRAIT_ONLY`, `HOME_TRAIT_AND_SMART_HOME_TRAIT`, or `JSON_TRAIT_ONLY`.
    *
    * @param HomeTraitPayload[] $homeTraitPayload
    */

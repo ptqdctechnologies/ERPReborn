@@ -24,7 +24,7 @@ class AccessSettings extends \Google\Collection
    * Optional. Access level that a user must have to be granted access. Only one
    * access level is supported, not multiple. This repeated field must have
    * exactly one element. Example:
-   * "accessPolicies/9522/accessLevels/device_trusted"
+   * `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @var string[]
    */
@@ -36,7 +36,7 @@ class AccessSettings extends \Google\Collection
    * Optional. Access level that a user must have to be granted access. Only one
    * access level is supported, not multiple. This repeated field must have
    * exactly one element. Example:
-   * "accessPolicies/9522/accessLevels/device_trusted"
+   * `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @param string[] $accessLevels
    */
@@ -52,7 +52,7 @@ class AccessSettings extends \Google\Collection
     return $this->accessLevels;
   }
   /**
-   * Optional. Session settings applied to user access on a given AccessScope.
+   * Optional. Session settings applied to user access on a given `AccessScope`.
    *
    * @param SessionSettings $sessionSettings
    */

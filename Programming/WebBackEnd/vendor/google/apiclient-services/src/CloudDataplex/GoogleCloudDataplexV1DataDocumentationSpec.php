@@ -39,6 +39,13 @@ class GoogleCloudDataplexV1DataDocumentationSpec extends \Google\Collection
    */
   public $catalogPublishingEnabled;
   /**
+   * Optional. Custom instructions for generating data documentation. The
+   * maximum length is 2,048 characters.
+   *
+   * @var string
+   */
+  public $customInstructions;
+  /**
    * Optional. Specifies which components of the data documentation to generate.
    * Any component that is required to generate the specified components will
    * also be generated. If no generation scope is specified, all available
@@ -70,6 +77,23 @@ class GoogleCloudDataplexV1DataDocumentationSpec extends \Google\Collection
   public function getCatalogPublishingEnabled()
   {
     return $this->catalogPublishingEnabled;
+  }
+  /**
+   * Optional. Custom instructions for generating data documentation. The
+   * maximum length is 2,048 characters.
+   *
+   * @param string $customInstructions
+   */
+  public function setCustomInstructions($customInstructions)
+  {
+    $this->customInstructions = $customInstructions;
+  }
+  /**
+   * @return string
+   */
+  public function getCustomInstructions()
+  {
+    return $this->customInstructions;
   }
   /**
    * Optional. Specifies which components of the data documentation to generate.

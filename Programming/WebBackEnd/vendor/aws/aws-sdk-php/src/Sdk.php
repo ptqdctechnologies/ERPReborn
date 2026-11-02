@@ -228,6 +228,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionConnectParticipant(array $args = [])
  * @method \Aws\ConnectWisdomService\ConnectWisdomServiceClient createConnectWisdomService(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionConnectWisdomService(array $args = [])
+ * @method \Aws\Continuum\ContinuumClient createContinuum(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionContinuum(array $args = [])
  * @method \Aws\ControlCatalog\ControlCatalogClient createControlCatalog(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionControlCatalog(array $args = [])
  * @method \Aws\ControlTower\ControlTowerClient createControlTower(array $args = [])
@@ -873,7 +875,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.401.5';
+    const VERSION = '3.402.5';
 
     /** @var array Arguments for creating clients */
     private $args;

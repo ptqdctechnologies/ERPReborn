@@ -44,6 +44,12 @@ class CommunicationContext extends \Google\Model
    */
   public $channelUrl;
   /**
+   * Optional. Message or post identifier on the originating platform.
+   *
+   * @var string
+   */
+  public $messageId;
+  /**
    * Optional. Service from the collection event origin (e.g. forum or chat
    * service name).
    *
@@ -120,6 +126,22 @@ class CommunicationContext extends \Google\Model
   public function getChannelUrl()
   {
     return $this->channelUrl;
+  }
+  /**
+   * Optional. Message or post identifier on the originating platform.
+   *
+   * @param string $messageId
+   */
+  public function setMessageId($messageId)
+  {
+    $this->messageId = $messageId;
+  }
+  /**
+   * @return string
+   */
+  public function getMessageId()
+  {
+    return $this->messageId;
   }
   /**
    * Optional. Service from the collection event origin (e.g. forum or chat

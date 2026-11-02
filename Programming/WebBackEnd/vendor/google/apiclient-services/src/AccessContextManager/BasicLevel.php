@@ -30,10 +30,10 @@ class BasicLevel extends \Google\Collection
   protected $collection_key = 'conditions';
   /**
    * How the `conditions` list should be combined to determine if a request is
-   * granted this `AccessLevel`. If AND is used, each `Condition` in
-   * `conditions` must be satisfied for the `AccessLevel` to be applied. If OR
+   * granted this `AccessLevel`. If `AND` is used, each `Condition` in
+   * `conditions` must be satisfied for the `AccessLevel` to be applied. If `OR`
    * is used, at least one `Condition` in `conditions` must be satisfied for the
-   * `AccessLevel` to be applied. Default behavior is AND.
+   * `AccessLevel` to be applied. Default behavior is `AND`.
    *
    * @var string
    */
@@ -43,10 +43,10 @@ class BasicLevel extends \Google\Collection
 
   /**
    * How the `conditions` list should be combined to determine if a request is
-   * granted this `AccessLevel`. If AND is used, each `Condition` in
-   * `conditions` must be satisfied for the `AccessLevel` to be applied. If OR
+   * granted this `AccessLevel`. If `AND` is used, each `Condition` in
+   * `conditions` must be satisfied for the `AccessLevel` to be applied. If `OR`
    * is used, at least one `Condition` in `conditions` must be satisfied for the
-   * `AccessLevel` to be applied. Default behavior is AND.
+   * `AccessLevel` to be applied. Default behavior is `AND`.
    *
    * Accepted values: AND, OR
    *

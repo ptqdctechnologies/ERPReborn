@@ -55,7 +55,8 @@ class CatalogAppView extends \Google\Collection
   public $appSubcategory;
   /**
    * The token used for delivery of the app with the Google Play Inline Install
-   * API.
+   * API. The token is unique per Play app and per third-party app store
+   * combination and has a limited validity period of 7 days.
    *
    * @var string
    */
@@ -192,7 +193,8 @@ class CatalogAppView extends \Google\Collection
   }
   /**
    * The token used for delivery of the app with the Google Play Inline Install
-   * API.
+   * API. The token is unique per Play app and per third-party app store
+   * combination and has a limited validity period of 7 days.
    *
    * @param string $deliveryToken
    */

@@ -21,6 +21,14 @@ class GcpBackupConfig extends \Google\Collection
 {
   protected $collection_key = 'backupPlanRules';
   /**
+   * Output only. The resource name of the `AutoProtectionPolicyBinding` that
+   * manages this datasource, if any. Format: `projects/{project}/locations/{loc
+   * ation}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+   *
+   * @var string
+   */
+  public $autoProtectionPolicyBinding;
+  /**
    * The name of the backup plan.
    *
    * @var string
@@ -57,6 +65,24 @@ class GcpBackupConfig extends \Google\Collection
    */
   public $backupPlanRules;
 
+  /**
+   * Output only. The resource name of the `AutoProtectionPolicyBinding` that
+   * manages this datasource, if any. Format: `projects/{project}/locations/{loc
+   * ation}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+   *
+   * @param string $autoProtectionPolicyBinding
+   */
+  public function setAutoProtectionPolicyBinding($autoProtectionPolicyBinding)
+  {
+    $this->autoProtectionPolicyBinding = $autoProtectionPolicyBinding;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoProtectionPolicyBinding()
+  {
+    return $this->autoProtectionPolicyBinding;
+  }
   /**
    * The name of the backup plan.
    *

@@ -116,8 +116,8 @@ class GooglePlayDeveloperReportingV1beta1QueryCrashRateMetricSetRequest extends 
   public $metrics;
   /**
    * Optional. Maximum size of the returned data. If unspecified, at most 1000
-   * rows will be returned. The maximum value is 100,000; values above 100,000
-   * will be coerced to 100,000.
+   * rows will be returned. The maximum value is 10,000; values above 10,000
+   * will be coerced to 10,000.
    *
    * @var int
    */
@@ -254,8 +254,8 @@ class GooglePlayDeveloperReportingV1beta1QueryCrashRateMetricSetRequest extends 
   }
   /**
    * Optional. Maximum size of the returned data. If unspecified, at most 1000
-   * rows will be returned. The maximum value is 100,000; values above 100,000
-   * will be coerced to 100,000.
+   * rows will be returned. The maximum value is 10,000; values above 10,000
+   * will be coerced to 10,000.
    *
    * @param int $pageSize
    */

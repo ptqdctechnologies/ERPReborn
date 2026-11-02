@@ -28,7 +28,7 @@ class ProducerExtensionExtensionSettings extends \Google\Collection
    */
   public $authority;
   /**
-   * Optional. Whether the extension should function in observability mode.
+   * Optional. This field is not supported.
    *
    * @var bool
    */
@@ -64,7 +64,7 @@ class ProducerExtensionExtensionSettings extends \Google\Collection
     return $this->authority;
   }
   /**
-   * Optional. Whether the extension should function in observability mode.
+   * Optional. This field is not supported.
    *
    * @param bool $observabilityMode
    */

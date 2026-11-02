@@ -56,7 +56,7 @@ class AndroidInstrumentationTest extends \Google\Collection
    * @var string
    */
   public $orchestratorVersion;
-  protected $smartShardingType = AndroidInstrumentationTestSmartSharding::class;
+  protected $smartShardingType = SmartSharding::class;
   protected $smartShardingDataType = '';
   protected $testInstallableType = AndroidInstallable::class;
   protected $testInstallableDataType = '';
@@ -84,7 +84,7 @@ class AndroidInstrumentationTest extends \Google\Collection
    * @var string[]
    */
   public $testTargets;
-  protected $uniformShardingType = AndroidInstrumentationTestUniformSharding::class;
+  protected $uniformShardingType = UniformSharding::class;
   protected $uniformShardingDataType = '';
 
   /**
@@ -167,14 +167,14 @@ class AndroidInstrumentationTest extends \Google\Collection
    * Optional. Smart sharding strategy to split the job into multiple shards
    * based on the test methods and their execution time.
    *
-   * @param AndroidInstrumentationTestSmartSharding $smartSharding
+   * @param SmartSharding $smartSharding
    */
-  public function setSmartSharding(AndroidInstrumentationTestSmartSharding $smartSharding)
+  public function setSmartSharding(SmartSharding $smartSharding)
   {
     $this->smartSharding = $smartSharding;
   }
   /**
-   * @return AndroidInstrumentationTestSmartSharding
+   * @return SmartSharding
    */
   public function getSmartSharding()
   {
@@ -244,14 +244,14 @@ class AndroidInstrumentationTest extends \Google\Collection
    * Optional. Uniform sharding strategy to split the job into multiple shards
    * with equal number of test methods.
    *
-   * @param AndroidInstrumentationTestUniformSharding $uniformSharding
+   * @param UniformSharding $uniformSharding
    */
-  public function setUniformSharding(AndroidInstrumentationTestUniformSharding $uniformSharding)
+  public function setUniformSharding(UniformSharding $uniformSharding)
   {
     $this->uniformSharding = $uniformSharding;
   }
   /**
-   * @return AndroidInstrumentationTestUniformSharding
+   * @return UniformSharding
    */
   public function getUniformSharding()
   {

@@ -23,8 +23,13 @@ class TechnologyWatchListConfig extends \Google\Collection
   protected $alertThresholdType = TechnologyWatchListAlertThreshold::class;
   protected $alertThresholdDataType = '';
   /**
-   * Optional. List of vendor, technology or cpe fingerprint. example: Microsoft
-   * office 360 Apache Server 3.5 cpe:2.3:a:microsoft:outlook:*:*:*:*:*:*:*:*
+   * Optional. List of technologies to watch, one per entry, in the form `
+   * [version]`, using the vendor and product names from the Google Threat
+   * Intelligence products and fixes section. example: `microsoft outlook`
+   * `apache http_server 2.4.54` CPE strings such as
+   * `cpe:2.3:a:microsoft:outlook:*:*:*:*:*:*:*:*` are only parsed through the
+   * Google Threat Intelligence interface and are not available through the API.
+   * Send the vendor and product pair instead.
    *
    * @var string[]
    */
@@ -47,8 +52,13 @@ class TechnologyWatchListConfig extends \Google\Collection
     return $this->alertThreshold;
   }
   /**
-   * Optional. List of vendor, technology or cpe fingerprint. example: Microsoft
-   * office 360 Apache Server 3.5 cpe:2.3:a:microsoft:outlook:*:*:*:*:*:*:*:*
+   * Optional. List of technologies to watch, one per entry, in the form `
+   * [version]`, using the vendor and product names from the Google Threat
+   * Intelligence products and fixes section. example: `microsoft outlook`
+   * `apache http_server 2.4.54` CPE strings such as
+   * `cpe:2.3:a:microsoft:outlook:*:*:*:*:*:*:*:*` are only parsed through the
+   * Google Threat Intelligence interface and are not available through the API.
+   * Send the vendor and product pair instead.
    *
    * @param string[] $technologies
    */

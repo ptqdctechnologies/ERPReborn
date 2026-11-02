@@ -18,6 +18,7 @@
 namespace Google\Service\Classroom\Resource;
 
 use Google\Service\Classroom\AddOnAttachmentStudentSubmission;
+use Google\Service\Classroom\ListAddOnAttachmentStudentSubmissionsResponse;
 
 /**
  * The "studentSubmissions" collection of methods.
@@ -52,6 +53,36 @@ class CoursesCourseWorkAddOnAttachmentsStudentSubmissions extends \Google\Servic
     $params = ['courseId' => $courseId, 'itemId' => $itemId, 'attachmentId' => $attachmentId, 'submissionId' => $submissionId];
     $params = array_merge($params, $optParams);
     return $this->call('get', [$params], AddOnAttachmentStudentSubmission::class);
+  }
+  /**
+   * Returns a list of student submissions that the requester is permitted to
+   * view. This method returns the following error codes: * `PERMISSION_DENIED`
+   * for access errors. * `INVALID_ARGUMENT` if the request is malformed. *
+   * `NOT_FOUND` if one of the identified resources does not exist.
+   * (studentSubmissions.listCoursesCourseWorkAddOnAttachmentsStudentSubmissions)
+   *
+   * @param string $courseId Required. Identifier of the course.
+   * @param string $itemId Required. Identifier of the `CourseWork` under which
+   * the attachment is attached.
+   * @param string $attachmentId Required. Identifier of the add-on attachment.
+   * @param array $optParams Optional parameters.
+   *
+   * @opt_param int pageSize Optional. Maximum number of submissions to return.
+   * Zero or unspecified indicates that the server may assign a maximum. The
+   * server may return fewer than the specified number of results.
+   * @opt_param string pageToken Optional. A page token, received from a previous
+   * `ListAddOnAttachmentStudentSubmissions` call. Provide this to retrieve the
+   * subsequent page. When paginating, all other parameters provided to
+   * `ListAddOnAttachmentStudentSubmissions` must match the call that provided the
+   * page token.
+   * @return ListAddOnAttachmentStudentSubmissionsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function listCoursesCourseWorkAddOnAttachmentsStudentSubmissions($courseId, $itemId, $attachmentId, $optParams = [])
+  {
+    $params = ['courseId' => $courseId, 'itemId' => $itemId, 'attachmentId' => $attachmentId];
+    $params = array_merge($params, $optParams);
+    return $this->call('list', [$params], ListAddOnAttachmentStudentSubmissionsResponse::class);
   }
   /**
    * Updates data associated with an add-on attachment submission. Requires the

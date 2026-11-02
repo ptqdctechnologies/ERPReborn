@@ -19,8 +19,12 @@ namespace Google\Service\DeviceRun;
 
 class IosXcTest extends \Google\Model
 {
+  protected $smartShardingType = SmartSharding::class;
+  protected $smartShardingDataType = '';
   protected $testsZipType = InputFile::class;
   protected $testsZipDataType = '';
+  protected $uniformShardingType = UniformSharding::class;
+  protected $uniformShardingDataType = '';
   /**
    * Optional. The timeout of the test. Default value: 5 min. Range: [1 min, 3
    * hours].
@@ -40,6 +44,23 @@ class IosXcTest extends \Google\Model
   protected $xctestrunDataType = '';
 
   /**
+   * Optional. Smart sharding strategy to split the job into multiple shards
+   * based on the test methods and their execution time.
+   *
+   * @param SmartSharding $smartSharding
+   */
+  public function setSmartSharding(SmartSharding $smartSharding)
+  {
+    $this->smartSharding = $smartSharding;
+  }
+  /**
+   * @return SmartSharding
+   */
+  public function getSmartSharding()
+  {
+    return $this->smartSharding;
+  }
+  /**
    * Required. The .zip containing the .xctestrun file and the contents of the
    * DerivedData/Build/Products directory.
    *
@@ -55,6 +76,23 @@ class IosXcTest extends \Google\Model
   public function getTestsZip()
   {
     return $this->testsZip;
+  }
+  /**
+   * Optional. Uniform sharding strategy to split the job into multiple shards
+   * with equal number of test methods.
+   *
+   * @param UniformSharding $uniformSharding
+   */
+  public function setUniformSharding(UniformSharding $uniformSharding)
+  {
+    $this->uniformSharding = $uniformSharding;
+  }
+  /**
+   * @return UniformSharding
+   */
+  public function getUniformSharding()
+  {
+    return $this->uniformSharding;
   }
   /**
    * Optional. The timeout of the test. Default value: 5 min. Range: [1 min, 3

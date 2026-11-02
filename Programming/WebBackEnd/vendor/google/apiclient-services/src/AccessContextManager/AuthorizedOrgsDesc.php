@@ -56,7 +56,7 @@ class AuthorizedOrgsDesc extends \Google\Collection
   protected $collection_key = 'orgs';
   /**
    * The asset type of this authorized orgs desc. Valid values are
-   * `ASSET_TYPE_DEVICE`, and `ASSET_TYPE_CREDENTIAL_STRENGTH`.
+   * `ASSET_TYPE_DEVICE` and `ASSET_TYPE_CREDENTIAL_STRENGTH`.
    *
    * @var string
    */
@@ -70,7 +70,7 @@ class AuthorizedOrgsDesc extends \Google\Collection
    * `orgs` field to evaluate the traffic in this organization. For the
    * authorization relationship to take effect, all of the organizations must
    * authorize and specify the appropriate relationship direction. For example,
-   * if organization A authorized organization B and C to evaluate its traffic,
+   * if organization A authorizes organizations B and C to evaluate its traffic
    * by specifying `AUTHORIZATION_DIRECTION_TO` as the authorization direction,
    * organizations B and C must specify `AUTHORIZATION_DIRECTION_FROM` as the
    * authorization direction in their `AuthorizedOrgsDesc` resource.
@@ -96,8 +96,8 @@ class AuthorizedOrgsDesc extends \Google\Collection
    */
   public $name;
   /**
-   * The list of organization ids in this AuthorizedOrgsDesc. Format:
-   * `organizations/` Example: `organizations/123456`
+   * The list of organization IDs in this `AuthorizedOrgsDesc`. Format:
+   * `organizations/{org_number}` Example: `organizations/123456`
    *
    * @var string[]
    */
@@ -105,7 +105,7 @@ class AuthorizedOrgsDesc extends \Google\Collection
 
   /**
    * The asset type of this authorized orgs desc. Valid values are
-   * `ASSET_TYPE_DEVICE`, and `ASSET_TYPE_CREDENTIAL_STRENGTH`.
+   * `ASSET_TYPE_DEVICE` and `ASSET_TYPE_CREDENTIAL_STRENGTH`.
    *
    * Accepted values: ASSET_TYPE_UNSPECIFIED, ASSET_TYPE_DEVICE,
    * ASSET_TYPE_CREDENTIAL_STRENGTH
@@ -132,7 +132,7 @@ class AuthorizedOrgsDesc extends \Google\Collection
    * `orgs` field to evaluate the traffic in this organization. For the
    * authorization relationship to take effect, all of the organizations must
    * authorize and specify the appropriate relationship direction. For example,
-   * if organization A authorized organization B and C to evaluate its traffic,
+   * if organization A authorizes organizations B and C to evaluate its traffic
    * by specifying `AUTHORIZATION_DIRECTION_TO` as the authorization direction,
    * organizations B and C must specify `AUTHORIZATION_DIRECTION_FROM` as the
    * authorization direction in their `AuthorizedOrgsDesc` resource.
@@ -193,8 +193,8 @@ class AuthorizedOrgsDesc extends \Google\Collection
     return $this->name;
   }
   /**
-   * The list of organization ids in this AuthorizedOrgsDesc. Format:
-   * `organizations/` Example: `organizations/123456`
+   * The list of organization IDs in this `AuthorizedOrgsDesc`. Format:
+   * `organizations/{org_number}` Example: `organizations/123456`
    *
    * @param string[] $orgs
    */

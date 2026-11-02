@@ -22,6 +22,15 @@ class GoogleCloudContactcenterinsightsV1GenerativeInsightsResponse extends \Goog
   protected $collection_key = 'generativeResponses';
   protected $generativeResponsesType = GoogleCloudContactcenterinsightsV1GenerativeInsightsResponseGenerativeResponse::class;
   protected $generativeResponsesDataType = 'array';
+  /**
+   * The time zone name from the [IANA Time Zone
+   * Database](https://www.iana.org/time-zones) that the query actually used to
+   * group results. Equals the requested `time_zone` when the chart SQL supports
+   * time zones, otherwise `"UTC"`.
+   *
+   * @var string
+   */
+  public $timeZone;
   protected $transcriptType = GoogleCloudContactcenterinsightsV1GenerativeInsightConversationTranscript::class;
   protected $transcriptDataType = '';
 
@@ -40,6 +49,25 @@ class GoogleCloudContactcenterinsightsV1GenerativeInsightsResponse extends \Goog
   public function getGenerativeResponses()
   {
     return $this->generativeResponses;
+  }
+  /**
+   * The time zone name from the [IANA Time Zone
+   * Database](https://www.iana.org/time-zones) that the query actually used to
+   * group results. Equals the requested `time_zone` when the chart SQL supports
+   * time zones, otherwise `"UTC"`.
+   *
+   * @param string $timeZone
+   */
+  public function setTimeZone($timeZone)
+  {
+    $this->timeZone = $timeZone;
+  }
+  /**
+   * @return string
+   */
+  public function getTimeZone()
+  {
+    return $this->timeZone;
   }
   /**
    * The transcript of the generative insights conversation.

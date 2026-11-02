@@ -24,8 +24,9 @@ use Google\Client;
  *
  * <p>
  * The Business Profile Performance API allows merchants to fetch performance
- * reports about their business profile on Google. Note - If you have a quota of
- * 0 after enabling the API, please request for GBP API access.</p>
+ * reports about their business profile on Google. Note: If you have a quota of
+ * 0 after enabling the API, please request GBP API access at
+ * https://developers.google.com/my-business/content/prereqs#request-access.</p>
  *
  * <p>
  * For more information about this service, see the API

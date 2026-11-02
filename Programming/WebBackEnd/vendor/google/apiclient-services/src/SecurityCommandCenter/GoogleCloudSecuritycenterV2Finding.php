@@ -82,6 +82,8 @@ class GoogleCloudSecuritycenterV2Finding extends \Google\Collection
   protected $cloudDlpDataProfileDataType = '';
   protected $cloudDlpInspectionType = GoogleCloudSecuritycenterV2CloudDlpInspection::class;
   protected $cloudDlpInspectionDataType = '';
+  protected $cloudRunType = GoogleCloudSecuritycenterV2CloudRun::class;
+  protected $cloudRunDataType = '';
   protected $complianceDetailsType = GoogleCloudSecuritycenterV2ComplianceDetails::class;
   protected $complianceDetailsDataType = '';
   protected $compliancesType = GoogleCloudSecuritycenterV2Compliance::class;
@@ -468,6 +470,20 @@ class GoogleCloudSecuritycenterV2Finding extends \Google\Collection
   public function getCloudDlpInspection()
   {
     return $this->cloudDlpInspection;
+  }
+  /**
+   * @param GoogleCloudSecuritycenterV2CloudRun $cloudRun
+   */
+  public function setCloudRun(GoogleCloudSecuritycenterV2CloudRun $cloudRun)
+  {
+    $this->cloudRun = $cloudRun;
+  }
+  /**
+   * @return GoogleCloudSecuritycenterV2CloudRun
+   */
+  public function getCloudRun()
+  {
+    return $this->cloudRun;
   }
   /**
    * @param GoogleCloudSecuritycenterV2ComplianceDetails $complianceDetails

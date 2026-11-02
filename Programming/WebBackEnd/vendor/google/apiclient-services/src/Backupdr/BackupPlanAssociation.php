@@ -51,6 +51,14 @@ class BackupPlanAssociation extends \Google\Collection
   protected $alloydbClusterBackupPlanAssociationPropertiesType = AlloyDBClusterBackupPlanAssociationProperties::class;
   protected $alloydbClusterBackupPlanAssociationPropertiesDataType = '';
   /**
+   * Output only. The resource name of the `AutoProtectionPolicyBinding` that
+   * manages this association, if any. Format: `projects/{project}/locations/{lo
+   * cation}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+   *
+   * @var string
+   */
+  public $autoProtectionPolicyBinding;
+  /**
    * Required. Resource name of backup plan which needs to be applied on
    * workload. Format:
    * projects/{project}/locations/{location}/backupPlans/{backupPlanId}
@@ -148,6 +156,24 @@ class BackupPlanAssociation extends \Google\Collection
   public function getAlloydbClusterBackupPlanAssociationProperties()
   {
     return $this->alloydbClusterBackupPlanAssociationProperties;
+  }
+  /**
+   * Output only. The resource name of the `AutoProtectionPolicyBinding` that
+   * manages this association, if any. Format: `projects/{project}/locations/{lo
+   * cation}/autoProtectionPolicies/{policy}/bindings/{binding}`.
+   *
+   * @param string $autoProtectionPolicyBinding
+   */
+  public function setAutoProtectionPolicyBinding($autoProtectionPolicyBinding)
+  {
+    $this->autoProtectionPolicyBinding = $autoProtectionPolicyBinding;
+  }
+  /**
+   * @return string
+   */
+  public function getAutoProtectionPolicyBinding()
+  {
+    return $this->autoProtectionPolicyBinding;
   }
   /**
    * Required. Resource name of backup plan which needs to be applied on

@@ -1,6 +1,7 @@
-# milon/barcode — Papyrus docs site (milon/papyrus ^1.4)
+# milon/barcode — Papyrus docs site (milon/papyrus ^1.5)
 # Features: nav groups (collapsible), edit icons, copy code / copy markdown /
-# print page, page TOC, banner, links, base_path, search, asset copy.
+# print page, page TOC, banner, links, cname, search, asset copy.
+# CI installs Papyrus via the v1.5 release PHAR (see .github/workflows/docs-site.yml).
 title: milon/barcode
 subtitle: Barcode generation for Laravel and PHP
 author: Nuruzzaman Milon
@@ -23,12 +24,11 @@ toc:
 site:
   banner: banner.png
   lead: 'Barcode generation for Laravel and plain PHP — SVG, HTML, PNG, and JPEG from one small API.'
+  # Public URL is oss.milon.im/barcode (Worker). cname is for sitemap absolutes only;
+  # CI deletes the generated CNAME so this repo does not claim the domain on Pages.
+  cname: oss.milon.im
   base_path: /barcode
   version: latest
-  # Add peer deploys here when you publish versioned docs (needs 2+ entries for the switcher):
-  # versions:
-  #   - { label: latest, path: /barcode }
-  #   - { label: v12, path: /barcode/v12 }
   repository: 'https://github.com/milon/barcode'
   edit:
     link: true

@@ -189,8 +189,9 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
   public const UNDER_EXPOSED_LIKELIHOOD_VERY_LIKELY = 'VERY_LIKELY';
   protected $collection_key = 'recognitionResult';
   /**
-   * Anger likelihood.
+   * Deprecated: No longer populated.
    *
+   * @deprecated
    * @var string
    */
   public $angerLikelihood;
@@ -217,8 +218,9 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
    */
   public $headwearLikelihood;
   /**
-   * Joy likelihood.
+   * Deprecated: No longer populated.
    *
+   * @deprecated
    * @var string
    */
   public $joyLikelihood;
@@ -249,14 +251,16 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
    */
   public $rollAngle;
   /**
-   * Sorrow likelihood.
+   * Deprecated: No longer populated.
    *
+   * @deprecated
    * @var string
    */
   public $sorrowLikelihood;
   /**
-   * Surprise likelihood.
+   * Deprecated: No longer populated.
    *
+   * @deprecated
    * @var string
    */
   public $surpriseLikelihood;
@@ -275,11 +279,12 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
   public $underExposedLikelihood;
 
   /**
-   * Anger likelihood.
+   * Deprecated: No longer populated.
    *
    * Accepted values: UNKNOWN, VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY,
    * VERY_LIKELY
    *
+   * @deprecated
    * @param self::ANGER_LIKELIHOOD_* $angerLikelihood
    */
   public function setAngerLikelihood($angerLikelihood)
@@ -287,6 +292,7 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     $this->angerLikelihood = $angerLikelihood;
   }
   /**
+   * @deprecated
    * @return self::ANGER_LIKELIHOOD_*
    */
   public function getAngerLikelihood()
@@ -389,11 +395,12 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     return $this->headwearLikelihood;
   }
   /**
-   * Joy likelihood.
+   * Deprecated: No longer populated.
    *
    * Accepted values: UNKNOWN, VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY,
    * VERY_LIKELY
    *
+   * @deprecated
    * @param self::JOY_LIKELIHOOD_* $joyLikelihood
    */
   public function setJoyLikelihood($joyLikelihood)
@@ -401,6 +408,7 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     $this->joyLikelihood = $joyLikelihood;
   }
   /**
+   * @deprecated
    * @return self::JOY_LIKELIHOOD_*
    */
   public function getJoyLikelihood()
@@ -495,11 +503,12 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     return $this->rollAngle;
   }
   /**
-   * Sorrow likelihood.
+   * Deprecated: No longer populated.
    *
    * Accepted values: UNKNOWN, VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY,
    * VERY_LIKELY
    *
+   * @deprecated
    * @param self::SORROW_LIKELIHOOD_* $sorrowLikelihood
    */
   public function setSorrowLikelihood($sorrowLikelihood)
@@ -507,6 +516,7 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     $this->sorrowLikelihood = $sorrowLikelihood;
   }
   /**
+   * @deprecated
    * @return self::SORROW_LIKELIHOOD_*
    */
   public function getSorrowLikelihood()
@@ -514,11 +524,12 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     return $this->sorrowLikelihood;
   }
   /**
-   * Surprise likelihood.
+   * Deprecated: No longer populated.
    *
    * Accepted values: UNKNOWN, VERY_UNLIKELY, UNLIKELY, POSSIBLE, LIKELY,
    * VERY_LIKELY
    *
+   * @deprecated
    * @param self::SURPRISE_LIKELIHOOD_* $surpriseLikelihood
    */
   public function setSurpriseLikelihood($surpriseLikelihood)
@@ -526,6 +537,7 @@ class GoogleCloudVisionV1p4beta1FaceAnnotation extends \Google\Collection
     $this->surpriseLikelihood = $surpriseLikelihood;
   }
   /**
+   * @deprecated
    * @return self::SURPRISE_LIKELIHOOD_*
    */
   public function getSurpriseLikelihood()

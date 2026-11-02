@@ -41,6 +41,12 @@ class ProjectsJobs extends \Google\Service\Resource
    * @param string $projectId The project which owns the jobs.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string createTimeRange.endTime Optional. Exclusive end of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * before the end.
+   * @opt_param string createTimeRange.startTime Optional. Inclusive start of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * the same or after the start.
    * @opt_param string filter The kind of filter to use.
    * @opt_param string location The [regional endpoint]
    * (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that
@@ -52,6 +58,12 @@ class ProjectsJobs extends \Google\Service\Resource
    * @opt_param string pageToken Set this to the 'next_page_token' field of a
    * previous response to request additional results in a long list.
    * @opt_param bool regionalFanoutRequested Optional.
+   * @opt_param string terminationTimeRange.endTime Optional. Exclusive end of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * before the end.
+   * @opt_param string terminationTimeRange.startTime Optional. Inclusive start of
+   * the interval. If specified, a Timestamp matching this interval will have to
+   * be the same or after the start.
    * @opt_param string view Deprecated. ListJobs always returns summaries now. Use
    * GetJob for other JobViews.
    * @return ListJobsResponse
@@ -162,6 +174,12 @@ class ProjectsJobs extends \Google\Service\Resource
    * @param string $projectId The project which owns the jobs.
    * @param array $optParams Optional parameters.
    *
+   * @opt_param string createTimeRange.endTime Optional. Exclusive end of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * before the end.
+   * @opt_param string createTimeRange.startTime Optional. Inclusive start of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * the same or after the start.
    * @opt_param string filter The kind of filter to use.
    * @opt_param string location The [regional endpoint]
    * (https://cloud.google.com/dataflow/docs/concepts/regional-endpoints) that
@@ -173,6 +191,12 @@ class ProjectsJobs extends \Google\Service\Resource
    * @opt_param string pageToken Set this to the 'next_page_token' field of a
    * previous response to request additional results in a long list.
    * @opt_param bool regionalFanoutRequested Optional.
+   * @opt_param string terminationTimeRange.endTime Optional. Exclusive end of the
+   * interval. If specified, a Timestamp matching this interval will have to be
+   * before the end.
+   * @opt_param string terminationTimeRange.startTime Optional. Inclusive start of
+   * the interval. If specified, a Timestamp matching this interval will have to
+   * be the same or after the start.
    * @opt_param string view Deprecated. ListJobs always returns summaries now. Use
    * GetJob for other JobViews.
    * @return ListJobsResponse

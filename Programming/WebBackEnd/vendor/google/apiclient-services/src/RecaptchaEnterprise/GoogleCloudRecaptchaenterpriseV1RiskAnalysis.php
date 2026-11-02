@@ -47,6 +47,12 @@ class GoogleCloudRecaptchaenterpriseV1RiskAnalysis extends \Google\Collection
    * An audio challenge.
    */
   public const LAST_CHALLENGE_TYPE_CHALLENGE_TYPE_AUDIO = 'CHALLENGE_TYPE_AUDIO';
+  /**
+   * A challenge requiring mobile device verification, completed by scanning a
+   * QR code on desktop or clicking a verification button directly on a mobile
+   * device.
+   */
+  public const LAST_CHALLENGE_TYPE_CHALLENGE_TYPE_QR_CODE = 'CHALLENGE_TYPE_QR_CODE';
   protected $collection_key = 'verifiedBots';
   /**
    * Output only. Challenge information for Universal, `POLICY_BASED_CHALLENGE`
@@ -130,7 +136,7 @@ class GoogleCloudRecaptchaenterpriseV1RiskAnalysis extends \Google\Collection
    * set when a challenge was presented to the user.
    *
    * Accepted values: CHALLENGE_TYPE_UNSPECIFIED, CHALLENGE_TYPE_VISUAL,
-   * CHALLENGE_TYPE_AUDIO
+   * CHALLENGE_TYPE_AUDIO, CHALLENGE_TYPE_QR_CODE
    *
    * @param self::LAST_CHALLENGE_TYPE_* $lastChallengeType
    */

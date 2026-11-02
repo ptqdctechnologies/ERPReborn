@@ -26,6 +26,13 @@ class EphemeralStorageLocalSsdConfig extends \Google\Model
    */
   public $dataCacheCount;
   /**
+   * Capacity set aside for Ephemeral Storage if using mixed Local SSD modes.
+   * The remaining capacity is Raw Block.
+   *
+   * @var string
+   */
+  public $ephemeralCapacityGb;
+  /**
    * Number of local SSDs to use to back ephemeral storage. Uses NVMe
    * interfaces. A zero (or unset) value has different meanings depending on
    * machine type being used: 1. For pre-Gen3 machines, which support flexible
@@ -60,6 +67,23 @@ class EphemeralStorageLocalSsdConfig extends \Google\Model
   public function getDataCacheCount()
   {
     return $this->dataCacheCount;
+  }
+  /**
+   * Capacity set aside for Ephemeral Storage if using mixed Local SSD modes.
+   * The remaining capacity is Raw Block.
+   *
+   * @param string $ephemeralCapacityGb
+   */
+  public function setEphemeralCapacityGb($ephemeralCapacityGb)
+  {
+    $this->ephemeralCapacityGb = $ephemeralCapacityGb;
+  }
+  /**
+   * @return string
+   */
+  public function getEphemeralCapacityGb()
+  {
+    return $this->ephemeralCapacityGb;
   }
   /**
    * Number of local SSDs to use to back ephemeral storage. Uses NVMe

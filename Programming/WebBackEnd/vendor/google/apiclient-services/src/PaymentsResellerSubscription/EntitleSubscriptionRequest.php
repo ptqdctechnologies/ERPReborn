@@ -24,9 +24,11 @@ class EntitleSubscriptionRequest extends \Google\Collection
   protected $lineItemEntitlementDetailsDataType = 'array';
 
   /**
-   * Optional. The line items to be entitled. If unspecified, all line items
-   * will be entitled.
+   * Optional. Deprecated: This field is no longer supported. All line items are
+   * entitled automatically. Optional. The line items to be entitled. If
+   * unspecified, all line items will be entitled.
    *
+   * @deprecated
    * @param EntitleSubscriptionRequestLineItemEntitlementDetails[] $lineItemEntitlementDetails
    */
   public function setLineItemEntitlementDetails($lineItemEntitlementDetails)
@@ -34,6 +36,7 @@ class EntitleSubscriptionRequest extends \Google\Collection
     $this->lineItemEntitlementDetails = $lineItemEntitlementDetails;
   }
   /**
+   * @deprecated
    * @return EntitleSubscriptionRequestLineItemEntitlementDetails[]
    */
   public function getLineItemEntitlementDetails()

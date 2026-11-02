@@ -112,14 +112,19 @@ class GoogleMapsPlacesV1FuelOptionsFuelPrice extends \Google\Model
    */
   public $type;
   /**
-   * The time the fuel price was last updated.
+   * The time the fuel price was last updated. This represents the time when the
+   * specific fuel price offer was last observed or updated by the data
+   * provider.
    *
    * @var string
    */
   public $updateTime;
 
   /**
-   * The price of the fuel.
+   * The price of the fuel. The price is per US liquid gallon in the United
+   * States, and per liter elsewhere. Prices do not distinguish between payment
+   * methods (cash or credit). When a station offers multiple prices for the
+   * same `FuelType`, the API returns the standard (highest) price.
    *
    * @param GoogleTypeMoney $price
    */
@@ -155,7 +160,9 @@ class GoogleMapsPlacesV1FuelOptionsFuelPrice extends \Google\Model
     return $this->type;
   }
   /**
-   * The time the fuel price was last updated.
+   * The time the fuel price was last updated. This represents the time when the
+   * specific fuel price offer was last observed or updated by the data
+   * provider.
    *
    * @param string $updateTime
    */

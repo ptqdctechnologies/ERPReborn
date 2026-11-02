@@ -45,6 +45,26 @@ class Scheduling extends \Google\Collection
    */
   public const ON_HOST_MAINTENANCE_TERMINATE = 'TERMINATE';
   /**
+   * CAPACITY_OPTIMIZED capacity leverages redundancies (e.g. power, cooling) at
+   * the data center during normal operating conditions. In the event of
+   * infrastructure failures at data center (e.g. power and/or cooling
+   * failures), this workload may be disrupted. As a consequence, it has a
+   * weaker availability SLO than STANDARD.
+   */
+  public const PROTECTION_TIER_PROTECTION_TIER_CAPACITY_OPTIMIZED = 'PROTECTION_TIER_CAPACITY_OPTIMIZED';
+  /**
+   * STANDARD protection for workload that should be protected by redundancies
+   * (e.g. power, cooling) at the data center level. In the event of
+   * infrastructure failures at data center (e.g. power and/or cooling
+   * failures), this workload is expected to continue as normal using the
+   * redundancies.
+   */
+  public const PROTECTION_TIER_PROTECTION_TIER_STANDARD = 'PROTECTION_TIER_STANDARD';
+  /**
+   * Unspecified protection tier.
+   */
+  public const PROTECTION_TIER_PROTECTION_TIER_UNSPECIFIED = 'PROTECTION_TIER_UNSPECIFIED';
+  /**
    * Instance is provisioned using the Flex Start provisioning model and has a
    * limited runtime.
    */
@@ -148,14 +168,26 @@ class Scheduling extends \Google\Collection
   protected $preemptionNoticeDurationType = Duration::class;
   protected $preemptionNoticeDurationDataType = '';
   /**
+   * Protection tier for the workload which specifies the workload expectations
+   * in the event of infrastructure failures at data center (e.g. power and/or
+   * cooling failures).
+   *
+   * @var string
+   */
+  public $protectionTier;
+  /**
    * Specifies the provisioning model of the instance.
    *
    * @var string
    */
   public $provisioningModel;
   /**
-   * Default is false and there will be 120 seconds between GCE ACPI G2 Soft Off
-   * and ACPI G3 Mechanical Off for Standard VMs and 30 seconds for Spot VMs.
+   * Defines whether GCE ACPI G2 Soft Off signal should be skipped during
+   * shutdown operation of VM.
+   *
+   * Default is false, meaning there will be 120 seconds between GCE ACPI G2
+   * Soft Off and ACPI G3 Mechanical Off for Standard VMs and 30 seconds for
+   * Spot VMs.
    *
    * @var bool
    */
@@ -438,6 +470,27 @@ class Scheduling extends \Google\Collection
     return $this->preemptionNoticeDuration;
   }
   /**
+   * Protection tier for the workload which specifies the workload expectations
+   * in the event of infrastructure failures at data center (e.g. power and/or
+   * cooling failures).
+   *
+   * Accepted values: PROTECTION_TIER_CAPACITY_OPTIMIZED,
+   * PROTECTION_TIER_STANDARD, PROTECTION_TIER_UNSPECIFIED
+   *
+   * @param self::PROTECTION_TIER_* $protectionTier
+   */
+  public function setProtectionTier($protectionTier)
+  {
+    $this->protectionTier = $protectionTier;
+  }
+  /**
+   * @return self::PROTECTION_TIER_*
+   */
+  public function getProtectionTier()
+  {
+    return $this->protectionTier;
+  }
+  /**
    * Specifies the provisioning model of the instance.
    *
    * Accepted values: FLEX_START, RESERVATION_BOUND, SPOT, STANDARD
@@ -456,8 +509,12 @@ class Scheduling extends \Google\Collection
     return $this->provisioningModel;
   }
   /**
-   * Default is false and there will be 120 seconds between GCE ACPI G2 Soft Off
-   * and ACPI G3 Mechanical Off for Standard VMs and 30 seconds for Spot VMs.
+   * Defines whether GCE ACPI G2 Soft Off signal should be skipped during
+   * shutdown operation of VM.
+   *
+   * Default is false, meaning there will be 120 seconds between GCE ACPI G2
+   * Soft Off and ACPI G3 Mechanical Off for Standard VMs and 30 seconds for
+   * Spot VMs.
    *
    * @param bool $skipGuestOsShutdown
    */

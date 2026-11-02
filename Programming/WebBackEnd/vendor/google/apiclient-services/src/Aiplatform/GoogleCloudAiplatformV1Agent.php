@@ -26,6 +26,14 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
         "systemInstruction" => "system_instruction",
   ];
   /**
+   * Output only. The resource name of the AI Application provisioned for this
+   * agent. Format:
+   * `projects/{project}/locations/{location}/aiApplications/{ai_application}`.
+   *
+   * @var string
+   */
+  public $aiApplication;
+  /**
    * Required. Immutable. The base agent for the agent. Supported values: *
    * `antigravity-preview-05-2026` Immutable: `UpdateAgent` rejects a change,
    * including clearing it. The kind of agent this is gets derived from this
@@ -111,6 +119,24 @@ class GoogleCloudAiplatformV1Agent extends \Google\Collection
    */
   public $updated;
 
+  /**
+   * Output only. The resource name of the AI Application provisioned for this
+   * agent. Format:
+   * `projects/{project}/locations/{location}/aiApplications/{ai_application}`.
+   *
+   * @param string $aiApplication
+   */
+  public function setAiApplication($aiApplication)
+  {
+    $this->aiApplication = $aiApplication;
+  }
+  /**
+   * @return string
+   */
+  public function getAiApplication()
+  {
+    return $this->aiApplication;
+  }
   /**
    * Required. Immutable. The base agent for the agent. Supported values: *
    * `antigravity-preview-05-2026` Immutable: `UpdateAgent` rejects a change,

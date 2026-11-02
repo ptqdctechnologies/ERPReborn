@@ -25,7 +25,7 @@ class IngressPolicy extends \Google\Model
   protected $ingressToDataType = '';
   /**
    * Optional. Human-readable title for the ingress rule. The title must be
-   * unique within the perimeter and can not exceed 100 characters. Within the
+   * unique within the perimeter and cannot exceed 100 characters. Within the
    * access policy, the combined length of all rule titles must not exceed
    * 240,000 characters.
    *
@@ -69,7 +69,7 @@ class IngressPolicy extends \Google\Model
   }
   /**
    * Optional. Human-readable title for the ingress rule. The title must be
-   * unique within the perimeter and can not exceed 100 characters. Within the
+   * unique within the perimeter and cannot exceed 100 characters. Within the
    * access policy, the combined length of all rule titles must not exceed
    * 240,000 characters.
    *

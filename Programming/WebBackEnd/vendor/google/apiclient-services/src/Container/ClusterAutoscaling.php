@@ -61,6 +61,8 @@ class ClusterAutoscaling extends \Google\Collection
   public $autoprovisioningLocations;
   protected $autoprovisioningNodePoolDefaultsType = AutoprovisioningNodePoolDefaults::class;
   protected $autoprovisioningNodePoolDefaultsDataType = '';
+  protected $autoprovisioningRestrictionConfigType = AutoprovisioningRestrictionConfig::class;
+  protected $autoprovisioningRestrictionConfigDataType = '';
   /**
    * Defines autoscaling behaviour.
    *
@@ -132,6 +134,22 @@ class ClusterAutoscaling extends \Google\Collection
   public function getAutoprovisioningNodePoolDefaults()
   {
     return $this->autoprovisioningNodePoolDefaults;
+  }
+  /**
+   * Optional. Configures restrictions related to autoprovisioning settings.
+   *
+   * @param AutoprovisioningRestrictionConfig $autoprovisioningRestrictionConfig
+   */
+  public function setAutoprovisioningRestrictionConfig(AutoprovisioningRestrictionConfig $autoprovisioningRestrictionConfig)
+  {
+    $this->autoprovisioningRestrictionConfig = $autoprovisioningRestrictionConfig;
+  }
+  /**
+   * @return AutoprovisioningRestrictionConfig
+   */
+  public function getAutoprovisioningRestrictionConfig()
+  {
+    return $this->autoprovisioningRestrictionConfig;
   }
   /**
    * Defines autoscaling behaviour.

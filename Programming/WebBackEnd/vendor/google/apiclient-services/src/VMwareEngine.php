@@ -41,6 +41,7 @@ class VMwareEngine extends \Google\Service
 
   public $projects_locations;
   public $projects_locations_announcements;
+  public $projects_locations_capacityAllocations;
   public $projects_locations_datastores;
   public $projects_locations_dnsBindPermission;
   public $projects_locations_networkPeerings;
@@ -155,6 +156,42 @@ class VMwareEngine extends \Google\Service
               ],
             ],'list' => [
               'path' => 'v1/{+parent}/announcements',
+              'httpMethod' => 'GET',
+              'parameters' => [
+                'parent' => [
+                  'location' => 'path',
+                  'type' => 'string',
+                  'required' => true,
+                ],
+                'filter' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'orderBy' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+                'pageSize' => [
+                  'location' => 'query',
+                  'type' => 'integer',
+                ],
+                'pageToken' => [
+                  'location' => 'query',
+                  'type' => 'string',
+                ],
+              ],
+            ],
+          ]
+        ]
+    );
+    $this->projects_locations_capacityAllocations = new VMwareEngine\Resource\ProjectsLocationsCapacityAllocations(
+        $this,
+        $this->serviceName,
+        'capacityAllocations',
+        [
+          'methods' => [
+            'list' => [
+              'path' => 'v1/{+parent}/capacityAllocations',
               'httpMethod' => 'GET',
               'parameters' => [
                 'parent' => [

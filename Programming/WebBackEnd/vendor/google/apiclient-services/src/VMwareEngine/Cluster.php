@@ -77,6 +77,16 @@ class Cluster extends \Google\Collection
   protected $nodeTypeConfigsType = NodeTypeConfig::class;
   protected $nodeTypeConfigsDataType = 'map';
   /**
+   * Optional. The identifier of the placement group for cluster nodes. A
+   * placement group is an internal Google identifier for a group of resources
+   * that are physically located within the same fault domain. If provided,
+   * nodes for this cluster are placed within the specified placement group. If
+   * this field is omitted, the system selects an appropriate placement group.
+   *
+   * @var string
+   */
+  public $placementGroup;
+  /**
    * Output only. State of the resource.
    *
    * @var string
@@ -199,6 +209,26 @@ class Cluster extends \Google\Collection
   public function getNodeTypeConfigs()
   {
     return $this->nodeTypeConfigs;
+  }
+  /**
+   * Optional. The identifier of the placement group for cluster nodes. A
+   * placement group is an internal Google identifier for a group of resources
+   * that are physically located within the same fault domain. If provided,
+   * nodes for this cluster are placed within the specified placement group. If
+   * this field is omitted, the system selects an appropriate placement group.
+   *
+   * @param string $placementGroup
+   */
+  public function setPlacementGroup($placementGroup)
+  {
+    $this->placementGroup = $placementGroup;
+  }
+  /**
+   * @return string
+   */
+  public function getPlacementGroup()
+  {
+    return $this->placementGroup;
   }
   /**
    * Output only. State of the resource.

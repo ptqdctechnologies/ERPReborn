@@ -19,6 +19,7 @@ namespace Google\Service\Dataform\Resource;
 
 use Google\Service\Dataform\CompilationResult;
 use Google\Service\Dataform\ListCompilationResultsResponse;
+use Google\Service\Dataform\Operation;
 use Google\Service\Dataform\QueryCompilationResultActionsResponse;
 
 /**
@@ -47,6 +48,23 @@ class ProjectsLocationsRepositoriesCompilationResults extends \Google\Service\Re
     $params = ['parent' => $parent, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('create', [$params], CompilationResult::class);
+  }
+  /**
+   * Creates a new CompilationResult in a given project and location
+   * asynchronously. (compilationResults.createLongRunning)
+   *
+   * @param string $parent Required. The repository in which to create the
+   * compilation result. Must be in the format `projects/locations/repositories`.
+   * @param CompilationResult $postBody
+   * @param array $optParams Optional parameters.
+   * @return Operation
+   * @throws \Google\Service\Exception
+   */
+  public function createLongRunning($parent, CompilationResult $postBody, $optParams = [])
+  {
+    $params = ['parent' => $parent, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('createLongRunning', [$params], Operation::class);
   }
   /**
    * Fetches a single CompilationResult. (compilationResults.get)

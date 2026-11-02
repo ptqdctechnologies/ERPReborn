@@ -28,9 +28,13 @@ class SessionConfig extends \Google\Collection
    */
   public $deployment;
   /**
-   * Optional. Whether to enable streaming text outputs from the model. By
-   * default, text outputs from the model are collected before sending to the
-   * client. NOTE: This is only supported for text (non-voice) sessions via
+   * Optional. Whether to stream text output from the model to the client
+   * incrementally as it is generated. Defaults to `false`. * When disabled, the
+   * model's text output is buffered, and each text output sent to the client is
+   * a complete sentence. Clients can render each text output on a new line. *
+   * When enabled, each text output may contain only part of a sentence. Clients
+   * should concatenate consecutive text outputs to render the complete
+   * response. NOTE: This is only supported for text (non-voice) sessions using
    * StreamRunSession or BidiRunSession.
    *
    * @var bool
@@ -52,6 +56,19 @@ class SessionConfig extends \Google\Collection
   public $excludeDiagnosticInfo;
   protected $historicalContextsType = Message::class;
   protected $historicalContextsDataType = 'array';
+  /**
+   * Optional. Whether to include LLM thought summaries in the session outputs.
+   *
+   * @var bool
+   */
+  public $includeLlmThoughtSummary;
+  /**
+   * Optional. Whether to include intermediate processing update to the client.
+   * If enabled, the update will be sent back in SessionOutput.progress.
+   *
+   * @var bool
+   */
+  public $includeProgressUpdate;
   protected $inputAudioConfigType = InputAudioConfig::class;
   protected $inputAudioConfigDataType = '';
   protected $outputAudioConfigType = OutputAudioConfig::class;
@@ -93,9 +110,13 @@ class SessionConfig extends \Google\Collection
     return $this->deployment;
   }
   /**
-   * Optional. Whether to enable streaming text outputs from the model. By
-   * default, text outputs from the model are collected before sending to the
-   * client. NOTE: This is only supported for text (non-voice) sessions via
+   * Optional. Whether to stream text output from the model to the client
+   * incrementally as it is generated. Defaults to `false`. * When disabled, the
+   * model's text output is buffered, and each text output sent to the client is
+   * a complete sentence. Clients can render each text output on a new line. *
+   * When enabled, each text output may contain only part of a sentence. Clients
+   * should concatenate consecutive text outputs to render the complete
+   * response. NOTE: This is only supported for text (non-voice) sessions using
    * StreamRunSession or BidiRunSession.
    *
    * @param bool $enableTextStreaming
@@ -164,6 +185,39 @@ class SessionConfig extends \Google\Collection
   public function getHistoricalContexts()
   {
     return $this->historicalContexts;
+  }
+  /**
+   * Optional. Whether to include LLM thought summaries in the session outputs.
+   *
+   * @param bool $includeLlmThoughtSummary
+   */
+  public function setIncludeLlmThoughtSummary($includeLlmThoughtSummary)
+  {
+    $this->includeLlmThoughtSummary = $includeLlmThoughtSummary;
+  }
+  /**
+   * @return bool
+   */
+  public function getIncludeLlmThoughtSummary()
+  {
+    return $this->includeLlmThoughtSummary;
+  }
+  /**
+   * Optional. Whether to include intermediate processing update to the client.
+   * If enabled, the update will be sent back in SessionOutput.progress.
+   *
+   * @param bool $includeProgressUpdate
+   */
+  public function setIncludeProgressUpdate($includeProgressUpdate)
+  {
+    $this->includeProgressUpdate = $includeProgressUpdate;
+  }
+  /**
+   * @return bool
+   */
+  public function getIncludeProgressUpdate()
+  {
+    return $this->includeProgressUpdate;
   }
   /**
    * Optional. Configuration for processing the input audio.

@@ -20,7 +20,7 @@ namespace Google\Service\CloudAsset;
 class GoogleIdentityAccesscontextmanagerV1IngressSource extends \Google\Model
 {
   /**
-   * An AccessLevel resource name that allow resources within the
+   * An AccessLevel resource name that allows resources within the
    * ServicePerimeters to be accessed from the internet. AccessLevels listed
    * must be in the same policy as this ServicePerimeter. Referencing a
    * nonexistent AccessLevel will cause an error. If no AccessLevel names are
@@ -50,7 +50,7 @@ class GoogleIdentityAccesscontextmanagerV1IngressSource extends \Google\Model
   public $resource;
 
   /**
-   * An AccessLevel resource name that allow resources within the
+   * An AccessLevel resource name that allows resources within the
    * ServicePerimeters to be accessed from the internet. AccessLevels listed
    * must be in the same policy as this ServicePerimeter. Referencing a
    * nonexistent AccessLevel will cause an error. If no AccessLevel names are

@@ -23,11 +23,11 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   /**
    * A list of external resources that are allowed to be accessed. Only AWS and
    * Azure resources are supported. For Amazon S3, the supported formats are
-   * s3://BUCKET_NAME, s3a://BUCKET_NAME, and s3n://BUCKET_NAME. For Azure
+   * `s3://BUCKET_NAME`, `s3a://BUCKET_NAME`, and `s3n://BUCKET_NAME`. For Azure
    * Storage, the supported format is
-   * azure://myaccount.blob.core.windows.net/CONTAINER_NAME. A request matches
+   * `azure://myaccount.blob.core.windows.net/CONTAINER_NAME`. A request matches
    * if it contains an external resource in this list (Example:
-   * s3://bucket/path). Currently '*' is not allowed.
+   * `s3://bucket/path`). Currently `'*'` is not allowed.
    *
    * @var string[]
    */
@@ -36,18 +36,19 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   protected $operationsDataType = 'array';
   /**
    * A list of resources, currently projects, folders, and organizations in the
-   * form `projects/`, `folders/`, and `organizations/`, that are allowed to be
-   * accessed by sources defined in the corresponding EgressFrom. A request
-   * matches if it contains a resource in this list. If `*` is specified for
-   * `resources`, then this EgressTo rule will authorize access to all resources
-   * outside the perimeter.
+   * form `projects/{project_number}`, `folders/{folder_id}`, and
+   * `organizations/{organization_id}`, that are allowed to be accessed by
+   * sources defined in the corresponding EgressFrom. A request matches if it
+   * contains a resource in this list. If `*` is specified for `resources`, then
+   * this EgressTo rule will authorize access to all resources outside the
+   * perimeter.
    *
    * @var string[]
    */
   public $resources;
   /**
    * IAM roles that represent the set of operations that the sources specified
-   * in the corresponding EgressFrom. are allowed to perform in this
+   * in the corresponding EgressFrom are allowed to perform in this
    * ServicePerimeter.
    *
    * @var string[]
@@ -57,11 +58,11 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   /**
    * A list of external resources that are allowed to be accessed. Only AWS and
    * Azure resources are supported. For Amazon S3, the supported formats are
-   * s3://BUCKET_NAME, s3a://BUCKET_NAME, and s3n://BUCKET_NAME. For Azure
+   * `s3://BUCKET_NAME`, `s3a://BUCKET_NAME`, and `s3n://BUCKET_NAME`. For Azure
    * Storage, the supported format is
-   * azure://myaccount.blob.core.windows.net/CONTAINER_NAME. A request matches
+   * `azure://myaccount.blob.core.windows.net/CONTAINER_NAME`. A request matches
    * if it contains an external resource in this list (Example:
-   * s3://bucket/path). Currently '*' is not allowed.
+   * `s3://bucket/path`). Currently `'*'` is not allowed.
    *
    * @param string[] $externalResources
    */
@@ -96,11 +97,12 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   }
   /**
    * A list of resources, currently projects, folders, and organizations in the
-   * form `projects/`, `folders/`, and `organizations/`, that are allowed to be
-   * accessed by sources defined in the corresponding EgressFrom. A request
-   * matches if it contains a resource in this list. If `*` is specified for
-   * `resources`, then this EgressTo rule will authorize access to all resources
-   * outside the perimeter.
+   * form `projects/{project_number}`, `folders/{folder_id}`, and
+   * `organizations/{organization_id}`, that are allowed to be accessed by
+   * sources defined in the corresponding EgressFrom. A request matches if it
+   * contains a resource in this list. If `*` is specified for `resources`, then
+   * this EgressTo rule will authorize access to all resources outside the
+   * perimeter.
    *
    * @param string[] $resources
    */
@@ -117,7 +119,7 @@ class GoogleIdentityAccesscontextmanagerV1EgressTo extends \Google\Collection
   }
   /**
    * IAM roles that represent the set of operations that the sources specified
-   * in the corresponding EgressFrom. are allowed to perform in this
+   * in the corresponding EgressFrom are allowed to perform in this
    * ServicePerimeter.
    *
    * @param string[] $roles

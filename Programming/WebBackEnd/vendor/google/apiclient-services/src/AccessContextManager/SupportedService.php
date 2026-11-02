@@ -30,7 +30,7 @@ class SupportedService extends \Google\Collection
   public const SERVICE_SUPPORT_STAGE_GA = 'GA';
   /**
    * PREVIEW indicates a pre-release stage where the product is functionally
-   * complete but undergoing real-world testing.
+   * complete, but undergoing real-world testing.
    */
   public const SERVICE_SUPPORT_STAGE_PREVIEW = 'PREVIEW';
   /**
@@ -129,7 +129,7 @@ class SupportedService extends \Google\Collection
   protected $supportedMethodsType = MethodSelector::class;
   protected $supportedMethodsDataType = 'array';
   /**
-   * The name of the supported product, such as 'Cloud Product API'.
+   * The name of the supported product, such as `'Cloud Product API'`.
    *
    * @var string
    */
@@ -226,8 +226,8 @@ class SupportedService extends \Google\Collection
     return $this->supportStage;
   }
   /**
-   * The list of the supported methods. This field exists only in response to
-   * GetSupportedService
+   * The list of supported methods. This field exists only in response to
+   * GetSupportedService.
    *
    * @param MethodSelector[] $supportedMethods
    */
@@ -243,7 +243,7 @@ class SupportedService extends \Google\Collection
     return $this->supportedMethods;
   }
   /**
-   * The name of the supported product, such as 'Cloud Product API'.
+   * The name of the supported product, such as `'Cloud Product API'`.
    *
    * @param string $title
    */

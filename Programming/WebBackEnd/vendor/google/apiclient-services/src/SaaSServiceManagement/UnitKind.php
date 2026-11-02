@@ -75,6 +75,8 @@ class UnitKind extends \Google\Collection
   public $deleteTime;
   protected $dependenciesType = Dependency::class;
   protected $dependenciesDataType = 'array';
+  protected $durationLimitsType = DurationLimits::class;
+  protected $durationLimitsDataType = '';
   /**
    * Output only. An opaque value that uniquely identifies a version or
    * generation of a resource. It can be used to confirm that the client and
@@ -271,6 +273,29 @@ class UnitKind extends \Google\Collection
   public function getDependencies()
   {
     return $this->dependencies;
+  }
+  /**
+   * Optional. Defines the default duration limits for UnitOperations created
+   * from this UnitKind. These settings provide a baseline for execution time
+   * constraints. The limits specified here can be overridden by more specific
+   * settings on an individual UnitOperation resource. See the DurationLimits
+   * message definition for details on the constraints like minimum, maximum,
+   * and system default values for unit_operation_timeout. If not set,
+   * UnitOperations will use the system default duration limits unless
+   * overridden on the UnitOperation.
+   *
+   * @param DurationLimits $durationLimits
+   */
+  public function setDurationLimits(DurationLimits $durationLimits)
+  {
+    $this->durationLimits = $durationLimits;
+  }
+  /**
+   * @return DurationLimits
+   */
+  public function getDurationLimits()
+  {
+    return $this->durationLimits;
   }
   /**
    * Output only. An opaque value that uniquely identifies a version or

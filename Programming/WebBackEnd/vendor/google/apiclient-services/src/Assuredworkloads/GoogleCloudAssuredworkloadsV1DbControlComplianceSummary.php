@@ -92,7 +92,10 @@ class GoogleCloudAssuredworkloadsV1DbControlComplianceSummary extends \Google\Co
    */
   public $isFakeControl;
   /**
-   * Identifier. The name of the control compliance summary.
+   * Identifier. The resource name of the control compliance summary. Format: `o
+   * rganizations/{organization}/locations/{location}/dbFrameworkComplianceRepor
+   * ts/{db_framework_compliance_report}/dbControlComplianceSummaries/{db_contro
+   * l_compliance_summary}`
    *
    * @var string
    */
@@ -241,7 +244,10 @@ class GoogleCloudAssuredworkloadsV1DbControlComplianceSummary extends \Google\Co
     return $this->isFakeControl;
   }
   /**
-   * Identifier. The name of the control compliance summary.
+   * Identifier. The resource name of the control compliance summary. Format: `o
+   * rganizations/{organization}/locations/{location}/dbFrameworkComplianceRepor
+   * ts/{db_framework_compliance_report}/dbControlComplianceSummaries/{db_contro
+   * l_compliance_summary}`
    *
    * @param string $name
    */

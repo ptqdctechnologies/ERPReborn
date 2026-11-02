@@ -24,28 +24,28 @@ class GcpUserAccessBinding extends \Google\Collection
    * Optional. Access level that a user must have to be granted access. Only one
    * access level is supported, not multiple. This repeated field must have
    * exactly one element. Example:
-   * "accessPolicies/9522/accessLevels/device_trusted"
+   * `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @var string[]
    */
   public $accessLevels;
   /**
-   * Optional. Dry run access level that will be evaluated but will not be
-   * enforced. The access denial based on dry run policy will be logged. Only
-   * one access level is supported, not multiple. This list must have exactly
-   * one element. Example: "accessPolicies/9522/accessLevels/device_trusted"
+   * Optional. Dry-run access level that is evaluated, but not enforced. Any
+   * access denial based on the dry-run policy is logged. Only one access level
+   * is supported, not multiple. This list must have exactly one element.
+   * Example: `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @var string[]
    */
   public $dryRunAccessLevels;
   /**
-   * Optional. Immutable. Google Group id whose users are subject to this
+   * Optional. Immutable. Google Group ID whose users are subject to this
    * binding's restrictions. See "id" in the [Google Workspace Directory API's
    * Group Resource] (https://developers.google.com/admin-
-   * sdk/directory/v1/reference/groups#resource). If a group's email
-   * address/alias is changed, this resource will continue to point at the
-   * changed group. This field does not accept group email addresses or aliases.
-   * Example: "01d520gv4vjcrht"
+   * sdk/directory/v1/reference/groups#resource). If a group's email address or
+   * alias is changed, this resource will continue to point at the changed
+   * group. This field does not accept group email addresses or aliases.
+   * Example: `"01d520gv4vjcrht"`
    *
    * @var string
    */
@@ -55,7 +55,7 @@ class GcpUserAccessBinding extends \Google\Collection
    * arbitrary length and has only URI unreserved characters (as defined by [RFC
    * 3986 Section 2.3](https://tools.ietf.org/html/rfc3986#section-2.3)). Should
    * not be specified by the client during creation. Example:
-   * "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
+   * `"organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"`
    *
    * @var string
    */
@@ -71,7 +71,7 @@ class GcpUserAccessBinding extends \Google\Collection
    * Optional. Access level that a user must have to be granted access. Only one
    * access level is supported, not multiple. This repeated field must have
    * exactly one element. Example:
-   * "accessPolicies/9522/accessLevels/device_trusted"
+   * `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @param string[] $accessLevels
    */
@@ -87,10 +87,10 @@ class GcpUserAccessBinding extends \Google\Collection
     return $this->accessLevels;
   }
   /**
-   * Optional. Dry run access level that will be evaluated but will not be
-   * enforced. The access denial based on dry run policy will be logged. Only
-   * one access level is supported, not multiple. This list must have exactly
-   * one element. Example: "accessPolicies/9522/accessLevels/device_trusted"
+   * Optional. Dry-run access level that is evaluated, but not enforced. Any
+   * access denial based on the dry-run policy is logged. Only one access level
+   * is supported, not multiple. This list must have exactly one element.
+   * Example: `"accessPolicies/9522/accessLevels/device_trusted"`
    *
    * @param string[] $dryRunAccessLevels
    */
@@ -106,13 +106,13 @@ class GcpUserAccessBinding extends \Google\Collection
     return $this->dryRunAccessLevels;
   }
   /**
-   * Optional. Immutable. Google Group id whose users are subject to this
+   * Optional. Immutable. Google Group ID whose users are subject to this
    * binding's restrictions. See "id" in the [Google Workspace Directory API's
    * Group Resource] (https://developers.google.com/admin-
-   * sdk/directory/v1/reference/groups#resource). If a group's email
-   * address/alias is changed, this resource will continue to point at the
-   * changed group. This field does not accept group email addresses or aliases.
-   * Example: "01d520gv4vjcrht"
+   * sdk/directory/v1/reference/groups#resource). If a group's email address or
+   * alias is changed, this resource will continue to point at the changed
+   * group. This field does not accept group email addresses or aliases.
+   * Example: `"01d520gv4vjcrht"`
    *
    * @param string $groupKey
    */
@@ -132,7 +132,7 @@ class GcpUserAccessBinding extends \Google\Collection
    * arbitrary length and has only URI unreserved characters (as defined by [RFC
    * 3986 Section 2.3](https://tools.ietf.org/html/rfc3986#section-2.3)). Should
    * not be specified by the client during creation. Example:
-   * "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
+   * `"organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"`
    *
    * @param string $name
    */

@@ -71,8 +71,8 @@ class Scope3FlightSegment extends \Google\Model
    */
   public $destination;
   /**
-   * Optional. Distance in kilometers, e.g. `2423`, from [1, 2.5e16) km. This is
-   * used to match a flight to distance-based emissions when origin and
+   * Optional. Distance in kilometers, e.g. `2423`, from [`1`, `1e12`) km. This
+   * is used to match a flight to distance-based emissions when origin and
    * destination are not provided or there are no matching typical flights.
    *
    * @var string
@@ -188,8 +188,8 @@ class Scope3FlightSegment extends \Google\Model
     return $this->destination;
   }
   /**
-   * Optional. Distance in kilometers, e.g. `2423`, from [1, 2.5e16) km. This is
-   * used to match a flight to distance-based emissions when origin and
+   * Optional. Distance in kilometers, e.g. `2423`, from [`1`, `1e12`) km. This
+   * is used to match a flight to distance-based emissions when origin and
    * destination are not provided or there are no matching typical flights.
    *
    * @param string $distanceKm

@@ -21,26 +21,27 @@ class GoogleCloudAssuredworkloadsV1ViolationRemediationInstructionsConsole exten
 {
   protected $collection_key = 'steps';
   /**
-   * Additional urls for more information about steps
+   * Additional URLs with more information about the steps.
    *
    * @var string[]
    */
   public $additionalLinks;
   /**
-   * Link to console page where violations can be resolved
+   * Links to the Google Cloud console pages where the violation can be
+   * resolved.
    *
    * @var string[]
    */
   public $consoleUris;
   /**
-   * Steps to resolve violation via cloud console
+   * The steps to resolve the violation by using the Google Cloud console.
    *
    * @var string[]
    */
   public $steps;
 
   /**
-   * Additional urls for more information about steps
+   * Additional URLs with more information about the steps.
    *
    * @param string[] $additionalLinks
    */
@@ -56,7 +57,8 @@ class GoogleCloudAssuredworkloadsV1ViolationRemediationInstructionsConsole exten
     return $this->additionalLinks;
   }
   /**
-   * Link to console page where violations can be resolved
+   * Links to the Google Cloud console pages where the violation can be
+   * resolved.
    *
    * @param string[] $consoleUris
    */
@@ -72,7 +74,7 @@ class GoogleCloudAssuredworkloadsV1ViolationRemediationInstructionsConsole exten
     return $this->consoleUris;
   }
   /**
-   * Steps to resolve violation via cloud console
+   * The steps to resolve the violation by using the Google Cloud console.
    *
    * @param string[] $steps
    */

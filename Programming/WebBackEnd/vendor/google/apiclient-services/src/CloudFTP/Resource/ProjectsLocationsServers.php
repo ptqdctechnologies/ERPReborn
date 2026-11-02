@@ -53,8 +53,9 @@ class ProjectsLocationsServers extends \Google\Service\Resource
    * (00000000-0000-0000-0000-000000000000).
    * @opt_param string serverId Required. A unique ID for the server. Must start
    * with a lowercase letter, and end with a lowercase letter or number. Can
-   * contain lowercase letters, numbers, and hyphens. Maximum length is 30
-   * characters.
+   * contain lowercase letters, numbers, and hyphens. Can't begin with the prefix
+   * `goog` or contain the string `google`, including close misspellings such as
+   * `g00gle`. Maximum length is 30 characters.
    * @return Operation
    * @throws \Google\Service\Exception
    */

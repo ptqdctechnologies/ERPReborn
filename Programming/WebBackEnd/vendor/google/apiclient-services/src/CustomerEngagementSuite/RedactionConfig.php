@@ -28,8 +28,9 @@ class RedactionConfig extends \Google\Model
    */
   public $deidentifyTemplate;
   /**
-   * Optional. If true, redaction will be applied in various logging scenarios,
-   * including conversation history, Cloud Logging and audio recording.
+   * Optional. If `true`, redaction will be applied in various logging
+   * scenarios, including conversation history, Cloud Logging and audio
+   * recording.
    *
    * @var bool
    */
@@ -62,8 +63,9 @@ class RedactionConfig extends \Google\Model
     return $this->deidentifyTemplate;
   }
   /**
-   * Optional. If true, redaction will be applied in various logging scenarios,
-   * including conversation history, Cloud Logging and audio recording.
+   * Optional. If `true`, redaction will be applied in various logging
+   * scenarios, including conversation history, Cloud Logging and audio
+   * recording.
    *
    * @param bool $enableRedaction
    */

@@ -187,14 +187,15 @@ class GoogleCloudDiscoveryengineV1Assistant extends \Google\Model
     return $this->displayName;
   }
   /**
-   * Optional. Note: not implemented yet. Use enabled_actions instead. The
-   * enabled tools on this assistant. The keys are connector name, for example "
-   * projects/{projectId}/locations/{locationId}/collections/{collectionId}/data
-   * connector The values consist of admin enabled tools towards the connector
-   * instance. Admin can selectively enable multiple tools on any of the
-   * connector instances that they created in the project. For example
-   * {"jira1ConnectorName": [(toolId1, "createTicket"), (toolId2,
-   * "transferTicket")], "gmail1ConnectorName": [(toolId3, "sendEmail"),..] }
+   * Optional. The enabled tools on this assistant. The keys are data connector
+   * resource names, in the format `projects/{project}/locations/{location}/coll
+   * ections/{collection}/dataConnector`. The values are the tools that the
+   * admin enabled on that connector. Admins can selectively enable tools on any
+   * of the connectors that they created in the project. For example: ``` {
+   * "projects/my-project/locations/global/collections/jira1/dataConnector": {
+   * "toolInfo": [ { "toolName": "create_jira_issue", "toolDisplayName": "Create
+   * Jira issue" }, { "toolName": "update_jira_issue", "toolDisplayName":
+   * "Update Jira issue" } ] } } ```
    *
    * @param GoogleCloudDiscoveryengineV1AssistantToolList[] $enabledTools
    */

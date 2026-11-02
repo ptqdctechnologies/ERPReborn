@@ -37,7 +37,7 @@ class WifiSsidPolicy extends \Google\Collection
   public const WIFI_SSID_POLICY_TYPE_WIFI_SSID_ALLOWLIST = 'WIFI_SSID_ALLOWLIST';
   protected $collection_key = 'wifiSsids';
   /**
-   * Type of the Wi-Fi SSID policy to be applied.
+   * Optional. Type of the Wi-Fi SSID policy to be applied.
    *
    * @var string
    */
@@ -46,7 +46,7 @@ class WifiSsidPolicy extends \Google\Collection
   protected $wifiSsidsDataType = 'array';
 
   /**
-   * Type of the Wi-Fi SSID policy to be applied.
+   * Optional. Type of the Wi-Fi SSID policy to be applied.
    *
    * Accepted values: WIFI_SSID_POLICY_TYPE_UNSPECIFIED, WIFI_SSID_DENYLIST,
    * WIFI_SSID_ALLOWLIST

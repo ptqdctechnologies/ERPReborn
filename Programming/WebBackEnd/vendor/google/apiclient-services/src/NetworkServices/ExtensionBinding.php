@@ -68,9 +68,7 @@ class ExtensionBinding extends \Google\Collection
    */
   public $name;
   /**
-   * Optional. Priority of the extension binding. Lower numbers indicate higher
-   * priority. The priority determines the order in which extension bindings are
-   * applied to a request.
+   * Optional. This field is not supported.
    *
    * @var int
    */
@@ -229,9 +227,7 @@ class ExtensionBinding extends \Google\Collection
     return $this->name;
   }
   /**
-   * Optional. Priority of the extension binding. Lower numbers indicate higher
-   * priority. The priority determines the order in which extension bindings are
-   * applied to a request.
+   * Optional. This field is not supported.
    *
    * @param int $priority
    */

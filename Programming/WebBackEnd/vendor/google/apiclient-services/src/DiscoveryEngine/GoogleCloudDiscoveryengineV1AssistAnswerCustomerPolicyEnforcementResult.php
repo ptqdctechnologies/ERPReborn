@@ -51,8 +51,9 @@ class GoogleCloudDiscoveryengineV1AssistAnswerCustomerPolicyEnforcementResult ex
   protected $policyResultsType = GoogleCloudDiscoveryengineV1AssistAnswerCustomerPolicyEnforcementResultPolicyEnforcementResult::class;
   protected $policyResultsDataType = 'array';
   /**
-   * Final verdict of the customer policy enforcement. If only one policy
-   * blocked the processing, the verdict is BLOCK.
+   * Final verdict of the customer policy enforcement. If at least one policy
+   * blocked the processing, the verdict is BLOCK. If no policy blocked the
+   * processing but at least one flagged it, the verdict is FLAG.
    *
    * @var string
    */
@@ -83,8 +84,9 @@ class GoogleCloudDiscoveryengineV1AssistAnswerCustomerPolicyEnforcementResult ex
     return $this->policyResults;
   }
   /**
-   * Final verdict of the customer policy enforcement. If only one policy
-   * blocked the processing, the verdict is BLOCK.
+   * Final verdict of the customer policy enforcement. If at least one policy
+   * blocked the processing, the verdict is BLOCK. If no policy blocked the
+   * processing but at least one flagged it, the verdict is FLAG.
    *
    * Accepted values: UNSPECIFIED, ALLOW, BLOCK
    *

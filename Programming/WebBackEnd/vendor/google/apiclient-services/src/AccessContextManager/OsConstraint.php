@@ -66,8 +66,8 @@ class OsConstraint extends \Google\Model
    */
   public $osType;
   /**
-   * Only allows requests from devices with a verified Chrome OS. Verifications
-   * includes requirements that the device is enterprise-managed, conformant to
+   * Only allows requests from devices with a verified Chrome OS. Verification
+   * includes requirements that the device is enterprise-managed, conforms to
    * domain policies, and the caller has permission to call the API targeted by
    * the request.
    *
@@ -113,8 +113,8 @@ class OsConstraint extends \Google\Model
     return $this->osType;
   }
   /**
-   * Only allows requests from devices with a verified Chrome OS. Verifications
-   * includes requirements that the device is enterprise-managed, conformant to
+   * Only allows requests from devices with a verified Chrome OS. Verification
+   * includes requirements that the device is enterprise-managed, conforms to
    * domain policies, and the caller has permission to call the API targeted by
    * the request.
    *

@@ -39,7 +39,7 @@ class MonetizationOnetimeproducts extends \Google\Service\Resource
    *
    * @param string $packageName Required. The parent app (package name) for which
    * the one-time products should be deleted. Must be equal to the package_name
-   * field on all the OneTimeProduct resources.
+   * field on all the requests.
    * @param BatchDeleteOneTimeProductsRequest $postBody
    * @param array $optParams Optional parameters.
    * @throws \Google\Service\Exception
@@ -54,8 +54,7 @@ class MonetizationOnetimeproducts extends \Google\Service\Resource
    * Reads one or more one-time products. (onetimeproducts.batchGet)
    *
    * @param string $packageName Required. The parent app (package name) for which
-   * the products should be retrieved. Must be equal to the package_name field on
-   * all requests.
+   * the products should be retrieved.
    * @param array $optParams Optional parameters.
    *
    * @opt_param string productIds Required. A list of up to 100 product IDs to

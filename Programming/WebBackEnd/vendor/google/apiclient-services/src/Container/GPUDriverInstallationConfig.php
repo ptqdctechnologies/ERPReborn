@@ -36,17 +36,30 @@ class GPUDriverInstallationConfig extends \Google\Model
    */
   public const GPU_DRIVER_VERSION_LATEST = 'LATEST';
   /**
+   * "Specific" GPU driver in COS. If used, the specific_version field must be
+   * also set.
+   */
+  public const GPU_DRIVER_VERSION_SPECIFIC = 'SPECIFIC';
+  /**
    * Mode for how the GPU driver is installed.
    *
    * @var string
    */
   public $gpuDriverVersion;
+  /**
+   * Optional. The specific version of the GPU driver to install. Use this field
+   * only with gpu_driver_version set to SPECIFIC. Otherwise, an error will be
+   * returned.
+   *
+   * @var string
+   */
+  public $specificVersion;
 
   /**
    * Mode for how the GPU driver is installed.
    *
    * Accepted values: GPU_DRIVER_VERSION_UNSPECIFIED, INSTALLATION_DISABLED,
-   * DEFAULT, LATEST
+   * DEFAULT, LATEST, SPECIFIC
    *
    * @param self::GPU_DRIVER_VERSION_* $gpuDriverVersion
    */
@@ -60,6 +73,24 @@ class GPUDriverInstallationConfig extends \Google\Model
   public function getGpuDriverVersion()
   {
     return $this->gpuDriverVersion;
+  }
+  /**
+   * Optional. The specific version of the GPU driver to install. Use this field
+   * only with gpu_driver_version set to SPECIFIC. Otherwise, an error will be
+   * returned.
+   *
+   * @param string $specificVersion
+   */
+  public function setSpecificVersion($specificVersion)
+  {
+    $this->specificVersion = $specificVersion;
+  }
+  /**
+   * @return string
+   */
+  public function getSpecificVersion()
+  {
+    return $this->specificVersion;
   }
 }
 

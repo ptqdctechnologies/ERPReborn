@@ -100,6 +100,14 @@ class CloudVmCluster extends \Google\Model
    */
   public $network;
   /**
+   * Optional. Immutable. The name of the OdbDnsZone for using custom domain
+   * name for the VM Cluster. Format: projects/{project}/locations/{location}/od
+   * bNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}
+   *
+   * @var string
+   */
+  public $odbDnsZone;
+  /**
    * Optional. Immutable. The name of the OdbNetwork associated with the VM
    * Cluster. Format:
    * projects/{project}/locations/{location}/odbNetworks/{odb_network} It is
@@ -324,6 +332,24 @@ class CloudVmCluster extends \Google\Model
   public function getNetwork()
   {
     return $this->network;
+  }
+  /**
+   * Optional. Immutable. The name of the OdbDnsZone for using custom domain
+   * name for the VM Cluster. Format: projects/{project}/locations/{location}/od
+   * bNetworks/{odb_network}/odbDnsZones/{odb_dns_zone}
+   *
+   * @param string $odbDnsZone
+   */
+  public function setOdbDnsZone($odbDnsZone)
+  {
+    $this->odbDnsZone = $odbDnsZone;
+  }
+  /**
+   * @return string
+   */
+  public function getOdbDnsZone()
+  {
+    return $this->odbDnsZone;
   }
   /**
    * Optional. Immutable. The name of the OdbNetwork associated with the VM

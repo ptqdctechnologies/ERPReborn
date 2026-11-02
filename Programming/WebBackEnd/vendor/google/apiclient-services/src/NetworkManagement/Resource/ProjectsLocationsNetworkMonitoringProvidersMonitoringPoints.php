@@ -42,6 +42,8 @@ class ProjectsLocationsNetworkMonitoringProvidersMonitoringPoints extends \Googl
    *
    * @opt_param string _password Optional. Password for logging into the
    * MonitoringPoint.
+   * @opt_param string cloudDeploymentType Optional. The deployment type for Cloud
+   * Monitoring Points.
    * @opt_param string hostname Required. The hostname of the MonitoringPoint,
    * e.g. "test-vm"
    * @opt_param string monitoringPointType Required. The type of the monitoring

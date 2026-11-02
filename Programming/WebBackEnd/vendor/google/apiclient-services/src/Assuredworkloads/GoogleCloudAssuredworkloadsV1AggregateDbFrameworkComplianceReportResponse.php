@@ -24,7 +24,7 @@ class GoogleCloudAssuredworkloadsV1AggregateDbFrameworkComplianceReportResponse 
   protected $aggregatedComplianceReportsDataType = 'array';
 
   /**
-   * The list of aggregated compliance reports.
+   * The daily compliance reports for the requested time range.
    *
    * @param GoogleCloudAssuredworkloadsV1AggregatedComplianceReport[] $aggregatedComplianceReports
    */

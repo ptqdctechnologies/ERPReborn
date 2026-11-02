@@ -25,7 +25,7 @@ class GoogleCloudAssuredworkloadsV1ViolationRemediationInstructions extends \Goo
   protected $gcloudInstructionsDataType = '';
 
   /**
-   * Remediation instructions to resolve violation via cloud console
+   * Instructions to resolve the violation by using the Google Cloud console.
    *
    * @param GoogleCloudAssuredworkloadsV1ViolationRemediationInstructionsConsole $consoleInstructions
    */
@@ -41,7 +41,7 @@ class GoogleCloudAssuredworkloadsV1ViolationRemediationInstructions extends \Goo
     return $this->consoleInstructions;
   }
   /**
-   * Remediation instructions to resolve violation via gcloud cli
+   * Instructions to resolve the violation by using the gcloud CLI.
    *
    * @param GoogleCloudAssuredworkloadsV1ViolationRemediationInstructionsGcloud $gcloudInstructions
    */

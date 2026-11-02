@@ -20,7 +20,8 @@ namespace Google\Service\CloudObservability;
 class Scope extends \Google\Model
 {
   /**
-   * Required. The full resource name of the `LogScope`. For example:
+   * Required. The full resource name of the `logging.googleapis.com/LogScope`.
+   * For example:
    * //logging.googleapis.com/projects/myproject/locations/global/logScopes/my-
    * log-scope
    *
@@ -37,7 +38,8 @@ class Scope extends \Google\Model
    */
   public $name;
   /**
-   * Required. The resource name of the `TraceScope`. For example:
+   * Required. The unqualified resource name of the
+   * `cloudtrace.googleapis.com/TraceScope`. For example:
    * projects/myproject/locations/global/traceScopes/my-trace-scope
    *
    * @var string
@@ -52,7 +54,8 @@ class Scope extends \Google\Model
   public $updateTime;
 
   /**
-   * Required. The full resource name of the `LogScope`. For example:
+   * Required. The full resource name of the `logging.googleapis.com/LogScope`.
+   * For example:
    * //logging.googleapis.com/projects/myproject/locations/global/logScopes/my-
    * log-scope
    *
@@ -89,7 +92,8 @@ class Scope extends \Google\Model
     return $this->name;
   }
   /**
-   * Required. The resource name of the `TraceScope`. For example:
+   * Required. The unqualified resource name of the
+   * `cloudtrace.googleapis.com/TraceScope`. For example:
    * projects/myproject/locations/global/traceScopes/my-trace-scope
    *
    * @param string $traceScope

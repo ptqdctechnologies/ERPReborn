@@ -19,6 +19,28 @@ namespace Google\Service\Container;
 
 class NodeNetworkConfig extends \Google\Collection
 {
+  /**
+   * Default value.
+   */
+  public const DATAPATH_PROVIDER_DATAPATH_PROVIDER_UNSPECIFIED = 'DATAPATH_PROVIDER_UNSPECIFIED';
+  /**
+   * Use the IPTables implementation based on kube-proxy.
+   */
+  public const DATAPATH_PROVIDER_LEGACY_DATAPATH = 'LEGACY_DATAPATH';
+  /**
+   * Use the eBPF based GKE Dataplane V2 with additional features. See the [GKE
+   * Dataplane V2 documentation](https://cloud.google.com/kubernetes-
+   * engine/docs/how-to/dataplane-v2) for more.
+   */
+  public const DATAPATH_PROVIDER_ADVANCED_DATAPATH = 'ADVANCED_DATAPATH';
+  /**
+   * Cluster has some existing nodes but new nodes should use ADVANCED_DATAPATH.
+   */
+  public const DATAPATH_PROVIDER_MIGRATE_TO_ADVANCED_DATAPATH = 'MIGRATE_TO_ADVANCED_DATAPATH';
+  /**
+   * Cluster has some existing nodes but new nodes should use LEGACY_DATAPATH.
+   */
+  public const DATAPATH_PROVIDER_MIGRATE_TO_LEGACY_DATAPATH = 'MIGRATE_TO_LEGACY_DATAPATH';
   protected $collection_key = 'additionalPodNetworkConfigs';
   /**
    * Immutable. The accelerator network profile for the node pool. For now the
@@ -44,6 +66,12 @@ class NodeNetworkConfig extends \Google\Collection
    * @var bool
    */
   public $createPodRange;
+  /**
+   * The datapath provider for this node pool.
+   *
+   * @var string
+   */
+  public $datapathProvider;
   /**
    * Whether nodes have internal IP addresses only. If enable_private_nodes is
    * not specified, then the value is derived from
@@ -184,6 +212,25 @@ class NodeNetworkConfig extends \Google\Collection
   public function getCreatePodRange()
   {
     return $this->createPodRange;
+  }
+  /**
+   * The datapath provider for this node pool.
+   *
+   * Accepted values: DATAPATH_PROVIDER_UNSPECIFIED, LEGACY_DATAPATH,
+   * ADVANCED_DATAPATH, MIGRATE_TO_ADVANCED_DATAPATH, MIGRATE_TO_LEGACY_DATAPATH
+   *
+   * @param self::DATAPATH_PROVIDER_* $datapathProvider
+   */
+  public function setDatapathProvider($datapathProvider)
+  {
+    $this->datapathProvider = $datapathProvider;
+  }
+  /**
+   * @return self::DATAPATH_PROVIDER_*
+   */
+  public function getDatapathProvider()
+  {
+    return $this->datapathProvider;
   }
   /**
    * Whether nodes have internal IP addresses only. If enable_private_nodes is

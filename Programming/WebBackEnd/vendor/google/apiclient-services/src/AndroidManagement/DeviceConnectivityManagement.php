@@ -140,8 +140,9 @@ class DeviceConnectivityManagement extends \Google\Model
    */
   public $bluetoothSharing;
   /**
-   * Controls Wi-Fi configuring privileges. Based on the option set, user will
-   * have either full or limited or no control in configuring Wi-Fi networks.
+   * Optional. Controls Wi-Fi configuring privileges. Based on the option set,
+   * user will have either full or limited or no control in configuring Wi-Fi
+   * networks.
    *
    * @var string
    */
@@ -151,22 +152,22 @@ class DeviceConnectivityManagement extends \Google\Model
   protected $privateDnsSettingsType = PrivateDnsSettings::class;
   protected $privateDnsSettingsDataType = '';
   /**
-   * Controls tethering settings. Based on the value set, the user is partially
-   * or fully disallowed from using different forms of tethering.
+   * Optional. Controls tethering settings. Based on the value set, the user is
+   * partially or fully disallowed from using different forms of tethering.
    *
    * @var string
    */
   public $tetheringSettings;
   /**
-   * Controls what files and/or data can be transferred via USB. Supported only
-   * on company-owned devices.
+   * Optional. Controls what files and/or data can be transferred via USB.
+   * Supported only on company-owned devices.
    *
    * @var string
    */
   public $usbDataAccess;
   /**
-   * Controls configuring and using Wi-Fi direct settings. Supported on company-
-   * owned devices running Android 13 and above.
+   * Optional. Controls configuring and using Wi-Fi direct settings. Supported
+   * on company-owned devices running Android 13 and above.
    *
    * @var string
    */
@@ -214,8 +215,9 @@ class DeviceConnectivityManagement extends \Google\Model
     return $this->bluetoothSharing;
   }
   /**
-   * Controls Wi-Fi configuring privileges. Based on the option set, user will
-   * have either full or limited or no control in configuring Wi-Fi networks.
+   * Optional. Controls Wi-Fi configuring privileges. Based on the option set,
+   * user will have either full or limited or no control in configuring Wi-Fi
+   * networks.
    *
    * Accepted values: CONFIGURE_WIFI_UNSPECIFIED, ALLOW_CONFIGURING_WIFI,
    * DISALLOW_ADD_WIFI_CONFIG, DISALLOW_CONFIGURING_WIFI
@@ -270,8 +272,8 @@ class DeviceConnectivityManagement extends \Google\Model
     return $this->privateDnsSettings;
   }
   /**
-   * Controls tethering settings. Based on the value set, the user is partially
-   * or fully disallowed from using different forms of tethering.
+   * Optional. Controls tethering settings. Based on the value set, the user is
+   * partially or fully disallowed from using different forms of tethering.
    *
    * Accepted values: TETHERING_SETTINGS_UNSPECIFIED, ALLOW_ALL_TETHERING,
    * DISALLOW_WIFI_TETHERING, DISALLOW_ALL_TETHERING
@@ -290,8 +292,8 @@ class DeviceConnectivityManagement extends \Google\Model
     return $this->tetheringSettings;
   }
   /**
-   * Controls what files and/or data can be transferred via USB. Supported only
-   * on company-owned devices.
+   * Optional. Controls what files and/or data can be transferred via USB.
+   * Supported only on company-owned devices.
    *
    * Accepted values: USB_DATA_ACCESS_UNSPECIFIED, ALLOW_USB_DATA_TRANSFER,
    * DISALLOW_USB_FILE_TRANSFER, DISALLOW_USB_DATA_TRANSFER
@@ -310,8 +312,8 @@ class DeviceConnectivityManagement extends \Google\Model
     return $this->usbDataAccess;
   }
   /**
-   * Controls configuring and using Wi-Fi direct settings. Supported on company-
-   * owned devices running Android 13 and above.
+   * Optional. Controls configuring and using Wi-Fi direct settings. Supported
+   * on company-owned devices running Android 13 and above.
    *
    * Accepted values: WIFI_DIRECT_SETTINGS_UNSPECIFIED, ALLOW_WIFI_DIRECT,
    * DISALLOW_WIFI_DIRECT
@@ -346,9 +348,9 @@ class DeviceConnectivityManagement extends \Google\Model
     return $this->wifiRoamingPolicy;
   }
   /**
-   * Restrictions on which Wi-Fi SSIDs the device can connect to. Note that this
-   * does not affect which networks can be configured on the device. Supported
-   * on company-owned devices running Android 13 and above.
+   * Optional. Restrictions on which Wi-Fi SSIDs the device can connect to. Note
+   * that this does not affect which networks can be configured on the device.
+   * Supported on company-owned devices running Android 13 and above.
    *
    * @param WifiSsidPolicy $wifiSsidPolicy
    */

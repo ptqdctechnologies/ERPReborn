@@ -33,7 +33,7 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfigAdapter extends 
   public $resolvedPath;
   /**
    * The blending scale/weight of the LoRA adapter. Must be in the range (0.0,
-   * 1.0]. Default is 1.0.
+   * 2.0]. Default is 1.0.
    *
    * @var float
    */
@@ -73,7 +73,7 @@ class CloudAiLargeModelsVisionGenerateVideoExperimentsLoraConfigAdapter extends 
   }
   /**
    * The blending scale/weight of the LoRA adapter. Must be in the range (0.0,
-   * 1.0]. Default is 1.0.
+   * 2.0]. Default is 1.0.
    *
    * @param float $weight
    */

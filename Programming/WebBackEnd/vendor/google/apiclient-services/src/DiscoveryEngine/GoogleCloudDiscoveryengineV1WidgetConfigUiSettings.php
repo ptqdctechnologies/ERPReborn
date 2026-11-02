@@ -124,7 +124,8 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
    * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
    * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
    * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
-   * `in-app-notifications` * `code-extraction`
+   * `in-app-notifications` * `code-extraction` * `remote-vm` * `license-tier-
+   * badge`
    *
    * @var string[]
    */
@@ -369,7 +370,8 @@ class GoogleCloudDiscoveryengineV1WidgetConfigUiSettings extends \Google\Collect
    * sharing-without-admin-approval` * `disable-projects` * `sobi` * `enable-
    * end-user-sharing-with-groups` * `single-agent-orchestration` * `multi-
    * agent-orchestration` * `cross-product-intelligence` * `workflow-agents` *
-   * `in-app-notifications` * `code-extraction`
+   * `in-app-notifications` * `code-extraction` * `remote-vm` * `license-tier-
+   * badge`
    *
    * @param string[] $features
    */

@@ -466,7 +466,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -498,7 +498,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -1302,6 +1302,7 @@ use Aws\AwsClient;
  *     Description?: string,
  *     ContactFlowId?: string,
  *     SelfAssignFlowId?: string,
+ *     ContactHooks?: array{WrapUpFlowId?: string, ...},
  *     Constraints?: array{RequiredFields?: list<array>, ReadOnlyFields?: list<array>, InvisibleFields?: list<array>, ...},
  *     Defaults?: array{DefaultFieldValues?: list<array>, ...},
  *     Status?: 'ACTIVE'|'INACTIVE',
@@ -1322,6 +1323,7 @@ use Aws\AwsClient;
  *     Description?: string,
  *     ContactFlowId?: string,
  *     SelfAssignFlowId?: string,
+ *     ContactHooks?: array{WrapUpFlowId?: string, ...},
  *     Constraints?: array{RequiredFields?: list<array>, ReadOnlyFields?: list<array>, InvisibleFields?: list<array>, ...},
  *     Defaults?: array{DefaultFieldValues?: list<array>, ...},
  *     Status?: 'ACTIVE'|'INACTIVE',
@@ -2813,6 +2815,10 @@ use Aws\AwsClient;
  *     NextToken?: string,
  *     OutputType?: 'Raw'|'Redacted',
  *     SegmentTypes?: list<'Attachments'|'Categories'|'Event'|'ExtractedInformation'|'Issues'|'PostContactSummary'|'Transcript'>,
+ *     ListFilter?: array{
+ *         CategoriesAttributeFilter?: array{OrConditions?: list<array>, AndCondition?: array, TagCondition?: array, ...},
+ *         ...,
+ *     },
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise listRealtimeContactAnalysisSegmentsV2Async(array $args = [])
@@ -2823,8 +2829,16 @@ use Aws\AwsClient;
  *     NextToken?: string,
  *     OutputType?: 'Raw'|'Redacted',
  *     SegmentTypes?: list<'Attachments'|'Categories'|'Event'|'ExtractedInformation'|'Issues'|'PostContactSummary'|'Transcript'>,
+ *     ListFilter?: array{
+ *         CategoriesAttributeFilter?: array{OrConditions?: list<array>, AndCondition?: array, TagCondition?: array, ...},
+ *         ...,
+ *     },
  *     ...,
  * } $args = [])
+ * @method \Aws\Result listReplicationFindings(array $args = [])
+ * @phpstan-method \Aws\Result listReplicationFindings(array{InstanceId?: string, ResourceType?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listReplicationFindingsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listReplicationFindingsAsync(array{InstanceId?: string, ResourceType?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
  * @method \Aws\Result listRoutingProfileManualAssignmentQueues(array $args = [])
  * @phpstan-method \Aws\Result listRoutingProfileManualAssignmentQueues(array{InstanceId?: string, RoutingProfileId?: string, NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listRoutingProfileManualAssignmentQueuesAsync(array $args = [])
@@ -4496,7 +4510,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4532,7 +4546,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4676,7 +4690,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4703,7 +4717,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4737,7 +4751,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4769,7 +4783,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4811,7 +4825,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -4843,7 +4857,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -5034,7 +5048,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -5059,6 +5073,7 @@ use Aws\AwsClient;
  *         Address?: string,
  *         ...,
  *     },
+ *     AdditionalRecipients?: array{CcEmailAddresses?: list<array>, ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateContactAsync(array $args = [])
@@ -5070,7 +5085,7 @@ use Aws\AwsClient;
  *     References?: array<string, array{
  *         Value?: string,
  *         Type?: 'ATTACHMENT'|'CONTACT_ANALYSIS'|'DATE'|'EMAIL'|'EMAIL_MESSAGE'|'EMAIL_MESSAGE_PLAIN_TEXT'|'EMAIL_MESSAGE_PLAIN_TEXT_REDACTED'|'EMAIL_MESSAGE_REDACTED'|'NUMBER'|'STRING'|'URL',
- *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'FAILED'|'PROCESSING'|'REJECTED',
+ *         Status?: 'APPROVED'|'AVAILABLE'|'DELETED'|'DRAFTING'|'FAILED'|'PROCESSING'|'REJECTED',
  *         Arn?: string,
  *         StatusReason?: string,
  *         ...,
@@ -5095,6 +5110,7 @@ use Aws\AwsClient;
  *         Address?: string,
  *         ...,
  *     },
+ *     AdditionalRecipients?: array{CcEmailAddresses?: list<array>, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result updateContactAttributes(array $args = [])
@@ -5583,6 +5599,20 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result updateNotificationContent(array{InstanceId?: string, NotificationId?: string, Content?: array<string, string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise updateNotificationContentAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise updateNotificationContentAsync(array{InstanceId?: string, NotificationId?: string, Content?: array<string, string>, ...} $args = [])
+ * @method \Aws\Result updateOutboundEmailContactMessage(array $args = [])
+ * @phpstan-method \Aws\Result updateOutboundEmailContactMessage(array{
+ *     InstanceId?: string,
+ *     ContactId?: string,
+ *     EmailMessage?: array{MessageSourceType?: 'RAW', RawMessage?: array{Body?: string, ContentType?: string, ...}, ...},
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateOutboundEmailContactMessageAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateOutboundEmailContactMessageAsync(array{
+ *     InstanceId?: string,
+ *     ContactId?: string,
+ *     EmailMessage?: array{MessageSourceType?: 'RAW', RawMessage?: array{Body?: string, ContentType?: string, ...}, ...},
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result updateParticipantAuthentication(array $args = [])
  * @phpstan-method \Aws\Result updateParticipantAuthentication(array{State?: string, InstanceId?: string, Code?: string, Error?: string, ErrorDescription?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise updateParticipantAuthenticationAsync(array $args = [])
@@ -5865,6 +5895,7 @@ use Aws\AwsClient;
  *     Description?: string,
  *     ContactFlowId?: string,
  *     SelfAssignFlowId?: string,
+ *     ContactHooks?: array{WrapUpFlowId?: string, ...},
  *     Constraints?: array{RequiredFields?: list<array>, ReadOnlyFields?: list<array>, InvisibleFields?: list<array>, ...},
  *     Defaults?: array{DefaultFieldValues?: list<array>, ...},
  *     Status?: 'ACTIVE'|'INACTIVE',
@@ -5885,6 +5916,7 @@ use Aws\AwsClient;
  *     Description?: string,
  *     ContactFlowId?: string,
  *     SelfAssignFlowId?: string,
+ *     ContactHooks?: array{WrapUpFlowId?: string, ...},
  *     Constraints?: array{RequiredFields?: list<array>, ReadOnlyFields?: list<array>, InvisibleFields?: list<array>, ...},
  *     Defaults?: array{DefaultFieldValues?: list<array>, ...},
  *     Status?: 'ACTIVE'|'INACTIVE',

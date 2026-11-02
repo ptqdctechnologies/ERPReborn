@@ -116,22 +116,21 @@ class WorkloadCaptures extends \Google\Service\Resource
     return $this->call('stop', [$params], Operation::class);
   }
   /**
-   * Stops executing a captured workload on the separate Cloud SQL instance.
+   * Stops an active workload replay on the target Cloud SQL replay instance.
    * (workloadCaptures.stopReplay)
    *
    * @param string $project Required. Project ID of the project that contains the
-   * instance.
-   * @param string $instance Required. Cloud SQL instance ID. This does not
-   * include the project ID.
-   * @param string $workloadId Required. The ID of the workload to replay.
+   * target replay instance.
+   * @param string $instance Required. Cloud SQL instance ID of the target replay
+   * instance. This does not include the project ID.
    * @param SqlWorkloadCapturesStopReplayRequest $postBody
    * @param array $optParams Optional parameters.
    * @return Operation
    * @throws \Google\Service\Exception
    */
-  public function stopReplay($project, $instance, $workloadId, SqlWorkloadCapturesStopReplayRequest $postBody, $optParams = [])
+  public function stopReplay($project, $instance, SqlWorkloadCapturesStopReplayRequest $postBody, $optParams = [])
   {
-    $params = ['project' => $project, 'instance' => $instance, 'workloadId' => $workloadId, 'postBody' => $postBody];
+    $params = ['project' => $project, 'instance' => $instance, 'postBody' => $postBody];
     $params = array_merge($params, $optParams);
     return $this->call('stopReplay', [$params], Operation::class);
   }

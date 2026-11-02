@@ -145,6 +145,30 @@ class CreativeAsset extends \Google\Collection
   public const ROLE_PARENT_AUDIO = 'PARENT_AUDIO';
   public const ROLE_TRANSCODED_AUDIO = 'TRANSCODED_AUDIO';
   /**
+   * Cover image.
+   */
+  public const ROLE_COVER_IMAGE = 'COVER_IMAGE';
+  /**
+   * Headline.
+   */
+  public const ROLE_HEADLINE = 'HEADLINE';
+  /**
+   * Long headline.
+   */
+  public const ROLE_LONG_HEADLINE = 'LONG_HEADLINE';
+  /**
+   * Description.
+   */
+  public const ROLE_DESCRIPTION = 'DESCRIPTION';
+  /**
+   * Long description.
+   */
+  public const ROLE_LONG_DESCRIPTION = 'LONG_DESCRIPTION';
+  /**
+   * Call to action.
+   */
+  public const ROLE_CALL_TO_ACTION = 'CALL_TO_ACTION';
+  /**
    * Asset is not automatically displayed.
    */
   public const START_TIME_TYPE_ASSET_START_TIME_TYPE_NONE = 'ASSET_START_TIME_TYPE_NONE';
@@ -1267,7 +1291,8 @@ class CreativeAsset extends \Google\Collection
    *
    * Accepted values: PRIMARY, BACKUP_IMAGE, ADDITIONAL_IMAGE, ADDITIONAL_FLASH,
    * PARENT_VIDEO, TRANSCODED_VIDEO, OTHER, ALTERNATE_VIDEO, PARENT_AUDIO,
-   * TRANSCODED_AUDIO
+   * TRANSCODED_AUDIO, COVER_IMAGE, HEADLINE, LONG_HEADLINE, DESCRIPTION,
+   * LONG_DESCRIPTION, CALL_TO_ACTION
    *
    * @param self::ROLE_* $role
    */

@@ -18,6 +18,8 @@
 namespace Google\Service\Aiplatform\Resource;
 
 use Google\Service\Aiplatform\GoogleApiHttpBody;
+use Google\Service\Aiplatform\GoogleCloudAiplatformV1BatchEmbedContentsRequest;
+use Google\Service\Aiplatform\GoogleCloudAiplatformV1BatchEmbedContentsResponse;
 use Google\Service\Aiplatform\GoogleCloudAiplatformV1ComputeTokensRequest;
 use Google\Service\Aiplatform\GoogleCloudAiplatformV1ComputeTokensResponse;
 use Google\Service\Aiplatform\GoogleCloudAiplatformV1CountTokensRequest;
@@ -46,6 +48,24 @@ use Google\Service\Aiplatform\GoogleLongrunningOperation;
  */
 class ProjectsLocationsPublishersModels extends \Google\Service\Resource
 {
+  /**
+   * Generates embeddings directly from multiple contents.
+   * (models.batchEmbedContents)
+   *
+   * @param string $model Required. The name of the publisher model requested to
+   * serve the prediction. Format: `projects/{project}/locations/{location}/publis
+   * hers/{publisher}/models/{model}`
+   * @param GoogleCloudAiplatformV1BatchEmbedContentsRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return GoogleCloudAiplatformV1BatchEmbedContentsResponse
+   * @throws \Google\Service\Exception
+   */
+  public function batchEmbedContents($model, GoogleCloudAiplatformV1BatchEmbedContentsRequest $postBody, $optParams = [])
+  {
+    $params = ['model' => $model, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('batchEmbedContents', [$params], GoogleCloudAiplatformV1BatchEmbedContentsResponse::class);
+  }
   /**
    * Return a list of tokens based on the input text. (models.computeTokens)
    *

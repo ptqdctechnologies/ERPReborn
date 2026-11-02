@@ -25,6 +25,8 @@ use Google\Service\AgentIdentity\ListAuthProvidersResponse;
 use Google\Service\AgentIdentity\Policy;
 use Google\Service\AgentIdentity\QueryAuthProvidersResponse;
 use Google\Service\AgentIdentity\QueryWorkloadsResponse;
+use Google\Service\AgentIdentity\ResolveAuthorizationRequest;
+use Google\Service\AgentIdentity\ResolveAuthorizationResponse;
 use Google\Service\AgentIdentity\RevokeAuthorizationRequest;
 use Google\Service\AgentIdentity\RevokeAuthorizationResponse;
 use Google\Service\AgentIdentity\SetIamPolicyRequest;
@@ -293,6 +295,25 @@ class ProjectsLocationsAuthProviders extends \Google\Service\Resource
     $params = ['name' => $name];
     $params = array_merge($params, $optParams);
     return $this->call('queryWorkloads', [$params], QueryWorkloadsResponse::class);
+  }
+  /**
+   * Resolves an authorization for a user on an auth provider, creating one if it
+   * does not exist or returning an existing one.
+   * (authProviders.resolveAuthorization)
+   *
+   * @param string $name Required. The name of the auth provider to resolve
+   * authorization for. Format:
+   * projects/{project}/locations/{location}/authProviders/{auth_provider}
+   * @param ResolveAuthorizationRequest $postBody
+   * @param array $optParams Optional parameters.
+   * @return ResolveAuthorizationResponse
+   * @throws \Google\Service\Exception
+   */
+  public function resolveAuthorization($name, ResolveAuthorizationRequest $postBody, $optParams = [])
+  {
+    $params = ['name' => $name, 'postBody' => $postBody];
+    $params = array_merge($params, $optParams);
+    return $this->call('resolveAuthorization', [$params], ResolveAuthorizationResponse::class);
   }
   /**
    * Revokes all authorizations for a specific user on an auth provider. This

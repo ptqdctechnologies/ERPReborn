@@ -19,7 +19,6 @@ namespace Google\Service\BeyondCorp\Resource;
 
 use Google\Service\BeyondCorp\GoogleCloudBeyondcorpAppconnectorsV1AppConnector;
 use Google\Service\BeyondCorp\GoogleCloudBeyondcorpAppconnectorsV1ListAppConnectorsResponse;
-use Google\Service\BeyondCorp\GoogleCloudBeyondcorpAppconnectorsV1ReportStatusRequest;
 use Google\Service\BeyondCorp\GoogleCloudBeyondcorpAppconnectorsV1ResolveInstanceConfigResponse;
 use Google\Service\BeyondCorp\GoogleIamV1Policy;
 use Google\Service\BeyondCorp\GoogleIamV1SetIamPolicyRequest;
@@ -37,40 +36,6 @@ use Google\Service\BeyondCorp\GoogleLongrunningOperation;
  */
 class ProjectsLocationsAppConnectors extends \Google\Service\Resource
 {
-  /**
-   * Creates a new AppConnector in a given project and location.
-   * (appConnectors.create)
-   *
-   * @param string $parent Required. The resource project name of the AppConnector
-   * location using the form: `projects/{project_id}/locations/{location_id}`
-   * @param GoogleCloudBeyondcorpAppconnectorsV1AppConnector $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string appConnectorId Optional. User-settable AppConnector
-   * resource ID. * Must start with a letter. * Must contain between 4-63
-   * characters from `/a-z-/`. * Must end with a number or a letter.
-   * @opt_param string requestId Optional. An optional request ID to identify
-   * requests. Specify a unique request ID so that if you must retry your request,
-   * the server will know to ignore the request if it has already been completed.
-   * The server will guarantee that for at least 60 minutes since the first
-   * request. For example, consider a situation where you make an initial request
-   * and the request times out. If you make the request again with the same
-   * request ID, the server can check if original operation with the same request
-   * ID was received, and if so, will ignore the second request. This prevents
-   * clients from accidentally creating duplicate commitments. The request ID must
-   * be a valid UUID with the exception that zero UUID is not supported
-   * (00000000-0000-0000-0000-000000000000).
-   * @opt_param bool validateOnly Optional. If set, validates request by executing
-   * a dry-run which would not alter the resource in any way.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function create($parent, GoogleCloudBeyondcorpAppconnectorsV1AppConnector $postBody, $optParams = [])
-  {
-    $params = ['parent' => $parent, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('create', [$params], GoogleLongrunningOperation::class);
-  }
   /**
    * Deletes a single AppConnector. (appConnectors.delete)
    *
@@ -177,56 +142,6 @@ class ProjectsLocationsAppConnectors extends \Google\Service\Resource
     $params = ['parent' => $parent];
     $params = array_merge($params, $optParams);
     return $this->call('list', [$params], GoogleCloudBeyondcorpAppconnectorsV1ListAppConnectorsResponse::class);
-  }
-  /**
-   * Updates the parameters of a single AppConnector. (appConnectors.patch)
-   *
-   * @param string $name Required. Unique resource name of the AppConnector. The
-   * name is ignored when creating a AppConnector.
-   * @param GoogleCloudBeyondcorpAppconnectorsV1AppConnector $postBody
-   * @param array $optParams Optional parameters.
-   *
-   * @opt_param string requestId Optional. An optional request ID to identify
-   * requests. Specify a unique request ID so that if you must retry your request,
-   * the server will know to ignore the request if it has already been completed.
-   * The server will guarantee that for at least 60 minutes since the first
-   * request. For example, consider a situation where you make an initial request
-   * and the request times out. If you make the request again with the same
-   * request ID, the server can check if original operation with the same request
-   * ID was received, and if so, will ignore the second request. This prevents
-   * clients from accidentally creating duplicate commitments. The request ID must
-   * be a valid UUID with the exception that zero UUID is not supported
-   * (00000000-0000-0000-0000-000000000000).
-   * @opt_param string updateMask Required. Mask of fields to update. At least one
-   * path must be supplied in this field. The elements of the repeated paths field
-   * may only include these fields from [BeyondCorp.AppConnector]: * `labels` *
-   * `display_name`
-   * @opt_param bool validateOnly Optional. If set, validates request by executing
-   * a dry-run which would not alter the resource in any way.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function patch($name, GoogleCloudBeyondcorpAppconnectorsV1AppConnector $postBody, $optParams = [])
-  {
-    $params = ['name' => $name, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('patch', [$params], GoogleLongrunningOperation::class);
-  }
-  /**
-   * Report status for a given connector. (appConnectors.reportStatus)
-   *
-   * @param string $appConnector Required. BeyondCorp Connector name using the
-   * form: `projects/{project_id}/locations/{location_id}/connectors/{connector}`
-   * @param GoogleCloudBeyondcorpAppconnectorsV1ReportStatusRequest $postBody
-   * @param array $optParams Optional parameters.
-   * @return GoogleLongrunningOperation
-   * @throws \Google\Service\Exception
-   */
-  public function reportStatus($appConnector, GoogleCloudBeyondcorpAppconnectorsV1ReportStatusRequest $postBody, $optParams = [])
-  {
-    $params = ['appConnector' => $appConnector, 'postBody' => $postBody];
-    $params = array_merge($params, $optParams);
-    return $this->call('reportStatus', [$params], GoogleLongrunningOperation::class);
   }
   /**
    * Gets instance configuration for a given AppConnector. An internal method

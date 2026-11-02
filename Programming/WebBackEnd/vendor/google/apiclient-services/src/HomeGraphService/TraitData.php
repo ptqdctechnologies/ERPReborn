@@ -26,6 +26,8 @@ class TraitData extends \Google\Model
    * @var string
    */
   public $commitTime;
+  protected $jsonTraitType = JsonTrait::class;
+  protected $jsonTraitDataType = '';
   /**
    * The custom timestamp supplied by the provider during a
    * ReportStateAndNotification update (if provided). This field is returned as
@@ -57,6 +59,22 @@ class TraitData extends \Google\Model
   public function getCommitTime()
   {
     return $this->commitTime;
+  }
+  /**
+   * Contains the dynamic JSON trait payload.
+   *
+   * @param JsonTrait $jsonTrait
+   */
+  public function setJsonTrait(JsonTrait $jsonTrait)
+  {
+    $this->jsonTrait = $jsonTrait;
+  }
+  /**
+   * @return JsonTrait
+   */
+  public function getJsonTrait()
+  {
+    return $this->jsonTrait;
   }
   /**
    * The custom timestamp supplied by the provider during a

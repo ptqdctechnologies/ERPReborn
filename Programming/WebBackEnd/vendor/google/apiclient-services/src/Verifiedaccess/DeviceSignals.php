@@ -60,6 +60,14 @@ class DeviceSignals extends \Google\Collection
    */
   public const OPERATING_SYSTEM_LINUX = 'LINUX';
   /**
+   * iOS.
+   */
+  public const OPERATING_SYSTEM_IOS = 'IOS';
+  /**
+   * Android.
+   */
+  public const OPERATING_SYSTEM_ANDROID = 'ANDROID';
+  /**
    * Unspecified.
    */
   public const OS_FIREWALL_OS_FIREWALL_UNSPECIFIED = 'OS_FIREWALL_UNSPECIFIED';
@@ -688,7 +696,7 @@ class DeviceSignals extends \Google\Collection
    * device.
    *
    * Accepted values: OPERATING_SYSTEM_UNSPECIFIED, CHROME_OS, CHROMIUM_OS,
-   * WINDOWS, MAC_OS_X, LINUX
+   * WINDOWS, MAC_OS_X, LINUX, IOS, ANDROID
    *
    * @param self::OPERATING_SYSTEM_* $operatingSystem
    */

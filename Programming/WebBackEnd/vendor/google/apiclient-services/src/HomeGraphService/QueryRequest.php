@@ -20,7 +20,7 @@ namespace Google\Service\HomeGraphService;
 class QueryRequest extends \Google\Collection
 {
   /**
-   * Default value. Equivalent to SMART_HOME_TRAIT_ONLY.
+   * Default value. Equivalent to `SMART_HOME_TRAIT_ONLY`.
    */
   public const DEVICE_VIEW_DEVICE_VIEW_UNSPECIFIED = 'DEVICE_VIEW_UNSPECIFIED';
   /**
@@ -36,6 +36,12 @@ class QueryRequest extends \Google\Collection
    * Return both standard Smart Home traits and UDDM traits.
    */
   public const DEVICE_VIEW_HOME_TRAIT_AND_SMART_HOME_TRAIT = 'HOME_TRAIT_AND_SMART_HOME_TRAIT';
+  /**
+   * Return all component traits in `JsonTrait` format (`TraitData.json_trait`
+   * in `home_trait_payload`), converting persisted UDDM traits to `JsonTrait`
+   * on read.
+   */
+  public const DEVICE_VIEW_JSON_TRAIT_ONLY = 'JSON_TRAIT_ONLY';
   protected $collection_key = 'inputs';
   /**
    * Required. Third-party user ID.
@@ -47,7 +53,7 @@ class QueryRequest extends \Google\Collection
    * Optional. Specifies the type of device data to be returned in the response.
    * This allows callers to request traditional Smart Home traits, Unified
    * Device Data Model (UDDM) traits, or both. If unspecified, defaults to
-   * SMART_HOME_TRAIT_ONLY.
+   * `SMART_HOME_TRAIT_ONLY`.
    *
    * @var string
    */
@@ -88,10 +94,10 @@ class QueryRequest extends \Google\Collection
    * Optional. Specifies the type of device data to be returned in the response.
    * This allows callers to request traditional Smart Home traits, Unified
    * Device Data Model (UDDM) traits, or both. If unspecified, defaults to
-   * SMART_HOME_TRAIT_ONLY.
+   * `SMART_HOME_TRAIT_ONLY`.
    *
    * Accepted values: DEVICE_VIEW_UNSPECIFIED, SMART_HOME_TRAIT_ONLY,
-   * HOME_TRAIT_ONLY, HOME_TRAIT_AND_SMART_HOME_TRAIT
+   * HOME_TRAIT_ONLY, HOME_TRAIT_AND_SMART_HOME_TRAIT, JSON_TRAIT_ONLY
    *
    * @param self::DEVICE_VIEW_* $deviceView
    */
