@@ -1012,6 +1012,12 @@
                 return;
             }
 
+            if (currencyISOCode != "IDR") {
+                $('#ppn_option').attr('disabled', true);
+            } else {
+                $('#ppn_option').attr('disabled', false);
+            }
+
             $("#currency_id").val(currencyID);
             $("#currency_name").val(currencyName);
             $("#currency_code").val(currencyISOCode);
