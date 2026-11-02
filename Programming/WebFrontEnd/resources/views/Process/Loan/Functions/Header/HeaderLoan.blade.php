@@ -8,7 +8,8 @@
         <div class="col-5 d-flex p-0">
           <div>
             <span style="border-radius:0;" class="input-group-text form-control">
-              <a href="javascript:;" id="myProjectTrigger" data-toggle="modal" data-target="#myProjects" style="display: block;">
+              <a href="javascript:;" id="myProjectTrigger" data-toggle="modal" data-target="#myProjects"
+                style="display: block;">
                 <img src="{{ asset('AdminLTE-master/dist/img/box.png') }}" width="13" alt="myProjectTrigger">
               </a>
 
@@ -32,7 +33,8 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Type</label>
         <div class="col-5 p-0">
           <div id="container_loan_type">
-            <select id="loan_type" class="form-control" name="loan_type" onChange="changeType(this);" style="border-radius:0;">
+            <select id="loan_type" class="form-control" name="loan_type" onChange="changeType(this);"
+              style="border-radius:0;">
               <option value="Select a Type" selected disabled>Select Loan Type</option>
               <option value="LENDING">Lending</option>
               <option value="BORROWING">Borrowing</option>
@@ -52,14 +54,16 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Creditor</label>
         <div class="col-5 d-flex p-0">
           <div>
-            <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySuppliers" onclick="chooseSupplierBy('creditor')" style="border-radius:0;cursor:pointer;">
+            <span id="creditor_trigger" class="input-group-text form-control" data-toggle="modal"
+              data-target="#mySuppliers" onclick="chooseSupplierBy('creditor')" style="border-radius:0;cursor:pointer;">
               <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="creditor_id" class="form-control" name="creditor_id" style="border-radius:0;" />
-              <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="creditor_name" class="form-control" style="border-radius:0;background:white;"
+                readonly />
             </div>
           </div>
         </div>
@@ -76,14 +80,16 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Debitor</label>
         <div class="col-5 d-flex p-0">
           <div>
-            <span id="debitor_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#mySuppliers" onclick="chooseSupplierBy('debitor')" style="border-radius:0;cursor:pointer;">
+            <span id="debitor_trigger" class="input-group-text form-control" data-toggle="modal"
+              data-target="#mySuppliers" onclick="chooseSupplierBy('debitor')" style="border-radius:0;cursor:pointer;">
               <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="debitor_id" class="form-control" name="debitor_id" style="border-radius:0;" />
-              <input type="text" id="debitor_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="debitor_name" class="form-control" style="border-radius:0;background:white;"
+                readonly />
             </div>
           </div>
         </div>
@@ -100,14 +106,16 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Currency</label>
         <div class="col-5 d-flex p-0">
           <div>
-            <span id="currency_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myCurrencies" style="border-radius:0;cursor:pointer;">
+            <span id="currency_trigger" class="input-group-text form-control" data-toggle="modal"
+              data-target="#myCurrencies" style="border-radius:0;cursor:pointer;">
               <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="currency_id" class="form-control" name="currency_id" style="border-radius:0;" />
-              <input type="text" id="currency_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="currency_name" class="form-control" style="border-radius:0;background:white;"
+                readonly />
             </div>
           </div>
         </div>
@@ -148,14 +156,17 @@
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Account Number</label>
         <div class="col-5 d-flex p-0">
           <div>
-            <span id="bank_account_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myBanksAccount" style="border-radius:0;cursor:pointer;">
+            <span id="bank_account_trigger" class="input-group-text form-control" data-toggle="modal"
+              data-target="#myBanksAccount" style="border-radius:0;cursor:pointer;">
               <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
-              <input type="hidden" id="bank_account_id" class="form-control" name="bank_account_id" style="border-radius:0;" />
-              <input type="text" id="bank_account_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="hidden" id="bank_account_id" class="form-control" name="bank_account_id"
+                style="border-radius:0;" />
+              <input type="text" id="bank_account_name" class="form-control" style="border-radius:0;background:white;"
+                readonly />
             </div>
           </div>
         </div>
@@ -170,40 +181,21 @@
 
     <!-- RIGHT -->
     <div class="col-md-12 col-lg-5">
-      <!-- LOAN DATE -->
-      <div class="row">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
-        <div class="col-5 p-0 input-group date" id="loanDate" data-target-input="nearest" style="flex-wrap: nowrap;">
-          <div>
-            <div class="input-group-append" data-target="#loanDate" data-toggle="datetimepicker" style="width: 27.78px; height: 21.8px;">
-              <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;"><i class="fa fa-calendar"></i></div>
-            </div>
-          </div>
-          <div style="flex: 100%;">
-            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDates" data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
-          </div>
-        </div>
-      </div>
-      <div class="row" id="loan_date_message" style="margin-top: .3rem; display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-5 p-0 text-red">
-          Loan Date cannot be empty.
-        </div>
-      </div>
-
       <!-- COA -->
-      <div class="row" style="margin-top: 1rem;">
+      <div class="row">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">COA</label>
         <div class="col-5 d-flex p-0">
           <div>
-            <span id="coa_trigger" class="input-group-text form-control" data-toggle="modal" data-target="#myGetChartOfAccount" style="border-radius:0;cursor:pointer;">
+            <span id="coa_trigger" class="input-group-text form-control" data-toggle="modal"
+              data-target="#myGetChartOfAccount" style="border-radius:0;cursor:pointer;">
               <i class="fas fa-gift"></i>
             </span>
           </div>
           <div style="flex: 100%;">
             <div class="input-group">
               <input type="hidden" id="coa_id" class="form-control" name="coa_id" style="border-radius:0;" />
-              <input type="text" id="coa_name" class="form-control" style="border-radius:0;background:white;" readonly />
+              <input type="text" id="coa_name" class="form-control" style="border-radius:0;background:white;"
+                readonly />
             </div>
           </div>
         </div>
@@ -214,12 +206,37 @@
           COA cannot be empty.
         </div>
       </div>
-      
+
+      <!-- LOAN DATE -->
+      <div class="row" style="margin-top: 1rem;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Date</label>
+        <div class="col-5 p-0 input-group date" id="loanDate" data-target-input="nearest" style="flex-wrap: nowrap;">
+          <div>
+            <div class="input-group-append" data-target="#loanDate" data-toggle="datetimepicker"
+              style="width: 27.78px; height: 21.8px;">
+              <div class="input-group-text" style="border-radius: unset; justify-content: center; width: inherit;"><i
+                  class="fa fa-calendar"></i></div>
+            </div>
+          </div>
+          <div style="flex: 100%;">
+            <input type="text" class="form-control datetimepicker-input" name="loanDate" id="loanDates"
+              data-target="#loanDate" autocomplete="off" style="border-radius: unset;" />
+          </div>
+        </div>
+      </div>
+      <div class="row" id="loan_date_message" style="margin-top: .3rem; display: none;">
+        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
+        <div class="col-5 p-0 text-red">
+          Loan Date cannot be empty.
+        </div>
+      </div>
+
       <!-- LOAN PRINCIPLE -->
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Principal</label>
         <div class="col-5 p-0">
-          <input type="text" id="principle_loan" name="principle_loan" class="form-control number-without-negative" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+          <input type="text" id="principle_loan" name="principle_loan" class="form-control number-without-negative"
+            onKeyUp="countLoanTotal()" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="principle_loan_message" style="margin-top: .3rem; display: none;">
@@ -233,7 +250,8 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Lending Rate</label>
         <div class="col-5 p-0">
-          <input type="text" id="lending_rate" name="lending_rate" class="form-control number-without-characters" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+          <input type="text" id="lending_rate" name="lending_rate" class="form-control number-without-characters"
+            onKeyUp="countLoanTotal()" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="lending_rate_message" style="margin-top: .3rem; display: none;">
@@ -247,7 +265,8 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Term</label>
         <div class="col-5 p-0">
-          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters" onKeyUp="countLoanTotal()" style="border-radius:0;" />
+          <input type="text" id="loan_term" name="loan_term" class="form-control number-without-characters"
+            onKeyUp="countLoanTotal()" style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="loan_term_message" style="margin-top: .3rem; display: none;">
@@ -261,7 +280,8 @@
       <div class="row" style="margin-top: 1rem;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Loan Total</label>
         <div class="col-5 p-0">
-          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" readonly style="border-radius:0;" />
+          <input type="text" id="total_loan" name="total_loan" class="form-control number-without-characters" readonly
+            style="border-radius:0;" />
         </div>
       </div>
       <div class="row" id="total_loan_message" style="margin-top: .3rem; display: none;">

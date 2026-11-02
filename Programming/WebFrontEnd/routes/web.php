@@ -781,12 +781,6 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::get('PurchaseOrder/picklist', 'picklist')
             ->name('PurchaseOrder.picklist');
 
-        Route::post('UpdatePurchaseOrder', 'UpdatePurchaseOrder')
-            ->name('PurchaseOrder.UpdatePurchaseOrder');
-
-        Route::post('RevisionPurchaseOrder', 'RevisionPurchaseOrder')
-            ->name('PurchaseOrder.RevisionPurchaseOrder');
-
         Route::get('ReportPurchaseOrderSummary', 'ReportPurchaseOrderSummary')
             ->name('PurchaseOrder.ReportPurchaseOrderSummary');
 
@@ -832,7 +826,7 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
         Route::post('PrintExportReportCFS', 'PrintExportReportCFS')
             ->name('PurchaseOrder.PrintExportReportCFS');
     });
-    Route::resource('PurchaseOrder', PurchaseOrderController::class)->only(['index', 'store', 'update']);
+    Route::resource('PurchaseOrder', PurchaseOrderController::class);
 
     // LOAN
     Route::controller(LoanController::class)->group(function () {

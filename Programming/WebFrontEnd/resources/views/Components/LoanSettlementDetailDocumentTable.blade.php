@@ -2,56 +2,57 @@
 <div class="card-body">
     <div class="row" style="margin: .6rem 0rem; gap: 1rem;">
         <div class="col-sm-12 col-md-4">
-            <!-- TOTAL SETTLEMENT -->
-            <div class="row">
+            <!-- SETTLEMENT VALUE -->
+            <div class="row" style="margin-bottom: 1rem;">
                 <div class="col-sm-4 col-md-4 p-0 text-bold">
-                    Total Settlement
+                    Settlement Value
                 </div>
                 <div class="col-sm-8 col-md-7 p-0">
-                    : -
+                    : <?= number_format($dataHeader['settlementValue'], 2, '.', ','); ?>
+                </div>
+            </div>
+
+            <!-- PENALTY VALUE -->
+            <div class="row" style="margin-bottom: 1rem;">
+                <div class="col-sm-4 col-md-4 p-0 text-bold">
+                    Penalty Value
+                </div>
+                <div class="col-sm-8 col-md-7 p-0">
+                    : <?= number_format($dataHeader['penaltyValue'], 2, '.', ','); ?>
+                </div>
+            </div>
+
+            <!-- INTEREST VALUE -->
+            <div class="row">
+                <div class="col-sm-4 col-md-4 p-0 text-bold">
+                    Interest Value
+                </div>
+                <div class="col-sm-8 col-md-7 p-0">
+                    : <?= number_format($dataHeader['interestValue'], 2, '.', ','); ?>
                 </div>
             </div>
         </div>
 
         <div class="col-sm-12 col-md-4">
-            <!-- TOTAL PENALTY -->
-            <div class="row">
+            <!-- COA PENALTY -->
+            <div class="row" style="margin-bottom: 1rem;">
                 <div class="col-sm-4 col-md-3 p-0 text-bold">
-                    Total Penalty
+                    COA Penalty
                 </div>
                 <div class="col-sm-8 col-md-7 p-0">
-                    : -
+                    : <?= $dataHeader['coaPenaltyCode'] . ' - ' . $dataHeader['coaPenaltyName']; ?>
                 </div>
             </div>
-        </div>
 
-        <div class="col-sm-12 col-md-3">
-            <!-- TOTAL INTEREST -->
+            <!-- COA INTEREST -->
             <div class="row">
-                <div class="col-sm-4 col-md-4 p-0 text-bold">
-                    Total Interest
+                <div class="col-sm-4 col-md-3 p-0 text-bold">
+                    COA Interest
                 </div>
-                <div class="col-sm-8 col-md-6 p-0">
-                    : -
+                <div class="col-sm-8 col-md-7 p-0">
+                    : <?= $dataHeader['coaInterestCode'] . ' - ' . $dataHeader['coaInterestName']; ?>
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class="row m-0">
-        <hr class="m-0" style="width: 100%;"/>
-    </div>
-    <div class="row" style="margin-top: 1rem; gap: 1rem;">
-        <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
-        <div class="d-sm-none d-md-block col-sm-12 col-md-4"></div>
-        <div class="col-sm-12 col-md-3">
-            <div class="row" style="margin-bottom: 1rem;">
-                <div class="col-sm-4 col-md-6 p-0 text-bold">
-                    Total Business Trip
-                </div>
-                <div class="col-sm-8 col-md-6 p-0">
-                    : -
-                </div>
-            </div>
-        </div>
-    </div> -->
 </div>

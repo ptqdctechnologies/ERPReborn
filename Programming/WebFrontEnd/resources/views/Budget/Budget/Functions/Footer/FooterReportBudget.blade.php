@@ -176,12 +176,15 @@
 
         let totalBudget = 0;
         let totalRealization = 0;
-        let totalPaymentBalanceARF = 0;
-        let totalASF = 0;
-        let totalPaymentASF = 0;
-        let totalPaymentBalanceASF = 0;
+        let totalBalanceRemaining = 0;
+        let totalBalanceUsage = 0;
 
         data.forEach((item, ind) => {
+            totalBudget += parseFloat(item.budget_value) || 0;
+            totalRealization += parseFloat(item.realization_value) || 0;
+            totalBalanceRemaining += parseFloat(item.balance_remaining) || 0;
+            totalBalanceUsage += parseFloat(item.balance_usage) || 0;
+
             const row = document.createElement('tr');
 
             const rowNumber = (currentPage - 1) * rowsPerPage + ind + 1;
@@ -312,6 +315,11 @@
                 tbody.rows[targetIndex].cells[3].rowSpan = rowspanSubBudget;
             }
         }
+
+        $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(totalBudget));
+        $('#table_summary tfoot th:nth-child(3)').text(currencyTotal(totalRealization));
+        $('#table_summary tfoot th:nth-child(4)').text(currencyTotal(totalBalanceRemaining));
+        $('#table_summary tfoot th:nth-child(5)').text(currencyTotal(totalBalanceUsage));
     }
 
     function updatePaginationInfo() {

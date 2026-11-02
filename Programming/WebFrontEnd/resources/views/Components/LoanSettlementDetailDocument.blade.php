@@ -25,17 +25,17 @@
             Loan Type
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['loanType']; ?>
         </div>
     </div>
-    
+
     <!-- BUDGET -->
     <div class="row" style="line-height: 16px;">
         <div class="col-sm-4 col-md-4 p-0 text-bold">
             Budget
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['budgetCode'] . ' - ' . $dataHeader['budgetName']; ?>
         </div>
     </div>
 </div>
@@ -47,7 +47,7 @@
             Loan Principal
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= number_format($dataHeader['loanPrincipal'], 2, '.', ','); ?>
         </div>
     </div>
 
@@ -57,7 +57,7 @@
             Lending Rate
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= number_format($dataHeader['lendingRate'], 2, '.', ','); ?>
         </div>
     </div>
 
@@ -67,17 +67,17 @@
             Loan Term
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= number_format($dataHeader['loanTerm'], 2, '.', ','); ?>
         </div>
     </div>
 
-    <!-- LENDING TOTAL -->
+    <!-- LOAN TOTAL -->
     <div class="row" style="line-height: 16px;">
         <div class="col-sm-4 col-md-3 p-0 text-bold">
-            Lending Total
+            Loan Total
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= number_format($dataHeader['loanTotal'], 2, '.', ','); ?>
         </div>
     </div>
 </div>
@@ -89,7 +89,7 @@
             Currency
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['currency']; ?>
         </div>
     </div>
 
@@ -99,7 +99,7 @@
             Creditor
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['creditor']; ?>
         </div>
     </div>
 
@@ -109,7 +109,7 @@
             Debitor
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : <?= $dataHeader['debitor']; ?>
         </div>
     </div>
 
@@ -119,7 +119,8 @@
             Account Number
         </div>
         <div class="col-sm-8 col-md-8 p-0">
-            : -
+            : (<?= $dataHeader['bankCode']; ?>)
+            <?= $dataHeader['accountNumber'] . ' - ' . $dataHeader['accountName']; ?>
         </div>
     </div>
 </div>

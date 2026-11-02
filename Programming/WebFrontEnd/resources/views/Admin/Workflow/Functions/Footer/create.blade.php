@@ -160,7 +160,7 @@
         font-size: 12px;
         padding: 3px 6px;
         border: 1px solid #dee2e6;
-        border-radius: 3px;
+        border-radius: 0px;
         background: #f8f9fa;
         color: #495057;
         min-width: 0;
@@ -189,7 +189,7 @@
         position: relative;
     }
 
-    .wf-connector::before {
+    /* .wf-connector::before {
         content: '';
         position: absolute;
         top: 50%;
@@ -199,7 +199,7 @@
         height: 26px;
         background: #dee2e6;
         z-index: 0;
-    }
+    } */
 
     .wf-connector i {
         position: relative;
@@ -209,11 +209,11 @@
     }
 
     /* Add-person footer row */
-    .wf-person-add-row {
+    /* .wf-person-add-row {
         padding: 6px 0 2px 0;
         border-top: 1px dashed #dee2e6;
         margin-top: 4px;
-    }
+    } */
 
     /* Responsive */
     @media (max-width: 576px) {
@@ -330,11 +330,19 @@
             /* --- Action buttons (level) --- */
             var levelActionsHtml = '';
 
-            if (isStart) {
+            if (isStart || isApprover) { // if (isStart) {
+                levelActionsHtml +=
+                    '<div class="wf-person-add-row">' +
+                    '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+                    'data-level-uid="' + level.uid + '">' +
+                    '<i class="fas fa-plus mr-1"></i>' +
+                    '</button>' +
+                    '</div>';
+
                 /* Only "add approver" button on start level */
-                levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
-                    '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
-                    '</button>';
+                // levelActionsHtml += '<button type="button" class="wf-btn wf-btn-add btn-add-approver">' +
+                //     '<i class="fas fa-plus mr-1"></i> Add Next Approver' +
+                //     '</button>';
             }
 
             if (isApprover) {
@@ -370,21 +378,23 @@
                     '<div class="wf-person-item" data-person-uid="' + p.uid + '">' +
                     '<span class="wf-person-seq">' + (pIdx + 1) + '</span>' +
                     // '<span class="wf-person-id"  title="Person ID">'   + escapeHtml(p.person_id   || '—') + '</span>' +
+                    '<div class="d-flex" style="width: 100%;">' +
                     '<span id="requester_container' + (p.uid) + '" class="input-group-text form-control" data-toggle="modal" data-target="#myRequesters" onclick="pickPerson(' + (p.uid) + ')" style="border-radius: 0; cursor: pointer; width: auto;">' +
                     '<i id="requester_icon' + (p.uid) + '" class="fas fa-gift"></i>' +
                     '</span>' +
                     '<span class="wf-person-name form-control" title="Person Name">' + escapeHtml(p.person_name || '') + '</span>' +
+                    '</div>' +
                     '<div class="wf-person-actions">' +
-                    '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
-                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                    (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
-                    '<i class="fas fa-chevron-up"></i>' +
-                    '</button>' +
-                    '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
-                    'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
-                    (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
-                    '<i class="fas fa-chevron-down"></i>' +
-                    '</button>' +
+                    // '<button type="button" class="wf-btn btn-move-person-up ' + pUpDisabled + '" ' +
+                    // 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    // (pUpDisabled ? 'disabled' : '') + ' title="Naik">' +
+                    // '<i class="fas fa-chevron-up"></i>' +
+                    // '</button>' +
+                    // '<button type="button" class="wf-btn btn-move-person-down ' + pDownDisabled + '" ' +
+                    // 'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
+                    // (pDownDisabled ? 'disabled' : '') + ' title="Turun">' +
+                    // '<i class="fas fa-chevron-down"></i>' +
+                    // '</button>' +
                     '<button type="button" class="wf-btn wf-btn-danger btn-delete-person ' + pDeleteDisabled + '" ' +
                     'data-level-uid="' + level.uid + '" data-person-uid="' + p.uid + '" ' +
                     (pDeleteDisabled ? 'disabled' : '') + ' title="Hapus Person">' +
@@ -395,17 +405,19 @@
             });
 
             /* --- Add person footer --- */
-            var addPersonFooterHtml =
-                '<div class="wf-person-add-row">' +
-                '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
-                'data-level-uid="' + level.uid + '">' +
-                '<i class="fas fa-plus mr-1"></i> Add Person' +
-                '</button>' +
-                '</div>';
+            var addPersonFooterHtml = '';
+
+            // var addPersonFooterHtml =
+            //     '<div class="wf-person-add-row">' +
+            //     '<button type="button" class="wf-btn wf-btn-add btn-add-person" ' +
+            //     'data-level-uid="' + level.uid + '">' +
+            //     '<i class="fas fa-plus mr-1"></i> Add Person' +
+            //     '</button>' +
+            //     '</div>';
 
             /* --- Full card HTML --- */
             var cardHtml =
-                '<div class="col-12 wf-level-wrapper" data-level-uid="' + level.uid + '">' +
+                '<div class="col-3 wf-level-wrapper" data-level-uid="' + level.uid + '">' +
                 '<div class="wf-level-card">' +
                 '<div class="wf-level-header">' +
                 '<div class="wf-level-header-left">' +
@@ -432,10 +444,12 @@
             /* Append connector arrow (not after last) */
             if (idx < totalLevels - 1) {
                 $container.append(
-                    '<div class="col-12 wf-connector"><i class="fas fa-chevron-down"></i></div>'
+                    '<div class="col-12 wf-connector"></div>' // '<div class="col-12 wf-connector"><i class="fas fa-chevron-down"></i></div>'
                 );
             }
         });
+
+        $('#section_two_button').css('display', 'flex');
     }
 
     /* ============================================================
