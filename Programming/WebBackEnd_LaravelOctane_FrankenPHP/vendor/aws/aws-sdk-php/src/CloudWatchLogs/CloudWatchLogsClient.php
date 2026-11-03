@@ -207,13 +207,15 @@ use Generator;
  * @method \Aws\Result deleteAccountPolicy(array $args = [])
  * @phpstan-method \Aws\Result deleteAccountPolicy(array{
  *     policyName?: string,
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     dryRun?: bool,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteAccountPolicyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteAccountPolicyAsync(array{
  *     policyName?: string,
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     dryRun?: bool,
  *     ...,
  * } $args = [])
  * @method \Aws\Result deleteDataProtectionPolicy(array $args = [])
@@ -298,7 +300,7 @@ use Generator;
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteTransformerAsync(array{logGroupIdentifier?: string, ...} $args = [])
  * @method \Aws\Result describeAccountPolicies(array $args = [])
  * @phpstan-method \Aws\Result describeAccountPolicies(array{
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
  *     policyName?: string,
  *     accountIdentifiers?: list<string>,
  *     nextToken?: string,
@@ -306,7 +308,7 @@ use Generator;
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise describeAccountPoliciesAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeAccountPoliciesAsync(array{
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
  *     policyName?: string,
  *     accountIdentifiers?: list<string>,
  *     nextToken?: string,
@@ -333,17 +335,17 @@ use Generator;
  *     ...,
  * } $args = [])
  * @method \Aws\Result describeDeliveries(array $args = [])
- * @phpstan-method \Aws\Result describeDeliveries(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \Aws\Result describeDeliveries(array{nextToken?: string, limit?: int, deliverySourceNames?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDeliveriesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliveriesAsync(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliveriesAsync(array{nextToken?: string, limit?: int, deliverySourceNames?: list<string>, ...} $args = [])
  * @method \Aws\Result describeDeliveryDestinations(array $args = [])
- * @phpstan-method \Aws\Result describeDeliveryDestinations(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \Aws\Result describeDeliveryDestinations(array{nextToken?: string, limit?: int, names?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDeliveryDestinationsAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliveryDestinationsAsync(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliveryDestinationsAsync(array{nextToken?: string, limit?: int, names?: list<string>, ...} $args = [])
  * @method \Aws\Result describeDeliverySources(array $args = [])
- * @phpstan-method \Aws\Result describeDeliverySources(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \Aws\Result describeDeliverySources(array{nextToken?: string, limit?: int, resourceArns?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDeliverySourcesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliverySourcesAsync(array{nextToken?: string, limit?: int, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeDeliverySourcesAsync(array{nextToken?: string, limit?: int, resourceArns?: list<string>, ...} $args = [])
  * @method \Aws\Result describeDestinations(array $args = [])
  * @phpstan-method \Aws\Result describeDestinations(array{DestinationNamePrefix?: string, nextToken?: string, limit?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeDestinationsAsync(array $args = [])
@@ -802,18 +804,20 @@ use Generator;
  * @phpstan-method \Aws\Result putAccountPolicy(array{
  *     policyName?: string,
  *     policyDocument?: string,
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
  *     scope?: 'ALL',
  *     selectionCriteria?: string,
+ *     dryRun?: bool,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise putAccountPolicyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise putAccountPolicyAsync(array{
  *     policyName?: string,
  *     policyDocument?: string,
- *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
+ *     policyType?: 'DATA_PROTECTION_POLICY'|'FIELD_INDEX_POLICY'|'METRIC_EXTRACTION_POLICY'|'RETENTION_POLICY'|'SUBSCRIPTION_FILTER_POLICY'|'TRANSFORMER_POLICY',
  *     scope?: 'ALL',
  *     selectionCriteria?: string,
+ *     dryRun?: bool,
  *     ...,
  * } $args = [])
  * @method \Aws\Result putBearerTokenAuthentication(array $args = [])

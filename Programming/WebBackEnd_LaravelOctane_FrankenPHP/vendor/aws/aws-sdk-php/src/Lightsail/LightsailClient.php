@@ -353,6 +353,8 @@ use Aws\AwsClient;
  *     enablePrivateOriginAccess?: bool,
  *     defaultRootObject?: string,
  *     customErrorResponses?: list<array{errorCode?: int, responseCode?: string, responsePagePath?: string, errorCachingMinTTL?: int, ...}>,
+ *     enableWaf?: bool,
+ *     wafRules?: list<array{name?: string, atpConfig?: array, acfpConfig?: array, botControlConfig?: array, ...}>,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createDistributionAsync(array $args = [])
@@ -391,6 +393,8 @@ use Aws\AwsClient;
  *     enablePrivateOriginAccess?: bool,
  *     defaultRootObject?: string,
  *     customErrorResponses?: list<array{errorCode?: int, responseCode?: string, responsePagePath?: string, errorCachingMinTTL?: int, ...}>,
+ *     enableWaf?: bool,
+ *     wafRules?: list<array{name?: string, atpConfig?: array, acfpConfig?: array, botControlConfig?: array, ...}>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createDomain(array $args = [])
@@ -990,7 +994,7 @@ use Aws\AwsClient;
  * @method \Aws\Result getDistributionMetricData(array $args = [])
  * @phpstan-method \Aws\Result getDistributionMetricData(array{
  *     distributionName?: string,
- *     metricName?: 'BytesDownloaded'|'BytesUploaded'|'Http4xxErrorRate'|'Http5xxErrorRate'|'Requests'|'TotalErrorRate',
+ *     metricName?: 'BytesDownloaded'|'BytesUploaded'|'Http4xxErrorRate'|'Http5xxErrorRate'|'Requests'|'TotalErrorRate'|'WafAllowedRequests'|'WafBlockedRequests',
  *     startTime?: int|string|\DateTimeInterface,
  *     endTime?: int|string|\DateTimeInterface,
  *     period?: int,
@@ -1001,7 +1005,7 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getDistributionMetricDataAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getDistributionMetricDataAsync(array{
  *     distributionName?: string,
- *     metricName?: 'BytesDownloaded'|'BytesUploaded'|'Http4xxErrorRate'|'Http5xxErrorRate'|'Requests'|'TotalErrorRate',
+ *     metricName?: 'BytesDownloaded'|'BytesUploaded'|'Http4xxErrorRate'|'Http5xxErrorRate'|'Requests'|'TotalErrorRate'|'WafAllowedRequests'|'WafBlockedRequests',
  *     startTime?: int|string|\DateTimeInterface,
  *     endTime?: int|string|\DateTimeInterface,
  *     period?: int,
@@ -1026,9 +1030,9 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getExportSnapshotRecordsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getExportSnapshotRecordsAsync(array{pageToken?: string, ...} $args = [])
  * @method \Aws\Result getInstance(array $args = [])
- * @phpstan-method \Aws\Result getInstance(array{instanceName?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result getInstance(array{instanceName?: string, includeHealthStatus?: bool, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getInstanceAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise getInstanceAsync(array{instanceName?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getInstanceAsync(array{instanceName?: string, includeHealthStatus?: bool, ...} $args = [])
  * @method \Aws\Result getInstanceAccessDetails(array $args = [])
  * @phpstan-method \Aws\Result getInstanceAccessDetails(array{instanceName?: string, protocol?: 'rdp'|'ssh', ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getInstanceAccessDetailsAsync(array $args = [])
@@ -1036,7 +1040,7 @@ use Aws\AwsClient;
  * @method \Aws\Result getInstanceMetricData(array $args = [])
  * @phpstan-method \Aws\Result getInstanceMetricData(array{
  *     instanceName?: string,
- *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'MetadataNoToken'|'NetworkIn'|'NetworkOut'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System',
+ *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'DiskQueueLength'|'DiskReadBytes'|'DiskReadOps'|'DiskTotalReadTime'|'DiskTotalWriteTime'|'DiskWriteBytes'|'DiskWriteOps'|'MetadataNoToken'|'NetworkIn'|'NetworkOut'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System',
  *     period?: int,
  *     startTime?: int|string|\DateTimeInterface,
  *     endTime?: int|string|\DateTimeInterface,
@@ -1047,7 +1051,7 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getInstanceMetricDataAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getInstanceMetricDataAsync(array{
  *     instanceName?: string,
- *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'MetadataNoToken'|'NetworkIn'|'NetworkOut'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System',
+ *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'DiskQueueLength'|'DiskReadBytes'|'DiskReadOps'|'DiskTotalReadTime'|'DiskTotalWriteTime'|'DiskWriteBytes'|'DiskWriteOps'|'MetadataNoToken'|'NetworkIn'|'NetworkOut'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System',
  *     period?: int,
  *     startTime?: int|string|\DateTimeInterface,
  *     endTime?: int|string|\DateTimeInterface,
@@ -1072,9 +1076,9 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise getInstanceStateAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getInstanceStateAsync(array{instanceName?: string, ...} $args = [])
  * @method \Aws\Result getInstances(array $args = [])
- * @phpstan-method \Aws\Result getInstances(array{pageToken?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result getInstances(array{pageToken?: string, includeHealthStatus?: bool, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getInstancesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise getInstancesAsync(array{pageToken?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getInstancesAsync(array{pageToken?: string, includeHealthStatus?: bool, ...} $args = [])
  * @method \Aws\Result getKeyPair(array $args = [])
  * @phpstan-method \Aws\Result getKeyPair(array{keyPairName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getKeyPairAsync(array $args = [])
@@ -1278,7 +1282,7 @@ use Aws\AwsClient;
  * @method \Aws\Result putAlarm(array $args = [])
  * @phpstan-method \Aws\Result putAlarm(array{
  *     alarmName?: string,
- *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'ClientTLSNegotiationErrorCount'|'DatabaseConnections'|'DiskQueueDepth'|'FreeStorageSpace'|'FreeableMemory'|'HTTPCode_Instance_2XX_Count'|'HTTPCode_Instance_3XX_Count'|'HTTPCode_Instance_4XX_Count'|'HTTPCode_Instance_5XX_Count'|'HTTPCode_LB_4XX_Count'|'HTTPCode_LB_5XX_Count'|'HealthyHostCount'|'InstanceResponseTime'|'NetworkIn'|'NetworkOut'|'NetworkReceiveThroughput'|'NetworkTransmitThroughput'|'RejectedConnectionCount'|'RequestCount'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System'|'SwapUsage'|'UnhealthyHostCount',
+ *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'ClientTLSNegotiationErrorCount'|'DatabaseConnections'|'DiskQueueDepth'|'DiskQueueLength'|'DiskReadBytes'|'DiskReadOps'|'DiskTotalReadTime'|'DiskTotalWriteTime'|'DiskWriteBytes'|'DiskWriteOps'|'FreeStorageSpace'|'FreeableMemory'|'HTTPCode_Instance_2XX_Count'|'HTTPCode_Instance_3XX_Count'|'HTTPCode_Instance_4XX_Count'|'HTTPCode_Instance_5XX_Count'|'HTTPCode_LB_4XX_Count'|'HTTPCode_LB_5XX_Count'|'HealthyHostCount'|'InstanceResponseTime'|'NetworkIn'|'NetworkOut'|'NetworkReceiveThroughput'|'NetworkTransmitThroughput'|'RejectedConnectionCount'|'RequestCount'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System'|'SwapUsage'|'UnhealthyHostCount',
  *     monitoredResourceName?: string,
  *     comparisonOperator?: 'GreaterThanOrEqualToThreshold'|'GreaterThanThreshold'|'LessThanOrEqualToThreshold'|'LessThanThreshold',
  *     threshold?: float,
@@ -1294,7 +1298,7 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise putAlarmAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise putAlarmAsync(array{
  *     alarmName?: string,
- *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'ClientTLSNegotiationErrorCount'|'DatabaseConnections'|'DiskQueueDepth'|'FreeStorageSpace'|'FreeableMemory'|'HTTPCode_Instance_2XX_Count'|'HTTPCode_Instance_3XX_Count'|'HTTPCode_Instance_4XX_Count'|'HTTPCode_Instance_5XX_Count'|'HTTPCode_LB_4XX_Count'|'HTTPCode_LB_5XX_Count'|'HealthyHostCount'|'InstanceResponseTime'|'NetworkIn'|'NetworkOut'|'NetworkReceiveThroughput'|'NetworkTransmitThroughput'|'RejectedConnectionCount'|'RequestCount'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System'|'SwapUsage'|'UnhealthyHostCount',
+ *     metricName?: 'BurstCapacityPercentage'|'BurstCapacityTime'|'CPUUtilization'|'ClientTLSNegotiationErrorCount'|'DatabaseConnections'|'DiskQueueDepth'|'DiskQueueLength'|'DiskReadBytes'|'DiskReadOps'|'DiskTotalReadTime'|'DiskTotalWriteTime'|'DiskWriteBytes'|'DiskWriteOps'|'FreeStorageSpace'|'FreeableMemory'|'HTTPCode_Instance_2XX_Count'|'HTTPCode_Instance_3XX_Count'|'HTTPCode_Instance_4XX_Count'|'HTTPCode_Instance_5XX_Count'|'HTTPCode_LB_4XX_Count'|'HTTPCode_LB_5XX_Count'|'HealthyHostCount'|'InstanceResponseTime'|'NetworkIn'|'NetworkOut'|'NetworkReceiveThroughput'|'NetworkTransmitThroughput'|'RejectedConnectionCount'|'RequestCount'|'StatusCheckFailed'|'StatusCheckFailed_Instance'|'StatusCheckFailed_System'|'SwapUsage'|'UnhealthyHostCount',
  *     monitoredResourceName?: string,
  *     comparisonOperator?: 'GreaterThanOrEqualToThreshold'|'GreaterThanThreshold'|'LessThanOrEqualToThreshold'|'LessThanThreshold',
  *     threshold?: float,
@@ -1400,9 +1404,9 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise startGUISessionAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise startGUISessionAsync(array{resourceName?: string, ...} $args = [])
  * @method \Aws\Result startInstance(array $args = [])
- * @phpstan-method \Aws\Result startInstance(array{instanceName?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result startInstance(array{instanceName?: string, attributeUpdates?: array{bundleId?: string, ...}, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise startInstanceAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise startInstanceAsync(array{instanceName?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise startInstanceAsync(array{instanceName?: string, attributeUpdates?: array{bundleId?: string, ...}, ...} $args = [])
  * @method \Aws\Result startRelationalDatabase(array $args = [])
  * @phpstan-method \Aws\Result startRelationalDatabase(array{relationalDatabaseName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise startRelationalDatabaseAsync(array $args = [])
@@ -1514,6 +1518,8 @@ use Aws\AwsClient;
  *     enablePrivateOriginAccess?: bool,
  *     defaultRootObject?: string,
  *     customErrorResponses?: list<array{errorCode?: int, responseCode?: string, responsePagePath?: string, errorCachingMinTTL?: int, ...}>,
+ *     enableWaf?: bool,
+ *     wafRules?: list<array{name?: string, atpConfig?: array, acfpConfig?: array, botControlConfig?: array, ...}>,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateDistributionAsync(array $args = [])
@@ -1551,6 +1557,8 @@ use Aws\AwsClient;
  *     enablePrivateOriginAccess?: bool,
  *     defaultRootObject?: string,
  *     customErrorResponses?: list<array{errorCode?: int, responseCode?: string, responsePagePath?: string, errorCachingMinTTL?: int, ...}>,
+ *     enableWaf?: bool,
+ *     wafRules?: list<array{name?: string, atpConfig?: array, acfpConfig?: array, botControlConfig?: array, ...}>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result updateDistributionBundle(array $args = [])

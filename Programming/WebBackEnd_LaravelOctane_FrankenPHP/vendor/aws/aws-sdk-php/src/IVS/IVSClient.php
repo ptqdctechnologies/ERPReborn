@@ -53,6 +53,7 @@ use Aws\AwsClient;
  *     multitrackInputConfiguration?: array{enabled?: bool, policy?: 'ALLOW'|'REQUIRE', maximumResolution?: 'FULL_HD'|'HD'|'SD', ...},
  *     containerFormat?: 'FRAGMENTED_MP4'|'TS',
  *     adConfigurationArn?: string,
+ *     failoverSlateConfigurationArn?: string,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createChannelAsync(array $args = [])
@@ -69,6 +70,25 @@ use Aws\AwsClient;
  *     multitrackInputConfiguration?: array{enabled?: bool, policy?: 'ALLOW'|'REQUIRE', maximumResolution?: 'FULL_HD'|'HD'|'SD', ...},
  *     containerFormat?: 'FRAGMENTED_MP4'|'TS',
  *     adConfigurationArn?: string,
+ *     failoverSlateConfigurationArn?: string,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result createFailoverSlateConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result createFailoverSlateConfiguration(array{
+ *     name?: string,
+ *     activationThresholdSeconds?: int,
+ *     minSlateDisplaySeconds?: int,
+ *     maxSlateDisplaySeconds?: int,
+ *     tags?: array<string, string>,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise createFailoverSlateConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise createFailoverSlateConfigurationAsync(array{
+ *     name?: string,
+ *     activationThresholdSeconds?: int,
+ *     minSlateDisplaySeconds?: int,
+ *     maxSlateDisplaySeconds?: int,
+ *     tags?: array<string, string>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createPlaybackRestrictionPolicy(array $args = [])
@@ -141,6 +161,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result deleteChannel(array{arn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteChannelAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteChannelAsync(array{arn?: string, ...} $args = [])
+ * @method \Aws\Result deleteFailoverSlateConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result deleteFailoverSlateConfiguration(array{arn?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise deleteFailoverSlateConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteFailoverSlateConfigurationAsync(array{arn?: string, ...} $args = [])
  * @method \Aws\Result deletePlaybackKeyPair(array $args = [])
  * @phpstan-method \Aws\Result deletePlaybackKeyPair(array{arn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deletePlaybackKeyPairAsync(array $args = [])
@@ -165,6 +189,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getChannel(array{arn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getChannelAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getChannelAsync(array{arn?: string, ...} $args = [])
+ * @method \Aws\Result getFailoverSlateConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result getFailoverSlateConfiguration(array{arn?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getFailoverSlateConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getFailoverSlateConfigurationAsync(array{arn?: string, ...} $args = [])
  * @method \Aws\Result getPlaybackKeyPair(array $args = [])
  * @phpstan-method \Aws\Result getPlaybackKeyPair(array{arn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getPlaybackKeyPairAsync(array $args = [])
@@ -194,9 +222,21 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise importPlaybackKeyPairAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise importPlaybackKeyPairAsync(array{publicKeyMaterial?: string, name?: string, tags?: array<string, string>, ...} $args = [])
  * @method \Aws\Result insertAdBreak(array $args = [])
- * @phpstan-method \Aws\Result insertAdBreak(array{channelArn?: string, durationSeconds?: int, ...} $args = [])
+ * @phpstan-method \Aws\Result insertAdBreak(array{
+ *     channelArn?: string,
+ *     durationSeconds?: int,
+ *     adBreakId?: string,
+ *     targetStartAt?: int|string|\DateTimeInterface,
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise insertAdBreakAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise insertAdBreakAsync(array{channelArn?: string, durationSeconds?: int, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise insertAdBreakAsync(array{
+ *     channelArn?: string,
+ *     durationSeconds?: int,
+ *     adBreakId?: string,
+ *     targetStartAt?: int|string|\DateTimeInterface,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listAdConfigurations(array $args = [])
  * @phpstan-method \Aws\Result listAdConfigurations(array{nextToken?: string, maxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listAdConfigurationsAsync(array $args = [])
@@ -207,6 +247,7 @@ use Aws\AwsClient;
  *     filterByRecordingConfigurationArn?: string,
  *     filterByPlaybackRestrictionPolicyArn?: string,
  *     filterByAdConfigurationArn?: string,
+ *     filterByFailoverSlateConfigurationArn?: string,
  *     nextToken?: string,
  *     maxResults?: int,
  *     ...,
@@ -217,10 +258,15 @@ use Aws\AwsClient;
  *     filterByRecordingConfigurationArn?: string,
  *     filterByPlaybackRestrictionPolicyArn?: string,
  *     filterByAdConfigurationArn?: string,
+ *     filterByFailoverSlateConfigurationArn?: string,
  *     nextToken?: string,
  *     maxResults?: int,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result listFailoverSlateConfigurations(array $args = [])
+ * @phpstan-method \Aws\Result listFailoverSlateConfigurations(array{nextToken?: string, maxResults?: int, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listFailoverSlateConfigurationsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listFailoverSlateConfigurationsAsync(array{nextToken?: string, maxResults?: int, ...} $args = [])
  * @method \Aws\Result listPlaybackKeyPairs(array $args = [])
  * @phpstan-method \Aws\Result listPlaybackKeyPairs(array{nextToken?: string, maxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listPlaybackKeyPairsAsync(array $args = [])
@@ -309,6 +355,7 @@ use Aws\AwsClient;
  *     multitrackInputConfiguration?: array{enabled?: bool, policy?: 'ALLOW'|'REQUIRE', maximumResolution?: 'FULL_HD'|'HD'|'SD', ...},
  *     containerFormat?: 'FRAGMENTED_MP4'|'TS',
  *     adConfigurationArn?: string,
+ *     failoverSlateConfigurationArn?: string,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateChannelAsync(array $args = [])
@@ -325,6 +372,25 @@ use Aws\AwsClient;
  *     multitrackInputConfiguration?: array{enabled?: bool, policy?: 'ALLOW'|'REQUIRE', maximumResolution?: 'FULL_HD'|'HD'|'SD', ...},
  *     containerFormat?: 'FRAGMENTED_MP4'|'TS',
  *     adConfigurationArn?: string,
+ *     failoverSlateConfigurationArn?: string,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result updateFailoverSlateConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result updateFailoverSlateConfiguration(array{
+ *     arn?: string,
+ *     name?: string,
+ *     activationThresholdSeconds?: int,
+ *     minSlateDisplaySeconds?: int,
+ *     maxSlateDisplaySeconds?: int,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateFailoverSlateConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateFailoverSlateConfigurationAsync(array{
+ *     arn?: string,
+ *     name?: string,
+ *     activationThresholdSeconds?: int,
+ *     minSlateDisplaySeconds?: int,
+ *     maxSlateDisplaySeconds?: int,
  *     ...,
  * } $args = [])
  * @method \Aws\Result updatePlaybackRestrictionPolicy(array $args = [])
