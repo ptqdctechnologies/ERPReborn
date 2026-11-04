@@ -12,14 +12,17 @@
 
 namespace Predis\Connection;
 
+use ArgumentCountError;
 use InvalidArgumentException;
 use Predis\ClientException;
 use Predis\Command\CommandInterface;
 use Predis\NotSupportedException;
+use Predis\Response\Error as ErrorResponse;
 use Predis\Response\ErrorInterface as ErrorResponseInterface;
 use Predis\Response\ServerException;
 use Relay\Exception as RelayException;
 use Relay\Relay;
+use TypeError;
 
 /**
  * This class provides the implementation of a Predis connection that
@@ -114,6 +117,8 @@ class RelayConnection extends AbstractConnection
         if ($this->client->isConnected()) {
             $this->client->close();
         }
+
+        parent::disconnect();
     }
 
     /**
@@ -195,21 +200,50 @@ class RelayConnection extends AbstractConnection
 
         try {
             $name = $command->getId();
+            $arguments = $command->getArguments();
 
-            // When using compression or a serializer, we'll need a dedicated
-            // handler for `Predis\Command\RawCommand` calls, currently both
-            // parameters are unsupported until a future Relay release
+            // Relay accepts ACL credentials as a single [username, password] argument.
+            if ($name === 'AUTH' && count($arguments) === 2) {
+                $arguments = [$arguments];
+            }
+
+            if ($name === 'SELECT') {
+                return $this->select($arguments);
+            }
+
+            // Raw dispatch leaves values untouched. Serialization and compression
+            // are applied explicitly with pack() and unpack().
             return in_array($name, $this->atypicalCommands)
-                ? $this->client->{$name}(...$command->getArguments())
-                : $this->client->rawCommand($name, ...$command->getArguments());
+                ? $this->client->{$name}(...$arguments)
+                : $this->client->rawCommand($name, ...$arguments);
         } catch (RelayException $ex) {
             $exception = $this->onCommandError($ex, $command);
 
             if ($exception instanceof ErrorResponseInterface) {
-                return $exception;
+                return $exception instanceof ServerException
+                    ? $exception->toErrorResponse()
+                    : $exception;
             }
 
             throw $exception;
+        }
+    }
+
+    /**
+     * Relay's select() throws a TypeError for a non-integer database, where
+     * other connections get an error response from the server.
+     *
+     * @param  array $arguments
+     * @return mixed
+     */
+    protected function select(array $arguments)
+    {
+        try {
+            return $this->client->select(...$arguments);
+        } catch (ArgumentCountError $ex) {
+            throw $ex;
+        } catch (TypeError $ex) {
+            return new ErrorResponse('ERR value is not an integer or out of range');
         }
     }
 

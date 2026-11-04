@@ -4320,6 +4320,7 @@ return array(
     'Laravel\\Octane\\SequentialCoroutineDispatcher' => $vendorDir . '/laravel/octane/src/SequentialCoroutineDispatcher.php',
     'Laravel\\Octane\\SequentialTaskDispatcher' => $vendorDir . '/laravel/octane/src/SequentialTaskDispatcher.php',
     'Laravel\\Octane\\Stream' => $vendorDir . '/laravel/octane/src/Stream.php',
+    'Laravel\\Octane\\StreamsGeneratorResponses' => $vendorDir . '/laravel/octane/src/StreamsGeneratorResponses.php',
     'Laravel\\Octane\\Swoole\\Actions\\ConvertSwooleRequestToIlluminateRequest' => $vendorDir . '/laravel/octane/src/Swoole/Actions/ConvertSwooleRequestToIlluminateRequest.php',
     'Laravel\\Octane\\Swoole\\Actions\\EnsureRequestsDontExceedMaxExecutionTime' => $vendorDir . '/laravel/octane/src/Swoole/Actions/EnsureRequestsDontExceedMaxExecutionTime.php',
     'Laravel\\Octane\\Swoole\\Handlers\\OnManagerStart' => $vendorDir . '/laravel/octane/src/Swoole/Handlers/OnManagerStart.php',

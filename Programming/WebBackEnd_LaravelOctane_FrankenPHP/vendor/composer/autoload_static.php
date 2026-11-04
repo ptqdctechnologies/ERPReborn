@@ -5106,6 +5106,7 @@ class ComposerStaticInitf3f23b9bfc4c5027395f1f35d83d1125
         'Laravel\\Octane\\SequentialCoroutineDispatcher' => __DIR__ . '/..' . '/laravel/octane/src/SequentialCoroutineDispatcher.php',
         'Laravel\\Octane\\SequentialTaskDispatcher' => __DIR__ . '/..' . '/laravel/octane/src/SequentialTaskDispatcher.php',
         'Laravel\\Octane\\Stream' => __DIR__ . '/..' . '/laravel/octane/src/Stream.php',
+        'Laravel\\Octane\\StreamsGeneratorResponses' => __DIR__ . '/..' . '/laravel/octane/src/StreamsGeneratorResponses.php',
         'Laravel\\Octane\\Swoole\\Actions\\ConvertSwooleRequestToIlluminateRequest' => __DIR__ . '/..' . '/laravel/octane/src/Swoole/Actions/ConvertSwooleRequestToIlluminateRequest.php',
         'Laravel\\Octane\\Swoole\\Actions\\EnsureRequestsDontExceedMaxExecutionTime' => __DIR__ . '/..' . '/laravel/octane/src/Swoole/Actions/EnsureRequestsDontExceedMaxExecutionTime.php',
         'Laravel\\Octane\\Swoole\\Handlers\\OnManagerStart' => __DIR__ . '/..' . '/laravel/octane/src/Swoole/Handlers/OnManagerStart.php',
