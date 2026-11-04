@@ -7,7 +7,7 @@
         <div>
             <span id="budget_container" class="input-group-text form-control" data-toggle="modal"
                 data-target="<?= isset($budget['preview']) ? '' : '#budget_code_modal'; ?>"
-                style="border-radius: 0; cursor: '<?= isset($budget['preview']) ? 'not-allowed' : 'pointer'; ?>';">
+                style="border-radius: 0; cursor: <?= isset($budget['preview']) ? 'not-allowed' : 'pointer'; ?>;">
                 <i id="budget_icon" class="fas fa-gift"></i>
 
                 <div id="budget_loading" class="spinner-border spinner-border-sm" role="status" style="display: none;">
