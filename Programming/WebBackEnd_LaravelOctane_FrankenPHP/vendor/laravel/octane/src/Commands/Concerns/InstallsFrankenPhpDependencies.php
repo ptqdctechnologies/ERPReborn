@@ -22,7 +22,7 @@ trait InstallsFrankenPhpDependencies
      *
      * @var string
      */
-    protected $requiredFrankenPhpVersion = '1.13.0';
+    protected $requiredFrankenPhpVersion = '1.13.2';
 
     /**
      * Ensure the FrankenPHP's Caddyfile and worker script are installed.
@@ -170,6 +170,10 @@ trait InstallsFrankenPhpDependencies
         }
 
         $this->components->warn("Your FrankenPHP binary version (<fg=red>$version</>) may be incompatible with Octane.");
+
+        if (realpath($frankenPhpBinary) !== realpath(base_path('frankenphp'))) {
+            return $this->components->warn("Please update the FrankenPHP binary located at [$frankenPhpBinary] manually.");
+        }
 
         if (confirm('Should Octane download the latest FrankenPHP binary version for your operating system?', true)) {
             rename($frankenPhpBinary, "$frankenPhpBinary.backup");

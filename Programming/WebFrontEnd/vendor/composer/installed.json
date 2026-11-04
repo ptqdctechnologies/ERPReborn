@@ -1117,17 +1117,17 @@
         },
         {
             "name": "filp/whoops",
-            "version": "2.19.1",
-            "version_normalized": "2.19.1.0",
+            "version": "2.19.2",
+            "version_normalized": "2.19.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/filp/whoops.git",
-                "reference": "2915c807d7af61d8fb5c31d90c57af91d30f29fc"
+                "reference": "84e33631273138ac103d045dc02b0fb7e5485582"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/filp/whoops/zipball/2915c807d7af61d8fb5c31d90c57af91d30f29fc",
-                "reference": "2915c807d7af61d8fb5c31d90c57af91d30f29fc",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/84e33631273138ac103d045dc02b0fb7e5485582",
+                "reference": "84e33631273138ac103d045dc02b0fb7e5485582",
                 "shasum": ""
             },
             "require": {
@@ -1143,8 +1143,8 @@
                 "symfony/var-dumper": "Pretty print complex values better with var-dumper available",
                 "whoops/soap": "Formats errors as SOAP responses"
             },
-            "time": "2026-11-02T12:00:00+00:00",
-            "published-time": "2026-11-02T01:04:38+00:00",
+            "time": "2026-11-03T23:38:01+00:00",
+            "published-time": "2026-11-03T23:39:05+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1180,7 +1180,7 @@
             ],
             "support": {
                 "issues": "https://github.com/filp/whoops/issues",
-                "source": "https://github.com/filp/whoops/tree/2.19.1"
+                "source": "https://github.com/filp/whoops/tree/2.19.2"
             },
             "funding": [
                 {
@@ -1819,17 +1819,17 @@
         },
         {
             "name": "laravel/framework",
-            "version": "v12.70.2",
-            "version_normalized": "12.70.2.0",
+            "version": "v12.71.0",
+            "version_normalized": "12.71.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/framework.git",
-                "reference": "4dc928b47c05a2a96ba51c39d2bd7749b5ea332e"
+                "reference": "64dc24f5d965add4d402b4b8b64f59b561112af5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/4dc928b47c05a2a96ba51c39d2bd7749b5ea332e",
-                "reference": "4dc928b47c05a2a96ba51c39d2bd7749b5ea332e",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/64dc24f5d965add4d402b4b8b64f59b561112af5",
+                "reference": "64dc24f5d965add4d402b4b8b64f59b561112af5",
                 "shasum": ""
             },
             "require": {
@@ -1990,8 +1990,8 @@
                 "symfony/postmark-mailer": "Required to enable support for the Postmark mail transport (^7.2).",
                 "symfony/psr-http-message-bridge": "Required to use PSR-7 bridging features (^7.2)."
             },
-            "time": "2026-10-27T14:07:51+00:00",
-            "published-time": "2026-10-27T14:09:14+00:00",
+            "time": "2026-11-03T15:08:25+00:00",
+            "published-time": "2026-11-03T15:09:32+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -7578,8 +7578,8 @@
         },
         {
             "name": "symfony/deprecation-contracts",
-            "version": "v3.7.1",
-            "version_normalized": "3.7.1.0",
+            "version": "v3.8.0",
+            "version_normalized": "3.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/deprecation-contracts.git",
@@ -7595,6 +7595,7 @@
                 "php": ">=8.1"
             },
             "time": "2026-06-05T06:23:12+00:00",
+            "published-time": "2026-11-04T08:53:06+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -7628,7 +7629,7 @@
             "description": "A generic function and convention to trigger deprecation notices",
             "homepage": "https://symfony.com",
             "support": {
-                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/deprecation-contracts/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -7827,8 +7828,8 @@
         },
         {
             "name": "symfony/event-dispatcher-contracts",
-            "version": "v3.7.1",
-            "version_normalized": "3.7.1.0",
+            "version": "v3.8.0",
+            "version_normalized": "3.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher-contracts.git",
@@ -7845,6 +7846,7 @@
                 "psr/event-dispatcher": "^1"
             },
             "time": "2026-06-05T06:23:12+00:00",
+            "published-time": "2026-11-04T08:53:02+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -7886,7 +7888,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/event-dispatcher-contracts/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -9477,8 +9479,8 @@
         },
         {
             "name": "symfony/service-contracts",
-            "version": "v3.7.3",
-            "version_normalized": "3.7.3.0",
+            "version": "v3.8.0",
+            "version_normalized": "3.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/service-contracts.git",
@@ -9499,6 +9501,7 @@
                 "ext-psr": "<1.1|>=2"
             },
             "time": "2026-07-27T15:39:01+00:00",
+            "published-time": "2026-11-04T08:53:04+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -9543,7 +9546,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/service-contracts/tree/v3.7.3"
+                "source": "https://github.com/symfony/service-contracts/tree/v3.8.0"
             },
             "funding": [
                 {
@@ -9758,8 +9761,8 @@
         },
         {
             "name": "symfony/translation-contracts",
-            "version": "v3.7.1",
-            "version_normalized": "3.7.1.0",
+            "version": "v3.8.0",
+            "version_normalized": "3.8.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/translation-contracts.git",
@@ -9775,6 +9778,7 @@
                 "php": ">=8.1"
             },
             "time": "2026-06-05T06:23:12+00:00",
+            "published-time": "2026-11-04T08:53:03+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -9819,7 +9823,7 @@
                 "standards"
             ],
             "support": {
-                "source": "https://github.com/symfony/translation-contracts/tree/v3.7.1"
+                "source": "https://github.com/symfony/translation-contracts/tree/v3.8.0"
             },
             "funding": [
                 {
