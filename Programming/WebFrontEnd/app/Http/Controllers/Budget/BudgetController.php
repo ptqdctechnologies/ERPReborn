@@ -97,6 +97,24 @@ class BudgetController extends Controller
         ]);
     }
 
+    public function indexModify(Request $request)
+    {
+        return view('Budget.Modify.Transactions.index');
+    }
+
+    public function createModify()
+    {
+        $token = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Budget.Modify.Transactions.create', $compact);
+    }
+
     public function ModifyBudgetPost(Request $request)
     {
         try {
