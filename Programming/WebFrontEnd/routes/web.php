@@ -282,6 +282,9 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
         Route::get('Budget/modify/create', 'createModify')
             ->name('Budget.modify.create');
+
+        Route::get('Budget/modify/preview', 'previewModify')
+            ->name('Budget.modify.preview');
     });
     Route::resource('Budget', BudgetController::class)->only(['index', 'store']);
 
