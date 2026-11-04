@@ -279,6 +279,8 @@
                 bankAccount_RefID: parseInt(accountNumberID.value), // 167000000000004
                 combinedBudget_RefID: parseInt(detail.budget_id),
                 journalDateTimeTZ: `${journalDateTimeTZ[2]}-${journalDateTimeTZ[0]}-${journalDateTimeTZ[1]}`,
+                transactionType: detail.debit_credit_id == '214000000000001' ? 214000000000002 : 214000000000001,
+                transaction_RefID: parseInt(detail.trans_number_id),
                 additionalData: {
                     itemList: {
                         items: {
@@ -291,32 +293,32 @@
                                             log_FileUpload_Pointer_RefID: null,
                                             combinedBudget_RefID: parseInt(detail.budget_id),
                                             beneficiaryBankAccount_RefID: parseInt(detail.from_to_id),
-                                            chartOfAccount_RefID: parseInt(detail.coa_id),
-                                            amountCurrency_RefID: parseInt(detail.trans_number_currency_id),
-                                            amountCurrencyValue: detail.payment_value,
-                                            amountCurrencyExchangeRate: parseFloat(detail.trans_number_currency_rate.replace(/,/g, '')),
-                                            remarks: null,
+                                            // chartOfAccount_RefID: parseInt(detail.coa_id),
+                                            // amountCurrency_RefID: parseInt(detail.trans_number_currency_id),
+                                            // amountCurrencyValue: detail.payment_value,
+                                            // amountCurrencyExchangeRate: parseFloat(detail.trans_number_currency_rate.replace(/,/g, '')),
+                                            // remarks: null,
                                             additionalData: [
-                                                // COA CODE
+                                                // COA BANK
                                                 {
                                                     chartOfAccount_RefID: parseInt(dummyCoaAccountNumber),
                                                     accountingEntryRecordType_RefID: parseInt(detail.debit_credit_id),
                                                     amountCurrency_RefID: parseInt(detail.trans_number_currency_id),
                                                     amountCurrencyValue: detail.payment_value,
                                                     amountCurrencyExchangeRate: parseFloat(detail.trans_number_currency_rate.replace(/,/g, '')),
-                                                    quantityUnit_RefID: parseInt(detail.trans_number_quantity_unit_id),
-                                                    quantity: detail.trans_number_quantity,
+                                                    quantityUnit_RefID: null, // parseInt(detail.trans_number_quantity_unit_id),
+                                                    quantity: null, // detail.trans_number_quantity,
                                                     variance: detail.variance_value
                                                 },
-                                                // COA BANK
+                                                // COA CODE
                                                 {
                                                     chartOfAccount_RefID: parseInt(detail.coa_id),
                                                     accountingEntryRecordType_RefID: detail.debit_credit_id == '214000000000001' ? 214000000000002 : 214000000000001,
                                                     amountCurrency_RefID: parseInt(detail.trans_number_currency_id),
                                                     amountCurrencyValue: detail.payment_value,
                                                     amountCurrencyExchangeRate: parseFloat(detail.trans_number_currency_rate.replace(/,/g, '')),
-                                                    quantityUnit_RefID: parseInt(detail.trans_number_quantity_unit_id),
-                                                    quantity: detail.trans_number_quantity,
+                                                    quantityUnit_RefID: null, // parseInt(detail.trans_number_quantity_unit_id),
+                                                    quantity: null, // detail.trans_number_quantity,
                                                     variance: detail.variance_value
                                                 }
                                             ]
@@ -790,6 +792,8 @@
 
                     $(".preview-modal").show();
                     $(".summary-modal").hide();
+                } else {
+                    ErrorNotif("Create Cash & Bank Failed");
                 }
             },
             error: function (jqXHR, textStatus, errorThrown) {

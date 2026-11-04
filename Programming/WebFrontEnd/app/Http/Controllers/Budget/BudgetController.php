@@ -97,6 +97,218 @@ class BudgetController extends Controller
         ]);
     }
 
+    public function indexModify(Request $request)
+    {
+        return view('Budget.Modify.Transactions.index');
+    }
+
+    public function createModify()
+    {
+        $token = Session::get('SessionLogin');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Advance Form');
+
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Budget.Modify.Transactions.create', $compact);
+    }
+
+    public function previewModify(Request $request)
+    {
+        $token = Session::get('SessionLogin');
+
+        $currencySymbol = 'IDR'; // $request->currency_symbol ?? 'IDR';
+        $exchangeRate = number_format(str_replace(",", "", 33333), 2, '.', '');
+        $valueCO = str_replace(",", "", 11111); // str_replace(",", "", $request->value_co);
+
+        $totalAmountFooter = 39430; // $request->input('totalAmountFooterData');
+
+        // SECTION ONE
+        $addSubtSectionOneCO = 0;
+        $addSubtSectionOneFC = 0; // FC -> FOREIGN CURRENCY
+
+        // SECTION TWO
+        $addSubtSectionTwoCO = 0;
+        $addSubtSectionTwoFC = 0; // FC -> FOREIGN CURRENCY
+
+        if ($currencySymbol != "IDR") {
+            if ($valueCO) {
+                $addSubtSectionOneCO = $valueCO * $exchangeRate;
+                $addSubtSectionOneFC = $valueCO;
+
+                $addSubtSectionTwoCO = $exchangeRate * $totalAmountFooter;
+                $addSubtSectionTwoFC = $totalAmountFooter;
+            }
+        } else {
+            if ($valueCO) {
+                $addSubtSectionOneCO = $valueCO;
+
+                $addSubtSectionTwoCO = $valueCO;
+            }
+        }
+
+        // dump($valueCO * $totalAmountFooter);
+
+        // SECTION ONE
+        $originDummyCO = 465000000;
+        $originDummyFC = 0;
+        $totalCurrentCO = $originDummyCO + $addSubtSectionOneCO;
+        $totalCurrentFC = $originDummyFC + $addSubtSectionOneFC;
+
+        // SECTION TWO
+        $originDummyAddSubt = 376712000;
+        $originDummyAddSubtFC = 0;
+        $totalCurrentAddSubt = $originDummyAddSubt + $addSubtSectionTwoCO;
+        $totalCurrentAddSubtFC = $originDummyAddSubtFC + $addSubtSectionTwoFC;
+
+        // SECTION FOUR
+        $tempData = $originDummyCO - $originDummyAddSubt;
+        $originDummyGrossMargin = $tempData / ($originDummyCO + $originDummyFC);
+        $previousDummyGrossMargin = $tempData / ($originDummyCO + $originDummyFC);
+        $totalCurrentGrossMargin = $tempData / ($totalCurrentCO + $totalCurrentFC);
+
+        $compact = [
+            'token' => $token,
+            'exchangeRate' => $exchangeRate,
+            'dataTable' => [
+                'sectionOne' => [
+                    'firstRow' => [
+                        'description' => 'Customer Order (CO)',
+                        'valuta' => 'IDR',
+                        'origin' => $originDummyCO,
+                        'previous' => $originDummyCO,
+                        'addSubt' => $addSubtSectionOneCO,
+                        'totalCurrent' => $totalCurrentCO,
+                    ],
+                    'secondRow' => [
+                        'description' => '',
+                        'valuta' => 'Foreign Currency',
+                        'origin' => $originDummyFC,
+                        'previous' => $originDummyFC,
+                        'addSubt' => $addSubtSectionOneFC,
+                        'totalCurrent' => $totalCurrentFC,
+                    ],
+                    'thirdRow' => [
+                        'description' => 'Total Equivalent',
+                        'valuta' => 'IDR',
+                        'origin' => $originDummyCO,
+                        'previous' => $originDummyCO,
+                        'addSubt' => $addSubtSectionOneCO,
+                        'totalCurrent' => $totalCurrentCO,
+                    ],
+                ],
+                'sectionTwo' => [
+                    'firstRow' => [
+                        'description' => 'Add(Subt) Cost',
+                        'valuta' => 'IDR',
+                        'origin' => $originDummyAddSubt,
+                        'previous' => $originDummyAddSubt,
+                        'addSubt' => $addSubtSectionTwoCO,
+                        'totalCurrent' => $totalCurrentAddSubt,
+                    ],
+                    'secondRow' => [
+                        'description' => '',
+                        'valuta' => 'Foreign Currency',
+                        'origin' => $originDummyAddSubtFC,
+                        'previous' => $originDummyAddSubtFC,
+                        'addSubt' => $addSubtSectionTwoFC,
+                        'totalCurrent' => $totalCurrentAddSubtFC,
+                    ],
+                    'thirdRow' => [
+                        'description' => 'Total Equivalent',
+                        'valuta' => 'IDR',
+                        'origin' => $originDummyAddSubt,
+                        'previous' => $originDummyAddSubt,
+                        'addSubt' => $addSubtSectionTwoCO,
+                        'totalCurrent' => $totalCurrentAddSubt,
+                    ],
+                ],
+                'sectionThree' => [
+                    'firstRow' => [
+                        'description' => 'Gross Margin',
+                        'valuta' => 'IDR',
+                        'origin' => $tempData,
+                        'previous' => $tempData,
+                        'addSubt' => 0,
+                        'totalCurrent' => $totalCurrentCO - $totalCurrentAddSubt,
+                    ],
+                    'secondRow' => [
+                        'description' => '',
+                        'valuta' => 'Foreign Currency',
+                        'origin' => 0,
+                        'previous' => 0,
+                        'addSubt' => 0,
+                        'totalCurrent' => 0,
+                    ],
+                    'thirdRow' => [
+                        'description' => 'Total Equivalent',
+                        'valuta' => 'IDR',
+                        'origin' => $tempData,
+                        'previous' => $tempData,
+                        'addSubt' => 0,
+                        'totalCurrent' => $totalCurrentCO - $totalCurrentAddSubt,
+                    ],
+                ],
+                'sectionFour' => [
+                    'firstRow' => [
+                        'description' => 'Gross Margin',
+                        'valuta' => '%',
+                        'origin' => $originDummyGrossMargin,
+                        'previous' => $previousDummyGrossMargin,
+                        'addSubt' => '',
+                        'totalCurrent' => $totalCurrentGrossMargin,
+                    ],
+                    'secondRow' => [
+                        'description' => 'Gross Margin Movement',
+                        'valuta' => '%',
+                        'origin' => $totalCurrentGrossMargin - $originDummyGrossMargin,
+                        'previous' => $totalCurrentGrossMargin - $previousDummyGrossMargin,
+                        'addSubt' => '',
+                        'totalCurrent' => '',
+                    ],
+                    'thirdRow' => [
+                        'description' => 'Recorded Cost',
+                        'valuta' => 'IDR',
+                        'origin' => '',
+                        'previous' => '',
+                        'addSubt' => '',
+                        'totalCurrent' => 0,
+                    ],
+                    'fourthRow' => [
+                        'description' => '',
+                        'valuta' => 'Foreign Currency',
+                        'origin' => '',
+                        'previous' => '',
+                        'addSubt' => '',
+                        'totalCurrent' => 0,
+                    ],
+                    'fifthRow' => [
+                        'description' => 'Total Equivalent',
+                        'valuta' => 'IDR',
+                        'origin' => '',
+                        'previous' => '',
+                        'addSubt' => '',
+                        'totalCurrent' => 0,
+                    ],
+                ],
+                'sectionFive' => [
+                    'firstRow' => [
+                        'description' => 'Actual Gross Margin',
+                        'valuta' => '%',
+                        'origin' => '',
+                        'previous' => '',
+                        'addSubt' => '',
+                        'totalCurrent' => 0,
+                    ],
+                ],
+            ]
+        ];
+
+        return view('Budget.Modify.Transactions.preview', $compact);
+    }
+
     public function ModifyBudgetPost(Request $request)
     {
         try {

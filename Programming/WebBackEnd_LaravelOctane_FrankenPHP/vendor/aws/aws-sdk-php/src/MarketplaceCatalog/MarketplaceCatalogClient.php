@@ -140,6 +140,18 @@ use Aws\AwsClient;
  *             LastModifiedDate?: array,
  *             ...,
  *         },
+ *         ExpressPrivateOfferConfigurationFilters?: array{EntityId?: array, ProductId?: array, State?: array, ...},
+ *         SubsidiaryAuthorizationFilters?: array{
+ *             EntityId?: array,
+ *             Status?: array,
+ *             ResourceId?: array,
+ *             ResourceName?: array,
+ *             Name?: array,
+ *             SubsidiaryAccountId?: array,
+ *             CreatedDate?: array,
+ *             LastModifiedDate?: array,
+ *             ...,
+ *         },
  *         ...,
  *     },
  *     EntityTypeSort?: array{
@@ -180,6 +192,12 @@ use Aws\AwsClient;
  *         },
  *         OfferSetSort?: array{
  *             SortBy?: 'EntityId'|'LastModifiedDate'|'Name'|'ReleaseDate'|'SolutionId'|'State',
+ *             SortOrder?: 'ASCENDING'|'DESCENDING',
+ *             ...,
+ *         },
+ *         ExpressPrivateOfferConfigurationSort?: array{SortBy?: 'EntityId'|'LastModifiedDate'|'ProductId'|'State', SortOrder?: 'ASCENDING'|'DESCENDING', ...},
+ *         SubsidiaryAuthorizationSort?: array{
+ *             SortBy?: 'CreatedDate'|'EntityId'|'LastModifiedDate'|'ResourceId'|'Status'|'SubsidiaryAccountId',
  *             SortOrder?: 'ASCENDING'|'DESCENDING',
  *             ...,
  *         },
@@ -248,6 +266,18 @@ use Aws\AwsClient;
  *             LastModifiedDate?: array,
  *             ...,
  *         },
+ *         ExpressPrivateOfferConfigurationFilters?: array{EntityId?: array, ProductId?: array, State?: array, ...},
+ *         SubsidiaryAuthorizationFilters?: array{
+ *             EntityId?: array,
+ *             Status?: array,
+ *             ResourceId?: array,
+ *             ResourceName?: array,
+ *             Name?: array,
+ *             SubsidiaryAccountId?: array,
+ *             CreatedDate?: array,
+ *             LastModifiedDate?: array,
+ *             ...,
+ *         },
  *         ...,
  *     },
  *     EntityTypeSort?: array{
@@ -288,6 +318,12 @@ use Aws\AwsClient;
  *         },
  *         OfferSetSort?: array{
  *             SortBy?: 'EntityId'|'LastModifiedDate'|'Name'|'ReleaseDate'|'SolutionId'|'State',
+ *             SortOrder?: 'ASCENDING'|'DESCENDING',
+ *             ...,
+ *         },
+ *         ExpressPrivateOfferConfigurationSort?: array{SortBy?: 'EntityId'|'LastModifiedDate'|'ProductId'|'State', SortOrder?: 'ASCENDING'|'DESCENDING', ...},
+ *         SubsidiaryAuthorizationSort?: array{
+ *             SortBy?: 'CreatedDate'|'EntityId'|'LastModifiedDate'|'ResourceId'|'Status'|'SubsidiaryAccountId',
  *             SortOrder?: 'ASCENDING'|'DESCENDING',
  *             ...,
  *         },

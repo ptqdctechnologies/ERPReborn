@@ -895,6 +895,10 @@
             "disabled": isHaveAccountPayableValue ? true : false
         });
 
+        $("#ppn_option").attr({
+            "disabled": currencyCode.value != 'IDR' ? true : false
+        });
+
         $('#date_of_delivery_picker').datetimepicker({
             format: 'YYYY-MM-DD'
         });

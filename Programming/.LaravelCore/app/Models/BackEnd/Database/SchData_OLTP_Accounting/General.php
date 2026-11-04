@@ -8,8 +8,7 @@
 | ▪ Copyleft 🄯 2021 - 2024 Zheta (teguhpjs@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_Accounting
-    {
+namespace App\Models\Database\SchData_OLTP_Accounting {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : General                                                                                                      |
@@ -17,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class General
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataEntities_Underlying_JournalDetail                                                             |
@@ -34,9 +33,10 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
         */
-        public function getDataEntities_Underlying_JournalDetail($varUserSession, 
-            string $varIDSet)
-            {
+        public function getDataEntities_Underlying_JournalDetail(
+            $varUserSession,
+            string $varIDSet
+        ) {
             try {
                 $varFunctionName = 'SchData-OLTP-Accounting.Func_GetDataEntities_Underlying_JournalDetail';
                 $varTemp =
@@ -45,30 +45,28 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             $varFunctionName,
-                                [
-                                    [$varUserSession, 'bigint'],
-                                    [$varIDSet, 'bigint[]']
-                                ]
-                            )
-                        ); 
-                
-                for ($i=0; $i!=count($varTemp['data']); $i++) {
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varIDSet, 'bigint[]']
+                            ]
+                        )
+                    );
+
+                for ($i = 0; $i != count($varTemp['data']); $i++) {
                     $varReturn[$i] =
                         \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
-                            $varUserSession, 
+                            $varUserSession,
                             $varTemp['data'][$i][explode('.', $varFunctionName)[1]]
-                            );
-                    }
+                        );
+                }
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -95,39 +93,41 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataList_ChartOfAccount',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varBranchID, 'bigint'],
 
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+                                [$varEffectiveDateTimeTZ, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -154,14 +154,18 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_ChartOfAccountLinkage(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataList_ChartOfAccountLinkage',
@@ -175,18 +179,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
-			}
+            }
+        }
 
 
         /*
@@ -211,8 +213,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataList_JournalDetail_LatestVersion(
-            $varUserSession, int $varJournal_RefID = null)
-            {
+            $varUserSession,
+            int $varJournal_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -221,10 +224,10 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataList_JournalDetail',
                             [
-                                [$varJournal_RefID, 'bigint' ],
+                                [$varJournal_RefID, 'bigint'],
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 // Extract the result data from the database query response
                 $resultArray = $varReturn['data'];
@@ -253,6 +256,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                         $varReturn['data'][$idxArray1]['transaction_RefID'] = $value["Transaction_RefID"];
                         $varReturn['data'][$idxArray1]['transactionValue'] = $value["TransactionValue"];
                         $varReturn['data'][$idxArray1]['transactionUnpaid'] = $value["TransactionUnpaid"];
+                        $varReturn['data'][$idxArray1]['transactionType'] = $value["Journal_AccountingEntryRecordType_RefID"];
                         $varReturn['data'][$idxArray1]['variance'] = $value["Variance"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['sys_ID'] = $value["Sys_ID"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
@@ -306,12 +310,10 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -338,45 +340,47 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_ChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataListJSON_ChartOfAccount',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varBranchID, 'bigint'],
 
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+                                [$varEffectiveDateTimeTZ, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_ChartOfAccount']
-                        );
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -403,45 +407,47 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_ChartOfAccountLinkage(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataListJSON_ChartOfAccountLinkage',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varBranchID, 'bigint'],
 
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+                                [$varEffectiveDateTimeTZ, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_ChartOfAccountLinkage']
-                        );
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -468,45 +474,47 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataListJSON_CombinedChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null, 
-            string $varPickStatement = null, string $varSortStatement = null, string $varFilterStatement = null, string $varPagingStatement = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null,
+            string $varPickStatement = null,
+            string $varSortStatement = null,
+            string $varFilterStatement = null,
+            string $varPagingStatement = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataListJSON_CombinedChartOfAccount',
                             [
-                                [$varBranchID, 'bigint' ],
+                                [$varBranchID, 'bigint'],
 
-                                [$varEffectiveDateTimeTZ, 'timestamptz' ],
+                                [$varEffectiveDateTimeTZ, 'timestamptz'],
 
                                 [$varPickStatement, 'varchar'],
                                 [$varSortStatement, 'varchar'],
                                 [$varFilterStatement, 'varchar'],
                                 [$varPagingStatement, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataListJSON_CombinedChartOfAccount']
-                        );
+                    );
 
                 return
                     $varReturn['data'];
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -528,13 +536,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickList_ChartOfAccount',
@@ -542,18 +551,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -575,13 +582,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_ChartOfAccountLinkage(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickList_ChartOfAccountLinkage',
@@ -590,18 +598,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -623,13 +629,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_CombinedChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickList_CombinedChartOfAccount',
@@ -637,18 +644,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -670,13 +675,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_ChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickListJSON_ChartOfAccount',
@@ -684,27 +690,25 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccount']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -724,8 +728,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_AssetCategory_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -736,17 +741,15 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -766,8 +769,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_Journal_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -778,17 +782,15 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -808,8 +810,9 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DepreciationMethod_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -820,17 +823,15 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [
                                 [$varSysBranch_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -850,8 +851,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickList_DepreciationRateYears_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID, int $varAssetCategory_RefID = null, int $varDepreciationMethod_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varAssetCategory_RefID = null,
+            int $varDepreciationMethod_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -861,20 +865,18 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             'SchData-OLTP-Accounting.Func_GetDataPickList_DepreciationRateYears',
                             [
                                 [$varSysBranch_RefID, 'bigint'],
-                                [$varAssetCategory_RefID, 'bigint' ],
-                                [$varDepreciationMethod_RefID, 'bigint' ]
+                                [$varAssetCategory_RefID, 'bigint'],
+                                [$varDepreciationMethod_RefID, 'bigint']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return [];
-                }
             }
+        }
 
 
         /*
@@ -896,13 +898,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_ChartOfAccountLinkage(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickListJSON_ChartOfAccountLinkage',
@@ -911,27 +914,25 @@ namespace App\Models\Database\SchData_OLTP_Accounting
 
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_ChartOfAccountLinkage']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -953,13 +954,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_CombinedChartOfAccount(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount',
@@ -967,27 +969,25 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1009,13 +1009,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_CombinedChartOfAccountHeader(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount_Header',
@@ -1023,27 +1024,25 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount_Header']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1065,13 +1064,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getDataPickListJSON_CombinedChartOfAccountNonHeader(
-            $varUserSession, int $varBranchID, 
-            string $varEffectiveDateTimeTZ = null)
-            {
+            $varUserSession,
+            int $varBranchID,
+            string $varEffectiveDateTimeTZ = null
+        ) {
             try {
-                $varReturn = 
+                $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                        $varUserSession, 
+                        $varUserSession,
                         \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                             $varUserSession,
                             'SchData-OLTP-Accounting.Func_GetDataPickListJSON_CombinedChartOfAccount_NonHeader',
@@ -1079,27 +1079,25 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varBranchID, 'bigint'],
                                 [$varEffectiveDateTimeTZ, 'timestamptz']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetDataPickListJSON_CombinedChartOfAccount_NonHeader']
-                        );
+                    );
 
                 $varReturn['rowCount'] =
                     count($varReturn['data']);
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1127,11 +1125,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_ChartOfAccount(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             string $verEffectiveDate = null,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varFullCode = null, string $varFullName = null)
-            {
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varFullCode = null,
+            string $varFullName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1144,31 +1145,29 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varSysBranch_RefID, 'bigint'],
 
                                 [$verEffectiveDate, 'date'],
-                                
+
                                 [$varPagination_PageSize, 'bigint'],
                                 [$varPagination_PageShow, 'bigint'],
 
                                 [$varFullCode, 'varchar'],
                                 [$varFullName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataList_ChartOfAccount']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1196,11 +1195,14 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_ChartOfAccount(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             string $verEffectiveDate = null,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varFullCode = null, string $varFullName = null)
-            {
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varFullCode = null,
+            string $varFullName = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1220,24 +1222,22 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varFullCode, 'varchar'],
                                 [$varFullName, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_ChartOfAccount']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -1264,11 +1264,16 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataPickList_ChartOfAccountNonHeader(
-            $varUserSession, int $varSysBranch_RefID,
+            $varUserSession,
+            int $varSysBranch_RefID,
             string $verEffectiveDate = null,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varFullCode_DEFAULT = null, string $varFullName_DEFAULT = null, string $varFullCode_CUSTOM = null, string $varFullName_CUSTOM = null)
-            {
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varFullCode_DEFAULT = null,
+            string $varFullName_DEFAULT = null,
+            string $varFullCode_CUSTOM = null,
+            string $varFullName_CUSTOM = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1290,24 +1295,22 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varFullCode_CUSTOM, 'varchar'],
                                 [$varFullName_CUSTOM, 'varchar']
                             ]
-                            )
-                        );
+                        )
+                    );
 
                 $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_DataPickList_ChartOfAccountNonHeader']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1330,9 +1333,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_BalanceSheet(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varStartDate, string $varFinishDate)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varStartDate,
+            string $varFinishDate
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1347,24 +1352,22 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varStartDate, 'date'],
                                 [$varFinishDate, 'date']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_BalanceSheet']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1388,9 +1391,12 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_GeneralLedger(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varSysID, string $varStartDate, string $varFinishDate)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varSysID,
+            string $varStartDate,
+            string $varFinishDate
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1406,25 +1412,23 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varStartDate, 'date'],
                                 [$varFinishDate, 'date']
                             ]
-                            )
-                        );
+                        )
+                    );
 
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_GeneralLedger']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1447,9 +1451,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_ProfitLoss(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varStartDate, string $varFinishDate)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varStartDate,
+            string $varFinishDate
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1464,24 +1470,22 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varStartDate, 'date'],
                                 [$varFinishDate, 'date']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_ProfitLoss']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -1504,9 +1508,11 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_Resume_TrialBalance(
-            $varUserSession, int $varSysBranch_RefID,
-            string $varStartDate, string $varFinishDate)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            string $varStartDate,
+            string $varFinishDate
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -1521,25 +1527,23 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                                 [$varStartDate, 'date'],
                                 [$varFinishDate, 'date']
                             ]
-                            )
-                        );
+                        )
+                    );
 
-                $varReturn['data'] = 
+                $varReturn['data'] =
                     \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONDecode(
                         $varUserSession,
                         $varReturn['data'][0]['Func_GetReport_Resume_TrialBalance']
-                        );
+                    );
 
                 return
-                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+                    $varReturn;
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
-
-
         }
+
+
     }
+}
