@@ -276,6 +276,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
         Route::get('BudgetStockDetail', 'BudgetStockDetail')
             ->name('Budget.BudgetStockDetail');
+
+        Route::get('Budget/modify', 'indexModify')
+            ->name('Budget.modify');
+
+        Route::get('Budget/modify/create', 'createModify')
+            ->name('Budget.modify.create');
     });
     Route::resource('Budget', BudgetController::class)->only(['index', 'store']);
 
