@@ -22,11 +22,14 @@
 
                 @include('Budget.Modify.Functions.Menu.index')
 
-                <form id="modifyBudgetForm">
+                <form id="modifyBudgetForm" method="POST" action="{{ route('Budget.modify.preview') }}">
                     @csrf
 
                     <input type="hidden" id="workflow_path_id" name="workflow_path_id" />
                     <input type="hidden" id="workflow_comment" name="workflow_comment" />
+                    <input type="hidden" id="total_modify_footer" name="total_modify_footer" />
+                    <input type="hidden" id="total_price_footer" name="total_price_footer" />
+                    <input type="hidden" id="total_amount_footer" name="total_amount_footer" />
 
                     <div class="card">
                         <!-- MODIFY BUDGET INFORMATION -->
@@ -175,7 +178,7 @@
                         <div class="tab-content px-3 pb-2">
                             <div class="row">
                                 <div class="col">
-                                    <button type="button" id="modify_budget_submit_button"
+                                    <button type="submit" id="modify_budget_submit_button"
                                         class="btn btn-default btn-sm float-right" data-toggle="modal"
                                         data-target="#modify_budget_summary_modal"
                                         style="margin-left: 5px;background-color:#e9ecef;border:1px solid #ced4da;">

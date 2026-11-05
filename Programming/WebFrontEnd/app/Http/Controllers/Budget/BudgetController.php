@@ -119,11 +119,13 @@ class BudgetController extends Controller
     {
         $token = Session::get('SessionLogin');
 
-        $currencySymbol = 'IDR'; // $request->currency_symbol ?? 'IDR';
-        $exchangeRate = number_format(str_replace(",", "", 33333), 2, '.', '');
-        $valueCO = str_replace(",", "", 11111); // str_replace(",", "", $request->value_co);
+        $currencySymbol = $request->input('currency_code');
+        $exchangeRate = number_format(str_replace(",", "", $request->input('exchange_rate')), 2, '.', '');
+        $valueCO = str_replace(",", "", ($request->input('customer_order_value') || 0));
 
-        $totalAmountFooter = 39430; // $request->input('totalAmountFooterData');
+        $totalModifyFooter = $request->input('total_modify_footer');
+        $totalPriceFooter = $request->input('total_price_footer');
+        $totalAmountFooter = $request->input('total_amount_footer');
 
         // SECTION ONE
         $addSubtSectionOneCO = 0;
@@ -172,6 +174,9 @@ class BudgetController extends Controller
         $compact = [
             'token' => $token,
             'exchangeRate' => $exchangeRate,
+            'totalModifyFooter' => $totalModifyFooter,
+            'totalPriceFooter' => $totalPriceFooter,
+            'totalAmountFooter' => $totalAmountFooter,
             'dataTable' => [
                 'sectionOne' => [
                     'firstRow' => [

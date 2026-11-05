@@ -163,7 +163,15 @@
             </div>
         </div>
         <div class="col text-right" style="margin-right: 20px; font-size: 0.77rem; color: #212529; font-weight: 600;">
-            Total : <span id="budget_total">0.00</span>
+            <div>
+                Grand Total Qty : <span id="budget_qty_total">0.00</span>
+            </div>
+            <div style="margin: .5rem 0;">
+                Grand Total Price : <span id="budget_price_total">0.00</span>
+            </div>
+            <div>
+                Grand Total : <span id="budget_total">0.00</span>
+            </div>
         </div>
     </div>
 </div>

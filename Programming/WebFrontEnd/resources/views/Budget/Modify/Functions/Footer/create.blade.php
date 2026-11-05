@@ -248,8 +248,8 @@
     }
 
     function getCustomerOrderDetail() {
-        // dummyCustomerOrderType = 'SUB_BUDGET_BASE';
-        dummyCustomerOrderType = 'PRODUCT_BASE';
+        dummyCustomerOrderType = 'SUB_BUDGET_BASE';
+        // dummyCustomerOrderType = 'PRODUCT_BASE';
 
         customerOrderDetails.push(
             {
@@ -291,7 +291,25 @@
 
     /* START OF BUDGET SECTION */
     function calculateTotal() {
+        let totalQty = 0;
+        let totalPrice = 0;
         let total = 0;
+
+        document.querySelectorAll('input[data-field="quantityInput"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+            if (!isNaN(value)) {
+                totalQty += value;
+            }
+        });
+
+        document.querySelectorAll('input[data-field="priceInput"]').forEach(function (input) {
+            let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
+
+            if (!isNaN(value)) {
+                totalPrice += value;
+            }
+        });
 
         document.querySelectorAll('input[data-field="totalInput"]').forEach(function (input) {
             let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
@@ -301,10 +319,24 @@
             }
         });
 
+        document.getElementById('budget_qty_total').textContent = totalQty.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        document.getElementById('budget_price_total').textContent = totalPrice.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
         document.getElementById('budget_total').textContent = total.toLocaleString('en-US', {
             minimumFractionDigits: 2,
             maximumFractionDigits: 2
         });
+
+        $('#total_modify_footer').val(totalQty);
+        $('#total_price_footer').val(totalPrice);
+        $('#total_amount_footer').val(total);
     }
 
     function calculateTotalLine(index) {
@@ -530,6 +562,7 @@
                     <td style="text-align: center;">
                         <input 
                             id="quantityInput${index}" 
+                            data-field="quantityInput"
                             class="form-control number-only" 
                             autocomplete="off" 
                             style="border-radius:0px;"
@@ -540,6 +573,7 @@
                     <td style="text-align: center;">
                         <input 
                             id="priceInput${index}" 
+                            data-field="priceInput"
                             class="form-control number-without-negative" 
                             autocomplete="off" 
                             style="border-radius:0px;"
