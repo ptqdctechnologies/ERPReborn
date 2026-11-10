@@ -257,6 +257,7 @@ namespace App\Models\Database\SchData_OLTP_Accounting {
                         $varReturn['data'][$idxArray1]['transactionValue'] = $value["TransactionValue"];
                         $varReturn['data'][$idxArray1]['transactionUnpaid'] = $value["TransactionUnpaid"];
                         $varReturn['data'][$idxArray1]['transactionType'] = $value["Journal_AccountingEntryRecordType_RefID"];
+                        $varReturn['data'][$idxArray1]['transactionNumber'] = $value["TransactionNumber"];
                         $varReturn['data'][$idxArray1]['variance'] = $value["Variance"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['sys_ID'] = $value["Sys_ID"];
                         $varReturn['data'][$idxArray1]['entities'][$idxArray2]['chartOfAccount_RefID'] = $value["ChartOfAccount_RefID"];
