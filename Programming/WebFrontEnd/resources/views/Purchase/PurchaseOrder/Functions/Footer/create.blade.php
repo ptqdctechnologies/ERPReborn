@@ -122,7 +122,7 @@
     }
 
     function budgetCodeCheck(id) {
-        if (listBudgetID !== id) {
+        if (listBudgetID != id) {
             Swal.fire("Error", "Budget must be the same!", "error");
 
             return true;
