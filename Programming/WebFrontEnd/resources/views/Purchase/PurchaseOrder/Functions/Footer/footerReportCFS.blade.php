@@ -1,68 +1,54 @@
 <script>
-    $("#sub_budget").prop("disabled", true);
-    $("#sub_budget_popup").prop("disabled", true);
-</script>
+    $('#budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-<script>
-    $('#tableGetProject tbody').on('click', 'tr', function() {
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-        $("#myProject").modal('toggle');
+            $("#budget_information").text(`${code} - ${name}`);
+            $("#budget_preview").val(`${code} - ${name}`);
+            $("#budget_id").val(id);
+            $("#budget_name").val(name);
+            $("#budget_code").val(code);
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_budget' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
+            $("#budget_preview").css("background-color", "#e9ecef");
+            $("#sub_budget_container").css({ "cursor": "pointer" });
 
-        $("#budget_id").val(sys_id);
-        $("#budget_name").val(name);
-        $("#budget").val(code);
+            $('#sub_budget_container').attr({
+                'data-toggle': 'modal',
+                'data-target': '#sub_budget_code_modal'
+            });
 
-        $("#sub_budget").prop("disabled", false);
-        $("#sub_budget_popup").prop("disabled", false);
-        $("#sub_budget_id").val("");
-        $("#sub_budget").val("");
+            getSiteCode(id);
 
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
+        }
 
-        var keys = 0;
-        $.ajax({
-            type: 'GET',
-            url: '{!! route("getSite") !!}?project_code=' + sys_id,
-            success: function(data) {
-                var no = 1;
-                var t = $('#tableGetSite').DataTable();
-                t.clear();
-                $.each(data, function(key, val) {
-                    keys += 1;
-                    t.row.add([
-                        '<tbody><tr><input id="sys_id_site' + keys + '" value="' + val.Sys_ID + '" type="hidden"><td>' + no++ + '</td>',
-                        '<td>' + val.Code + '</td>',
-                        '<td>' + val.Name + '</td></tr></tbody>'
-                    ]).draw();
-                });
-            }
-        });
+        $("#budget_code_modal").modal('toggle');
     });
-</script>
 
-<script>
-    $('#tableGetSite tbody').on('click', 'tr', function() {
+    $('#sub_budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#sub_budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-        $("#mySiteCode").modal('toggle');
+        if (dataRow) {
+            const id = dataRow.Sys_ID;
+            const code = dataRow.Code;
+            const name = dataRow.Name;
 
-        var row = $(this).closest("tr");
-        var id = row.find("td:nth-child(1)").text();
-        var sys_id = $('#sys_id_site' + id).val();
-        var code = row.find("td:nth-child(2)").text();
-        var name = row.find("td:nth-child(3)").text();
+            $("#sub_budget_preview").val(`${code} - ${name}`);
+            $("#sub_budget_id").val(id);
+            $("#sub_budget_name").val(name);
+            $("#sub_budget_code").val(code);
 
-        $("#sub_budget_id").val(sys_id);
-        $("#sub_budget").val(code);
+            $("#sub_budget_preview").css("background-color", "#e9ecef");
 
+            ErrorHandler.hideErrorInputMessage("#sub_budget_preview", "#sub_budget_message");
+        }
+
+        $("#sub_budget_code_modal").modal('toggle');
     });
 </script>
