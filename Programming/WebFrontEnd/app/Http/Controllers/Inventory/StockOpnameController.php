@@ -15,7 +15,7 @@ class StockOpnameController extends Controller
 
     public function index(Request $request)
     {
-        return view('Inventory.StockOpname.Transactions.IndexStockOpname');
+        return view('Inventory.StockOpname.Transactions.index');
     }
 
     public function create()
@@ -26,7 +26,7 @@ class StockOpnameController extends Controller
             'varAPIWebToken' => $varAPIWebToken
         ];
 
-        return view('Inventory.StockOpname.Transactions.CreateStockOpname', $compact);
+        return view('Inventory.StockOpname.Transactions.create', $compact);
     }
 
     public function store(Request $request)

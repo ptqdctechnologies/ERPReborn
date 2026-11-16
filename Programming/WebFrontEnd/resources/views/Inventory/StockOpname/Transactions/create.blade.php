@@ -11,12 +11,12 @@
                 <div class="row mb-1" style="background-color:#4B586A;">
                     <div class="col-sm-6" style="height:30px;">
                         <label style="font-size:15px;position:relative;top:7px;color:white;">
-                            Stock Opname
+                            Create Stock Opname
                         </label>
                     </div>
                 </div>
 
-                @include('Inventory.StockOpname.Functions.Menu.MenuStockOpname')
+                @include('Inventory.StockOpname.Functions.Menu.index')
 
                 <div class="card">
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
@@ -26,7 +26,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Stock Opname Information
+                                            Header
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -153,7 +153,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Stock Opname Details
+                                            Detail
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -274,5 +274,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Inventory.StockOpname.Functions.Footer.FooterStockOpname')
+    @include('Inventory.StockOpname.Functions.Footer.create')
 @endsection
