@@ -9,7 +9,7 @@
 
             <!-- CURRENCY -->
             <span>
-                @include('Components.currency')
+                @include('Components.Forms.currency')
             </span>
 
             <!-- EXCHANGE RATE -->

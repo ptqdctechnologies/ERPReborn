@@ -4,7 +4,7 @@
         <div class="col-md-12 col-lg-5" style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- CURRENCY -->
             <span>
-                @include('Components.currency')
+                @include('Components.Forms.currency')
             </span>
 
             <!-- EXCHANGE RATE -->
