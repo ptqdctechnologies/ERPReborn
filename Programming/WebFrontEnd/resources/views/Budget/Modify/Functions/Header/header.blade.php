@@ -14,7 +14,7 @@
 
             <!-- CUSTOMER ORDER REVISED -->
             <span>
-                @include('Components.customerOrderRevised')
+                @include('Components.Forms.customerOrderRevised')
             </span>
 
             <!-- CUSTOMER ORDER VALUE -->
