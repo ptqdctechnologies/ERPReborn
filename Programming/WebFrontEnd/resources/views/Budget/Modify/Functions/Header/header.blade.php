@@ -19,7 +19,7 @@
 
             <!-- CUSTOMER ORDER VALUE -->
             <span id="customer_order_value_container" class="d-none">
-                @include('Components.customerOrderValue')
+                @include('Components.Forms.customerOrderValue')
             </span>
         </div>
 
