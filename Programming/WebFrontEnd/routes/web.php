@@ -7,6 +7,7 @@ use App\Http\Controllers\Accounting\JournalController;
 use App\Http\Controllers\Accounting\TaxReconController;
 
 use App\Http\Controllers\Budget\BudgetController;
+use App\Http\Controllers\Budget\BudgetCodeController;
 use App\Http\Controllers\Budget\BudgetProgressController;
 
 use App\Http\Controllers\Function\FunctionController;
@@ -290,6 +291,11 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
             ->name('Budget.modify.store');
     });
     Route::resource('Budget', BudgetController::class)->only(['index', 'store']);
+
+    // BUDGET CODE
+    Route::controller(BudgetCodeController::class)->group(function () {
+    });
+    Route::resource('BudgetCode', BudgetCodeController::class);
 
     // BUDGET EXPENSE
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
