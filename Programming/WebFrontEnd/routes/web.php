@@ -7,7 +7,6 @@ use App\Http\Controllers\Accounting\JournalController;
 use App\Http\Controllers\Accounting\TaxReconController;
 
 use App\Http\Controllers\Budget\BudgetController;
-use App\Http\Controllers\Budget\BudgetCodeController;
 use App\Http\Controllers\Budget\BudgetProgressController;
 
 use App\Http\Controllers\Function\FunctionController;
@@ -19,6 +18,7 @@ use App\Http\Controllers\HumanResource\TimesheetController;
 use App\Http\Controllers\Inventory\DeliveryOrderRequestController;
 
 use App\Http\Controllers\Master\BankController;
+use App\Http\Controllers\Master\BudgetCodeController;
 use App\Http\Controllers\Master\SupplierController;
 use App\Http\Controllers\Master\WarehouseController;
 
