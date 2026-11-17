@@ -19,6 +19,7 @@ use App\Http\Controllers\Inventory\DeliveryOrderRequestController;
 
 use App\Http\Controllers\Master\BankController;
 use App\Http\Controllers\Master\BudgetCodeController;
+use App\Http\Controllers\Master\SubBudgetCodeController;
 use App\Http\Controllers\Master\SupplierController;
 use App\Http\Controllers\Master\WarehouseController;
 
@@ -293,9 +294,12 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('Budget', BudgetController::class)->only(['index', 'store']);
 
     // BUDGET CODE
-    Route::controller(BudgetCodeController::class)->group(function () {
-    });
+    Route::controller(BudgetCodeController::class)->group(function () { });
     Route::resource('BudgetCode', BudgetCodeController::class);
+
+    // SUB BUDGET CODE
+    Route::controller(SubBudgetCodeController::class)->group(function () { });
+    Route::resource('SubBudgetCode', SubBudgetCodeController::class);
 
     // BUDGET EXPENSE
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');
