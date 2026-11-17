@@ -5960,7 +5960,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         | ▪ Method Name     : getReport_Form_DocumentForm_CreditNoteSummary                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2025-08-19                                                                                           |
+        | ▪ Last Update     : 2026-11-05                                                                                           |
         | ▪ Creation Date   : 2025-08-19                                                                                           |
         | ▪ Description     : Mendapatkan Laporan Form - Form Dokumen CreditNote                                                   |
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -5974,7 +5974,7 @@ namespace App\Models\Database\SchData_OLTP_Finance
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DocumentForm_CreditNoteSummary(
-            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, array $varPagingStatement = null
+            $varUserSession, int $varSysBranch_RefID, string  $varCombinedBudgetCode = null, string $varCombinedBudgetSectionCode = null, int $varCustomer_RefID = null, string $varStartDate = null, string $varEndDate = null, array $varPagingStatement = null
             )
             {
             try {
@@ -5987,6 +5987,9 @@ namespace App\Models\Database\SchData_OLTP_Finance
                             [
                                 [$varCombinedBudgetCode, 'varchar' ],
                                 [$varCombinedBudgetSectionCode, 'varchar' ],
+                                [$varCustomer_RefID, 'bigint' ],
+                                [$varStartDate, 'varchar'],
+                                [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],
                                 [$varPagingStatement['offset'], 'bigint']
                             ]

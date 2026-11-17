@@ -5741,6 +5741,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
             int $varSysBranch_RefID,
             string $varCombinedBudgetCode = null,
             string $varCombinedBudgetSectionCode = null,
+            int $varPurchaseOrder_RefID = null,
+            int $varDeliveryOrder_RefID = null,
             string $varStartDate = null,
             string $varEndDate = null,
             array $varPagingStatement = null
@@ -5755,6 +5757,8 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                             [
                                 [$varCombinedBudgetCode, 'varchar'],
                                 [$varCombinedBudgetSectionCode, 'varchar'],
+                                [$varPurchaseOrder_RefID, 'bigint'],
+                                [$varDeliveryOrder_RefID, 'bigint'],
                                 [$varStartDate, 'varchar'],
                                 [$varEndDate, 'varchar'],
                                 [$varPagingStatement['limit'], 'varchar'],

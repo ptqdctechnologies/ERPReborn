@@ -21,7 +21,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
         |                     ► http://172.28.0.4/report.form.documentForm.supplyChain.getPurchaseOrderToDeliveryOrderSummary.v1_throughAPIGateway |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-04-13                                                                                           |
+        | ▪ Last Update     : 2026-11-05                                                                                           |
         | ▪ Creation Date   : 2026-04-13                                                                                           |
         +--------------------------------------------------------------------------------------------------------------------------+
         */
@@ -41,12 +41,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\rep
                 'parameter' => [
                     'CombinedBudgetCode' => 'Q000062',
                     'CombinedBudgetSectionCode' => '235',
+                    'PurchaseOrder_RefID' => 85000000000049,
+                    'DeliveryOrder_RefID' => 180000000000072,
                     'StartDate' => '2025-01-01',
-                    'EndDate' => '2026-04-10',
+                    'EndDate' => '2026-04-10'
                     // 'CombinedBudgetCode' => NULL,
                     // 'CombinedBudgetSectionCode' => NULL,
+                    // 'PurchaseOrder_RefID' => NULL,
+                    // 'DeliveryOrder_RefID' => NULL,
                     // 'StartDate' => NULL,
-                    // 'EndDate' => NULL,
+                    // 'EndDate' => NULL
                     ],
                 'SQLStatement' => [
                     'paging' => [
