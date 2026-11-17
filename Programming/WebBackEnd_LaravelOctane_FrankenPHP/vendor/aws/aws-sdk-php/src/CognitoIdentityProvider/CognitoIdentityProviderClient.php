@@ -186,6 +186,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result adminListUserAuthEvents(array{UserPoolId?: string, Username?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise adminListUserAuthEventsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise adminListUserAuthEventsAsync(array{UserPoolId?: string, Username?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @method \Aws\Result adminListUserSessions(array $args = [])
+ * @phpstan-method \Aws\Result adminListUserSessions(array{UserPoolId?: string, Username?: string, NextToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise adminListUserSessionsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise adminListUserSessionsAsync(array{UserPoolId?: string, Username?: string, NextToken?: string, ...} $args = [])
  * @method \Aws\Result adminRemoveUserFromGroup(array $args = [])
  * @phpstan-method \Aws\Result adminRemoveUserFromGroup(array{UserPoolId?: string, Username?: string, GroupName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise adminRemoveUserFromGroupAsync(array $args = [])
@@ -230,6 +234,22 @@ use Aws\AwsClient;
  *         ...,
  *     },
  *     ClientMetadata?: array<string, string>,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result adminRevokeUserSession(array $args = [])
+ * @phpstan-method \Aws\Result adminRevokeUserSession(array{
+ *     UserPoolId?: string,
+ *     Username?: string,
+ *     SessionId?: string,
+ *     RevokeAssociatedSessions?: 'LINKED'|'NONE',
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise adminRevokeUserSessionAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise adminRevokeUserSessionAsync(array{
+ *     UserPoolId?: string,
+ *     Username?: string,
+ *     SessionId?: string,
+ *     RevokeAssociatedSessions?: 'LINKED'|'NONE',
  *     ...,
  * } $args = [])
  * @method \Aws\Result adminSetUserMFAPreference(array $args = [])
@@ -599,6 +619,14 @@ use Aws\AwsClient;
  *         AdvancedSecurityAdditionalFlows?: array{CustomAuthMode?: 'AUDIT'|'ENFORCED', ...},
  *         ...,
  *     },
+ *     DcrConfiguration?: array{
+ *         EnableStatus?: 'Disabled'|'Enabled',
+ *         OpenDcrEnabled?: bool,
+ *         AuthenticatedGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         OpenDcrGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         AllowedScopes?: list<string>,
+ *         ...,
+ *     },
  *     UsernameConfiguration?: array{CaseSensitive?: bool, ...},
  *     AccountRecoverySetting?: array{RecoveryMechanisms?: list<array>, ...},
  *     UserPoolTier?: 'ESSENTIALS'|'LITE'|'PLUS',
@@ -708,6 +736,14 @@ use Aws\AwsClient;
  *         AdvancedSecurityAdditionalFlows?: array{CustomAuthMode?: 'AUDIT'|'ENFORCED', ...},
  *         ...,
  *     },
+ *     DcrConfiguration?: array{
+ *         EnableStatus?: 'Disabled'|'Enabled',
+ *         OpenDcrEnabled?: bool,
+ *         AuthenticatedGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         OpenDcrGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         AllowedScopes?: list<string>,
+ *         ...,
+ *     },
  *     UsernameConfiguration?: array{CaseSensitive?: bool, ...},
  *     AccountRecoverySetting?: array{RecoveryMechanisms?: list<array>, ...},
  *     UserPoolTier?: 'ESSENTIALS'|'LITE'|'PLUS',
@@ -733,7 +769,7 @@ use Aws\AwsClient;
  *     },
  *     ReadAttributes?: list<string>,
  *     WriteAttributes?: list<string>,
- *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
+ *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_TOKEN_EXCHANGE_DELEGATION'|'ALLOW_TOKEN_EXCHANGE_IMPERSONATION'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
  *     SupportedIdentityProviders?: list<string>,
  *     CallbackURLs?: list<string>,
  *     LogoutURLs?: list<string>,
@@ -773,7 +809,7 @@ use Aws\AwsClient;
  *     },
  *     ReadAttributes?: list<string>,
  *     WriteAttributes?: list<string>,
- *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
+ *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_TOKEN_EXCHANGE_DELEGATION'|'ALLOW_TOKEN_EXCHANGE_IMPERSONATION'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
  *     SupportedIdentityProviders?: list<string>,
  *     CallbackURLs?: list<string>,
  *     LogoutURLs?: list<string>,
@@ -946,6 +982,38 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getClientToken(array{ClientId?: string, Secret?: string, Scopes?: list<string>, ClientMetadata?: array<string, string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getClientTokenAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getClientTokenAsync(array{ClientId?: string, Secret?: string, Scopes?: list<string>, ClientMetadata?: array<string, string>, ...} $args = [])
+ * @method \Aws\Result getDerivedToken(array $args = [])
+ * @phpstan-method \Aws\Result getDerivedToken(array{
+ *     ClientId?: string,
+ *     ClientSecret?: string,
+ *     SubjectToken?: string,
+ *     SubjectTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN'|'SAML2',
+ *     SubjectTokenProviderName?: string,
+ *     ActorToken?: string,
+ *     ActorTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN'|'SAML2',
+ *     ActorTokenProviderName?: string,
+ *     Scopes?: list<string>,
+ *     Audiences?: list<string>,
+ *     Resources?: list<string>,
+ *     RequestedTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN',
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise getDerivedTokenAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getDerivedTokenAsync(array{
+ *     ClientId?: string,
+ *     ClientSecret?: string,
+ *     SubjectToken?: string,
+ *     SubjectTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN'|'SAML2',
+ *     SubjectTokenProviderName?: string,
+ *     ActorToken?: string,
+ *     ActorTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN'|'SAML2',
+ *     ActorTokenProviderName?: string,
+ *     Scopes?: list<string>,
+ *     Audiences?: list<string>,
+ *     Resources?: list<string>,
+ *     RequestedTokenType?: 'ACCESS_TOKEN'|'ID_TOKEN',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result getDevice(array $args = [])
  * @phpstan-method \Aws\Result getDevice(array{DeviceKey?: string, AccessToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getDeviceAsync(array $args = [])
@@ -1004,10 +1072,18 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getUserAuthFactors(array{AccessToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getUserAuthFactorsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getUserAuthFactorsAsync(array{AccessToken?: string, ...} $args = [])
+ * @method \Aws\Result getUserPoolClientSessionConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result getUserPoolClientSessionConfiguration(array{UserPoolId?: string, ClientId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getUserPoolClientSessionConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getUserPoolClientSessionConfigurationAsync(array{UserPoolId?: string, ClientId?: string, ...} $args = [])
  * @method \Aws\Result getUserPoolMfaConfig(array $args = [])
  * @phpstan-method \Aws\Result getUserPoolMfaConfig(array{UserPoolId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getUserPoolMfaConfigAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getUserPoolMfaConfigAsync(array{UserPoolId?: string, ...} $args = [])
+ * @method \Aws\Result getUserPoolSessionConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result getUserPoolSessionConfiguration(array{UserPoolId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getUserPoolSessionConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getUserPoolSessionConfigurationAsync(array{UserPoolId?: string, ...} $args = [])
  * @method \Aws\Result globalSignOut(array $args = [])
  * @phpstan-method \Aws\Result globalSignOut(array{AccessToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise globalSignOutAsync(array $args = [])
@@ -1067,9 +1143,9 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise listUserPoolClientSecretsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listUserPoolClientSecretsAsync(array{UserPoolId?: string, ClientId?: string, NextToken?: string, ...} $args = [])
  * @method \Aws\Result listUserPoolClients(array $args = [])
- * @phpstan-method \Aws\Result listUserPoolClients(array{UserPoolId?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result listUserPoolClients(array{UserPoolId?: string, MaxResults?: int, NextToken?: string, ClientType?: 'DCR'|'REGULAR', ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listUserPoolClientsAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listUserPoolClientsAsync(array{UserPoolId?: string, MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listUserPoolClientsAsync(array{UserPoolId?: string, MaxResults?: int, NextToken?: string, ClientType?: 'DCR'|'REGULAR', ...} $args = [])
  * @method \Aws\Result listUserPoolReplicas(array $args = [])
  * @phpstan-method \Aws\Result listUserPoolReplicas(array{UserPoolId?: string, NextToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listUserPoolReplicasAsync(array $args = [])
@@ -1078,6 +1154,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result listUserPools(array{NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listUserPoolsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listUserPoolsAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \Aws\Result listUserSessions(array $args = [])
+ * @phpstan-method \Aws\Result listUserSessions(array{AccessToken?: string, NextToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listUserSessionsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listUserSessionsAsync(array{AccessToken?: string, NextToken?: string, ...} $args = [])
  * @method \Aws\Result listUsers(array $args = [])
  * @phpstan-method \Aws\Result listUsers(array{
  *     UserPoolId?: string,
@@ -1147,9 +1227,25 @@ use Aws\AwsClient;
  *     ...,
  * } $args = [])
  * @method \Aws\Result revokeToken(array $args = [])
- * @phpstan-method \Aws\Result revokeToken(array{Token?: string, ClientId?: string, ClientSecret?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result revokeToken(array{
+ *     Token?: string,
+ *     ClientId?: string,
+ *     ClientSecret?: string,
+ *     RevokeAssociatedSessions?: 'LINKED'|'NONE',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise revokeTokenAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise revokeTokenAsync(array{Token?: string, ClientId?: string, ClientSecret?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise revokeTokenAsync(array{
+ *     Token?: string,
+ *     ClientId?: string,
+ *     ClientSecret?: string,
+ *     RevokeAssociatedSessions?: 'LINKED'|'NONE',
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result revokeUserSession(array $args = [])
+ * @phpstan-method \Aws\Result revokeUserSession(array{AccessToken?: string, SessionId?: string, RevokeAssociatedSessions?: 'LINKED'|'NONE', ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise revokeUserSessionAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise revokeUserSessionAsync(array{AccessToken?: string, SessionId?: string, RevokeAssociatedSessions?: 'LINKED'|'NONE', ...} $args = [])
  * @method \Aws\Result setLogDeliveryConfiguration(array $args = [])
  * @phpstan-method \Aws\Result setLogDeliveryConfiguration(array{
  *     UserPoolId?: string,
@@ -1260,6 +1356,10 @@ use Aws\AwsClient;
  *     AccessToken?: string,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result setUserPoolClientSessionConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result setUserPoolClientSessionConfiguration(array{UserPoolId?: string, ClientId?: string, SSOSession?: array{MaxValidityMinutes?: int, ...}, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise setUserPoolClientSessionConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise setUserPoolClientSessionConfigurationAsync(array{UserPoolId?: string, ClientId?: string, SSOSession?: array{MaxValidityMinutes?: int, ...}, ...} $args = [])
  * @method \Aws\Result setUserPoolMfaConfig(array $args = [])
  * @phpstan-method \Aws\Result setUserPoolMfaConfig(array{
  *     UserPoolId?: string,
@@ -1296,6 +1396,20 @@ use Aws\AwsClient;
  *         FactorConfiguration?: 'MULTI_FACTOR_WITH_USER_VERIFICATION'|'SINGLE_FACTOR',
  *         ...,
  *     },
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result setUserPoolSessionConfiguration(array $args = [])
+ * @phpstan-method \Aws\Result setUserPoolSessionConfiguration(array{
+ *     UserPoolId?: string,
+ *     UserSessionTracking?: 'DISABLED'|'ENABLED',
+ *     TokenSession?: array{MaxPerUser?: int, ...},
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise setUserPoolSessionConfigurationAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise setUserPoolSessionConfigurationAsync(array{
+ *     UserPoolId?: string,
+ *     UserSessionTracking?: 'DISABLED'|'ENABLED',
+ *     TokenSession?: array{MaxPerUser?: int, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result setUserSettings(array $args = [])
@@ -1585,6 +1699,14 @@ use Aws\AwsClient;
  *         AdvancedSecurityAdditionalFlows?: array{CustomAuthMode?: 'AUDIT'|'ENFORCED', ...},
  *         ...,
  *     },
+ *     DcrConfiguration?: array{
+ *         EnableStatus?: 'Disabled'|'Enabled',
+ *         OpenDcrEnabled?: bool,
+ *         AuthenticatedGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         OpenDcrGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         AllowedScopes?: list<string>,
+ *         ...,
+ *     },
  *     AccountRecoverySetting?: array{RecoveryMechanisms?: list<array>, ...},
  *     PoolName?: string,
  *     UserPoolTier?: 'ESSENTIALS'|'LITE'|'PLUS',
@@ -1682,6 +1804,14 @@ use Aws\AwsClient;
  *         AdvancedSecurityAdditionalFlows?: array{CustomAuthMode?: 'AUDIT'|'ENFORCED', ...},
  *         ...,
  *     },
+ *     DcrConfiguration?: array{
+ *         EnableStatus?: 'Disabled'|'Enabled',
+ *         OpenDcrEnabled?: bool,
+ *         AuthenticatedGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         OpenDcrGrantTypes?: list<'client_credentials'|'code'|'implicit'>,
+ *         AllowedScopes?: list<string>,
+ *         ...,
+ *     },
  *     AccountRecoverySetting?: array{RecoveryMechanisms?: list<array>, ...},
  *     PoolName?: string,
  *     UserPoolTier?: 'ESSENTIALS'|'LITE'|'PLUS',
@@ -1706,7 +1836,7 @@ use Aws\AwsClient;
  *     },
  *     ReadAttributes?: list<string>,
  *     WriteAttributes?: list<string>,
- *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
+ *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_TOKEN_EXCHANGE_DELEGATION'|'ALLOW_TOKEN_EXCHANGE_IMPERSONATION'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
  *     SupportedIdentityProviders?: list<string>,
  *     CallbackURLs?: list<string>,
  *     LogoutURLs?: list<string>,
@@ -1745,7 +1875,7 @@ use Aws\AwsClient;
  *     },
  *     ReadAttributes?: list<string>,
  *     WriteAttributes?: list<string>,
- *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
+ *     ExplicitAuthFlows?: list<'ADMIN_NO_SRP_AUTH'|'ALLOW_ADMIN_USER_PASSWORD_AUTH'|'ALLOW_CUSTOM_AUTH'|'ALLOW_REFRESH_TOKEN_AUTH'|'ALLOW_TOKEN_EXCHANGE_DELEGATION'|'ALLOW_TOKEN_EXCHANGE_IMPERSONATION'|'ALLOW_USER_AUTH'|'ALLOW_USER_PASSWORD_AUTH'|'ALLOW_USER_SRP_AUTH'|'CUSTOM_AUTH_FLOW_ONLY'|'USER_PASSWORD_AUTH'>,
  *     SupportedIdentityProviders?: list<string>,
  *     CallbackURLs?: list<string>,
  *     LogoutURLs?: list<string>,

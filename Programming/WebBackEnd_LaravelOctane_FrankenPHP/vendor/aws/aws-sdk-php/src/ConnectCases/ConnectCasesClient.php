@@ -5,6 +5,40 @@ use Aws\AwsClient;
 
 /**
  * This client is used to interact with the **Amazon Connect Cases** service.
+ * @method \Aws\Result batchCreateRelatedItem(array $args = [])
+ * @phpstan-method \Aws\Result batchCreateRelatedItem(array{
+ *     domainId?: string,
+ *     content?: array{
+ *         contact?: array{contactArn?: string, ...},
+ *         comment?: array{body?: string, contentType?: 'Text/Plain', ...},
+ *         file?: array{fileArn?: string, ...},
+ *         sla?: array{slaInputConfiguration?: array, ...},
+ *         connectCase?: array{caseId?: string, ...},
+ *         custom?: array{fields?: list<array>, ...},
+ *         ...,
+ *     },
+ *     cases?: list<array{caseIdentifier?: array, ...}>,
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
+ *     clientToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise batchCreateRelatedItemAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise batchCreateRelatedItemAsync(array{
+ *     domainId?: string,
+ *     content?: array{
+ *         contact?: array{contactArn?: string, ...},
+ *         comment?: array{body?: string, contentType?: 'Text/Plain', ...},
+ *         file?: array{fileArn?: string, ...},
+ *         sla?: array{slaInputConfiguration?: array, ...},
+ *         connectCase?: array{caseId?: string, ...},
+ *         custom?: array{fields?: list<array>, ...},
+ *         ...,
+ *     },
+ *     cases?: list<array{caseIdentifier?: array, ...}>,
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
+ *     clientToken?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result batchGetCaseRule(array $args = [])
  * @phpstan-method \Aws\Result batchGetCaseRule(array{domainId?: string, caseRules?: list<array{id?: string, ...}>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise batchGetCaseRuleAsync(array $args = [])
@@ -25,6 +59,30 @@ use Aws\AwsClient;
  *     domainId?: string,
  *     fieldId?: string,
  *     options?: list<array{name?: string, value?: string, active?: bool, ...}>,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result batchUpdateCase(array $args = [])
+ * @phpstan-method \Aws\Result batchUpdateCase(array{
+ *     domainId?: string,
+ *     cases?: list<array{caseIdentifier?: array, ...}>,
+ *     fields?: list<array{fieldIdentifier?: array, value?: array, ...}>,
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
+ *     title?: string,
+ *     status?: string,
+ *     customerId?: string,
+ *     clientToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise batchUpdateCaseAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise batchUpdateCaseAsync(array{
+ *     domainId?: string,
+ *     cases?: list<array{caseIdentifier?: array, ...}>,
+ *     fields?: list<array{fieldIdentifier?: array, value?: array, ...}>,
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
+ *     title?: string,
+ *     status?: string,
+ *     customerId?: string,
+ *     clientToken?: string,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createCase(array $args = [])
@@ -215,6 +273,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getLayout(array{domainId?: string, layoutId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getLayoutAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getLayoutAsync(array{domainId?: string, layoutId?: string, ...} $args = [])
+ * @method \Aws\Result getMergeCasesStatus(array $args = [])
+ * @phpstan-method \Aws\Result getMergeCasesStatus(array{domainId?: string, caseId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getMergeCasesStatusAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getMergeCasesStatusAsync(array{domainId?: string, caseId?: string, ...} $args = [])
  * @method \Aws\Result getTemplate(array $args = [])
  * @phpstan-method \Aws\Result getTemplate(array{domainId?: string, templateId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getTemplateAsync(array $args = [])
@@ -349,6 +411,26 @@ use Aws\AwsClient;
  *     maxResults?: int,
  *     nextToken?: string,
  *     filters?: list<array{contact?: array, comment?: array, file?: array, sla?: array, connectCase?: array, custom?: array, ...}>,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result startMergeCases(array $args = [])
+ * @phpstan-method \Aws\Result startMergeCases(array{
+ *     domainId?: string,
+ *     caseId?: string,
+ *     secondaryCaseIds?: list<string>,
+ *     fieldsConfiguration?: list<array{fieldIds?: list<array>, sourceCaseId?: string, ...}>,
+ *     relatedItemsConfiguration?: array{comment?: bool, connectCase?: bool, contact?: bool, custom?: bool, ...},
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise startMergeCasesAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise startMergeCasesAsync(array{
+ *     domainId?: string,
+ *     caseId?: string,
+ *     secondaryCaseIds?: list<string>,
+ *     fieldsConfiguration?: list<array{fieldIds?: list<array>, sourceCaseId?: string, ...}>,
+ *     relatedItemsConfiguration?: array{comment?: bool, connectCase?: bool, contact?: bool, custom?: bool, ...},
+ *     performedBy?: array{userArn?: string, customEntity?: string, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result tagResource(array $args = [])

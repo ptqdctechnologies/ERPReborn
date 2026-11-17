@@ -14,6 +14,7 @@ use Illuminate\Support\InteractsWithTime;
 use Illuminate\Support\Str;
 use Illuminate\Support\Traits\Macroable;
 use InvalidArgumentException;
+use Symfony\Component\HttpFoundation\HeaderUtils;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 
 class UrlGenerator implements UrlGeneratorContract
@@ -504,6 +505,17 @@ class UrlGenerator implements UrlGeneratorContract
     public function signatureHasNotExpired(Request $request)
     {
         $expires = $request->query('expires');
+
+        if (is_null($expires)) {
+            $queries = HeaderUtils::parseQuery(match (true) {
+                $request->server->has('VAPOR_RAW_QUERY_STRING') => $request->server->get('VAPOR_RAW_QUERY_STRING'),
+                default => $request->getQueryString() ?? '',
+            });
+
+            if (isset($queries['expires'])) {
+                $expires = $queries['expires'];
+            }
+        }
 
         return ! ($expires && Carbon::now()->getTimestamp() > $expires);
     }

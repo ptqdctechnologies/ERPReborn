@@ -1,5 +1,16 @@
 # CHANGELOG
 
+## 2.9.4 - 2026-11-17
+
+* Fixed the compiled runtime to use a private default cache directory, preventing local code execution.
+
+## 2.9.3 - 2026-11-16
+
+* Fixed merge() to error on scalar and null arguments instead of triggering PHP errors.
+* Fixed merge() to accept stdClass objects.
+* Fixed syntax error messages for unexpected array, object, boolean and null literals.
+* Fixed contains() with an empty search string on PHP 7.
+
 ## 2.9.2 - 2026-07-06
 
 * Pass explicit trim characters ahead of the PHP 8.6 trim default change.

@@ -479,6 +479,92 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result createCustomEntityType(array{Name?: string, RegexString?: string, ContextWords?: list<string>, Tags?: array<string, string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise createCustomEntityTypeAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise createCustomEntityTypeAsync(array{Name?: string, RegexString?: string, ContextWords?: list<string>, Tags?: array<string, string>, ...} $args = [])
+ * @method \Aws\Result createDataQualityEvaluationConfig(array $args = [])
+ * @phpstan-method \Aws\Result createDataQualityEvaluationConfig(array{
+ *     Name?: string,
+ *     Level?: 'CATALOG'|'DATABASE'|'TABLE',
+ *     DataSource?: array{
+ *         GlueTables?: array{
+ *             CatalogId?: string,
+ *             DatabaseName?: string,
+ *             TableNamePattern?: string,
+ *             PreProcessingQuery?: string,
+ *             ConnectionName?: string,
+ *             AdditionalOptions?: array<string, string>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     RulesetName?: string,
+ *     ManagedRulesetName?: 'ADVANCED'|'SIMPLE',
+ *     Triggers?: list<'METADATA_CHANGE'|'ONCE'|'SCHEDULE'>,
+ *     ScheduleExpression?: string,
+ *     StartAt?: int|string|\DateTimeInterface,
+ *     EndAt?: int|string|\DateTimeInterface,
+ *     Role?: string,
+ *     NumberOfWorkers?: int,
+ *     Timeout?: int,
+ *     AdditionalRunOptions?: array{
+ *         CloudWatchMetricsEnabled?: bool,
+ *         ResultsS3Prefix?: string,
+ *         CompositeRuleEvaluationMethod?: 'COLUMN'|'ROW',
+ *         RowLevelResults?: array{MaxRowsToWrite?: int, ResultType?: 'ALL'|'FAILED_ONLY'|'PASSED_ONLY', CatalogTableConfig?: array, ...},
+ *         ProfilingResults?: array{WriteProfilingResultsEnabled?: bool, CatalogTableConfig?: array, DistributionResults?: array, ...},
+ *         ObservationScope?: 'ALL'|'NONE',
+ *         ObservationMode?: 'FIXED'|'SCHEDULED',
+ *         DataQualityRuleResults?: array{WriteDataQualityRuleResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         ObservationResults?: array{WriteObservationResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         CustomLogGroupPrefix?: string,
+ *         ...,
+ *     },
+ *     AdditionalDataSources?: array<string, array{GlueTable?: array, DataQualityGlueTable?: array, ...}>,
+ *     Tags?: array<string, string>,
+ *     ClientToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise createDataQualityEvaluationConfigAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise createDataQualityEvaluationConfigAsync(array{
+ *     Name?: string,
+ *     Level?: 'CATALOG'|'DATABASE'|'TABLE',
+ *     DataSource?: array{
+ *         GlueTables?: array{
+ *             CatalogId?: string,
+ *             DatabaseName?: string,
+ *             TableNamePattern?: string,
+ *             PreProcessingQuery?: string,
+ *             ConnectionName?: string,
+ *             AdditionalOptions?: array<string, string>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     RulesetName?: string,
+ *     ManagedRulesetName?: 'ADVANCED'|'SIMPLE',
+ *     Triggers?: list<'METADATA_CHANGE'|'ONCE'|'SCHEDULE'>,
+ *     ScheduleExpression?: string,
+ *     StartAt?: int|string|\DateTimeInterface,
+ *     EndAt?: int|string|\DateTimeInterface,
+ *     Role?: string,
+ *     NumberOfWorkers?: int,
+ *     Timeout?: int,
+ *     AdditionalRunOptions?: array{
+ *         CloudWatchMetricsEnabled?: bool,
+ *         ResultsS3Prefix?: string,
+ *         CompositeRuleEvaluationMethod?: 'COLUMN'|'ROW',
+ *         RowLevelResults?: array{MaxRowsToWrite?: int, ResultType?: 'ALL'|'FAILED_ONLY'|'PASSED_ONLY', CatalogTableConfig?: array, ...},
+ *         ProfilingResults?: array{WriteProfilingResultsEnabled?: bool, CatalogTableConfig?: array, DistributionResults?: array, ...},
+ *         ObservationScope?: 'ALL'|'NONE',
+ *         ObservationMode?: 'FIXED'|'SCHEDULED',
+ *         DataQualityRuleResults?: array{WriteDataQualityRuleResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         ObservationResults?: array{WriteObservationResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         CustomLogGroupPrefix?: string,
+ *         ...,
+ *     },
+ *     AdditionalDataSources?: array<string, array{GlueTable?: array, DataQualityGlueTable?: array, ...}>,
+ *     Tags?: array<string, string>,
+ *     ClientToken?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result createDataQualityRuleset(array $args = [])
  * @phpstan-method \Aws\Result createDataQualityRuleset(array{
  *     Name?: string,
@@ -1416,6 +1502,8 @@ use Aws\AwsClient;
  *         FunctionType?: 'AGGREGATE_FUNCTION'|'REGULAR_FUNCTION'|'STORED_PROCEDURE',
  *         OwnerType?: 'GROUP'|'ROLE'|'USER',
  *         ResourceUris?: list<array>,
+ *         ArtifactLocation?: string,
+ *         GovernanceMode?: 'IAM_ONLY'|'LAKE_FORMATION',
  *         ...,
  *     },
  *     ...,
@@ -1431,6 +1519,8 @@ use Aws\AwsClient;
  *         FunctionType?: 'AGGREGATE_FUNCTION'|'REGULAR_FUNCTION'|'STORED_PROCEDURE',
  *         OwnerType?: 'GROUP'|'ROLE'|'USER',
  *         ResourceUris?: list<array>,
+ *         ArtifactLocation?: string,
+ *         GovernanceMode?: 'IAM_ONLY'|'LAKE_FORMATION',
  *         ...,
  *     },
  *     ...,
@@ -1531,6 +1621,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result deleteCustomEntityType(array{Name?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteCustomEntityTypeAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteCustomEntityTypeAsync(array{Name?: string, ...} $args = [])
+ * @method \Aws\Result deleteDataQualityEvaluationConfig(array $args = [])
+ * @phpstan-method \Aws\Result deleteDataQualityEvaluationConfig(array{Name?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise deleteDataQualityEvaluationConfigAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteDataQualityEvaluationConfigAsync(array{Name?: string, ...} $args = [])
  * @method \Aws\Result deleteDataQualityRuleset(array $args = [])
  * @phpstan-method \Aws\Result deleteDataQualityRuleset(array{Name?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteDataQualityRulesetAsync(array $args = [])
@@ -1895,6 +1989,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getDataCatalogExportConfiguration(array{...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getDataCatalogExportConfigurationAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getDataCatalogExportConfigurationAsync(array{...} $args = [])
+ * @method \Aws\Result getDataQualityEvaluationConfig(array $args = [])
+ * @phpstan-method \Aws\Result getDataQualityEvaluationConfig(array{Name?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getDataQualityEvaluationConfigAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getDataQualityEvaluationConfigAsync(array{Name?: string, ...} $args = [])
  * @method \Aws\Result getDataQualityModel(array $args = [])
  * @phpstan-method \Aws\Result getDataQualityModel(array{StatisticId?: string, ProfileId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getDataQualityModelAsync(array $args = [])
@@ -2025,6 +2123,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getJobRuns(array{JobName?: string, NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getJobRunsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getJobRunsAsync(array{JobName?: string, NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \Aws\Result getJobUpgradeAnalysis(array $args = [])
+ * @phpstan-method \Aws\Result getJobUpgradeAnalysis(array{analysisId?: string, jobName?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getJobUpgradeAnalysisAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getJobUpgradeAnalysisAsync(array{analysisId?: string, jobName?: string, ...} $args = [])
  * @method \Aws\Result getJobs(array $args = [])
  * @phpstan-method \Aws\Result getJobs(array{NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getJobsAsync(array $args = [])
@@ -2649,6 +2751,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result listCustomEntityTypes(array{NextToken?: string, MaxResults?: int, Tags?: array<string, string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listCustomEntityTypesAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listCustomEntityTypesAsync(array{NextToken?: string, MaxResults?: int, Tags?: array<string, string>, ...} $args = [])
+ * @method \Aws\Result listDataQualityEvaluationConfigs(array $args = [])
+ * @phpstan-method \Aws\Result listDataQualityEvaluationConfigs(array{Level?: 'CATALOG'|'DATABASE'|'TABLE', MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listDataQualityEvaluationConfigsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listDataQualityEvaluationConfigsAsync(array{Level?: 'CATALOG'|'DATABASE'|'TABLE', MaxResults?: int, NextToken?: string, ...} $args = [])
  * @method \Aws\Result listDataQualityResults(array $args = [])
  * @phpstan-method \Aws\Result listDataQualityResults(array{
  *     Filter?: array{
@@ -2657,6 +2763,8 @@ use Aws\AwsClient;
  *         JobRunId?: string,
  *         StartedAfter?: int|string|\DateTimeInterface,
  *         StartedBefore?: int|string|\DateTimeInterface,
+ *         EvaluationRunMode?: 'EVALUATION_CONFIG'|'ON_DEMAND',
+ *         DataQualityEvaluationConfig?: string,
  *         ...,
  *     },
  *     NextToken?: string,
@@ -2671,6 +2779,8 @@ use Aws\AwsClient;
  *         JobRunId?: string,
  *         StartedAfter?: int|string|\DateTimeInterface,
  *         StartedBefore?: int|string|\DateTimeInterface,
+ *         EvaluationRunMode?: 'EVALUATION_CONFIG'|'ON_DEMAND',
+ *         DataQualityEvaluationConfig?: string,
  *         ...,
  *     },
  *     NextToken?: string,
@@ -2685,6 +2795,8 @@ use Aws\AwsClient;
  *         PublishedBefore?: int|string|\DateTimeInterface,
  *         Dimensions?: array<string, string>,
  *         EvaluationContext?: string,
+ *         EvaluationRunMode?: 'EVALUATION_CONFIG'|'ON_DEMAND',
+ *         DataQualityEvaluationConfig?: string,
  *         ...,
  *     },
  *     NextToken?: string,
@@ -2699,6 +2811,8 @@ use Aws\AwsClient;
  *         PublishedBefore?: int|string|\DateTimeInterface,
  *         Dimensions?: array<string, string>,
  *         EvaluationContext?: string,
+ *         EvaluationRunMode?: 'EVALUATION_CONFIG'|'ON_DEMAND',
+ *         DataQualityEvaluationConfig?: string,
  *         ...,
  *     },
  *     NextToken?: string,
@@ -3827,6 +3941,10 @@ use Aws\AwsClient;
  *     ExecutionRoleSessionPolicy?: string,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result startJobUpgradeAnalysis(array $args = [])
+ * @phpstan-method \Aws\Result startJobUpgradeAnalysis(array{jobName?: string, analysisId?: string, upgradeConsent?: 'APPROVE'|'DECLINE', ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise startJobUpgradeAnalysisAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise startJobUpgradeAnalysisAsync(array{jobName?: string, analysisId?: string, upgradeConsent?: 'APPROVE'|'DECLINE', ...} $args = [])
  * @method \Aws\Result startMLEvaluationTaskRun(array $args = [])
  * @phpstan-method \Aws\Result startMLEvaluationTaskRun(array{TransformId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise startMLEvaluationTaskRunAsync(array $args = [])
@@ -3863,6 +3981,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result stopCrawlerSchedule(array{CrawlerName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise stopCrawlerScheduleAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise stopCrawlerScheduleAsync(array{CrawlerName?: string, ...} $args = [])
+ * @method \Aws\Result stopJobUpgradeAnalysis(array $args = [])
+ * @phpstan-method \Aws\Result stopJobUpgradeAnalysis(array{jobName?: string, analysisId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise stopJobUpgradeAnalysisAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise stopJobUpgradeAnalysisAsync(array{jobName?: string, analysisId?: string, ...} $args = [])
  * @method \Aws\Result stopMaterializedViewRefreshTaskRun(array $args = [])
  * @phpstan-method \Aws\Result stopMaterializedViewRefreshTaskRun(array{CatalogId?: string, DatabaseName?: string, TableName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise stopMaterializedViewRefreshTaskRunAsync(array $args = [])
@@ -4229,6 +4351,88 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result updateCrawlerSchedule(array{CrawlerName?: string, Schedule?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise updateCrawlerScheduleAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise updateCrawlerScheduleAsync(array{CrawlerName?: string, Schedule?: string, ...} $args = [])
+ * @method \Aws\Result updateDataQualityEvaluationConfig(array $args = [])
+ * @phpstan-method \Aws\Result updateDataQualityEvaluationConfig(array{
+ *     Name?: string,
+ *     DataSource?: array{
+ *         GlueTables?: array{
+ *             CatalogId?: string,
+ *             DatabaseName?: string,
+ *             TableNamePattern?: string,
+ *             PreProcessingQuery?: string,
+ *             ConnectionName?: string,
+ *             AdditionalOptions?: array<string, string>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     RulesetName?: string,
+ *     ManagedRulesetName?: 'ADVANCED'|'SIMPLE',
+ *     Triggers?: list<'METADATA_CHANGE'|'ONCE'|'SCHEDULE'>,
+ *     ScheduleExpression?: string,
+ *     StartAt?: int|string|\DateTimeInterface,
+ *     EndAt?: int|string|\DateTimeInterface,
+ *     PauseRuns?: bool,
+ *     Role?: string,
+ *     NumberOfWorkers?: int,
+ *     Timeout?: int,
+ *     AdditionalRunOptions?: array{
+ *         CloudWatchMetricsEnabled?: bool,
+ *         ResultsS3Prefix?: string,
+ *         CompositeRuleEvaluationMethod?: 'COLUMN'|'ROW',
+ *         RowLevelResults?: array{MaxRowsToWrite?: int, ResultType?: 'ALL'|'FAILED_ONLY'|'PASSED_ONLY', CatalogTableConfig?: array, ...},
+ *         ProfilingResults?: array{WriteProfilingResultsEnabled?: bool, CatalogTableConfig?: array, DistributionResults?: array, ...},
+ *         ObservationScope?: 'ALL'|'NONE',
+ *         ObservationMode?: 'FIXED'|'SCHEDULED',
+ *         DataQualityRuleResults?: array{WriteDataQualityRuleResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         ObservationResults?: array{WriteObservationResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         CustomLogGroupPrefix?: string,
+ *         ...,
+ *     },
+ *     AdditionalDataSources?: array<string, array{GlueTable?: array, DataQualityGlueTable?: array, ...}>,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateDataQualityEvaluationConfigAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateDataQualityEvaluationConfigAsync(array{
+ *     Name?: string,
+ *     DataSource?: array{
+ *         GlueTables?: array{
+ *             CatalogId?: string,
+ *             DatabaseName?: string,
+ *             TableNamePattern?: string,
+ *             PreProcessingQuery?: string,
+ *             ConnectionName?: string,
+ *             AdditionalOptions?: array<string, string>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     RulesetName?: string,
+ *     ManagedRulesetName?: 'ADVANCED'|'SIMPLE',
+ *     Triggers?: list<'METADATA_CHANGE'|'ONCE'|'SCHEDULE'>,
+ *     ScheduleExpression?: string,
+ *     StartAt?: int|string|\DateTimeInterface,
+ *     EndAt?: int|string|\DateTimeInterface,
+ *     PauseRuns?: bool,
+ *     Role?: string,
+ *     NumberOfWorkers?: int,
+ *     Timeout?: int,
+ *     AdditionalRunOptions?: array{
+ *         CloudWatchMetricsEnabled?: bool,
+ *         ResultsS3Prefix?: string,
+ *         CompositeRuleEvaluationMethod?: 'COLUMN'|'ROW',
+ *         RowLevelResults?: array{MaxRowsToWrite?: int, ResultType?: 'ALL'|'FAILED_ONLY'|'PASSED_ONLY', CatalogTableConfig?: array, ...},
+ *         ProfilingResults?: array{WriteProfilingResultsEnabled?: bool, CatalogTableConfig?: array, DistributionResults?: array, ...},
+ *         ObservationScope?: 'ALL'|'NONE',
+ *         ObservationMode?: 'FIXED'|'SCHEDULED',
+ *         DataQualityRuleResults?: array{WriteDataQualityRuleResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         ObservationResults?: array{WriteObservationResultsEnabled?: bool, CatalogTableConfig?: array, ...},
+ *         CustomLogGroupPrefix?: string,
+ *         ...,
+ *     },
+ *     AdditionalDataSources?: array<string, array{GlueTable?: array, DataQualityGlueTable?: array, ...}>,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result updateDataQualityRuleset(array $args = [])
  * @phpstan-method \Aws\Result updateDataQualityRuleset(array{Name?: string, Description?: string, Ruleset?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise updateDataQualityRulesetAsync(array $args = [])
@@ -4847,6 +5051,8 @@ use Aws\AwsClient;
  *         FunctionType?: 'AGGREGATE_FUNCTION'|'REGULAR_FUNCTION'|'STORED_PROCEDURE',
  *         OwnerType?: 'GROUP'|'ROLE'|'USER',
  *         ResourceUris?: list<array>,
+ *         ArtifactLocation?: string,
+ *         GovernanceMode?: 'IAM_ONLY'|'LAKE_FORMATION',
  *         ...,
  *     },
  *     ...,
@@ -4863,6 +5069,8 @@ use Aws\AwsClient;
  *         FunctionType?: 'AGGREGATE_FUNCTION'|'REGULAR_FUNCTION'|'STORED_PROCEDURE',
  *         OwnerType?: 'GROUP'|'ROLE'|'USER',
  *         ResourceUris?: list<array>,
+ *         ArtifactLocation?: string,
+ *         GovernanceMode?: 'IAM_ONLY'|'LAKE_FORMATION',
  *         ...,
  *     },
  *     ...,
