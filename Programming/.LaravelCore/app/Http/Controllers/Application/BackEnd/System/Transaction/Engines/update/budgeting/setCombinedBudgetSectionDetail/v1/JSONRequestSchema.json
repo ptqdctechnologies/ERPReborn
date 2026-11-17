@@ -1,0 +1,134 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.update.budgeting.setCombinedBudgetSectionDetail (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.update.budgeting.setCombinedBudgetSectionDetail" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [
+                    "key",
+                    "version"
+                    ]
+                }
+            },
+        "required": [
+            "API"
+            ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID" : {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9223372036854775807
+                },
+            "entities" :
+                {
+                "type": "object",
+                "properties": {
+                    "version": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 32767 
+                        },
+                    "combinedBudget_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "combinedBudgetSection_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "combinedBudgetSubSectionLevel1_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "combinedBudgetSubSectionLevel2_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "product_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "description": {
+                        "type": [ "string", "null" ],
+                        "minLength": 1,
+                        "maxLength": 256
+                        },
+                    "quantity": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "quantityUnit_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "unitPriceCurrency_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        },
+                    "unitPriceCurrencyValue": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "unitPriceCurrencyExchangeRate": {
+                        "type": [ "number", "null" ],
+                        "minimum": 0
+                        },
+                    "work_RefID": {
+                        "type": [ "integer", "null" ],
+                        "minimum": 0,
+                        "maximum": 9223372036854775807 
+                        }
+                    },
+                "required": [
+                    "version",
+                    "combinedBudget_RefID",
+                    "combinedBudgetSection_RefID",
+                    "combinedBudgetSubSectionLevel1_RefID",
+                    "combinedBudgetSubSectionLevel2_RefID",
+                    "product_RefID",
+                    "description",
+                    "quantity",
+                    "quantityUnit_RefID",
+                    "unitPriceCurrency_RefID",
+                    "unitPriceCurrencyValue",
+                    "unitPriceCurrencyExchangeRate",
+                    "work_RefID"
+                    ]
+                }
+            },
+        "required": [
+            "recordID",
+            "entities"
+            ]
+        }
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}
