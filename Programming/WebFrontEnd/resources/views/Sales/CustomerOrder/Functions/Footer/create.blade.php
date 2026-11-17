@@ -1020,19 +1020,28 @@
         $.ajax({
             type: 'GET',
             data: {
-                businessDocumentType_RefID: '77000000000057',
+                businessDocumentType_RefID: '77000000000057', // documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
                 if (response.status === 200 && !response.data[0].signAccess) {
-                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
-                } else {
-                    $("#project_loading").css({ "display": "none" });
-                    $("#myProjectsTrigger").css({ "display": "block" });
+                    // getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
 
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css('background-color', '#e9ecef');
+
+                    $("#type_import_from_excel").prop("disabled", false);
+                    $("#type_add_manually").prop("disabled", false);
+                    $("#myProjectsTrigger").prop("disabled", true);
+                    $("#myProjectsTrigger").css("cursor", "not-allowed");
+                } else {
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
+
+                $("#project_loading").css({ "display": "none" });
+                $("#myProjectsTrigger").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
