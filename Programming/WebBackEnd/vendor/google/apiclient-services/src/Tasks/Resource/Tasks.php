@@ -88,12 +88,6 @@ class Tasks extends \Google\Service\Resource
    * @param Task $postBody
    * @param array $optParams Optional parameters.
    *
-   * @opt_param bool hidden Optional. Flag indicating whether the task is created
-   * as 'hidden', as if it had been completed and then cleared from the task list
-   * (see the "clear" method). Hidden tasks are not returned by default when
-   * retrieving all tasks for a task list (see showHidden). Only completed tasks
-   * can be created as hidden, and they can not be nested or positioned, so parent
-   * and previous must be empty.
    * @opt_param string parent Optional. Parent task identifier. If the task is
    * created at the top level, this parameter is omitted. An assigned task cannot
    * be a parent task, nor can it have a parent. Setting the parent to an assigned
@@ -168,7 +162,7 @@ class Tasks extends \Google\Service\Resource
    * @opt_param string destinationTasklist Optional. Destination task list
    * identifier. If set, the task is moved from tasklist to the
    * destinationTasklist list. Otherwise the task is moved within its current
-   * list. Recurrent tasks cannot currently be moved between lists.
+   * list.
    * @opt_param string parent Optional. New parent task identifier. If the task is
    * moved to the top level, this parameter is omitted. The task set as parent
    * must exist in the task list and can not be hidden. Exceptions: 1. Assigned

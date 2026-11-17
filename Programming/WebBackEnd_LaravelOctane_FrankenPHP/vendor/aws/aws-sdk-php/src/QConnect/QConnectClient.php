@@ -262,7 +262,7 @@ use Aws\AwsClient;
  *     type?: 'AGENT',
  *     description?: string,
  *     tags?: array<string, string>,
- *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, ...},
+ *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, replicaKmsKeys?: list<array>, ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createAssistantAsync(array $args = [])
@@ -272,7 +272,7 @@ use Aws\AwsClient;
  *     type?: 'AGENT',
  *     description?: string,
  *     tags?: array<string, string>,
- *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, ...},
+ *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, replicaKmsKeys?: list<array>, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result createAssistantAssociation(array $args = [])
@@ -367,7 +367,7 @@ use Aws\AwsClient;
  *         parsingConfiguration?: array{parsingStrategy?: 'BEDROCK_FOUNDATION_MODEL', bedrockFoundationModelConfiguration?: array, ...},
  *         ...,
  *     },
- *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, ...},
+ *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, replicaKmsKeys?: list<array>, ...},
  *     description?: string,
  *     tags?: array<string, string>,
  *     ...,
@@ -394,7 +394,7 @@ use Aws\AwsClient;
  *         parsingConfiguration?: array{parsingStrategy?: 'BEDROCK_FOUNDATION_MODEL', bedrockFoundationModelConfiguration?: array, ...},
  *         ...,
  *     },
- *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, ...},
+ *     serverSideEncryptionConfiguration?: array{kmsKeyId?: string, replicaKmsKeys?: list<array>, ...},
  *     description?: string,
  *     tags?: array<string, string>,
  *     ...,
@@ -476,9 +476,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     groupingConfiguration?: array{criteria?: string, values?: list<string>, ...},
@@ -563,9 +566,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     groupingConfiguration?: array{criteria?: string, values?: list<string>, ...},
@@ -993,6 +999,14 @@ use Aws\AwsClient;
  *     overrideKnowledgeBaseSearchType?: 'HYBRID'|'SEMANTIC',
  *     ...,
  * } $args = [])
+ * @method \Aws\Result registerAssistantReplicaKey(array $args = [])
+ * @phpstan-method \Aws\Result registerAssistantReplicaKey(array{assistantId?: string, replicaKmsKey?: array{arn?: string, ...}, clientToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise registerAssistantReplicaKeyAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise registerAssistantReplicaKeyAsync(array{assistantId?: string, replicaKmsKey?: array{arn?: string, ...}, clientToken?: string, ...} $args = [])
+ * @method \Aws\Result registerKnowledgeBaseReplicaKey(array $args = [])
+ * @phpstan-method \Aws\Result registerKnowledgeBaseReplicaKey(array{knowledgeBaseId?: string, replicaKmsKey?: array{arn?: string, ...}, clientToken?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise registerKnowledgeBaseReplicaKeyAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise registerKnowledgeBaseReplicaKeyAsync(array{knowledgeBaseId?: string, replicaKmsKey?: array{arn?: string, ...}, clientToken?: string, ...} $args = [])
  * @method \Aws\Result removeAssistantAIAgent(array $args = [])
  * @phpstan-method \Aws\Result removeAssistantAIAgent(array{
  *     assistantId?: string,
@@ -1077,9 +1091,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     ...,
@@ -1150,9 +1167,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     ...,
@@ -1664,9 +1684,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     ...,
@@ -1746,9 +1769,12 @@ use Aws\AwsClient;
  *             billingProvince?: string,
  *             billingState?: string,
  *             custom?: array<string, string>,
+ *             recommendations?: list<array>,
+ *             calculatedAttributes?: array<string, string>,
  *             ...,
  *         },
  *         customAttributes?: array<string, string>,
+ *         caseAttributes?: array<string, string>,
  *         ...,
  *     },
  *     ...,

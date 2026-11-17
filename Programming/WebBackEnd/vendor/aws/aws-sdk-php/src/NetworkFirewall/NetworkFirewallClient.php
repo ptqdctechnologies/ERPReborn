@@ -35,6 +35,7 @@ use Aws\AwsClient;
  *     FirewallArn?: string,
  *     FirewallName?: string,
  *     SubnetMappings?: list<array{SubnetId?: string, IPAddressType?: 'DUALSTACK'|'IPV4'|'IPV6', ...}>,
+ *     NatGatewayCreateMappings?: list<array{SubnetId?: string, AllocationIds?: list<string>, PrivateIps?: list<string>, ...}>,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise associateSubnetsAsync(array $args = [])
@@ -43,22 +44,7 @@ use Aws\AwsClient;
  *     FirewallArn?: string,
  *     FirewallName?: string,
  *     SubnetMappings?: list<array{SubnetId?: string, IPAddressType?: 'DUALSTACK'|'IPV4'|'IPV6', ...}>,
- *     ...,
- * } $args = [])
- * @method \Aws\Result attachRuleGroupsToProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result attachRuleGroupsToProxyConfiguration(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroups?: list<array{ProxyRuleGroupName?: string, InsertPosition?: int, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise attachRuleGroupsToProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise attachRuleGroupsToProxyConfigurationAsync(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroups?: list<array{ProxyRuleGroupName?: string, InsertPosition?: int, ...}>,
- *     UpdateToken?: string,
+ *     NatGatewayCreateMappings?: list<array{SubnetId?: string, AllocationIds?: list<string>, PrivateIps?: list<string>, ...}>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createContainerAssociation(array $args = [])
@@ -95,10 +81,10 @@ use Aws\AwsClient;
  *     TransitGatewayId?: string,
  *     AvailabilityZoneMappings?: list<array{AvailabilityZone?: string, ...}>,
  *     AvailabilityZoneChangeProtection?: bool,
- *     NatGatewayMappings?: list<array{NatGatewayId?: string, ...}>,
- *     ProxySettings?: array{ListenerProperties?: list<array>, ...},
- *     NoSourcePreservation?: bool,
+ *     NatGatewayCreateMappings?: list<array{SubnetId?: string, AllocationIds?: list<string>, PrivateIps?: list<string>, ...}>,
+ *     ProxySettings?: array{ListenerProperties?: list<array>, CertificateArn?: string, DomainName?: string, ...},
  *     VpcEndpoint?: array{VpcId?: string, SubnetMappings?: list<array>, ...},
+ *     TransparentFilteringNatScope?: 'NAT_ALL'|'NAT_NONE',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createFirewallAsync(array $args = [])
@@ -117,10 +103,10 @@ use Aws\AwsClient;
  *     TransitGatewayId?: string,
  *     AvailabilityZoneMappings?: list<array{AvailabilityZone?: string, ...}>,
  *     AvailabilityZoneChangeProtection?: bool,
- *     NatGatewayMappings?: list<array{NatGatewayId?: string, ...}>,
- *     ProxySettings?: array{ListenerProperties?: list<array>, ...},
- *     NoSourcePreservation?: bool,
+ *     NatGatewayCreateMappings?: list<array{SubnetId?: string, AllocationIds?: list<string>, PrivateIps?: list<string>, ...}>,
+ *     ProxySettings?: array{ListenerProperties?: list<array>, CertificateArn?: string, DomainName?: string, ...},
  *     VpcEndpoint?: array{VpcId?: string, SubnetMappings?: list<array>, ...},
+ *     TransparentFilteringNatScope?: 'NAT_ALL'|'NAT_NONE',
  *     ...,
  * } $args = [])
  * @method \Aws\Result createFirewallPolicy(array $args = [])
@@ -193,93 +179,65 @@ use Aws\AwsClient;
  *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
  *     ...,
  * } $args = [])
- * @method \Aws\Result createProxy(array $args = [])
- * @phpstan-method \Aws\Result createProxy(array{
- *     ProxyName?: string,
- *     NatGatewayId?: string,
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     ListenerProperties?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     TlsInterceptProperties?: array{PcaArn?: string, TlsInterceptMode?: 'DISABLED'|'ENABLED', ...},
- *     Tags?: list<array{Key?: string, Value?: string, ...}>,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise createProxyAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise createProxyAsync(array{
- *     ProxyName?: string,
- *     NatGatewayId?: string,
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     ListenerProperties?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     TlsInterceptProperties?: array{PcaArn?: string, TlsInterceptMode?: 'DISABLED'|'ENABLED', ...},
- *     Tags?: list<array{Key?: string, Value?: string, ...}>,
- *     ...,
- * } $args = [])
- * @method \Aws\Result createProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result createProxyConfiguration(array{
- *     ProxyConfigurationName?: string,
- *     Description?: string,
- *     RuleGroupNames?: list<string>,
- *     RuleGroupArns?: list<string>,
- *     DefaultRulePhaseActions?: array{
- *         PreDNS?: 'ALERT'|'ALLOW'|'DENY',
- *         PreREQUEST?: 'ALERT'|'ALLOW'|'DENY',
- *         PostRESPONSE?: 'ALERT'|'ALLOW'|'DENY',
+ * @method \Aws\Result createFirewallPolicyV2(array $args = [])
+ * @phpstan-method \Aws\Result createFirewallPolicyV2(array{
+ *     FirewallPolicyV2Name?: string,
+ *     FirewallPolicyV2?: array{
+ *         FirewallRuleGroupEntries?: list<array>,
+ *         IpsRuleGroupEntries?: list<array>,
+ *         PolicyMode?: 'ENFORCE'|'MONITOR',
+ *         FirewallDefaultAction?: 'ACCEPT'|'ALERT'|'DROP'|'REJECT',
+ *         StatefulEngineOptions?: array{StreamExceptionPolicy?: 'DROP'|'REJECT', FlowTimeouts?: array, ...},
+ *         TLSInspectionConfigurationArn?: string,
+ *         PolicyVariables?: array{RuleVariables?: array<string, array>, ...},
+ *         Route53ResolvedIPValidation?: array{
+ *             Action?: 'ALERT'|'DROP'|'REJECT',
+ *             DNSFirewallRuleGroupId?: string,
+ *             DNSExpiryExceptionPolicy?: 'CONTINUE'|'DROP'|'REJECT',
+ *             BypassDestinationValidationIPRanges?: list<array>,
+ *             SourceIPRanges?: list<array>,
+ *             ...,
+ *         },
  *         ...,
  *     },
+ *     Description?: string,
  *     Tags?: list<array{Key?: string, Value?: string, ...}>,
+ *     DryRun?: bool,
+ *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
  *     ...,
  * } $args = [])
- * @method \GuzzleHttp\Promise\Promise createProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise createProxyConfigurationAsync(array{
- *     ProxyConfigurationName?: string,
- *     Description?: string,
- *     RuleGroupNames?: list<string>,
- *     RuleGroupArns?: list<string>,
- *     DefaultRulePhaseActions?: array{
- *         PreDNS?: 'ALERT'|'ALLOW'|'DENY',
- *         PreREQUEST?: 'ALERT'|'ALLOW'|'DENY',
- *         PostRESPONSE?: 'ALERT'|'ALLOW'|'DENY',
+ * @method \GuzzleHttp\Promise\Promise createFirewallPolicyV2Async(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise createFirewallPolicyV2Async(array{
+ *     FirewallPolicyV2Name?: string,
+ *     FirewallPolicyV2?: array{
+ *         FirewallRuleGroupEntries?: list<array>,
+ *         IpsRuleGroupEntries?: list<array>,
+ *         PolicyMode?: 'ENFORCE'|'MONITOR',
+ *         FirewallDefaultAction?: 'ACCEPT'|'ALERT'|'DROP'|'REJECT',
+ *         StatefulEngineOptions?: array{StreamExceptionPolicy?: 'DROP'|'REJECT', FlowTimeouts?: array, ...},
+ *         TLSInspectionConfigurationArn?: string,
+ *         PolicyVariables?: array{RuleVariables?: array<string, array>, ...},
+ *         Route53ResolvedIPValidation?: array{
+ *             Action?: 'ALERT'|'DROP'|'REJECT',
+ *             DNSFirewallRuleGroupId?: string,
+ *             DNSExpiryExceptionPolicy?: 'CONTINUE'|'DROP'|'REJECT',
+ *             BypassDestinationValidationIPRanges?: list<array>,
+ *             SourceIPRanges?: list<array>,
+ *             ...,
+ *         },
  *         ...,
  *     },
- *     Tags?: list<array{Key?: string, Value?: string, ...}>,
- *     ...,
- * } $args = [])
- * @method \Aws\Result createProxyRuleGroup(array $args = [])
- * @phpstan-method \Aws\Result createProxyRuleGroup(array{
- *     ProxyRuleGroupName?: string,
  *     Description?: string,
- *     Rules?: array{PreDNS?: list<array>, PreREQUEST?: list<array>, PostRESPONSE?: list<array>, ...},
  *     Tags?: list<array{Key?: string, Value?: string, ...}>,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise createProxyRuleGroupAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise createProxyRuleGroupAsync(array{
- *     ProxyRuleGroupName?: string,
- *     Description?: string,
- *     Rules?: array{PreDNS?: list<array>, PreREQUEST?: list<array>, PostRESPONSE?: list<array>, ...},
- *     Tags?: list<array{Key?: string, Value?: string, ...}>,
- *     ...,
- * } $args = [])
- * @method \Aws\Result createProxyRules(array $args = [])
- * @phpstan-method \Aws\Result createProxyRules(array{
- *     ProxyRuleGroupArn?: string,
- *     ProxyRuleGroupName?: string,
- *     Rules?: array{PreDNS?: list<array>, PreREQUEST?: list<array>, PostRESPONSE?: list<array>, ...},
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise createProxyRulesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise createProxyRulesAsync(array{
- *     ProxyRuleGroupArn?: string,
- *     ProxyRuleGroupName?: string,
- *     Rules?: array{PreDNS?: list<array>, PreREQUEST?: list<array>, PostRESPONSE?: list<array>, ...},
+ *     DryRun?: bool,
+ *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result createRuleGroup(array $args = [])
  * @phpstan-method \Aws\Result createRuleGroup(array{
  *     RuleGroupName?: string,
  *     RuleGroup?: array{
- *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
  *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
  *         RulesSource?: array{
  *             RulesString?: string,
@@ -291,8 +249,20 @@ use Aws\AwsClient;
  *         StatefulRuleOptions?: array{RuleOrder?: 'DEFAULT_ACTION_ORDER'|'STRICT_ORDER', ...},
  *         ...,
  *     },
+ *     FirewallRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, FirewallRules?: list<array>, RulesSourceList?: array, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
+ *     IpsRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
  *     Rules?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     Description?: string,
  *     Capacity?: int,
  *     Tags?: list<array{Key?: string, Value?: string, ...}>,
@@ -307,7 +277,7 @@ use Aws\AwsClient;
  * @phpstan-method \GuzzleHttp\Promise\Promise createRuleGroupAsync(array{
  *     RuleGroupName?: string,
  *     RuleGroup?: array{
- *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
  *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
  *         RulesSource?: array{
  *             RulesString?: string,
@@ -319,8 +289,20 @@ use Aws\AwsClient;
  *         StatefulRuleOptions?: array{RuleOrder?: 'DEFAULT_ACTION_ORDER'|'STRICT_ORDER', ...},
  *         ...,
  *     },
+ *     FirewallRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, FirewallRules?: list<array>, RulesSourceList?: array, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
+ *     IpsRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
  *     Rules?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     Description?: string,
  *     Capacity?: int,
  *     Tags?: list<array{Key?: string, Value?: string, ...}>,
@@ -372,13 +354,17 @@ use Aws\AwsClient;
  * @method \GuzzleHttp\Promise\Promise deleteContainerAssociationAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteContainerAssociationAsync(array{ContainerAssociationName?: string, ContainerAssociationArn?: string, ...} $args = [])
  * @method \Aws\Result deleteFirewall(array $args = [])
- * @phpstan-method \Aws\Result deleteFirewall(array{FirewallName?: string, FirewallArn?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result deleteFirewall(array{FirewallName?: string, FirewallArn?: string, DeleteAssociatedNatGateways?: bool, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteFirewallAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise deleteFirewallAsync(array{FirewallName?: string, FirewallArn?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteFirewallAsync(array{FirewallName?: string, FirewallArn?: string, DeleteAssociatedNatGateways?: bool, ...} $args = [])
  * @method \Aws\Result deleteFirewallPolicy(array $args = [])
  * @phpstan-method \Aws\Result deleteFirewallPolicy(array{FirewallPolicyName?: string, FirewallPolicyArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteFirewallPolicyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteFirewallPolicyAsync(array{FirewallPolicyName?: string, FirewallPolicyArn?: string, ...} $args = [])
+ * @method \Aws\Result deleteFirewallPolicyV2(array $args = [])
+ * @phpstan-method \Aws\Result deleteFirewallPolicyV2(array{FirewallPolicyV2Arn?: string, FirewallPolicyV2Name?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise deleteFirewallPolicyV2Async(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteFirewallPolicyV2Async(array{FirewallPolicyV2Arn?: string, FirewallPolicyV2Name?: string, ...} $args = [])
  * @method \Aws\Result deleteNetworkFirewallTransitGatewayAttachment(array $args = [])
  * @phpstan-method \Aws\Result deleteNetworkFirewallTransitGatewayAttachment(array{TransitGatewayAttachmentId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteNetworkFirewallTransitGatewayAttachmentAsync(array $args = [])
@@ -387,26 +373,24 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result deleteProxy(array{NatGatewayId?: string, ProxyName?: string, ProxyArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteProxyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteProxyAsync(array{NatGatewayId?: string, ProxyName?: string, ProxyArn?: string, ...} $args = [])
- * @method \Aws\Result deleteProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result deleteProxyConfiguration(array{ProxyConfigurationName?: string, ProxyConfigurationArn?: string, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise deleteProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise deleteProxyConfigurationAsync(array{ProxyConfigurationName?: string, ProxyConfigurationArn?: string, ...} $args = [])
- * @method \Aws\Result deleteProxyRuleGroup(array $args = [])
- * @phpstan-method \Aws\Result deleteProxyRuleGroup(array{ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise deleteProxyRuleGroupAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise deleteProxyRuleGroupAsync(array{ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
- * @method \Aws\Result deleteProxyRules(array $args = [])
- * @phpstan-method \Aws\Result deleteProxyRules(array{ProxyRuleGroupArn?: string, ProxyRuleGroupName?: string, Rules?: list<string>, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise deleteProxyRulesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise deleteProxyRulesAsync(array{ProxyRuleGroupArn?: string, ProxyRuleGroupName?: string, Rules?: list<string>, ...} $args = [])
  * @method \Aws\Result deleteResourcePolicy(array $args = [])
  * @phpstan-method \Aws\Result deleteResourcePolicy(array{ResourceArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteResourcePolicyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteResourcePolicyAsync(array{ResourceArn?: string, ...} $args = [])
  * @method \Aws\Result deleteRuleGroup(array $args = [])
- * @phpstan-method \Aws\Result deleteRuleGroup(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \Aws\Result deleteRuleGroup(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteRuleGroupAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise deleteRuleGroupAsync(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteRuleGroupAsync(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result deleteTLSInspectionConfiguration(array $args = [])
  * @phpstan-method \Aws\Result deleteTLSInspectionConfiguration(array{TLSInspectionConfigurationArn?: string, TLSInspectionConfigurationName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteTLSInspectionConfigurationAsync(array $args = [])
@@ -431,6 +415,20 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result describeFirewallPolicy(array{FirewallPolicyName?: string, FirewallPolicyArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeFirewallPolicyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeFirewallPolicyAsync(array{FirewallPolicyName?: string, FirewallPolicyArn?: string, ...} $args = [])
+ * @method \Aws\Result describeFirewallPolicyV2(array $args = [])
+ * @phpstan-method \Aws\Result describeFirewallPolicyV2(array{
+ *     FirewallPolicyV2Arn?: string,
+ *     FirewallPolicyV2Name?: string,
+ *     RuleOutputFormat?: 'FIREWALL_RULES'|'RULES_STRING',
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise describeFirewallPolicyV2Async(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeFirewallPolicyV2Async(array{
+ *     FirewallPolicyV2Arn?: string,
+ *     FirewallPolicyV2Name?: string,
+ *     RuleOutputFormat?: 'FIREWALL_RULES'|'RULES_STRING',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result describeFlowOperation(array $args = [])
  * @phpstan-method \Aws\Result describeFlowOperation(array{
  *     FirewallArn?: string,
@@ -459,18 +457,6 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result describeProxy(array{ProxyName?: string, ProxyArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeProxyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeProxyAsync(array{ProxyName?: string, ProxyArn?: string, ...} $args = [])
- * @method \Aws\Result describeProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result describeProxyConfiguration(array{ProxyConfigurationName?: string, ProxyConfigurationArn?: string, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise describeProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeProxyConfigurationAsync(array{ProxyConfigurationName?: string, ProxyConfigurationArn?: string, ...} $args = [])
- * @method \Aws\Result describeProxyRule(array $args = [])
- * @phpstan-method \Aws\Result describeProxyRule(array{ProxyRuleName?: string, ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise describeProxyRuleAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeProxyRuleAsync(array{ProxyRuleName?: string, ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
- * @method \Aws\Result describeProxyRuleGroup(array $args = [])
- * @phpstan-method \Aws\Result describeProxyRuleGroup(array{ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise describeProxyRuleGroupAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeProxyRuleGroupAsync(array{ProxyRuleGroupName?: string, ProxyRuleGroupArn?: string, ...} $args = [])
  * @method \Aws\Result describeResourcePolicy(array $args = [])
  * @phpstan-method \Aws\Result describeResourcePolicy(array{ResourceArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeResourcePolicyAsync(array $args = [])
@@ -479,26 +465,48 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result describeRuleGroup(array{
  *     RuleGroupName?: string,
  *     RuleGroupArn?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     AnalyzeRuleGroup?: bool,
+ *     RuleOutputFormat?: 'FIREWALL_RULES'|'RULES_STRING',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise describeRuleGroupAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeRuleGroupAsync(array{
  *     RuleGroupName?: string,
  *     RuleGroupArn?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     AnalyzeRuleGroup?: bool,
+ *     RuleOutputFormat?: 'FIREWALL_RULES'|'RULES_STRING',
  *     ...,
  * } $args = [])
  * @method \Aws\Result describeRuleGroupMetadata(array $args = [])
- * @phpstan-method \Aws\Result describeRuleGroupMetadata(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \Aws\Result describeRuleGroupMetadata(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise describeRuleGroupMetadataAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeRuleGroupMetadataAsync(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeRuleGroupMetadataAsync(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result describeRuleGroupSummary(array $args = [])
- * @phpstan-method \Aws\Result describeRuleGroupSummary(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \Aws\Result describeRuleGroupSummary(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise describeRuleGroupSummaryAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise describeRuleGroupSummaryAsync(array{RuleGroupName?: string, RuleGroupArn?: string, Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS', ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise describeRuleGroupSummaryAsync(array{
+ *     RuleGroupName?: string,
+ *     RuleGroupArn?: string,
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result describeTLSInspectionConfiguration(array $args = [])
  * @phpstan-method \Aws\Result describeTLSInspectionConfiguration(array{TLSInspectionConfigurationArn?: string, TLSInspectionConfigurationName?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeTLSInspectionConfigurationAsync(array $args = [])
@@ -507,24 +515,6 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result describeVpcEndpointAssociation(array{VpcEndpointAssociationArn?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise describeVpcEndpointAssociationAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise describeVpcEndpointAssociationAsync(array{VpcEndpointAssociationArn?: string, ...} $args = [])
- * @method \Aws\Result detachRuleGroupsFromProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result detachRuleGroupsFromProxyConfiguration(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroupNames?: list<string>,
- *     RuleGroupArns?: list<string>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise detachRuleGroupsFromProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise detachRuleGroupsFromProxyConfigurationAsync(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroupNames?: list<string>,
- *     RuleGroupArns?: list<string>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
  * @method \Aws\Result disassociateAvailabilityZones(array $args = [])
  * @phpstan-method \Aws\Result disassociateAvailabilityZones(array{
  *     UpdateToken?: string,
@@ -571,10 +561,18 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result listContainerAssociations(array{MaxResults?: int, NextToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listContainerAssociationsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listContainerAssociationsAsync(array{MaxResults?: int, NextToken?: string, ...} $args = [])
+ * @method \Aws\Result listContextStores(array $args = [])
+ * @phpstan-method \Aws\Result listContextStores(array{NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listContextStoresAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listContextStoresAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \Aws\Result listFirewallPolicies(array $args = [])
  * @phpstan-method \Aws\Result listFirewallPolicies(array{NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listFirewallPoliciesAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listFirewallPoliciesAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \Aws\Result listFirewallPoliciesV2(array $args = [])
+ * @phpstan-method \Aws\Result listFirewallPoliciesV2(array{NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listFirewallPoliciesV2Async(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listFirewallPoliciesV2Async(array{NextToken?: string, MaxResults?: int, ...} $args = [])
  * @method \Aws\Result listFirewalls(array $args = [])
  * @phpstan-method \Aws\Result listFirewalls(array{NextToken?: string, VpcIds?: list<string>, MaxResults?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listFirewallsAsync(array $args = [])
@@ -627,18 +625,22 @@ use Aws\AwsClient;
  *     MaxResults?: int,
  *     ...,
  * } $args = [])
- * @method \Aws\Result listProxies(array $args = [])
- * @phpstan-method \Aws\Result listProxies(array{NextToken?: string, MaxResults?: int, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise listProxiesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listProxiesAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
- * @method \Aws\Result listProxyConfigurations(array $args = [])
- * @phpstan-method \Aws\Result listProxyConfigurations(array{NextToken?: string, MaxResults?: int, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise listProxyConfigurationsAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listProxyConfigurationsAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
- * @method \Aws\Result listProxyRuleGroups(array $args = [])
- * @phpstan-method \Aws\Result listProxyRuleGroups(array{NextToken?: string, MaxResults?: int, ...} $args = [])
- * @method \GuzzleHttp\Promise\Promise listProxyRuleGroupsAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listProxyRuleGroupsAsync(array{NextToken?: string, MaxResults?: int, ...} $args = [])
+ * @method \Aws\Result listResourcesInContextStore(array $args = [])
+ * @phpstan-method \Aws\Result listResourcesInContextStore(array{
+ *     ContextStoreId?: string,
+ *     Filters?: array{Region?: string, ResourceType?: 'SecurityGroup'|'Subnet'|'TGWAttachment'|'VPC', ...},
+ *     MaxResults?: int,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listResourcesInContextStoreAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listResourcesInContextStoreAsync(array{
+ *     ContextStoreId?: string,
+ *     Filters?: array{Region?: string, ResourceType?: 'SecurityGroup'|'Subnet'|'TGWAttachment'|'VPC', ...},
+ *     MaxResults?: int,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listRuleGroups(array $args = [])
  * @phpstan-method \Aws\Result listRuleGroups(array{
  *     NextToken?: string,
@@ -646,7 +648,7 @@ use Aws\AwsClient;
  *     Scope?: 'ACCOUNT'|'MANAGED',
  *     ManagedType?: 'ACTIVE_THREAT_DEFENSE'|'AWS_MANAGED_DOMAIN_LISTS'|'AWS_MANAGED_THREAT_SIGNATURES'|'PARTNER_MANAGED',
  *     SubscriptionStatus?: 'NOT_SUBSCRIBED'|'SUBSCRIBED',
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise listRuleGroupsAsync(array $args = [])
@@ -656,7 +658,7 @@ use Aws\AwsClient;
  *     Scope?: 'ACCOUNT'|'MANAGED',
  *     ManagedType?: 'ACTIVE_THREAT_DEFENSE'|'AWS_MANAGED_DOMAIN_LISTS'|'AWS_MANAGED_THREAT_SIGNATURES'|'PARTNER_MANAGED',
  *     SubscriptionStatus?: 'NOT_SUBSCRIBED'|'SUBSCRIBED',
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     ...,
  * } $args = [])
  * @method \Aws\Result listTLSInspectionConfigurations(array $args = [])
@@ -929,6 +931,62 @@ use Aws\AwsClient;
  *     FirewallPolicyChangeProtection?: bool,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result updateFirewallPolicyV2(array $args = [])
+ * @phpstan-method \Aws\Result updateFirewallPolicyV2(array{
+ *     UpdateToken?: string,
+ *     FirewallPolicyV2Arn?: string,
+ *     FirewallPolicyV2Name?: string,
+ *     FirewallPolicyV2?: array{
+ *         FirewallRuleGroupEntries?: list<array>,
+ *         IpsRuleGroupEntries?: list<array>,
+ *         PolicyMode?: 'ENFORCE'|'MONITOR',
+ *         FirewallDefaultAction?: 'ACCEPT'|'ALERT'|'DROP'|'REJECT',
+ *         StatefulEngineOptions?: array{StreamExceptionPolicy?: 'DROP'|'REJECT', FlowTimeouts?: array, ...},
+ *         TLSInspectionConfigurationArn?: string,
+ *         PolicyVariables?: array{RuleVariables?: array<string, array>, ...},
+ *         Route53ResolvedIPValidation?: array{
+ *             Action?: 'ALERT'|'DROP'|'REJECT',
+ *             DNSFirewallRuleGroupId?: string,
+ *             DNSExpiryExceptionPolicy?: 'CONTINUE'|'DROP'|'REJECT',
+ *             BypassDestinationValidationIPRanges?: list<array>,
+ *             SourceIPRanges?: list<array>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     Description?: string,
+ *     DryRun?: bool,
+ *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateFirewallPolicyV2Async(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateFirewallPolicyV2Async(array{
+ *     UpdateToken?: string,
+ *     FirewallPolicyV2Arn?: string,
+ *     FirewallPolicyV2Name?: string,
+ *     FirewallPolicyV2?: array{
+ *         FirewallRuleGroupEntries?: list<array>,
+ *         IpsRuleGroupEntries?: list<array>,
+ *         PolicyMode?: 'ENFORCE'|'MONITOR',
+ *         FirewallDefaultAction?: 'ACCEPT'|'ALERT'|'DROP'|'REJECT',
+ *         StatefulEngineOptions?: array{StreamExceptionPolicy?: 'DROP'|'REJECT', FlowTimeouts?: array, ...},
+ *         TLSInspectionConfigurationArn?: string,
+ *         PolicyVariables?: array{RuleVariables?: array<string, array>, ...},
+ *         Route53ResolvedIPValidation?: array{
+ *             Action?: 'ALERT'|'DROP'|'REJECT',
+ *             DNSFirewallRuleGroupId?: string,
+ *             DNSExpiryExceptionPolicy?: 'CONTINUE'|'DROP'|'REJECT',
+ *             BypassDestinationValidationIPRanges?: list<array>,
+ *             SourceIPRanges?: list<array>,
+ *             ...,
+ *         },
+ *         ...,
+ *     },
+ *     Description?: string,
+ *     DryRun?: bool,
+ *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result updateLoggingConfiguration(array $args = [])
  * @phpstan-method \Aws\Result updateLoggingConfiguration(array{
  *     FirewallArn?: string,
@@ -945,118 +1003,12 @@ use Aws\AwsClient;
  *     EnableMonitoringDashboard?: bool,
  *     ...,
  * } $args = [])
- * @method \Aws\Result updateProxy(array $args = [])
- * @phpstan-method \Aws\Result updateProxy(array{
- *     NatGatewayId?: string,
- *     ProxyName?: string,
- *     ProxyArn?: string,
- *     ListenerPropertiesToAdd?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     ListenerPropertiesToRemove?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     TlsInterceptProperties?: array{PcaArn?: string, TlsInterceptMode?: 'DISABLED'|'ENABLED', ...},
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise updateProxyAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateProxyAsync(array{
- *     NatGatewayId?: string,
- *     ProxyName?: string,
- *     ProxyArn?: string,
- *     ListenerPropertiesToAdd?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     ListenerPropertiesToRemove?: list<array{Port?: int, Type?: 'HTTP'|'HTTPS', ...}>,
- *     TlsInterceptProperties?: array{PcaArn?: string, TlsInterceptMode?: 'DISABLED'|'ENABLED', ...},
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \Aws\Result updateProxyConfiguration(array $args = [])
- * @phpstan-method \Aws\Result updateProxyConfiguration(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     DefaultRulePhaseActions?: array{
- *         PreDNS?: 'ALERT'|'ALLOW'|'DENY',
- *         PreREQUEST?: 'ALERT'|'ALLOW'|'DENY',
- *         PostRESPONSE?: 'ALERT'|'ALLOW'|'DENY',
- *         ...,
- *     },
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise updateProxyConfigurationAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateProxyConfigurationAsync(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     DefaultRulePhaseActions?: array{
- *         PreDNS?: 'ALERT'|'ALLOW'|'DENY',
- *         PreREQUEST?: 'ALERT'|'ALLOW'|'DENY',
- *         PostRESPONSE?: 'ALERT'|'ALLOW'|'DENY',
- *         ...,
- *     },
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \Aws\Result updateProxyRule(array $args = [])
- * @phpstan-method \Aws\Result updateProxyRule(array{
- *     ProxyRuleGroupName?: string,
- *     ProxyRuleGroupArn?: string,
- *     ProxyRuleName?: string,
- *     Description?: string,
- *     Action?: 'ALERT'|'ALLOW'|'DENY',
- *     AddConditions?: list<array{ConditionOperator?: string, ConditionKey?: string, ConditionValues?: list<string>, ...}>,
- *     RemoveConditions?: list<array{ConditionOperator?: string, ConditionKey?: string, ConditionValues?: list<string>, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise updateProxyRuleAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateProxyRuleAsync(array{
- *     ProxyRuleGroupName?: string,
- *     ProxyRuleGroupArn?: string,
- *     ProxyRuleName?: string,
- *     Description?: string,
- *     Action?: 'ALERT'|'ALLOW'|'DENY',
- *     AddConditions?: list<array{ConditionOperator?: string, ConditionKey?: string, ConditionValues?: list<string>, ...}>,
- *     RemoveConditions?: list<array{ConditionOperator?: string, ConditionKey?: string, ConditionValues?: list<string>, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \Aws\Result updateProxyRuleGroupPriorities(array $args = [])
- * @phpstan-method \Aws\Result updateProxyRuleGroupPriorities(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroups?: list<array{ProxyRuleGroupName?: string, NewPosition?: int, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise updateProxyRuleGroupPrioritiesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateProxyRuleGroupPrioritiesAsync(array{
- *     ProxyConfigurationName?: string,
- *     ProxyConfigurationArn?: string,
- *     RuleGroups?: list<array{ProxyRuleGroupName?: string, NewPosition?: int, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \Aws\Result updateProxyRulePriorities(array $args = [])
- * @phpstan-method \Aws\Result updateProxyRulePriorities(array{
- *     ProxyRuleGroupName?: string,
- *     ProxyRuleGroupArn?: string,
- *     RuleGroupRequestPhase?: 'POST_RES'|'PRE_DNS'|'PRE_REQ',
- *     Rules?: list<array{ProxyRuleName?: string, NewPosition?: int, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
- * @method \GuzzleHttp\Promise\Promise updateProxyRulePrioritiesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateProxyRulePrioritiesAsync(array{
- *     ProxyRuleGroupName?: string,
- *     ProxyRuleGroupArn?: string,
- *     RuleGroupRequestPhase?: 'POST_RES'|'PRE_DNS'|'PRE_REQ',
- *     Rules?: list<array{ProxyRuleName?: string, NewPosition?: int, ...}>,
- *     UpdateToken?: string,
- *     ...,
- * } $args = [])
  * @method \Aws\Result updateProxySettings(array $args = [])
  * @phpstan-method \Aws\Result updateProxySettings(array{
  *     FirewallArn?: string,
  *     FirewallName?: string,
  *     UpdateToken?: string,
- *     ProxySettings?: array{ListenerProperties?: list<array>, ...},
+ *     ProxySettings?: array{ListenerProperties?: list<array>, CertificateArn?: string, DomainName?: string, ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateProxySettingsAsync(array $args = [])
@@ -1064,7 +1016,7 @@ use Aws\AwsClient;
  *     FirewallArn?: string,
  *     FirewallName?: string,
  *     UpdateToken?: string,
- *     ProxySettings?: array{ListenerProperties?: list<array>, ...},
+ *     ProxySettings?: array{ListenerProperties?: list<array>, CertificateArn?: string, DomainName?: string, ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result updateRuleGroup(array $args = [])
@@ -1073,7 +1025,7 @@ use Aws\AwsClient;
  *     RuleGroupArn?: string,
  *     RuleGroupName?: string,
  *     RuleGroup?: array{
- *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
  *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
  *         RulesSource?: array{
  *             RulesString?: string,
@@ -1085,8 +1037,20 @@ use Aws\AwsClient;
  *         StatefulRuleOptions?: array{RuleOrder?: 'DEFAULT_ACTION_ORDER'|'STRICT_ORDER', ...},
  *         ...,
  *     },
+ *     FirewallRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, FirewallRules?: list<array>, RulesSourceList?: array, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
+ *     IpsRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
  *     Rules?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     Description?: string,
  *     DryRun?: bool,
  *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},
@@ -1101,7 +1065,7 @@ use Aws\AwsClient;
  *     RuleGroupArn?: string,
  *     RuleGroupName?: string,
  *     RuleGroup?: array{
- *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
  *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
  *         RulesSource?: array{
  *             RulesString?: string,
@@ -1113,8 +1077,20 @@ use Aws\AwsClient;
  *         StatefulRuleOptions?: array{RuleOrder?: 'DEFAULT_ACTION_ORDER'|'STRICT_ORDER', ...},
  *         ...,
  *     },
+ *     FirewallRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, FirewallRules?: list<array>, RulesSourceList?: array, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
+ *     IpsRuleGroup?: array{
+ *         RulesSource?: array{RulesString?: string, ...},
+ *         RuleVariables?: array{IPSets?: array<string, array>, PortSets?: array<string, array>, ContextSets?: array<string, array>, ...},
+ *         ReferenceSets?: array{IPSetReferences?: array<string, array>, ...},
+ *         ...,
+ *     },
  *     Rules?: string,
- *     Type?: 'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
+ *     Type?: 'FIREWALL'|'IPS'|'STATEFUL'|'STATEFUL_DOMAIN'|'STATELESS',
  *     Description?: string,
  *     DryRun?: bool,
  *     EncryptionConfiguration?: array{KeyId?: string, Type?: 'AWS_OWNED_KMS_KEY'|'CUSTOMER_KMS', ...},

@@ -70,7 +70,7 @@ class FnDispatcher
         }
 
         return is_string($args[1])
-            ? mb_strpos($args[0], $args[1], 0, 'UTF-8') !== false
+            ? $args[1] === '' || mb_strpos($args[0], $args[1], 0, 'UTF-8') !== false
             : false;
     }
 
@@ -328,7 +328,13 @@ class FnDispatcher
             );
         }
 
-        return call_user_func_array('array_replace', $args);
+        $arrays = [];
+        foreach ($args as $index => $arg) {
+            $this->validateType("merge:{$index}", $arg, ['array', 'object']);
+            $arrays[] = (array) $arg;
+        }
+
+        return call_user_func_array('array_replace', $arrays);
     }
 
     private function fn_to_array(array $args)
