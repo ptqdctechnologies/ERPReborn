@@ -2,6 +2,7 @@
 @section('main')
   @include('Partials.navbar')
   @include('Partials.sidebar')
+  @include('getFunction.getBudgetCode')
   @include('getFunction.getRequesters')
   @include('Admin.Workflow.Functions.PopUp.summary')
 

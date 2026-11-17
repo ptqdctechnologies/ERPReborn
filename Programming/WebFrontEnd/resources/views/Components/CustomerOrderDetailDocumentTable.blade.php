@@ -2,7 +2,7 @@
     <div class="table-responsive">
         <table class="table table-head-fixed text-nowrap mb-0">
             <thead>
-                <?php if ($dataHeader['type'] == 'Sub Budget Base') { ?>
+                <?php if ($dataHeader['type'] == 'SUB_BUDGET_BASE') { ?>
                 <tr>
                     <th
                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
@@ -50,36 +50,68 @@
                 <?php } ?>
             </thead>
             <tbody>
-                <?php if ($dataHeader['type'] == 'Sub Budget Base') { ?>
+                <?php $no = 1;
+$grandTotal = 0; ?>
+                <?php foreach ($dataDetails as $dataDetail) { ?>
+                <?php    if ($dataHeader['type'] == 'SUB_BUDGET_BASE') { ?>
+                <?php        $grandTotal += $dataDetail['Value'] ?? 0; ?>
                 <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">256 - XL Center Banda Aceh</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">39,582,195.69</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Project Apartemen Gambir</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['CombinedBudgetSectionCode'] ?? ''; ?> -
+                        <?= $dataDetail['CombinedBudgetSectionName'] ?? ''; ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format($dataDetail['Value'] ?? 0, 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['Notes'] ?? ''; ?>
+                    </td>
                 </tr>
-                <?php } else { ?>
+                <?php    } else { ?>
+                <?php        $grandTotal += $dataDetail['Quantity'] * $dataDetail['ProductUnitPriceCurrencyValue']; ?>
                 <tr>
-                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;">1</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">256 - XL Center Banda Aceh</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">8234 - Plafon</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">1002254 - Splitter 3way Pacific Wave</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">btg</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">39</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">40,325.39</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">1,572,690.21</td>
-                    <td style="border:1px solid #4B586A;color:#4B586A;">Project Apartemen Gambir</td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;text-align:center;"><?= $no++; ?></td>
+                    <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['CombinedBudgetSectionCode'] ?? ''; ?> -
+                        <?= $dataDetail['CombinedBudgetSectionName'] ?? ''; ?>
+                    </td>
+                    <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['WorkCode'] ?? ''; ?> -
+                        <?= $dataDetail['WorkName'] ?? ''; ?>
+                    </td>
+                    <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['ProductCode'] ?? ''; ?> -
+                        <?= $dataDetail['ProductName'] ?? ''; ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['UomName'] ?? ''; ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format($dataDetail['Quantity'] ?? 0, 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format($dataDetail['ProductUnitPriceCurrencyValue'] ?? 0, 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= number_format(($dataDetail['Quantity'] * $dataDetail['ProductUnitPriceCurrencyValue']), 2); ?>
+                    </td>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <?= $dataDetail['Notes'] ?? ''; ?>
+                    </td>
                 </tr>
+                <?php    } ?>
                 <?php } ?>
             </tbody>
             <tfoot>
                 <tr>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"
-                        colspan="<?= $dataHeader['type'] == 'Sub Budget Base' ? '2' : '7'; ?>">
+                        colspan="<?= $dataHeader['type'] == 'SUB_BUDGET_BASE' ? '2' : '7'; ?>">
                         GRAND TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
-                            39,582,195.69
+                            <?= number_format($grandTotal, 2); ?>
                         </span>
                     </td>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>

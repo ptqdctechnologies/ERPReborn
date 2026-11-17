@@ -103,9 +103,9 @@
                     render: function (data, type, row, meta) {
                         let result = '-';
 
-                        if (data.entities) {
+                        if (data.entities && data.entities.combinedBudgetCodeArray) {
                             result = data.entities.combinedBudgetCodeArray[0];
-                        } else if (data.additionalData) {
+                        } else if (data.additionalData && data.additionalData.combinedBudgetCode) {
                             result = data.additionalData.combinedBudgetCode;
                         }
 
@@ -118,9 +118,9 @@
                     render: function (data, type, row, meta) {
                         let result = '-';
 
-                        if (data.entities) {
+                        if (data.entities && data.entities.combinedBudgetSectionCodeArray) {
                             result = data.entities.combinedBudgetSectionCodeArray[0];
-                        } else if (data.additionalData) {
+                        } else if (data.additionalData && data.additionalData.combinedBudgetSectionCode) {
                             result = data.additionalData.combinedBudgetSectionCode;
                         }
 

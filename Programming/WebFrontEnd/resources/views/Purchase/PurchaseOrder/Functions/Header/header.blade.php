@@ -9,7 +9,7 @@
 
             <!-- CURRENCY -->
             <span>
-                @include('Components.currency')
+                @include('Components.Forms.currency')
             </span>
 
             <!-- EXCHANGE RATE -->
@@ -42,7 +42,7 @@
         <div class="col-md-12 col-lg-5" style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- DATE OF DELIVERY -->
             <span>
-                @include('Components.dateOfDelivery')
+                @include('Components.Forms.dateOfDelivery')
             </span>
 
             <!-- DELIVERY TO -->

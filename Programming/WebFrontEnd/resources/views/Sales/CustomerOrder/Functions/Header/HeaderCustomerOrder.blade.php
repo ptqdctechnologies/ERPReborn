@@ -38,7 +38,7 @@
         <label class="col-sm-3 col-md-4 col-lg-3 col-form-label p-0">Type</label>
         <div class="col-5">
           <div>
-            <select type="text" class="form-control" id="typeOption" name="typeValue" onchange="selectType(this)"
+            <select class="form-control" id="typeOption" name="typeValue" onchange="selectType(this)"
               style="border-radius:0;">
               <option disabled selected>Select a Type</option>
               <option value="SUB_BUDGET_BASE">Sub Budget Base</option>

@@ -16,7 +16,7 @@
                     </div>
                 </div>
 
-                @include('Inventory.StockOpname.Functions.Menu.MenuStockOpname')
+                @include('Inventory.StockOpname.Functions.Menu.index')
 
                 <!-- CONTENT -->
                 <div class="card">

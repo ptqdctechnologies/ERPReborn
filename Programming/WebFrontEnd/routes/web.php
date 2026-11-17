@@ -18,6 +18,8 @@ use App\Http\Controllers\HumanResource\TimesheetController;
 use App\Http\Controllers\Inventory\DeliveryOrderRequestController;
 
 use App\Http\Controllers\Master\BankController;
+use App\Http\Controllers\Master\BudgetCodeController;
+use App\Http\Controllers\Master\SubBudgetCodeController;
 use App\Http\Controllers\Master\SupplierController;
 use App\Http\Controllers\Master\WarehouseController;
 
@@ -285,8 +287,25 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
         Route::post('Budget/modify/preview', 'previewModify')
             ->name('Budget.modify.preview');
+
+        Route::post('Budget/modify/store', 'storeModify')
+            ->name('Budget.modify.store');
     });
     Route::resource('Budget', BudgetController::class)->only(['index', 'store']);
+
+    // BUDGET CODE
+    Route::controller(BudgetCodeController::class)->group(function () { });
+    Route::resource('BudgetCode', BudgetCodeController::class);
+
+    // SUB BUDGET CODE
+    Route::controller(SubBudgetCodeController::class)->group(function () {
+        Route::get('SubBudgetCode/Group', 'indexGroup')
+            ->name('SubBudgetCode.Group');
+
+        Route::get('SubBudgetCode/Group/create', 'createGroup')
+            ->name('SubBudgetCode.Group.create');
+    });
+    Route::resource('SubBudgetCode', SubBudgetCodeController::class);
 
     // BUDGET EXPENSE
     Route::get('BudgetExpense/GetBudget', 'BudgetExpenseController@GetBudget')->name('BudgetExpense.GetBudget');

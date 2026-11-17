@@ -9,10 +9,10 @@
         <th style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center;">
           Sub Budget
         </th>
-        <th class="productField"
+        <!-- <th class="productField"
           style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
           Work ID
-        </th>
+        </th> -->
         <th class="productField"
           style="padding-top: 10px;padding-bottom: 10px;border-right:1px solid #e9ecef;text-align: center; display: none;">
           Product

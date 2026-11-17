@@ -133,10 +133,9 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
-            'Sales Order Form' => [
-                'key' => '',
-                'parameter' => [],
-                'businessDocument_RefID' => (int) 74000000021494,
+            'Customer Order Form' => [
+                'key' => 'transaction.read.dataList.customerRelation.getSalesContractDetail',
+                'parameter' => ['salesContract_RefID' => (int) $referenceId]
             ],
             'Stock Opname Form' => [
                 'key' => '',
@@ -841,12 +840,18 @@ class DocumentTypeMapper
                 'transactionType' => 'SALLARY ALLOCATION',
                 'businessDocument_RefID' => '',
             ],
-            'Sales Order Form' => [
+            'Customer Order Form' => [
                 'dataHeader' => [
-                    'dateUpdate' => null, // '2025-09-29 15:49:00.113 +0700'
-                    'currency' => 'IDR',
-                    'type' => 'Product Base',
-                    'fileID' => null,
+                    'date' => $dataDetail['Date'] ?? '-',
+                    'dateUpdate' => $dataDetail['DateUpdate'] ?? null, // '2025-09-29 15:49:00.113 +0700'
+                    'currencyCode' => $dataDetail['CurrencyISOCode'] ?? '',
+                    'currencyName' => $dataDetail['CurrencyName'] ?? '',
+                    'type' => $dataDetail['Type'] ?? null,
+                    'fileID' => $dataDetail['Log_FileUpload_Pointer_RefID'] ?? null,
+                    'budgetCode' => $dataDetail['CombinedBudgetCode'] ?? null,
+                    'budgetName' => $dataDetail['CombinedBudgetName'] ?? null,
+                    'vatStatus' => $dataDetail['VatStatus'] ?? '',
+                    'vatRatio' => $dataDetail['VatRatio'] ?? ''
                 ],
                 'components' => [
                     'detail' => 'Components.CustomerOrderDetailDocument',
@@ -856,11 +861,11 @@ class DocumentTypeMapper
                 ],
                 'resubmit' => [
                     'url' => 'CustomerOrder.Revision',
-                    'name' => '',
-                    'value' => '',
+                    'name' => 'modal_customer_order_id',
+                    'value' => $dataDetail['CustomerOrder_RefID'] ?? ''
                 ],
                 'transactionType' => 'CUSTOMER ORDER',
-                'businessDocument_RefID' => '',
+                'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
             ],
             'Supplier Form' => [
                 'dataHeader' => [
@@ -1036,7 +1041,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form' => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form' => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
-            'Sales Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Customer Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Tax Recon Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Material Disposal Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',

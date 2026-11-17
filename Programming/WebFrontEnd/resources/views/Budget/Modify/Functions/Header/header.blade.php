@@ -4,7 +4,7 @@
         <div class="col-md-12 col-lg-5" style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- CURRENCY -->
             <span>
-                @include('Components.currency')
+                @include('Components.Forms.currency')
             </span>
 
             <!-- EXCHANGE RATE -->
@@ -14,12 +14,12 @@
 
             <!-- CUSTOMER ORDER REVISED -->
             <span>
-                @include('Components.customerOrderRevised')
+                @include('Components.Forms.customerOrderRevised')
             </span>
 
             <!-- CUSTOMER ORDER VALUE -->
             <span id="customer_order_value_container" class="d-none">
-                @include('Components.customerOrderValue')
+                @include('Components.Forms.customerOrderValue')
             </span>
         </div>
 

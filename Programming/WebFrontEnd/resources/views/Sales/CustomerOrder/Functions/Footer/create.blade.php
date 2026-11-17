@@ -116,8 +116,9 @@
     }
 
     function typeValue(val) {
+        dataAddManual = [];
+
         if (val.value === "type_import_from_excel") {
-            dataAddManual = [];
             isImportFromExcel = true;
 
             $("#tab_import_from_excel").show();
@@ -155,7 +156,7 @@
     function calculateTotal() {
         let total = 0;
 
-        if (typeOption.value === "SUB_BUDGET_BASE") {
+        if (typeOption.value == "SUB_BUDGET_BASE") {
             document.querySelectorAll('input[id^="value"]').forEach(function (input) {
                 let value = parseFloat(input.value.replace(/,/g, '')); // Mengambil nilai dan menghilangkan koma
 
@@ -185,14 +186,14 @@
 
         if (customerOrderDetailType == "type_import_from_excel") {
             const tableTotalVAT = document.getElementById("ppn_percentage_import_option");
-            const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
+            const resultVAT = tableTotalVAT.value != "Select a VAT" ? (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total) : 0;
             const resultGrandTotal = resultVAT + total;
 
             $("#table_import_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
             $("#table_import_grand_total").text(Utils.formatCurrency(Utils.parseFloatSafe(resultGrandTotal)));
         } else {
             const tableTotalVAT = document.getElementById("ppn_percentage_option");
-            const resultVAT = (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total);
+            const resultVAT = tableTotalVAT.value != "Select a VAT" ? (Utils.parseFloatSafe(tableTotalVAT.value) / 100) * Utils.parseFloatSafe(total) : 0;
             const resultGrandTotal = resultVAT + total;
 
             $("#table_total_vat").text(Utils.formatCurrency(Utils.parseFloatSafe(resultVAT)));
@@ -423,103 +424,103 @@
             } else {
                 if (index === dataAddManual.length - 1) {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON PLUS -->
-                            <div class="icon-plus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                                display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
-                                onclick="addRow()">
-                                <i class="fas fa-plus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON PLUS -->
+                                <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                    display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
+                                    onclick="addRow()">
+                                    <i class="fas fa-plus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                `;
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    `;
                 } else {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON MINUS -->
-                            <div class="icon-minus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
-                                onclick="removeRow(${index})">
-                                <i class="fas fa-minus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON MINUS -->
+                                <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
+                                    onclick="removeRow(${index})">
+                                    <i class="fas fa-minus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
+                                <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
                             </div>
-                            <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
-                            <input type="text" id="sub_budget_name${index}" class="form-control" readonly value="${row.entities.sub_budget_name}" onchange="updateField(${index}, 'sub_budget_name', this.value)" style="background-color: ${row.entities.sub_budget_name ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td class="d-none">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="work_RefID${index}" value="${row.entities.work_RefID}">
+                                <input type="text" id="work_name${index}" class="form-control" readonly value="${row.entities.work_name}" onchange="updateField(${index}, 'work_name', this.value)" style="background-color: ${row.entities.work_name ? '#e9ecef' : 'white'}; border: ${row.entities.work_RefID ? '1px solid #ced4da' : '1px solid red'}">
                             </div>
-                            <input type="hidden" id="work_RefID${index}" value="${row.entities.work_RefID}">
-                            <input type="text" id="work_name${index}" class="form-control" readonly value="${row.entities.work_name}" onchange="updateField(${index}, 'work_name', this.value)" style="background-color: ${row.entities.work_name ? '#e9ecef' : 'white'}; border: ${row.entities.work_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append d-none">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
+                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.product_name}" autocomplete="off" onchange="updateField(${index}, 'product_name', this.value)" style="border-radius: .25rem;">
                             </div>
-                            <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
-                            <input type="text" id="product_name${index}" class="form-control" readonly value="${row.entities.product_name}" onchange="updateField(${index}, 'product_name', this.value)" style="background-color: ${row.entities.product_name ? '#e9ecef' : 'white'}; border: ${row.entities.product_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append d-none">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append d-none">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
+                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uom_name}" autocomplete="off" onchange="updateField(${index}, 'uom_name', this.value)" style="border-radius: .25rem;">
                             </div>
-                            <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
-                            <input type="text" id="uom_name${index}" class="form-control" readonly value="${row.entities.uom_name}" onchange="updateField(${index}, 'uom_name', this.value)" style="border: ${row.entities.uom_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <input type="text" id="quantity${index}" class="form-control form-control number-without-negative" value="${row.entities.quantity ? Utils.formatCurrency(row.entities.quantity) : row.entities.quantity}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'quantity', parseFloat(this.value.replace(/,/g, '')))">
-                    </td>
-                    <td>
-                        <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
-                    </td>
-                    <td>
-                        <input type="text" id="total${index}" class="form-control form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>
-                    </td>
-                    <td style="padding-right: 0.3rem;">
-                        <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
-                    </td>
-                `;
+                        </td>
+                        <td>
+                            <input type="text" id="quantity${index}" class="form-control number-without-negative" value="${row.entities.quantity ? Utils.formatCurrency(row.entities.quantity) : row.entities.quantity}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'quantity', parseFloat(this.value.replace(/,/g, '')))">
+                        </td>
+                        <td>
+                            <input type="text" id="price${index}" class="form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
+                        </td>
+                        <td>
+                            <input type="text" id="total${index}" class="form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>
+                        </td>
+                        <td style="padding-right: 0.3rem;">
+                            <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
+                        </td>
+                    `;
                 }
             }
 
@@ -1020,19 +1021,30 @@
         $.ajax({
             type: 'GET',
             data: {
-                businessDocumentType_RefID: '77000000000057',
+                businessDocumentType_RefID: '77000000000057', // documentTypeID.value,
                 combinedBudget_RefID: combinedBudgetRefID
             },
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             success: function (response) {
                 if (response.status === 200 && !response.data[0].signAccess) {
-                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
-                } else {
-                    $("#project_loading").css({ "display": "none" });
-                    $("#myProjectsTrigger").css({ "display": "block" });
+                    // getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
 
+                    getCustomSites(combinedBudgetRefID);
+
+                    $("#project_id").val(combinedBudgetRefID);
+                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#project_name").css('background-color', '#e9ecef');
+
+                    $("#type_import_from_excel").prop("disabled", false);
+                    $("#type_add_manually").prop("disabled", false);
+                    $("#myProjectsTrigger").prop("disabled", true);
+                    $("#myProjectsTrigger").css("cursor", "not-allowed");
+                } else {
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
+
+                $("#project_loading").css({ "display": "none" });
+                $("#myProjectsTrigger").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
@@ -1086,27 +1098,31 @@
                         });
                     } else {
                         const validateSubBudget = findSubBudgetByCode(row[1]);
-                        const validateWork = findWorkByCode(row[3]);
-                        const validateProduct = findProductByCode(row[5]);
+                        // const validateWork = findWorkByCode(row[3]);
+                        // const validateProduct = findProductByCode(row[5]);
                         // const validateUom = findUomByName(row[7]);
+
+                        const qtyValue = row[5] > 0 ? Utils.parseFloatSafe(row[5]) : Utils.parseFloatSafe(0);
+                        const priceValue = row[6] > 0 ? Utils.parseFloatSafe(row[6]) : Utils.parseFloatSafe(0);
+                        const totalValue = qtyValue * priceValue;
 
                         dataAddManual.push({
                             entities: {
                                 isDefault: true,
                                 combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
                                 sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
-                                product_RefID: validateProduct ? validateProduct.sys_ID : '',
-                                product_name: validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : `${row[5]} - ${row[6]}`,
-                                work_RefID: validateWork ? validateWork.id : '',
-                                work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
-                                uom_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
-                                uom_name: validateProduct ? validateProduct.quantityUnitName : '',
+                                // product_RefID: validateProduct ? validateProduct.sys_ID : '',
+                                product_name: row[3], // validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : row[3],
+                                // work_RefID: validateWork ? validateWork.id : '',
+                                // work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
+                                // uom_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
+                                uom_name: row[4], // validateProduct ? validateProduct.quantityUnitName : '',
                                 // uom_RefID: validateUom ? validateUom.sys_ID : '',
                                 // uom_name: validateUom ? validateUom.name : row[7],
-                                quantity: row[7] > 0 ? Utils.parseFloatSafe(row[7]) : Utils.parseFloatSafe(0),
-                                price: row[8] > 0 ? Utils.parseFloatSafe(row[8]) : Utils.parseFloatSafe(0),
-                                total: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
-                                notes: row[10] ? row[10] : ''
+                                quantity: qtyValue,
+                                price: priceValue,
+                                total: Utils.parseFloatSafe(totalValue),
+                                notes: row[8] ? row[8] : ''
                             }
                         });
                     }

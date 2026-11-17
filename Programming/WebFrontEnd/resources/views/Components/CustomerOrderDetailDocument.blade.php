@@ -17,7 +17,7 @@
                 Budget Code
             </div>
             <div class="col">
-                : Q000062 - XL Microcell 2007
+                : <?= $dataHeader['budgetCode']; ?> - <?= $dataHeader['budgetName']; ?>
             </div>
         </div>
 
@@ -27,17 +27,17 @@
                 Date
             </div>
             <div class="col">
-                : 2025-11-18
+                : <?= $dataHeader['date']; ?>
             </div>
         </div>
 
         <!-- TYPE -->
-        <div class="row" style="margin-bottom: 1rem;">
+        <div class="row">
             <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
                 Type
             </div>
             <div class="col">
-                : <?= $dataHeader['type']; ?>
+                : <?= $dataHeader['type'] == "PRODUCT_BASE" ? 'Product Base' : 'Sub Budget Base'; ?>
             </div>
         </div>
     </div>
@@ -45,13 +45,23 @@
 
 <div class="col-12 col-md-5 col-lg-4">
     <div class="form-group">
-        <!-- REQUESTER -->
+        <!-- CURRENCY -->
         <div class="row" style="margin-bottom: 1rem;">
-            <div class="col-4 text-bold">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
                 Currency
             </div>
             <div class="col">
-                : <?= $dataHeader['currency']; ?>
+                : <?= $dataHeader['currencyCode']; ?> - <?= $dataHeader['currencyName']; ?>
+            </div>
+        </div>
+
+        <!-- VAT -->
+        <div class="row" style="margin-bottom: 1rem;">
+            <div class="col-4 col-sm-4 col-md-3 col-lg-3 text-bold">
+                VAT
+            </div>
+            <div class="col">
+                : <?= $dataHeader['vatStatus'] == "YES" ? $dataHeader['vatRatio'] : 'No'; ?>
             </div>
         </div>
 

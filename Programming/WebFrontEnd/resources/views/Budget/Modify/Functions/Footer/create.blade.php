@@ -5,6 +5,7 @@
     let currentWorkRow = null;
     let currentProductRow = null;
     const documentTypeRefID = {!! json_encode($documentTypeRefID ?? '') !!};
+    const reasonForModify = document.getElementById('reason_for_modify');
     const subBudgetCodeID = document.getElementById('sub_budget_id');
 
     function coRevisedHandler(e) {
@@ -33,6 +34,7 @@
     function fillSite(budgetCodeID, budgetCode, budgetName) {
         getSiteCode(budgetCodeID);
 
+        $("#budget_label").text(`${budgetCode} - ${budgetName}`);
         $("#budget_preview").val(`${budgetCode} - ${budgetName}`);
         $("#budget_id").val(budgetCodeID);
         $("#budget_name").val(budgetName);
@@ -59,6 +61,74 @@
             type,
             index
         };
+    }
+
+    function showPreviewSummary() {
+        const sourceTable = document.getElementById('budget_details_table').getElementsByTagName('tbody')[0];
+        const targetTable = document.getElementById('preview_details_table').getElementsByTagName('tbody')[0];
+
+        targetTable.innerHTML = '';
+
+        const rows = sourceTable.getElementsByTagName('tr');
+
+        if (rows.length === 0) {
+            targetTable.append(`
+                <tr>
+                    <td colspan="6" class="text-center text-muted">
+                        No data to display.
+                    </td>
+                </tr>
+            `);
+        }
+
+        for (let row of rows) {
+            const productInformation = row.querySelector('[data-field="product"]');
+            const totalBudgetInformation = row.querySelector('[data-field="totalBudget"]');
+
+            const qtyInput = row.querySelector('[data-field="quantityInput"]');
+            const priceInput = row.querySelector('[data-field="priceInput"]');
+            const totalInput = row.querySelector('[data-field="totalInput"]');
+
+            if (
+                qtyInput &&
+                priceInput &&
+                totalInput &&
+                qtyInput.value.trim() !== '' &&
+                priceInput.value.trim() !== '' &&
+                totalInput.value.trim() !== ''
+            ) {
+                const product = productInformation?.value?.trim();
+                const totalBudget = totalBudgetInformation?.value?.trim();
+
+                const price = priceInput.value.trim();
+                const qty = qtyInput.value.trim();
+                const total = totalInput.value.trim();
+
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td class="text-left text-wrap">${product}</td>
+                    <td class="text-left">${Utils.formatCurrency(Utils.removeCommas(totalBudget))}</td>
+                    <td class="text-left">${Utils.formatCurrency(Utils.removeCommas(totalBudget))}</td>
+                    <td class="text-left">${Utils.formatCurrency(Utils.removeCommas(qty))}</td>
+                    <td class="text-left">${Utils.formatCurrency(Utils.removeCommas(price))}</td>
+                    <td class="text-left">${Utils.formatCurrency(Utils.removeCommas(total))}</td>
+                `;
+
+                targetTable.appendChild(newRow);
+            }
+        }
+
+        if (targetTable.children.length === 0) {
+            targetTable.innerHTML = `
+                <tr>
+                    <td colspan="6" class="text-center text-muted" style="padding: 0.8rem 0.5rem;">
+                        No data to display.
+                    </td>
+                </tr>
+            `;
+        }
+
+        $('#reason_for_modify_label').text(reasonForModify.value);
     }
 
     /* START OF CUSTOMER ORDER SECTION */
@@ -334,6 +404,11 @@
             maximumFractionDigits: 2
         });
 
+        document.getElementById('preview_total').textContent = total.toLocaleString('en-US', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
         $('#total_modify_footer').val(totalQty);
         $('#total_price_footer').val(totalPrice);
         $('#total_amount_footer').val(total);
@@ -531,6 +606,20 @@
                         type="hidden"
                         id="priceAvailable${index}"
                         value="${row.priceBudget || '0'}"
+                    />
+
+                    <input
+                        type="hidden"
+                        id="product${index}"
+                        data-field="product"
+                        value="${row.productCode} - ${row.productName}"
+                    />
+
+                    <input
+                        type="hidden"
+                        id="totalBudget${index}"
+                        data-field="totalBudget"
+                        value="${row.total}"
                     />
 
                     ${actionDefault}
@@ -770,6 +859,7 @@
             const code = dataRow.Code;
             const name = dataRow.Name;
 
+            $("#sub_budget_label").text(`${code} - ${name} `);
             $("#sub_budget_preview").val(`${code} - ${name} `);
             $("#sub_budget_id").val(id);
             $("#sub_budget_name").val(name);
@@ -811,11 +901,13 @@
             $("#currency_id").val(currencyID);
             $("#currency_name").val(currencyName);
             $("#currency_code").val(currencyISOCode);
+            $("#currency_label").text(`${currencyISOCode} - ${currencyName}`);
             $("#currency_preview").val(`${currencyISOCode} - ${currencyName}`);
             $("#currency_preview").css('background-color', '#e9ecef');
 
             // $('#new_item_toggle').removeClass('d-none');
 
+            $("#exchange_rate_label").text(Utils.formatCurrency(currencyExchangeRate));
             $("#exchange_rate").val(Utils.formatCurrency(currencyExchangeRate));
             $("#exchange_rate").css('background-color', '#e9ecef');
 
@@ -891,6 +983,18 @@
         }
 
         $("#myProductss").modal('toggle');
+    });
+
+    $('#modify_budget_submit_button').on('click', function () {
+        $('#container-create-modify').addClass('d-none');
+        $('#container-preview-modify').removeClass('d-none');
+
+        showPreviewSummary();
+    });
+
+    $('#preview_budget_cancel_button').on('click', function () {
+        $('#container-create-modify').removeClass('d-none');
+        $('#container-preview-modify').addClass('d-none');
     });
 
     $(document).ready(function () {

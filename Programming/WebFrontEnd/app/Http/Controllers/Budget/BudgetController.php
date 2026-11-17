@@ -115,12 +115,18 @@ class BudgetController extends Controller
         return view('Budget.Modify.Transactions.create', $compact);
     }
 
+    public function storeModify(Request $request)
+    {
+
+    }
+
     public function previewModify(Request $request)
     {
         $token = Session::get('SessionLogin');
 
         $currencySymbol = $request->input('currency_code');
-        $exchangeRate = number_format(str_replace(",", "", $request->input('exchange_rate')), 2, '.', '');
+        $additionalData = $request->input('additionalData');
+        $exchangeRate = number_format((float) str_replace(",", "", $request->input('exchange_rate')), 2, '.', '');
         $valueCO = str_replace(",", "", ($request->input('customer_order_value') || 0));
 
         $totalModifyFooter = $request->input('total_modify_footer');
@@ -177,6 +183,7 @@ class BudgetController extends Controller
             'totalModifyFooter' => $totalModifyFooter,
             'totalPriceFooter' => $totalPriceFooter,
             'totalAmountFooter' => $totalAmountFooter,
+            'modifyBudgetListData' => $additionalData,
             'dataTable' => [
                 'sectionOne' => [
                     'firstRow' => [

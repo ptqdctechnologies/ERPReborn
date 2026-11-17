@@ -514,6 +514,87 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- MODIFY BUDGET TABLE -->
+                    <div class="row mx-0" style="margin-top: 30px;">
+                        <div class="text-center font-weight-bold table_title">
+                            MODIFY BUDGET LIST (CART)
+                        </div>
+
+                        <div class="card-body table-responsive p-0">
+                            <table class="table table-bordered table-hover text-nowrap" style="border: 2px solid #e9e9e9;">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">Product</th>
+                                        <th class="text-center">Origin</th>
+                                        <th class="text-center">Previous</th>
+                                        <th class="text-center">Qty(+/-)</th>
+                                        <th class="text-center">Add(subt)</th>
+                                        <th class="text-center">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php $grandTotal = 0; ?>
+                                    <?php foreach ($modifyBudgetListData as $modifyBudgetData) { ?>
+                                    <?php    if ($modifyBudgetData['quantityInput'] && $modifyBudgetData['priceInput']) { ?>
+                                    <?php        $grandTotal += (float) str_replace(",", "", $modifyBudgetData['totalInput']);?>
+                                    <tr>
+                                        <td class="text-left text-wrap">
+                                            <?= $modifyBudgetData['productCode']; ?> -
+                                            <?= $modifyBudgetData['productName']; ?>
+                                        </td>
+                                        <td class="text-left">
+                                            <?= number_format($modifyBudgetData['totalBudget'], 2, '.', ','); ?>
+                                        </td>
+                                        <td class="text-left">
+                                            <?= number_format($modifyBudgetData['totalBudget'], 2, '.', ','); ?>
+                                        </td>
+                                        <td class="text-left">
+                                            <?= number_format((float) str_replace(",", "", $modifyBudgetData['quantityInput']), 2, '.', ','); ?>
+                                        </td>
+                                        <td class="text-left">
+                                            <?= number_format((float) str_replace(",", "", $modifyBudgetData['priceInput']), 2, '.', ','); ?>
+                                        </td>
+                                        <td class="text-left">
+                                            <?= number_format((float) str_replace(",", "", $modifyBudgetData['totalInput']), 2, '.', ','); ?>
+                                        </td>
+                                    </tr>
+                                    <?php    } ?>
+                                    <?php } ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td colspan="5" class="font-weight-bold text-left" style="font-size: 12px;">
+                                            GRAND TOTAL
+                                        </td>
+                                        <td class="font-weight-bold text-left">
+                                            <?= number_format($grandTotal, 2, '.', ','); ?>
+                                        </td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- BUTTON CANCEL OR SUBMIT -->
+                    <div class="row pt-2" style="margin-top: 1rem;">
+                        <div class="col d-flex justify-content-end" style="gap: 8px;">
+                            <div style="display: flex;">
+                                <button class="btn btn-default btn-sm button-submit" id="cancelButton" type="submit">
+                                    <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="" />
+                                    <div>Cancel</div>
+                                </button>
+                            </div>
+
+                            <div style="display: flex;">
+                                <button class="btn btn-default btn-sm button-submit" id="submitButton" type="submit"
+                                    disabled>
+                                    <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="" />
+                                    <div>Submit</div>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
