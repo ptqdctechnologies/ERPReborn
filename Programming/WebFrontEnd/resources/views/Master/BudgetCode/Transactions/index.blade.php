@@ -34,7 +34,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-head-fixed w-100" id="table_product">
+                                            <table class="table table-head-fixed w-100" id="table_budget_code">
                                                 <thead>
                                                     <tr>
                                                         <th
@@ -72,4 +72,5 @@
     </div>
 
     @include('Partials.footer')
+    @include('Master.BudgetCode.Functions.Footer.index')
 @endsection
