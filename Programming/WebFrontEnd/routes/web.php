@@ -298,7 +298,13 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::resource('BudgetCode', BudgetCodeController::class);
 
     // SUB BUDGET CODE
-    Route::controller(SubBudgetCodeController::class)->group(function () { });
+    Route::controller(SubBudgetCodeController::class)->group(function () {
+        Route::get('SubBudgetCode/Group', 'indexGroup')
+            ->name('SubBudgetCode.Group');
+
+        Route::get('SubBudgetCode/Group/create', 'createGroup')
+            ->name('SubBudgetCode.Group.create');
+    });
     Route::resource('SubBudgetCode', SubBudgetCodeController::class);
 
     // BUDGET EXPENSE

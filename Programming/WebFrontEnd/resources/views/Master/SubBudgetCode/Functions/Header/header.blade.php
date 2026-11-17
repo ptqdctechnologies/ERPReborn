@@ -45,8 +45,8 @@
                 <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Sub Budget Group</label>
                 <div class="col-5 d-flex justify-content-sm-end justify-content-md-end">
                     <div>
-                        <span id="mySubBudgetGroupTrigger" class="input-group-text form-control" data-toggle="modal"
-                            data-target="#" style="border-radius:0;cursor:pointer;">
+                        <span id="sub_budget_group_trigger" class="input-group-text form-control" data-toggle="modal"
+                            data-target="#sub_budget_group_modal" style="border-radius:0;cursor:pointer;">
                             <i class="fas fa-gift"></i>
                         </span>
                     </div>

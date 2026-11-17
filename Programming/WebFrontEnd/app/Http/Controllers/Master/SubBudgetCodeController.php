@@ -33,4 +33,14 @@ class SubBudgetCodeController extends Controller
     public function destroy($id)
     {
     }
+
+    public function indexGroup(Request $request)
+    {
+        return view('Master.SubBudgetGroup.Transactions.index');
+    }
+
+    public function createGroup()
+    {
+        return view('Master.SubBudgetGroup.Transactions.create');
+    }
 }

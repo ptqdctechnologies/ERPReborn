@@ -3,6 +3,7 @@
     @include('Partials.navbar')
     @include('Partials.sidebar')
     @include('getFunction.getBudgetCode')
+    @include('getFunction.getSubBudgetGroup')
 
     <div class="content-wrapper">
         <section class="content">
