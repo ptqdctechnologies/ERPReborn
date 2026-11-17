@@ -133,7 +133,7 @@ class DocumentTypeMapper
                 'parameter' => [],
                 'businessDocument_RefID' => (int) 74000000021494,
             ],
-            'Sales Contract Form' => [
+            'Customer Order Form' => [
                 'key' => 'transaction.read.dataList.customerRelation.getSalesContractDetail',
                 'parameter' => ['salesContract_RefID' => (int) $referenceId]
             ],
@@ -840,7 +840,7 @@ class DocumentTypeMapper
                 'transactionType' => 'SALLARY ALLOCATION',
                 'businessDocument_RefID' => '',
             ],
-            'Sales Contract Form' => [
+            'Customer Order Form' => [
                 'dataHeader' => [
                     'date' => $dataDetail['Date'] ?? '-',
                     'dateUpdate' => $dataDetail['DateUpdate'] ?? null, // '2025-09-29 15:49:00.113 +0700'
@@ -1041,7 +1041,7 @@ class DocumentTypeMapper
             'Purchase Requisition Form' => 'Documents.Transactions.LogTransaction.LogTransactionPurchaseRequisition',
             'Reimbursement Form' => 'Documents.Transactions.LogTransaction.LogTransactionReimbursement',
             'Sales Invoice Form' => 'Documents.Transactions.LogTransaction.LogTransactionInvoice',
-            'Sales Contract Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
+            'Customer Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Tax Recon Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Material Disposal Form' => 'Documents.Transactions.LogTransaction.LogTransactionCustomerOrder',
             'Warehouse Inbound Order Form' => 'Documents.Transactions.LogTransaction.LogTransactionMaterialReceive',

@@ -59,7 +59,7 @@ class CustomerOrderController extends Controller
     public function create(Request $request)
     {
         $varAPIWebToken = Session::get('SessionLogin');
-        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Contract Form');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Customer Order Form');
 
         // dump($varAPIWebToken);
 
@@ -213,7 +213,7 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderSummary(Request $request)
     {
-        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Contract Form');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Customer Order Form');
         $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
         $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
@@ -312,7 +312,7 @@ class CustomerOrderController extends Controller
 
     public function ReportCustomerOrderToInvoice(Request $request)
     {
-        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Contract Form');
+        $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Customer Order Form');
         $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
         $sessionOrganizationalJobPositionName = Session::get('SessionOrganizationalJobPositionName');
 
