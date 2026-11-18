@@ -3,23 +3,23 @@
 /*
 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
 │ ▪ Category   : Laravel Helpers                                                                                                           │
-│ ▪ Name Space : \App\Http\Helpers\ZhtHelper\BackEnd\Database                                                                              │
+│ ▪ Name Space : \App\Http\Helpers\ZhtHelper\BackEnd\InMemoryDataStore                                                                     │
 ├──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ ▪ Copyleft 🄯 2025 Zheta (teguhpjs@gmail.com)                                                                                             │
 └──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
 */
 
 namespace
-    App\Http\Helpers\ZhtHelper\BackEnd\Database
+    App\Http\Helpers\ZhtHelper\BackEnd\InMemoryDataStore
         {
         /*
         ┌───────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
-        │ ▪ Class Name  │ Helper_MySQL                                                                                                     │
-        │ ▪ Description │ Menangani segala hal yang terkait Database MySQL                                                                 │
+        │ ▪ Class Name  │ Helper_RemoteDictionaryServer                                                                                    │
+        │ ▪ Description │ Menangani segala hal yang terkait InMemoryDataStore Remote Dictionary Server (Redis)                             │
         └───────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
         */
         class
-            Helper_MySQL
+            Helper_Redis
                 {
                 /*
                 ┌──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐

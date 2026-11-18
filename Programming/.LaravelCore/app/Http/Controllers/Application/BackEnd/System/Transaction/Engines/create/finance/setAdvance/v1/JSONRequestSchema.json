@@ -78,7 +78,7 @@
                                 {
                                 "type": "object",
                                 "properties": {
-                                    "itemList": {                                    
+                                    "itemList": {
                                         "type": "object",
                                         "properties": {
                                             "items": {

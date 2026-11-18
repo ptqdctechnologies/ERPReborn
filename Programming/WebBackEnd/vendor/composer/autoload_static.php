@@ -780,6 +780,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
+        'App\\Helpers\\ZhtHelper\\Cache\\Helper_Valkey' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Cache/Helper_Valkey.php',
         'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
         'App\\Helpers\\ZhtHelper\\Database\\Helper_ODBC' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_ODBC.php',
         'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => __DIR__ . '/../..' . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',

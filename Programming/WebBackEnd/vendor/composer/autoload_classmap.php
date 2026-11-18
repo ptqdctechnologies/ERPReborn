@@ -43,6 +43,7 @@ return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
+    'App\\Helpers\\ZhtHelper\\Cache\\Helper_Valkey' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Valkey.php',
     'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => $baseDir . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
     'App\\Helpers\\ZhtHelper\\Database\\Helper_ODBC' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_ODBC.php',
     'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',

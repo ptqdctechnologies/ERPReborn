@@ -11,6 +11,7 @@ return array(
     'App\\Exports\\ExportUsers' => $baseDir . '/app/Exports/ExportUsers.php',
     'App\\Helpers\\User' => $baseDir . '/app/Helpers/User.php',
     'App\\Helpers\\ZhtHelper\\Cache\\Helper_Redis' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Redis.php',
+    'App\\Helpers\\ZhtHelper\\Cache\\Helper_Valkey' => $baseDir . '/app/Helpers/ZhtHelper/Cache/Helper_Valkey.php',
     'App\\Helpers\\ZhtHelper\\CloudStorage\\Helper_MinIO' => $baseDir . '/app/Helpers/ZhtHelper/CloudStorage/Helper_MinIO.php',
     'App\\Helpers\\ZhtHelper\\Database\\Helper_ODBC' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_ODBC.php',
     'App\\Helpers\\ZhtHelper\\Database\\Helper_PostgreSQL' => $baseDir . '/app/Helpers/ZhtHelper/Database/Helper_PostgreSQL.php',
