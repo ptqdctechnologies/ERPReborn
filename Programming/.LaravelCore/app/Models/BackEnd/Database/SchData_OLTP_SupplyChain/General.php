@@ -4101,6 +4101,63 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_StockOpname                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-11-18                                                                                           |
+        | ▪ Creation Date   : 2026-11-18                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Stock Opname                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► BusinessDocumentNumber                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_StockOpname(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_StockOpname',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar']
+                            ]
+                        )
+                    );
+
+                return
+                    isset($varReturn['data'][0])
+                    ? json_decode(reset($varReturn['data'][0]), true)
+                    : [];
+            } catch (\Exception $ex) {
+                return [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_WarehouseInboundOrder                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
