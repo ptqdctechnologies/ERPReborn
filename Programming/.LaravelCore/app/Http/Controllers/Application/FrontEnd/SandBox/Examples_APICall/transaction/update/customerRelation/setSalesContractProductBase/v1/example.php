@@ -38,7 +38,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                 'transaction.update.customerRelation.setSalesContractProductBase',
                 'latest',
                 [
-                'recordID' => 131000000000142,
+                'recordID' => 131000000000180,
                 'entities' => [
                     "log_FileUpload_Pointer_RefID" => 91000000000002,
                     "combinedBudget_RefID" => 46000000000002,
@@ -51,15 +51,15 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "itemList" => [
                             "items" => [
                                     [
-                                    "recordID" => 307000000000091,
+                                    "recordID" => 307000000000125,
                                     "entities" => [
                                         "combinedBudgetSection_RefID" => 143000000000030,
                                         "notes" => 'Catatan Kedua',
                                         "work_RefID" => 169000000000002,
-                                        "product_RefID" => 88000000000002,
-                                        "uom_RefID" => 73000000000001,
                                         "quantity" => 7,
-                                        "price" => 80000
+                                        "price" => 80000,
+                                        "productName" => 'Cat besi Altex',
+                                        "uomName" => 'kg'
                                         ]
                                     ],
                                     [
@@ -68,10 +68,10 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                         "combinedBudgetSection_RefID" => 143000000000030,
                                         "notes" => 'Catatan Ketiga',
                                         "work_RefID" => 169000000000002,
-                                        "product_RefID" => 88000000000002,
-                                        "uom_RefID" => 73000000000001,
                                         "quantity" => 15,
-                                        "price" => 20000
+                                        "price" => 20000,
+                                        "productName" => 'Lakban Bening',
+                                        "uomName" => 'yr'
                                         ]
                                     ]
                                 ]
@@ -79,7 +79,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                         "deleteList" => [
                             "items" => [
                                     [
-                                    "recordID" => 307000000000111,
+                                    "recordID" => 307000000000108,
                                     ]
                                 ]
                             ]

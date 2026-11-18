@@ -53,11 +53,11 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                     "entities" => [
                                         "combinedBudgetSection_RefID" => 143000000000029,
                                         "notes" => 'Catatan Pertama',
-                                        "work_RefID" => 169000000000001,
-                                        "product_RefID" => 88000000000002,
-                                        "uom_RefID" => 73000000000001,
+                                        "work_RefID" => NULL,
                                         "quantity" => 5,
-                                        "price" => 50000
+                                        "price" => 50000,
+                                        "productName" => 'Batu Bata',
+                                        "uomName" => 'mm'
                                         ]                                   
                                     ]
                                 ]
