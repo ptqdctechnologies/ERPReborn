@@ -1,0 +1,153 @@
+{
+"title": "JSON Request Schema",
+"description": "JSON Request Schema of transaction.mergeModify.budgeting.setCombinedBudgetSectionDetail (version 1)",
+"type": "object",
+"properties": {
+    "metadata": {
+        "type": "object",
+        "properties": {
+            "API": {
+                "type": "object",
+                "properties": {
+                    "key": {
+                        "type": "string",
+                        "enum": [ "transaction.mergeModify.budgeting.setCombinedBudgetSectionDetail" ]
+                        },
+                    "version": {
+                        "type": [ "integer", "string" ],
+                        "minimum": 1,
+                        "minLength": 1
+                        }
+                    },
+                "required": [
+                    "key",
+                    "version"
+                    ]
+                }
+            },
+        "required": [
+            "API"
+            ]
+        },
+    "data": {
+        "type": "object",
+        "properties": {
+            "recordID": {
+                "type": [ "integer", "null" ],
+                "minimum": 0,
+                "maximum": 9223372036854775807
+                },
+            "entities" : {
+                "type": "object",
+                "properties": {
+                    "itemList": {
+                        "type": [ "array", "null" ],
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "index": {
+                                    "type": [ "integer", "null" ],
+                                    "minimum": 0,
+                                    "maximum": 9223372036854775807
+                                    },
+                                "recordID": {
+                                    "type": [ "integer", "null" ],
+                                    "minimum": 0,
+                                    "maximum": 9223372036854775807
+                                    },
+                                "entities" : {
+                                    "type": "object",
+                                    "properties": {
+                                        "itemList": {
+                                            "type": [ "array", "null" ],
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "index": {
+                                                        "type": [ "integer", "null" ],
+                                                        "minimum": 0,
+                                                        "maximum": 9223372036854775807
+                                                        },
+                                                    "recordID": {
+                                                        "type": [ "integer", "null" ],
+                                                        "minimum": 0,
+                                                        "maximum": 9223372036854775807
+                                                        },
+                                                    "entities" : {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "quantity": {
+                                                                "type": [ "number", "null" ],
+                                                                "minimum": 0
+                                                                },
+                                                            "quantityUnit_RefID": {
+                                                                "type": [ "integer", "null" ],
+                                                                "minimum": 0,
+                                                                "maximum": 9223372036854775807
+                                                                },
+                                                            "unitPriceCurrency_RefID": {
+                                                                "type": [ "integer", "null" ],
+                                                                "minimum": 0,
+                                                                "maximum": 9223372036854775807
+                                                                },
+                                                            "unitPriceCurrencyValue": {
+                                                                "type": [ "number", "null" ],
+                                                                "minimum": 0
+                                                                },
+                                                            "unitPriceCurrencyExchangeRate": {
+                                                                "type": [ "number", "null" ],
+                                                                "minimum": 0
+                                                                },
+                                                            "work_RefID": {
+                                                                "type": [ "integer", "null" ],
+                                                                "minimum": 0,
+                                                                "maximum": 9223372036854775807
+                                                                }
+                                                            },
+                                                        "required": [
+                                                            "quantity",
+                                                            "quantityUnit_RefID",
+                                                            "unitPriceCurrency_RefID",
+                                                            "unitPriceCurrencyValue",
+                                                            "unitPriceCurrencyExchangeRate",
+                                                            "work_RefID"
+                                                            ]
+                                                        }
+                                                    },
+                                                "required": [
+                                                    "index",
+                                                    "recordID",
+                                                    "entities"
+                                                    ]
+                                                }
+                                            }
+                                        },
+                                    "required": [
+                                        "itemList"
+                                        ]
+                                    }
+                                },
+                            "required": [
+                                "index",
+                                "recordID",
+                                "entities"
+                                ]
+                            }
+                        }
+                    },
+                "required": [
+                    "itemList"
+                    ]
+                }
+            },
+        "required": [
+            "recordID",
+            "entities"
+            ]
+        }
+    },
+"required": [
+    "metadata",
+    "data"
+    ]
+}
