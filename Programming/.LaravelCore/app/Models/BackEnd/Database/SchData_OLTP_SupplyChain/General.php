@@ -3041,11 +3041,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         public function getDataListJSON_StockOpnameDetail(
             $varUserSession,
             int $varSysBranch_RefID,
-            int $varStockOpname_RefID = null,
-            string $varPickStatement = null,
-            string $varSortStatement = null,
-            string $varFilterStatement = null,
-            string $varPagingStatement = null
+            int $varStockOpname_RefID = null
         ) {
             try {
                 $varReturn =
@@ -3059,6 +3055,9 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
                             ]
                         )
                     );
+
+                return
+                    $varReturn;
             } catch (\Exception $ex) {
                 return
                     [];

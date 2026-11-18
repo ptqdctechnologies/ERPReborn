@@ -42,13 +42,7 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'latest',
                     [
                         'parameter' => [
-                            'stockOpname_RefID' => 303000000000005
-                        ],
-                        'SQLStatement' => [
-                            'pick' => null,
-                            'sort' => null,
-                            'filter' => null,
-                            'paging' => null
+                            'stockOpname_RefID' => 303000000000007
                         ]
                     ]
                 );

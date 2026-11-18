@@ -61,24 +61,15 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
                 try {
                     //-----[ MAIN CODE ]----------------------------------------------------------------------------( START POINT )-----
                     try {
-                        if (($varData['SQLStatement']['filter']) && (\App\Helpers\ZhtHelper\Database\Helper_SQLValidation::isSecure_FilterStatement($varUserSession, $varData['SQLStatement']['filter']) == FALSE)) {
-                            throw new \Exception('SQL Injection Threat Prevention');
-                        }
-
                         if (
                             !($varDataSend =
                                 \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getEngineDataSend_DataRead(
                                     $varUserSession,
-                                    (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_PurchaseRequisitionDetail(
+                                    (new \App\Models\Database\SchData_OLTP_SupplyChain\General())->getDataListJSON_StockOpnameDetail(
                                         $varUserSession,
                                         (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
 
-                                        $varData['parameter']['stockOpname_RefID'],
-
-                                        $varData['SQLStatement']['pick'],
-                                        $varData['SQLStatement']['sort'],
-                                        $varData['SQLStatement']['filter'],
-                                        $varData['SQLStatement']['paging']
+                                        $varData['parameter']['stockOpname_RefID']
                                     ),
                                     FALSE
                                 )
@@ -102,6 +93,8 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\re
             } catch (\Exception $ex) {
                 //throw $th;
             }
+
+            return \App\Helpers\ZhtHelper\Logger\Helper_SystemLog::setLogOutputMethodFooter($varUserSession, $varReturn, __CLASS__, __FUNCTION__);
         }
     }
 }
