@@ -336,7 +336,7 @@
                     sub_budget_name: "",
                     product_RefID: "",
                     product_name: "",
-                    work_RefID: "",
+                    work_RefID: null,
                     work_name: "",
                     uom_RefID: "",
                     uom_name: "",
