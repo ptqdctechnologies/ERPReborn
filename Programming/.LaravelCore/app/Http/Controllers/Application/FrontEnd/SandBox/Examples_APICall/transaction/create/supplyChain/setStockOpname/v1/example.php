@@ -45,8 +45,8 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     //-----[ DATA ]-----( START )-----
                     [
                         'entities' => [
-                            "documentDateTimeTZ" => '2026-11-12',
-                            "type" => 'WAREHOUSE',
+                            "documentDateTimeTZ" => date('Y-m-d'),
+                            "type" => 'ALL',
                             "additionalData" => [
                                 "itemList" => [
                                     "items" => [
@@ -57,6 +57,16 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                                                 "quantityUnit_RefID" => 73000000000001,
                                                 "product_RefID" => 88000000000002,
                                                 "remarks" => 'Catatan Pertama',
+                                                "warehouse_RefID" => 173000000000001
+                                            ]
+                                        ],
+                                        [
+                                            "entities" => [
+                                                "qtyGood" => 2.00,
+                                                "qtyReject" => 2.00,
+                                                "quantityUnit_RefID" => 73000000000001,
+                                                "product_RefID" => 88000000000002,
+                                                "remarks" => 'Catatan Keduua',
                                                 "warehouse_RefID" => 173000000000001
                                             ]
                                         ]

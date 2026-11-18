@@ -8,8 +8,7 @@
 | ▪ Copyleft 🄯 2026 ijonk7 (rizal.devapps@gmail.com)                                                                              |
 +----------------------------------------------------------------------------------------------------------------------------------+
 */
-namespace App\Models\Database\SchData_OLTP_CustomerRelation
-    {
+namespace App\Models\Database\SchData_OLTP_CustomerRelation {
     /*
     +------------------------------------------------------------------------------------------------------------------------------+
     | ▪ Class Name  : TblSalesContractSubBudgetBase                                                                                |
@@ -17,7 +16,7 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
     +------------------------------------------------------------------------------------------------------------------------------+
     */
     class TblSalesContractSubBudgetBase extends \App\Models\Database\DefaultClassPrototype
-        {
+    {
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : __construct                                                                                          |
@@ -34,9 +33,9 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         function __construct()
-            {
+        {
             parent::__construct(__CLASS__);
-            }
+        }
 
 
         /*
@@ -68,16 +67,27 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         */
         public function setDataInsert(
             $varUserSession,
-            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null, string $varType = null, string $varVatStatus = null, float $varVatRatio = 0, 
-            array $varAdditionalData = [])
-            {
+            string $varSysDataAnnotation = null,
+            string $varSysDataValidityStartDateTimeTZ = null,
+            string $varSysDataValidityFinishDateTimeTZ = null,
+            int $varSysPartitionRemovableRecordKeyRefType = null,
+            int $varSysBranch_RefID = null,
+            $varSysBaseCurrency_RefID = null,
+            int $varLog_FileUpload_Pointer_RefID = null,
+            int $varCombinedBudget_RefID = null,
+            int $varCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null,
+            string $varType = null,
+            string $varVatStatus = null,
+            float $varVatRatio = 0,
+            array $varAdditionalData = []
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_TblSalesContract_SET_NEW',
+                        parent::getSchemaName($varUserSession) . '.Func_TblSalesContract_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [null, 'bigint'],
@@ -103,17 +113,17 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
                                         $varAdditionalData
-                                        )
+                                    )
                                 ),
                                 'json'
                             ]
                         ]
-                        )
-                    );
+                    )
+                );
 
             return
                 $varReturn;
-            }
+        }
 
 
         /*
@@ -132,21 +142,21 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataSynchronize($varUserSession)
-            {
+        {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
-                    $varUserSession, 
+                    $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaTableSynchronizeName($varUserSession), 
+                        parent::getSchemaTableSynchronizeName($varUserSession),
                         [
                         ]
-                        )
-                    );
+                    )
+                );
 
             $varReturn = [];
             return $varReturn;
-            }
+        }
 
 
         /*
@@ -178,18 +188,29 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function setDataUpdate(
-            $varUserSession, 
+            $varUserSession,
             int $varSysID,
-            string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            int $varLog_FileUpload_Pointer_RefID = null, int $varCombinedBudget_RefID = null, int $varCurrency_RefID = null, string $varDocumentDateTimeTZ = null, string $varType = null, string $varVatStatus = null, float $varVatRatio = 0,
-            array $varAdditionalData = [])
-            {
+            string $varSysDataAnnotation = null,
+            string $varSysDataValidityStartDateTimeTZ = null,
+            string $varSysDataValidityFinishDateTimeTZ = null,
+            int $varSysPartitionRemovableRecordKeyRefType = null,
+            int $varSysBranch_RefID = null,
+            $varSysBaseCurrency_RefID = null,
+            int $varLog_FileUpload_Pointer_RefID = null,
+            int $varCombinedBudget_RefID = null,
+            int $varCurrency_RefID = null,
+            string $varDocumentDateTimeTZ = null,
+            string $varType = null,
+            string $varVatStatus = null,
+            float $varVatRatio = 0,
+            array $varAdditionalData = []
+        ) {
             $varReturn =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_TblSalesContract_SET_NEW',
+                        parent::getSchemaName($varUserSession) . '.Func_TblSalesContract_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
@@ -215,16 +236,16 @@ namespace App\Models\Database\SchData_OLTP_CustomerRelation
                                     : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
                                         $varUserSession,
                                         $varAdditionalData
-                                        )
+                                    )
                                 ),
                                 'json'
                             ]
                         ]
-                        )
-		    );
+                    )
+                );
 
             return
                 $varReturn;
-            }
         }
     }
+}

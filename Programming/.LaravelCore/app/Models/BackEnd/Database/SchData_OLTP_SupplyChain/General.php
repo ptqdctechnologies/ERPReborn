@@ -3017,6 +3017,56 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataListJSON_StockOpnameDetail                                                            |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-11-17                                                                                           |
+        | ▪ Creation Date   : 2026-11-17                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Inventarisasi Stok (Stock Opname Detail)                      |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |        ------------------------------                                                                                    |
+        |      ▪ (int)    varStockOpname_RefID ► Stock Opname Reference ID                                         |
+        |        ------------------------------                                                                                    |
+        |      ▪ (string) varPickStatement ► Pick Statement                                                                        |
+        |      ▪ (string) varSortStatement ► Sort Statement                                                                        |
+        |      ▪ (string) varFilterStatement ► Filter Statement                                                                    |
+        |      ▪ (string) varPagingStatement ► Paging Statement                                                                    |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataListJSON_StockOpnameDetail(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varStockOpname_RefID = null
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataList_StockOpnameDetail',
+                            [
+                                [$varStockOpname_RefID, 'bigint'],
+                            ]
+                        )
+                    );
+
+                return
+                    $varReturn;
+            } catch (\Exception $ex) {
+                return
+                    [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataListJSON_PurchaseRequisitionDetail                                                            |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -4051,6 +4101,63 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getDataPickList_StockOpname                                                                          |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-11-18                                                                                           |
+        | ▪ Creation Date   : 2026-11-18                                                                                           |
+        | ▪ Description     : Mendapatkan Daftar Pilihan Data Stock Opname                                                         |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (int)    varSysBranch_RefID ► Branch ID                                                                           |
+        |      ------------------------------                                                                                      |
+        |      ▪ (int)    varPagination_PageSize ► Pagination Page Size                                                            |
+        |      ▪ (int)    varPagination_PageShow ► Pagination Page Show                                                            |
+        |      ------------------------------                                                                                      |
+        |      ▪ (string) varBusinessDocumentNumber ► BusinessDocumentNumber                                                       |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (array)  varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public function getDataPickList_StockOpname(
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+        ) {
+            try {
+                $varReturn =
+                    \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
+                        $varUserSession,
+                        \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
+                            $varUserSession,
+                            'SchData-OLTP-SupplyChain.Func_GetDataPickList_StockOpname',
+                            [
+                                [$varUserSession, 'bigint'],
+                                [$varSysBranch_RefID, 'bigint'],
+
+                                [$varPagination_PageSize, 'bigint'],
+                                [$varPagination_PageShow, 'bigint'],
+
+                                [$varBusinessDocumentNumber, 'varchar']
+                            ]
+                        )
+                    );
+
+                return
+                    isset($varReturn['data'][0])
+                    ? json_decode(reset($varReturn['data'][0]), true)
+                    : [];
+            } catch (\Exception $ex) {
+                return [];
+            }
+        }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getDataPickList_WarehouseInboundOrder                                                                |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -4463,10 +4570,18 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
         +--------------------------------------------------------------------------------------------------------------------------+
         */
         public function getReport_Form_DataList_DeliveryOrder_LatestVersion(
-            $varUserSession, int $varSysBranch_RefID,
-            int $varPagination_PageSize = null, int $varPagination_PageShow = null,
-            string $varBusinessDocumentNumber = null, string $varDocumentDateStart = null, string $varDocumentDateFinish = null, string $varRequesterName = null, string $varCombinedBudget = null, string $varCombinedBudgetSection = null, int $varType_RefID = null)
-            {
+            $varUserSession,
+            int $varSysBranch_RefID,
+            int $varPagination_PageSize = null,
+            int $varPagination_PageShow = null,
+            string $varBusinessDocumentNumber = null,
+            string $varDocumentDateStart = null,
+            string $varDocumentDateFinish = null,
+            string $varRequesterName = null,
+            string $varCombinedBudget = null,
+            string $varCombinedBudgetSection = null,
+            int $varType_RefID = null
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
@@ -4499,13 +4614,11 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
 
                 return
                     $varReturn;
-                }
-
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 return
                     [];
-                }
             }
+        }
 
 
         /*
@@ -4545,7 +4658,7 @@ namespace App\Models\Database\SchData_OLTP_SupplyChain {
             string $varRequesterName = null,
             string $varCombinedBudget = null,
             string $varCombinedBudgetSection = null
-            ) {
+        ) {
             try {
                 $varReturn =
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
