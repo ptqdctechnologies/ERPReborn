@@ -25,9 +25,9 @@
                     <th
                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                         SUB BUDGET</th>
-                    <th
+                    <!-- <th
                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                        WORK ID</th>
+                        WORK ID</th> -->
                     <th
                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                         PRODUCT</th>
@@ -76,16 +76,16 @@ $grandTotal = 0; ?>
                         <?= $dataDetail['CombinedBudgetSectionCode'] ?? ''; ?> -
                         <?= $dataDetail['CombinedBudgetSectionName'] ?? ''; ?>
                     </td>
+                    <!-- <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
+                        <?php        $dataDetail['WorkCode'] ?? ''; ?> -
+                        <?php        $dataDetail['WorkName'] ?? ''; ?>
+                    </td> -->
                     <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
-                        <?= $dataDetail['WorkCode'] ?? ''; ?> -
-                        <?= $dataDetail['WorkName'] ?? ''; ?>
-                    </td>
-                    <td class="text-wrap" style="border:1px solid #4B586A;color:#4B586A;">
-                        <?= $dataDetail['ProductCode'] ?? ''; ?> -
-                        <?= $dataDetail['ProductName'] ?? ''; ?>
+                        <!-- <?php        $dataDetail['ProductCode'] ?? ''; ?> - -->
+                        <?= $dataDetail['ProductName'] ?? '-'; ?>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
-                        <?= $dataDetail['UomName'] ?? ''; ?>
+                        <?= $dataDetail['UomName'] ?? '-'; ?>
                     </td>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <?= number_format($dataDetail['Quantity'] ?? 0, 2); ?>
@@ -104,14 +104,39 @@ $grandTotal = 0; ?>
                 <?php } ?>
             </tbody>
             <tfoot>
+                <?php $totalVAT = $grandTotal * $dataHeader['vatRatio'] / 100; ?>
                 <tr>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"
-                        colspan="<?= $dataHeader['type'] == 'SUB_BUDGET_BASE' ? '2' : '7'; ?>">
-                        GRAND TOTAL
+                        colspan="<?= $dataHeader['type'] == 'SUB_BUDGET_BASE' ? '2' : '6'; ?>">
+                        TOTAL
                     </th>
                     <td style="border:1px solid #4B586A;color:#4B586A;">
                         <span id="GrandTotal">
                             <?= number_format($grandTotal, 2); ?>
+                        </span>
+                    </td>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>
+                </tr>
+                <tr>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"
+                        colspan="<?= $dataHeader['type'] == 'SUB_BUDGET_BASE' ? '2' : '6'; ?>">
+                        TOTAL VAT
+                    </th>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <span id="GrandTotal">
+                            <?= number_format($totalVAT, 2); ?>
+                        </span>
+                    </td>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>
+                </tr>
+                <tr>
+                    <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"
+                        colspan="<?= $dataHeader['type'] == 'SUB_BUDGET_BASE' ? '2' : '6'; ?>">
+                        GRAND TOTAL WITH VAT
+                    </th>
+                    <td style="border:1px solid #4B586A;color:#4B586A;">
+                        <span id="GrandTotal">
+                            <?= number_format($grandTotal + $totalVAT, 2); ?>
                         </span>
                     </td>
                     <th style="padding-top: 10px;padding-bottom: 10px;border:1px solid #4B586A;color:#4B586A;"></th>
