@@ -80,11 +80,12 @@
           <label style="margin-bottom: 0;">VAT</label>
           <select type="text" id="ppn_option" class="form-control" name="ppn_value" onchange="selectVAT(this)"
             style="border-radius:0;width:auto;">
-            <option value="NO" selected>No</option>
-            <option value="YES">Yes</option>
+            <option value="NO" <?= $header['vatStatus'] == "NO" ? 'selected' : '' ?>>No</option>
+            <option value="YES" <?= $header['vatStatus'] == "YES" ? 'selected' : '' ?>>Yes</option>
           </select>
         </div>
-        <div id="ppn_percentage_container" style="gap: 8px; align-items: center; display: none;">
+        <div id="ppn_percentage_container"
+          style="gap: 8px; align-items: center; display: <?= $header['vatStatus'] == "NO" ? 'none' : 'flex' ?>;">
           <label style="margin-bottom: 0;">VAT (%)</label>
           <select type="text" id="ppn_percentage_option" class="form-control" name="ppn_percentage_value"
             onchange="selectPercentageVAT(this)" style="border-radius:0;width:auto;">

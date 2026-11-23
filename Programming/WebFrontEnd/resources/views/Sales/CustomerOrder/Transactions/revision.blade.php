@@ -47,7 +47,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderCustomerOrderRevision')
+                                    @include('Sales.CustomerOrder.Functions.Header.header')
                                 </div>
                             </div>
                         </div>
@@ -79,13 +79,12 @@
                                                         <input type="text" id="dataInput_Log_FileUpload"
                                                             name="dataInput_Log_FileUpload_1" style="display:none">
                                                         <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        'dataInput_Log_FileUpload',
-        null,
-        'dataInput_Return'
-    ) .
-        ''; ?>
+                                                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                            $varAPIWebToken,
+                                                            'dataInput_Log_FileUpload',
+                                                            null,
+                                                            'dataInput_Return'
+                                                        ) . ''; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -114,7 +113,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManuallyRevision')
+                                    @include('Sales.CustomerOrder.Functions.Header.manually')
                                 </div>
                             </div>
                         </div>
@@ -144,6 +143,6 @@
         </section>
     </div>
 
-    @include('Sales.CustomerOrder.Functions.Footer.FooterCustomerOrderRevision')
+    @include('Sales.CustomerOrder.Functions.Footer.revision')
     @include('Partials.footer')
 @endsection

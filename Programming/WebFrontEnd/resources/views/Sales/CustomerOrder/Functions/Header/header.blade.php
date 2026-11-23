@@ -6,7 +6,7 @@
       @include('Components.Forms.budgetCode')
 
       <!-- TYPE -->
-      <div class="row" style="margin-top: 1rem;">
+      <div class="row" style="margin-top: 1rem; display: <?= isset($customerOrder_RefID) ? 'none' : 'flex' ?>;">
         <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0">Type</label>
         <div class="col-5">
           <div>
@@ -28,7 +28,7 @@
     </div>
 
     <!-- METHOD -->
-    <div class="col-12">
+    <div class="col-12" style="display: <?= isset($customerOrder_RefID) ? 'none' : 'flex' ?>;">
       <div class="row">
         <div class="form-group d-flex" style="gap: 20%;">
           <div class="custom-control custom-radio" style="min-width: max-content;">
