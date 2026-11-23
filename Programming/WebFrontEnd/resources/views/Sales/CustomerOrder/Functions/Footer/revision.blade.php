@@ -828,7 +828,7 @@
             $(`#combinedBudgetSectionName${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
             $(`#combinedBudgetSectionName${indexSubBudget}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-            updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
+            updateField(indexSubBudget, 'combinedBudgetSection_RefID', parseInt(sysId));
             updateField(indexSubBudget, 'combinedBudgetSectionName', `${siteCode} - ${siteName}`);
 
             $('#mySites').modal('toggle');
