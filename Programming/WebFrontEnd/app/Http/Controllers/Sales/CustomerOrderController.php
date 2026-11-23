@@ -61,8 +61,6 @@ class CustomerOrderController extends Controller
         $varAPIWebToken = Session::get('SessionLogin');
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Customer Order Form');
 
-        // dump($varAPIWebToken);
-
         return view('Sales.CustomerOrder.Transactions.create', [
             'varAPIWebToken' => $varAPIWebToken,
             'documentType_RefID' => $documentTypeRefID
@@ -71,8 +69,6 @@ class CustomerOrderController extends Controller
 
     public function store(Request $request)
     {
-        // return response()->json($request->all());
-
         try {
             $response = $this->customerOrderService->create($request);
 
@@ -90,6 +86,55 @@ class CustomerOrderController extends Controller
             Log::error("Store Customer Order Function Error: " . $th->getMessage());
 
             return response()->json(["status" => 500]);
+        }
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function edit($id)
+    {
+        try {
+            $response = $this->customerOrderService->getDetail($id);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Detail Customer Order');
+            }
+
+            $token = Session::get('SessionLogin');
+            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Contract Revision Form');
+
+            $data = $response['data']['data'] ? $response['data']['data'][0] : [];
+
+            $compact = [
+                'varAPIWebToken' => $token,
+                'documentType_RefID' => $documentTypeRefID,
+                'customerOrder_RefID' => $id ?? '',
+                'details' => $response['data']['data'] ?? [],
+                'header' => [
+                    'type' => $data['Type'] ?? '',
+                    'combinedBudget_RefID' => $data['CombinedBudget_RefID'] ?? '',
+                    'combinedBudgetCode' => $data['CombinedBudgetCode'] ?? '',
+                    'combinedBudgetName' => $data['CombinedBudgetName'] ?? '',
+                    'currency_RefID' => $data['Currency_RefID'] ?? '',
+                    'currencyCode' => $data['CurrencyISOCode'] ?? '',
+                    'currencyName' => $data['CurrencyName'] ?? '',
+                    'vatStatus' => $data['VatStatus'] ?? '',
+                    'vatRatio' => $data['VatRatio'] ?? ''
+                ]
+            ];
+
+            return view('Sales.CustomerOrder.Transactions.revision', $compact);
+        } catch (\Throwable $th) {
+            Log::error('Detail Customer Order Error', [
+                'message' => $th->getMessage(),
+                'customerOrderRefId' => $id
+            ]);
+
+            return redirect()
+                ->route('CustomerOrder.index')
+                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
         }
     }
 
@@ -162,53 +207,6 @@ class CustomerOrderController extends Controller
             'recordsFiltered' => $loanData['header']['dataCount'],
             'data' => $loanData['content']['itemList']
         ]);
-    }
-
-    public function Revision(Request $request)
-    {
-        try {
-            $varAPIWebToken = $request->session()->get('SessionLogin');
-            $customerRefID = $request->input('modal_customer_order_id');
-            $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Sales Contract Revision Form');
-
-            $response = $this->customerOrderService->getDetail($customerRefID);
-
-            if ($response['metadata']['HTTPStatusCode'] !== 200) {
-                throw new \Exception('Failed to fetch Detail Customer Order');
-            }
-
-            $details = $response['data']['data'] ?? [];
-            $header = $details[0] ?? [];
-
-            $compact = [
-                'varAPIWebToken' => $varAPIWebToken,
-                'documentType_RefID' => $documentTypeRefID,
-                'customerOrder_RefID' => $header['CustomerOrder_RefID'] ?? '',
-                'header' => [
-                    'type' => $header['Type'] ?? '',
-                    'combinedBudget_RefID' => $header['CombinedBudget_RefID'] ?? '',
-                    'combinedBudgetCode' => $header['CombinedBudgetCode'] ?? '',
-                    'combinedBudgetName' => $header['CombinedBudgetName'] ?? '',
-                    'currency_RefID' => $header['Currency_RefID'] ?? '',
-                    'currencyCode' => $header['CurrencyISOCode'] ?? '',
-                    'currencyName' => $header['CurrencyName'] ?? '',
-                    'vatStatus' => $header['VatStatus'] ?? '',
-                    'vatRatio' => $header['VatRatio'] ?? ''
-                ],
-                'details' => $details
-            ];
-
-            return view('Sales.CustomerOrder.Transactions.revision', $compact);
-        } catch (\Throwable $th) {
-            Log::error('Customer Order Index Error', [
-                'message' => $th->getMessage(),
-                'customerRefID' => $request->input('customer_order_id')
-            ]);
-
-            return redirect()
-                ->route('CustomerOrder.index', ['var' => 1])
-                ->with('NotFound', 'Data cannot be displayed at this time. Please try again.');
-        }
     }
 
     public function ReportCustomerOrderSummary(Request $request)
