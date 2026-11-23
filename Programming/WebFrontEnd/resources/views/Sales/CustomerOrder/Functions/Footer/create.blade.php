@@ -123,6 +123,7 @@
 
             $("#tab_import_from_excel").show();
             $("#tab_add_manually").hide();
+            $('#table_add_manually tbody').empty();
             // detailAddManual();
         } else {
             isImportFromExcel = false;
