@@ -29,6 +29,8 @@ use App\Http\Controllers\Purchase\PurchaseRequisitionController;
 
 use App\Http\Controllers\Register\PrivilegeMenu\PrivilegeMenuController;
 
+use App\Http\Controllers\Sales\CustomerOrderController;
+
 use App\Http\Controllers\Process\Advance\AdvanceRequestController;
 use App\Http\Controllers\Process\Advance\AdvanceSettlementController;
 use App\Http\Controllers\Process\BusinessTrip\BusinessTripRequestController;
@@ -1175,15 +1177,29 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
     Route::get('createMaterialReceive', 'logisticMaterialReceive@index')->name('MR.createMaterialReceive');
 
     // CUSTOMER ORDER
-    Route::get('ReportCustomerOrderToInvoice', 'Sales\CustomerOrderController@ReportCustomerOrderToInvoice')->name('CustomerOrder.ReportCustomerOrderToInvoice');
-    Route::get('ReportCustomerOrderSummary', 'Sales\CustomerOrderController@ReportCustomerOrderSummary')->name('CustomerOrder.ReportSummary');
-    Route::post('ReportCustomerOrderSummaryStore', 'Sales\CustomerOrderController@ReportCustomerOrderSummaryStore')->name('CustomerOrder.ReportSummaryStore');
-    Route::post('PrintExportReportCustomerOrder', 'Sales\CustomerOrderController@PrintExportReportCustomerOrder')->name('CustomerOrder.PrintExportReportCustomerOrder');
-    Route::post('CustomerOrderRevision', 'Sales\CustomerOrderController@Revision')->name('CustomerOrder.Revision');
-    Route::get('CustomerOrder/download', 'Sales\CustomerOrderController@download')->name('CustomerOrder.Download');
-    Route::post('CustomerOrderImport', 'Sales\CustomerOrderController@import')->name('CustomerOrder.Import');
-    Route::get('CustomerOrder/picklist', 'Sales\CustomerOrderController@picklist')->name('CustomerOrder.Picklist');
-    Route::resource('CustomerOrder', 'Sales\CustomerOrderController');
+    Route::controller(CustomerOrderController::class)->group(function () {
+        Route::get('ReportCustomerOrderToInvoice', 'ReportCustomerOrderToInvoice')
+            ->name('CustomerOrder.ReportCustomerOrderToInvoice');
+
+        Route::get('ReportCustomerOrderSummary', 'ReportCustomerOrderSummary')
+            ->name('CustomerOrder.ReportSummary');
+
+        Route::post('ReportCustomerOrderSummaryStore', 'ReportCustomerOrderSummaryStore')
+            ->name('CustomerOrder.ReportSummaryStore');
+
+        Route::post('PrintExportReportCustomerOrder', 'PrintExportReportCustomerOrder')
+            ->name('CustomerOrder.PrintExportReportCustomerOrder');
+
+        Route::get('CustomerOrder/download', 'download')
+            ->name('CustomerOrder.Download');
+
+        Route::post('CustomerOrderImport', 'import')
+            ->name('CustomerOrder.Import');
+
+        Route::get('CustomerOrder/picklist', 'picklist')
+            ->name('CustomerOrder.Picklist');
+    });
+    Route::resource('CustomerOrder', CustomerOrderController::class);
 
     // SETTING
     Route::get('ColorMode', 'Setting\Mode\ColorModeController@ColorMode')->name('ColorMode');
