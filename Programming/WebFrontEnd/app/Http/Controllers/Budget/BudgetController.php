@@ -29,6 +29,10 @@ class BudgetController extends Controller
         $this->budgetService = $budgetService;
     }
 
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        BUDGET - TRANSACTIONS                                                             |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
     public function Download()
     {
         $file = public_path('files/template-budget.xlsx');
@@ -55,15 +59,59 @@ class BudgetController extends Controller
 
     public function index(Request $request)
     {
-        $var = $request->query('var', 0);
-        $varAPIWebToken = Session::get('SessionLogin');
+        return view('Budget.Budget.Transactions.index');
+    }
+
+    public function create()
+    {
+        $token = Session::get('SessionLogin');
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Budget Form');
 
-        return view('Budget.Budget.Transactions.CreateBudget', [
-            'var' => $var,
-            'varAPIWebToken' => $varAPIWebToken,
-            'documentType_RefID' => $documentTypeRefID
-        ]);
+        $compact = [
+            'token' => $token,
+            'documentTypeRefID' => $documentTypeRefID
+        ];
+
+        return view('Budget.Budget.Transactions.create', $compact);
+    }
+
+    public function store(Request $request)
+    {
+        try {
+            $response = $this->budgetService->create($request);
+
+            if ($response['metadata']['HTTPStatusCode'] !== 200) {
+                throw new \Exception('Failed to fetch Create Budget => ' . $response['data']['message']);
+            }
+
+            $compact = [
+                // "documentNumber" => $response['data']['businessDocument']['documentNumber'],
+                "status" => $response['metadata']['HTTPStatusCode'] // $responseWorkflow['metadata']['HTTPStatusCode'],
+            ];
+
+            return response()->json($compact);
+        } catch (\Throwable $th) {
+            Log::error("Store Budget Function Error: " . $th->getMessage());
+
+            return response()->json(["status" => 500]);
+        }
+    }
+
+    public function show($id)
+    {
+    }
+
+    public function edit(Request $request, $id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+    }
+
+    public function destroy(Request $request, $id)
+    {
     }
 
     public function RevisionBudget(Request $request)
@@ -96,6 +144,10 @@ class BudgetController extends Controller
             'varAPIWebToken' => $varAPIWebToken
         ]);
     }
+
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        MODIFY BUDGET - TRANSACTIONS                                                      |
+    // +--------------------------------------------------------------------------------------------------------------------------+
 
     public function indexModify(Request $request)
     {
@@ -791,50 +843,6 @@ class BudgetController extends Controller
             'data' => $data,
             'status' => $status
         ]);
-    }
-
-    public function create()
-    {
-        return view('Budget.Budget.Transactions.create');
-    }
-
-    public function store(Request $request)
-    {
-        $start = date('Y-m-d h:m:s+07', strtotime($request->start));
-        $end = date('Y-m-d h:m:s+07', strtotime($request->end));
-        $varAPIWebToken = $request->session()->get('SessionLogin');
-
-        $varData = Helper_APICall::setCallAPIGateway(
-            Helper_Environment::getUserSessionID_System(),
-            $varAPIWebToken,
-            'transaction.create.budgeting.setBudget',
-            'latest',
-            [
-                'entities' => [
-                    'name' => $request->name,
-                    'validStartDateTimeTZ' => $start,
-                    'validFinishDateTimeTZ' => $end
-                ]
-            ]
-        );
-        return redirect()->route('Budget.index');
-    }
-
-    public function show($id)
-    {
-    }
-
-    public function edit(Request $request, $id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-    }
-
-    public function destroy(Request $request, $id)
-    {
     }
 
     public function BudgetStockDetail(Request $request)
