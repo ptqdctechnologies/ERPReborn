@@ -860,9 +860,9 @@ class DocumentTypeMapper
                     'revision' => 'Components.CustomerOrderDetailDocumentRevision',
                 ],
                 'resubmit' => [
-                    'url' => 'CustomerOrder.Revision',
+                    'url' => "CustomerOrder.edit",
                     'name' => 'modal_customer_order_id',
-                    'value' => $dataDetail['CustomerOrder_RefID'] ?? ''
+                    'value' => $dataDetail['CustomerOrder_RefID'] ?? '-',
                 ],
                 'transactionType' => 'CUSTOMER ORDER',
                 'businessDocument_RefID' => $dataDetail['BusinessDocument_RefID'] ?? '',
