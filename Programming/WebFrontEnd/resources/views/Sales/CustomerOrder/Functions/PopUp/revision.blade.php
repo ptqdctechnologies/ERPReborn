@@ -12,8 +12,7 @@
                 </button>
             </div>
             <div class="modal-body d-flex justify-content-center">
-                <form id="editForm" method="POST" action="{{ route('CustomerOrder.Revision') }}">
-                    @csrf
+                <form id="editForm" method="GET" action="{{ url('CustomerOrder') }}">
                     <div class="card mb-0" style="width: fit-content;">
                         <div class="card-body d-flex align-items-center justify-content-center" style="gap: 1rem;">
                             <label class="p-0 m-0">Revision Number</label>
@@ -29,8 +28,7 @@
                                     <input id="modal_customer_order_document_number" class="form-control"
                                         style="border-radius:0; background-color: white;" readonly />
                                     <input id="modal_customer_order_id" class="form-control"
-                                        name="modal_customer_order_id" style="border-radius:0; background-color: white;"
-                                        hidden />
+                                        style="border-radius:0; background-color: white;" hidden />
                                 </div>
                             </div>
                         </div>
@@ -57,18 +55,31 @@
     $('#btn-edit').on('click', function () {
         const customerOrderModalRefID = $('#modal_customer_order_id').val();
 
-        if (customerOrderModalRefID) {
-            ShowLoading();
-
-            $('#editForm').submit();
-        } else {
+        if (!customerOrderModalRefID) {
             $('#modal_customer_order_document_number').focus();
             $('#modal_customer_order_document_number').css("border", "1px solid red");
+            return;
         }
+
+        const url = "{{ url('CustomerOrder') }}/" + customerOrderModalRefID + "/edit";
+
+        $('#editForm').attr('action', url);
+        $('#modal_customer_order_document_number').css('border', '');
+
+        ShowLoading();
+
+        $('#editForm').submit();
     });
 
     $('#btn-cancel').on('click', function () {
-        $('#modal_customer_order_id').val("");
-        $('#modal_customer_order_document_number').val("");
+        $('#modal_customer_order_id').val('');
+        $('#modal_customer_order_document_number').val('');
+        $('#modal_customer_order_document_number').css('border', '');
+    });
+
+    $('#customerOrderRevisionModal').on('hidden.bs.modal', function () {
+        $('#modal_customer_order_id').val('');
+        $('#modal_customer_order_document_number').val('');
+        $('#modal_customer_order_document_number').css('border', '');
     });
 </script>
