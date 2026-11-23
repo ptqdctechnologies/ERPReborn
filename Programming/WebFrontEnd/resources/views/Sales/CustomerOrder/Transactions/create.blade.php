@@ -47,7 +47,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderCustomerOrder')
+                                    @include('Sales.CustomerOrder.Functions.Header.header')
                                 </div>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderImportFromExcel')
+                                    @include('Sales.CustomerOrder.Functions.Header.import')
                                 </div>
                             </div>
                         </div>
@@ -138,7 +138,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManually')
+                                    @include('Sales.CustomerOrder.Functions.Header.manually')
                                 </div>
                             </div>
                         </div>
