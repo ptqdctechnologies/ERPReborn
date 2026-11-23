@@ -112,6 +112,18 @@ class CustomerOrderController extends Controller
                 'documentType_RefID' => $documentTypeRefID,
                 'customerOrder_RefID' => $id ?? '',
                 'details' => $response['data']['data'] ?? [],
+                'budget' => [
+                    'preview' => $data['CombinedBudgetCode'] . ' - ' . $data['CombinedBudgetName'],
+                    'id' => $data['CombinedBudget_RefID'],
+                    'code' => $data['CombinedBudgetCode'],
+                    'name' => $data['CombinedBudgetName']
+                ],
+                'currency' => [
+                    'preview' => $data['CurrencyISOCode'] . ' - ' . $data['CurrencyName'],
+                    'id' => $data['Currency_RefID'],
+                    'code' => $data['CurrencyISOCode'],
+                    'name' => $data['CurrencyName']
+                ],
                 'header' => [
                     'type' => $data['Type'] ?? '',
                     'combinedBudget_RefID' => $data['CombinedBudget_RefID'] ?? '',
