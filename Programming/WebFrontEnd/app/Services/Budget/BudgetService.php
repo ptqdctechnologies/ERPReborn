@@ -217,4 +217,28 @@ class BudgetService
             ]
         );
     }
+
+
+    public function create($request): mixed
+    {
+        $token = Session::get('SessionLogin');
+
+        $data = json_decode($request->input('data_store'), true);
+
+        $response = null;
+
+        foreach ($data as $item) {
+            $response = Helper_APICall::setCallAPIGateway(
+                Helper_Environment::getUserSessionID_System(),
+                $token,
+                'transaction.create.budgeting.setCombinedBudgetSectionDetail',
+                'latest',
+                [
+                    'entities' => $item['entities']
+                ]
+            );
+        }
+
+        return $response;
+    }
 }
