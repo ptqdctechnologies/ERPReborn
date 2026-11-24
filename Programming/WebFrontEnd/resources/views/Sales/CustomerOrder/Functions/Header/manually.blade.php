@@ -87,7 +87,7 @@
           </select>
         </div>
         <div id="ppn_percentage_container"
-          style="gap: 8px; align-items: center; display: <?= isset($header['vatStatus']) && $header['vatStatus'] == "NO" ? 'none' : 'flex' ?>;">
+          style="gap: 8px; align-items: center; display: <?= isset($header['vatRatio']) && $header['vatRatio'] == "0.00" ? 'none' : 'flex' ?>;">
           <label style="margin-bottom: 0;">VAT (%)</label>
           <select type="text" id="ppn_percentage_option" class="form-control" name="ppn_percentage_value"
             onchange="selectPercentageVAT(this)" style="border-radius:0;width:auto;">
