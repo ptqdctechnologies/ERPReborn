@@ -133,10 +133,12 @@
                     combinedBudgetSectionName: "",
                     product_RefID: "",
                     product_name: "",
-                    work_RefID: "",
+                    productName: "",
+                    work_RefID: null,
                     work_name: "",
                     uom_RefID: "",
                     uom_name: "",
+                    uomName: "",
                     quantity: "",
                     price: "",
                     total: "",
@@ -176,154 +178,154 @@
             if (customerOrderType.value == "SUB_BUDGET_BASE") {
                 if (index === dataAddManual.length - 1) {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON PLUS -->
-                            <div class="icon-plus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                                display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
-                                onclick="addRow()">
-                                <i class="fas fa-plus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON PLUS -->
+                                <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                    display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
+                                    onclick="addRow()">
+                                    <i class="fas fa-plus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                `;
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    `;
                 } else {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON MINUS -->
-                            <div class="icon-minus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
-                                onclick="removeRow(${index})">
-                                <i class="fas fa-minus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON MINUS -->
+                                <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
+                                    onclick="removeRow(${index})">
+                                    <i class="fas fa-minus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
+                                <input type="text" id="combinedBudgetSectionName${index}" class="form-control" readonly value="${row.entities.combinedBudgetSectionName}" onchange="updateField(${index}, 'combinedBudgetSectionName', this.value)" style="background-color: ${row.entities.combinedBudgetSectionName ? '#e9ecef' : 'white'};">
                             </div>
-                            <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
-                            <input type="text" id="combinedBudgetSectionName${index}" class="form-control" readonly value="${row.entities.combinedBudgetSectionName}" onchange="updateField(${index}, 'combinedBudgetSectionName', this.value)" style="background-color: ${row.entities.combinedBudgetSectionName ? '#e9ecef' : 'white'};">
-                        </div>
-                    </td>
-                    <td>
-                        <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
-                    </td>
-                    <td>
-                        <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
-                    </td>
-                `;
+                        </td>
+                        <td>
+                            <input type="text" id="value${index}" class="form-control form-control number-without-negative" value="${row.entities.value ? Utils.formatCurrency(row.entities.value) : row.entities.value}" onkeyup="calculateTotal()" onchange="updateField(${index}, 'value', parseFloat(this.value.replace(/,/g, '')))">
+                        </td>
+                        <td>
+                            <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
+                        </td>
+                    `;
                 }
             } else {
                 if (index === dataAddManual.length - 1) {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON PLUS -->
-                            <div class="icon-plus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
-                                display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
-                                onclick="addRow()">
-                                <i class="fas fa-plus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON PLUS -->
+                                <div class="icon-plus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:#4B586A;margin:2px;cursor:pointer;
+                                    display:${index === dataAddManual.length - 1 ? 'flex' : 'none !important'};"
+                                    onclick="addRow()">
+                                    <i class="fas fa-plus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                `;
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    `;
                 } else {
                     tr.innerHTML = `
-                    <td style="text-align: center; padding-left: 4px !important;">
-                        <div class="d-flex justify-content-center">
-                            <!-- ICON MINUS -->
-                            <div class="icon-minus d-flex align-items-center justify-content-center" 
-                                style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
-                                onclick="removeRow(${index})">
-                                <i class="fas fa-minus" style="color:#fff;"></i>
+                        <td style="text-align: center; padding-left: 4px !important;">
+                            <div class="d-flex justify-content-center">
+                                <!-- ICON MINUS -->
+                                <div class="icon-minus d-flex align-items-center justify-content-center" 
+                                    style="width:20px;height:20px;border-radius:100%;background-color:red;margin:2px;cursor:pointer;display:${index === dataAddManual.length - 1 ? 'none !important' : 'flex'};"
+                                    onclick="removeRow(${index})">
+                                    <i class="fas fa-minus" style="color:#fff;"></i>
+                                </div>
                             </div>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#mySites" onclick="pickSubBudget(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
+                                <input type="text" id="combinedBudgetSectionName${index}" class="form-control" readonly value="${row.entities.combinedBudgetSectionName}" onchange="updateField(${index}, 'combinedBudgetSectionName', this.value)" style="background-color: ${row.entities.combinedBudgetSectionName ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
                             </div>
-                            <input type="hidden" id="combinedBudgetSection_RefID${index}" value="${row.entities.combinedBudgetSection_RefID}">
-                            <input type="text" id="combinedBudgetSectionName${index}" class="form-control" readonly value="${row.entities.combinedBudgetSectionName}" onchange="updateField(${index}, 'combinedBudgetSectionName', this.value)" style="background-color: ${row.entities.combinedBudgetSectionName ? '#e9ecef' : 'white'}; border: ${row.entities.combinedBudgetSection_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td class="d-none">
+                            <div class="input-group">
+                                <div class="input-group-append">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myWorks" onclick="pickWork(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="work_RefID${index}" value="${row.entities.work_RefID}">
+                                <input type="text" id="work_name${index}" class="form-control" readonly value="${row.entities.work_name}" onchange="updateField(${index}, 'work_name', this.value)" style="background-color: ${row.entities.work_name ? '#e9ecef' : 'white'}; border: ${row.entities.work_RefID ? '1px solid #ced4da' : '1px solid red'}">
                             </div>
-                            <input type="hidden" id="work_RefID${index}" value="${row.entities.work_RefID}">
-                            <input type="text" id="work_name${index}" class="form-control" readonly value="${row.entities.work_name}" onchange="updateField(${index}, 'work_name', this.value)" style="background-color: ${row.entities.work_name ? '#e9ecef' : 'white'}; border: ${row.entities.work_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append d-none">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myProductss" onclick="pickProduct(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
+                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.productName}" autocomplete="off" onchange="updateField(${index}, 'productName', this.value)" style="border: ${row.entities.productName ? '1px solid #ced4da' : '1px solid red'}; border-radius: .25rem;">
                             </div>
-                            <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
-                            <input type="text" id="product_name${index}" class="form-control" readonly value="${row.entities.product_name}" onchange="updateField(${index}, 'product_name', this.value)" style="background-color: ${row.entities.product_name ? '#e9ecef' : 'white'}; border: ${row.entities.product_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <div class="input-group">
-                            <div class="input-group-append d-none">
-                                <span class="input-group-text form-control" style="cursor:pointer;">
-                                    <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
-                                        <i class="fas fa-gift"></i>
-                                    </a>
-                                </span>
+                        </td>
+                        <td>
+                            <div class="input-group">
+                                <div class="input-group-append d-none">
+                                    <span class="input-group-text form-control" style="cursor:pointer;">
+                                        <a href="javascript:;" data-toggle="modal" data-target="#myUom" onclick="pickUom(${index})" style="color: #000;">
+                                            <i class="fas fa-gift"></i>
+                                        </a>
+                                    </span>
+                                </div>
+                                <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
+                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uomName}" onchange="updateField(${index}, 'uomName', this.value)" style="border: ${row.entities.uomName ? '1px solid #ced4da' : '1px solid red'}; border-radius: .25rem;">
                             </div>
-                            <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
-                            <input type="text" id="uom_name${index}" class="form-control" readonly value="${row.entities.uom_name}" onchange="updateField(${index}, 'uom_name', this.value)" style="background-color: ${row.entities.uom_name ? '#e9ecef' : 'white'}; border: ${row.entities.uom_RefID ? '1px solid #ced4da' : '1px solid red'}">
-                        </div>
-                    </td>
-                    <td>
-                        <input type="text" id="quantity${index}" class="form-control form-control number-without-negative" value="${row.entities.quantity ? Utils.formatCurrency(row.entities.quantity) : row.entities.quantity}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'quantity', parseFloat(this.value.replace(/,/g, '')))">
-                    </td>
-                    <td>
-                        <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
-                    </td>
-                    <td>
-                        <input type="text" id="total${index}" class="form-control form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>
-                    </td>
-                    <td style="padding-right: 0.3rem;">
-                        <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
-                    </td>
-                `;
+                        </td>
+                        <td>
+                            <input type="text" id="quantity${index}" class="form-control form-control number-without-negative" value="${row.entities.quantity ? Utils.formatCurrency(row.entities.quantity) : row.entities.quantity}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'quantity', parseFloat(this.value.replace(/,/g, '')))">
+                        </td>
+                        <td>
+                            <input type="text" id="price${index}" class="form-control form-control number-without-negative" value="${row.entities.price ? Utils.formatCurrency(row.entities.price) : row.entities.price}" onkeyup="calculateTotalLine(${index})" onkeydown="calculateTotalLine(${index})" onchange="updateField(${index}, 'price', parseFloat(this.value.replace(/,/g, '')))">
+                        </td>
+                        <td>
+                            <input type="text" id="total${index}" class="form-control form-control number-without-negative" value="${row.entities.total ? Utils.formatCurrency(row.entities.total) : row.entities.total}" onchange="updateField(${index}, 'total', parseFloat(this.value.replace(/,/g, '')))" disabled>
+                        </td>
+                        <td style="padding-right: 0.3rem;">
+                            <textarea id="notes${index}" class="form-control" onchange="updateField(${index}, 'notes', this.value)">${row.entities.notes}</textarea>
+                        </td>
+                    `;
                 }
             }
 
@@ -399,10 +401,12 @@
                         combinedBudgetSectionName: `${element.CombinedBudgetSectionCode} - ${element.CombinedBudgetSectionName}`,
                         product_RefID: element.Product_RefID,
                         product_name: `${element.ProductCode} - ${element.ProductName}`,
-                        work_RefID: element.Work_RefID,
+                        productName: element.ProductName,
+                        work_RefID: null, // element.Work_RefID,
                         work_name: `${element.WorkCode} - ${element.WorkName}`,
                         uom_RefID: element.QuantityUnit_RefID,
                         uom_name: `${element.UomCode} - ${element.UomName}`,
+                        uomName: element.UomName,
                         quantity: element.Quantity,
                         price: element.ProductUnitPriceCurrencyValue,
                         total: element.Quantity * element.ProductUnitPriceCurrencyValue,
@@ -824,7 +828,7 @@
             $(`#combinedBudgetSectionName${indexSubBudget}`).val(`${siteCode} - ${siteName}`);
             $(`#combinedBudgetSectionName${indexSubBudget}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
-            updateField(indexSubBudget, 'combinedBudgetSection_RefID', sysId);
+            updateField(indexSubBudget, 'combinedBudgetSection_RefID', parseInt(sysId));
             updateField(indexSubBudget, 'combinedBudgetSectionName', `${siteCode} - ${siteName}`);
 
             $('#mySites').modal('toggle');

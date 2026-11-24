@@ -2,14 +2,14 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
-    @include('getFunction.getProjects')
+    @include('getFunction.getBudgetCode')
     @include('getFunction.getProductss')
     @include('getFunction.getSites')
     @include('getFunction.getUom')
     @include('getFunction.getWorks')
     @include('getFunction.getCurrencies')
     @include('getFunction.getCustomerOrder')
-    @include('Sales.CustomerOrder.Functions.PopUp.PopUpCustomerOrderRevision')
+    @include('Sales.CustomerOrder.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -28,7 +28,7 @@
                 <div class="card">
                     <input type="hidden" name="DocumentTypeID" id="DocumentTypeID" value="<?= $documentType_RefID; ?>">
 
-                    <!-- CUSTOMER ORDER -->
+                    <!-- HEADER -->
                     <div class="tab-content px-3 pt-4 pb-2" id="nav-tabContent">
                         <div class="row">
                             <div class="col-12">
@@ -36,7 +36,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Customer Order
+                                            Header
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -47,7 +47,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderCustomerOrder')
+                                    @include('Sales.CustomerOrder.Functions.Header.header')
                                 </div>
                             </div>
                         </div>
@@ -80,13 +80,12 @@
                                                         <input type="text" id="dataInput_Log_FileUpload"
                                                             name="dataInput_Log_FileUpload_1" style="display:none">
                                                         <?php  echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $varAPIWebToken,
-        'dataInput_Log_FileUpload',
-        null,
-        'dataInput_Return'
-    ) .
-        ''; ?>
+                                                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                            $varAPIWebToken,
+                                                            'dataInput_Log_FileUpload',
+                                                            null,
+                                                            'dataInput_Return'
+                                                        ) . ''; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,7 +104,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Import From Excel
+                                            Detail
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -115,7 +114,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderImportFromExcel')
+                                    @include('Sales.CustomerOrder.Functions.Header.import')
                                 </div>
                             </div>
                         </div>
@@ -129,7 +128,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Add Manually
+                                            Detail
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -139,7 +138,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManually')
+                                    @include('Sales.CustomerOrder.Functions.Header.manually')
                                 </div>
                             </div>
                         </div>

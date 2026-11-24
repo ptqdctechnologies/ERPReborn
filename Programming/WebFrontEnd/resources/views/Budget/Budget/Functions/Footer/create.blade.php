@@ -10,7 +10,9 @@
     let indexProduct = null;
     let indexCurrency = null;
     let indexStartDate = null;
+    const budgetID = document.getElementById('budget_id');
     const ctx = document.getElementById('myChart');
+    const documentTypeRefID = {!! json_encode($documentTypeRefID ?? '') !!};
     const defaultRow = {
         entities: {
             combinedBudgetSection_RefID: '',
@@ -25,6 +27,8 @@
             currency_RefID: '',
             currrencyISOCode: '',
             currencyName: '',
+            currencyExchangeRate: '',
+            quantityUnit_RefID: '',
             qty: '',
             price: '',
             total: '',
@@ -355,9 +359,11 @@
             },
             success: function (response) {
                 if (response.status === 200 && response.isAvailable) {
-                    $("#project_id").val(combinedBudgetRefID);
-                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#project_name").css('background-color', '#e9ecef');
+                    $("#budget_id").val(combinedBudgetRefID);
+                    $("#budget_code").val(combinedBudgetCode);
+                    $("#budget_name").val(combinedBudgetName);
+                    $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_preview").css('background-color', '#e9ecef');
 
                     $("#type_import_from_excel").prop("disabled", false);
                     $("#type_add_manually").prop("disabled", false);
@@ -375,8 +381,8 @@
                     Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
                 }
 
-                $("#iconBudget").show();
-                $("#loadingBudget").hide();
+                $("#budget_icon").show();
+                $("#budget_loading").hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
@@ -389,24 +395,46 @@
             type: 'GET',
             url: '{!! route("Workflow.UserAllowedToSubmit") !!}',
             data: {
-                businessDocumentType_RefID: '77000000000057',
+                businessDocumentType_RefID: documentTypeRefID,
                 combinedBudget_RefID: combinedBudgetRefID
             },
             success: function (response) {
                 if (response.status === 200 && !response.data[0].signAccess) {
-                    getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
+                    // getBudgetProgress(combinedBudgetRefID, combinedBudgetCode, combinedBudgetName);
+
+                    $("#budget_id").val(combinedBudgetRefID);
+                    $("#budget_code").val(combinedBudgetCode);
+                    $("#budget_name").val(combinedBudgetName);
+                    $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_preview").css('background-color', '#e9ecef');
+
+                    $("#type_import_from_excel").prop("disabled", false);
+                    $("#type_add_manually").prop("disabled", false);
+
+                    $("#myProjectsTrigger").prop("disabled", true);
+                    $("#myProjectsTrigger").css("cursor", "not-allowed");
+
+                    $("#excel_file").prop("disabled", false);
+                    $("#uploadBudgetFile").css("cursor", "pointer");
+
+                    getCustomSites(combinedBudgetRefID);
+
+                    getCustomWorks();
                 } else {
-                    $("#iconBudget").show();
-                    $("#loadingBudget").hide();
+                    // $("#budget_icon").show();
+                    // $("#budget_loading").hide();
 
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
+
+                $("#budget_icon").show();
+                $("#budget_loading").hide();
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
                 Swal.fire("Error", "Data Error", "error");
 
-                $("#loadingBudget").css({ "display": "none" });
+                $("#budget_loading").css({ "display": "none" });
                 $("#myProjectSecondTrigger").css({ "display": "block" });
             }
         });
@@ -697,7 +725,60 @@
         renderTimeline();
     }
 
+    function showBudgetSummary() {
+        let dataStore = [];
+        const targetTable = document.getElementById('budget_summary_table').getElementsByTagName('tbody')[0];
+
+        targetTable.innerHTML = '';
+
+        for (let data of dataExcel) {
+            if (
+                data.entities.combinedBudgetSection_RefID &&
+                data.entities.work_RefID &&
+                data.entities.product_RefID &&
+                data.entities.currency_RefID &&
+                data.entities.qty &&
+                data.entities.price
+            ) {
+                dataStore.push({
+                    entities: {
+                        version: 1,
+                        combinedBudget_RefID: parseInt(budgetID.value),
+                        combinedBudgetSection_RefID: parseInt(data.entities.combinedBudgetSection_RefID),
+                        combinedBudgetSubSectionLevel1_RefID: null,
+                        combinedBudgetSubSectionLevel2_RefID: null,
+                        product_RefID: parseInt(data.entities.product_RefID),
+                        description: data.entities.productName,
+                        quantity: Utils.parseFloatSafe(data.entities.qty),
+                        quantityUnit_RefID: parseInt(data.entities.quantityUnit_RefID),
+                        unitPriceCurrency_RefID: parseInt(data.entities.currency_RefID),
+                        unitPriceCurrencyValue: Utils.parseFloatSafe(data.entities.price),
+                        unitPriceCurrencyExchangeRate: Utils.parseFloatSafe(data.entities.currencyExchangeRate),
+                        work_RefID: parseInt(data.entities.work_RefID)
+                    }
+                });
+
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td style="text-wrap: auto;line-height: normal; padding: 0.8rem 0.5rem;">${data.entities.combinedBudgetSectionCode} - ${data.entities.combinedBudgetSectionName}</td>
+                    <td style="text-wrap: auto;line-height: normal; padding: 0.8rem 0.5rem;">${data.entities.workCode} - ${data.entities.workName}</td>
+                    <td style="text-wrap: auto;line-height: normal; padding: 0.8rem 0.5rem;">${data.entities.productCode} - ${data.entities.productName}</td>
+                    <td style="text-wrap: auto;line-height: normal; padding: 0.8rem 0.5rem;">${data.entities.currrencyISOCode} - ${data.entities.currencyName}</td>
+                    <td style="padding: 0.8rem 0.5rem;">${Utils.formatCurrency(data.entities.qty)}</td>
+                    <td style="padding: 0.8rem 0.5rem;">${Utils.formatCurrency(data.entities.price)}</td>
+                    <td style="padding: 0.8rem 0.5rem;">${Utils.formatCurrency(data.entities.total)}</td>
+                `;
+
+                targetTable.appendChild(newRow);
+            }
+        }
+
+        $('#data_store').val(JSON.stringify(dataStore));
+    }
+
     function commentWorkflow() {
+        $('#budget_summary_modal').modal('toggle');
+
         const swalWithBootstrapButtons = Swal.mixin({
             confirmButtonClass: 'btn btn-success btn-sm',
             cancelButtonClass: 'btn btn-danger btn-sm',
@@ -719,9 +800,9 @@
             reverseButtons: true
         }).then((result) => {
             if ('value' in result) {
-                dataWorkflow.comment = result.value;
-                // ShowLoading();
-                // AdvanceRequestStore();
+                $("#workflow_comment").val(result.value);
+
+                document.getElementById('budgetForm').requestSubmit();
             }
         });
     }
@@ -747,9 +828,78 @@
                 'Validation Error'
             );
         } else {
-            commentWorkflow();
+            showBudgetSummary();
+            $('#budget_summary_modal').modal('toggle');
+            // commentWorkflow();
         }
     }
+
+    $('#budgetForm').on('submit', function (e) {
+        e.preventDefault();
+
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '{!! route("Budget.store") !!}',
+            data: $(this).serialize(),
+            beforeSend: function () {
+                Utils.showLoading();
+            },
+            success: function (response) {
+                console.log('response', response);
+
+                if (response.status == 200) {
+                    const swalWithBootstrapButtons = Swal.mixin({
+                        confirmButtonClass: 'btn btn-success btn-sm',
+                        cancelButtonClass: 'btn btn-danger btn-sm',
+                        buttonsStyling: true,
+                    });
+
+                    swalWithBootstrapButtons.fire({
+                        title: 'Successful !',
+                        type: 'success',
+                        html: 'Data has been saved.',
+                        showCloseButton: false,
+                        showCancelButton: false,
+                        focusConfirm: false,
+                        confirmButtonText: '<span style="color:black;"> OK </span>',
+                        confirmButtonColor: '#4B586A',
+                        confirmButtonColor: '#e9ecef',
+                        reverseButtons: true
+                    }).then((result) => {
+                        cancelForm("{{ route('Budget.index') }}");
+                    });
+                } else {
+                    ErrorNotif("Create Budget Failed");
+                }
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                console.log(jqXHR.responseJSON);
+
+                // Utils.hideLoading();
+
+                // if (jqXHR.status === 422) {
+                //     let errors = jqXHR.responseJSON.errors;
+
+                //     $.each(errors, function (key, value) {
+                //         // console.log(key + ': ' + value[0]);
+
+                //         if (formList[key]) {
+                //             ErrorHandler.showErrorInputMessage(formList[key].component, formList[key].containerMessageId, formList[key].messageId, value[0]);
+                //         }
+                //     });
+                // }
+            },
+            complete: function (jqXHR, textStatus) {
+                Utils.hideLoading();
+            }
+        });
+    });
 
     $('#excel_file').on('change', function () {
         let fileName = this.files[0].name;
@@ -782,15 +932,17 @@
                             combinedBudgetSection_RefID: validateSubBudget ? validateSubBudget.Sys_ID : '',
                             combinedBudgetSectionCode: validateSubBudget ? validateSubBudget.Code : row[1],
                             combinedBudgetSectionName: validateSubBudget ? validateSubBudget.Name : row[2],
-                            work_RefID: validateWork ? validateWork.id : '',
-                            workCode: validateWork ? validateWork.code : row[3],
-                            workName: validateWork ? validateWork.name : row[4],
+                            work_RefID: validateWork ? validateWork.sys_ID : '',
+                            workCode: validateWork ? validateWork.additionalData.code : row[3],
+                            workName: validateWork ? validateWork.sys_Text : row[4],
                             product_RefID: validateProduct ? validateProduct.sys_ID : '',
                             productCode: validateProduct ? validateProduct.code : row[5],
                             productName: validateProduct ? validateProduct.name : row[6],
                             currency_RefID: validateCurrency ? validateCurrency.sys_ID : '',
                             currrencyISOCode: validateCurrency ? validateCurrency.ISOCode : row[7],
                             currencyName: validateCurrency ? validateCurrency.name : row[8],
+                            currencyExchangeRate: validateCurrency ? validateCurrency.exchangeRate : 0,
+                            quantityUnit_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
                             qty: row[9] > 0 ? Utils.parseFloatSafe(row[9]) : Utils.parseFloatSafe(0),
                             price: row[10] > 0 ? Utils.parseFloatSafe(row[10]) : Utils.parseFloatSafe(0),
                             total: row[11] > 0 ? Utils.parseFloatSafe(row[11]) : Utils.parseFloatSafe(0),
@@ -809,19 +961,24 @@
         $("#uploadBudgetFile").css("cursor", "not-allowed");
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+    $('#budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-        $("#iconBudget").hide();
-        $("#loadingBudget").show();
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-        getCustomCurrencies();
+            $("#budget_icon").hide();
+            $("#budget_loading").show();
 
-        workflowValidate(sysId, code, name);
+            getCustomCurrencies();
 
-        $('#myProjects').modal('toggle');
+            workflowValidate(id, code, name);
+        }
+
+        $("#budget_code_modal").modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {
@@ -881,11 +1038,13 @@
             const productRefID = dataRow.sys_ID;
             const productCode = dataRow.code;
             const productName = dataRow.name;
+            const quantityUnitRefID = dataRow.quantityUnit_RefID;
 
             $(`#product_RefID${indexProduct}`).val(productRefID);
             $(`#productName${indexProduct}`).val(`${productCode ?? ''} - ${productName ?? ''}`);
             $(`#productName${indexProduct}`).css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
+            updateField(indexProduct, 'quantityUnit_RefID', quantityUnitRefID);
             updateField(indexProduct, 'product_RefID', productRefID);
             updateField(indexProduct, 'productCode', productCode);
             updateField(indexProduct, 'productName', productName);
@@ -902,6 +1061,7 @@
             const currencyRefID = dataRow.sys_ID;
             const currencyISOCode = dataRow.ISOCode;
             const currencyName = dataRow.name;
+            const currencyExchangeRate = dataRow.exchangeRate || 0;
 
             if (currencyISOCode != "USD" && currencyISOCode != "IDR" && currencyISOCode != "EUR") {
                 Swal.fire("Error", "Please Call Accounting Staffs to Input Current Exchange Rate. Thank You.", "error");
@@ -915,6 +1075,7 @@
                 updateField(indexCurrency, 'currency_RefID', currencyRefID);
                 updateField(indexCurrency, 'currrencyISOCode', currencyISOCode);
                 updateField(indexCurrency, 'currencyName', currencyName);
+                updateField(indexCurrency, 'currencyExchangeRate', currencyExchangeRate);
             }
 
             $("#myCurrencies").modal('toggle');

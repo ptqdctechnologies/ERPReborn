@@ -7,7 +7,7 @@
     @include('getFunction.getUom')
     @include('getFunction.getWorks')
     @include('getFunction.getCustomerOrder')
-    @include('Sales.CustomerOrder.Functions.PopUp.PopUpCustomerOrderRevision')
+    @include('Sales.CustomerOrder.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
@@ -36,7 +36,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Customer Order
+                                            Header
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -47,7 +47,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderCustomerOrderRevision')
+                                    @include('Sales.CustomerOrder.Functions.Header.header')
                                 </div>
                             </div>
                         </div>
@@ -84,8 +84,7 @@
         'dataInput_Log_FileUpload',
         null,
         'dataInput_Return'
-    ) .
-        ''; ?>
+    ) . ''; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -104,7 +103,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Customer Order Detail
+                                            Detail
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -114,7 +113,7 @@
                                     </div>
 
                                     <!-- BODY -->
-                                    @include('Sales.CustomerOrder.Functions.Header.HeaderAddManuallyRevision')
+                                    @include('Sales.CustomerOrder.Functions.Header.manually')
                                 </div>
                             </div>
                         </div>
@@ -144,6 +143,6 @@
         </section>
     </div>
 
-    @include('Sales.CustomerOrder.Functions.Footer.FooterCustomerOrderRevision')
+    @include('Sales.CustomerOrder.Functions.Footer.revision')
     @include('Partials.footer')
 @endsection

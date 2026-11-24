@@ -20,11 +20,16 @@
         approverEntityRefID: null,
         comment: null
     };
-    const budgetID = document.getElementById("project_id");
+    const budgetID = document.getElementById("budget_id");
     const currencyID = document.getElementById("currency_id");
     const typeOption = document.getElementById("typeOption");
     const fileID = document.getElementById("dataInput_Log_FileUpload");
     const coFile = document.getElementById("excel_name");
+
+    function showHideLoading(displayIcon, displayLoading) {
+        $("#budget_icon").css({ "display": displayIcon });
+        $("#budget_loading").css({ "display": displayLoading });
+    }
 
     function getVAT() {
         $.ajaxSetup({
@@ -123,6 +128,7 @@
 
             $("#tab_import_from_excel").show();
             $("#tab_add_manually").hide();
+            $('#table_add_manually tbody').empty();
             // detailAddManual();
         } else {
             isImportFromExcel = false;
@@ -336,10 +342,12 @@
                     sub_budget_name: "",
                     product_RefID: "",
                     product_name: "",
+                    productName: "",
                     work_RefID: null,
                     work_name: "",
                     uom_RefID: "",
                     uom_name: "",
+                    uomName: "",
                     quantity: "",
                     price: "",
                     total: "",
@@ -492,7 +500,7 @@
                                     </span>
                                 </div>
                                 <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
-                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.product_name}" autocomplete="off" onchange="updateField(${index}, 'product_name', this.value)" style="border-radius: .25rem;">
+                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.productName}" autocomplete="off" onchange="updateField(${index}, 'productName', this.value)" style="border-radius: .25rem;">
                             </div>
                         </td>
                         <td>
@@ -505,7 +513,7 @@
                                     </span>
                                 </div>
                                 <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
-                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uom_name}" autocomplete="off" onchange="updateField(${index}, 'uom_name', this.value)" style="border-radius: .25rem;">
+                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uomName}" autocomplete="off" onchange="updateField(${index}, 'uomName', this.value)" style="border-radius: .25rem;">
                             </div>
                         </td>
                         <td>
@@ -717,8 +725,8 @@
                 !isCurrencyIDNotEmpty &&
                 !isCustomerOrderTypeNotEmpty
             ) {
-                $("#project_name").css("border", "1px solid red");
-                $("#currency_name").css("border", "1px solid red");
+                $("#budget_preview").css("border", "1px solid red");
+                $("#currency_preview").css("border", "1px solid red");
 
                 $("#project_message").show();
                 $("#currency_message").show();
@@ -726,12 +734,12 @@
                 return;
             }
             if (!isBudgetIDNotEmpty) {
-                $("#project_name").css("border", "1px solid red");
+                $("#budget_preview").css("border", "1px solid red");
                 $("#project_message").show();
                 return;
             }
             if (!isCurrencyIDNotEmpty) {
-                $("#currency_name").css("border", "1px solid red");
+                $("#currency_preview").css("border", "1px solid red");
                 $("#currency_message").show();
                 return;
             }
@@ -996,20 +1004,21 @@
                 if (response.status === 200 && response.isAvailable) {
                     getCustomSites(combinedBudgetRefID);
 
-                    $("#project_id").val(combinedBudgetRefID);
-                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#project_name").css('background-color', '#e9ecef');
+                    $("#budget_id").val(combinedBudgetRefID);
+                    $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_preview").css('background-color', '#e9ecef');
 
+                    $("#budget_icon").prop("disabled", true);
+                    $("#budget_icon").css("cursor", "not-allowed");
+                    
                     $("#type_import_from_excel").prop("disabled", false);
                     $("#type_add_manually").prop("disabled", false);
-                    $("#myProjectsTrigger").prop("disabled", true);
-                    $("#myProjectsTrigger").css("cursor", "not-allowed");
                 } else {
                     Swal.fire("Error", "Budget progress from last week has not been entered yet", "error");
                 }
 
                 $("#project_loading").css({ "display": "none" });
-                $("#myProjectsTrigger").css({ "display": "block" });
+                $("#budget_icon").css({ "display": "block" });
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log(jqXHR.responseJSON);
@@ -1031,20 +1040,22 @@
 
                     getCustomSites(combinedBudgetRefID);
 
-                    $("#project_id").val(combinedBudgetRefID);
-                    $("#project_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#project_name").css('background-color', '#e9ecef');
+                    $("#budget_id").val(combinedBudgetRefID);
+                    $("#budget_code").val(combinedBudgetCode);
+                    $("#budget_name").val(combinedBudgetName);
+                    $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_preview").css('background-color', '#e9ecef');
+
+                    $("#budget_icon").prop("disabled", true);
+                    $("#budget_icon").css("cursor", "not-allowed");
 
                     $("#type_import_from_excel").prop("disabled", false);
                     $("#type_add_manually").prop("disabled", false);
-                    $("#myProjectsTrigger").prop("disabled", true);
-                    $("#myProjectsTrigger").css("cursor", "not-allowed");
                 } else {
                     Swal.fire("Error", "You are not included in this budget", "error");
                 }
 
-                $("#project_loading").css({ "display": "none" });
-                $("#myProjectsTrigger").css({ "display": "block" });
+                showHideLoading("block", "none");
             },
             error: function (jqXHR, textStatus, errorThrown) {
                 console.log('jqXHR, textStatus, errorThrown', jqXHR, textStatus, errorThrown);
@@ -1113,10 +1124,12 @@
                                 sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
                                 // product_RefID: validateProduct ? validateProduct.sys_ID : '',
                                 product_name: row[3], // validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : row[3],
+                                productName: row[3],
                                 // work_RefID: validateWork ? validateWork.id : '',
                                 // work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
                                 // uom_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
                                 uom_name: row[4], // validateProduct ? validateProduct.quantityUnitName : '',
+                                uomName: row[4],
                                 // uom_RefID: validateUom ? validateUom.sys_ID : '',
                                 // uom_name: validateUom ? validateUom.name : row[7],
                                 quantity: qtyValue,
@@ -1133,22 +1146,28 @@
         });
     });
 
-    $('#tableProjects').on('click', 'tbody tr', async function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+    $('#budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-        getWorkflow(sysId, code, name);
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-        $("#project_id").val("");
-        $("#project_name").val("");
-        $("#project_name").css("border", "1px solid #ced4da");
-        $("#project_message").hide();
+            $("#budget_preview").val("");
+            $("#budget_id").val("");
+            $("#budget_name").val("");
+            $("#budget_code").val("");
 
-        $("#project_loading").css({ "display": "block" });
-        $("#myProjectsTrigger").css({ "display": "none" });
+            showHideLoading("none", "block");
 
-        $('#myProjects').modal('toggle');
+            getWorkflow(id, code, name);
+
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
+        }
+
+        $("#budget_code_modal").modal('toggle');
     });
 
     $('#tableCurrencies').on('click', 'tbody tr', function () {
@@ -1168,15 +1187,17 @@
             }
 
             $("#currency_id").val(currencyRefID);
-            $("#currency_name").val(`${currencyISOCode} - ${currencyName}`);
-            $("#currency_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+            $("#currency_name").val(currencyName);
+            $("#currency_code").val(currencyISOCode);
+            $("#currency_preview").val(`${currencyISOCode} - ${currencyName}`);
+            $("#currency_preview").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
             $("#currency_message").hide();
 
-            $("#myCurrenciesTrigger").prop("disabled", true);
-            $("#myCurrenciesTrigger").css("cursor", "not-allowed");
-
-            $('#myCurrencies').modal('toggle');
+            $("#currency_icon").prop("disabled", true);
+            $("#currency_icon").css("cursor", "not-allowed");
         }
+
+        $('#myCurrencies').modal('toggle');
     });
 
     $('#tableSites').on('click', 'tbody tr', function () {

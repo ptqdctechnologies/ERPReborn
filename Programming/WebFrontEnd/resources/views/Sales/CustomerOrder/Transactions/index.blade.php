@@ -6,7 +6,7 @@
     @include('getFunction.getSites')
     @include('getFunction.getCurrencies')
     @include('getFunction.getCustomerOrder')
-    @include('Sales.CustomerOrder.Functions.PopUp.PopUpCustomerOrderRevision')
+    @include('Sales.CustomerOrder.Functions.PopUp.revision')
 
     <div class="content-wrapper">
         <section class="content">
