@@ -36,7 +36,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Customer Order
+                                            Header
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse"
@@ -79,12 +79,12 @@
                                                         <input type="text" id="dataInput_Log_FileUpload"
                                                             name="dataInput_Log_FileUpload_1" style="display:none">
                                                         <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-                                                            \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-                                                            $varAPIWebToken,
-                                                            'dataInput_Log_FileUpload',
-                                                            null,
-                                                            'dataInput_Return'
-                                                        ) . ''; ?>
+        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+        $varAPIWebToken,
+        'dataInput_Log_FileUpload',
+        null,
+        'dataInput_Return'
+    ) . ''; ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -103,7 +103,7 @@
                                     <!-- HEADER -->
                                     <div class="card-header">
                                         <label class="card-title">
-                                            Customer Order Detail
+                                            Detail
                                         </label>
                                         <div class="card-tools">
                                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
