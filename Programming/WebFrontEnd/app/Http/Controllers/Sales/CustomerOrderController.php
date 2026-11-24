@@ -221,6 +221,10 @@ class CustomerOrderController extends Controller
         ]);
     }
 
+    // +--------------------------------------------------------------------------------------------------------------------------+
+    // |                                        REPORTS                                                                           |
+    // +--------------------------------------------------------------------------------------------------------------------------+
+
     public function ReportCustomerOrderSummary(Request $request)
     {
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Customer Order Form');
@@ -287,13 +291,18 @@ class CustomerOrderController extends Controller
             ini_set('memory_limit', '512M');
             set_time_limit(180);
 
+            $budget = $request->input('budgetPreview');
+            $coDate = $request->input('coDate');
+            $type = $request->input('printType');
             $dataCustomerOrderSummary = json_decode($request->dataReport, true);
-            $type = $request->printType;
 
             if ($dataCustomerOrderSummary) {
                 if ($type === "PDF") {
-                    $pdf = PDF::loadView('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary_pdf', ['dataCustomerOrder' => $dataCustomerOrderSummary])
-                        ->setPaper('a4', 'landscape');
+                    $pdf = PDF::loadView('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary_pdf', [
+                        'dataCustomerOrder' => $dataCustomerOrderSummary,
+                        'budget' => $budget,
+                        'coDate' => $coDate
+                    ])->setPaper('a4', 'landscape');
 
                     $pdf->output();
 
@@ -306,7 +315,7 @@ class CustomerOrderController extends Controller
 
                     return $pdf->download('Export Report Customer Order.pdf');
                 } else if ($type === "EXCEL") {
-                    return Excel::download(new ExportReportCustomerOrder($dataCustomerOrderSummary), 'Export Report Customer Order.xlsx');
+                    return Excel::download(new ExportReportCustomerOrder($dataCustomerOrderSummary, $budget, $coDate), 'Export Report Customer Order.xlsx');
                 } else {
                     throw new \Exception('Failed to Export Customer Order Report');
                 }
