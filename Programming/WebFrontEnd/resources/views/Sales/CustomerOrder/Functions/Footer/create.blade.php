@@ -500,7 +500,7 @@
                                     </span>
                                 </div>
                                 <input type="hidden" id="product_RefID${index}" value="${row.entities.product_RefID}">
-                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.product_name}" autocomplete="off" onchange="updateField(${index}, 'productName', this.value)" style="border-radius: .25rem;">
+                                <input type="text" id="product_name${index}" class="form-control" value="${row.entities.productName}" autocomplete="off" onchange="updateField(${index}, 'productName', this.value)" style="border-radius: .25rem;">
                             </div>
                         </td>
                         <td>
@@ -513,7 +513,7 @@
                                     </span>
                                 </div>
                                 <input type="hidden" id="uom_RefID${index}" value="${row.entities.uom_RefID}">
-                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uom_name}" autocomplete="off" onchange="updateField(${index}, 'uomName', this.value)" style="border-radius: .25rem;">
+                                <input type="text" id="uom_name${index}" class="form-control" value="${row.entities.uomName}" autocomplete="off" onchange="updateField(${index}, 'uomName', this.value)" style="border-radius: .25rem;">
                             </div>
                         </td>
                         <td>
@@ -1124,10 +1124,12 @@
                                 sub_budget_name: validateSubBudget ? `${validateSubBudget.Code} - ${validateSubBudget.Name}` : `${row[1]} - ${row[2]}`,
                                 // product_RefID: validateProduct ? validateProduct.sys_ID : '',
                                 product_name: row[3], // validateProduct ? `${validateProduct.code} - ${validateProduct.name}` : row[3],
+                                productName: row[3],
                                 // work_RefID: validateWork ? validateWork.id : '',
                                 // work_name: validateWork ? validateWork.name : `${row[3]} - ${row[4]}`,
                                 // uom_RefID: validateProduct ? validateProduct.quantityUnit_RefID : '',
                                 uom_name: row[4], // validateProduct ? validateProduct.quantityUnitName : '',
+                                uomName: row[4],
                                 // uom_RefID: validateUom ? validateUom.sys_ID : '',
                                 // uom_name: validateUom ? validateUom.name : row[7],
                                 quantity: qtyValue,
