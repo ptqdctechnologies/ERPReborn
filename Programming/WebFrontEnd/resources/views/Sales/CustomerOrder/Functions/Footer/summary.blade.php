@@ -50,6 +50,7 @@
     let dataReport = [];
     const documentTypeID = document.getElementById("documentTypeRefID");
     const budgetCode = document.getElementById("budget_code");
+    const budgetPreview = document.getElementById("budget_preview");
     const coDate = document.getElementById("customer_order_date_range");
     const printType = document.getElementById("print_type");
     const TABLE_ROW_HEIGHT_PX = 41;
@@ -59,16 +60,9 @@
     function selectBudget(combinedBudgetID, combinedBudgetCode, combinedBudgetName) {
         $("#budget_id").val(combinedBudgetID);
         $("#budget_code").val(combinedBudgetCode);
-        $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-        $("#budget_name").css('background-color', '#e9ecef');
-
-        getSites(combinedBudgetID);
-
-        $("#mySitesTrigger").css('cursor', 'pointer');
-        $("#mySitesTrigger").attr({
-            "data-toggle": "modal",
-            "data-target": "#mySites"
-        });
+        $("#budget_name").val(combinedBudgetName);
+        $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+        $("#budget_preview").css('background-color', '#e9ecef');
     }
 
     function resetForm() {
@@ -76,22 +70,16 @@
 
         $('#table_container').hide();
 
-        $("#budget_name").css('background-color', '#fff');
+        $("#budget_preview").css('background-color', '#fff');
+        $(`#budget_preview`).val("");
         $(`#budget_name`).val("");
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
 
-        $("#mySitesTrigger").prop("disabled", true);
-        $("#mySitesTrigger").css({ "cursor": "not-allowed" });
-        $("#sub_budget_name").css('background-color', '#fff');
-        $(`#sub_budget_name`).val("");
-        $(`#sub_budget_id`).val("");
-        $(`#sub_budget_code`).val("");
-
         $("#customer_order_date_range").css('background-color', '#fff');
         $(`#customer_order_date_range`).val("");
 
-        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+        ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
         ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
     }
 
@@ -253,7 +241,9 @@
             url: '{!! route("CustomerOrder.PrintExportReportCustomerOrder") !!}',
             type: 'POST',
             data: {
+                budgetPreview: budgetPreview.value || '-',
                 dataReport: JSON.stringify(dataReport),
+                coDate: coDate.value || '-',
                 printType: printType.value
             },
             xhrFields: {
@@ -299,16 +289,16 @@
             isBudgetCodeNotEmpty ||
             isCoDateNotEmpty
         ) {
-            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
             ErrorHandler.hideErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
 
             if (isBudgetCodeNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+                ErrorHandler.showErrorInputMessage("#budget_preview", "#budget_message");
             }
         } else {
-            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+            ErrorHandler.showErrorInputMessage("#budget_preview", "#budget_message");
             ErrorHandler.showErrorInputMessage("#customer_order_date_range", "#dateRangeMessage");
         }
     }
@@ -325,42 +315,33 @@
         }
     }
 
-    $('#tableProjects').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+    $('#budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-        $("#budget_id").val("");
-        $("#budget_code").val("");
-        $("#budget_name").val("");
-        $("#budget_name").css('background-color', '#fff');
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-        if (Utils.isUserAuthorizedForReport()) {
-            selectBudget(sysId, code, name);
-        } else {
-            Utils.showBudgetLoading();
+            $("#budget_id").val("");
+            $("#budget_code").val("");
+            $("#budget_name").val("");
+            $("#budget_preview").val("");
+            $("#budget_preview").css('background-color', '#fff');
 
-            userAllowedToInvolve(sysId, code, name, documentTypeID.value, selectBudget);
+            if (Utils.isUserAuthorizedForReport()) {
+                selectBudget(id, code, name);
+            } else {
+                Utils.showBudgetLoading();
+
+                userAllowedToInvolve(id, code, name, documentTypeID.value, selectBudget);
+            }
+
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
         }
 
-        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
-
-        $("#myProjects").modal('toggle');
-    });
-
-    $('#tableSites').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_site"]').val();
-        const siteCode = $(this).find('td:nth-child(2)').text();
-        const siteName = $(this).find('td:nth-child(3)').text();
-
-        $("#sub_budget_id").val(sysId);
-        $("#sub_budget_code").val(siteCode);
-        $("#sub_budget_name").val(`${siteCode} - ${siteName}`);
-        $("#sub_budget_name").css('background-color', '#e9ecef');
-
-        ErrorHandler.hideErrorInputMessage("#sub_budget_name", "#subBudgetMessage");
-
-        $('#mySites').modal('toggle');
+        $("#budget_code_modal").modal('toggle');
     });
 
     $(document).ready(function () {
