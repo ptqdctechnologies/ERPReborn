@@ -233,7 +233,7 @@ class CustomerOrderController extends Controller
             'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
 
-        return view('Sales.CustomerOrder.Reports.ReportCustomerOrderSummary', $compact);
+        return view('Sales.CustomerOrder.Reports.summary', $compact);
     }
 
     public function ReportCustomerOrderSummaryStore(Request $request)
