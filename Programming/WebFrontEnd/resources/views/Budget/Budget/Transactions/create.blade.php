@@ -41,11 +41,11 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Budget
+                                                Header
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                    aria-label="Collapse Section Budget Information">
+                                                    aria-label="Collapse Section Header Information">
                                                     <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                                 </button>
                                             </div>
@@ -66,11 +66,11 @@
                                         <!-- HEADER -->
                                         <div class="card-header">
                                             <label class="card-title">
-                                                Import from Excel
+                                                Detail
                                             </label>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse"
-                                                    aria-label="Collapse Section Import From Excel Information">
+                                                    aria-label="Collapse Section Detail Information">
                                                     <i class="fas fa-angle-down btn-sm" style="color:black;"></i>
                                                 </button>
                                             </div>
