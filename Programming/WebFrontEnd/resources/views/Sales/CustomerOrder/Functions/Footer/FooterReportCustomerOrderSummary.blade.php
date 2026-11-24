@@ -97,6 +97,8 @@
 
     function getDataReport() {
         let total = 0;
+        let totalVAT = 0;
+        let totalWithVAT = 0;
 
         $('#table_summary').DataTable({
             destroy: true,
@@ -129,7 +131,15 @@
                     dataReport = json.data;
 
                     json.data.forEach(function (row) {
-                        total += parseFloat(row.value) || 0;
+                        const value = Utils.parseFloatSafe(row.value);
+                        const vatRatio = Utils.parseFloatSafe(row.vatRatio);
+
+                        const resultTotalVAT = (value * vatRatio) / 100;
+                        const resultTotalWithVAT = value + ((value * vatRatio) / 100);
+
+                        total += value;
+                        totalVAT += parseFloat(resultTotalVAT);
+                        totalWithVAT += parseFloat(resultTotalWithVAT);
                     });
 
                     return json.data;
@@ -138,6 +148,8 @@
                     Utils.showLoading();
 
                     total = 0;
+                    totalVAT = 0;
+                    totalWithVAT = 0;
 
                     $('#table_summary tbody').empty();
                     $('#table_container').css("display", "none");
@@ -186,6 +198,40 @@
                     }
                 },
                 {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-wrap",
+                    render: function (data, type, row, meta) {
+                        return `${currencyTotal(data.vatRatio || '0')} %`;
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-wrap",
+                    render: function (data, type, row, meta) {
+                        const result = (
+                            Utils.parseFloatSafe(data.value) *
+                            Utils.parseFloatSafe(data.vatRatio)
+                        ) / 100;
+
+                        return currencyTotal(result || 0);
+                    }
+                },
+                {
+                    data: null,
+                    defaultContent: '-',
+                    className: "text-wrap",
+                    render: function (data, type, row, meta) {
+                        const value = Utils.parseFloatSafe(data.value);
+                        const vatRatio = Utils.parseFloatSafe(data.vatRatio);
+
+                        const result = value + ((value * vatRatio) / 100);
+
+                        return currencyTotal(result || 0);
+                    }
+                },
+                {
                     data: 'notes',
                     defaultContent: '-',
                     className: "text-wrap",
@@ -194,6 +240,8 @@
             drawCallback: function (settings) {
                 // $('#table_summary tfoot th:nth-child(2)').text(currencyTotal(total));
                 $('#grandTotal').text(currencyTotal(total));
+                $('#grandTotalVAT').text(currencyTotal(totalVAT));
+                $('#grandTotalWithVAT').text(currencyTotal(totalWithVAT));
             }
         });
     }

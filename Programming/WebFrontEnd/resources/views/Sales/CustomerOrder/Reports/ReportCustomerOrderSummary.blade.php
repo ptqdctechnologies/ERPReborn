@@ -59,6 +59,15 @@
                                                         Total</th>
                                                     <th
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                        VAT</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                        Total VAT</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
+                                                        Total With VAT</th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;width: 10px;">
                                                         Notes</th>
                                                 </tr>
                                             </thead>
@@ -69,6 +78,15 @@
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                         GRAND TOTAL</th>
                                                     <th id="grandTotal"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalVAT"
+                                                        style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
+                                                    </th>
+                                                    <th id="grandTotalWithVAT"
                                                         style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: left;background-color:#4B586A;color:white;">
                                                     </th>
                                                     <th
