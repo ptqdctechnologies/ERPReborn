@@ -13,11 +13,13 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
 class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldAutoSize, WithStyles
 {
-    protected $dataCustomerOrder;
+    protected $dataCustomerOrder, $budget, $coDate;
 
-    public function __construct($dataCustomerOrder)
+    public function __construct($dataCustomerOrder, $budget, $coDate)
     {
         $this->dataCustomerOrder = $dataCustomerOrder;
+        $this->budget = $budget;
+        $this->coDate = $coDate;
     }
 
     public function collection()
@@ -25,19 +27,32 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
         $data = $this->dataCustomerOrder;
 
         $total = 0;
+        $totalVAT = 0;
+        $totalWithVAT = 0;
 
         $filteredData = [];
         $counter = 1;
         foreach ($data as $item) {
-            $total += is_numeric($item['value']) ? $item['value'] : 0;
+            $value = (float) ($item['value'] ?? 0.00);
+            $valueRatio = (float) ($item['vatRatio'] ?? 0.00);
+
+            $resultTotalVAT = ($value * $valueRatio) / 100;
+            $resultTotalWithVAT = $value + $resultTotalVAT;
+
+            $total += $value;
+            $totalVAT += $resultTotalVAT;
+            $totalWithVAT += $resultTotalWithVAT;
 
             $filteredData[] = [
                 'No' => $counter++,
-                'Customer Order' => '-',
-                'Budget' => ($item['combinedBudgetSectionCode'] ?? '') . ' - ' . ($item['combinedBudgetSectionName'] ?? ''),
+                'Customer Order' => $item['customerOrderNumber'] ?? '-',
+                'Budget' => ($item['combinedBudgetCode'] ?? '') . ' - ' . ($item['combinedBudgetName'] ?? ''),
                 'Date' => $item['date'] ?? '-',
-                'Total' => $item['value'] ?? '-',
-                'Notes' => $item['notes'] ?? '-'
+                'Total' => number_format($value, 2, '.', ','),
+                'VAT' => number_format($valueRatio, 2, '.', ',') . ' %',
+                'Total VAT' => number_format($resultTotalVAT, 2, '.', ','),
+                'Total With VAT' => number_format($resultTotalWithVAT, 2, '.', ','),
+                'Notes' => htmlspecialchars($dataDetail['notes'] ?? '-')
             ];
         }
 
@@ -46,7 +61,10 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             'Customer Order' => '',
             'Budget' => '',
             'Date' => '',
-            'Total' => $total,
+            'Total' => number_format($total, 2, '.', ','),
+            'VAT' => '',
+            'Total VAT' => number_format($totalVAT, 2, '.', ','),
+            'Total With VAT' => number_format($totalWithVAT, 2, '.', ','),
             'Notes' => ''
         ];
 
@@ -55,13 +73,16 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
 
     public function headings(): array
     {
+        $budget = $this->budget;
+        $coDate = $this->coDate;
+
         return [
             [date('F j, Y')],
             ["CUSTOMER ORDER SUMMARY"],
             [date('h:i A')],
-            ["Budget", ": ", "Date Range", ": "],
+            ["Budget", ": " . $budget, "Date Range", ": " . $coDate],
             [""],
-            ["No", "CO Number", "Budget", "Date", "Total", "Notes"]
+            ["No", "CO Number", "Budget", "Date", "Total", "VAT", "Total VAT", "Total With VAT", "Notes"]
         ];
     }
 
@@ -79,8 +100,8 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ]
         ];
 
-        $sheet->getStyle('A1:F1')->applyFromArray($styleArrayHeader0);
-        $sheet->mergeCells('A1:F1');
+        $sheet->getStyle('A1:I1')->applyFromArray($styleArrayHeader0);
+        $sheet->mergeCells('A1:I1');
 
         $styleArrayHeader1 = [
             'font' => [
@@ -94,8 +115,8 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ]
         ];
 
-        $sheet->getStyle('A2:F2')->applyFromArray($styleArrayHeader1);
-        $sheet->mergeCells('A2:F2');
+        $sheet->getStyle('A2:I2')->applyFromArray($styleArrayHeader1);
+        $sheet->mergeCells('A2:I2');
 
         $styleArrayHeader2 = [
             'font' => [
@@ -109,8 +130,8 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ]
         ];
 
-        $sheet->getStyle('A3:F3')->applyFromArray($styleArrayHeader2);
-        $sheet->mergeCells('A3:F3');
+        $sheet->getStyle('A3:I3')->applyFromArray($styleArrayHeader2);
+        $sheet->mergeCells('A3:I3');
 
         $styleArrayHeader3 = [
             'font' => [
@@ -124,8 +145,8 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ]
         ];
 
-        $sheet->getStyle('A4:F4')->applyFromArray($styleArrayHeader3);
-        $sheet->getStyle('A5:F5')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A4:I4')->applyFromArray($styleArrayHeader3);
+        $sheet->getStyle('A5:I5')->applyFromArray($styleArrayHeader3);
 
         $styleArrayHeader4 = [
             'font' => [
@@ -151,7 +172,7 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ],
         ];
 
-        $sheet->getStyle('A6:F6')->applyFromArray($styleArrayHeader4);
+        $sheet->getStyle('A6:I6')->applyFromArray($styleArrayHeader4);
 
         $styleArrayContent = [
             'borders' => [
@@ -166,7 +187,7 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
 
         $datas = $this->dataCustomerOrder;
         $totalCell = count($datas);
-        $lastCell = 'A6:F' . $totalCell + 6;
+        $lastCell = 'A6:I' . $totalCell + 6;
         $sheet->getStyle($lastCell)->applyFromArray($styleArrayContent);
 
         $styleArrayFooter = [
@@ -193,7 +214,7 @@ class ExportReportCustomerOrder implements FromCollection, WithHeadings, ShouldA
             ],
         ];
 
-        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'F' . $totalCell + 7)->applyFromArray($styleArrayFooter);
+        $sheet->getStyle('A' . $totalCell + 7 . ':' . 'I' . $totalCell + 7)->applyFromArray($styleArrayFooter);
         $sheet->mergeCells('A' . $totalCell + 7 . ':D' . $totalCell + 7);
     }
 }
