@@ -149,7 +149,7 @@ class JournalController extends Controller
         }
     }
 
-    public function ReportPaymentJournal(Request $request)
+    public function ReportPaymentJournal()
     {
         $documentTypeRefID = $this->GetBusinessDocumentsTypeFromRedis('Person Business Trip Form');
         $sessionOrganizationalDepartmentName = Session::get('SessionOrganizationalDepartmentName');
@@ -161,7 +161,7 @@ class JournalController extends Controller
             'sessionOrganizationalJobPositionName' => $sessionOrganizationalJobPositionName
         ];
 
-        return view('Finance.Journal.Reports.ReportJournalSummary', $compact);
+        return view('Finance.Journal.Reports.summary', $compact);
     }
 
     public function ReportPaymentJournalStore(Request $request)
@@ -170,73 +170,48 @@ class JournalController extends Controller
             $dummyData = [
                 [
                     "no" => 1,
-                    "transaction_number" => "Adv/QDC/2025/000214",
+                    "transaction_number" => "Journal/QDC/2026/000426",
                     "date" => "2025-07-12",
-                    "type" => "Credit",
-                    "budget" => "(Q000062) XL Microcell 2007",
-                    "transaction_value" => 500000,
-                    "payment_value" => 175000,
-                    "balance" => 325000,
-                    "from_to" => "(BCA) 5750423347 - Agus Salim",
-                    "coa_code" => "1-1102 - Bank",
-                    "attachment" => "-",
-                    "payment_date" => "2025-08-28"
+                    "coa" => "1-1102.01.000001 - Bank (IDR) - BCA 0063032911",
+                    "debit" => 0,
+                    "credit" => 0,
+                    "currency" => "IDR - Indonesian Rupiah"
                 ],
                 [
                     "no" => 2,
-                    "transaction_number" => "AP/QDC/2025/000211",
+                    "transaction_number" => "Journal/QDC/2026/000425",
                     "date" => "2025-09-27",
-                    "type" => "Debit",
-                    "budget" => "(Q000062) XL Microcell 2007",
-                    "transaction_value" => 325000,
-                    "payment_value" => 125000,
-                    "balance" => 200000,
-                    "from_to" => "(BNI) 8995885888 - PT QDC Technologies",
-                    "coa_code" => "2-3001 - Hutang Lain - Lain",
-                    "attachment" => "-",
-                    "payment_date" => "2025-10-18"
+                    "coa" => "1-1102.01.000002 - Bank (IDR) - BCA 0065557750",
+                    "debit" => 0,
+                    "credit" => 0,
+                    "currency" => "IDR - Indonesian Rupiah"
                 ],
                 [
                     "no" => 3,
-                    "transaction_number" => "AP/QDC/2025/000211",
+                    "transaction_number" => "Journal/QDC/2026/000424",
                     "date" => "2025-10-24",
-                    "type" => "Debit",
-                    "budget" => "(Q000062) XL Microcell 2007",
-                    "transaction_value" => 200000,
-                    "payment_value" => 150000,
-                    "balance" => 50000,
-                    "from_to" => "(BNI) 8995885888 - PT QDC Technologies",
-                    "coa_code" => "2-3001 - Hutang Lain - Lain",
-                    "attachment" => "-",
-                    "payment_date" => "2025-11-03"
+                    "coa" => "1-1102.01.000003 - Bank (IDR) - BCA 0068502911",
+                    "debit" => 0,
+                    "credit" => 0,
+                    "currency" => "IDR - Indonesian Rupiah"
                 ],
                 [
                     "no" => 4,
-                    "transaction_number" => "AP/QDC/2025/000212",
+                    "transaction_number" => "Journal/QDC/2026/000423",
                     "date" => "2025-11-12",
-                    "type" => "Credit",
-                    "budget" => "(Q000063) XL Microcell 2008",
-                    "transaction_value" => 450000,
-                    "payment_value" => 200000,
-                    "balance" => 250000,
-                    "from_to" => "(BCA) 5750423348 - Agus Salim",
-                    "coa_code" => "1-1103 - Bank",
-                    "attachment" => "-",
-                    "payment_date" => "2025-12-11"
+                    "coa" => "1-1102.01.000004 - Bank (IDR) - BCA 2173050101",
+                    "debit" => 0,
+                    "credit" => 0,
+                    "currency" => "IDR - Indonesian Rupiah"
                 ],
                 [
                     "no" => 5,
-                    "transaction_number" => "Adv/QDC/2025/000215",
+                    "transaction_number" => "Journal/QDC/2026/000422",
                     "date" => "2025-08-19",
-                    "type" => "Credit",
-                    "budget" => "(Q000064) XL Microcell 2009",
-                    "transaction_value" => 500000,
-                    "payment_value" => 200000,
-                    "balance" => 300000,
-                    "from_to" => "(BCA) 5750423349 - Agus Salim",
-                    "coa_code" => "1-1104 - Bank",
-                    "attachment" => "-",
-                    "payment_date" => "2025-09-01"
+                    "coa" => "1-1102.01.000005 - Bank (IDR) - BCA 2173108214",
+                    "debit" => 0,
+                    "credit" => 0,
+                    "currency" => "IDR - Indonesian Rupiah"
                 ]
             ];
 

@@ -2,10 +2,8 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
-    @include('getFunction.getProjects')
-    @include('getFunction.getSites')
+    @include('getFunction.getBudgetCode')
     @include('getFunction.getBanksAccount')
-    @include('getFunction.getBusinessDocumentType')
 
     <div class="content-wrapper">
         <section class="content">
@@ -32,7 +30,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row p-1" style="row-gap: 1rem;">
-                                            @include("Finance.Journal.Functions.Header.HeaderReportJournalSummary")
+                                            @include("Finance.Journal.Functions.Header.summary")
                                         </div>
                                     </div>
                                 </div>
@@ -93,7 +91,7 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             <div
                                                                 style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Budget</div>
+                                                                <div>Account Number (COA)</div>
                                                                 <i class="fas fa-solid fa-sort"></i>
                                                             </div>
                                                         </th>
@@ -101,7 +99,7 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             <div
                                                                 style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Transaction Value</div>
+                                                                <div>DB</div>
                                                                 <i class="fas fa-solid fa-sort"></i>
                                                             </div>
                                                         </th>
@@ -109,7 +107,7 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             <div
                                                                 style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>DB/CR</div>
+                                                                <div>CR</div>
                                                                 <i class="fas fa-solid fa-sort"></i>
                                                             </div>
                                                         </th>
@@ -117,47 +115,7 @@
                                                             style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
                                                             <div
                                                                 style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Payment/Received Date</div>
-                                                                <i class="fas fa-solid fa-sort"></i>
-                                                            </div>
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            <div
-                                                                style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Payment/Received Value</div>
-                                                                <i class="fas fa-solid fa-sort"></i>
-                                                            </div>
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            <div
-                                                                style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Balance</div>
-                                                                <i class="fas fa-solid fa-sort"></i>
-                                                            </div>
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            <div
-                                                                style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>From/To</div>
-                                                                <i class="fas fa-solid fa-sort"></i>
-                                                            </div>
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white;">
-                                                            <div
-                                                                style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>COA Code</div>
-                                                                <i class="fas fa-solid fa-sort"></i>
-                                                            </div>
-                                                        </th>
-                                                        <th
-                                                            style="padding-top: 10px;padding-bottom: 10px;border:1px solid #e9ecef;text-align: center;background-color:#4B586A;color:white; padding-right: .70rem;">
-                                                            <div
-                                                                style="cursor: pointer; display: flex;justify-content: center;align-items: center;gap: 12.7px;">
-                                                                <div>Attachment</div>
+                                                                <div>Currency</div>
                                                                 <i class="fas fa-solid fa-sort"></i>
                                                             </div>
                                                         </th>
@@ -190,6 +148,6 @@
         </section>
     </div>
 
-    @include('Finance.Journal.Functions.Footer.FooterReportJournalSummary')
+    @include('Finance.Journal.Functions.Footer.summary')
     @include('Partials.footer')
 @endsection

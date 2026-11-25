@@ -1,6 +1,11 @@
 <script>
-    let isFromTo = false;
     let data = [];
+    let currentPage = 1;
+    let rowsPerPage = 10;
+    let filteredData = [...data];
+    let sortColumn = null;
+    let sortOrder = 'asc';
+    let totalPages = Math.ceil(data.length / rowsPerPage);
     const documentTypeID = document.getElementById("documentTypeRefID");
     const organizationalDepartmentName = document.getElementById("organizationalDepartmentName"); // Finance & Accounting
     const organizationalJobPositionName = document.getElementById("organizationalJobPositionName"); // General Manager
@@ -8,31 +13,18 @@
     const endLimit = document.getElementById("end_limit");
     const totalData = document.getElementById("total_data");
     const budgetID = document.getElementById("budget_id");
-    const transTypeID = document.getElementById("trans_type_id");
-    const tranoID = document.getElementById("trano_id");
     const bankID = document.getElementById("bank_id");
-    const fromToID = document.getElementById("from_to_id");
     const journalDate = document.getElementById("journal_date_range");
-    let currentPage = 1;
-    let rowsPerPage = 10;
-    let filteredData = [...data];
-    let sortColumn = null;
-    let sortOrder = 'asc';
-    let totalPages = Math.ceil(data.length / rowsPerPage);
 
     function selectBudget(id, code, name) {
         $("#budget_id").val(id);
         $("#budget_code").val(code);
-        $("#budget_name").val(`${code} - ${name}`);
-        $("#budget_name").css('background-color', '#e9ecef');
-    }
-
-    function pickBanksAccount(value) {
-        isFromTo = value;
+        $("#budget_name").val(name);
+        $("#budget_preview").val(`${code} - ${name}`);
+        $("#budget_preview").css('background-color', '#e9ecef');
     }
 
     function resetForm() {
-        isFromTo = false;
         data = [];
         currentPage = 1;
         rowsPerPage = 10;
@@ -40,32 +32,20 @@
         sortColumn = null;
         sortOrder = 'asc';
 
-        $("#budget_name").css('background-color', '#fff');
-        $(`#budget_name`).val("");
+        $("#budget_preview").css('background-color', '#fff');
+        $(`#budget_preview`).val("");
         $(`#budget_id`).val("");
         $(`#budget_code`).val("");
-
-        $("#trans_type_name").css('background-color', '#fff');
-        $(`#trans_type_name`).val("");
-        $(`#trans_type_id`).val("");
-
-        $("#trano_name").css('background-color', '#fff');
-        $(`#trano_name`).val("");
-        $(`#trano_id`).val("");
-        $(`#trano_code`).val("");
 
         $("#bank_name").css('background-color', '#fff');
         $(`#bank_name`).val("");
         $(`#bank_id`).val("");
         $(`#bank_code`).val("");
 
-        $("#from_to_name").css('background-color', '#fff');
-        $(`#from_to_name`).val("");
-        $(`#from_to_id`).val("");
-        $(`#from_to_code`).val("");
-
         $("#journal_date_range").css('background-color', '#fff');
         $(`#journal_date_range`).val("");
+
+        $('#table_container').css("display", "none");
     }
 
     function getDataReport() {
@@ -107,7 +87,7 @@
                 ErrorNotif("An error occurred while processing the received data. Please try again later.");
                 console.log('xhr, status, error', xhr, status, error);
             }
-        })
+        });
     }
 
     function renderTable(data) {
@@ -126,65 +106,35 @@
             noCell.textContent = item.no;
             row.appendChild(noCell);
 
-            // Transaction Number with rowspan
+            // Transaction Number
             const transNoCell = document.createElement('td');
             transNoCell.textContent = item.transaction_number;
-
-            // If transaction_number is the same as previous, remove current cell
-            if (lastTransactionNumber === item.transaction_number) {
-                transNoCell.style.display = 'none';  // Hide the current cell to create rowspan
-                rowspan++;
-            } else {
-                if (rowspan > 1) {
-                    // Apply rowspan to the previous row
-                    tbody.rows[rowIndex - rowspan].cells[1].rowSpan = rowspan;
-                }
-                lastTransactionNumber = item.transaction_number;
-                rowspan = 1;
-            }
-
             row.appendChild(transNoCell);
 
-            // Other columns
-            const dateCell = document.createElement('td');
-            dateCell.textContent = item.date;
-            row.appendChild(dateCell);
+            // Transaction Date
+            const transactionDateCell = document.createElement('td');
+            transactionDateCell.textContent = item.date;
+            row.appendChild(transactionDateCell);
 
-            const budgetCell = document.createElement('td');
-            budgetCell.textContent = item.budget;
-            row.appendChild(budgetCell);
+            // Account Number (COA)
+            const accountNumberCell = document.createElement('td');
+            accountNumberCell.textContent = item.coa;
+            row.appendChild(accountNumberCell);
 
-            const transValCell = document.createElement('td');
-            transValCell.textContent = item.transaction_value;
-            row.appendChild(transValCell);
+            // Debit
+            const debitCell = document.createElement('td');
+            debitCell.textContent = item.debit;
+            row.appendChild(debitCell);
 
-            const typeCell = document.createElement('td');
-            typeCell.textContent = item.type;
-            row.appendChild(typeCell);
+            // Credit
+            const creditCell = document.createElement('td');
+            creditCell.textContent = item.credit;
+            row.appendChild(creditCell);
 
-            const paymentDateCell = document.createElement('td');
-            paymentDateCell.textContent = item.payment_date;
-            row.appendChild(paymentDateCell);
-
-            const paymentValCell = document.createElement('td');
-            paymentValCell.textContent = item.payment_value;
-            row.appendChild(paymentValCell);
-
-            const balanceCell = document.createElement('td');
-            balanceCell.textContent = item.balance;
-            row.appendChild(balanceCell);
-
-            const fromToCell = document.createElement('td');
-            fromToCell.textContent = item.from_to;
-            row.appendChild(fromToCell);
-
-            const coaCodeCell = document.createElement('td');
-            coaCodeCell.textContent = item.coa_code;
-            row.appendChild(coaCodeCell);
-
-            const attachmentCell = document.createElement('td');
-            attachmentCell.textContent = item.attachment;
-            row.appendChild(attachmentCell);
+            // Currency
+            const currencyCell = document.createElement('td');
+            currencyCell.textContent = item.currency;
+            row.appendChild(currencyCell);
 
             tbody.appendChild(row);
             rowIndex++;
@@ -232,16 +182,11 @@
         const pageData = filteredAndSortedData.length > 0 ? filteredAndSortedData.slice(start, end) : [{
             "no": "",
             "transaction_number": "",
-            "date": "",
-            "type": "",
-            "budget": "",
-            "transaction_value": "",
-            "payment_value": "",
-            "balance": "",
-            "from_to": "",
-            "coa_code": "",
-            "attachment": "",
-            "payment_date": "",
+            "transaction_date": "",
+            "account_number": "",
+            "debit": "",
+            "credit": "",
+            "currency": ""
         }];
 
         startLimit.textContent = start + 1;
@@ -344,40 +289,28 @@
 
     function validateShowButton() {
         const isBudgetIDNotEmpty = budgetID.value.trim() !== '';
-        const isTransTypeIDNotEmpty = transTypeID.value.trim() !== '';
-        const isTranoIDNotEmpty = tranoID.value.trim() !== '';
         const isBankIDNotEmpty = bankID.value.trim() !== '';
-        const isFromToIDNotEmpty = fromToID.value.trim() !== '';
         const isJournalDateNotEmpty = journalDate.value.trim() !== '';
 
         const isAuthorizedRole = Utils.isUserAuthorizedForReport();
 
         if (
             isBudgetIDNotEmpty ||
-            isTransTypeIDNotEmpty ||
-            isTranoIDNotEmpty ||
             isBankIDNotEmpty ||
-            isFromToIDNotEmpty ||
             isJournalDateNotEmpty
         ) {
-            ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
-            ErrorHandler.hideErrorInputMessage("#trans_type_name", "#transactionTypeMessage");
-            ErrorHandler.hideErrorInputMessage("#trano_name", "#tranoMessage");
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
             ErrorHandler.hideErrorInputMessage("#bank_name", "#bankMessage");
-            ErrorHandler.hideErrorInputMessage("#from_to_name", "#fromToMessage");
             ErrorHandler.hideErrorInputMessage("#journal_date_range", "#dateRangeMessage");
 
             if (isBudgetIDNotEmpty || isAuthorizedRole) {
                 getDataReport();
             } else {
-                ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
+                ErrorHandler.showErrorInputMessage("#budget_preview", "#budget_message");
             }
         } else {
-            ErrorHandler.showErrorInputMessage("#budget_name", "#budgetMessage");
-            ErrorHandler.showErrorInputMessage("#trans_type_name", "#transactionTypeMessage");
-            ErrorHandler.showErrorInputMessage("#trano_name", "#tranoMessage");
+            ErrorHandler.showErrorInputMessage("#budget_preview", "#budget_message");
             ErrorHandler.showErrorInputMessage("#bank_name", "#bankMessage");
-            ErrorHandler.showErrorInputMessage("#from_to_name", "#fromToMessage");
             ErrorHandler.showErrorInputMessage("#journal_date_range", "#dateRangeMessage");
         }
     }
@@ -405,16 +338,9 @@
                 if (data.status == 200) {
                     $("#budget_id").val(combinedBudgetID);
                     $("#budget_code").val(combinedBudgetCode);
-                    $("#budget_name").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
-                    $("#budget_name").css('background-color', '#e9ecef');
-
-                    getSites(combinedBudgetID);
-
-                    $("#mySitesTrigger").css('cursor', 'pointer');
-                    $("#mySitesTrigger").attr({
-                        "data-toggle": "modal",
-                        "data-target": "#mySites"
-                    });
+                    $("#budget_name").val(combinedBudgetName);
+                    $("#budget_preview").val(`${combinedBudgetCode} - ${combinedBudgetName}`);
+                    $("#budget_preview").css('background-color', '#e9ecef');
                 } else {
                     ErrorHandler.notifToast(
                         'error',
@@ -427,8 +353,8 @@
                 console.error("Error:", errorThrown);
             })
             .always(function (jqXHR, textStatus, errorThrown) {
-                $("#loadingBudget").hide();
-                $("#iconBudget").show();
+                $("#budget_loading").hide();
+                $("#budget_icon").show();
             });
     }
 
@@ -469,41 +395,47 @@
         }
     });
 
-    $('#tableProjects').on('click', 'tbody tr', function () {
-        const sysId = $(this).find('input[data-trigger="sys_id_project"]').val();
-        const code = $(this).find('td:nth-child(2)').text();
-        const name = $(this).find('td:nth-child(3)').text();
+    $('#budget_code_list_table').on('click', 'tbody tr', function () {
+        const table = $('#budget_code_list_table').DataTable();
+        const dataRow = table.row(this).data();
 
-        if (Utils.isUserAuthorizedForReport()) {
-            selectBudget(sysId, code, name);
-        } else {
-            $("#loadingBudget").show();
-            $("#iconBudget").hide();
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const code = dataRow.code;
+            const name = dataRow.name;
 
-            getWorkflow(sysId, code, name);
+            $("#budget_preview").val("");
+            $("#budget_id").val("");
+            $("#budget_name").val("");
+            $("#budget_code").val("");
+
+            if (Utils.isUserAuthorizedForReport()) {
+                selectBudget(id, code, name);
+            } else {
+                $("#budget_loading").show();
+                $("#budget_icon").hide();
+
+                getWorkflow(id, code, name);
+            }
+
+            ErrorHandler.hideErrorInputMessage("#budget_preview", "#budget_message");
         }
 
-        ErrorHandler.hideErrorInputMessage("#budget_name", "#budgetMessage");
-
-        $('#myProjects').modal('toggle');
+        $("#budget_code_modal").modal('toggle');
     });
 
     $('#tableBanksAccount').on('click', 'tbody tr', function () {
-        const sysID = $(this).find('input[type="hidden"]').val();
-        const bankName = $(this).find('td:nth-child(2)').text();
-        const bankAccount = $(this).find('td:nth-child(3)').text();
-        const accountName = $(this).find('td:nth-child(4)').text();
+        const table = $('#tableBanksAccount').DataTable();
+        const dataRow = table.row(this).data();
 
-        if (isFromTo) {
-            $('#from_to_name').val(`(${bankName}) ${bankAccount} - ${accountName}`);
-            $('#from_to_id').val(sysID);
-            $('#from_to_code').val(accountName);
-            $("#from_to_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
+        if (dataRow) {
+            const id = dataRow.sys_ID;
+            const bankName = dataRow.bankAcronym;
+            const accountNumber = dataRow.accountNumber;
+            const accountName = dataRow.accountName;
 
-            ErrorHandler.hideErrorInputMessage("#from_to_name", "#fromToMessage");
-        } else {
-            $('#bank_name').val(`(${bankName}) ${bankAccount} - ${accountName}`);
-            $('#bank_id').val(sysID);
+            $('#bank_name').val(`(${bankName}) ${accountNumber} - ${accountName}`);
+            $('#bank_id').val(id);
             $('#bank_code').val(accountName);
             $("#bank_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
 
@@ -513,22 +445,8 @@
         $('#myBanksAccount').modal('toggle');
     });
 
-    $('#tableGetBusinessDocumentType').on('click', 'tbody tr', function () {
-        const sysID = $(this).find('input[data-trigger="sys_id_business_document"]').val();
-        const name = $(this).find('td:nth-child(2)').text();
-
-        $('#trans_type_name').val(name);
-        $('#trans_type_id').val(sysID);
-        $("#trans_type_name").css({ "background-color": "#e9ecef", "border": "1px solid #ced4da" });
-
-        ErrorHandler.hideErrorInputMessage("#trans_type_name", "#transactionTypeMessage");
-
-        $('#myBusinessDocumentType').modal('toggle');
-    });
-
-    $(window).one('load', function () {
+    $(document).ready(function () {
         getBanksAccount("", "");
-        getBusinessDocumentType();
         renderPage();
         renderPagination();
 
