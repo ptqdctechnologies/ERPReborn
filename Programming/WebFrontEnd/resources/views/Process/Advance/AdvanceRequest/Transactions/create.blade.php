@@ -105,13 +105,12 @@
                                                     <div class="row">
                                                         <div class="col p-0">
                                                             <?php echo \App\Helpers\ZhtHelper\General\Helper_JavaScript::getSyntaxCreateDOM_DivCustom_InputFile(
-        \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
-        $token,
-        'advance_attachment',
-        null,
-        'dataInput_Return'
-    ) .
-        ''; ?>
+                                                                \App\Helpers\ZhtHelper\System\Helper_Environment::getUserSessionID_System(),
+                                                                $token,
+                                                                'advance_attachment',
+                                                                null,
+                                                                'dataInput_Return'
+                                                            ) . ''; ?>
                                                         </div>
                                                     </div>
                                                 </div>

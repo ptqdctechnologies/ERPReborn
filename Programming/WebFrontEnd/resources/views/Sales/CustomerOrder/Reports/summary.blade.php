@@ -2,8 +2,7 @@
 @section('main')
     @include('Partials.navbar')
     @include('Partials.sidebar')
-    @include('getFunction.getProjects')
-    @include('getFunction.getSites')
+    @include('getFunction.getBudgetCode')
 
     <div class="content-wrapper">
         <section class="content">
@@ -30,7 +29,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="row p-1" style="row-gap: 1rem;">
-                                            @include("Sales.CustomerOrder.Functions.Header.HeaderReportCustomerOrderSummary")
+                                            @include("Sales.CustomerOrder.Functions.Header.summary")
                                         </div>
                                     </div>
                                 </div>
@@ -106,5 +105,5 @@
     </div>
 
     @include('Partials.footer')
-    @include('Sales.CustomerOrder.Functions.Footer.FooterReportCustomerOrderSummary')
+    @include('Sales.CustomerOrder.Functions.Footer.summary')
 @endsection

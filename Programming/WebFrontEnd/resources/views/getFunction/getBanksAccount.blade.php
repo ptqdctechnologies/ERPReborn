@@ -1,4 +1,5 @@
-<div id="myBanksAccount" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle" aria-hidden="true">
+<div id="myBanksAccount" class="modal fade" role="dialog" aria-labelledby="contohModalScrollableTitle"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -24,7 +25,8 @@
                                     <tfoot>
                                         <tr class="loadingBanksAccount">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
                                                     <div class="spinner-border" role="status">
                                                         <span class="sr-only">Loading...</span>
                                                     </div>
@@ -36,8 +38,10 @@
                                         </tr>
                                         <tr class="errorBanksAccountMessageContainer">
                                             <td colspan="4" class="p-0" style="height: 22rem;">
-                                                <div class="d-flex flex-column justify-content-center align-items-center py-3">
-                                                    <div id="errorBanksAccountMessage" class="mt-3 text-red" style="font-size: 1rem; font-weight: 700;"></div>
+                                                <div
+                                                    class="d-flex flex-column justify-content-center align-items-center py-3">
+                                                    <div id="errorBanksAccountMessage" class="mt-3 text-red"
+                                                        style="font-size: 1rem; font-weight: 700;"></div>
                                                 </div>
                                             </td>
                                         </tr>
@@ -69,7 +73,7 @@
         $.ajax({
             type: 'GET',
             url: '{!! route("getBankAccount") !!}?bank_RefID=' + bank_RefID + '&person_RefID=' + person_RefID,
-            success: function(data) {
+            success: function (data) {
                 $(".loadingBanksAccount").hide();
 
                 var tableBankAccount = $('#tableBanksAccount').DataTable();
@@ -90,7 +94,7 @@
                                         '<input id="sys_id_bank_account_list' + (meta.row + 1) + '" value="' + data.sys_ID + '" data-trigger="sys_id_bank_account_list" type="hidden">' +
                                         '<input id="sys_id_bank' + (meta.row + 1) + '" value="' + data.bank_RefID + '" data-trigger="sys_id_bank" type="hidden">' +
                                         (meta.row + 1) +
-                                    '</td>';
+                                        '</td>';
                                 }
                             },
                             {
@@ -117,7 +121,7 @@
                         $("#bank_accounts").val(data[0].accountNumber);
                         $("#bank_accounts_id").val(data[0].sys_ID);
                         $("#bank_accounts_detail").val(`${data[0].accountNumber} - ${data[0].accountName}`);
-                        $("#bank_accounts_detail").css({"background-color":"#e9ecef"});
+                        $("#bank_accounts_detail").css({ "background-color": "#e9ecef" });
                     }
                 } else {
                     $(".errorBanksAccountMessageContainer").show();

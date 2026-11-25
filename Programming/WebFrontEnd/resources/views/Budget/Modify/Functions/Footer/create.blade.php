@@ -224,10 +224,10 @@
                         </div>
                     </td>
 
-                    <td style="text-align: center;">
+                    <td class="d-none" style="text-align: center;">
                         <div class="input-group">
                             <div class="input-group-append">
-                                <span id="work_co_container${index}" class="input-group-text form-control" data-toggle="modal" data-target="#myWorks" onclick="pickWork('customer_order', ${index})" style="border-radius:0;cursor:pointer;">
+                                <span id="work_co_container${index}" class="input-group-text form-control" data-toggle="modal" data-target="#myWorks" onclick="pickWork('customer_order', ${index})" style="border-radius: 0; cursor: pointer;">
                                     <i id="work_co_icon${index}" class="fas fa-gift"></i>
                                 </span>
                             </div>
@@ -237,12 +237,18 @@
 
                     <td style="text-align: center;">
                         <div class="input-group">
-                            <div class="input-group-append">
-                                <span id="product_co_container${index}" class="input-group-text form-control" data-toggle="modal" data-target="#myProductss" onclick="pickProduct('customer_order', ${index})" style="border-radius:0;cursor:pointer;">
+                            <div class="input-group-append d-none">
+                                <span id="product_co_container${index}" class="input-group-text form-control" data-toggle="modal" data-target="#myProductss" onclick="pickProduct('customer_order', ${index})" style="border-radius: 0; cursor: pointer;">
                                     <i id="product_co_icon${index}" class="fas fa-gift"></i>
                                 </span>
                             </div>
-                            <input type="text" id="product_co_preview${index}" data-field="product" class="form-control" style="border-radius: 0; width: 130px; background-color: white;" readonly />
+                            <input type="text" id="product_co_preview${index}" data-field="product" autocomplete="off" class="form-control" style="width: 130px; background-color: white; border-radius: 0;" />
+                        </div>
+                    </td>
+
+                    <td style="text-align: center;">
+                        <div class="input-group">
+                            <input type="text" id="uom_preview${index}" data-field="uom" autocomplete="off" class="form-control" style="width: 130px; background-color: white; border-radius: 0;" />
                         </div>
                     </td>
                 `;
@@ -253,22 +259,22 @@
                             -
                         </td>
                         
-                        <td style="text-align: center;">
+                        <td class="d-none" style="text-align: center;">
                             -
                         </td>
 
                         <td style="text-align: center;">
                             ${row.productCode} - ${row.productName}
                         </td>
+
+                        <td style="text-align: center;">
+                            ${row.quantityUnitName || '-'}
+                        </td>
                     `;
                 }
 
                 tr.innerHTML = `
                     ${actionDefault}
-
-                    <td style="text-align: center;">
-                        ${row.quantityUnitName || '-'}
-                    </td>
 
                     <td style="text-align: center;">
                         <input 
@@ -318,8 +324,8 @@
     }
 
     function getCustomerOrderDetail() {
-        dummyCustomerOrderType = 'SUB_BUDGET_BASE';
-        // dummyCustomerOrderType = 'PRODUCT_BASE';
+        // dummyCustomerOrderType = 'SUB_BUDGET_BASE';
+        dummyCustomerOrderType = 'PRODUCT_BASE';
 
         customerOrderDetails.push(
             {

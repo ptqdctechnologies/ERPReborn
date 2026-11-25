@@ -160,21 +160,21 @@
                                                         </th>
 
                                                         <!-- <th
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Product Id
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <th
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Qty
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <th
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Cost
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <th
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        UOM
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    </th> -->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Product Id
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </th>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <th
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Qty
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </th>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <th
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    Cost
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </th>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <th
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    UOM
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </th> -->
 
                                                         <th
                                                             style="text-align: center;background-color:#4B586A;color:white;border-right:1px solid #e9ecef;">
@@ -231,9 +231,11 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <th>1000 OVERHEADS</th>
+                                                        <th colspan="22" style="background-color: #F3F6FA;">
+                                                            1000 OVERHEADS
+                                                        </th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>1001</th>
                                                         <th>Overhead</th>
                                                         <th>850,000,000.00</th>
@@ -257,7 +259,7 @@
                                                         <th>170,000,000.00</th>
                                                         <th>20.00%</th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>1002</th>
                                                         <th>Capex</th>
                                                         <th>11,056,882,563.86</th>
@@ -281,7 +283,7 @@
                                                         <th>2,921,321,201.14</th>
                                                         <th>23.49%</th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>1003</th>
                                                         <th>Overhead TE Indorama</th>
                                                         <th>420,000,000.00</th>
@@ -305,7 +307,7 @@
                                                         <th>80,080,000.00</th>
                                                         <th>17.60%</th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="background-color: #FDF3C4;">
                                                         <th></th>
                                                         <th style="border-bottom: 1px solid #dee2e6;">Total 1000</th>
                                                         <th>12,326,882,563.86</th>
@@ -334,9 +336,10 @@
                                                     </tr>
 
                                                     <tr>
-                                                        <th>2000 MATERIALS</th>
+                                                        <th colspan="22" style="background-color: #F3F6FA;">2000 MATERIALS
+                                                        </th>
                                                     </tr>
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>2001</th>
                                                         <th>Tower T1 – T7</th>
                                                         <th>2,437,654,000.00</th>
@@ -370,19 +373,54 @@
                                                         <td>188,500,000.00</td>
                                                         <td>188,500,000.00</td>
                                                         <td>179,075,000.00</td>
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">0.00</td><!-- HERE -->
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">0.00</td> <!-- HERE -->
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">1,715,620,885.20</td> <!-- HERE -->
-                                                        <td rowspan="4">188,718,297.37</td> <!-- HERE -->
-                                                        <td rowspan="4">1,864,805,310.00</td> <!-- HERE -->
-                                                        <td rowspan="4">572,848,690.00</td> <!-- HERE -->
-                                                        <td rowspan="4">572,848,690.00</td> <!-- HERE -->
-                                                        <td rowspan="4">23.50%</td> <!-- HERE -->
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                1,864,805,310.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                0.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                1,864,805,310.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,864,805,310.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,864,805,310.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            0.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,864,805,310.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,715,620,885.20 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            188,718,297.37 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,864,805,310.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            572,848,690.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            572,848,690.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            23.50% <!-- HERE -->
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
@@ -418,7 +456,7 @@
                                                         <td>791,701,500.00</td>
                                                     </tr>
 
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>2002</th>
                                                         <th>Tower T8 – T19</th>
                                                         <th>4,010,717,000.00</th>
@@ -452,19 +490,54 @@
                                                         <td>193,575,000.00</td>
                                                         <td>154,860,000.00</td>
                                                         <td>131,631,000.00</td>
-                                                        <td rowspan="4">3,068,198,505.00</td> <!-- HERE -->
-                                                        <td rowspan="4">13,425,750.00</td><!-- HERE -->
-                                                        <td rowspan="4">3,081,624,255.00</td> <!-- HERE -->
-                                                        <td rowspan="4">2,835,094,314.60</td> <!-- HERE -->
-                                                        <td rowspan="4">2,223,984,704.22</td> <!-- HERE -->
-                                                        <td rowspan="4">192,924,548.28</td> <!-- HERE -->
-                                                        <td rowspan="4">2,416,909,252.50</td> <!-- HERE -->
-                                                        <td rowspan="4">1,885,189,216.95</td> <!-- HERE -->
-                                                        <td rowspan="4">207,370,813.86</td> <!-- HERE -->
-                                                        <td rowspan="4">3,089,858,715.00</td> <!-- HERE -->
-                                                        <td rowspan="4">735,452,647.50</td> <!-- HERE -->
-                                                        <td rowspan="4">938,408,285.00</td> <!-- HERE -->
-                                                        <td rowspan="4">23.30%</td> <!-- HERE -->
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                3,068,198,505.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                13,425,750.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                3,081,624,255.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            2,835,094,314.60 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            2,223,984,704.22 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            192,924,548.28 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            2,416,909,252.50 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,885,189,216.95 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            207,370,813.86 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            3,089,858,715.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            735,452,647.50 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            938,408,285.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            23.30% <!-- HERE -->
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
@@ -500,7 +573,7 @@
                                                         <td>867,038,148.00</td>
                                                     </tr>
 
-                                                    <tr>
+                                                    <tr style="background-color: #E6F0DC;">
                                                         <th>2003</th>
                                                         <th>Tower T20 – T31</th>
                                                         <th>4,039,142,000.00</th>
@@ -534,19 +607,54 @@
                                                         <td>50,025,000.00</td>
                                                         <td>25,012,500.00</td>
                                                         <td>17,508,750.00</td>
-                                                        <td rowspan="4">3,089,943,630.00</td> <!-- HERE -->
-                                                        <td rowspan="4">0.00</td><!-- HERE -->
-                                                        <td rowspan="4">3,089,943,630.00</td> <!-- HERE -->
-                                                        <td rowspan="4">2,162,960,541.00</td> <!-- HERE -->
-                                                        <td rowspan="4">1,116,177,179.04</td> <!-- HERE -->
-                                                        <td rowspan="4">152,205,978.96</td> <!-- HERE -->
-                                                        <td rowspan="4">1,268,383,158.00</td> <!-- HERE -->
-                                                        <td rowspan="4">761,029,894.80</td> <!-- HERE -->
-                                                        <td rowspan="4">83,713,288.43</td> <!-- HERE -->
-                                                        <td rowspan="4">3,089,943,630.00</td> <!-- HERE -->
-                                                        <td rowspan="4">389,634,042.00</td> <!-- HERE -->
-                                                        <td rowspan="4">949,198,370.00</td> <!-- HERE -->
-                                                        <td rowspan="4">23.50%</td> <!-- HERE -->
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                3,089,943,630.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                0.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            <span data-toggle="modal" data-target="#budget_summary_modal"
+                                                                style="cursor: pointer;">
+                                                                3,089,943,630.00 <!-- HERE -->
+                                                            </span>
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            2,162,960,541.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,116,177,179.04 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            152,205,978.96 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            1,268,383,158.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            761,029,894.80 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            83,713,288.43 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            3,089,943,630.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            389,634,042.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            949,198,370.00 <!-- HERE -->
+                                                        </td>
+                                                        <td rowspan="4" style="text-decoration: underline; color: blue;">
+                                                            23.50% <!-- HERE -->
+                                                        </td>
                                                     </tr>
                                                     <tr>
                                                         <td></td>
@@ -582,7 +690,7 @@
                                                         <td>262,511,550.00</td>
                                                     </tr>
 
-                                                    <tr>
+                                                    <tr style="background-color: #FDF3C4;">
                                                         <th></th>
                                                         <th style="border-bottom: 1px solid #dee2e6;">Total 2000</th>
                                                         <th>10,487,513,000.00</th>
@@ -621,6 +729,103 @@
             </div>
         </section>
     </div>
+
+    <div class="modal fade" id="budget_summary_modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document"
+            style="min-height: calc(100vh - 3.5rem); display: flex; align-items: center;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3 style="margin: 0px;font-weight:bold;">
+                        <!-- Are you sure you want to save this data? -->
+                    </h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="wrapper-budget card-body table-responsive p-0" style="max-height:200px;">
+                        <table class="table table-head-fixed text-nowrap table-sm" id="budget_summary_table"
+                            style="border: 1px solid #dee2e6;">
+                            <thead>
+                                <tr>
+                                    <th>Product ID</th>
+                                    <th>Qty</th>
+                                    <th>Cost</th>
+                                    <th>UOM</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        2001257 - 1.0 Jasa Pemasangan Conductors, including All Joint and Jumper Connections
+                                    </td>
+                                    <td>
+                                        3
+                                    </td>
+                                    <td>
+                                        50,000,000.00
+                                    </td>
+                                    <td>
+                                        Is
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Box Panel ACPDB
+                                    </td>
+                                    <td>
+                                        5
+                                    </td>
+                                    <td>
+                                        30,000,000.00
+                                    </td>
+                                    <td>
+                                        Ea
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Heat Detector
+                                    </td>
+                                    <td>
+                                        1
+                                    </td>
+                                    <td>
+                                        5,000,000.00
+                                    </td>
+                                    <td>
+                                        Ea
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- <div class="card-body">
+                                                                                        <div class="row">
+                                                                                            <div class="col text-right p-0" style="font-size: 0.77rem; color: #212529; font-weight: 600;">
+                                                                                                Total : <span id="budget_summary_total_table">0.00</span>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div> -->
+                </div>
+                <!-- <div class="modal-footer">
+                                                                                    <button type="button" id="cancel_summary" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                                                        aria-label="close_sumamry" style="background-color:#e9ecef;border:1px solid #ced4da;">
+                                                                                        <img src="{{ asset('AdminLTE-master/dist/img/cancel.png') }}" width="13" alt="cancel-summary"
+                                                                                            title="Cancel Summary" /> No, cancel
+                                                                                    </button>
+                                                                                    <button type="button" id="submit_summary" class="btn btn-default btn-sm" data-dismiss="modal"
+                                                                                        onclick="commentWorkflow()"
+                                                                                        style="margin-right: 5px;background-color:#e9ecef;border:1px solid #ced4da;">
+                                                                                        <img src="{{ asset('AdminLTE-master/dist/img/save.png') }}" width="13" alt="submit-summary"
+                                                                                            title="Save Summary" />
+                                                                                        Yes, save it
+                                                                                    </button>
+                                                                                </div> -->
+            </div>
+        </div>
+    </div>
+
     @include('Partials.footer')
     @include('Purchase.PurchaseOrder.Functions.Footer.footerReportCFS')
 @endsection

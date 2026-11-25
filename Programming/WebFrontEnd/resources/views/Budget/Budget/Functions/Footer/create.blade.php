@@ -443,19 +443,40 @@
     function renderTimeline() {
         $('#table_timeline tbody').empty();
 
+        // const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
+        //     const validateSubBudgetValue = findSubBudgetByCode(currentItem.entities.combinedBudgetSectionCode);
+        //     const validateValue = findWorkByCode(currentItem.entities.workCode);
+
+        //     const isSubBudgetExist = acc.some(
+        //         item => item.entities.combinedBudgetSectionCode === currentItem.entities.combinedBudgetSectionCode
+        //     );
+
+        //     const isExist = acc.some(
+        //         item => item.entities.workCode === currentItem.entities.workCode
+        //     );
+
+        //     if (!isSubBudgetExist && !isExist && validateSubBudgetValue && validateValue) {
+        //         acc.push(currentItem);
+        //     }
+
+        //     return acc;
+        // }, []);
+
         const groupingDataExcelByWork = dataExcel.reduce((acc, currentItem) => {
-            const validateSubBudgetValue = findSubBudgetByCode(currentItem.entities.combinedBudgetSectionCode);
-            const validateValue = findWorkByCode(currentItem.entities.workCode);
-
-            const isSubBudgetExist = acc.some(
-                item => item.entities.combinedBudgetSectionCode === currentItem.entities.combinedBudgetSectionCode
+            const validateSubBudgetValue = findSubBudgetByCode(
+                currentItem.entities.combinedBudgetSectionCode
             );
 
-            const isExist = acc.some(
-                item => item.entities.workCode === currentItem.entities.workCode
+            const validateValue = findWorkByCode(
+                currentItem.entities.workCode
             );
 
-            if (!isSubBudgetExist && !isExist && validateSubBudgetValue && validateValue) {
+            const isExist = acc.some(item =>
+                item.entities.combinedBudgetSectionCode === currentItem.entities.combinedBudgetSectionCode &&
+                item.entities.workCode === currentItem.entities.workCode
+            );
+
+            if (!isExist && validateSubBudgetValue && validateValue) {
                 acc.push(currentItem);
             }
 

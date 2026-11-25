@@ -1,34 +1,6 @@
 <div class="col-sm-12 col-md-12 col-lg-3">
     <!-- BUDGET -->
-    <div class="row p-0 align-items-center">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0 text-bold">Budget</label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end">
-            <div>
-                <span id="myProjectsTrigger" class="input-group-text form-control" data-toggle="modal"
-                    data-target="#myProjects" style="border-radius:0;cursor:pointer;">
-                    <i id="iconBudget" class="fas fa-gift"></i>
-
-                    <div id="loadingBudget" class="spinner-border spinner-border-sm" role="status"
-                        style="display: none;">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                </span>
-            </div>
-            <div>
-                <input type="text" id="budget_name" class="form-control" style="border-radius:0;background-color:white;"
-                    readonly />
-                <input type="hidden" id="budget_id" class="form-control" style="border-radius:0;" name="budget_id" />
-                <input type="hidden" id="budget_code" class="form-control" style="border-radius:0;"
-                    name="budget_code" />
-            </div>
-        </div>
-    </div>
-    <div class="row" id="budgetMessage" style="margin-top: .3rem;display: none;">
-        <label class="col-sm-3 col-md-4 col-lg-4 col-form-label p-0"></label>
-        <div class="col-sm-9 col-md-8 col-lg-7 d-flex p-0 justify-content-sm-end justify-content-md-end text-red">
-            Budget cannot be empty.
-        </div>
-    </div>
+    @include('Components.Reports.budgetCode')
 
     <!-- DATE -->
     <div class="row p-0 align-items-center" style="margin-top: 1rem;">

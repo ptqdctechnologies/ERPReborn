@@ -1178,26 +1178,26 @@ Route::group(['middleware' => ['prevent-back-history', 'SessionLogin']], functio
 
     // CUSTOMER ORDER
     Route::controller(CustomerOrderController::class)->group(function () {
-        Route::get('ReportCustomerOrderToInvoice', 'ReportCustomerOrderToInvoice')
-            ->name('CustomerOrder.ReportCustomerOrderToInvoice');
+        Route::get('CustomerOrder/picklist', 'picklist')
+            ->name('CustomerOrder.Picklist');
 
-        Route::get('ReportCustomerOrderSummary', 'ReportCustomerOrderSummary')
-            ->name('CustomerOrder.ReportSummary');
-
-        Route::post('ReportCustomerOrderSummaryStore', 'ReportCustomerOrderSummaryStore')
-            ->name('CustomerOrder.ReportSummaryStore');
-
-        Route::post('PrintExportReportCustomerOrder', 'PrintExportReportCustomerOrder')
-            ->name('CustomerOrder.PrintExportReportCustomerOrder');
+        Route::post('CustomerOrder/import', 'import')
+            ->name('CustomerOrder.Import');
 
         Route::get('CustomerOrder/download', 'download')
             ->name('CustomerOrder.Download');
 
-        Route::post('CustomerOrderImport', 'import')
-            ->name('CustomerOrder.Import');
+        Route::get('ReportCustomerOrderSummary', 'ReportCustomerOrderSummary')
+            ->name('CustomerOrder.ReportSummary');
 
-        Route::get('CustomerOrder/picklist', 'picklist')
-            ->name('CustomerOrder.Picklist');
+        Route::post('CustomerOrder/report/summary/store', 'ReportCustomerOrderSummaryStore')
+            ->name('CustomerOrder.ReportSummaryStore');
+
+        Route::post('CustomerOrder/report/summary/export', 'PrintExportReportCustomerOrder')
+            ->name('CustomerOrder.PrintExportReportCustomerOrder');
+
+        Route::get('ReportCustomerOrderToInvoice', 'ReportCustomerOrderToInvoice')
+            ->name('CustomerOrder.ReportCustomerOrderToInvoice');
     });
     Route::resource('CustomerOrder', CustomerOrderController::class);
 
