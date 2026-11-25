@@ -7,10 +7,10 @@
                     style="padding-top: 10px; padding-bottom: 10px; border-right:1px solid #e9ecef; text-align: center;">
                     Action
                 </th>
-                <th
+                <!-- <th
                     style="padding-top: 10px; padding-bottom: 10px; border-right:1px solid #e9ecef; text-align: center;">
                     Work
-                </th>
+                </th> -->
                 <th
                     style="padding-top: 10px; padding-bottom: 10px; border-right:1px solid #e9ecef; text-align: center;">
                     Product
@@ -40,7 +40,7 @@
         <tbody id="customer_order_details_tbody_table"></tbody>
         <tfoot>
             <tr id="customer_order_details_loading_table" style="display: none;">
-                <td colspan="11" class="p-0" style="border: 0px; height: 150px;">
+                <td colspan="10" class="p-0" style="border: 0px; height: 150px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div class="spinner-border" role="status">
                             <span class="sr-only">Loading...</span>
@@ -52,7 +52,7 @@
                 </td>
             </tr>
             <tr id="customer_order_details_message_container_table" style="display: none;">
-                <td colspan="11" class="p-0" style="border: 0px;">
+                <td colspan="10" class="p-0" style="border: 0px;">
                     <div class="d-flex flex-column justify-content-center align-items-center py-3">
                         <div id="customer_order_details_message_table" class="mt-3 text-red"
                             style="font-size: 1rem; font-weight: 700;"></div>
