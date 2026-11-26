@@ -42,7 +42,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataInsert                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2026-11-26                                                                                           |
         | ▪ Creation Date   : 2026-11-26                                                                                           |
         | ▪ Description     : Data Insert                                                                                          |
@@ -59,11 +59,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
-        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         |      ▪ (string) varJSONData ► JSON Data                                                                                  |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -71,8 +69,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         public function setDataInsert(
             $varUserSession,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCombinedBudget_RefID = null, string $varJSONData = null, string $varRemarks = null,
-            array $varAdditionalData = []
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varJSONData = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -95,20 +92,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varCombinedBudget_RefID, 'bigint'],
                             [$varJSONData, 'json'],
-                            [$varRemarks, 'varchar'],
-
-                            [
-                                ((count($varAdditionalData) === 0) 
-                                    ? null
-                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                        $varUserSession,
-                                        $varAdditionalData
-                                        )
-                                ),
-                                'json'
-                            ]
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
@@ -122,7 +107,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : setDataUpdate                                                                                        |
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Version         : 1.0001.0000000                                                                                       |
         | ▪ Last Update     : 2026-11-26                                                                                           |
         | ▪ Creation Date   : 2026-11-26                                                                                           |
         | ▪ Description     : Data Update                                                                                          |
@@ -140,11 +125,9 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
         |      ▪ (string) varDocumentDateTimeTZ ► Document DateTimeTZ                                                              |
         |      ▪ (int)    varLog_FileUpload_Pointer_RefID ► File Attachments Reference ID                                          |
         |      ▪ (int)    varRequesterWorkerJobsPosition_RefID ► Requester Worker Jobs Position Reference ID                       |
-        |      ▪ (int)    varCombinedBudget_RefID ► Combined Budget Reference ID                                                   |
         |      ▪ (string) varJSONData ► JSON Data                                                                                  |
         |      ▪ (string) varRemarks ► Remarks                                                                                     |
         |        ----------------------------------------                                                                          |
-        |      ▪ (array)  varAdditionalData ► Additional Data                                                                      |
         | ▪ Output Variable :                                                                                                      |
         |      ▪ (array)  varReturn                                                                                                | 
         +--------------------------------------------------------------------------------------------------------------------------+
@@ -153,8 +136,7 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
             $varUserSession,
             int $varSysID,
             string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null, $varSysBaseCurrency_RefID = null,
-            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, int $varCombinedBudget_RefID = null, string $varJSONData = null, string $varRemarks = null,
-            array $varAdditionalData = []
+            string $varDocumentDateTimeTZ = null, int $varLog_FileUpload_Pointer_RefID = null, int $varRequesterWorkerJobsPosition_RefID = null, string $varJSONData = null, string $varRemarks = null
             )
             {
             $varReturn =
@@ -177,20 +159,8 @@ namespace App\Models\Database\SchData_OLTP_Budgeting
                             [$varDocumentDateTimeTZ, 'timestamptz'],
                             [$varLog_FileUpload_Pointer_RefID, 'bigint'],
                             [$varRequesterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varCombinedBudget_RefID, 'bigint'],
                             [$varJSONData, 'json'],
-                            [$varRemarks, 'varchar'],
-
-                            [
-                                ((count($varAdditionalData) === 0) 
-                                    ? null
-                                    : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode(
-                                        $varUserSession,
-                                        $varAdditionalData
-                                        )
-                                ),
-                                'json'
-                            ]
+                            [$varRemarks, 'varchar']
                         ]
                         )
                     );
