@@ -3050,6 +3050,7 @@ return array(
     'App\\Models\\Database\\SchData_OLTP_Production\\TblMaterialProductAssemblyVersion' => $baseDir . '/app/Models/Database/SchData_OLTP_Production/TblMaterialProductAssemblyVersion.php',
     'App\\Models\\Database\\SchData_OLTP_Production\\TblMaterialProductComponent' => $baseDir . '/app/Models/Database/SchData_OLTP_Production/TblMaterialProductComponent.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\General' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/General.php',
+    'App\\Models\\Database\\SchData_OLTP_Project\\TblBillOfQuantity' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblBillOfQuantity.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblMapper_ProjectToMaterialProductAssembly' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblMapper_ProjectToMaterialProductAssembly.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProject' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProject.php',
     'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectProgress' => $baseDir . '/app/Models/Database/SchData_OLTP_Project/TblProjectProgress.php',
