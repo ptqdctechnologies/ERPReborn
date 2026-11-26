@@ -38,39 +38,250 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                     'transaction.update.accounting.setJournal', 
                     'latest', 
                     [
-                    'recordID' => 68000000000001,
-                    'entities' => [
-                        'journalCode' => 'TRX001',
-                        'journalDateTimeTZ' => '2022-03-07 09:00:00+07',
-                        'posterWorkerJobsPosition_RefID' => null,
-                        'postingDateTimeTZ' => null,
-                        'annotation' => null,
-                        'additionalData' => [
-                            'itemList' => [
-                                'items' => [
-                                        [
-                                        'recordID' => 69000000000001,
-                                        'entities' => [
-                                            'journalDetailDateTimeTZ' => '2024-05-07 07:30:00 +07',
-                                            'chartOfAccountLinkage_RefID' => 237000000000001,
-                                            'underlying_RefID' => 213000000000001,
-                                            'accountingEntryRecordType_RefID' => 214000000000001,
-                                            'amountCurrency_RefID' => 62000000000001,
-                                            'amountCurrencyValue' => 50000,
-                                            'amountCurrencyExchangeRate' => 1,
-                                            'quantityUnit_RefID' => 73000000000001,
-                                            'quantity' => 10.00,
-                                            'annotation' => 'catatan',
-                                            'codeOfBudgeting_RefID' => null                               
-                                            ]                                   
-                                        ],
+                            [
+                            'recordID' => 68000000002285,
+                            'entities' => [
+                                'documentDateTimeTZ' => '2026-01-22',
+                                'businessDocument_RefID' => 74000000023228,
+                                "bankAccount_RefID" => 237000000000004,
+                                "combinedBudget_RefID" => 46000000000001,
+                                'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                "transaction_RefID" => 76000000000942,
+                                'additionalData' => [
+                                    'itemList' => [
+                                        'items' => [
+                                            'entities' => [
+                                                'items' => [
+                                                    "cashDisbursementItemList" => [
+                                                        'recordID' => 192000000001309,
+                                                        'entities' => [
+                                                                'documentDateTimeTZ' => '2026-01-22',
+                                                                'businessDocument_RefID' => 74000000023228,
+                                                                'log_FileUpload_Pointer_RefID' => null,
+                                                                "combinedBudget_RefID" => 46000000000003,
+                                                                'beneficiaryBankAccount_RefID' => 167000000000005,
+                                                                'additionalData' => [
+                                                                    [
+                                                                        "recordID" => 69000000003914,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 49,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ],
+                                                                    [
+                                                                        "recordID" => 69000000003915,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 49,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ]
+                                                                ]        
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
                                     ]
                                 ]
-                            ]
-                        ]
+                            ],
+                            [
+                            'recordID' => 68000000002284,
+                            'entities' => [
+                                'documentDateTimeTZ' => '2026-01-22',
+                                'businessDocument_RefID' => 74000000023232,
+                                "bankAccount_RefID" => 237000000000062,
+                                "combinedBudget_RefID" => 46000000000001,
+                                'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                "transaction_RefID" => 85000000000205,
+                                'additionalData' => [
+                                    'itemList' => [
+                                        'items' => [
+                                            'entities' => [
+                                                'items' => [
+                                                    "cashReceiptItemList" => [
+                                                        'recordID' => 290000000001282,
+                                                        'entities' => [
+                                                                'documentDateTimeTZ' => '2026-01-22',
+                                                                'businessDocument_RefID' => 74000000023232,
+                                                                'log_FileUpload_Pointer_RefID' => null,
+                                                                "combinedBudget_RefID" => 46000000000003,
+                                                                'beneficiaryBankAccount_RefID' => 167000000000004,
+                                                                'additionalData' => [
+                                                                    [
+                                                                        "recordID" => 69000000003912,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 23,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ],
+                                                                    [
+                                                                        "recordID" => 69000000003913,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 23,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ]
+                                                                ]        
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                            'recordID' => 68000000002283,
+                            'entities' => [
+                                'documentDateTimeTZ' => '2026-01-22',
+                                'businessDocument_RefID' => 74000000023237,
+                                "bankAccount_RefID" => 237000000000004,
+                                "combinedBudget_RefID" => 46000000000001,
+                                'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                "transactionType" => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                "transaction_RefID" => 83000000000257,
+                                'additionalData' => [
+                                    'itemList' => [
+                                        'items' => [
+                                            'entities' => [
+                                                'items' => [
+                                                    "cashDisbursementItemList" => [
+                                                        'recordID' => 192000000001308,
+                                                        'entities' => [
+                                                                'documentDateTimeTZ' => '2026-01-22',
+                                                                'businessDocument_RefID' => 74000000023237,
+                                                                'log_FileUpload_Pointer_RefID' => null,
+                                                                "combinedBudget_RefID" => 46000000000003,
+                                                                'beneficiaryBankAccount_RefID' => 167000000000003,
+                                                                'additionalData' => [
+                                                                    [
+                                                                        "recordID" => 69000000003910,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 8,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ],
+                                                                    [
+                                                                        "recordID" => 69000000003911,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 50000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => 73000000000001,
+                                                                            'quantity' => 8,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ]
+                                                                ]        
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
+                            [
+                            'recordID' => 68000000002282,
+                            'entities' => [
+                                'documentDateTimeTZ' => '2026-01-22',
+                                'businessDocument_RefID' => 74000000023241,
+                                "bankAccount_RefID" => 237000000000002,
+                                "combinedBudget_RefID" => 46000000000001,
+                                'journalDateTimeTZ' => '2026-01-22 11:30:45+07',
+                                "transactionType" => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                "transaction_RefID" => 76000000000947,
+                                'additionalData' => [
+                                    'itemList' => [
+                                        'items' => [
+                                            'entities' => [
+                                                'items' => [
+                                                    "cashReceiptItemList" => [
+                                                        'recordID' => 290000000001281,
+                                                        'entities' => [
+                                                                'documentDateTimeTZ' => '2026-01-22',
+                                                                'businessDocument_RefID' => 74000000023241,
+                                                                'log_FileUpload_Pointer_RefID' => null,
+                                                                "combinedBudget_RefID" => 46000000000003,
+                                                                'beneficiaryBankAccount_RefID' => 167000000000002,
+                                                                'additionalData' => [
+                                                                    [
+                                                                        "recordID" => 69000000003908,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000001,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 20000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => NULL,
+                                                                            'quantity' => NULL,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ],
+                                                                    [
+                                                                        "recordID" => 69000000003909,
+                                                                        "entities" => [
+                                                                            'chartOfAccount_RefID' => 65000000000005,
+                                                                            'accountingEntryRecordType_RefID' => 214000000000002,   // 214000000000001 => "Debit", 214000000000002 => "Credit"
+                                                                            'amountCurrency_RefID' => 62000000000001,
+                                                                            'amountCurrencyValue' => 20000,
+                                                                            'amountCurrencyExchangeRate' => 1,
+                                                                            'quantityUnit_RefID' => NULL,
+                                                                            'quantity' => NULL,
+                                                                            'variance' => 0.00
+                                                                        ]
+                                                                    ]
+                                                                ]        
+                                                            ]
+                                                        ]
+                                                    ]
+                                                ]
+                                            ]
+                                        ]
+                                    ]
+                                ]
+                            ],
                     ]
-                    );
-            var_dump($varData);
+		);
+	    
+            return $varData;
             }
 
 
