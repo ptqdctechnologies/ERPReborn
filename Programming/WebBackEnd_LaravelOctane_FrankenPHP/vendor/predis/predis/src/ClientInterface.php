@@ -54,6 +54,7 @@ use Predis\Command\Container\XGROUP;
 use Predis\Command\Container\XINFO;
 use Predis\Command\FactoryInterface;
 use Predis\Command\Redis\HSETEX;
+use Predis\Command\Redis\SADDEX;
 use Predis\Command\Redis\VADD;
 use Predis\Configuration\OptionsInterface;
 use Predis\Connection\ConnectionInterface;
@@ -126,9 +127,11 @@ use Predis\Response\Status;
  * @method array|null        bitfield(string $key, $subcommand, ...$subcommandArg)
  * @method array|null        bitfield_ro(string $key, ?array $encodingOffsetMap = null)
  * @method int               bitpos(string $key, $bit, $start = null, $end = null, string $index = 'byte')
+ * @method array             bitrangeintarray(string $key, int $start, int $end, ?string $index = null, ?int $limit = null, bool $zeros = false)
  * @method array             blmpop(int $timeout, array $keys, string $modifier = 'left', int $count = 1)
  * @method array             bzpopmax(array $keys, int $timeout)
  * @method array             bzpopmin(array $keys, int $timeout)
+ * @method array|null        bzmove(string $source, string $destination, string $where, int|float $timeout, ?int $count = null)
  * @method array             bzmpop(int $timeout, array $keys, string $modifier = 'min', int $count = 1)
  * @method mixed             cfadd(string $key, $item)
  * @method mixed             cfaddnx(string $key, $item)
@@ -273,10 +276,14 @@ use Predis\Response\Status;
  * @method int               rpush(string $key, array $values)
  * @method int               rpushx(string $key, array $values)
  * @method int               sadd(string $key, array $members)
+ * @method int               saddex(string $key, array $members, string $condition = SADDEX::COND_NULL, string $ttlModifier = SADDEX::TTL_NULL, int|bool $ttlModifierValue = false)
  * @method int               scard(string $key)
  * @method string[]          sdiff(array|string $keys)
  * @method int               sdiffcard(array $keys, int $limit = 0)
  * @method int               sdiffstore(string $destination, array|string $keys)
+ * @method array             sexpire(string $key, int $seconds, array $members, ?string $flag = null)
+ * @method array             sexpireat(string $key, int $unixTimeSeconds, array $members, ?string $flag = null)
+ * @method array             sexpiretime(string $key, array $members)
  * @method string[]          sinter(array|string $keys)
  * @method int               sintercard(array $keys, int $limit = 0)
  * @method int               sinterstore(string $destination, array|string $keys)
@@ -284,11 +291,17 @@ use Predis\Response\Status;
  * @method string[]          smembers(string $key)
  * @method array             smismember(string $key, string ...$members)
  * @method int               smove(string $source, string $destination, string $member)
+ * @method array             spersist(string $key, array $members)
+ * @method array             spexpire(string $key, int $milliseconds, array $members, ?string $flag = null)
+ * @method array             spexpireat(string $key, int $unixTimeMilliseconds, array $members, ?string $flag = null)
+ * @method array             spexpiretime(string $key, array $members)
  * @method string|array|null spop(string $key, ?int $count = null)
+ * @method array             spttl(string $key, array $members)
  * @method string|null       srandmember(string $key, ?int $count = null)
  * @method int               srem(string $key, array|string $member)
  * @method array             sscan(string $key, int $cursor, array $options = null)
  * @method array             ssubscribe(string ...$shardChannels)
+ * @method array             sttl(string $key, array $members)
  * @method array             subscribe(string ...$channels)
  * @method string[]          sunion(array|string $keys)
  * @method int               sunioncard(array $keys, bool $approx = false, int $limit = 0)
@@ -364,6 +377,8 @@ use Predis\Response\Status;
  * @method int               zintercard(array $keys, int $limit = 0)
  * @method int               zinterstore(string $destination, array $keys, int[] $weights = [], string $aggregate = 'sum')
  * @method array             zinter(array $keys, int[] $weights = [], string $aggregate = 'sum', bool $withScores = false)
+ * @method array|null        zmove(string $source, string $destination, string|array $selection, ?int $count = null)
+ * @method array|null        zmovemember(string $source, string $destination, array $members, ?string $condition = null)
  * @method array             zmpop(array $keys, string $modifier = 'min', int $count = 1)
  * @method array             zmscore(string $key, string ...$member)
  * @method array             zpopmin(string $key, int $count = 1)

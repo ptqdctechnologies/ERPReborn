@@ -113,92 +113,6 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
 
         /*
         +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Method Name     : getEngineDataSend_DataMergeModify                                                                    |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Version         : 1.0000.0000000                                                                                       |
-        | ▪ Last Update     : 2026-11-18                                                                                           |
-        | ▪ Creation Date   : 2026-11-18                                                                                           |
-        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Merge Modify                                                 |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        | ▪ Input Variable  :                                                                                                      |
-        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
-        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
-        | ▪ Output Variable :                                                                                                      |
-        |      ▪ (int)    varReturn                                                                                                |
-        +--------------------------------------------------------------------------------------------------------------------------+
-        */
-        public static function getEngineDataSend_DataMergeModify($varUserSession, array $varDataSend)
-            {
-            //---> Capture Process
-            $varReturnProcess = NULL;
-            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
-                $varUserSession,
-                'data',
-                $varDataSend
-                ) == TRUE)
-                    {
-                    $varReturnProcess = $varDataSend['process'];
-                    $varDataSend = $varDataSend['data'][0];
-                    }
-
-            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordIDArray', $varDataSend) == TRUE)
-                {
-                $varBusinessDocument = NULL;
-                if ($varDataSend['SignRecordIDArray'])
-                    {
-                    $varReturn = [
-                        'process' => (
-                            $varReturnProcess === NULL ?
-                                [
-                                'DBMS' => [
-                                    'executionInterval' => NULL,
-                                    'startDateTimeTZ' => NULL,
-                                    'finishDateTimeTZ' => NULL
-                                    ]
-                                ]
-                                :
-                                $varReturnProcess
-                                ),
-                        'message' => 'Data Merge and Modify Was Successful)',
-                        'recordIDArray' => $varDataSend['SignRecordIDArray'],
-                        'categoryCode' => $varDataSend['SignRecordType'],
-                        'categoryName' => $varDataSend['SignMessage'],
-                        'businessDocument' => $varBusinessDocument
-                        ];
-                    }
-                else {
-                    $varReturn = [
-                        'process' => (
-                            $varReturnProcess === NULL ?
-                                [
-                                'DBMS' => [
-                                    'executionInterval' => NULL,
-                                    'startDateTimeTZ' => NULL,
-                                    'finishDateTimeTZ' => NULL
-                                    ]
-                                ]
-                                :
-                                $varReturnProcess
-                                ),
-                        'message' => 'Data Merge and Modify Was Successful)',
-                        'recordIDArray' => $varDataSend['SignRecordIDArray'],
-                        'businessDocument' => $varBusinessDocument
-                        ];
-                    }
-
-                return
-                    $varReturn;
-                }
-            else
-                {
-                throw
-                    new \Exception('Data Merge and Modify Failed');
-                }
-            }
-
-
-        /*
-        +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Method Name     : getEngineDataSend_DataCreate                                                                         |
         +--------------------------------------------------------------------------------------------------------------------------+
         | ▪ Version         : 1.0000.0000000                                                                                       |
@@ -528,6 +442,92 @@ namespace App\Helpers\ZhtHelper\System\BackEnd
             else
                 {
                 throw new \Exception('Data Initialization Failed');
+                }
+            }
+
+
+        /*
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Method Name     : getEngineDataSend_DataMergeModify                                                                    |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Version         : 1.0000.0000000                                                                                       |
+        | ▪ Last Update     : 2026-11-18                                                                                           |
+        | ▪ Creation Date   : 2026-11-18                                                                                           |
+        | ▪ Description     : Mendapatkan Engine Data Send untuk Data Merge Modify                                                 |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        | ▪ Input Variable  :                                                                                                      |
+        |      ▪ (mixed)  varUserSession ► User Session                                                                            |
+        |      ▪ (array)  varDataSend ► Data Send                                                                                  |
+        | ▪ Output Variable :                                                                                                      |
+        |      ▪ (int)    varReturn                                                                                                |
+        +--------------------------------------------------------------------------------------------------------------------------+
+        */
+        public static function getEngineDataSend_DataMergeModify($varUserSession, array $varDataSend)
+            {
+            //---> Capture Process
+            $varReturnProcess = NULL;
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist(
+                $varUserSession,
+                'data',
+                $varDataSend
+                ) == TRUE)
+                    {
+                    $varReturnProcess = $varDataSend['process'];
+                    $varDataSend = $varDataSend['data'][0];
+                    }
+
+            if (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'SignRecordIDArray', $varDataSend) == TRUE)
+                {
+                $varBusinessDocument = NULL;
+                if ($varDataSend['SignRecordIDArray'])
+                    {
+                    $varReturn = [
+                        'process' => (
+                            $varReturnProcess === NULL ?
+                                [
+                                'DBMS' => [
+                                    'executionInterval' => NULL,
+                                    'startDateTimeTZ' => NULL,
+                                    'finishDateTimeTZ' => NULL
+                                    ]
+                                ]
+                                :
+                                $varReturnProcess
+                                ),
+                        'message' => 'Data Merge and Modify Was Successful)',
+                        'recordIDArray' => $varDataSend['SignRecordIDArray'],
+                        'categoryCode' => $varDataSend['SignRecordType'],
+                        'categoryName' => $varDataSend['SignMessage'],
+                        'businessDocument' => $varBusinessDocument
+                        ];
+                    }
+                else {
+                    $varReturn = [
+                        'process' => (
+                            $varReturnProcess === NULL ?
+                                [
+                                'DBMS' => [
+                                    'executionInterval' => NULL,
+                                    'startDateTimeTZ' => NULL,
+                                    'finishDateTimeTZ' => NULL
+                                    ]
+                                ]
+                                :
+                                $varReturnProcess
+                                ),
+                        'message' => 'Data Merge and Modify Was Successful)',
+                        'recordIDArray' => $varDataSend['SignRecordIDArray'],
+                        'businessDocument' => $varBusinessDocument
+                        ];
+                    }
+
+                return
+                    $varReturn;
+                }
+            else
+                {
+                throw
+                    new \Exception('Data Merge and Modify Failed');
                 }
             }
 

@@ -52,6 +52,7 @@ use Predis\Command\Container\Search\FTCONFIG;
 use Predis\Command\Container\Search\FTCURSOR;
 use Predis\Command\Container\XGROUP;
 use Predis\Command\Redis\HSETEX;
+use Predis\Command\Redis\SADDEX;
 use Predis\Command\Redis\VADD;
 
 /**
@@ -115,9 +116,11 @@ use Predis\Command\Redis\VADD;
  * @method $this bitfield($key, $subcommand, ...$subcommandArg)
  * @method $this bitfield_ro(string $key, ?array $encodingOffsetMap = null)
  * @method $this bitpos($key, $bit, $start = null, $end = null, string $index = 'byte')
+ * @method $this bitrangeintarray(string $key, int $start, int $end, ?string $index = null, ?int $limit = null, bool $zeros = false)
  * @method $this blmpop(int $timeout, array $keys, string $modifier = 'left', int $count = 1)
  * @method $this bzpopmax(array $keys, int $timeout)
  * @method $this bzpopmin(array $keys, int $timeout)
+ * @method $this bzmove(string $source, string $destination, string $where, int|float $timeout, ?int $count = null)
  * @method $this bzmpop(int $timeout, array $keys, string $modifier = 'min', int $count = 1)
  * @method $this cfadd(string $key, $item)
  * @method $this cfaddnx(string $key, $item)
@@ -262,10 +265,14 @@ use Predis\Command\Redis\VADD;
  * @method $this rpush($key, array $values)
  * @method $this rpushx($key, array $values)
  * @method $this sadd($key, array $members)
+ * @method $this saddex(string $key, array $members, string $condition = SADDEX::COND_NULL, string $ttlModifier = SADDEX::TTL_NULL, int|bool $ttlModifierValue = false)
  * @method $this scard($key)
  * @method $this sdiff(array|string $keys)
  * @method $this sdiffcard(array $keys, int $limit = 0)
  * @method $this sdiffstore($destination, array|string $keys)
+ * @method $this sexpire(string $key, int $seconds, array $members, ?string $flag = null)
+ * @method $this sexpireat(string $key, int $unixTimeSeconds, array $members, ?string $flag = null)
+ * @method $this sexpiretime(string $key, array $members)
  * @method $this sinter(array|string $keys)
  * @method $this sintercard(array $keys, int $limit = 0)
  * @method $this sinterstore($destination, array|string $keys)
@@ -273,11 +280,17 @@ use Predis\Command\Redis\VADD;
  * @method $this smembers($key)
  * @method $this smismember(string $key, string ...$members)
  * @method $this smove($source, $destination, $member)
+ * @method $this spersist(string $key, array $members)
+ * @method $this spexpire(string $key, int $milliseconds, array $members, ?string $flag = null)
+ * @method $this spexpireat(string $key, int $unixTimeMilliseconds, array $members, ?string $flag = null)
+ * @method $this spexpiretime(string $key, array $members)
  * @method $this spop($key, $count = null)
+ * @method $this spttl(string $key, array $members)
  * @method $this srandmember($key, $count = null)
  * @method $this srem($key, $member)
  * @method $this sscan($key, $cursor, ?array $options = null)
  * @method $this ssubscribe(string ...$shardChannels)
+ * @method $this sttl(string $key, array $members)
  * @method $this subscribe(string ...$channels)
  * @method $this sunsubscribe(?string ...$shardChannels = null)
  * @method $this sunion(array|string $keys)
@@ -352,6 +365,8 @@ use Predis\Command\Redis\VADD;
  * @method $this zintercard(array $keys, int $limit = 0)
  * @method $this zinterstore(string $destination, array $keys, int[] $weights = [], string $aggregate = 'sum')
  * @method $this zinter(array $keys, int[] $weights = [], string $aggregate = 'sum', bool $withScores = false)
+ * @method $this zmove(string $source, string $destination, string|array $selection, ?int $count = null)
+ * @method $this zmovemember(string $source, string $destination, array $members, ?string $condition = null)
  * @method $this zmpop(array $keys, string $modifier = 'min', int $count = 1)
  * @method $this zmscore(string $key, string ...$member)
  * @method $this zrandmember(string $key, int $count = 1, bool $withScores = false)

@@ -620,7 +620,7 @@ trait HasAttributes
      */
     protected function getRelationshipFromMethod($method)
     {
-        $relation = $this->$method();
+        $relation = Relation::withConstraintsForNestedRelation(fn () => $this->$method());
 
         if (! $relation instanceof Relation) {
             if (is_null($relation)) {
@@ -1511,8 +1511,14 @@ trait HasAttributes
      */
     protected function asDecimal($value, $decimals)
     {
+        $value = (string) $value;
+
+        if (preg_match('/e([+-]?\d+)$/i', $value, $matches) && abs((int) $matches[1]) > 1000) {
+            throw new MathException('Unable to cast value to a decimal.');
+        }
+
         try {
-            return (string) BigDecimal::of((string) $value)->toScale($decimals, RoundingMode::HALF_UP);
+            return (string) BigDecimal::of($value)->toScale($decimals, RoundingMode::HALF_UP);
         } catch (BrickMathException $e) {
             throw new MathException('Unable to cast value to a decimal.', previous: $e);
         }

@@ -1,5 +1,15 @@
 # CHANGELOG
 
+## 2.10.0 - 2026-11-17
+
+* Added PHP 8.6 support.
+* Added support for JEP-18 lexical scoping with let expressions.
+* Fixed the compiled runtime to evaluate sub-expressions when the left side is null.
+* Fixed the ordering operators to return null instead of false for non-numbers.
+* Fixed aggregate and sort functions to error on an invalid first or only element.
+* Raised the minimum symfony/polyfill-mbstring version to 1.30.
+* Improved the performance of type checks on large arrays.
+
 ## 2.9.4 - 2026-11-17
 
 * Fixed the compiled runtime to use a private default cache directory, preventing local code execution.
