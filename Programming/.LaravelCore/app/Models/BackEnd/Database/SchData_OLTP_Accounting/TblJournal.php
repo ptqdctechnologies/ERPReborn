@@ -90,7 +90,8 @@ namespace App\Models\Database\SchData_OLTP_Accounting
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
-                    );                    
+                    );
+
                     $additionalData = json_decode($varData['data'][0]['AdditionalData'], true);
                     $additionalDataArray = explode(",", $additionalData['general']['documentNumber']);                     
                     $length = count($additionalDataArray) / 2; // Get the array length once
@@ -145,37 +146,52 @@ namespace App\Models\Database\SchData_OLTP_Accounting
         */
         public function setDataUpdate(
             $varUserSession,
-            int $varSysID, string $varSysDataAnnotation = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,  int $varSysBaseCurrency_RefID = null,
-            string $varJournalCode = null, string $varJournalDateTimeTZ = null, int $varPosterWorkerJobsPosition_RefID = null, $varvarPostingDateTimeTZ = null, string $varAnnotation = null,
+            int $varSysID = null, string $varSysDataAnnotation = null, string $varSysDataValidityStartDateTimeTZ = null, string $varSysDataValidityFinishDateTimeTZ = null, int $varSysPartitionRemovableRecordKeyRefType = null, int $varSysBranch_RefID = null,  int $varSysBaseCurrency_RefID = null,
             array $varAdditionalData = [])
             {
-            $varReturn =
+            $varData =
                 \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getQueryExecution(
                     $varUserSession,
                     \App\Helpers\ZhtHelper\Database\Helper_PostgreSQL::getBuildStringLiteral_StoredProcedure(
                         $varUserSession,
-                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET',
+                        parent::getSchemaName($varUserSession).'.Func_'.parent::getTableName($varUserSession).'_SET_NEW',
                         [
                             [$varUserSession, 'bigint'],
                             [$varSysID, 'bigint'],
+
                             [$varSysDataAnnotation, 'varchar'],
+                            [$varSysDataValidityStartDateTimeTZ, 'timestamptz'],
+                            [$varSysDataValidityFinishDateTimeTZ, 'timestamptz'],
                             [$varSysPartitionRemovableRecordKeyRefType, 'varchar'],
                             [$varSysBranch_RefID, 'bigint'],
                             [$varSysBaseCurrency_RefID, 'bigint'],
-
-                            [$varJournalCode, 'varchar'],
-                            [$varJournalDateTimeTZ, 'timestamptz'],
-                            [$varPosterWorkerJobsPosition_RefID, 'bigint'],
-                            [$varvarPostingDateTimeTZ, 'timestamptz'],
-                            [$varAnnotation, 'varchar'],
 
                             [((count($varAdditionalData) === 0) ? null : \App\Helpers\ZhtHelper\General\Helper_Encode::getJSONEncode($varUserSession, $varAdditionalData)), 'json']
                         ]
                         )
                     );
+                    
+                    $additionalData = json_decode($varData['data'][0]['AdditionalData'], true);
+                    $additionalDataArray = explode(",", $additionalData['general']['documentNumber']);
+                    $length = count($additionalDataArray) / 2; // Get the array length once
+		    $index = 0;
 
-            return
-                $varReturn;
+                    for ($i = 0; $i < $length; $i++) {                           
+                        for ($j = 0; $j < 2; $j++) {
+                            if ($j == 0) {
+		                $additionalData['general']['documentNumber2'][$i]['journalNumber'] = $additionalDataArray[$index];
+                            } else {
+		                $additionalData['general']['documentNumber2'][$i]['referenceNumber'] = $additionalDataArray[$index];
+			    }
+			    $index++;
+                        }
+		    }
+
+		    $additionalData['general']['documentNumber'] = $additionalData['general']['documentNumber2'];
+		    unset($additionalData['general']['documentNumber2']);
+                    $additionalDataJson = json_encode($additionalData);
+                    $varData['data'][0]['AdditionalData'] = $additionalDataJson;
+		    return $varData['data'][0];
             }
         }
     }

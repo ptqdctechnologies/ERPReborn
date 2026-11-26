@@ -67,32 +67,20 @@ namespace App\Http\Controllers\Application\BackEnd\System\Transaction\Engines\up
                                 $varUserSession,
                                 (new \App\Models\Database\SchData_OLTP_Accounting\TblJournal())->setDataUpdate(
                                     $varUserSession,
-                                    $varData['recordID'],
+                                    1,
+                                    null,
+                                    null,
                                     null,
                                     null,
                                     (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'],
                                     \App\Helpers\ZhtHelper\General\Helper_SystemParameter::getApplicationParameter_BaseCurrencyID($varUserSession, (\App\Helpers\ZhtHelper\System\BackEnd\Helper_API::getUserLoginSessionEntityByAPIWebToken($varUserSession))['branchID'], 'Env.System.BaseCurrency.ID'),
-
-                                    $varData['entities']['journalCode'],
-                                    $varData['entities']['journalDateTimeTZ'],
-                                    $varData['entities']['posterWorkerJobsPosition_RefID'],
-                                    $varData['entities']['postingDateTimeTZ'],
-                                    $varData['entities']['annotation'],
-
-                                    (\App\Helpers\ZhtHelper\General\Helper_Array::isKeyExist($varUserSession, 'additionalData', $varData['entities']) ? $varData['entities']['additionalData'] : [])
+                                    $varData
                                     )
                                 )
                             ))
                             {
                             throw new \Exception();
                             }
-
-                        //---> Set Business Document Data Into varDataSend
-                        $varDataSend['businessDocument'] = 
-                            (new \App\Models\Database\SchData_OLTP_Master\General())->getBusinessDocumentByRecordID(
-                                $varUserSession, 
-                                $varDataSend['recordID']
-                                );
 
                         $varReturn = \App\Helpers\ZhtHelper\System\BackEnd\Helper_API::setEngineResponseDataReturn_Success($varUserSession, $varDataSend);
                         } 
