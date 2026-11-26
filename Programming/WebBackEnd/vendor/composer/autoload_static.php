@@ -3787,6 +3787,7 @@ class ComposerStaticInitd1de04f9266c92095667a9ede948a3ef
         'App\\Models\\Database\\SchData_OLTP_Production\\TblMaterialProductAssemblyVersion' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Production/TblMaterialProductAssemblyVersion.php',
         'App\\Models\\Database\\SchData_OLTP_Production\\TblMaterialProductComponent' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Production/TblMaterialProductComponent.php',
         'App\\Models\\Database\\SchData_OLTP_Project\\General' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/General.php',
+        'App\\Models\\Database\\SchData_OLTP_Project\\TblBillOfQuantity' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/TblBillOfQuantity.php',
         'App\\Models\\Database\\SchData_OLTP_Project\\TblMapper_ProjectToMaterialProductAssembly' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/TblMapper_ProjectToMaterialProductAssembly.php',
         'App\\Models\\Database\\SchData_OLTP_Project\\TblProject' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/TblProject.php',
         'App\\Models\\Database\\SchData_OLTP_Project\\TblProjectProgress' => __DIR__ . '/../..' . '/app/Models/Database/SchData_OLTP_Project/TblProjectProgress.php',

@@ -49,15 +49,39 @@ namespace App\Http\Controllers\Application\FrontEnd\SandBox\Examples_APICall\tra
                             "documentDateTimeTZ" => '2022-03-07',
                             "log_FileUpload_Pointer_RefID" => 91000000000001,
                             "requesterWorkerJobsPosition_RefID" => 164000000000497,
-                            
-                            
-                            
-                            
-                            "name" => 'Project XYZ',
-                            "materialProductAssembly_RefID" => null,
-                            "validStartDateTimeTZ" => '2024-05-01',
-                            "validFinishDateTimeTZ" => null,
-                            "code" => 'Qxxxxx'
+                            "remarks" => 'My Remarks',
+                            "additionalData" => [
+                                "itemList" => [
+                                    "items" => [
+                                            [
+                                            "entities" => [
+						"combinedBudgetSection_RefID" => 143000000000305,
+						"workStructure_RefID" => null,
+						"product_RefID" => 88000000000083,
+						"quantity" => 1.00,
+						"quantityUnit_RefID" => 73000000000009,
+						"productUnitPriceCurrency_RefID" => 62000000000001,
+						"productUnitPriceCurrencyValue" => 1500000.00,
+						"productUnitPriceCurrencyExchangeRate" => 1.00,
+						"remarks" => "Catatan 1"
+                                                ]                                   
+                                            ],
+                                            [
+                                            "entities" => [
+						"combinedBudgetSection_RefID" => 143000000000305,
+						"workStructure_RefID" => null,
+						"product_RefID" => 88000000000302,
+						"quantity" => 4.00,
+						"quantityUnit_RefID" => 73000000000013,
+						"productUnitPriceCurrency_RefID" => 62000000000001,
+						"productUnitPriceCurrencyValue" => 380000.00,
+						"productUnitPriceCurrencyExchangeRate" => 1.00,
+						"remarks" => "Catatan 2"
+                                                ]
+                                            ],
+                                        ]
+                                    ]
+                                ]
                             ]
                         ]
                     //-----[ DATA ]---------(  END  )-----
