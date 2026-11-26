@@ -82,6 +82,7 @@ abstract class ClusterStrategy implements StrategyInterface
             'BITOP' => [$this, 'getKeyFromBitOp'],
             'BITCOUNT' => $getKeyFromFirstArgument,
             'BITFIELD' => $getKeyFromFirstArgument,
+            'BITRANGEINTARRAY' => $getKeyFromFirstArgument,
 
             /* commands operating on lists */
             'LINSERT' => $getKeyFromFirstArgument,
@@ -139,6 +140,16 @@ abstract class ClusterStrategy implements StrategyInterface
             'SPOP' => $getKeyFromFirstArgument,
             'SRANDMEMBER' => $getKeyFromFirstArgument,
             'SREM' => $getKeyFromFirstArgument,
+            'SADDEX' => $getKeyFromFirstArgument,
+            'SEXPIRE' => $getKeyFromFirstArgument,
+            'SEXPIREAT' => $getKeyFromFirstArgument,
+            'SPEXPIRE' => $getKeyFromFirstArgument,
+            'SPEXPIREAT' => $getKeyFromFirstArgument,
+            'STTL' => $getKeyFromFirstArgument,
+            'SPTTL' => $getKeyFromFirstArgument,
+            'SEXPIRETIME' => $getKeyFromFirstArgument,
+            'SPEXPIRETIME' => $getKeyFromFirstArgument,
+            'SPERSIST' => $getKeyFromFirstArgument,
 
             /* commands operating on sorted sets */
             'ZADD' => $getKeyFromFirstArgument,
@@ -157,6 +168,9 @@ abstract class ClusterStrategy implements StrategyInterface
             'ZREVRANK' => $getKeyFromFirstArgument,
             'ZSCORE' => $getKeyFromFirstArgument,
             'ZMSCORE' => $getKeyFromFirstArgument,
+            'ZMOVE' => [$this, 'getKeyFromFirstTwoKeys'],
+            'BZMOVE' => [$this, 'getKeyFromFirstTwoKeys'],
+            'ZMOVEMEMBER' => [$this, 'getKeyFromFirstTwoKeys'],
             'ZUNIONSTORE' => [$this, 'getKeyFromZsetAggregationCommands'],
             'ZSCAN' => $getKeyFromFirstArgument,
             'ZLEXCOUNT' => $getKeyFromFirstArgument,

@@ -177,6 +177,7 @@ use Aws\AwsClient;
  *         CurrencyMode?: 'REAL'|'TEST',
  *         ...,
  *     },
+ *     AnalyticsConfig?: array{Mode?: 'CROSS_REGION'|'DISABLED', ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createWebACLAsync(array $args = [])
@@ -213,6 +214,7 @@ use Aws\AwsClient;
  *         CurrencyMode?: 'REAL'|'TEST',
  *         ...,
  *     },
+ *     AnalyticsConfig?: array{Mode?: 'CROSS_REGION'|'DISABLED', ...},
  *     ...,
  * } $args = [])
  * @method \Aws\Result deleteAPIKey(array $args = [])
@@ -281,6 +283,14 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getDecryptedAPIKey(array{Scope?: 'CLOUDFRONT'|'REGIONAL', APIKey?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getDecryptedAPIKeyAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getDecryptedAPIKeyAsync(array{Scope?: 'CLOUDFRONT'|'REGIONAL', APIKey?: string, ...} $args = [])
+ * @method \Aws\Result getEvent(array $args = [])
+ * @phpstan-method \Aws\Result getEvent(array{Scope?: 'CLOUDFRONT'|'REGIONAL', EventId?: string, WebAclArn?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getEventAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getEventAsync(array{Scope?: 'CLOUDFRONT'|'REGIONAL', EventId?: string, WebAclArn?: string, ...} $args = [])
+ * @method \Aws\Result getEventActor(array $args = [])
+ * @phpstan-method \Aws\Result getEventActor(array{Scope?: 'CLOUDFRONT'|'REGIONAL', EventActorId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getEventActorAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getEventActorAsync(array{Scope?: 'CLOUDFRONT'|'REGIONAL', EventActorId?: string, ...} $args = [])
  * @method \Aws\Result getIPSet(array $args = [])
  * @phpstan-method \Aws\Result getIPSet(array{Name?: string, Scope?: 'CLOUDFRONT'|'REGIONAL', Id?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getIPSetAsync(array $args = [])
@@ -487,6 +497,78 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result listAvailableManagedRuleGroups(array{Scope?: 'CLOUDFRONT'|'REGIONAL', NextMarker?: string, Limit?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listAvailableManagedRuleGroupsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listAvailableManagedRuleGroupsAsync(array{Scope?: 'CLOUDFRONT'|'REGIONAL', NextMarker?: string, Limit?: int, ...} $args = [])
+ * @method \Aws\Result listEventActors(array $args = [])
+ * @phpstan-method \Aws\Result listEventActors(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     SortBy?: 'EVENT_COUNT',
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listEventActorsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listEventActorsAsync(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     SortBy?: 'EVENT_COUNT',
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result listEvents(array $args = [])
+ * @phpstan-method \Aws\Result listEvents(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     Filters?: list<array{Name?: 'EVENT_CATEGORY'|'RESOURCE_ARN', Values?: list<string>, ...}>,
+ *     ApiPatternFilters?: list<array{Method?: string, PathPattern?: string, Port?: int, Domains?: list<string>, ...}>,
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     SortOrder?: 'ASC'|'DESC',
+ *     SortBy?: 'CONFIDENCE'|'END_TIME'|'START_TIME',
+ *     Include?: list<'TIMELINE'>,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listEventsAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listEventsAsync(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     Filters?: list<array{Name?: 'EVENT_CATEGORY'|'RESOURCE_ARN', Values?: list<string>, ...}>,
+ *     ApiPatternFilters?: list<array{Method?: string, PathPattern?: string, Port?: int, Domains?: list<string>, ...}>,
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     SortOrder?: 'ASC'|'DESC',
+ *     SortBy?: 'CONFIDENCE'|'END_TIME'|'START_TIME',
+ *     Include?: list<'TIMELINE'>,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result listEventsByWebACL(array $args = [])
+ * @phpstan-method \Aws\Result listEventsByWebACL(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     WebAclArn?: string,
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     Filters?: list<array{Name?: 'EVENT_CATEGORY'|'RESOURCE_ARN', Values?: list<string>, ...}>,
+ *     ApiPatternFilters?: list<array{Method?: string, PathPattern?: string, Port?: int, Domains?: list<string>, ...}>,
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     SortOrder?: 'ASC'|'DESC',
+ *     SortBy?: 'CONFIDENCE'|'END_TIME'|'START_TIME',
+ *     Include?: list<'TIMELINE'>,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listEventsByWebACLAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listEventsByWebACLAsync(array{
+ *     Scope?: 'CLOUDFRONT'|'REGIONAL',
+ *     WebAclArn?: string,
+ *     TimeWindow?: array{StartTime?: int|string|\DateTimeInterface, EndTime?: int|string|\DateTimeInterface, ...},
+ *     Filters?: list<array{Name?: 'EVENT_CATEGORY'|'RESOURCE_ARN', Values?: list<string>, ...}>,
+ *     ApiPatternFilters?: list<array{Method?: string, PathPattern?: string, Port?: int, Domains?: list<string>, ...}>,
+ *     Limit?: int,
+ *     NextMarker?: string,
+ *     SortOrder?: 'ASC'|'DESC',
+ *     SortBy?: 'CONFIDENCE'|'END_TIME'|'START_TIME',
+ *     Include?: list<'TIMELINE'>,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listIPSets(array $args = [])
  * @phpstan-method \Aws\Result listIPSets(array{Scope?: 'CLOUDFRONT'|'REGIONAL', NextMarker?: string, Limit?: int, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listIPSetsAsync(array $args = [])
@@ -522,13 +604,13 @@ use Aws\AwsClient;
  * @method \Aws\Result listResourcesForWebACL(array $args = [])
  * @phpstan-method \Aws\Result listResourcesForWebACL(array{
  *     WebACLArn?: string,
- *     ResourceType?: 'AGENTCORE_GATEWAY'|'AMPLIFY'|'API_GATEWAY'|'APPLICATION_LOAD_BALANCER'|'APPSYNC'|'APP_RUNNER_SERVICE'|'COGNITO_USER_POOL'|'VERIFIED_ACCESS_INSTANCE',
+ *     ResourceType?: 'AGENTCORE_GATEWAY'|'AMPLIFY'|'API_GATEWAY'|'APPLICATION_LOAD_BALANCER'|'APPSYNC'|'APP_RUNNER_SERVICE'|'COGNITO_USER_POOL'|'ELB_PROXY'|'VERIFIED_ACCESS_INSTANCE',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise listResourcesForWebACLAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listResourcesForWebACLAsync(array{
  *     WebACLArn?: string,
- *     ResourceType?: 'AGENTCORE_GATEWAY'|'AMPLIFY'|'API_GATEWAY'|'APPLICATION_LOAD_BALANCER'|'APPSYNC'|'APP_RUNNER_SERVICE'|'COGNITO_USER_POOL'|'VERIFIED_ACCESS_INSTANCE',
+ *     ResourceType?: 'AGENTCORE_GATEWAY'|'AMPLIFY'|'API_GATEWAY'|'APPLICATION_LOAD_BALANCER'|'APPSYNC'|'APP_RUNNER_SERVICE'|'COGNITO_USER_POOL'|'ELB_PROXY'|'VERIFIED_ACCESS_INSTANCE',
  *     ...,
  * } $args = [])
  * @method \Aws\Result listRuleGroups(array $args = [])
@@ -780,6 +862,7 @@ use Aws\AwsClient;
  *         CurrencyMode?: 'REAL'|'TEST',
  *         ...,
  *     },
+ *     AnalyticsConfig?: array{Mode?: 'CROSS_REGION'|'DISABLED', ...},
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateWebACLAsync(array $args = [])
@@ -817,6 +900,7 @@ use Aws\AwsClient;
  *         CurrencyMode?: 'REAL'|'TEST',
  *         ...,
  *     },
+ *     AnalyticsConfig?: array{Mode?: 'CROSS_REGION'|'DISABLED', ...},
  *     ...,
  * } $args = [])
  */

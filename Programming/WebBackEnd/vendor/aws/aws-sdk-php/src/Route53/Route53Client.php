@@ -54,7 +54,7 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \GuzzleHttp\Promise\Promise changeResourceRecordSetsAsync(array{HostedZoneId?: string, ChangeBatch?: array{Comment?: string, Changes?: list<array>, ...}, ...} $args = [])
  * @method \Aws\Result changeTagsForResource(array $args = [])
  * @phpstan-method \Aws\Result changeTagsForResource(array{
- *     ResourceType?: 'healthcheck'|'hostedzone',
+ *     ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone',
  *     ResourceId?: string,
  *     AddTags?: list<array{Key?: string, Value?: string, ...}>,
  *     RemoveTagKeys?: list<string>,
@@ -62,7 +62,7 @@ use Psr\Http\Message\RequestInterface;
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise changeTagsForResourceAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise changeTagsForResourceAsync(array{
- *     ResourceType?: 'healthcheck'|'hostedzone',
+ *     ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone',
  *     ResourceId?: string,
  *     AddTags?: list<array{Key?: string, Value?: string, ...}>,
  *     RemoveTagKeys?: list<string>,
@@ -98,6 +98,8 @@ use Psr\Http\Message\RequestInterface;
  *         },
  *         InsufficientDataHealthStatus?: 'Healthy'|'LastKnownStatus'|'Unhealthy',
  *         RoutingControlArn?: string,
+ *         EndpointType?: 'PRIVATE'|'PUBLIC',
+ *         HealthCheckSourceId?: string,
  *         ...,
  *     },
  *     ...,
@@ -128,8 +130,24 @@ use Psr\Http\Message\RequestInterface;
  *         },
  *         InsufficientDataHealthStatus?: 'Healthy'|'LastKnownStatus'|'Unhealthy',
  *         RoutingControlArn?: string,
+ *         EndpointType?: 'PRIVATE'|'PUBLIC',
+ *         HealthCheckSourceId?: string,
  *         ...,
  *     },
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result createHealthCheckSource(array $args = [])
+ * @phpstan-method \Aws\Result createHealthCheckSource(array{
+ *     CallerReference?: string,
+ *     HealthCheckSourceConfig?: array{VpcId?: string, SubnetConfigurationList?: list<array>, ...},
+ *     Tags?: list<array{Key?: string, Value?: string, ...}>,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise createHealthCheckSourceAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise createHealthCheckSourceAsync(array{
+ *     CallerReference?: string,
+ *     HealthCheckSourceConfig?: array{VpcId?: string, SubnetConfigurationList?: list<array>, ...},
+ *     Tags?: list<array{Key?: string, Value?: string, ...}>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createHostedZone(array $args = [])
@@ -141,8 +159,14 @@ use Psr\Http\Message\RequestInterface;
  *         ...,
  *     },
  *     CallerReference?: string,
- *     HostedZoneConfig?: array{Comment?: string, PrivateZone?: bool, ...},
+ *     HostedZoneConfig?: array{Comment?: string, PrivateZone?: bool, HostedZoneTier?: 'ADVANCED'|'STANDARD', ...},
  *     DelegationSetId?: string,
+ *     EnablePublicDNSFallback?: bool,
+ *     ChangeGuardrails?: list<array{
+ *         Name?: 'ACTIVE_DELEGATION_CHECK'|'ACTIVE_RECORD_CHECK'|'ALIAS_TARGET_CHECK'|'NS_DELEGATION_AUTHORITY_CHECK'|'NS_FORMAT_CHECK'|'NS_OCCLUSION_CHECK',
+ *         Status?: 'DISABLED'|'ENABLED',
+ *         ...,
+ *     }>,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createHostedZoneAsync(array $args = [])
@@ -154,8 +178,14 @@ use Psr\Http\Message\RequestInterface;
  *         ...,
  *     },
  *     CallerReference?: string,
- *     HostedZoneConfig?: array{Comment?: string, PrivateZone?: bool, ...},
+ *     HostedZoneConfig?: array{Comment?: string, PrivateZone?: bool, HostedZoneTier?: 'ADVANCED'|'STANDARD', ...},
  *     DelegationSetId?: string,
+ *     EnablePublicDNSFallback?: bool,
+ *     ChangeGuardrails?: list<array{
+ *         Name?: 'ACTIVE_DELEGATION_CHECK'|'ACTIVE_RECORD_CHECK'|'ALIAS_TARGET_CHECK'|'NS_DELEGATION_AUTHORITY_CHECK'|'NS_FORMAT_CHECK'|'NS_OCCLUSION_CHECK',
+ *         Status?: 'DISABLED'|'ENABLED',
+ *         ...,
+ *     }>,
  *     ...,
  * } $args = [])
  * @method \Aws\Result createKeySigningKey(array $args = [])
@@ -264,6 +294,10 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \Aws\Result deleteHealthCheck(array{HealthCheckId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteHealthCheckAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise deleteHealthCheckAsync(array{HealthCheckId?: string, ...} $args = [])
+ * @method \Aws\Result deleteHealthCheckSource(array $args = [])
+ * @phpstan-method \Aws\Result deleteHealthCheckSource(array{HealthCheckSourceId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise deleteHealthCheckSourceAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise deleteHealthCheckSourceAsync(array{HealthCheckSourceId?: string, ...} $args = [])
  * @method \Aws\Result deleteHostedZone(array $args = [])
  * @phpstan-method \Aws\Result deleteHostedZone(array{Id?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise deleteHostedZoneAsync(array $args = [])
@@ -360,12 +394,12 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \GuzzleHttp\Promise\Promise enableHostedZoneDNSSECAsync(array{HostedZoneId?: string, ...} $args = [])
  * @method \Aws\Result getAccountLimit(array $args = [])
  * @phpstan-method \Aws\Result getAccountLimit(array{
- *     Type?: 'MAX_HEALTH_CHECKS_BY_OWNER'|'MAX_HOSTED_ZONES_BY_OWNER'|'MAX_REUSABLE_DELEGATION_SETS_BY_OWNER'|'MAX_TRAFFIC_POLICIES_BY_OWNER'|'MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER',
+ *     Type?: 'MAX_HEALTH_CHECKS_BY_OWNER'|'MAX_HEALTH_CHECK_SOURCES_BY_OWNER'|'MAX_HOSTED_ZONES_BY_OWNER'|'MAX_REUSABLE_DELEGATION_SETS_BY_OWNER'|'MAX_TRAFFIC_POLICIES_BY_OWNER'|'MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise getAccountLimitAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getAccountLimitAsync(array{
- *     Type?: 'MAX_HEALTH_CHECKS_BY_OWNER'|'MAX_HOSTED_ZONES_BY_OWNER'|'MAX_REUSABLE_DELEGATION_SETS_BY_OWNER'|'MAX_TRAFFIC_POLICIES_BY_OWNER'|'MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER',
+ *     Type?: 'MAX_HEALTH_CHECKS_BY_OWNER'|'MAX_HEALTH_CHECK_SOURCES_BY_OWNER'|'MAX_HOSTED_ZONES_BY_OWNER'|'MAX_REUSABLE_DELEGATION_SETS_BY_OWNER'|'MAX_TRAFFIC_POLICIES_BY_OWNER'|'MAX_TRAFFIC_POLICY_INSTANCES_BY_OWNER',
  *     ...,
  * } $args = [])
  * @method \Aws\Result getChange(array $args = [])
@@ -396,6 +430,10 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \Aws\Result getHealthCheckLastFailureReason(array{HealthCheckId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getHealthCheckLastFailureReasonAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getHealthCheckLastFailureReasonAsync(array{HealthCheckId?: string, ...} $args = [])
+ * @method \Aws\Result getHealthCheckSource(array $args = [])
+ * @phpstan-method \Aws\Result getHealthCheckSource(array{HealthCheckSourceId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getHealthCheckSourceAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getHealthCheckSourceAsync(array{HealthCheckSourceId?: string, ...} $args = [])
  * @method \Aws\Result getHealthCheckStatus(array $args = [])
  * @phpstan-method \Aws\Result getHealthCheckStatus(array{HealthCheckId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getHealthCheckStatusAsync(array $args = [])
@@ -404,6 +442,10 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \Aws\Result getHostedZone(array{Id?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getHostedZoneAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getHostedZoneAsync(array{Id?: string, ...} $args = [])
+ * @method \Aws\Result getHostedZoneChangeBatch(array $args = [])
+ * @phpstan-method \Aws\Result getHostedZoneChangeBatch(array{HostedZoneId?: string, ChangeId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getHostedZoneChangeBatchAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getHostedZoneChangeBatchAsync(array{HostedZoneId?: string, ChangeId?: string, ...} $args = [])
  * @method \Aws\Result getHostedZoneCount(array $args = [])
  * @phpstan-method \Aws\Result getHostedZoneCount(array{...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getHostedZoneCountAsync(array $args = [])
@@ -464,10 +506,40 @@ use Psr\Http\Message\RequestInterface;
  *     MaxItems?: string,
  *     ...,
  * } $args = [])
+ * @method \Aws\Result listHealthCheckSources(array $args = [])
+ * @phpstan-method \Aws\Result listHealthCheckSources(array{NextToken?: string, MaxResults?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listHealthCheckSourcesAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listHealthCheckSourcesAsync(array{NextToken?: string, MaxResults?: string, ...} $args = [])
  * @method \Aws\Result listHealthChecks(array $args = [])
  * @phpstan-method \Aws\Result listHealthChecks(array{Marker?: string, MaxItems?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listHealthChecksAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listHealthChecksAsync(array{Marker?: string, MaxItems?: string, ...} $args = [])
+ * @method \Aws\Result listHealthChecksBySource(array $args = [])
+ * @phpstan-method \Aws\Result listHealthChecksBySource(array{HealthCheckSourceId?: string, Marker?: string, MaxItems?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise listHealthChecksBySourceAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listHealthChecksBySourceAsync(array{HealthCheckSourceId?: string, Marker?: string, MaxItems?: string, ...} $args = [])
+ * @method \Aws\Result listHostedZoneChangeBatches(array $args = [])
+ * @phpstan-method \Aws\Result listHostedZoneChangeBatches(array{
+ *     HostedZoneId?: string,
+ *     SubmittedAfter?: string,
+ *     SubmittedBefore?: string,
+ *     StartAfterChangeId?: string,
+ *     SortOrder?: 'ASCENDING'|'DESCENDING',
+ *     MaxResults?: string,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listHostedZoneChangeBatchesAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listHostedZoneChangeBatchesAsync(array{
+ *     HostedZoneId?: string,
+ *     SubmittedAfter?: string,
+ *     SubmittedBefore?: string,
+ *     StartAfterChangeId?: string,
+ *     SortOrder?: 'ASCENDING'|'DESCENDING',
+ *     MaxResults?: string,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listHostedZones(array $args = [])
  * @phpstan-method \Aws\Result listHostedZones(array{Marker?: string, MaxItems?: string, DelegationSetId?: string, HostedZoneType?: 'PrivateHostedZone', ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listHostedZonesAsync(array $args = [])
@@ -496,6 +568,30 @@ use Psr\Http\Message\RequestInterface;
  * @phpstan-method \Aws\Result listQueryLoggingConfigs(array{HostedZoneId?: string, NextToken?: string, MaxResults?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listQueryLoggingConfigsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listQueryLoggingConfigsAsync(array{HostedZoneId?: string, NextToken?: string, MaxResults?: string, ...} $args = [])
+ * @method \Aws\Result listResourceRecordSetChanges(array $args = [])
+ * @phpstan-method \Aws\Result listResourceRecordSetChanges(array{
+ *     HostedZoneId?: string,
+ *     RecordName?: string,
+ *     RecordType?: 'A'|'AAAA'|'CAA'|'CNAME'|'DS'|'HTTPS'|'MX'|'NAPTR'|'NS'|'PTR'|'SOA'|'SPF'|'SRV'|'SSHFP'|'SVCB'|'TLSA'|'TXT',
+ *     SubmittedAfter?: string,
+ *     SubmittedBefore?: string,
+ *     SortOrder?: 'ASCENDING'|'DESCENDING',
+ *     MaxResults?: string,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise listResourceRecordSetChangesAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listResourceRecordSetChangesAsync(array{
+ *     HostedZoneId?: string,
+ *     RecordName?: string,
+ *     RecordType?: 'A'|'AAAA'|'CAA'|'CNAME'|'DS'|'HTTPS'|'MX'|'NAPTR'|'NS'|'PTR'|'SOA'|'SPF'|'SRV'|'SSHFP'|'SVCB'|'TLSA'|'TXT',
+ *     SubmittedAfter?: string,
+ *     SubmittedBefore?: string,
+ *     SortOrder?: 'ASCENDING'|'DESCENDING',
+ *     MaxResults?: string,
+ *     NextToken?: string,
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listResourceRecordSetProtections(array $args = [])
  * @phpstan-method \Aws\Result listResourceRecordSetProtections(array{
  *     HostedZoneId?: string,
@@ -537,13 +633,13 @@ use Psr\Http\Message\RequestInterface;
  * @method \GuzzleHttp\Promise\Promise listReusableDelegationSetsAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise listReusableDelegationSetsAsync(array{Marker?: string, MaxItems?: string, ...} $args = [])
  * @method \Aws\Result listTagsForResource(array $args = [])
- * @phpstan-method \Aws\Result listTagsForResource(array{ResourceType?: 'healthcheck'|'hostedzone', ResourceId?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result listTagsForResource(array{ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone', ResourceId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listTagsForResourceAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listTagsForResourceAsync(array{ResourceType?: 'healthcheck'|'hostedzone', ResourceId?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listTagsForResourceAsync(array{ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone', ResourceId?: string, ...} $args = [])
  * @method \Aws\Result listTagsForResources(array $args = [])
- * @phpstan-method \Aws\Result listTagsForResources(array{ResourceType?: 'healthcheck'|'hostedzone', ResourceIds?: list<string>, ...} $args = [])
+ * @phpstan-method \Aws\Result listTagsForResources(array{ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone', ResourceIds?: list<string>, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listTagsForResourcesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listTagsForResourcesAsync(array{ResourceType?: 'healthcheck'|'hostedzone', ResourceIds?: list<string>, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listTagsForResourcesAsync(array{ResourceType?: 'healthcheck'|'healthchecksource'|'hostedzone', ResourceIds?: list<string>, ...} $args = [])
  * @method \Aws\Result listTrafficPolicies(array $args = [])
  * @phpstan-method \Aws\Result listTrafficPolicies(array{TrafficPolicyIdMarker?: string, MaxItems?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listTrafficPoliciesAsync(array $args = [])
@@ -651,6 +747,7 @@ use Psr\Http\Message\RequestInterface;
  *     },
  *     InsufficientDataHealthStatus?: 'Healthy'|'LastKnownStatus'|'Unhealthy',
  *     ResetElements?: list<'ChildHealthChecks'|'FullyQualifiedDomainName'|'Regions'|'ResourcePath'>,
+ *     HealthCheckSourceId?: string,
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateHealthCheckAsync(array $args = [])
@@ -676,6 +773,7 @@ use Psr\Http\Message\RequestInterface;
  *     },
  *     InsufficientDataHealthStatus?: 'Healthy'|'LastKnownStatus'|'Unhealthy',
  *     ResetElements?: list<'ChildHealthChecks'|'FullyQualifiedDomainName'|'Regions'|'ResourcePath'>,
+ *     HealthCheckSourceId?: string,
  *     ...,
  * } $args = [])
  * @method \Aws\Result updateHostedZoneComment(array $args = [])
@@ -683,9 +781,35 @@ use Psr\Http\Message\RequestInterface;
  * @method \GuzzleHttp\Promise\Promise updateHostedZoneCommentAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise updateHostedZoneCommentAsync(array{Id?: string, Comment?: string, ...} $args = [])
  * @method \Aws\Result updateHostedZoneFeatures(array $args = [])
- * @phpstan-method \Aws\Result updateHostedZoneFeatures(array{HostedZoneId?: string, EnableAcceleratedRecovery?: bool, ...} $args = [])
+ * @phpstan-method \Aws\Result updateHostedZoneFeatures(array{
+ *     HostedZoneId?: string,
+ *     EnableAcceleratedRecovery?: bool,
+ *     EnablePublicDNSFallback?: bool,
+ *     ChangeGuardrails?: list<array{
+ *         Name?: 'ACTIVE_DELEGATION_CHECK'|'ACTIVE_RECORD_CHECK'|'ALIAS_TARGET_CHECK'|'NS_DELEGATION_AUTHORITY_CHECK'|'NS_FORMAT_CHECK'|'NS_OCCLUSION_CHECK',
+ *         Status?: 'DISABLED'|'ENABLED',
+ *         ...,
+ *     }>,
+ *     DryRun?: bool,
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateHostedZoneFeaturesAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise updateHostedZoneFeaturesAsync(array{HostedZoneId?: string, EnableAcceleratedRecovery?: bool, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateHostedZoneFeaturesAsync(array{
+ *     HostedZoneId?: string,
+ *     EnableAcceleratedRecovery?: bool,
+ *     EnablePublicDNSFallback?: bool,
+ *     ChangeGuardrails?: list<array{
+ *         Name?: 'ACTIVE_DELEGATION_CHECK'|'ACTIVE_RECORD_CHECK'|'ALIAS_TARGET_CHECK'|'NS_DELEGATION_AUTHORITY_CHECK'|'NS_FORMAT_CHECK'|'NS_OCCLUSION_CHECK',
+ *         Status?: 'DISABLED'|'ENABLED',
+ *         ...,
+ *     }>,
+ *     DryRun?: bool,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result updateHostedZoneTier(array $args = [])
+ * @phpstan-method \Aws\Result updateHostedZoneTier(array{HostedZoneId?: string, HostedZoneTier?: 'ADVANCED'|'STANDARD', DryRun?: bool, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateHostedZoneTierAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateHostedZoneTierAsync(array{HostedZoneId?: string, HostedZoneTier?: 'ADVANCED'|'STANDARD', DryRun?: bool, ...} $args = [])
  * @method \Aws\Result updateTrafficPolicyComment(array $args = [])
  * @phpstan-method \Aws\Result updateTrafficPolicyComment(array{Id?: string, Version?: int, Comment?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise updateTrafficPolicyCommentAsync(array $args = [])

@@ -21,11 +21,10 @@ use Predis\Command\Redis\WATCH;
 use Predis\CommunicationException;
 use Predis\Connection\ConnectionException;
 use Predis\Connection\NodeConnectionInterface;
-use Predis\Connection\RelayConnection;
 use Predis\Connection\Replication\ReplicationInterface;
 use Predis\Response\ErrorInterface;
 use Predis\Response\ServerException;
-use Predis\TimeoutException;
+use Predis\Response\Status;
 use Predis\Transaction\MultiExecState;
 use Predis\Transaction\Response\BypassTransactionResponse;
 use Throwable;
@@ -46,6 +45,16 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
     protected $state;
 
     /**
+     * Node connection holding the transaction from WATCH or MULTI until EXEC,
+     * DISCARD or UNWATCH. Commands are not retried while it is set, since they
+     * would run outside of the transaction on another connection. Once it is
+     * lost, commands fail until discard() or unwatch().
+     *
+     * @var NodeConnectionInterface|null
+     */
+    private $nodeConnection;
+
+    /**
      * @param NodeConnectionInterface|ReplicationInterface $connection
      */
     public function __construct($connection, MultiExecState $state)
@@ -59,7 +68,7 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
      */
     public function initializeTransaction(): bool
     {
-        return 'OK' == $this->executeBypassingTransaction(new MULTI())->getResponse();
+        return 'OK' == $this->multi();
     }
 
     /**
@@ -72,23 +81,32 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
             return $this->executeBypassingTransaction($command);
         }
 
-        $retry = $this->connection->getParameters()->retry;
-
-        return $retry->callWithRetry(
-            function () use ($command) {
-                return $this->connection->executeCommand($command);
-            }, function (CommunicationException $e) {
-                $this->onFailCallback($e);
-            }
-        );
+        return $this->send($command);
     }
 
     /**
+     * Closes the connection when EXEC fails with any error but EXECABORT,
+     * since Redis before 6.0.6 can reject EXEC with BUSY, LOADING or
+     * MASTERDOWN and keep MULTI open.
+     *
      * {@inheritDoc}
      */
     public function executeTransaction()
     {
-        return $this->executeBypassingTransaction(new EXEC())->getResponse();
+        $connection = $this->nodeConnection ?: $this->connection;
+
+        try {
+            return $this->executeBypassingTransaction(new EXEC())->getResponse();
+        } catch (ServerException $exception) {
+            if (strpos($exception->getMessage(), 'EXECABORT') !== 0) {
+                $connection->disconnect();
+                $this->nodeConnection = null;
+            }
+
+            throw $exception;
+        } finally {
+            $this->releaseConnection();
+        }
     }
 
     /**
@@ -96,7 +114,10 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
      */
     public function multi()
     {
-        return $this->executeBypassingTransaction(new MULTI())->getResponse();
+        $response = $this->executeBypassingTransaction(new MULTI())->getResponse();
+        $this->holdConnection();
+
+        return $response;
     }
 
     /**
@@ -106,33 +127,58 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
     {
         $watch = new WATCH();
         $watch->setArguments($keys);
+        $response = $this->executeBypassingTransaction($watch)->getResponse();
+        $this->holdConnection();
 
-        return $this->executeBypassingTransaction($watch)->getResponse();
+        return $response;
     }
 
     /**
+     * A lost connection has nothing left to unwatch: closing it dropped the
+     * watched keys on the server.
+     *
      * {@inheritDoc}
      * @throws Throwable
      */
     public function unwatch()
     {
-        $retry = $this->connection->getParameters()->retry;
+        if ($this->isConnectionLost()) {
+            $this->nodeConnection = null;
 
-        return $retry->callWithRetry(
-            function () {
-                return $this->connection->executeCommand(new UNWATCH());
-            }, function (CommunicationException $e) {
-                $this->onFailCallback($e);
-            }
-        );
+            return new Status('OK');
+        }
+
+        $this->nodeConnection = null;
+
+        return $this->send(new UNWATCH());
     }
 
     /**
+     * Ends the transaction even when DISCARD fails, closing the connection so
+     * that it cannot stay in MULTI. A lost connection has nothing left to
+     * discard: closing it ended the transaction on the server.
+     *
      * {@inheritDoc}
      */
     public function discard()
     {
-        return $this->executeBypassingTransaction(new DISCARD())->getResponse();
+        if ($this->isConnectionLost()) {
+            $this->nodeConnection = null;
+
+            return new Status('OK');
+        }
+
+        $connection = $this->nodeConnection ?: $this->connection;
+
+        try {
+            return $this->executeBypassingTransaction(new DISCARD())->getResponse();
+        } catch (ServerException $exception) {
+            $connection->disconnect();
+
+            throw $exception;
+        } finally {
+            $this->nodeConnection = null;
+        }
     }
 
     /**
@@ -144,31 +190,7 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
      */
     protected function executeBypassingTransaction(CommandInterface $command): BypassTransactionResponse
     {
-        $retry = $this->connection->getParameters()->retry;
-
-        try {
-            $response = $retry->callWithRetry(
-                function () use ($command) {
-                    return $this->connection->executeCommand($command);
-                }, function (CommunicationException $e) {
-                    $this->onFailCallback($e);
-                }
-            );
-        } catch (ServerException $exception) {
-            if (!$this->connection instanceof RelayConnection) {
-                throw $exception;
-            }
-
-            if (strcasecmp($command->getId(), 'EXEC') != 0) {
-                throw $exception;
-            }
-
-            if (!strpos($exception->getMessage(), 'RELAY_ERR_REDIS')) {
-                throw $exception;
-            }
-
-            return new BypassTransactionResponse(null);
-        }
+        $response = $this->send($command);
 
         if ($response instanceof ErrorInterface) {
             throw new ServerException($response->getMessage());
@@ -178,36 +200,67 @@ abstract class NonClusterConnectionStrategy implements StrategyInterface
     }
 
     /**
-     * Handle communication exception.
+     * Sends a command to the connection holding the transaction, or with
+     * retries while the transaction has not reached any connection yet.
      *
-     * @param  CommunicationException $e
-     * @return void
+     * @param  CommandInterface $command
+     * @return mixed
+     * @throws Throwable
      */
-    private function onFailCallback(CommunicationException $e)
+    private function send(CommandInterface $command)
     {
-        $connection = $e->getConnection();
+        if ($connection = $this->nodeConnection) {
+            if (!$connection->isConnected()) {
+                throw new ConnectionException($connection, 'The connection holding the transaction was lost.');
+            }
 
-        if ($connection instanceof NodeConnectionInterface) {
-            $connection->disconnect();
+            try {
+                return $connection->executeCommand($command);
+            } catch (CommunicationException $exception) {
+                $connection->disconnect();
 
-            return;
-        }
-
-        if ($e instanceof ConnectionException) {
-            $nodeConnection = $e->getConnection();
-
-            if ($nodeConnection) {
-                $nodeConnection->disconnect();
-                $this->connection->remove($nodeConnection);
+                throw $exception;
             }
         }
 
-        if ($e instanceof TimeoutException) {
-            $nodeConnection = $e->getConnection();
+        $retry = $this->connection->getParameters()->retry;
 
-            if ($nodeConnection) {
-                $nodeConnection->disconnect();
+        return $retry->callWithRetry(
+            function () use ($command) {
+                return $this->connection->executeCommand($command);
+            }, function (Throwable $e) {
+                if ($e instanceof CommunicationException) {
+                    $e->getConnection()->disconnect();
+                }
             }
+        );
+    }
+
+    /**
+     * Keeps the node connection that has just received WATCH or MULTI.
+     */
+    private function holdConnection(): void
+    {
+        if (null === $this->nodeConnection) {
+            $this->nodeConnection = $this->connection instanceof ReplicationInterface
+                ? $this->connection->getCurrent()
+                : $this->connection;
         }
+    }
+
+    /**
+     * Stops holding the connection once it has replied to EXEC. A lost
+     * connection stays held until discard() or unwatch().
+     */
+    private function releaseConnection(): void
+    {
+        if (!$this->isConnectionLost()) {
+            $this->nodeConnection = null;
+        }
+    }
+
+    private function isConnectionLost(): bool
+    {
+        return $this->nodeConnection && !$this->nodeConnection->isConnected();
     }
 }

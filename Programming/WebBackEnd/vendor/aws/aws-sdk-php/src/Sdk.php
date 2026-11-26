@@ -8,10 +8,14 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionACMPCA(array $args = [])
  * @method \Aws\AIOps\AIOpsClient createAIOps(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAIOps(array $args = [])
+ * @method \Aws\APIPortal\APIPortalClient createAPIPortal(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAPIPortal(array $args = [])
  * @method \Aws\ARCRegionSwitch\ARCRegionSwitchClient createARCRegionSwitch(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionARCRegionSwitch(array $args = [])
  * @method \Aws\ARCZonalShift\ARCZonalShiftClient createARCZonalShift(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionARCZonalShift(array $args = [])
+ * @method \Aws\AbuseSignal\AbuseSignalClient createAbuseSignal(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAbuseSignal(array $args = [])
  * @method \Aws\AccessAnalyzer\AccessAnalyzerClient createAccessAnalyzer(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAccessAnalyzer(array $args = [])
  * @method \Aws\Account\AccountClient createAccount(array $args = [])
@@ -22,6 +26,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionAccountAccessRuntime(array $args = [])
  * @method \Aws\Acm\AcmClient createAcm(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAcm(array $args = [])
+ * @method \Aws\AgentDiscovery\AgentDiscoveryClient createAgentDiscovery(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionAgentDiscovery(array $args = [])
  * @method \Aws\AgentRegistry\AgentRegistryClient createAgentRegistry(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionAgentRegistry(array $args = [])
  * @method \Aws\AgentRegistryControl\AgentRegistryControlClient createAgentRegistryControl(array $args = [])
@@ -296,6 +302,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionEKS(array $args = [])
  * @method \Aws\EKSAuth\EKSAuthClient createEKSAuth(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEKSAuth(array $args = [])
+ * @method \Aws\ELBProxy\ELBProxyClient createELBProxy(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionELBProxy(array $args = [])
  * @method \Aws\EMRContainers\EMRContainersClient createEMRContainers(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionEMRContainers(array $args = [])
  * @method \Aws\EMRServerless\EMRServerlessClient createEMRServerless(array $args = [])
@@ -608,6 +616,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralBenefits(array $args = [])
  * @method \Aws\PartnerCentralChannel\PartnerCentralChannelClient createPartnerCentralChannel(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralChannel(array $args = [])
+ * @method \Aws\PartnerCentralMarketing\PartnerCentralMarketingClient createPartnerCentralMarketing(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralMarketing(array $args = [])
  * @method \Aws\PartnerCentralRevenueMeasurement\PartnerCentralRevenueMeasurementClient createPartnerCentralRevenueMeasurement(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPartnerCentralRevenueMeasurement(array $args = [])
  * @method \Aws\PartnerCentralSelling\PartnerCentralSellingClient createPartnerCentralSelling(array $args = [])
@@ -616,6 +626,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionPaymentCryptography(array $args = [])
  * @method \Aws\PaymentCryptographyData\PaymentCryptographyDataClient createPaymentCryptographyData(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPaymentCryptographyData(array $args = [])
+ * @method \Aws\Payments\PaymentsClient createPayments(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionPayments(array $args = [])
  * @method \Aws\PcaConnectorAd\PcaConnectorAdClient createPcaConnectorAd(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionPcaConnectorAd(array $args = [])
  * @method \Aws\PcaConnectorScep\PcaConnectorScepClient createPcaConnectorScep(array $args = [])
@@ -732,6 +744,8 @@ namespace Aws;
  * @method \Aws\MultiRegionClient createMultiRegionSageMaker(array $args = [])
  * @method \Aws\SageMakerFeatureStoreRuntime\SageMakerFeatureStoreRuntimeClient createSageMakerFeatureStoreRuntime(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerFeatureStoreRuntime(array $args = [])
+ * @method \Aws\SageMakerGatewayRuntime\SageMakerGatewayRuntimeClient createSageMakerGatewayRuntime(array $args = [])
+ * @method \Aws\MultiRegionClient createMultiRegionSageMakerGatewayRuntime(array $args = [])
  * @method \Aws\SageMakerGeospatial\SageMakerGeospatialClient createSageMakerGeospatial(array $args = [])
  * @method \Aws\MultiRegionClient createMultiRegionSageMakerGeospatial(array $args = [])
  * @method \Aws\SageMakerInferenceRouterRuntime\SageMakerInferenceRouterRuntimeClient createSageMakerInferenceRouterRuntime(array $args = [])
@@ -883,7 +897,7 @@ namespace Aws;
  */
 class Sdk
 {
-    const VERSION = '3.404.0';
+    const VERSION = '3.408.0';
 
     /** @var array Arguments for creating clients */
     private $args;

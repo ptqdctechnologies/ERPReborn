@@ -5,6 +5,7 @@ namespace Illuminate\Foundation\Testing\Concerns;
 use Carbon\CarbonImmutable;
 use Illuminate\Console\Application as Artisan;
 use Illuminate\Cookie\Middleware\EncryptCookies;
+use Illuminate\Database\DatabaseManager;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Migrations\Migrator;
@@ -41,6 +42,7 @@ use Illuminate\Validation\Validator;
 use Illuminate\View\Component;
 use Mockery;
 use Mockery\Exception\InvalidCountException;
+use Mockery\LegacyMockInterface;
 use PHPUnit\Metadata\Annotation\Parser\Registry as PHPUnitRegistry;
 use Throwable;
 
@@ -123,6 +125,8 @@ trait InteractsWithTestCaseLifecycle
 
             ParallelTesting::callTearDownTestCaseCallbacks($this);
 
+            $this->disconnectDatabaseConnections();
+
             $this->app->flush();
 
             $this->app = null;
@@ -201,6 +205,26 @@ trait InteractsWithTestCaseLifecycle
 
         if ($this->callbackException) {
             throw $this->callbackException;
+        }
+    }
+
+    /**
+     * Disconnect every resolved database connection of the application.
+     */
+    protected function disconnectDatabaseConnections(): void
+    {
+        if (! $this->app->resolved('db')) {
+            return;
+        }
+
+        $database = $this->app->make('db');
+
+        if (! $database instanceof DatabaseManager || $database instanceof LegacyMockInterface) {
+            return;
+        }
+
+        foreach ($database->getConnections() as $connection) {
+            $connection->disconnect();
         }
     }
 

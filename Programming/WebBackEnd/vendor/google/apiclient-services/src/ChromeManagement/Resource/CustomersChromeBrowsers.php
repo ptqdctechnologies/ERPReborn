@@ -107,7 +107,7 @@ class CustomersChromeBrowsers extends \Google\Service\Resource
    * descending order for a field, a suffix ` desc` should be added to the field
    * name. The default ordering is the ascending order of `browser_permanent_id`.
    * @opt_param int pageSize Optional. Maximum number of results to return.
-   * Maximum and default are 100.
+   * Maximum and default are 50.
    * @opt_param string pageToken Optional. Token to specify next page in the list.
    * @return GoogleChromeManagementVersionsV1ListChromeBrowsersResponse
    * @throws \Google\Service\Exception

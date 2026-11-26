@@ -19,12 +19,14 @@ use Aws\AwsClient;
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
  *             ...,
  *         },
+ *         sourceAwsOrg?: array{accountType?: 'source', organizationalUnit?: array, deploymentState?: array, ...},
  *         aws?: array{
  *             assumableRoleArn?: string,
  *             accountId?: string,
  *             accountType?: 'monitor',
  *             agentElevatedRoleArn?: string,
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
+ *             serviceManagementRoleArn?: string,
  *             ...,
  *         },
  *         github?: array{
@@ -87,12 +89,14 @@ use Aws\AwsClient;
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
  *             ...,
  *         },
+ *         sourceAwsOrg?: array{accountType?: 'source', organizationalUnit?: array, deploymentState?: array, ...},
  *         aws?: array{
  *             assumableRoleArn?: string,
  *             accountId?: string,
  *             accountType?: 'monitor',
  *             agentElevatedRoleArn?: string,
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
+ *             serviceManagementRoleArn?: string,
  *             ...,
  *         },
  *         github?: array{
@@ -150,6 +154,7 @@ use Aws\AwsClient;
  *     clientToken?: string,
  *     tags?: array<string, string>,
  *     preferences?: array<string, bool>,
+ *     awsSourceMode?: 'organization'|'standalone',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise createAgentSpaceAsync(array $args = [])
@@ -161,6 +166,7 @@ use Aws\AwsClient;
  *     clientToken?: string,
  *     tags?: array<string, string>,
  *     preferences?: array<string, bool>,
+ *     awsSourceMode?: 'organization'|'standalone',
  *     ...,
  * } $args = [])
  * @method \Aws\Result createAsset(array $args = [])
@@ -222,7 +228,7 @@ use Aws\AwsClient;
  *         associationId?: string,
  *         ...,
  *     },
- *     taskType?: 'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING',
+ *     taskType?: 'CODE_CHANGE_RISK_ANALYSIS'|'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING',
  *     title?: string,
  *     description?: string,
  *     priority?: 'CRITICAL'|'HIGH'|'LOW'|'MEDIUM'|'MINIMAL',
@@ -240,7 +246,7 @@ use Aws\AwsClient;
  *         associationId?: string,
  *         ...,
  *     },
- *     taskType?: 'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING',
+ *     taskType?: 'CODE_CHANGE_RISK_ANALYSIS'|'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING',
  *     title?: string,
  *     description?: string,
  *     priority?: 'CRITICAL'|'HIGH'|'LOW'|'MEDIUM'|'MINIMAL',
@@ -403,6 +409,10 @@ use Aws\AwsClient;
  * @phpstan-method \Aws\Result getBacklogTask(array{agentSpaceId?: string, taskId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getBacklogTaskAsync(array $args = [])
  * @phpstan-method \GuzzleHttp\Promise\Promise getBacklogTaskAsync(array{agentSpaceId?: string, taskId?: string, ...} $args = [])
+ * @method \Aws\Result getChat(array $args = [])
+ * @phpstan-method \Aws\Result getChat(array{agentSpaceId?: string, executionId?: string, ...} $args = [])
+ * @method \GuzzleHttp\Promise\Promise getChatAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise getChatAsync(array{agentSpaceId?: string, executionId?: string, ...} $args = [])
  * @method \Aws\Result getOperatorApp(array $args = [])
  * @phpstan-method \Aws\Result getOperatorApp(array{agentSpaceId?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise getOperatorAppAsync(array $args = [])
@@ -467,7 +477,7 @@ use Aws\AwsClient;
  *         createdBefore?: int|string|\DateTimeInterface,
  *         priority?: list<'CRITICAL'|'HIGH'|'LOW'|'MEDIUM'|'MINIMAL'>,
  *         status?: list<'CANCELED'|'COMPLETED'|'FAILED'|'IN_PROGRESS'|'LINKED'|'PENDING_CUSTOMER_APPROVAL'|'PENDING_START'|'PENDING_TRIAGE'|'SKIPPED'|'TIMED_OUT'|'WAITING'>,
- *         taskType?: list<'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING'>,
+ *         taskType?: list<'CODE_CHANGE_RISK_ANALYSIS'|'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING'>,
  *         primaryTaskId?: string,
  *         ...,
  *     },
@@ -485,7 +495,7 @@ use Aws\AwsClient;
  *         createdBefore?: int|string|\DateTimeInterface,
  *         priority?: list<'CRITICAL'|'HIGH'|'LOW'|'MEDIUM'|'MINIMAL'>,
  *         status?: list<'CANCELED'|'COMPLETED'|'FAILED'|'IN_PROGRESS'|'LINKED'|'PENDING_CUSTOMER_APPROVAL'|'PENDING_START'|'PENDING_TRIAGE'|'SKIPPED'|'TIMED_OUT'|'WAITING'>,
- *         taskType?: list<'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING'>,
+ *         taskType?: list<'CODE_CHANGE_RISK_ANALYSIS'|'EVALUATION'|'INVESTIGATION'|'RELEASE_READINESS_REVIEW'|'RELEASE_TESTING'>,
  *         primaryTaskId?: string,
  *         ...,
  *     },
@@ -496,9 +506,23 @@ use Aws\AwsClient;
  *     ...,
  * } $args = [])
  * @method \Aws\Result listChats(array $args = [])
- * @phpstan-method \Aws\Result listChats(array{agentSpaceId?: string, userId?: string, maxResults?: int, nextToken?: string, ...} $args = [])
+ * @phpstan-method \Aws\Result listChats(array{
+ *     agentSpaceId?: string,
+ *     userId?: string,
+ *     maxResults?: int,
+ *     nextToken?: string,
+ *     archiveStatus?: 'ACTIVE'|'ARCHIVED',
+ *     ...,
+ * } $args = [])
  * @method \GuzzleHttp\Promise\Promise listChatsAsync(array $args = [])
- * @phpstan-method \GuzzleHttp\Promise\Promise listChatsAsync(array{agentSpaceId?: string, userId?: string, maxResults?: int, nextToken?: string, ...} $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise listChatsAsync(array{
+ *     agentSpaceId?: string,
+ *     userId?: string,
+ *     maxResults?: int,
+ *     nextToken?: string,
+ *     archiveStatus?: 'ACTIVE'|'ARCHIVED',
+ *     ...,
+ * } $args = [])
  * @method \Aws\Result listExecutions(array $args = [])
  * @phpstan-method \Aws\Result listExecutions(array{agentSpaceId?: string, taskId?: string, limit?: int, nextToken?: string, ...} $args = [])
  * @method \GuzzleHttp\Promise\Promise listExecutionsAsync(array $args = [])
@@ -728,6 +752,7 @@ use Aws\AwsClient;
  *     description?: string,
  *     locale?: string,
  *     preferences?: array<string, bool>,
+ *     awsSourceMode?: 'organization'|'standalone',
  *     ...,
  * } $args = [])
  * @method \GuzzleHttp\Promise\Promise updateAgentSpaceAsync(array $args = [])
@@ -737,6 +762,7 @@ use Aws\AwsClient;
  *     description?: string,
  *     locale?: string,
  *     preferences?: array<string, bool>,
+ *     awsSourceMode?: 'organization'|'standalone',
  *     ...,
  * } $args = [])
  * @method \Aws\Result updateApprovalAction(array $args = [])
@@ -823,12 +849,14 @@ use Aws\AwsClient;
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
  *             ...,
  *         },
+ *         sourceAwsOrg?: array{accountType?: 'source', organizationalUnit?: array, deploymentState?: array, ...},
  *         aws?: array{
  *             assumableRoleArn?: string,
  *             accountId?: string,
  *             accountType?: 'monitor',
  *             agentElevatedRoleArn?: string,
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
+ *             serviceManagementRoleArn?: string,
  *             ...,
  *         },
  *         github?: array{
@@ -891,12 +919,14 @@ use Aws\AwsClient;
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
  *             ...,
  *         },
+ *         sourceAwsOrg?: array{accountType?: 'source', organizationalUnit?: array, deploymentState?: array, ...},
  *         aws?: array{
  *             assumableRoleArn?: string,
  *             accountId?: string,
  *             accountType?: 'monitor',
  *             agentElevatedRoleArn?: string,
  *             agentElevatedRoleArnStatus?: 'invalid'|'pending-confirmation'|'valid',
+ *             serviceManagementRoleArn?: string,
  *             ...,
  *         },
  *         github?: array{
@@ -958,6 +988,24 @@ use Aws\AwsClient;
  *     agentSpaceId?: string,
  *     taskId?: string,
  *     taskStatus?: 'CANCELED'|'COMPLETED'|'FAILED'|'IN_PROGRESS'|'LINKED'|'PENDING_CUSTOMER_APPROVAL'|'PENDING_START'|'PENDING_TRIAGE'|'SKIPPED'|'TIMED_OUT'|'WAITING',
+ *     clientToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \Aws\Result updateChat(array $args = [])
+ * @phpstan-method \Aws\Result updateChat(array{
+ *     agentSpaceId?: string,
+ *     executionId?: string,
+ *     summary?: string,
+ *     archiveStatus?: 'ACTIVE'|'ARCHIVED',
+ *     clientToken?: string,
+ *     ...,
+ * } $args = [])
+ * @method \GuzzleHttp\Promise\Promise updateChatAsync(array $args = [])
+ * @phpstan-method \GuzzleHttp\Promise\Promise updateChatAsync(array{
+ *     agentSpaceId?: string,
+ *     executionId?: string,
+ *     summary?: string,
+ *     archiveStatus?: 'ACTIVE'|'ARCHIVED',
  *     clientToken?: string,
  *     ...,
  * } $args = [])
